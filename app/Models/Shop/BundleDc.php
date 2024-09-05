@@ -12,6 +12,6 @@ class BundleDc extends Model {
     protected $appends = ['bd_price_add_vat'];
 
     public function goodsModel() { return $this->belongsTo(GoodsModel::class); }
-    public function getBdPriceAddVatAttribute() { return (int)($this->bd_price*1.1); }
+    public function getBdPriceAddVatAttribute() { return floor($this->bd_price*1.1); }
     public function scopeGm_id($q, $v) { return $q->where('bd_gm_id', $v); }
 }

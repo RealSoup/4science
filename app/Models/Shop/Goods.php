@@ -36,7 +36,7 @@ class Goods extends Model {
     // public function getManagerAttribute() { return isset($this->user) ? $this->user->name : NULL; }
 
     public function getDlvyFeeAttribute() { return $this->dlvy_fee; }
-    public function getDlvyFeeAddVatAttribute() { return (int)($this->dlvy_fee*1.1); }
+    public function getDlvyFeeAddVatAttribute() { return floor($this->dlvy_fee*1.1); }
     public function getFreeDlvyMaxAttribute() { return $this->free_dlvy_max; }
 
     // public function getGmPriceAddVatAttribute($v) { return ($v>0) ? intval($v) : '견적가'; }

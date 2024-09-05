@@ -12,7 +12,7 @@ class GoodsOptionChild extends Model {
     protected $appends = ['show', 'goc_price_add_vat'];
 
     public function getShowAttribute() { return false; }
-    public function getGocPriceAddVatAttribute() { return (int)($this->goc_price*1.1); }
+    public function getGocPriceAddVatAttribute() { return floor($this->goc_price*1.1); }
 
     public function goodsOption() { return $this->belongsTo(GoodsOption::class, 'goc_go_id'); }
 

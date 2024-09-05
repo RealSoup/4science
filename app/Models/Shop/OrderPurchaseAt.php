@@ -10,7 +10,7 @@ class OrderPurchaseAt extends Model {
     protected $appends = ['odpa_dlvy_p_add_vat', 'dlvy_all_chk', 'indeterminate'];
     public $timestamps = false;
 
-    public function getOdpaDlvyPAddVatAttribute() { return (int)($this->odpa_dlvy_p*1.1); }
+    public function getOdpaDlvyPAddVatAttribute() { return floor($this->odpa_dlvy_p*1.1); }
     public function getDlvyAllChkAttribute() { return FALSE; }
     public function getIndeterminateAttribute() { return FALSE; }
 

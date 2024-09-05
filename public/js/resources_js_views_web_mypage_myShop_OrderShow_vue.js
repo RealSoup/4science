@@ -73,16 +73,19 @@ var dt = new Date();
       if (this.od.order_extra_info.oex_req_bank == 'Y') req.push('통장사본');
       return req.join(', ');
     },
-    dlvy_4s: function dlvy_4s() {
-      return this.od.order_purchase_at.hasOwnProperty(0) ? this.od.order_purchase_at[0].odpa_dlvy_p_add_vat : 0;
-    },
-    dlvy_other: function dlvy_other() {
+    goods_add_vat: function goods_add_vat() {
       return Object.values(this.od.order_purchase_at).reduce(function (acc, el) {
-        return acc + (el.odpa_pa_name != '' ? el.odpa_dlvy_p_add_vat : 0);
+        return acc + el.order_model.reduce(function (acc02, el02) {
+          return acc02 + (el02.odm_price + Math.floor(el02.odm_price_coupon_dc * 0.1)) * el02.odm_ea;
+        }, 0);
       }, 0);
     },
-    sum_mileage: function sum_mileage() {
-      return Math.round(this.od.od_gd_price * Auth.user().mileage_mul);
+    goods_coupon_dc_add_vat: function goods_coupon_dc_add_vat() {
+      return Object.values(this.od.order_purchase_at).reduce(function (acc, el) {
+        return acc + el.order_model.reduce(function (acc02, el02) {
+          return acc02 + (el02.odm_price_coupon_dc + Math.floor(el02.odm_price_coupon_dc * 0.1)) * el02.odm_ea;
+        }, 0);
+      }, 0);
     }
   }),
   methods: {
@@ -231,67 +234,67 @@ var render = function render() {
       },
       expression: "od.od_step"
     }
-  })], 1), _vm._v(" "), _c("b-container", {
-    staticClass: "goods"
-  }, _vm._l(_vm.od.order_purchase_at, function (pa, pa_i) {
-    return _c("b-row", {
-      key: "pa_".concat(pa_i)
-    }, [_c("b-col", {
-      staticClass: "pa_tit"
-    }, [pa.odpa_pa_id ? _c("b", [_vm._v("업체"), _c("br"), _vm._v("직배송")]) : _c("b", [_vm._v("포사이언스"), _c("br"), _vm._v("배송")])]), _vm._v(" "), _c("b-col", {
-      staticClass: "gd_con"
-    }, [_c("b-row", [_c("b-col"), _vm._v(" "), _c("b-col", [_vm._v("주문 상품")]), _vm._v(" "), _c("b-col", [_vm._v("제조사")]), _vm._v(" "), _c("b-col", [_vm._v("판매가")]), _vm._v(" "), _c("b-col", [_vm._v("수량")]), _vm._v(" "), _c("b-col", [_vm._v("금액")]), _vm._v(" "), _c("b-col", [_vm._v("진행현황")])], 1), _vm._v(" "), _vm._l(pa.order_model, function (odm, odm_i) {
+  })], 1), _vm._v(" "), _vm._l(_vm.od.order_purchase_at, function (pa, pa_id) {
+    return _c("b-container", {
+      key: pa_id,
+      staticClass: "goods"
+    }, [_c("h4", [_c("b-icon-house"), _vm._v(" " + _vm._s(pa.odpa_pa_name ? "업체" : "포사이언스") + " 배송")], 1), _vm._v(" "), _vm._l(pa.order_model, function (item, i_item) {
       return _c("b-row", {
-        key: "gd_".concat(odm_i),
+        key: "".concat(pa_id).concat(i_item),
+        staticClass: "gm_box",
         "class": {
-          model: odm.odm_type == "MODEL",
-          option: odm.odm_type == "OPTION"
+          option: item.odm_type == "OPTION"
         }
-      }, [_c("b-col", {
-        staticClass: "align"
-      }, [odm.odm_type == "MODEL" ? _c("div", [odm.odm_gd_id ? _c("b-link", {
+      }, [item.odm_type == "MODEL" ? [_c("b-col", {
+        staticClass: "gd_img"
+      }, [item.odm_type == "MODEL" ? _c("div", [item.odm_gd_id ? _c("b-link", {
         attrs: {
           to: {
             name: "goods_show",
             params: {
-              gd_id: odm.odm_gd_id
+              gd_id: item.odm_gd_id
             }
           }
         }
       }, [_c("img", {
         attrs: {
-          src: odm.img_thumb_src
+          src: item.img_thumb_src
         }
       })]) : _c("img", {
         attrs: {
-          src: odm.img_thumb_src
+          src: item.img_thumb_src
         }
       })], 1) : _c("b", [_vm._v("추가 옵션")])]), _vm._v(" "), _c("b-col", {
-        staticClass: "desc",
-        "class": {
-          option: odm.odm_type == "OPTION"
+        staticClass: "gd_txt"
+      }, [_c("div", {
+        staticClass: "explain"
+      }, [_c("b-col", [_c("p", {
+        staticClass: "gd_name"
+      }, [_vm._v(_vm._s(item.gd_name))]), _vm._v(" "), _c("p", [_c("b", {
+        staticClass: "m_hide"
+      }, [_vm._v("제품명:")]), _vm._v(" " + _vm._s(item.odm_gm_name) + " / "), _c("b", {
+        staticClass: "m_hide"
+      }, [_vm._v("Cat.No.:")]), _vm._v(" " + _vm._s(item.odm_gm_catno))]), _vm._v(" "), _c("p", [_c("b", {
+        staticClass: "m_hide"
+      }, [_vm._v("모델명:")]), _vm._v(" " + _vm._s(item.odm_gm_code) + " / "), _c("b", {
+        staticClass: "m_hide"
+      }, [_vm._v("판매단위:")]), _vm._v(" " + _vm._s(item.odm_gm_unit))]), _vm._v(" "), _c("p", [_c("b", {
+        staticClass: "m_hide"
+      }, [_vm._v("사양:")]), _vm._v(" "), _c("span", {
+        domProps: {
+          innerHTML: _vm._s(_vm.nl2br(item.odm_gm_spec))
         }
-      }, [odm.odm_type == "MODEL" ? [_c("b", [_vm._v(_vm._s(odm.odm_gd_name))]), _vm._v(" "), _c("p", [_vm._v("\r\n                                    제품명: " + _vm._s(odm.odm_gm_name) + " / 판매단위: " + _vm._s(odm.odm_gm_unit) + " "), _c("br"), _vm._v("\r\n                                    모델명: " + _vm._s(odm.odm_gm_code) + " / Cat.No.: " + _vm._s(odm.odm_gm_catno)), _c("br"), _vm._v("\r\n                                    사양: " + _vm._s(odm.odm_gm_spec) + "\r\n                                ")])] : [_vm._v(_vm._s(odm.odm_gm_name) + ": " + _vm._s(odm.odm_gm_spec))]], 2), _vm._v(" "), _c("b-col", {
-        staticClass: "align"
-      }, [_vm._v(_vm._s(odm.odm_mk_name))]), _vm._v(" "), _c("b-col", {
-        staticClass: "align end"
-      }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(odm.odm_price_add_vat))))]), _vm._v(" "), _c("b-col", {
-        staticClass: "align"
-      }, [_vm._v(_vm._s(_vm._f("comma")(odm.odm_ea)))]), _vm._v(" "), _c("b-col", {
-        staticClass: "align"
-      }, [_c("b", {
-        staticClass: "sum"
-      }, [_vm._v("\r\n                                " + _vm._s(_vm._f("won")(_vm._f("comma")(odm.odm_price_add_vat * odm.odm_ea))) + "\r\n                            ")])]), _vm._v(" "), _c("b-col", {
-        staticClass: "align"
-      }, [odm.odm_type == "MODEL" ? [odm.order_dlvy_info.oddi_receive_date ? _c("b-badge", {
+      })]), _vm._v(" "), item.odm_dlvy_at ? _c("p", [_c("b", {
+        staticClass: "m_hide"
+      }, [_vm._v("납기:")]), _vm._v(" " + _vm._s(item.odm_dlvy_at))]) : _vm._e()]), _vm._v(" "), _c("b-col", [item.odm_type == "MODEL" ? [item.order_dlvy_info.oddi_receive_date ? _c("b-badge", {
         attrs: {
           variant: "light"
         }
-      }, [_vm._v("수취완료")]) : odm.order_dlvy_info.oddi_arrival_date ? _c("b-badge", {
+      }, [_vm._v("수취완료")]) : item.order_dlvy_info.oddi_arrival_date ? _c("b-badge", {
         attrs: {
           variant: "success"
         }
-      }, [_vm._v("배송완료")]) : odm.order_dlvy_info.oddi_dlvy_num ? _c("b-badge", {
+      }, [_vm._v("배송완료")]) : item.order_dlvy_info.oddi_dlvy_num ? _c("b-badge", {
         attrs: {
           variant: "info"
         }
@@ -299,29 +302,81 @@ var render = function render() {
         attrs: {
           variant: "primary"
         }
-      }, [_vm._v("준비중")]), _vm._v(" "), odm.order_dlvy_info.oddi_dlvy_num ? _c("b-link", {
+      }, [_vm._v("준비중")]), _vm._v(" "), _c("br"), _vm._v(" "), item.order_dlvy_info.oddi_dlvy_num ? _c("b-link", {
         staticClass: "dlvy_link",
         attrs: {
-          href: _vm.getHref(odm.order_dlvy_info.oddi_dlvy_com, odm.order_dlvy_info.oddi_dlvy_num)
+          href: _vm.getHref(item.order_dlvy_info.oddi_dlvy_com, item.order_dlvy_info.oddi_dlvy_num)
         }
-      }, [_vm._v(_vm._s(odm.order_dlvy_info.oddi_dlvy_com) + " - " + _vm._s(odm.order_dlvy_info.oddi_dlvy_num))]) : _vm._e(), _vm._v(" "), _c("br"), _vm._v(" "), !odm.order_dlvy_info.oddi_receive_date ? [_vm.od.od_step == "40" || _vm.od.od_step == "50" ? _c("b-button", {
+      }, [_vm._v(_vm._s(item.order_dlvy_info.oddi_dlvy_com) + " " + _vm._s(item.order_dlvy_info.oddi_dlvy_num))]) : _vm._e(), _vm._v(" "), _c("br"), _vm._v(" "), !item.order_dlvy_info.oddi_receive_date ? [_vm.od.od_step == "40" || _vm.od.od_step == "50" ? _c("b-button", {
         staticClass: "teal xm",
         on: {
           click: function click($event) {
-            return _vm.receiptConfirm(odm);
+            return _vm.receiptConfirm(item);
           }
         }
-      }, [_vm._v("수취확인")]) : _vm._e()] : _vm._e()] : _vm._e()], 2)], 1);
-    })], 2), _vm._v(" "), _c("b-col", {
-      staticClass: "dlvy_fare"
-    }, [_c("div", [pa.odpa_pa_type == "AIR" ? _c("p", [_vm._v("항공 운임료")]) : _c("p", [_vm._v("배송비")]), _vm._v("\r\n                        " + _vm._s(_vm._f("won")(_vm._f("comma")(pa.odpa_dlvy_p_add_vat))) + "\r\n                    ")])])], 1);
-  }), 1), _vm._v(" "), _c("b-container", {
-    staticClass: "sum_up"
-  }, [_c("b-row", {
+      }, [_vm._v("수취확인")]) : _vm._e()] : _vm._e()] : _vm._e()], 2)], 1), _vm._v(" "), _c("div", {
+        staticClass: "col_price"
+      }, [_c("div", {
+        staticClass: "price_box"
+      }, [_c("span", {
+        staticClass: "normal"
+      }, [_vm._v(_vm._s(_vm._f("comma")(item.odm_price)))])]), _vm._v(" "), _c("font-awesome-icon", {
+        attrs: {
+          icon: "times"
+        }
+      }), _vm._v(" "), _c("div", [_vm._v(_vm._s(item.odm_ea))]), _vm._v(" "), _c("font-awesome-icon", {
+        attrs: {
+          icon: "equals"
+        }
+      }), _vm._v(" "), _c("div", {
+        staticClass: "price_box"
+      }, [_c("span", {
+        staticClass: "normal"
+      }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.odm_price * item.odm_ea))))])])], 1), _vm._v(" "), _c("div", {
+        staticClass: "price_info"
+      }, [item.odm_price_coupon_dc ? _c("small", {
+        staticClass: "price_dc"
+      }, [_vm._v("할인 - " + _vm._s(_vm._f("won")(_vm._f("comma")(item.odm_price_coupon_dc * item.odm_ea))))]) : _vm._e(), _vm._v(" "), _c("small", [_vm._v("부가세 별도")])])])] : item.odm_type == "OPTION" ? [_c("b-col", {
+        staticClass: "gd_img"
+      }, [_vm._v("추가 옵션")]), _vm._v(" "), _c("b-col", {
+        staticClass: "gd_txt"
+      }, [_c("div", {
+        staticClass: "explain"
+      }, [_c("p", {
+        staticClass: "gd_name"
+      }, [_c("b", [_vm._v(_vm._s(item.odm_gm_name) + ":")]), _vm._v(" " + _vm._s(item.odm_gm_spec))])]), _vm._v(" "), _c("div", {
+        staticClass: "col_price"
+      }, [_c("div", {
+        staticClass: "price_box"
+      }, [_c("span", {
+        staticClass: "normal"
+      }, [_vm._v(_vm._s(_vm._f("comma")(item.odm_price)))])]), _vm._v(" "), _c("font-awesome-icon", {
+        attrs: {
+          icon: "times"
+        }
+      }), _vm._v(" "), _c("div", [_vm._v(_vm._s(item.odm_ea))]), _vm._v(" "), _c("font-awesome-icon", {
+        attrs: {
+          icon: "equals"
+        }
+      }), _vm._v(" "), _c("div", {
+        staticClass: "price_box"
+      }, [_c("span", {
+        staticClass: "normal"
+      }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.odm_price * item.odm_ea))))])])], 1), _vm._v(" "), _c("div", {
+        staticClass: "price_info"
+      }, [item.odm_price_coupon_dc ? _c("small", {
+        staticClass: "price_dc"
+      }, [_vm._v("할인 - " + _vm._s(_vm._f("won")(_vm._f("comma")(item.odm_price_coupon_dc * item.odm_ea))))]) : _vm._e(), _vm._v(" "), _c("small", [_vm._v("부가세 별도")])])])] : _vm._e()], 2);
+    }), _vm._v(" "), _c("b-row", {
+      staticClass: "dlvy_box"
+    }, [_c("b-col", {
+      staticClass: "text_box"
+    }, [pa.odpa_pa_type == "AIR" ? [_vm._v("항공운임료")] : [_vm._v("배송비")]], 2), _vm._v(" "), _c("b-col", {
+      staticClass: "price_box"
+    }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(pa.odpa_dlvy_p_add_vat))))])], 1)], 2);
+  }), _vm._v(" "), _c("b-container", {
     staticClass: "total"
-  }, [_c("b-col", [_vm._v("상품금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_gd_price + _vm.od.od_surtax))))])]), _vm._v(" "), _c("b-col", [_vm._v("배송료")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_dlvy_price))))])]), _vm._v(" "), _c("b-col", [_vm._v("결제 예정 금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_all_price))))])])], 1), _vm._v(" "), _c("b-row", {
-    staticClass: "total_sub"
-  }, [_c("b-col", [_c("div", [_c("b-col", [_vm._v("상품가")]), _c("b-col", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_gd_price))))])], 1), _vm._v(" "), _c("div", [_c("b-col", [_vm._v("부가세")]), _c("b-col", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_surtax))))])], 1)]), _vm._v(" "), _c("b-col", [_c("div", [_c("b-col", [_vm._v("포사이언스 배송")]), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_4s)))])], 1), _vm._v(" "), _c("div", [_c("b-col", [_vm._v("업체 배송")]), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_other)))])], 1)]), _vm._v(" "), _c("b-col", [_c("div", [_c("b-col", [_vm._v("적립예정 마일리지")]), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.sum_mileage)))])], 1)])], 1)], 1), _vm._v(" "), _c("b-container", {
+  }, [_c("b-row", [_c("b-col", [_vm._v("상품금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.od.od_gd_price + _vm.od.od_surtax)))]), _vm._v(" 원")])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("배송료")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.od.od_dlvy_price)))]), _vm._v(" 원")])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("결제예정금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.od.od_all_price)))]), _vm._v(" 원")])], 1)], 1), _vm._v(" "), _c("b-container", {
     staticClass: "extra_info frm_st"
   }, [_c("b-row", [_c("b-col", [_c("b-row", [_c("b-col", {
     staticClass: "label_st"
@@ -375,7 +430,7 @@ var render = function render() {
     on: {
       click: _vm.downTransactionExcel
     }
-  }, [_vm._v("거래명세서 EXCEL 다운")])], 1) : _vm._e()], 1), _vm._v(" "), _c("transition", {
+  }, [_vm._v("거래명세서 EXCEL 다운")])], 1) : _vm._e()], 2), _vm._v(" "), _c("transition", {
     attrs: {
       name: "modal"
     }
@@ -420,7 +475,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-6f27c228] { max-width:100%; padding-left:0; padding-right:0;\n}\n.top[data-v-6f27c228] { border-top:2px solid #363636; border-bottom:1px solid #B6B6B6; border-right:1px solid #B6B6B6; border-left:1px solid #B6B6B6; padding:0 2rem; line-height:4;}\n.goods[data-v-6f27c228] { border-top:3px solid #4F637B;\n}\n.goods .pa_tit[data-v-6f27c228] { flex:0 0 8%; max-width:8%; border-right:1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; align-items:center; display:flex; text-align:center; justify-content:center;\n}\n.goods .gd_con .row.option[data-v-6f27c228] { background-color:#F4F1EC;\n}\n.goods .gd_con .row .col[data-v-6f27c228] { border-bottom:1px solid #D7D7D7; padding:.68rem; font-size:.85rem;\n}\n.goods .gd_con .row .col.align[data-v-6f27c228] { display:flex; align-items:center; justify-content:center;\n}\n.goods .gd_con .row:not(:first-child) .end[data-v-6f27c228] { justify-content:flex-end;\n}\n.goods .gd_con .row:not(:first-child) .col[data-v-6f27c228] { color:#AEAEAE;\n}\n.goods .gd_con .row:not(:first-child) .col .btn[data-v-6f27c228] { color:#AEAEAE; font-size:.9rem;\n}\n.goods .gd_con .row .col b[data-v-6f27c228] { color:#000; font-size:.95rem;\n}\n.goods .gd_con .row:first-child .col[data-v-6f27c228] { font-weight:600; line-height:1.7; padding:.86rem 0; font-size:.9rem; text-align:center;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(1) { flex:0 0 7%; max-width:7%;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(2) { border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(3) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(4) { flex:0 0 11%; max-width:11%; border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(5) { flex:0 0 6%; max-width:6%; border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(6) { flex:0 0 12%; max-width:12%; border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(7) { flex:0 0 9%; max-width:9%; flex-wrap:wrap;\n}\n.goods .gd_con .row .col:nth-child(7) .dlvy_link[data-v-6f27c228] { background-color:#00A1CB; color:#FFF; border-radius:.25rem; width:100%; padding:3px; word-break: break-word;\n}\n.goods .gd_con .row .col img[data-v-6f27c228] { width:100%;\n}\n.goods .gd_con .row .col[data-v-6f27c228] .myCheck .custom-control-label::before, \r\n.goods .gd_con .row .col[data-v-6f27c228] .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px;\n}\n.goods .gd_con .row .col .sum[data-v-6f27c228] { text-align:right; width:100%; line-height:2;\n}\n.goods .gd_con .row .col.desc.option[data-v-6f27c228] { display:flex; align-items:center;\n}\n.goods .gd_con .row .col .sum[data-v-6f27c228] .btn-group-toggle { display:block !important; text-align:center;\n}\n.goods .gd_con .row .col .sum[data-v-6f27c228] .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem;\n}\n.goods .gd_con .row .col .sum[data-v-6f27c228] .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8;\n}\n.goods .dlvy_fare[data-v-6f27c228] { flex:0 0 9%; max-width:9%; align-items: center; display: flex; text-align: center; justify-content: center; border-left: 1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; color:#AEAEAE;\n}\n.sum_up[data-v-6f27c228] { border-top:3px solid #4F637B;\n}\n.sum_up .total[data-v-6f27c228] { border-bottom:1px solid #D6D6D6;\n}\n.sum_up .total .col[data-v-6f27c228] { color:#000; font-weight:bold; padding:1rem .5rem;\n}\n.sum_up .total .col b[data-v-6f27c228] { font-size:1.4rem;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(odd) { padding-left:2rem; display:flex; align-items:center;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(even) { padding-right:2rem; text-align:right;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(1) {\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(2) {  border-right:1px solid #D6D6D6;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(2):after,\r\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; top:19px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(2):after { content:\"+\";\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(3) {\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(4) { border-right:1px solid #D6D6D6;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(4):after { content:\"=\";\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(5) { flex-basis:19.5%; max-width:19.5%;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(6) { flex-basis:21.05%; max-width:21.05%;\n}\n.sum_up .total_sub[data-v-6f27c228] { background:#F2F3F5; border-bottom-width:0;\n}\n.sum_up .total_sub>.col[data-v-6f27c228]:nth-of-type(1) { border-right:1px solid #D6D6D6;\n}\n.sum_up .total_sub>.col[data-v-6f27c228]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.sum_up .total_sub>.col[data-v-6f27c228]:nth-of-type(3) { flex-basis:40.5%; max-width:40.5%;\n}\n.sum_up .total_sub .col>div[data-v-6f27c228] { display:flex; flex-wrap:wrap;\n}\n.sum_up .total_sub .col>div[data-v-6f27c228]:nth-of-type(1) { padding:1.3rem 1rem .5rem 1rem;\n}\n.sum_up .total_sub .col>div[data-v-6f27c228]:nth-of-type(2) { padding:0 1rem 2.5rem 1rem;\n}\n.sum_up .total_sub .col>div .col[data-v-6f27c228] { color:#A8A9AB; font-weight:bold; font-size:.84rem;\n}\n.sum_up .total_sub .col>div .col[data-v-6f27c228]:nth-of-type(2) { text-align:right;\n}\n.extra_info[data-v-6f27c228] { margin-top:3rem; font-size:.95rem;\n}\n.extra_info>.row>.col[data-v-6f27c228] { border:1px solid #D7D7D7; padding:2%;\n}\n.extra_info>.row>.col .label_st[data-v-6f27c228] { flex-basis:88px; max-width:88px; padding-top:0;\n}\n.extra_info>.row>.col .label_st.od_part[data-v-6f27c228] { flex-basis:130px; max-width:130px;\n}\n.extra_info>.row>.col[data-v-6f27c228]:nth-of-type(1) { flex-basis:30%; max-width:30%;\n}\n.extra_info>.row>.col[data-v-6f27c228]:not(:nth-of-type(1)) { margin-left:-1px;\n}\n.extra_info>.row>.col .row[data-v-6f27c228] { margin-left: 0; margin-right: 0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-6f27c228] { max-width:100%; padding:2rem; border:1px solid #CCC; border-radius:.5rem; margin-top: 3rem;\n}\n.top[data-v-6f27c228] { border-top:2px solid #363636; border-bottom:1px solid #B6B6B6; border-right:1px solid #B6B6B6; border-left:1px solid #B6B6B6; padding:0 2rem; line-height:4;}\n.goods[data-v-6f27c228] { border-top:3px solid #4F637B; padding:1em 0;\n}\n.goods[data-v-6f27c228]:not(:first-child) { border-top:1px solid #AAA;\n}\n.goods h4[data-v-6f27c228] { font-weight:bolder; font-size:1em; padding:1em 0; border-width:0;\n}\n.goods .gm_box[data-v-6f27c228] { margin-bottom:1em; align-items:flex-start;\n}\n.goods .gm_box .gd_img[data-v-6f27c228] { flex-basis:17%; max-width:17%; display:flex; align-items:center; justify-content:center;\n}\n.goods .gm_box .gd_img img[data-v-6f27c228] { width:100%; max-width:120px; height:auto; -o-object-fit:contain; object-fit:contain;\n}\n.goods .gm_box .gd_txt .explain[data-v-6f27c228] { display:flex;\n}\n.goods .gm_box .gd_txt .explain .col[data-v-6f27c228]:last-child { flex:0 0 25%; max-width:25%; text-align:right;\n}\n.goods .gm_box .gd_txt .explain .col p[data-v-6f27c228] { margin:0; color:#999;\n}\n.goods .gm_box .gd_txt .explain .col .gd_name[data-v-6f27c228] { color:#000; font-weight:700;\n}\n.goods .gm_box .gd_txt .explain .col .dlvy_link[data-v-6f27c228] { background-color: #00a1cb; border-radius: .25rem; color: #fff; padding: 3px; display:inline-block; width:140px; text-align:center; word-break:break-word;\n}\n.goods .gm_box .gd_txt .col_price[data-v-6f27c228] { display:flex; align-items:center; justify-content:flex-end;\n}\n.goods .gm_box .gd_txt .col_price svg[data-v-6f27c228] { margin:0 .2em;\n}\n.goods .gm_box .gd_txt .price_info[data-v-6f27c228] { text-align:right; color:#999;\n}\n.goods .gm_box .gd_txt .price_info .price_dc[data-v-6f27c228] { display:block; color:#cc0000;\n}\n.goods .dlvy_box[data-v-6f27c228] { padding: 12px 16px; background: #f5f5f5; border-radius: 8px;\n}\n.goods .dlvy_box .col[data-v-6f27c228] { color:#9e9e9e; font-size:.9em;\n}\n.goods .dlvy_box .price_box[data-v-6f27c228] { text-align:right;\n}\n.total[data-v-6f27c228] { padding-bottom:0;\n}\n.total .row[data-v-6f27c228] { align-items:baseline;\n}\n.total .row .col[data-v-6f27c228] { font-size:.85em; color:#777; flex:0 0 25%; max-width:25%;}\n.total .row .col[data-v-6f27c228]:first-child { margin-left:auto;\n}\n.total .row .col[data-v-6f27c228]:nth-child(even) { text-align:right;\n}\n.total .row .col:nth-child(even) b[data-v-6f27c228] { font-size:1.35em; color:#000;\n}\n.total .row.coupon_dc .col[data-v-6f27c228],\r\n.total .row.coupon_dc .col b[data-v-6f27c228] { color:#cc0000 !important;\n}\n.extra_info[data-v-6f27c228] { margin-top:3rem; font-size:.95rem;\n}\n.extra_info>.row>.col[data-v-6f27c228] { border:1px solid #D7D7D7; padding:2%;\n}\n.extra_info>.row>.col .label_st[data-v-6f27c228] { flex-basis:88px; max-width:88px; padding-top:0;\n}\n.extra_info>.row>.col .label_st.od_part[data-v-6f27c228] { flex-basis:130px; max-width:130px;\n}\n.extra_info>.row>.col[data-v-6f27c228]:nth-of-type(1) { flex-basis:30%; max-width:30%;\n}\n.extra_info>.row>.col[data-v-6f27c228]:not(:nth-of-type(1)) { margin-left:-1px;\n}\n.extra_info>.row>.col .row[data-v-6f27c228] { margin-left: 0; margin-right: 0;\n}\n@media (max-width: 992px){\n.goods .gm_box .gd_txt[data-v-6f27c228] { padding-left:8px;\n}\n.extra_info[data-v-6f27c228] { margin-top:1rem;\n}\n.extra_info>.row>.col[data-v-6f27c228] { flex:0 0 100% !important; max-width:100% !important;\n}\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

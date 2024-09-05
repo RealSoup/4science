@@ -17,7 +17,7 @@ class OrderModel extends Model {
     public function getDlvyAllInAttribute() { return FALSE; }   //  관리자 주문 상세페이지 배송비 몰방 등록시 사용
     public function getImgSrcAttribute() { return self::gdImgSrc()[0]; }
     public function getImgThumbSrcAttribute() { return self::gdImgSrc(true)[0]; }
-    public function getOdmPriceAddVatAttribute() { return intval($this->odm_price*1.1); }
+    public function getOdmPriceAddVatAttribute() { return floor($this->odm_price*1.1); }
 
     public function order() { return $this->belongsTo(Order::class, 'odm_od_id'); }
     public function goodsModel() { return $this->hasOne(GoodsModel::class, 'gm_id', 'odm_gm_id'); }

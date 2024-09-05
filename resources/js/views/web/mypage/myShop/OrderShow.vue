@@ -14,101 +14,118 @@
             <order-step v-model="od.od_step" :order_config="order_config" />
         </h5>
 
-        <b-container class="goods">
-            <b-row v-for="(pa, pa_i) in od.order_purchase_at" :key="`pa_${pa_i}`">
-                <b-col class="pa_tit">
-                    <b v-if="pa.odpa_pa_id">업체<br />직배송</b>
-                    <b v-else>포사이언스<br />배송</b>
-                </b-col>
-                
-                <b-col class="gd_con">
-                    <b-row>
-                        <b-col></b-col>
-                        <b-col>주문 상품</b-col>
-                        <b-col>제조사</b-col>
-                        <b-col>판매가</b-col>
-                        <b-col>수량</b-col>
-                        <b-col>금액</b-col>
-                        <b-col>진행현황</b-col>
-                    </b-row>
-                    <b-row v-for="(odm, odm_i) in pa.order_model" :key="`gd_${odm_i}`" :class="{model: odm.odm_type=='MODEL', option: odm.odm_type=='OPTION'}">
-                        <b-col class="align">
-                            <div v-if="odm.odm_type=='MODEL'">
-                                <b-link v-if="odm.odm_gd_id" :to="{name: 'goods_show', params:{gd_id:odm.odm_gd_id} }">
-                                    <img :src="odm.img_thumb_src" />
-                                </b-link>
-                                <img :src="odm.img_thumb_src" v-else />
-                            </div>
-                            <b v-else>추가 옵션</b>
-                        </b-col>
-                        <b-col class="desc" :class="{option:odm.odm_type=='OPTION'}">
-                            <template v-if="odm.odm_type=='MODEL'">
-                                <b>{{odm.odm_gd_name}}</b>
-                                <p>
-                                    제품명: {{odm.odm_gm_name}} / 판매단위: {{odm.odm_gm_unit}} <br />
-                                    모델명: {{odm.odm_gm_code}} / Cat.No.: {{odm.odm_gm_catno}}<br />
-                                    사양: {{odm.odm_gm_spec}}
-                                </p>
-                            </template>
-                            <template v-else>{{odm.odm_gm_name}}: {{odm.odm_gm_spec}}</template>
-                        </b-col>
-                        <b-col class="align">{{odm.odm_mk_name}}</b-col>
-                        <b-col class="align end">{{odm.odm_price_add_vat | comma | won}}</b-col>
-                        <b-col class="align">{{odm.odm_ea | comma}}</b-col>
-                        <b-col class="align">
-                            <b class="sum">
-                                {{odm.odm_price_add_vat*odm.odm_ea | comma | won}}
-                            </b>
-                        </b-col>
-                        <b-col class="align">
-                            <template v-if="odm.odm_type=='MODEL'">                                    
-                                <b-badge v-if="odm.order_dlvy_info.oddi_receive_date" variant="light">수취완료</b-badge>
-                                <b-badge v-else-if="odm.order_dlvy_info.oddi_arrival_date" variant="success">배송완료</b-badge>
-                                <b-badge v-else-if="odm.order_dlvy_info.oddi_dlvy_num" variant="info">배송중</b-badge>
-                                <b-badge v-else variant="primary">준비중</b-badge>
+        <b-container v-for="(pa, pa_id) in od.order_purchase_at" :key="pa_id" class="goods">
+            
+            <h4><b-icon-house></b-icon-house> {{pa.odpa_pa_name ? '업체' : '포사이언스'}} 배송</h4>
 
-                                <b-link v-if="odm.order_dlvy_info.oddi_dlvy_num" class="dlvy_link"
-                                    :href="getHref(odm.order_dlvy_info.oddi_dlvy_com, odm.order_dlvy_info.oddi_dlvy_num)"
-                                >{{odm.order_dlvy_info.oddi_dlvy_com}} - {{odm.order_dlvy_info.oddi_dlvy_num}}</b-link>
-                                <br />
-                                
-                                <template v-if="!odm.order_dlvy_info.oddi_receive_date"> <!-- 수취확인날짜가 없다면 -->
-                                    <b-button v-if="od.od_step=='40' || od.od_step=='50'" class="teal xm"  @click="receiptConfirm(odm)">수취확인</b-button>
+            <b-row v-for="(item, i_item) in pa.order_model" :key="`${pa_id}${i_item}`" :class="{option:item.odm_type == 'OPTION'}" class="gm_box">
+                <template v-if="item.odm_type == 'MODEL'">
+                    <b-col class="gd_img">
+                        <div v-if="item.odm_type=='MODEL'">
+                            <b-link v-if="item.odm_gd_id" :to="{name: 'goods_show', params:{gd_id:item.odm_gd_id} }">
+                                <img :src="item.img_thumb_src" />
+                            </b-link>
+                            <img :src="item.img_thumb_src" v-else />
+                        </div>
+                        <b v-else>추가 옵션</b>
+                    </b-col>
+                    <b-col class="gd_txt">
+                        <div class="explain">
+                            <b-col>
+                                <p class="gd_name">{{item.gd_name}}</p>
+                                <p><b class="m_hide">제품명:</b> {{item.odm_gm_name}} / <b class="m_hide">Cat.No.:</b> {{item.odm_gm_catno}}</p>
+                                <p><b class="m_hide">모델명:</b> {{item.odm_gm_code}} / <b class="m_hide">판매단위:</b> {{item.odm_gm_unit}}</p>
+                                <p><b class="m_hide">사양:</b> <span v-html="nl2br(item.odm_gm_spec)" /></p>
+                                <p v-if="item.odm_dlvy_at"><b class="m_hide">납기:</b> {{item.odm_dlvy_at}}</p>
+                            </b-col>
+                            <b-col>
+                                <template v-if="item.odm_type=='MODEL'">                                    
+                                    <b-badge v-if="item.order_dlvy_info.oddi_receive_date" variant="light">수취완료</b-badge>
+                                    <b-badge v-else-if="item.order_dlvy_info.oddi_arrival_date" variant="success">배송완료</b-badge>
+                                    <b-badge v-else-if="item.order_dlvy_info.oddi_dlvy_num" variant="info">배송중</b-badge>
+                                    <b-badge v-else variant="primary">준비중</b-badge>
+                                    <br />
+                                    <b-link v-if="item.order_dlvy_info.oddi_dlvy_num" class="dlvy_link"
+                                        :href="getHref(item.order_dlvy_info.oddi_dlvy_com, item.order_dlvy_info.oddi_dlvy_num)"
+                                    >{{item.order_dlvy_info.oddi_dlvy_com}} {{item.order_dlvy_info.oddi_dlvy_num}}</b-link>
+                                    <br />
+                                    
+                                    <template v-if="!item.order_dlvy_info.oddi_receive_date"> <!-- 수취확인날짜가 없다면 -->
+                                        <b-button v-if="od.od_step=='40' || od.od_step=='50'" class="teal xm"  @click="receiptConfirm(item)">수취확인</b-button>
+                                    </template>
                                 </template>
-                            </template>
-                        </b-col>
-                    </b-row>
-                </b-col>
-                <b-col class="dlvy_fare">
-                    <div>
-                        <p v-if="pa.odpa_pa_type == 'AIR'">항공 운임료</p>
-                        <p v-else>배송비</p>
-                        {{pa.odpa_dlvy_p_add_vat | comma | won}}
-                    </div>
-                </b-col>
+                            </b-col>
+                        </div>
+
+                        <div class="col_price">
+                            <div class="price_box">
+                                <span class="normal">{{item.odm_price | comma}}</span>
+                            </div>
+                            <font-awesome-icon icon="times" />
+                            <div>{{item.odm_ea}}</div>
+                            <font-awesome-icon icon="equals" />
+                            <div class="price_box">
+                                <span class="normal">{{item.odm_price*item.odm_ea | comma | won}}</span>
+                            </div>
+                        </div>
+                        <div class="price_info">
+                            <small v-if="item.odm_price_coupon_dc" class="price_dc">할인 - {{item.odm_price_coupon_dc*item.odm_ea | comma | won}}</small>
+                            <small>부가세 별도</small>
+                        </div>
+                    </b-col>
+                </template>
+                <template v-else-if="item.odm_type == 'OPTION'">
+                    <b-col class="gd_img">추가 옵션</b-col>
+                    <b-col class="gd_txt">
+                        <div class="explain">
+                            <p class="gd_name"><b>{{item.odm_gm_name}}:</b> {{item.odm_gm_spec}}</p>
+                        </div>
+
+                        <div class="col_price">
+                            <div class="price_box">
+                                <span class="normal">{{item.odm_price | comma}}</span>
+                            </div>
+                            <font-awesome-icon icon="times" />
+                            <div>{{item.odm_ea}}</div>
+                            <font-awesome-icon icon="equals" />
+                            <div class="price_box">
+                                <span class="normal">{{item.odm_price*item.odm_ea | comma | won}}</span>
+                            </div>
+                        </div>
+
+                        <div class="price_info">
+                            <small v-if="item.odm_price_coupon_dc" class="price_dc">할인 - {{item.odm_price_coupon_dc*item.odm_ea | comma | won}}</small>
+                            <small>부가세 별도</small>
+                        </div>
+                    </b-col>
+                </template>
             </b-row>
+            
+            <b-row class="dlvy_box">
+                <b-col class="text_box">
+                    <template v-if="pa.odpa_pa_type == 'AIR'">항공운임료</template>
+                    <template v-else>배송비</template>
+                </b-col>
+                <b-col class="price_box">{{pa.odpa_dlvy_p_add_vat | comma | won}}</b-col>
+            </b-row>
+
         </b-container>
-        <b-container class="sum_up">
-            <b-row class="total">
+        
+        <b-container class="total">
+            <b-row>
                 <b-col>상품금액</b-col>
-                <b-col><b>{{(od.od_gd_price+od.od_surtax) | comma | won}}</b></b-col>
-                <b-col>배송료</b-col>
-                <b-col><b>{{od.od_dlvy_price | comma | won}}</b></b-col>
-                <b-col>결제 예정 금액</b-col>
-                <b-col><b>{{od.od_all_price | comma | won}}</b></b-col>
+                <b-col><b>{{od.od_gd_price+od.od_surtax | comma}}</b> 원</b-col>
             </b-row>
-            <b-row class="total_sub">
-                <b-col>
-                    <div><b-col>상품가</b-col><b-col>{{od.od_gd_price | comma | won}}</b-col></div>
-                    <div><b-col>부가세</b-col><b-col>{{od.od_surtax | comma | won}}</b-col></div>
-                </b-col>
-                <b-col>
-                    <div><b-col>포사이언스 배송</b-col><b-col>{{dlvy_4s | comma}}</b-col></div>
-                    <div><b-col>업체 배송</b-col><b-col>{{dlvy_other | comma}}</b-col></div>
-                </b-col>
-                <b-col><div><b-col>적립예정 마일리지</b-col><b-col>{{sum_mileage | comma}}</b-col></div></b-col>
+            <b-row>
+                <b-col>배송료</b-col>      
+                <b-col><b>{{od.od_dlvy_price | comma}}</b> 원</b-col>
+            </b-row>
+            <b-row>
+                <b-col>결제예정금액</b-col> 
+                <b-col><b>{{od.od_all_price | comma}}</b> 원</b-col>
             </b-row>
         </b-container>
+
 
         <b-container class="extra_info frm_st">
             <b-row>
@@ -135,7 +152,7 @@
                         <b-col>
                             {{order_config.pay_method[od.od_pay_method]}}
                             <b-button v-if="od.order_pg && od.order_pg.pg_id" class="sm" @click="getReceipt">매출전표</b-button>
-                        </b-col>    
+                        </b-col>
                     </b-row>
                     <b-row>
                         <b-col class="label_st">입금자명</b-col>
@@ -226,16 +243,20 @@ export default {
             if (this.od.order_extra_info.oex_req_bank=='Y') req.push('통장사본');
             return req.join(', ');
         },
-        dlvy_4s () {
-            return this.od.order_purchase_at.hasOwnProperty(0) ? this.od.order_purchase_at[0].odpa_dlvy_p_add_vat : 0;
-        },
-        dlvy_other () {
+
+        goods_add_vat () {
             return Object.values(this.od.order_purchase_at).reduce((acc, el) => {
-                return acc + (el.odpa_pa_name != '' ? el.odpa_dlvy_p_add_vat : 0)
+                return acc + el.order_model.reduce((acc02, el02) => {
+                    return acc02 + ((el02.odm_price+Math.floor(el02.odm_price_coupon_dc*0.1))*el02.odm_ea);
+                }, 0)
             }, 0);
         },
-        sum_mileage () {
-            return Math.round(this.od.od_gd_price * Auth.user().mileage_mul);
+        goods_coupon_dc_add_vat () {
+            return Object.values(this.od.order_purchase_at).reduce((acc, el) => {
+                return acc + el.order_model.reduce((acc02, el02) => {
+                    return acc02 + ((el02.odm_price_coupon_dc+Math.floor(el02.odm_price_coupon_dc*0.1))*el02.odm_ea);
+                }, 0)
+            }, 0);
         },
     },
     methods:{
@@ -303,63 +324,37 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.w_fence { max-width:100%; padding-left:0; padding-right:0; }
+.w_fence { max-width:100%; padding:2rem; border:1px solid #CCC; border-radius:.5rem; margin-top: 3rem; }
 .top { border-top:2px solid #363636; border-bottom:1px solid #B6B6B6; border-right:1px solid #B6B6B6; border-left:1px solid #B6B6B6; padding:0 2rem; line-height:4;}
-.goods { border-top:3px solid #4F637B; }
-.goods .pa_tit { flex:0 0 8%; max-width:8%; border-right:1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; align-items:center; display:flex; text-align:center; justify-content:center; }
-.goods .gd_con .row.option { background-color:#F4F1EC; }
-.goods .gd_con .row .col { border-bottom:1px solid #D7D7D7; padding:.68rem; font-size:.85rem; }
-.goods .gd_con .row .col.align { display:flex; align-items:center; justify-content:center; }
-.goods .gd_con .row:not(:first-child) .end { justify-content:flex-end; }
-.goods .gd_con .row:not(:first-child) .col { color:#AEAEAE; }
-.goods .gd_con .row:not(:first-child) .col .btn { color:#AEAEAE; font-size:.9rem; }
-.goods .gd_con .row .col b { color:#000; font-size:.95rem; }
-.goods .gd_con .row:first-child .col { font-weight:600; line-height:1.7; padding:.86rem 0; font-size:.9rem; text-align:center; }
-.goods .gd_con .row .col:nth-child(1) { flex:0 0 7%; max-width:7%; }
-.goods .gd_con .row .col:nth-child(2) { border-right:1px solid #D7D7D7; }
-.goods .gd_con .row .col:nth-child(3) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }
-.goods .gd_con .row .col:nth-child(4) { flex:0 0 11%; max-width:11%; border-right:1px solid #D7D7D7; }
-.goods .gd_con .row .col:nth-child(5) { flex:0 0 6%; max-width:6%; border-right:1px solid #D7D7D7; }
-.goods .gd_con .row .col:nth-child(6) { flex:0 0 12%; max-width:12%; border-right:1px solid #D7D7D7; }
-.goods .gd_con .row .col:nth-child(7) { flex:0 0 9%; max-width:9%; flex-wrap:wrap; }
-.goods .gd_con .row .col:nth-child(7) .dlvy_link { background-color:#00A1CB; color:#FFF; border-radius:.25rem; width:100%; padding:3px; word-break: break-word; }
-.goods .gd_con .row .col img { width:100%; }
-.goods .gd_con .row .col >>> .myCheck .custom-control-label::before, 
-.goods .gd_con .row .col >>> .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }
-.goods .gd_con .row .col .sum { text-align:right; width:100%; line-height:2; }
-.goods .gd_con .row .col.desc.option { display:flex; align-items:center; }
-.goods .gd_con .row .col .sum >>> .btn-group-toggle { display:block !important; text-align:center; }
-.goods .gd_con .row .col .sum >>> .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem; }
-.goods .gd_con .row .col .sum >>> .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8; }
-.goods .dlvy_fare { flex:0 0 9%; max-width:9%; align-items: center; display: flex; text-align: center; justify-content: center; border-left: 1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; color:#AEAEAE; }
+.goods { border-top:3px solid #4F637B; padding:1em 0; }
+.goods:not(:first-child) { border-top:1px solid #AAA; }
+.goods h4 { font-weight:bolder; font-size:1em; padding:1em 0; border-width:0; }
+.goods .gm_box { margin-bottom:1em; align-items:flex-start; }
+.goods .gm_box .gd_img { flex-basis:17%; max-width:17%; display:flex; align-items:center; justify-content:center; }
+.goods .gm_box .gd_img img { width:100%; max-width:120px; height:auto; object-fit:contain; }
 
-.sum_up { border-top:3px solid #4F637B; }
-.sum_up .total { border-bottom:1px solid #D6D6D6; }
-.sum_up .total .col { color:#000; font-weight:bold; padding:1rem .5rem; }
-.sum_up .total .col b { font-size:1.4rem; }
+.goods .gm_box .gd_txt .explain { display:flex; }
+.goods .gm_box .gd_txt .explain .col:last-child { flex:0 0 25%; max-width:25%; text-align:right; }
+.goods .gm_box .gd_txt .explain .col p { margin:0; color:#999; }
+.goods .gm_box .gd_txt .explain .col .gd_name { color:#000; font-weight:700; }
+.goods .gm_box .gd_txt .explain .col .dlvy_link { background-color: #00a1cb; border-radius: .25rem; color: #fff; padding: 3px; display:inline-block; width:140px; text-align:center; word-break:break-word; }
+.goods .gm_box .gd_txt .col_price { display:flex; align-items:center; justify-content:flex-end; }
+.goods .gm_box .gd_txt .col_price svg { margin:0 .2em; }
+.goods .gm_box .gd_txt .price_info { text-align:right; color:#999; }
+.goods .gm_box .gd_txt .price_info .price_dc { display:block; color:#cc0000; }
 
-.sum_up .total .col:nth-of-type(odd) { padding-left:2rem; display:flex; align-items:center; }
-.sum_up .total .col:nth-of-type(even) { padding-right:2rem; text-align:right; }
+.goods .dlvy_box { padding: 12px 16px; background: #f5f5f5; border-radius: 8px; }
+.goods .dlvy_box .col { color:#9e9e9e; font-size:.9em; }
+.goods .dlvy_box .price_box { text-align:right; }
 
-.sum_up .total .col:nth-of-type(1) {  }
-.sum_up .total .col:nth-of-type(2) {  border-right:1px solid #D6D6D6; }
-.sum_up .total .col:nth-of-type(2):after,
-.sum_up .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; top:19px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2; }
-.sum_up .total .col:nth-of-type(2):after { content:"+"; }
-.sum_up .total .col:nth-of-type(3) {  }
-.sum_up .total .col:nth-of-type(4) { border-right:1px solid #D6D6D6; }
-.sum_up .total .col:nth-of-type(4):after { content:"="; }
-.sum_up .total .col:nth-of-type(5) { flex-basis:19.5%; max-width:19.5%; }
-.sum_up .total .col:nth-of-type(6) { flex-basis:21.05%; max-width:21.05%; }
-.sum_up .total_sub { background:#F2F3F5; border-bottom-width:0; }
-.sum_up .total_sub>.col:nth-of-type(1) { border-right:1px solid #D6D6D6; }
-.sum_up .total_sub>.col:nth-of-type(2) { border-right:1px solid #D6D6D6; }
-.sum_up .total_sub>.col:nth-of-type(3) { flex-basis:40.5%; max-width:40.5%; }
-.sum_up .total_sub .col>div { display:flex; flex-wrap:wrap; }
-.sum_up .total_sub .col>div:nth-of-type(1) { padding:1.3rem 1rem .5rem 1rem; }
-.sum_up .total_sub .col>div:nth-of-type(2) { padding:0 1rem 2.5rem 1rem; }
-.sum_up .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }
-.sum_up .total_sub .col>div .col:nth-of-type(2) { text-align:right; }
+.total { padding-bottom:0; }
+.total .row { align-items:baseline; }
+.total .row .col { font-size:.85em; color:#777; flex:0 0 25%; max-width:25%;}
+.total .row .col:first-child { margin-left:auto; }
+.total .row .col:nth-child(even) { text-align:right; }
+.total .row .col:nth-child(even) b { font-size:1.35em; color:#000; }
+.total .row.coupon_dc .col,
+.total .row.coupon_dc .col b { color:#cc0000 !important; }
 
 .extra_info { margin-top:3rem; font-size:.95rem;  }
 .extra_info>.row>.col { border:1px solid #D7D7D7; padding:2%; }
@@ -368,4 +363,10 @@ export default {
 .extra_info>.row>.col:nth-of-type(1) { flex-basis:30%; max-width:30%; }
 .extra_info>.row>.col:not(:nth-of-type(1)) { margin-left:-1px; }
 .extra_info>.row>.col .row { margin-left: 0; margin-right: 0; }
+@media (max-width: 992px){
+    .goods .gm_box .gd_txt { padding-left:8px; }
+    .extra_info { margin-top:1rem;  }
+    .extra_info>.row>.col { flex:0 0 100% !important; max-width:100% !important; }
+}
+
 </style>
