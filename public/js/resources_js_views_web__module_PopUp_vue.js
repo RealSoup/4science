@@ -79,21 +79,6 @@ var render = function render() {
         return _vm.todayStop(0);
       }
     }
-  }, [_vm._v("24시간 안 보기")])], 1)], 1) : _vm._e(), _vm._v(" "), _vm.$route.name == "order_settle" && _vm.view_check(1) ? _c("div", {
-    staticClass: "popup pop_1"
-  }, [_c("b-img", {
-    attrs: {
-      src: "/storage/order/popup.png"
-    }
-  }), _vm._v(" "), _c("div", {
-    staticClass: "ctrl"
-  }, [_c("b-button", {
-    staticClass: "white xm",
-    on: {
-      click: function click($event) {
-        return _vm.todayStop(1);
-      }
-    }
   }, [_vm._v("24시간 안 보기")])], 1)], 1) : _vm._e()]);
 };
 var staticRenderFns = [];

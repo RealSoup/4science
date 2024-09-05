@@ -385,9 +385,9 @@
                 </template>
 
                 <b-col class="lb">관리자 메모</b-col>
-                <b-col class="dt wd1_1 edit_field" :style="{padding:0}">
+                <b-col class="dt wd1_1 edit_field adm_memo" :style="{padding:0}">
                     <b-form-input v-if="focusInfo.adm_memo" v-model="od.order_extra_info.oex_adm_memo" @blur.native="focusInfo.adm_memo = false;" v-focus="" />
-                    <div v-else @click="focusInfo.adm_memo = true;">{{od.order_extra_info.oex_adm_memo}}</div>            
+                    <div v-else @click="focusInfo.adm_memo = true;" >{{od.order_extra_info.oex_adm_memo}}</div>            
                 </b-col>
             </b-row>
         </div>
@@ -922,7 +922,8 @@ export default {
 .p_wrap .box .goods .gd_con .model .signboard { text-align:center; margin:0 -10px; padding:10px; }
 .p_wrap .box .goods .gd_con .model .signboard .neonText { font-size:14px; color:#e600ff; }
 
-
+.p_wrap .od_addr .row .adm_memo div { cursor:pointer; }
+.p_wrap .od_addr .row .adm_memo div:hover { box-shadow:0 1px 5px 7px #015b7e; }
 
 
 
