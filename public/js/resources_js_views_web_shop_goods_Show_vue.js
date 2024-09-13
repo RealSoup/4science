@@ -159,7 +159,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     action: function action(type) {
       var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var params, cntModel, required_key, required_key_cnt, estimate_price, limit_ea_over, route_obj, res, _res;
+        var params, cntModel, required_key, estimate_price, limit_ea_over, route_obj, res, _res;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
@@ -175,33 +175,29 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               return _context2.abrupt("return", false);
             case 5:
               if (!['pay', 'estimate'].includes(type)) {
-                _context2.next = 13;
+                _context2.next = 12;
                 break;
               }
               required_key = Array();
-              required_key_cnt = 0;
               _this3.content.goods_option.forEach(function (go) {
                 if (go.go_required == 'Y') required_key.push(go.go_id);
               });
-              required_key.forEach(function (k) {
-                params.forEach(function (item) {
-                  if (item.hasOwnProperty('goc_id') && item.go_id == k) {
-                    required_key_cnt++;
-                    return false;
-                  }
+              params.forEach(function (item) {
+                if (item.hasOwnProperty('goc_id')) required_key = required_key.filter(function (e) {
+                  return e !== item.go_id;
                 });
               });
-              if (!(required_key_cnt !== required_key.length)) {
-                _context2.next = 13;
+              if (!(required_key.length > 0)) {
+                _context2.next = 12;
                 break;
               }
               Notify.modal("필수 옵션을 선택하셔야 합니다.", 'info');
               return _context2.abrupt("return", false);
-            case 13:
+            case 12:
               _context2.t0 = type;
-              _context2.next = _context2.t0 === "pay" ? 16 : _context2.t0 === "putCart" ? 29 : _context2.t0 === "wish" ? 38 : _context2.t0 === "estimate" ? 50 : 52;
+              _context2.next = _context2.t0 === "pay" ? 15 : _context2.t0 === "putCart" ? 28 : _context2.t0 === "wish" ? 37 : _context2.t0 === "estimate" ? 49 : 51;
               break;
-            case 16:
+            case 15:
               estimate_price = false;
               limit_ea_over = false;
               _this3.content.goods_model_enable.forEach(function (gm) {
@@ -209,23 +205,23 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 if (gm.gm_limit_ea < 999999 && gm.ea > 0 && gm.ea > gm.gm_limit_ea) limit_ea_over = true;
               });
               if (!estimate_price) {
-                _context2.next = 22;
+                _context2.next = 21;
                 break;
               }
               /*  반복문에서  return false 하면 반복문 탈출이 되기에
                   주문 차단을 위해서 여기서 return false 해준다.    */
               Notify.modal("견적가 상품은 견적요청을 해주세요.", 'danger');
               return _context2.abrupt("return", false);
-            case 22:
+            case 21:
               if (!limit_ea_over) {
-                _context2.next = 25;
+                _context2.next = 24;
                 break;
               }
               /*  반복문에서  return false 하면 반복문 탈출이 되기에
                   주문 차단을 위해서 여기서 return false 해준다.    */
               Notify.modal("구매하려는 제품 수량이 재고 수량보다 많습니다. 견적요청을 이용해주세요.", 'danger');
               return _context2.abrupt("return", false);
-            case 25:
+            case 24:
               route_obj = {
                 name: 'order_settle',
                 params: {
@@ -237,46 +233,46 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 od_plan: _this3.od_plan
               };
               _this3.$router.push(route_obj);
-              return _context2.abrupt("break", 52);
-            case 29:
+              return _context2.abrupt("break", 51);
+            case 28:
               if (!Auth.check()) {
-                _context2.next = 36;
+                _context2.next = 35;
                 break;
               }
-              _context2.next = 32;
+              _context2.next = 31;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/shop/cart', params);
-            case 32:
+            case 31:
               res = _context2.sent;
               if (res.status === 200) Notify.toast('success', "장바구니 등록 완료");
-              _context2.next = 37;
+              _context2.next = 36;
               break;
-            case 36:
+            case 35:
               Notify.modal("로그인 해주세요.", 'danger');
+            case 36:
+              return _context2.abrupt("break", 51);
             case 37:
-              return _context2.abrupt("break", 52);
-            case 38:
-              _context2.prev = 38;
-              _context2.next = 41;
+              _context2.prev = 37;
+              _context2.next = 40;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/wish", _this3.content.goods_model_enable.filter(function (gm) {
                 return gm.ea > 0;
               }));
-            case 41:
+            case 40:
               _res = _context2.sent;
               if (_res && _res.status === 200) {
                 Notify.toast('success', '관심 상품 등록 완료');
               } else {
                 Notify.toast('warning', _res);
               }
-              _context2.next = 49;
+              _context2.next = 48;
               break;
-            case 45:
-              _context2.prev = 45;
-              _context2.t1 = _context2["catch"](38);
+            case 44:
+              _context2.prev = 44;
+              _context2.t1 = _context2["catch"](37);
               Notify.consolePrint(_context2.t1);
               Notify.toast('warning', _context2.t1.responsee);
+            case 48:
+              return _context2.abrupt("break", 51);
             case 49:
-              return _context2.abrupt("break", 52);
-            case 50:
               _this3.$router.push({
                 name: 'estimate_create',
                 params: {
@@ -284,12 +280,12 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   od_type: 'request_estimate'
                 }
               });
-              return _context2.abrupt("break", 52);
-            case 52:
+              return _context2.abrupt("break", 51);
+            case 51:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[38, 45]]);
+        }, _callee2, null, [[37, 44]]);
       }))();
     },
     makeParam: function makeParam() {
