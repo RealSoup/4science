@@ -28,7 +28,7 @@
 
     <b-row id="best" class="layout">
         <b-col>
-            <b-img src="/storage/main/best.gif" />
+            <b-img src="/storage/main/best.gif"></b-img>
         </b-col>
         <b-col>
             <div class="box-row">
@@ -39,8 +39,8 @@
                 >
                     <img :src="item.image" />
                     <div class="box-footer">
-                        <sub-string v-model="item.ca01_name" :width="184" class="box_ca" />
-                        <sub-string v-model="item.gd_name" :width="184" :line02="true" class="box_tit" />
+                        <sub-string v-model="item.ca01_name" :width="184" class="box_ca"></sub-string>
+                        <sub-string v-model="item.gd_name" :width="184" :line02="true" class="box_tit"></sub-string>
                     </div>
                 </b-link>
             </div>
@@ -94,7 +94,7 @@
             <b-row v-for="ca in filteredCategories" :key="ca.ca_id">
                 <b-col class="tit">                    
                     <b-link :to="{name: 'goods_index', query: { ca01:ca.ca_id } }">
-                        <b-img :src="`${s3url}main/cate/bg${ca.ca_id}.gif`" />
+                        <b-img :src="`${s3url}main/cate/bg${ca.ca_id}.gif`"></b-img>
                         <h6>{{ca.ca_name}}</h6>
                         <span>전체보기 <b-icon-chevron-right /></span>
                     </b-link>
@@ -104,7 +104,7 @@
                         v-for="(gd, i) in best_cate[ca.ca_id]" :key="i"
                         :to="{name:'goods_show', params:{gd_id:gd.sw_key}}"
                     >
-                        <b-img fluid :src="gd.image_src_thumb[0]" />
+                        <b-img fluid :src="gd.image_src_thumb[0]"></b-img>
                         <p>{{gd.gd_name}}</p>
                     </b-link>
                 </b-col>
