@@ -17,7 +17,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       pop: [{
         ck_key: 'view01',
-        is_view: true,
+        is_view: false,
         ck_view: false
       }, {
         ck_key: 'view02',
