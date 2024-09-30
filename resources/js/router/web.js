@@ -326,6 +326,7 @@ export default [
         ],
     },
 //      이벤트 페이지
+/*
     {   path: '/event/rankingSales',
         name: 'rankingSales',
         component:() => import('@/views/web/event/rankingSales'),
@@ -342,7 +343,7 @@ export default [
         name: 'coupon',
         component:() => import('@/views/web/event/Coupon'),
     },
-
+*/
 //      테스트
     {   path: '/test/psys',
         name: 'test_psys',
