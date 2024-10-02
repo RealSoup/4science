@@ -13,12 +13,12 @@
             <option v-else value="/language/ko">한국어</option>
         </select>
         <!--
-        <router-link :to="{name: 'rankingSales'}" v-if="user.is_super">상품 랭킹</router-link>
-        <router-link :to="{name: 'rankingBuyer'}" v-if="user.is_super">구매자 랭킹</router-link>
-        <router-link :to="{name: 'attend'}" v-if="user.is_super">출첵</router-link>
-        <router-link :to="{name: 'coupon'}" v-if="user.is_super">쿠폰다운</router-link>
+        <router-link :to="{name: 'event_rankingSales'}" v-if="user.is_super">상품 랭킹</router-link>
+        <router-link :to="{name: 'event_rankingBuyer'}" v-if="user.is_super">구매자 랭킹</router-link>
+        <router-link :to="{name: 'event_attend'}" v-if="user.is_super">출첵</router-link>
+        <router-link :to="{name: 'event_coupon'}" v-if="user.is_super">쿠폰다운</router-link>
         <router-link :to="{name: 'my_user_coupon'}" v-if="user.is_super">쿠폰리스트</router-link>
-        -->
+         -->
     </div>
     <div id="afterimage"></div>
     <div id="core">

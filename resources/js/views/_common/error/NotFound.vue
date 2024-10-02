@@ -4,6 +4,7 @@
 <script>
 export default { name:"NotFound", }
 </script>
-<style>
+<style lang="css" scoped>
 div { text-align:center; }
+div img { max-width:100%; }
 </style>

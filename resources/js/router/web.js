@@ -326,24 +326,30 @@ export default [
         ],
     },
 //      이벤트 페이지
-/*
-    {   path: '/event/rankingSales',
-        name: 'rankingSales',
-        component:() => import('@/views/web/event/rankingSales'),
-    }, {   
-        path: '/event/rankingBuyer',
-        name: 'rankingBuyer',
-        component:() => import('@/views/web/event/rankingBuyer'),
-    }, {   
-        path: '/event/attend',
-        name: 'attend',
-        component:() => import('@/views/web/event/Attend'),
-    }, {   
-        path: '/event/coupon',
-        name: 'coupon',
-        component:() => import('@/views/web/event/Coupon'),
+    {   path: '/mypage',
+        // name: 'mypage',
+        component:() => import('@/views/web/event/Layout'),
+        children: [
+            {   path: '/event/rankingSales',
+                name: 'event_rankingSales',
+                component:() => import('@/views/web/event/_comp/rankingSales'),
+            }, {   
+                path: '/event/rankingBuyer',
+                name: 'event_rankingBuyer',
+                component:() => import('@/views/web/event/_comp/rankingBuyer'),
+            }, {   
+                path: '/event/attend',
+                name: 'event_attend',
+                component:() => import('@/views/web/event/_comp/Attend'),
+            }, {   
+                path: '/event/coupon',
+                name: 'event_coupon',
+                component:() => import('@/views/web/event/_comp/Coupon'),
+            },
+        ],
     },
-*/
+    
+
 //      테스트
     {   path: '/test/psys',
         name: 'test_psys',
