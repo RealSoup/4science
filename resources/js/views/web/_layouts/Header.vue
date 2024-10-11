@@ -6,13 +6,13 @@
             :to="{name: 'adm_goods_edit', params: { gd_id:this.$route.params.gd_id }}"
         >상품관리</router-link>
         <!-- <router-link v-if="user.is_super" :to="{name: 'listing_sale'}">S</router-link> -->
-
+        
+        <!--
         <select v-if="user.is_super" @change="strongReload($event.target.value)">
             <option value="">외국어</option>
             <option v-if="this.$store.state.common.siteInfo.locale == 'ko'" value="/language/en">English</option>
             <option v-else value="/language/ko">한국어</option>
         </select>
-        <!--
         <router-link :to="{name: 'event_rankingSales'}" v-if="user.is_super">상품 랭킹</router-link>
         <router-link :to="{name: 'event_rankingBuyer'}" v-if="user.is_super">구매자 랭킹</router-link>
         <router-link :to="{name: 'event_attend'}" v-if="user.is_super">출첵</router-link>

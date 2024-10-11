@@ -53,13 +53,11 @@ class GoodsController extends Controller {
             }
             $cl = new SphinxClient ();
             $cl->SetServer( env('DB_HOST'), 9312 );
-            // if ($req->filled('ca01')) $cl->SetFilter('gc_ca01', array($req->ca01));
-            // if ($req->filled('ca02')) $cl->SetFilter('gc_ca02', array($req->ca02));
-            // if ($req->filled('ca03')) $cl->SetFilter('gc_ca03', array($req->ca03));
-            // if ($req->filled('ca04')) $cl->SetFilter('gc_ca04', array($req->ca04));
+            $cl->SetFilter('deleted_at', array(0));             //  삭제 상품 제외
+            $cl->SetFilter('gd_enable', array(crc32('Y')));     //  활성화 상품만 검색되게
+            $cl->SetFilter('gd_type', array(crc32('NON')));     //  렌탈은 검색 안되게
             $cl->SetGroupBy('gc_ca01', SPH_GROUPBY_ATTR );
             $cl->SetGroupDistinct ( "gd_id" );
-            $cl->SetFilter('deleted_at', array(0));
             $cl_rst = $cl->Query( $kw, 'sph_goods' );
             
             if ($cl_rst['total_found'] > 0) {
