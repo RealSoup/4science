@@ -333,9 +333,9 @@ export default {
                 lists:{},
                 price:{},
                 od_name: "",
-                od_er_id: this.$route.params.od_er_id,
+                od_er_id: 0,
 
-                od_type: this.$route.params.od_type,
+                od_type: '',
                 od_pay_method:'C',
                 od_company: '',
                 od_ua_title: '',
@@ -690,12 +690,18 @@ export default {
 
             sessionStorage.setItem('goods', JSON.stringify(this.order.goods));
             sessionStorage.setItem('od_type', this.order.od_type);
+            if (this.order.od_type == 'buy_estimate') {
+                sessionStorage.setItem('od_er_id', this.$route.params.od_er_id);
+                this.order.od_er_id = this.$route.params.od_er_id;
+            }
             sessionStorage.setItem('od_time', tCode);
         } else if ( sessionStorage.getItem('od_time') ) {
             if (tCode - sessionStorage.getItem('od_time') <= 20) {
                 this.order.goods = JSON.parse(sessionStorage.getItem('goods'));
                 this.order.od_type = sessionStorage.getItem('od_type');
-                this.order.tCode = tCode;
+                if (this.order.od_type == 'buy_estimate')
+                    this.order.od_er_id = sessionStorage.getItem('od_er_id');                
+                this.order.tCode = tCode;                
             } else {
                 //  주문 정보를 가져온후 일정 시간이 경과하면
                 Notify.toast('danger', "오랜시간 주문이 이루어 지지 않았습니다.");

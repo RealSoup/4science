@@ -281,8 +281,8 @@ var paymentWidget = null;
         lists: {},
         price: {},
         od_name: "",
-        od_er_id: this.$route.params.od_er_id,
-        od_type: this.$route.params.od_type,
+        od_er_id: 0,
+        od_type: '',
         od_pay_method: 'C',
         od_company: '',
         od_ua_title: '',
@@ -814,7 +814,7 @@ var paymentWidget = null;
           case 0:
             tCode = new Date().format("yyMMddHHmm");
             if (!_this4.$route.params.od_goods) {
-              _context3.next = 10;
+              _context3.next = 11;
               break;
             }
             _this4.order.goods = _this4.$route.params.od_goods;
@@ -822,38 +822,43 @@ var paymentWidget = null;
             _this4.order.tCode = tCode;
             sessionStorage.setItem('goods', JSON.stringify(_this4.order.goods));
             sessionStorage.setItem('od_type', _this4.order.od_type);
+            if (_this4.order.od_type == 'buy_estimate') {
+              sessionStorage.setItem('od_er_id', _this4.$route.params.od_er_id);
+              _this4.order.od_er_id = _this4.$route.params.od_er_id;
+            }
             sessionStorage.setItem('od_time', tCode);
-            _context3.next = 25;
+            _context3.next = 27;
             break;
-          case 10:
+          case 11:
             if (!sessionStorage.getItem('od_time')) {
-              _context3.next = 22;
+              _context3.next = 24;
               break;
             }
             if (!(tCode - sessionStorage.getItem('od_time') <= 20)) {
-              _context3.next = 17;
+              _context3.next = 19;
               break;
             }
             _this4.order.goods = JSON.parse(sessionStorage.getItem('goods'));
             _this4.order.od_type = sessionStorage.getItem('od_type');
+            if (_this4.order.od_type == 'buy_estimate') _this4.order.od_er_id = sessionStorage.getItem('od_er_id');
             _this4.order.tCode = tCode;
-            _context3.next = 20;
+            _context3.next = 22;
             break;
-          case 17:
+          case 19:
             //  주문 정보를 가져온후 일정 시간이 경과하면
             Notify.toast('danger', "오랜시간 주문이 이루어 지지 않았습니다.");
             _this4.$router.go(-1);
             return _context3.abrupt("return", false);
-          case 20:
-            _context3.next = 25;
-            break;
           case 22:
+            _context3.next = 27;
+            break;
+          case 24:
             Notify.toast('danger', "잘못된 접근 경로입니다.");
             _this4.$router.go(-1);
             return _context3.abrupt("return", false);
-          case 25:
+          case 27:
             _this4.settle();
-          case 26:
+          case 28:
           case "end":
             return _context3.stop();
         }
