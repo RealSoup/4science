@@ -66,18 +66,10 @@ class SiteController extends Controller {
         return response()->json($sw);
     }
 
-    public function mainBestUpdate(Request $req) {
-        foreach ($req->best as $sw) {
-            ShowWindow::updateOrCreate(
-                ['sw_id'   => $sw['sw_id'] ?? ''],
-                ['sw_type' => "best",
-                 'sw_seq'  => $sw['sw_seq'],
-                 'sw_key'  => $sw['sw_key'], ]
-            );
-        }
-
-        foreach ($req->del_list as $dl)
-            DB::table('show_window')->where('sw_id', $dl)->delete();
+    public function mainBestUpdate(Request $req) {  
+        DB::table('show_window')->where('sw_type', 'best')->delete();
+        foreach ($req->best as $k=>$sw)
+            ShowWindow::insert([ 'sw_type' => "best", 'sw_seq' => $k, 'sw_key' => $sw['sw_key'] ]);
         
         DB::table('infos')->where('key', 'update_key_best_main')->update(['val' => uniqid()]);
         return response()->json("success", 200);

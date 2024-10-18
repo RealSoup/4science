@@ -11,7 +11,7 @@
     </b-row>
 
     <div class="box">
-        <draggable :list="best" handle=".handle" class="row list" @change="updateSeq">
+        <draggable :list="best" handle=".handle" class="row list">
             <b-col v-for="(sw, i) in best" :key="sw.sw_id" cols="2" col>
                 <b-button variant="info" class="handle"><b-icon-arrows-move /></b-button>
                 <b-button variant="danger" class="btn_del" @click="destroy(i)"><b-icon-x-square /></b-button>
@@ -37,15 +37,7 @@ export default {
         draggable,
         'GoodsSearch': () => import('@/views/admin/site/_comp/GoodsSearch.vue'),
     },
-    data() {
-        return {
-            best: [],
-            del_list: [],
-        };
-    },
-    computed: {
-
-    },
+    data() { return { best: [], }; },
     methods: {
         async index() {
             const res = await ax.get(`/api/admin/site/mainBest`);
@@ -53,17 +45,12 @@ export default {
                 this.best = res.data;
         },
         async update(){            
-            const res = await ax.post(`/api/admin/site/mainBestUpdate`, {best: this.best, del_list: this.del_list});
+            const res = await ax.post(`/api/admin/site/mainBestUpdate`, {best: this.best});
             if (res && res.status === 200)
                 Notify.toast('success', '수정 완료');
         },
-        updateSeq() {
-            this.best.forEach((sw, i) => sw.sw_seq = i);
-        },
-        destroy(i) {
-            this.del_list.push( this.best[i].sw_id );
-            this.best.splice(i, 1);
-        }
+
+        destroy(i) { this.best.splice(i, 1); }
     },
     mounted() {
         this.index();

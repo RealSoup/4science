@@ -30,11 +30,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      best: [],
-      del_list: []
+      best: []
     };
   },
-  computed: {},
   methods: {
     index: function index() {
       var _this = this;
@@ -64,8 +62,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context2.next = 2;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/site/mainBestUpdate", {
-                best: _this2.best,
-                del_list: _this2.del_list
+                best: _this2.best
               });
             case 2:
               res = _context2.sent;
@@ -77,13 +74,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    updateSeq: function updateSeq() {
-      this.best.forEach(function (sw, i) {
-        return sw.sw_seq = i;
-      });
-    },
     destroy: function destroy(i) {
-      this.del_list.push(this.best[i].sw_id);
       this.best.splice(i, 1);
     }
   },
@@ -130,9 +121,6 @@ var render = function render() {
     attrs: {
       list: _vm.best,
       handle: ".handle"
-    },
-    on: {
-      change: _vm.updateSeq
     }
   }, [_vm._l(_vm.best, function (sw, i) {
     return _c("b-col", {
