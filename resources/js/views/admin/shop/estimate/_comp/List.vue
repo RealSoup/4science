@@ -27,7 +27,7 @@
             <div class="eq_name">
                 <span v-if="row.user && (row.user.level == 11 || row.user.level == 12)" class="badgetag d_blue d-none d-lg-inline-block">딜</span>
                 <sub-string v-model="row.eq_name" :width="120"></sub-string>
-                <br class="d-none d-lg-block" />
+                <!-- <br class="d-none d-lg-block" /> -->
                 <b-badge v-if="row.user && row.user.mng" class="orange d-none d-lg-inline-block">{{mng_off[row.user.mng].name}}</b-badge>
             </div>
         </b-col>
