@@ -115,7 +115,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.row .col {}
 .row .col:nth-child(1) { flex:0 0 8%; max-width:8%; border-right:1px solid #CCCCCC; }
 .row .col:nth-child(2) { border-right:1px solid #CCCCCC; }
 .row .col:nth-child(3) { flex:0 0 10%; max-width:10%; }

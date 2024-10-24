@@ -108,7 +108,9 @@ var render = function render() {
   }, [_c("b-col", [_c("span", [_vm._v(_vm._s(_vm.con.order[10]))]), _vm._v(" "), _c("span", [_vm._v("주문접수")]), _vm._v(" "), _c("span", [_vm._v("주문 후 상태")])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v(_vm._s(parseInt(_vm.con.order[11]) + parseInt(_vm.con.order[12])))]), _vm._v(" "), _c("span", [_vm._v("입금확인중")]), _vm._v(" "), _c("span", [_vm._v("주문 후, 입금 전")])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v(_vm._s(parseInt(_vm.con.order[20]) + parseInt(_vm.con.order[30])))]), _vm._v(" "), _c("span", [_vm._v("입금완료")]), _vm._v(" "), _c("span", [_vm._v("주문 후, 입금 후")])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v(_vm._s(_vm.con.order[40]))]), _vm._v(" "), _c("span", [_vm._v("배송중")]), _vm._v(" "), _c("span", [_vm._v("상품 발송 후")])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v(_vm._s(_vm.con.order[50]))]), _vm._v(" "), _c("span", [_vm._v("배송완료")]), _vm._v(" "), _c("span", [_vm._v("고객 상품 수취")])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v(_vm._s(_vm.con.order[60]))]), _vm._v(" "), _c("span", [_vm._v("주문취소")]), _vm._v(" "), _c("span", [_vm._v("주문 최소 상태")])])], 1)], 1)]), _vm._v(" "), _c("b-col", {
     staticClass: "right",
     attrs: {
-      col: ""
+      col: "",
+      lg: "6",
+      cols: "12"
     }
   }, [_c("h4", [_vm._v("견적현황")]), _vm._v(" "), _c("div", {
     staticClass: "box"

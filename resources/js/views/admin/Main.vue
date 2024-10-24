@@ -43,7 +43,7 @@
             </div>
         </b-col>
         
-        <b-col col class="right">
+        <b-col col lg="6" cols="12" class="right">
             <h4>견적현황</h4>
             <div class="box">
                 <b-row class="top">
