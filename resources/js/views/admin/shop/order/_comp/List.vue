@@ -18,7 +18,7 @@
         <b-col class="d-none d-lg-block">{{row.od_no}}</b-col>
         <b-link class="col" :to="{name: 'adm_order_edit', params: { od_id:row.od_id }}">{{row.od_name}}</b-link>
         <b-col>
-            <b-badge v-if="$route.name === 'adm_order_index' && row.od_addr1_sk" pill class="plum addr1_sk">서&middot;경</b-badge>
+            <b-badge v-if="$route.name === 'adm_order_index' && row.od_addr1_sk" pill class="plum addr1_sk d-none d-lg-inline-block">서&middot;경</b-badge>
             <span v-if="row.user && (row.user.level == 11 || row.user.level == 12)" class="badgetag d_blue d-none d-lg-inline-block">딜</span>
             <sub-string v-model="row.od_orderer" :width="120" />
             <span v-if="row.user && row.user.mng" class="nametag orange d-none d-lg-inline-block">{{mng_off[row.user.mng].name}}</span>
@@ -31,7 +31,10 @@
                 <template v-else>{{row.eq_mng_id}}</template>
             </span>
         </b-col>
-        <b-col>{{ row.created_at | formatDate_YY_MM_DD_HH:mm }}</b-col>
+        <b-col>
+            <span class="d-inline-block d-lg-none">{{ row.created_at | formatDate }}</span>
+            <span class="d-none d-lg-inline-block">{{ row.created_at | formatDate_YY_MM_DD_HH:mm }}</span>
+        </b-col>
         <b-col class="d-none d-lg-block">{{config.pay_method[row.od_pay_method]}}</b-col>
         <b-col>{{ row.od_all_price | comma }}</b-col>
         <b-col class="step">
@@ -83,7 +86,10 @@ export default {
 .body .col.step .nametag.d-inline-block { width:auto; }
 @media (max-width: 991px){
     .row .col { font-size:.75rem; line-height:1.4; padding:0.4rem;}
-    .row .col:nth-child(8) { flex:0 0 13%; max-width:13%; }
+    .row .col:nth-child(4) { flex:0 0 14%; max-width:14%; }
+    .row .col:nth-child(6) { flex:0 0 14%; max-width:14%; }
+    .row .col:nth-child(8) { flex:0 0 19%; max-width:19%; }
+    .row .col:nth-child(9) { flex:0 0 9%; max-width:9%; }
     .body .col:nth-child(8) { text-align:right; padding-right:3px; }
     .body .step span { width:30px; font-size:.75rem; margin:auto; padding:0 }
 }

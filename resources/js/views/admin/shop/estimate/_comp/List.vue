@@ -32,7 +32,10 @@
                 <b-badge v-if="row.user && row.user.mng" class="orange d-none d-lg-inline-block">{{mng_off[row.user.mng].name}}</b-badge>
             </div>
         </b-col>
-        <b-col>{{ row.created_at | formatDate_MM_DD_HH:mm }}</b-col>
+        <b-col>
+            <i class="d-inline-block d-lg-none">{{ row.created_at | formatDate }}</i>
+            <i class="d-none d-lg-inline-block">{{ row.created_at | formatDate_MM_DD_HH:mm }}</i>
+        </b-col>
         <b-col>
             <span class="nametag plum" v-if="row.eq_step==='DONOT'" >{{row.eq_step | eqStep}}</span>
             <span class="nametag mint" v-else-if="row.eq_step==='DOING'">{{row.eq_step | eqStep}}</span>
@@ -55,7 +58,10 @@
                     <span v-if="i===0" class="btn nametag mint" @click="exeWinPop(`/admin/shop/estimate/reply/${er.er_id}`)" :key="`b${er.er_id}`">견적서</span>
                     <span v-else class="btn nametag orange not_fir" @click="exeWinPop(`/admin/shop/estimate/reply/${er.er_id}`)" :key="`b${er.er_id}`">재견적서</span>
                 </template>
-                <span :key="`d${er.er_id}`">{{ er.created_at | formatDate_MM_DD_HH:mm }}</span>
+                <span :key="`d${er.er_id}`">
+                    <i class="d-inline-block d-lg-none">{{ er.created_at | formatDate }}</i>
+                    <i class="d-none d-lg-inline-block">{{ er.created_at | formatDate_MM_DD_HH:mm }}</i>
+                </span>
             </template>
         </b-col>
     </b-row>
@@ -118,6 +124,7 @@ export default {
 .row .col:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC; }
 .row .col:nth-child(7) { flex:0 0 20%; max-width:20%; }
 .row .col:nth-child(5) .badge { width:3.8rem; padding:.4rem 0; }
+.row .col i { font-style:normal; }
 .body .col:nth-child(2) { text-align:left; cursor:pointer; padding-left:2%; }
 .body .col .eq_name { line-height:1rem; }
 .body .col .eq_name .badgetag { line-height: 1.5; }

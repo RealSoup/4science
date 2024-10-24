@@ -1,7 +1,12 @@
 <template>
 
 <aside>
-    <b-button @click="mobileMenu" id="m_menu"><b-icon-menu-button-wide-fill></b-icon-menu-button-wide-fill></b-button>
+    
+    <div class="sm_view">
+        <b-link @click="$router.go(-1)" class="go_back">뒤로가기</b-link>
+        <b-button @click="mobileMenu" id="m_menu"><b-icon-menu-button-wide-fill></b-icon-menu-button-wide-fill></b-button>
+    </div>
+
     <header><router-link :to="{name: 'adm_main'}"><i><b>A</b><b-img src="/storage/common/logo/admin.png"></b-img></i></router-link></header>
 
     <section>
@@ -234,7 +239,8 @@ export default {
 </script>
 <style lang="css" scoped>
 aside { background-color:#4E647B; padding-top:10px; display:flex; flex-direction:column; position:sticky; left:0; top:0; align-self:flex-start; z-index:1021; height:100vh; }
-aside #m_menu { display:none; position:absolute; right:-50px; }
+aside .sm_view { display:none; position:absolute; bottom:3px; transform:translateX(calc(100vw + 32px)); text-align:right; width:135px; }
+aside.open .sm_view { transform:translateX(169px); }
 aside header { margin-bottom:10px; }
 aside section { padding:5px 0; }
 aside>*>* { text-align:right; }
@@ -257,7 +263,8 @@ aside section .focus i { color:#4C647C; font-weight:900; }
 @media (max-width: 1320px){ }
 @media (max-width: 992px){
     aside { position:fixed; /*display:block;*/ width:10.625em;  transition:all .1s; transform:translateX(-170px); }
-    aside #m_menu { display:inline-block; }
+    aside .sm_view { display:inline-block; }
+    aside .sm_view .go_back { display:inline-block; background:#FFF; padding:6.5px 12px; border-radius:5px; border:1px solid #CCCCCC; }
     aside.open { transform:translateX(0px); }
     /*
     aside section p:not(.solo):after { content:none; }

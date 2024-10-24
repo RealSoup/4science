@@ -1,7 +1,7 @@
 <template>
 <b-container class="p_wrap">
     <b-row>
-        <b-col col lg="6" md="12" class="left">
+        <b-col col lg="6" cols="12" class="left">
             <h4>주문현황</h4>
             <div class="box">
                 <b-row class="top">
@@ -43,7 +43,7 @@
             </div>
         </b-col>
         
-        <b-col col lg="6" md="12" class="right">
+        <b-col col class="right">
             <h4>견적현황</h4>
             <div class="box">
                 <b-row class="top">
@@ -105,7 +105,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.p_wrap { margin-top:4rem; }
 .p_wrap h4 { font-size:1.6rem; font-weight:bold; margin-bottom:1rem; }
 .p_wrap .row .col .box { border-width:5px; border-style:solid; border-radius:1rem; padding:.75rem 1.5rem; background-color:#EFF0F2; }
 .p_wrap .row .left { padding-right:1%; }
@@ -146,4 +145,10 @@ export default {
 
 .p_wrap .row .right .box .body .ps >>> .ps__rail-y { background-color:#eee; opacity:.9; z-index:1; cursor:pointer; }
 .p_wrap .row .right .box .body .ps >>> .ps__rail-y > .ps__thumb-y { background-color:#438DCC; width:11px; }
+
+@media (max-width: 992px){
+    .p_wrap { margin-left:auto; margin-right:auto; }
+    .p_wrap .row .left { margin-bottom:9%; }
+
+}
 </style>

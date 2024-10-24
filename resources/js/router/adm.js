@@ -20,6 +20,12 @@ export default [
             {   path: '',
                 name: 'adm_main',
                 component:() => import('@/views/admin/Main'),
+                beforeEnter: (to, from, next) => {
+                    if (store.state.common.deviceType === 'mobile')
+                        next({name:'adm_order_index'});
+                    else
+                        return next();
+                },
             },
 
             //  Site관리

@@ -187,5 +187,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.cmain { margin-bottom:3rem; }
 .cmain .list_top select { display: inline-block; max-width: 7rem; }
 </style>

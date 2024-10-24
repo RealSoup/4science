@@ -64,6 +64,7 @@ export default {
         if ( this.$store.state.mode !== 'simple') {
             this.$store.dispatch('category/indexAll');
             this.$store.dispatch('common/siteInfo');
+            this.$store.dispatch('common/deviceType');
             this.$store.dispatch('recent_goods/index');
         }
     },
