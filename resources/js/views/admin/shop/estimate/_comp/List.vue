@@ -11,8 +11,7 @@
             <span>견적서번호</span>
             <span>견적서</span>
             <span>작성일</span>
-        </b-col>
-        
+        </b-col>        
     </b-row>
     <b-row class="body list" v-for="row in list" :key="row.eq_id">
         <b-col>{{row.eq_id}}.</b-col>
@@ -33,8 +32,8 @@
             </div>
         </b-col>
         <b-col>
-            <i class="d-inline-block d-lg-none">{{ row.created_at | formatDate }}</i>
-            <i class="d-none d-lg-inline-block">{{ row.created_at | formatDate_MM_DD_HH:mm }}</i>
+            <b class="d-inline-block d-lg-none">{{ row.created_at | formatDate }}</b>
+            <b class="d-none d-lg-inline-block">{{ row.created_at | formatDate_MM_DD_HH:mm }}</b>
         </b-col>
         <b-col>
             <span class="nametag plum" v-if="row.eq_step==='DONOT'" >{{row.eq_step | eqStep}}</span>
@@ -59,8 +58,8 @@
                     <span v-else class="btn nametag orange not_fir" @click="exeWinPop(`/admin/shop/estimate/reply/${er.er_id}`)" :key="`b${er.er_id}`">재견적서</span>
                 </template>
                 <span :key="`d${er.er_id}`">
-                    <i class="d-inline-block d-lg-none">{{ er.created_at | formatDate }}</i>
-                    <i class="d-none d-lg-inline-block">{{ er.created_at | formatDate_MM_DD_HH:mm }}</i>
+                    <b class="d-inline-block d-lg-none">{{ er.created_at | formatDate }}</b>
+                    <b class="d-none d-lg-inline-block">{{ er.created_at | formatDate_MM_DD_HH:mm }}</b>
                 </span>
             </template>
         </b-col>
@@ -123,7 +122,7 @@ export default {
 .row .col:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC; }
 .row .col:nth-child(7) { flex:0 0 20%; max-width:20%; }
 .row .col:nth-child(5) .badge { width:3.8rem; padding:.4rem 0; }
-.row .col i { font-style:normal; }
+.row .col b { font-weight:400; }
 .body .col:nth-child(2) { text-align:left; cursor:pointer; padding-left:2%; }
 .body .col .eq_name { line-height:1rem; }
 .body .col .eq_name .badgetag { line-height: 1.5; }
