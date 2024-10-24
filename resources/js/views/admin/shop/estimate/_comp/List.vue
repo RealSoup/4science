@@ -63,8 +63,7 @@
                 </span>
             </template>
         </b-col>
-    </b-row>
-    <!-- <WinPopUp ref="winPopup"  @onClose="val=>evtCloseWinPopup(val)"  @onRecvEvtFromWinPop="val=>onRecvWinPop(val)" /> -->
+    </b-row>    
 </div>
 </template>
 
@@ -72,8 +71,7 @@
 export default {
     name: 'AdmEstimateIndexList',
     components: { 
-        'sub-string': () => import('@/views/_common/SubString.vue'),
-        // 'WinPopUp': () => import('@/views/_common/WinPopUp'),
+        'sub-string': () => import('@/views/_common/SubString.vue'),  
     },
     props:['list', 'mng_off'],
     filters: {
@@ -91,22 +89,7 @@ export default {
     methods: {
         exeWinPop(url) {
             this.$emit('exe-win-pop', url);
-        },
-        ////////////////////////////////
-        // evtCloseWinPopup( ){
-        //     console.log( "evtCloseWinPopup () ========  ");
-        // },
-        
-        // openWinPop(url){
-        //     this.$refs.winPopup.openWinPop( url, 1700, 900 );
-        // }, 
-        
-        // onRecvWinPop( recvObj ){
-        //     console.log( "onRecvWinPop  ---------" );
-        //     if(recvObj == 'reread') this.index();
-        // },
-
-        // sendToChild(){ this.$refs.winPopup.sendEvtToChild( { msg : 'abcde' } ); },
+        },        
     },
     
             
