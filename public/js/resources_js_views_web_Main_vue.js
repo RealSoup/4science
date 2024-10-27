@@ -196,6 +196,14 @@ var render = function render() {
     }
   }, [_c("b-link", {
     attrs: {
+      to: "/shop/goods?mode=maker&keyword=i-GEST&sort=hot"
+    }
+  }, [_c("b-carousel-slide", {
+    attrs: {
+      "img-src": "/storage/event/2024/1028/slide.jpg"
+    }
+  })], 1), _vm._v(" "), _c("b-link", {
+    attrs: {
       to: "/shop/goods/800994"
     }
   }, [_c("b-carousel-slide", {
@@ -226,29 +234,7 @@ var render = function render() {
     attrs: {
       "img-src": "/storage/event/2023/0918/slide.jpg"
     }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
-      to: "/board/event/show/31"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/main/slide/2023/23041606.jpg"
-    }
-  }, [_c("a", {
-    staticClass: "split_link",
-    attrs: {
-      id: "app01",
-      target: "_blank",
-      href: "https://apps.apple.com/us/app/%ED%8F%AC%EC%82%AC%EC%9D%B4%EC%96%B8%EC%8A%A4/id1632395060?l=ko"
-    }
-  }), _vm._v(" "), _c("a", {
-    staticClass: "split_link",
-    attrs: {
-      id: "app02",
-      target: "_blank",
-      href: "https://play.google.com/store/apps/details?id=four.science.app"
-    }
-  })])], 1)], 1), _vm._v(" "), _c("b-row", {
+  })], 1)], 1), _vm._v(" "), _c("b-row", {
     staticClass: "layout",
     attrs: {
       id: "best"

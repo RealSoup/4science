@@ -239,7 +239,7 @@ export default {
 </script>
 <style lang="css" scoped>
 aside { background-color:#4E647B; padding-top:10px; display:flex; flex-direction:column; position:sticky; left:0; top:0; align-self:flex-start; z-index:1021; height:100vh; }
-aside .sm_view { display:none; position:absolute; bottom:3px; transform:translateX(calc(100vw + 32px)); text-align:right; width:135px; }
+aside .sm_view { display:none; position:fixed; bottom:3px; transform:translateX(calc(100vw + 32px)); text-align:right; width:135px; }
 aside.open .sm_view { transform:translateX(169px); }
 aside header { margin-bottom:10px; }
 aside section { padding:5px 0; }
