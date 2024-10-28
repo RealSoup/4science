@@ -258,12 +258,12 @@
     
     <b-container class="box">
         <h5>최근 주문 내역</h5>
-        <order :list="order" :config="order_config" :mng_off="mng_off" class="cmain" />
+        <order :list="order" :config="order_config" :mng_off="mng_off" class="cmain"></order>
     </b-container>
 
     <b-container class="box">
         <h5>최근 견적 내역</h5>
-        <estimate :list="estimate" :mng_off="mng_off" @exe-win-pop="exeWinPop" class="cmain" />
+        <estimate :list="estimate" :mng_off="mng_off" @exe-win-pop="exeWinPop" class="cmain"></estimate>
     </b-container>
     
 
@@ -271,11 +271,11 @@
         <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="900">
             <template v-if="modalMode=='mileage'">
                 <template slot="header">마일리지 목록</template>
-                <mileage />
+                <mileage></mileage>
             </template>
             <template v-else-if="modalMode=='addr'">
                 <template slot="header">배송지 관리</template>
-                <addr />
+                <addr></addr>
             </template>            
         </modal>
     </transition>
