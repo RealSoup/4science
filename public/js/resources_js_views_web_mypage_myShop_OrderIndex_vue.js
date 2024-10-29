@@ -174,7 +174,6 @@ var render = function render() {
     attrs: {
       data: _vm.order,
       limit: 5,
-      showDisabled: true,
       align: "center"
     },
     on: {
@@ -214,7 +213,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.sch[data-v-8c7cec92] { margin-bottom:2rem;\n}\n@media (max-width: 992px){\n.w_fence[data-v-8c7cec92] { padding-top:0;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.sch[data-v-8c7cec92] { margin-bottom:2rem;\n}\n@media (max-width: 992px){\n.w_fence[data-v-8c7cec92] { padding-top:0;\n}\n.pagination[data-v-8c7cec92] .page-link { min-width:30px !important; padding:.5rem .3rem !important;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

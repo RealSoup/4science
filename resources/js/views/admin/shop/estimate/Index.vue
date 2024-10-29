@@ -220,6 +220,7 @@ export default {
 .p_wrap .frm_sch .sch_input { flex:0 0 51%; max-width:51%; }
 .p_wrap .frm_sch .sch_input select { width:6.579em; }
 @media (max-width: 992px) {
+    .cmain { margin-bottom:3rem; }
     .p_wrap .frm_sch .date_type { flex:0 0 20%; max-width:20%; }    
     .p_wrap .frm_sch >>> .row .period { flex: 0 0 50%; max-width: 50%; }
     .p_wrap .frm_sch .sch_input { flex:0 0 70%; max-width:70%; }

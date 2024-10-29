@@ -12,7 +12,7 @@
         
         <order-list v-model="order.data" :order_config="order_config" />
 
-        <pagination :data="order" @pagination-change-page="index" :limit="5" :showDisabled="true" align="center" class="mt-5">
+        <pagination :data="order" @pagination-change-page="index" :limit="5" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
             <span slot="next-nav"><b-icon-chevron-right /></span>
         </pagination>
@@ -82,5 +82,6 @@ export default {
 .sch { margin-bottom:2rem;  }
 @media (max-width: 992px){
     .w_fence { padding-top:0; }
+    .pagination >>> .page-link { min-width:30px !important; padding:.5rem .3rem !important; }
 }
 </style>

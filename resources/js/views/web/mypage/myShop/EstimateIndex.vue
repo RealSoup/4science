@@ -13,7 +13,7 @@
 
         <estimate-list v-model="estimateReq.data"></estimate-list>
 
-        <pagination :data="estimateReq" @pagination-change-page="index" :limit="5" :showDisabled="true" align="center" class="mt-5">
+        <pagination :data="estimateReq" @pagination-change-page="index" :limit="5" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
             <span slot="next-nav"><b-icon-chevron-right /></span>
         </pagination>
@@ -67,3 +67,9 @@ export default {
     mounted() { this.index(); },
 }
 </script>
+
+<style lang="css" scoped>
+@media (max-width: 992px){
+    .pagination >>> .page-link { min-width:30px !important; padding:.5rem .3rem !important; }
+}
+</style>

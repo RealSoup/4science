@@ -95,7 +95,9 @@ var render = function render() {
       staticClass: "price"
     }, [_vm._v(_vm._s(_vm._f("comma")(od.od_all_price)) + " 원")]), _vm._v(" "), _c("b-col", {
       staticClass: "step"
-    }, [_c("order-step", {
+    }, [_c("div", {
+      staticClass: "m_hide"
+    }, [_vm._v(_vm._s(_vm.order_config.pay_method[od.od_pay_method]))]), _vm._v(" "), _c("order-step", {
       attrs: {
         order_config: _vm.order_config
       },

@@ -23,7 +23,10 @@
             </template>
         </b-col>
         <b-col class="price">{{od.od_all_price | comma}} 원</b-col>
-        <b-col class="step"><order-step v-model="od.od_step" :order_config="order_config" /></b-col>
+        <b-col class="step">
+            <div class="m_hide">{{order_config.pay_method[od.od_pay_method]}}</div>
+            <order-step v-model="od.od_step" :order_config="order_config" />
+        </b-col>
     </b-row>
 </b-container>
 </template>

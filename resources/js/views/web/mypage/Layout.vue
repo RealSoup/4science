@@ -271,18 +271,18 @@ export default {
 .list01 .data .product a div { white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 
 @media (max-width: 992px) {
-    #mypage .middle .mypage { padding:0 10px; flex: 0 0 100%; max-width: 100%; }
-    #mypage .middle .mypage h5 { margin-top:0; }
+    #mypage .middle .mypage { padding:0; flex: 0 0 100%; max-width: 100%; }
+    #mypage .middle .mypage h5 { margin-top:0; margin-top:14px; font-size:1rem; }
     .list01 .header { display:none; }
-    .list01 .row .date { flex: 0 0 30%; max-width: 30%; }
+    .list01 .row .date { flex: 0 0 25%; max-width: 25%; }
     .list01 .data .product { display:none; }
     .list01 .row .num { flex: 0 0 70%; max-width: 70%; }
     .list01 .row .num div { display:inline-block; margin-right:1rem; width:40%; }
     .list01 .row .num .btn { width:30%; }
     .list01 .row .price { flex:0 0 30%; max-width:30%; text-align:center !important;}
-    .list01 .row .step { flex:0 0 30%; max-width:30%; text-align:center !important; }
+    .list01 .row .step { flex:0 0 23%; max-width:23%; text-align:center !important; }
     .list01.order .row .step { margin-left:40%;}
-    .list01.estimate .row>div:last-child { flex:0 0 70%; max-width:70%; }
+    .list01.estimate .row>div:last-child { flex:0 0 52%; max-width:52%; }
     .list01.estimate .row>div:last-child > div { display: flex; justify-content: space-evenly; }
  
 }

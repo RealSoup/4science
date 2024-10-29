@@ -4,9 +4,9 @@
     <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">Loading ......</loading-modal>
     <div v-else>
         <div class="top" v-if="od.mng">
-            <b>담당자/문의</b>&nbsp;&nbsp;
-            {{od.mng.name}}&nbsp;&nbsp; 
-            {{od.mng.tel}}&nbsp;&nbsp; 
+            <b>담당자/문의</b>
+            {{od.mng.name}}
+            {{od.mng.tel}}
             {{od.mng.email}}
         </div>
         <h5>
@@ -179,8 +179,8 @@
         
         <div class="btn_box" v-if="od.od_step < 60 && !isEmpty(od.od_mng)">
             <b-button class="black lg" @click="print">견적서 출력</b-button>
-            <b-button class="gray lg" @click="downEstimateExcel">견적서 EXCEL 다운</b-button>
-            <b-button class="blue lg" @click="downTransactionExcel">거래명세서 EXCEL 다운</b-button>
+            <b-button class="gray lg" @click="downEstimateExcel">견적서 <span>EXCEL 다운</span></b-button>
+            <b-button class="blue lg" @click="downTransactionExcel">거래명세서 <span>EXCEL 다운</span></b-button>
         </div>
     </div>
     
@@ -325,7 +325,7 @@ export default {
 
 <style lang="css" scoped>
 .w_fence { max-width:100%; padding:2rem; border:1px solid #CCC; border-radius:.5rem; margin-top: 3rem; }
-.top { border-top:2px solid #363636; border-bottom:1px solid #B6B6B6; border-right:1px solid #B6B6B6; border-left:1px solid #B6B6B6; padding:0 2rem; line-height:4;}
+.top { border-top:2px solid #363636; border-bottom:1px solid #B6B6B6; border-right:1px solid #B6B6B6; border-left:1px solid #B6B6B6; padding:0 2rem; line-height:4; word-spacing:20px; }
 .goods { border-top:3px solid #4F637B; padding:1em 0; }
 .goods:not(:first-child) { border-top:1px solid #AAA; }
 .goods h4 { font-weight:bolder; font-size:1em; padding:1em 0; border-width:0; }
@@ -364,9 +364,16 @@ export default {
 .extra_info>.row>.col:not(:nth-of-type(1)) { margin-left:-1px; }
 .extra_info>.row>.col .row { margin-left: 0; margin-right: 0; }
 @media (max-width: 992px){
+    .w_fence { padding:.5rem; margin-top:1rem; }
+    .top { padding:0 .3rem; line-height:1.75; word-spacing:6px; letter-spacing:-1px; }
     .goods .gm_box .gd_txt { padding-left:8px; }
+    .goods .gm_box .gd_txt .explain { flex-direction:column; }
+    .goods .gm_box .gd_txt .explain .col:last-child { flex:0 0 100%; max-width:100%; }
+    .total .row .col { flex:0 0 50%; max-width:50%;}
     .extra_info { margin-top:1rem;  }
     .extra_info>.row>.col { flex:0 0 100% !important; max-width:100% !important; }
+    .btn_box .lg { width:100px; }
+    .btn_box .lg span { display:block; }
 }
 
 </style>

@@ -385,5 +385,8 @@ h6 { font-size:1.15rem; font-weight:600; margin-top:2rem; padding-left:2rem; }
 .w_fence .extra .row .col h6 b { color:#0094EA; }
 .w_fence .extra .row .col:nth-child(1) .desc { border:1px solid #D6D6D6; padding:1rem; min-height:calc(3vw + 5rem); }
 .w_fence .extra .row .col .btn { font-size:.85rem; padding:.3rem; }
-
+@media (max-width: 992px){
+    .w_fence .top .row .col { flex:0 0 50%; max-width:50%;  }
+    .w_fence .top .row .col:nth-of-type(4) { flex:0 0 50%; max-width:50%;  }
+}
 </style>

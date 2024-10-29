@@ -9,7 +9,7 @@
     }">
         <adm-left v-if="$store.state.mode == 'adm'
                         && !$route.name.startsWith('adm_estimate_show')
-                        && !['adm_estimate_create', 'adm_estimate_edit'].includes($route.name)" class="lefter">
+                        && !['adm_estimate_create', 'adm_estimate_edit'].includes($route.name)">
         </adm-left>
         <router-view class="main_con"></router-view>
     </main>
@@ -101,7 +101,6 @@ html, body/*, ul, li, ol, input, img, dl, dd, dt, p, div, h1, h2, h3, h4, h5, h6
 { height:100%; margin:0px; padding:0px; font-family:'NanumSquare', Dotum; color: #333; font-size:16px; }
 /*#site.adm{ background:#FADBFB; margin-left:15px; margin-right:15px; padding-bottom:15px; width: calc(100% - 30px);}*/
 #site.adm>main { display:flex; }
-#site.adm>main .lefter { flex:0 0 170px; max-width:170px; }
 #site.adm>main .main_con { flex-basis:0; flex-grow:1; max-width:100%; padding:2.5em; }
 @media (max-width: 992px){ 
     #site.adm>main { display:block; } 
