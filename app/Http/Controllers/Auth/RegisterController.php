@@ -63,7 +63,7 @@ class RegisterController extends Controller {
                 'receive_mail'   => $req->filled('receive_mail') ? $req->receive_mail : 'Y',
                 'level'          => $req->filled('level')        ? $req->level        : 1,
                 'email_verified_at' => ($req->filled('provider') && $req->provider !== '')? \Carbon\Carbon::now() : NULL,
-                'mng'            => $req->filled('rec_id')       ? $req->rec_id       : NULL,
+                'mng'            => $req->filled('rec_id')       ? $req->rec_id       : 0,
             ];
         $rst = User::create($u);
         if ( $req->filled('level') ) {
