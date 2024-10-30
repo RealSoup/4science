@@ -47,8 +47,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         receive_sms: 'Y',
         receive_mail: 'Y',
         file_info: [],
-        code_01: this.$route.query.f_code ? this.$route.query.f_code : ''
+        rec_id: this.$route.query.ucode ? this.$route.query.ucode : ''
+        // https://4science.net/auth/create/personal/?ucode=130
       },
+
       active_mode: 'inter_lock'
     };
   },
@@ -168,8 +170,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     next();
   },
   mounted: function mounted() {
+    console.log(isEmpty(this.$route.query.ucode));
     if (this.$route.params.code == 'dealer') this.frm.level = 11;
     if (this.$route.query.msg_type == 'duplicate') Notify.modal('이미 가입된 이메일입니다. 로그인하여 연동하세요.', 'warning');
+    if (!isEmpty(this.$route.query.ucode)) this.frm.join_route = '담당자 초대';
   }
 });
 

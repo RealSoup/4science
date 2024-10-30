@@ -63,7 +63,7 @@ class RegisterController extends Controller {
                 'receive_mail'   => $req->filled('receive_mail') ? $req->receive_mail : 'Y',
                 'level'          => $req->filled('level')        ? $req->level        : 1,
                 'email_verified_at' => ($req->filled('provider') && $req->provider !== '')? \Carbon\Carbon::now() : NULL,
-                'code_01'        => $req->filled('code_01')      ? $req->code_01      : NULL,
+                'mng'            => $req->filled('rec_id')       ? $req->rec_id       : NULL,
             ];
         $rst = User::create($u);
         if ( $req->filled('level') ) {
@@ -97,5 +97,9 @@ class RegisterController extends Controller {
 
     public function create (Request $req) {
         return response()->json($req->all(), 200);
+    }
+
+    public function createInfo (Request $req) {
+        return response()->json(User::$option, 200);
     }
 }

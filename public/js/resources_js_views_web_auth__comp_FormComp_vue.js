@@ -429,25 +429,6 @@ var render = function render() {
       },
       expression: "value.fax"
     }
-  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
-    staticClass: "label_st",
-    style: {
-      fontSize: "14px",
-      letterSpacing: "-2px",
-      paddingRight: 0
-    }
-  }, [_vm._v("추천 친구 코드")]), _vm._v(" "), _c("b-col", [_c("b-form-input", {
-    model: {
-      value: _vm.value.code_01,
-      callback: function callback($$v) {
-        _vm.$set(_vm.value, "code_01", $$v);
-      },
-      expression: "value.code_01"
-    }
-  }), _vm._v(" "), _c("Validation", {
-    attrs: {
-      error: _vm.$store.state.error.validations.code_01
-    }
   })], 1)], 1), _vm._v(" "), this.$route.name == "auth_create" ? _c("b-row", [_c("b-col", [_c("b-row", {
     staticClass: "agree all_true"
   }, [_c("b-col", [_c("b-form-checkbox", {

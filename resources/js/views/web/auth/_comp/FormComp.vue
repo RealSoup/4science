@@ -102,13 +102,13 @@
             <b-row>
                 <b-col class="label_st">팩스</b-col><b-col><b-form-input v-model="value.fax" :formatter="format_tel" /></b-col>
             </b-row>
-            <b-row>
+            <!-- <b-row>
                 <b-col class="label_st" :style="{fontSize:'14px', letterSpacing:'-2px', paddingRight:0}">추천 친구 코드</b-col>
                 <b-col>
                     <b-form-input v-model="value.code_01" />
                     <Validation :error="$store.state.error.validations.code_01" />
                 </b-col>
-            </b-row>
+            </b-row> -->
 
             <b-row v-if="this.$route.name == 'auth_create'">
                 <b-col>

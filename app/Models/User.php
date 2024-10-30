@@ -55,7 +55,8 @@ class User extends Authenticatable implements MustVerifyEmail {
                             '4' => '주위의 소개',
                             '5' => '학회 및 전시회 부스',
                             '6' => '잡지 소식지',
-                            '7' => '기타', ],
+                            '7' => '담당자 초대',
+                            '8' => '기타', ],
 
         'interest'  => [    '1'  => '생명',
                             '2'  => '광학',
@@ -136,7 +137,7 @@ class User extends Authenticatable implements MustVerifyEmail {
             'company' => ['required'],
             'hp' => ['required', 'regex:/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/'],
             'birth' => ['required', 'regex:/^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/'],
-            'code_01' => ['exists:users,id', 'nullable']
+            'mng' => ['exists:users,id', 'nullable']
         ];
         $message = [
             'name.required' => '이름을 입력하세요.',
@@ -153,7 +154,7 @@ class User extends Authenticatable implements MustVerifyEmail {
             'hp.regex' => '휴대전화 번호 입력형식은 01x-xxx(x)-xxxx 입니다.',
             'birth.required' => '생년월일을 입력하세요',
             'birth.regex' => '생년월일 입력형식은 xxxx-xx-xx 입니다.',
-            'code_01.exists' => '존재하지 않는 추천인 코드입니다.',
+            'mng.exists' => '존재하지 않는 관리자 코드입니다.',
         ];
 
         if ( $isDealer ) {

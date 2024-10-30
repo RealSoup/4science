@@ -61,6 +61,7 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 // Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::GET('emailCheck/{email}', 'Auth\UserController@emailCheck');
 Route::post('register', 'Auth\RegisterController@register');
+Route::GET('auth/create/createInfo', 'Auth\RegisterController@createInfo');
 
 // Password Reset Routes...
 // Route::get('auth/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
@@ -86,6 +87,7 @@ Route::post('social/socialUserJoin', ['as' => 'social.socialUserJoin', 'uses' =>
 Route::post('social/connectExistAccount', ['as' => 'social.connectExistAccount', 'uses' => 'Auth\SocialController@connectExistAccount']);
 Route::post('auth/create/{code}', 'Auth\SocialController@socialUserJoin')->name('auth.create');
 Route::post('auth/join_sync_choice', 'Auth\SocialController@socialUserJoin')->name('auth.join_sync_choice');
+
 
 Route::prefix('shop')->group(function () {
     Route::prefix('order')->group(function () {

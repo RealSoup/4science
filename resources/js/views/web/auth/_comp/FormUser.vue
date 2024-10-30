@@ -31,7 +31,7 @@
             <b-row>
                 <b-col class="slt_item" id="join_route">
                     <div class="mb-1">가입경로 <b class="need" /></div>
-                    <b-form-radio-group v-model="value.join_route" :options="join_route" />
+                    <b-form-radio-group v-model="value.join_route" :options="cp_join_route" />
                 </b-col>
             </b-row>   
         </b-container>
@@ -39,10 +39,12 @@
 </template>
 
 <script>
+import ax from '@/api/http';
 export default {
     props: ['value'],
     data() {
         return {
+            info:[],
             job:[
                 { value:"",              text:"▣ 직업 선택 ▣" },
                 { value:"교수",           text:"교수" },
@@ -84,6 +86,24 @@ export default {
                 { value:"잡지 소식지",          text:"잡지 소식지" },
                 { value:"기타",                 text:"기타" },
             ],
+        }
+    },
+    computed: {
+        cp_join_route: function () {
+            let dummy = [];
+            for (let i in this.info.join_route)
+                dummy.push({ value: this.info.join_route[i], text: this.info.join_route[i] });            
+            return dummy;
+        },
+    },
+    async mounted() {
+        try {
+            const res = await ax.get(`/auth/create/createInfo`);
+            if (res && res.status === 200)
+                this.info = res.data;            
+        } catch (e) {
+            Notify.consolePrint(e);
+            Notify.toast('warning', e.responsee);
         }
     },
 }
