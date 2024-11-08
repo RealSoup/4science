@@ -1,25 +1,32 @@
 <template>
 <div>
+    
     <pop-up></pop-up> <!-- 팝업 -->
-    <b-carousel controls indicators class="slide_banner">
+    <b-carousel controls indicators :interval='0' class="slide_banner">
         <!-- <b-carousel-slide :img-src="s3url+'event/2023/0901/slide.jpg'" class="evt01">
             <router-link to="/shop/goods/616504" id="evt01_1" class="split_evt01"></router-link>
             <router-link to="/shop/goods/616505" id="evt01_2" class="split_evt01"></router-link>
         </b-carousel-slide> -->
+        <!-- this.$store.state.common.deviceType -->
         <b-link to="/shop/goods?mode=maker&keyword=i-GEST&sort=hot">
-            <b-carousel-slide img-src="/storage/event/2024/1028/slide.jpg"></b-carousel-slide>
+            <b-carousel-slide v-if="deviceType=='pc'" img-src="/storage/event/2024/1028/slide.jpg"></b-carousel-slide>
+            <b-carousel-slide v-else-if="deviceType=='mobile'" img-src="/storage/event/2024/1028/estimate.jpg"></b-carousel-slide>
         </b-link>
         <b-link to="/shop/goods/800994">
-            <b-carousel-slide img-src="/storage/event/2024/1015/slide.jpg"></b-carousel-slide>
+            <b-carousel-slide v-if="deviceType=='pc'" img-src="/storage/event/2024/1015/slide.jpg"></b-carousel-slide>
+            <b-carousel-slide v-else-if="deviceType=='mobile'" img-src="/storage/event/2024/1015/sign.jpg"></b-carousel-slide>
         </b-link>
-        <b-link to="/board/notice/show/55">
-            <b-carousel-slide img-src="/storage/main/slide/2024/0108.png"></b-carousel-slide>
+        <b-link to="/board/notice/show/55" v-if="deviceType=='pc'">
+            <b-carousel-slide v-if="deviceType=='pc'" img-src="/storage/main/slide/2024/0108.png"></b-carousel-slide>
+            <b-carousel-slide v-else-if="deviceType=='mobile'" img-src="/storage/main/slide/2024/0108.png"></b-carousel-slide>
         </b-link>
-        <b-link to="/shop/rental">
-            <b-carousel-slide img-src="/storage/event/2023/1208/slide.jpg"></b-carousel-slide>
+        <b-link to="/shop/rental" v-if="deviceType=='pc'">
+            <b-carousel-slide v-if="deviceType=='pc'" img-src="/storage/event/2023/1208/slide.jpg"></b-carousel-slide>
+            <b-carousel-slide v-else-if="deviceType=='mobile'" img-src="/storage/event/2023/1208/sign.jpg"></b-carousel-slide>
         </b-link>
         <b-link to="/shop/goods?mode=maker&keyword=radwag">
-            <b-carousel-slide img-src="/storage/event/2023/0918/slide.jpg"></b-carousel-slide>
+            <b-carousel-slide v-if="deviceType=='pc'" img-src="/storage/event/2023/0918/slide.jpg"></b-carousel-slide>
+            <b-carousel-slide v-else-if="deviceType=='mobile'" img-src="/storage/event/2023/0918/sign.jpg"></b-carousel-slide>
         </b-link>
     </b-carousel>
 
@@ -161,6 +168,7 @@ export default {
             return dummy;
         },
         ...mapState('category', ['category']),
+        ...mapState('common', ['deviceType']),
         filteredCategories () { return this.category.filter(ca => ![38].includes(ca.ca_id)); },
         slide_check01() { return this.date01 < this.date_now && this.date_now < this.date02; },
         slide_check02() { return this.date02 < this.date_now; },
@@ -325,6 +333,9 @@ export default {
     .byCate .con .row .list .col { padding:5px; flex: 0 0 25%; max-width: 25%; }
     .byCate .con .row .list .col img { width:100%; height:80px; }
     .byCate .con .row .list .col p { font-size: calc(.3vw + .7rem); margin:0; height:auto; }
+}
+@media (max-width: 768px){
+    .slide_banner >>> .carousel-inner { max-width:450px; width:100%; }
 }
 </style>
 
