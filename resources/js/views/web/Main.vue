@@ -8,26 +8,43 @@
             <router-link to="/shop/goods/616505" id="evt01_2" class="split_evt01"></router-link>
         </b-carousel-slide> -->
         <!-- this.$store.state.common.deviceType -->
-        <b-link to="/shop/goods?mode=maker&keyword=i-GEST&sort=hot">
-            <b-carousel-slide v-if="deviceType=='pc'" img-src="/storage/event/2024/1028/slide.jpg"></b-carousel-slide>
-            <b-carousel-slide v-else-if="deviceType=='mobile'" img-src="/storage/event/2024/1028/estimate.jpg"></b-carousel-slide>
-        </b-link>
-        <b-link to="/shop/goods/800994">
-            <b-carousel-slide v-if="deviceType=='pc'" img-src="/storage/event/2024/1015/slide.jpg"></b-carousel-slide>
-            <b-carousel-slide v-else-if="deviceType=='mobile'" img-src="/storage/event/2024/1015/sign.jpg"></b-carousel-slide>
-        </b-link>
-        <b-link to="/board/notice/show/55" v-if="deviceType=='pc'">
-            <b-carousel-slide v-if="deviceType=='pc'" img-src="/storage/main/slide/2024/0108.png"></b-carousel-slide>
-            <b-carousel-slide v-else-if="deviceType=='mobile'" img-src="/storage/main/slide/2024/0108.png"></b-carousel-slide>
-        </b-link>
-        <b-link to="/shop/rental" v-if="deviceType=='pc'">
-            <b-carousel-slide v-if="deviceType=='pc'" img-src="/storage/event/2023/1208/slide.jpg"></b-carousel-slide>
-            <b-carousel-slide v-else-if="deviceType=='mobile'" img-src="/storage/event/2023/1208/sign.jpg"></b-carousel-slide>
-        </b-link>
-        <b-link to="/shop/goods?mode=maker&keyword=radwag">
-            <b-carousel-slide v-if="deviceType=='pc'" img-src="/storage/event/2023/0918/slide.jpg"></b-carousel-slide>
-            <b-carousel-slide v-else-if="deviceType=='mobile'" img-src="/storage/event/2023/0918/sign.jpg"></b-carousel-slide>
-        </b-link>
+
+        <template v-if="deviceType=='pc'">
+            <b-link to="/shop/goods?ca01=45&sort=hot">
+                <b-carousel-slide img-src="/storage/event/2024/1111/slide.jpg"></b-carousel-slide>
+            </b-link>            
+            <b-link to="/shop/goods?mode=maker&keyword=i-GEST&sort=hot">
+                <b-carousel-slide img-src="/storage/event/2024/1028/slide.jpg"></b-carousel-slide>
+            </b-link>
+            <b-link to="/shop/goods/800994">
+                <b-carousel-slide img-src="/storage/event/2024/1015/slide.jpg"></b-carousel-slide>
+            </b-link>
+            <b-link to="/board/notice/show/55">
+                <b-carousel-slide img-src="/storage/main/slide/2024/0108.png"></b-carousel-slide>
+            </b-link>
+            <b-link to="/shop/rental">
+                <b-carousel-slide img-src="/storage/event/2023/1208/slide.jpg"></b-carousel-slide>
+            </b-link>
+            <b-link to="/shop/goods?mode=maker&keyword=radwag">
+                <b-carousel-slide img-src="/storage/event/2023/0918/slide.jpg"></b-carousel-slide>
+            </b-link>
+        </template>
+
+        <template v-if="deviceType=='mobile'">
+            <b-link to="/shop/goods?ca01=45&sort=hot">
+                <b-carousel-slide img-src="/storage/event/2024/1111/sign.jpg"></b-carousel-slide>
+            </b-link>
+            <b-link to="/shop/goods?mode=maker&keyword=i-GEST&sort=hot">
+                <b-carousel-slide img-src="/storage/event/2024/1028/estimate.jpg"></b-carousel-slide>
+            </b-link>
+            <b-link to="/shop/goods/800994">
+                <b-carousel-slide img-src="/storage/event/2024/1015/sign.jpg"></b-carousel-slide>
+            </b-link>
+            <b-link to="/shop/goods?mode=maker&keyword=radwag">
+                <b-carousel-slide img-src="/storage/event/2023/0918/sign.jpg"></b-carousel-slide>
+            </b-link>
+        </template>
+
     </b-carousel>
 
     <b-row id="best" class="layout">
