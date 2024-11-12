@@ -109,3 +109,7 @@ export default {
 }
 
 </script>
+
+<style lang="css" scoped>
+.form_box .extra .slt_item input { width:100%; max-width:400px; display:inline-block; }
+</style>

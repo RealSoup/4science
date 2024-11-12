@@ -4,13 +4,13 @@
         <h4>01. 기본정보</h4>
         <b-container class="frm_vali_st">
             <b-row class="add_col">
-                <b-col class="label_st">이메일<b class="need" /></b-col>
+                <b-col class="label_st">이메일<b class="need"></b></b-col>
                 <b-col class="email">                        
                     <validation-provider name="이메일" rules="required|email" v-slot="validationContext">
-                        <b-form-input type="email" id="email" v-model="value.email" :state="getValidationState(validationContext)" :readonly="$route.name == 'my_user_edit'" />
+                        <b-form-input type="email" id="email" v-model="value.email" :state="getValidationState(validationContext)" :readonly="$route.name == 'my_user_edit'"></b-form-input>
                         <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </validation-provider>
-                    <Validation :error="$store.state.error.validations.email" />
+                    <Validation :error="$store.state.error.validations.email"></Validation>
                 </b-col>
                 <b-col class="accept_contact">
                     <b-form-checkbox v-model="value.receive_mail" id="receive_mail" value="Y" unchecked-value="N" size="sm">
@@ -21,33 +21,33 @@
                 </b-col>
             </b-row>
             <b-row class="add_col">
-                <b-col class="label_st">비밀번호<b class="need" /></b-col>
+                <b-col class="label_st">비밀번호<b class="need"></b></b-col>
                 <b-col>
                     <!-- vid <= 이건 오타가 아니라 비밀번호 확인시 유효성 검증을 위한 키워드이다 (  Validation ID) -->
                     <validation-provider vid="password" name="비밀번호" rules="required|min:6|pwCheck" v-slot="validationContext">
-                        <b-form-input type="password" id="password" placeholder="6자 영문, 숫자" v-model="value.password" :state="getValidationState(validationContext)" />
+                        <b-form-input type="password" id="password" placeholder="6자 영문, 숫자" v-model="value.password" :state="getValidationState(validationContext)"></b-form-input>
                         <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </validation-provider>
-                    <Validation :error="$store.state.error.validations.password" />
+                    <Validation :error="$store.state.error.validations.password"></Validation>
                 </b-col>
                 <b-col>
                     <validation-provider name="비밀번호 확인" rules="required|confirmed:password" v-slot="validationContext">
-                        <b-form-input type="password" id="password_confirmation" placeholder="비밀번호 확인" v-model="value.password_confirmation" :state="getValidationState(validationContext)" />
+                        <b-form-input type="password" id="password_confirmation" placeholder="비밀번호 확인" v-model="value.password_confirmation" :state="getValidationState(validationContext)"></b-form-input>
                         <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </validation-provider>
-                    <Validation :error="$store.state.error.validations.password_confirmation" />
+                    <Validation :error="$store.state.error.validations.password_confirmation"></Validation>
                 </b-col>
             </b-row>
             
 
             <b-row>
-                <b-col class="label_st">이름<b class="need" /></b-col>
+                <b-col class="label_st">이름<b class="need"></b></b-col>
                 <b-col>
                     <validation-provider name="이름" rules="required|min:2|korAlphaNum" v-slot="validationContext" >
-                        <b-form-input id="name" v-model="value.name" :state="getValidationState(validationContext)" />
+                        <b-form-input id="name" v-model="value.name" :state="getValidationState(validationContext)"></b-form-input>
                         <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </validation-provider>
-                    <Validation :error="$store.state.error.validations.name" />
+                    <Validation :error="$store.state.error.validations.name"></Validation>
                 </b-col>
                 <!-- <b-col>
                     <b-form-radio-group id="sex" v-model="value.sex" :options="sex" />
@@ -55,38 +55,38 @@
                 </b-col>-->
             </b-row>
             <b-row>
-                <b-col class="label_st">생년월일<b class="need" /></b-col>
+                <b-col class="label_st">생년월일<b class="need"></b></b-col>
                 <b-col>
                     <validation-provider name="생년월일" rules="required" v-slot="validationContext">
                         <b-input-group>
-                            <b-form-input id="birth" v-model="value.birth" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="format_date" :state="getValidationState(validationContext)" />
+                            <b-form-input id="birth" v-model="value.birth" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="format_date" :state="getValidationState(validationContext)"></b-form-input>
                             <b-input-group-append>
                                 <b-form-datepicker v-model="value.birth" button-only right :value="'2019-01-01'"></b-form-datepicker>
                             </b-input-group-append>
                         </b-input-group>
                         <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </validation-provider>
-                    <Validation :error="$store.state.error.validations.birth" />
+                    <Validation :error="$store.state.error.validations.birth"></Validation>
                 </b-col>
             </b-row>
             <b-row>
-                <b-col class="label_st">직장/학교<b class="need" /></b-col>
+                <b-col class="label_st">직장/학교<b class="need"></b></b-col>
                 <b-col>                    
                     <validation-provider name="직장명/학교명" rules="required" v-slot="validationContext">
-                        <b-form-input id="company" v-model="value.company" :state="getValidationState(validationContext)" />
+                        <b-form-input id="company" v-model="value.company" :state="getValidationState(validationContext)"></b-form-input>
                         <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </validation-provider>
-                    <Validation :error="$store.state.error.validations.company" />
+                    <Validation :error="$store.state.error.validations.company"></Validation>
                 </b-col>
             </b-row>
             <b-row class="add_col">
-                <b-col class="label_st">휴대폰<b class="need" /></b-col>
+                <b-col class="label_st">휴대폰<b class="need"></b></b-col>
                 <b-col>
                     <validation-provider name="휴대폰" rules="required" v-slot="validationContext">
-                        <b-form-input id="hp" v-model="value.hp" :formatter="format_hp" :state="getValidationState(validationContext)"  />
+                        <b-form-input id="hp" v-model="value.hp" :formatter="format_hp" :state="getValidationState(validationContext)"></b-form-input>
                         <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </validation-provider>
-                    <Validation :error="$store.state.error.validations.hp" />
+                    <Validation :error="$store.state.error.validations.hp"></Validation>
                 </b-col>
                 <b-col class="accept_contact">
                     <b-form-checkbox v-model="value.receive_sms" id="receive_sms" value="Y" unchecked-value="N" size="sm">
@@ -97,10 +97,10 @@
                 </b-col>
             </b-row>
             <b-row>
-                <b-col class="label_st">전화</b-col><b-col><b-form-input v-model="value.tel" :formatter="format_tel" /></b-col>
+                <b-col class="label_st">전화</b-col><b-col><b-form-input v-model="value.tel" :formatter="format_tel"></b-form-input></b-col>
             </b-row>
             <b-row>
-                <b-col class="label_st">팩스</b-col><b-col><b-form-input v-model="value.fax" :formatter="format_tel" /></b-col>
+                <b-col class="label_st">팩스</b-col><b-col><b-form-input v-model="value.fax" :formatter="format_tel"></b-form-input></b-col>
             </b-row>
             <!-- <b-row>
                 <b-col class="label_st" :style="{fontSize:'14px', letterSpacing:'-2px', paddingRight:0}">추천 친구 코드</b-col>
