@@ -2,15 +2,7 @@
 <b-container id="mypage">
     <h2>
         마이페이지
-        <b-button class="xm teal" @click="$store.dispatch('auth/logout')">로그아웃</b-button>
-        <!-- <small>
-            <b-button class="xm teal" @click="copyToClipboard(`https://4science.net/auth/create/personal?f_code=${user.id}`)">
-                <font-awesome-icon icon="copy" />
-                친구 초대 주소 복사
-            </b-button>
-            ▶ https://4science.net/auth/create/personal?f_code={{user.id}}
-        </small> -->
-        
+        <b-button class="xm teal" @click="$store.dispatch('auth/logout')">로그아웃</b-button>        
         <b-button v-b-toggle.mymenu id="menu_btn" class="teal sm">Menu</b-button>
     </h2>
     <b-row class="top">
