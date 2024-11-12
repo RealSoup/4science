@@ -61,7 +61,6 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 // Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::GET('emailCheck/{email}', 'Auth\UserController@emailCheck');
 Route::post('register', 'Auth\RegisterController@register');
-Route::GET('auth/create/createInfo', 'Auth\RegisterController@createInfo');
 
 // Password Reset Routes...
 // Route::get('auth/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
@@ -110,7 +109,8 @@ Route::get('/test/mail_display', 'TestController@mail_display');
 Route::get('/test/merck_upload', 'TestController@merck_upload');
 Route::post('/test/download',    'TestController@download');
 
-Route::POST('auth/user/find_email',    'Auth\UserController@find_email');
+Route::POST('auth/user/find_email',     'Auth\UserController@find_email');
+Route::GET('auth/user/createInfo',      'Auth\UserController@createInfo');
 Route::get('/admin/realsoup', 'Admin\RealsoupController@index');
 Route::get('/admin/realsoup/test', 'Admin\RealsoupController@test');
 Route::get('/admin/realsoup/play', 'Admin\RealsoupController@play');

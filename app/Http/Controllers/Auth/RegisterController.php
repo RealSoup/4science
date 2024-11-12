@@ -98,8 +98,4 @@ class RegisterController extends Controller {
     public function create (Request $req) {
         return response()->json($req->all(), 200);
     }
-
-    public function createInfo (Request $req) {
-        return response()->json(User::$option, 200);
-    }
 }

@@ -151,9 +151,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/auth/create/createInfo");
+            return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/auth/user/createInfo");
           case 3:
             res = _context.sent;
+            // console.log(res);
+
             if (res && res.status === 200) _this.info = res.data;
             _context.next = 11;
             break;

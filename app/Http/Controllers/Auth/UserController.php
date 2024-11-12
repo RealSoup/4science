@@ -169,4 +169,8 @@ class UserController extends Controller {
             ->latest()
             ->get(); 
     }
+
+    public function createInfo (Request $req) {
+        return response()->json(User::$option, 200);
+    }
 }

@@ -31,7 +31,7 @@
             <b-row>
                 <b-col class="slt_item" id="join_route">
                     <div class="mb-1">가입경로 <b class="need" /></div>
-                    <b-form-radio-group v-model="value.join_route" :options="cp_join_route" />
+                    <b-form-radio-group v-model="value.join_route" :options="cp_join_route"></b-form-radio-group>
                 </b-col>
             </b-row>   
         </b-container>
@@ -98,7 +98,9 @@ export default {
     },
     async mounted() {
         try {
-            const res = await ax.get(`/auth/create/createInfo`);
+            const res = await ax.get(`/auth/user/createInfo`);
+            // console.log(res);
+            
             if (res && res.status === 200)
                 this.info = res.data;            
         } catch (e) {
