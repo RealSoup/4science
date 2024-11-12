@@ -215,8 +215,7 @@ export default {
     .b-sidebar-outer >>> .b-sidebar .b-sidebar-header { display:none; }
 }
 
-@media (max-width: 992px) {
-    /*.left .b-sidebar-outer >>> .b-sidebar { display: none; }*/
+@media (max-width: 992px) {   
     .container h2 { margin: 1rem; font-size:calc(1vw + 1rem); }
     #mypage .top { flex-direction:column; }
     #mypage .top>.col { display:flex; justify-content:flex-start; padding:0 .4em; align-items: center; }
