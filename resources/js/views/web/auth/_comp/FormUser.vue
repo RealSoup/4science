@@ -3,34 +3,34 @@
         <h4>02. 추가정보</h4>
         <b-container class="frm_vali_st">
             <b-row>
-                <b-col class="label_st">직업</b-col><b-col><b-form-select v-model="value.job" :options="job" /></b-col>
+                <b-col class="label_st">직업</b-col><b-col><b-form-select v-model="value.job" :options="job"></b-form-select></b-col>
             </b-row>
             <b-row>
-                <b-col class="label_st">부서/학과/연구실명</b-col><b-col><b-form-input v-model="value.part" /></b-col>
+                <b-col class="label_st">부서/학과/연구실명</b-col><b-col><b-form-input v-model="value.part"></b-form-input></b-col>
             </b-row>
             <b-row>
-                <b-col class="label_st">직급/학년</b-col><b-col><b-form-input v-model="value.grade" /></b-col>
+                <b-col class="label_st">직급/학년</b-col><b-col><b-form-input v-model="value.grade"></b-form-input></b-col>
             </b-row>
             <b-row>
-                <b-col class="label_st">지도교수님</b-col><b-col><b-form-input v-model="value.tutor" /></b-col>
+                <b-col class="label_st">지도교수님</b-col><b-col><b-form-input v-model="value.tutor"></b-form-input></b-col>
             </b-row>
             <b-row>
-                <b-col class="label_st">추천인 Email</b-col><b-col><b-form-input v-model="value.offer" /></b-col>
+                <b-col class="label_st">추천인 Email</b-col><b-col><b-form-input v-model="value.offer"></b-form-input></b-col>
             </b-row>
             <b-row>
-                <b-col class="label_st">추천인 연구실</b-col><b-col><b-form-input v-model="value.offer_lab" /></b-col>
+                <b-col class="label_st">추천인 연구실</b-col><b-col><b-form-input v-model="value.offer_lab"></b-form-input></b-col>
             </b-row>
             <b-row>
                 <b-col class="slt_item">
                     <b-form-group label="관심분야">
                         <b-form-checkbox-group v-model="value.interest" :options="interest" name="interest"></b-form-checkbox-group>
-                        <span>기타</span> <input v-model="value.interest_etc" />
+                        <span>기타</span> <b-form-input v-model="value.interest_etc"></b-form-input>
                     </b-form-group>
                 </b-col>
             </b-row>
             <b-row>
                 <b-col class="slt_item" id="join_route">
-                    <div class="mb-1">가입경로 <b class="need" /></div>
+                    <div class="mb-1">가입경로 <b class="need"></b></div>
                     <b-form-radio-group v-model="value.join_route" :options="cp_join_route"></b-form-radio-group>
                 </b-col>
             </b-row>   
@@ -98,9 +98,7 @@ export default {
     },
     async mounted() {
         try {
-            const res = await ax.get(`/auth/user/createInfo`);
-            // console.log(res);
-            
+            const res = await ax.get(`/auth/user/createInfo`);            
             if (res && res.status === 200)
                 this.info = res.data;            
         } catch (e) {
