@@ -23,7 +23,7 @@
             <b-row>
                 <b-col class="slt_item">
                     <b-form-group label="관심분야">
-                        <b-form-checkbox-group v-model="value.interest" :options="interest" name="interest" />
+                        <b-form-checkbox-group v-model="value.interest" :options="interest" name="interest"></b-form-checkbox-group>
                         <span>기타</span> <input v-model="value.interest_etc" />
                     </b-form-group>
                 </b-col>
