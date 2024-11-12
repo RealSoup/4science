@@ -29,8 +29,6 @@ export default {
     },
     methods: {
         async update(){
-            // const isValid = await this.$refs.observer.validate();
-            // if (isValid) {
                 try {
                     this.frm._method = 'PATCH';
                     
@@ -48,7 +46,6 @@ export default {
                     Notify.consolePrint(e);
                     Notify.toast('warning', e.response.data.message);
                 }
-            // }
         },
         
     },

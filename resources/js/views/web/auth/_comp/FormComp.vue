@@ -49,10 +49,6 @@
                     </validation-provider>
                     <Validation :error="$store.state.error.validations.name"></Validation>
                 </b-col>
-                <!-- <b-col>
-                    <b-form-radio-group id="sex" v-model="value.sex" :options="sex" />
-                    <Validation :error="$store.state.error.validations.sex" />
-                </b-col>-->
             </b-row>
             <b-row>
                 <b-col class="label_st">생년월일<b class="need"></b></b-col>
@@ -102,13 +98,6 @@
             <b-row>
                 <b-col class="label_st">팩스</b-col><b-col><b-form-input v-model="value.fax" :formatter="format_tel"></b-form-input></b-col>
             </b-row>
-            <!-- <b-row>
-                <b-col class="label_st" :style="{fontSize:'14px', letterSpacing:'-2px', paddingRight:0}">추천 친구 코드</b-col>
-                <b-col>
-                    <b-form-input v-model="value.code_01" />
-                    <Validation :error="$store.state.error.validations.code_01" />
-                </b-col>
-            </b-row> -->
 
             <b-row v-if="this.$route.name == 'auth_create'">
                 <b-col>
