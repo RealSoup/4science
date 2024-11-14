@@ -244,7 +244,7 @@ export default {
 .w_fence .head .col { font-weight:bold; text-align:center; font-size:.9rem; }
 .w_fence .body .cart_data { border-bottom:1px solid #D7D7D7; }
 .w_fence .body .row.model { height:150px; }
-.w_fence .body .row.option { height:50px !important; background-color:#F4F1EC; }
+.w_fence .body .row.option { min-height:50px !important; background-color:#F4F1EC; }
 .w_fence .body .row.no_ea { background: #FFCCCC; }
 .w_fence .body .row.no_ea::before { color:#FF0000; content:"재고 부족"; position:absolute; z-index:2; font-weight:900; font-size:2.5em; left:50%; transform:rotateZ(-21deg); } 
 .w_fence .body .row .col,
@@ -307,10 +307,10 @@ export default {
     .w_fence .cart_data .col:nth-child(2) { flex:0 0 22%; max-width:22%; }
     .w_fence .cart_data .col:nth-child(3) { flex:0 0 68%; max-width:68%; padding-left:10px !important; }
     .w_fence .cart_data .col:nth-child(4) { flex:0 0 30%; max-width:30%; font-size: calc(1vw + .6rem); }
-    .w_fence .cart_data .col:nth-child(5) { flex:0 0 30%; max-width:30%; font-size: calc(1vw + .6rem); }
-    .w_fence .cart_data .col:nth-child(6) { flex:0 0 40%; max-width:40%; }
-    .w_fence .cart_data .col:nth-child(7) { flex:0 0 60%; max-width:60%; font-size: calc(1.4vw + .7rem); text-align:right; }
-    .w_fence .cart_data .col:nth-child(8) { flex:0 0 40%; max-width:40%; }
+    .w_fence .cart_data .col:nth-child(5) { flex:0 0 30%; max-width:30%; font-size: calc(1vw + .6rem); margin-left:auto; }
+    .w_fence .cart_data .col:nth-child(6) { flex:0 0 40%; max-width:100px; }
+    .w_fence .cart_data .col:nth-child(7) { flex:0 0 60%; max-width:60%; font-size: calc(1.4vw + .7rem); text-align:right; margin-left:auto; }
+    .w_fence .cart_data .col:nth-child(8) { flex:0 0 40%; max-width:60px; }
     .w_fence .cart_data .col:nth-child(8) .btn { padding:0 .2rem;  border-radius:.2rem; }
     
     .w_fence .body .row.model { min-height:150px; height:auto; padding:15px 0; }
