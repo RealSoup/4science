@@ -8,7 +8,9 @@
         
         <sch-date v-model="frm" class="sch mb-1">
             <b-col slot="prev" cols="0" lg="3"></b-col>
-            <b-button slot="after" class="gray col col-1 mx-1" @click="index">검색</b-button>
+            <b-col slot="after" col cols="1">
+                <b-button class="gray" @click="index">검색</b-button>
+            </b-col>
         </sch-date>
 
         <estimate-list v-model="estimateReq.data"></estimate-list>

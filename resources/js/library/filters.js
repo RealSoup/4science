@@ -12,10 +12,11 @@ Vue.filter('capitalize', function (value) {
     return value.charAt(0).toUpperCase() + value.slice(1)
 });
 
+Vue.filter('formatDate_MM_DD', function (dt) { if (dt)           return moment(String(dt), 'YYYY-MM-DD HH:mm').format('MM-DD'); });
 Vue.filter('formatDate_YY_MM_DD', function (dt) { if (dt)       return moment(String(dt), 'YYYY-MM-DD HH:mm').format('YY-MM-DD'); });
 Vue.filter('formatDate_YYYY_MM_DD', function (dt) { if (dt)     return moment(String(dt), 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD'); });
 Vue.filter('formatDate_MM_DD_HH:mm', function (dt) { if (dt)    return moment(String(dt), 'YYYY-MM-DD HH:mm').format('MM-DD HH:mm'); });
-Vue.filter('formatDate_YY_MM_DD_HH:mm', function (dt) { if (dt)    return moment(String(dt), 'YYYY-MM-DD HH:mm').format('YY-MM-DD HH:mm'); });
+Vue.filter('formatDate_YY_MM_DD_HH:mm', function (dt) { if (dt) return moment(String(dt), 'YYYY-MM-DD HH:mm').format('YY-MM-DD HH:mm'); });
 Vue.filter('formatDate', function (dt) {
     if (dt){
         // console.log(dt);

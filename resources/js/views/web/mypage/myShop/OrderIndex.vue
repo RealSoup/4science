@@ -81,7 +81,7 @@ export default {
 <style scoped>
 .sch { margin-bottom:2rem;  }
 @media (max-width: 992px){
-    .w_fence { padding-top:0; }
+    .w_fence { padding:0; }
     .pagination >>> .page-link { min-width:30px !important; padding:.5rem .3rem !important; }
 }
 </style>

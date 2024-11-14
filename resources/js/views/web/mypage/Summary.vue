@@ -1,14 +1,16 @@
-<template lang="html">
+<template>
     <div>
         <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
             Loading ......
         </loading-modal>
         <template v-else>
             <h5>최근 주문 내역 <small>최근 주문 5개를 보여줍니다.</small></h5>
-            <order-list v-model="order" :order_config="order_config" />
+            <order-list v-if="order.length" v-model="order" :order_config="order_config" />
+            <p v-else class="haveNo">최근 주문 없음.</p>
             <br class="m_show" /> <br class="m_show" />
             <h5>최근 견적 내역 <small>최근 견적 5개를 보여줍니다.</small></h5>
-            <estimate-list v-model="estimateReq" />
+            <estimate-list v-if="estimateReq.length" v-model="estimateReq" />
+            <p v-else class="haveNo">최근 견적 없음.</p>
         </template>
     </div>
 </template>
@@ -45,5 +47,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
+.haveNo { color:#BBB; font-weight:bold; text-align:center; }
 </style>

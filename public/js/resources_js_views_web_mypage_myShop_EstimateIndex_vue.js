@@ -137,16 +137,19 @@ var render = function render() {
       lg: "3"
     },
     slot: "prev"
-  }), _vm._v(" "), _c("b-button", {
-    staticClass: "gray col col-1 mx-1",
+  }), _vm._v(" "), _c("b-col", {
     attrs: {
-      slot: "after"
-    },
-    on: {
-      click: _vm.index
+      slot: "after",
+      col: "",
+      cols: "1"
     },
     slot: "after"
-  }, [_vm._v("검색")])], 1), _vm._v(" "), _c("estimate-list", {
+  }, [_c("b-button", {
+    staticClass: "gray",
+    on: {
+      click: _vm.index
+    }
+  }, [_vm._v("검색")])], 1)], 1), _vm._v(" "), _c("estimate-list", {
     model: {
       value: _vm.estimateReq.data,
       callback: function callback($$v) {

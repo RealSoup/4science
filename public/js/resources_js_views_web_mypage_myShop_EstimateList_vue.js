@@ -11,13 +11,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['value'],
   components: {
     'estimate-step': function estimateStep() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage__comp_EstimateStep_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../_comp/EstimateStep.vue */ "./resources/js/views/web/mypage/_comp/EstimateStep.vue"));
     }
-  }
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('common', ['deviceType']))
 });
 
 /***/ }),
@@ -54,7 +63,7 @@ var render = function render() {
       staticClass: "data"
     }, [_c("b-col", {
       staticClass: "date"
-    }, [_vm._v(_vm._s(_vm._f("formatDate_YY_MM_DD")(eq.created_at)))]), _vm._v(" "), _c("b-col", {
+    }, [_vm.deviceType == "pc" ? [_vm._v(_vm._s(_vm._f("formatDate_YY_MM_DD")(eq.created_at)))] : _vm._e(), _vm._v(" "), _vm.deviceType == "mobile" ? [_vm._v(_vm._s(_vm._f("formatDate_MM_DD")(eq.created_at)))] : _vm._e()], 2), _vm._v(" "), _c("b-col", {
       staticClass: "product"
     }, [eq.estimate_model.length ? [_vm._l(eq.estimate_model, function (em, i) {
       return [i < 5 ? _c("b-link", {
@@ -142,7 +151,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.list01 .data .col .btn[data-v-059469b9] { padding:.1rem .2rem; font-size:.8rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.list01 .data .col .btn[data-v-059469b9] { padding:.1rem .2rem; font-size:.8rem;\n}\n@media (max-width: 992px) {\n.list01 .row[data-v-059469b9] { align-items:flex-start;\n}\n.list01 .row .date[data-v-059469b9] { flex:0 0 15%; max-width:15%;\n}\n.list01 .data .product[data-v-059469b9] { display:none;\n}\n.list01 .row .step[data-v-059469b9] { flex:0 0 20%; max-width:20%; text-align:center !important;\n}\n.list01 .data .col .btn[data-v-059469b9] { min-width:60px; margin-left:5px;\n}\n.list01.estimate .row>div[data-v-059469b9]:last-child { flex:0 0 65%; max-width:65%; text-align:right; padding-right:5px !important;\n}\n.list01.estimate .row>div:last-child > div[data-v-059469b9] { display:flex; justify-content:flex-end;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

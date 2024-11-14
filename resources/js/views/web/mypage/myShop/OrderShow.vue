@@ -32,7 +32,7 @@
                     <b-col class="gd_txt">
                         <div class="explain">
                             <b-col>
-                                <p class="gd_name">{{item.gd_name}}</p>
+                                <p class="gd_name">{{item.odm_gd_name}}</p>
                                 <p><b class="m_hide">제품명:</b> {{item.odm_gm_name}} / <b class="m_hide">Cat.No.:</b> {{item.odm_gm_catno}}</p>
                                 <p><b class="m_hide">모델명:</b> {{item.odm_gm_code}} / <b class="m_hide">판매단위:</b> {{item.odm_gm_unit}}</p>
                                 <p><b class="m_hide">사양:</b> <span v-html="nl2br(item.odm_gm_spec)" /></p>

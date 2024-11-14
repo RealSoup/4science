@@ -3,116 +3,126 @@
     <h3>견적서 <b>{{reply.er_id}} / Q-{{reply.estimate_req.eq_id}}</b></h3>
     <validation-observer ref="observer" v-slot="{ invalid }" tag="form" class="estimate_show">
         <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">Loading ......</loading-modal>
-        <div v-else>
+        <div v-else class="list_wrap">
             <b-container class="top">
                 <b-row>
                     <b-col><span>견적일자</span> <b>{{reply.created_at | formatDate_YYYY_MM_DD}}</b></b-col>
                     <b-col><span>유효기간</span> <b>{{reply.er_effective_at}}</b></b-col>
                     <b-col><span>납품기일</span> <b>{{reply.er_dlvy_at}}</b></b-col>
-                    <b-col><span>담당자/문의</span> {{reply.estimate_req.mng.name}}&nbsp;&nbsp; {{reply.estimate_req.mng.tel}}&nbsp;&nbsp; {{reply.estimate_req.mng.email}}</b-col>
-                </b-row>
-            </b-container>
-
-            <h6>상품정보</h6>
-            <div class="top_border" />
-            <b-container class="pa_list frm_st">
-                <b-row class="lhead">
                     <b-col>
-                        <b-form-checkbox class="myCheck" v-model="all_chk" :indeterminate="indeterminate" @change="toggle_all_chk" />
-                        주문 상품
-                    </b-col>        
-                    <b-col>제조사</b-col>
-                    <b-col>판매가</b-col>
-                    <b-col>수량</b-col>
-                    <b-col>금액</b-col>
-                    <b-col>배송비</b-col>
-                </b-row>
-                <b-row v-for="(pa, pa_id) in reply.collect.lists" :key="pa_id" class="lbody">
-                    <b-col class="m_hide">{{pa[0]['pa_name'] ? '업체' : '포사이언스'}}<br />배송</b-col>
-                    <b-col>
-                        <b-row v-for="(item, i_item) in pa" :key="`${pa_id}${i_item}`" :class="{option:item.type == 'option'}">
-                            <template v-if="item.type == 'model'">
-                                <b-col>
-                                    <b-form-checkbox class="myCheck" v-model="item.em_check_opt" @change="chkChange" />
-                                    <img :src="item.img" />
-                                </b-col>
-                                <b-col>
-                                    <p>{{item.gd_name}}</p>
-                                    <p>제품명:{{item.gm_name}} / Cat.No.:{{item.gm_catno}}</p>
-                                    <p>모델명:{{item.gm_code}} / 판매단위:{{item.gm_unit}}</p>
-                                    사양:<span v-html="nl2br(item.gm_spec)" />
-                                </b-col>
-                                <b-col>{{item.mk_name}}</b-col>
-                                <b-col>{{item.price | comma}} 원</b-col>
-                                <b-col>{{item.ea}} 개</b-col>
-                                <b-col>
-                                    <div>
-                                        {{item.price*item.ea | comma}} 원
-                                        <br />
-                                        <span>({{item.price*reply.estimate_req.user.mileage_mul*item.ea | comma}}p 적립)</span>
-                                    </div>
-                                </b-col>
-                            </template>
-                            <template v-else-if="item.type == 'option'">
-                                <b-col>추가 옵션</b-col>
-                                <b-col>{{item.goc_name}}</b-col>
-                                <b-col></b-col>
-                                <b-col>{{item.price | comma}} 원</b-col>
-                                <b-col>{{item.ea}} 개</b-col>
-                                <b-col>
-                                    <div>
-                                        {{item.price*item.ea | comma}} 원
-                                        <br />
-                                        <span>({{item.price*reply.estimate_req.user.mileage_mul*item.ea | comma}}p 적립)</span>
-                                    </div>
-                                </b-col>
-                            </template>
-                        </b-row>
-                    </b-col>
-
-                    <b-col>
-                        <template v-if="reply.er_no_dlvy_fee !== 'Y'">
-                            <template v-if="pa[0]['pa_type'] == 'AIR'">항공운임료</template>
-                            <template v-else>배송비</template>
-                            <br />
-                        </template>                            
-                        {{pa[0].pa_dlvy_p_add_vat | comma}} 원
-                    </b-col>
-                </b-row>
-
-                <b-row class="total">
-                    <b-col>상품금액</b-col>         <b-col><b>{{gd_price+surtax | comma}}</b> 원</b-col>
-                    <b-col>배송료</b-col>           <b-col><b>{{dlvy_4s+air_price+dlvy_other | comma}}</b> 원</b-col>
-                    <b-col>결제 예정 금액</b-col>   <b-col><b>{{all_price | comma}}</b> 원</b-col>
-                </b-row>
-                <b-row class="total_sub" id="total_sub">
-                    <b-col>
-                        <div><b-col>상품가</b-col>              <b-col>{{gd_price | comma}} 원</b-col></div>
-                        <div><b-col>부가세</b-col>              <b-col>{{surtax | comma}} 원</b-col></div>
-                    </b-col>
-                    <b-col>
-                        <div><b-col>포사이언스 배송</b-col>     <b-col>{{dlvy_4s | comma}} 원</b-col></div>
-                        <div><b-col>업체 배송</b-col>           <b-col>{{air_price+dlvy_other | comma}} 원</b-col></div>
-                    </b-col>
-                    <b-col>
-                        <div><b-col>적립예정 마일리지</b-col>   <b-col>{{sum_mileage | comma}} 원</b-col></div>
+                        <span>담당자<span class="m_hide">/문의</span></span>
+                        {{reply.estimate_req.mng.name}}
+                        {{reply.estimate_req.mng.tel}}
+                        {{reply.estimate_req.mng.email}}
                     </b-col>
                 </b-row>
             </b-container>
+<!--
+            <b-form-checkbox class="myCheck" v-model="all_chk" :indeterminate="indeterminate" @change="toggle_all_chk">
+                전체 선택
+            </b-form-checkbox>
+-->
+            <b-container v-for="(pa, pa_id) in reply.collect.lists" :key="pa_id" class="goods">
+                <h4><b-icon-house></b-icon-house> {{pa[0]['pa_name'] ? '업체' : '포사이언스'}} 배송</h4>
+                <b-row v-for="(item, i_item) in pa" :key="`${pa_id}${i_item}`" :class="{option:item.type == 'option'}" class="gm_box">
+                    <template v-if="item.type == 'model'">
+                        <b-col class="gd_img">
+                            <b-form-checkbox class="myCheck" v-model="item.em_check_opt" @change="chkChange" />
+                            <img :src="item.img" />
+                        </b-col>
+                        <b-col class="gd_txt">
+                            <div class="explain">
+                                <p>{{item.gd_name}}</p>
+                                <p><b class="m_hide">제품명:</b>{{item.gm_name}} / <b class="m_hide">Cat.No.:</b>{{item.gm_catno}}</p>
+                                <p><b class="m_hide">모델명:</b>{{item.gm_code}} / <b class="m_hide">판매단위:</b>{{item.gm_unit}}</p>
+                                <p><b class="m_hide">제조사:</b>{{item.mk_name}}</p>
+                                <p><b class="m_hide">사양:</b> <span v-html="nl2br(item.gm_spec)" /></p>
+                            </div>
+                            <div class="col_price">
+                                <div class="price_box">
+                                    <span class="normal">{{item.price | comma}}</span>
+                                </div>
+                                <font-awesome-icon icon="times" />
+                                <div>{{item.ea}}</div>
+                                <font-awesome-icon icon="equals" />
+                                <div class="price_box">
+                                    <span class="normal">{{item.price*item.ea | comma | won}}</span>
+                                </div>
+                            </div>
+                            <div class="price_info">
+                                ({{item.price*reply.estimate_req.user.mileage_mul*item.ea | comma}}p 적립)
+                            </div>
+                        </b-col>
+                                            
+                    </template>
+                    <template v-else-if="item.type == 'option'">
+                        <b-col class="gd_img">추가 옵션</b-col>
+                        <b-col class="gd_txt">
+                            <div class="explain">
+                                <b>{{item.goc_name}}:</b> {{item.goc_name}}
+                            </div>
+                            <div class="col_price">
+                                <div class="price_box">
+                                    <span class="normal">{{item.price | comma}}</span>
+                                </div>
+                                <font-awesome-icon icon="times" />
+                                <div>{{item.ea}}</div>
+                                <font-awesome-icon icon="equals" />
+                                <div class="price_box">
+                                    <span class="normal">{{item.price*item.ea | comma | won}}</span>
+                                </div>
+                            </div>
+                            <div class="price_info">
+                                ({{item.price*reply.estimate_req.user.mileage_mul*item.ea | comma}}p 적립)
+                            </div>
+                        </b-col>
+                    </template>
+                </b-row>
+                <b-row class="dlvy_box">
+                    <b-col class="text_box" v-if="reply.er_no_dlvy_fee !== 'Y'">
+                        <template v-if="pa[0]['pa_type'] == 'AIR'">항공운임료</template>
+                        <template v-else>배송비</template>
+                    </b-col>
+                    <b-col class="price_box">{{pa[0].pa_dlvy_p_add_vat | comma | won}}</b-col>
+                </b-row>
+            </b-container>
+
+            <b-container class="total">
+                <b-row>
+                    <b-col>상품금액</b-col>
+                    <b-col><b>{{gd_price+surtax | comma}}</b> 원</b-col>
+                </b-row>
+                <b-row>
+                    <b-col>배송료</b-col>      
+                    <b-col><b>{{dlvy_4s+air_price+dlvy_other | comma}}</b> 원</b-col>
+                </b-row>
+                <b-row>
+                    <b-col>결제예정금액</b-col> 
+                    <b-col><b>{{all_price | comma}}</b> 원</b-col>
+                </b-row>
+            </b-container>
+
+
+
+
+       
+
    
             <b-container class="extra">
                 <b-row>
                     <b-col>
                         <h6>추가정보</h6>
-                        <div>
-                            <b-button v-for="fi in reply.file_info" class="white mr-2" @click="fileDown(fi.down_path, fi.fi_original)" :key="fi.fi_id">
-                                <b-icon icon="file-earmark-arrow-down-fill" /> {{fi.fi_original}}
-                            </b-button>
-                        </div>
-                        <hr>
+                        <template v-if="reply.file_info.length">
+                            <div>
+                                <b-button v-for="fi in reply.file_info" class="white mr-2" @click="fileDown(fi.down_path, fi.fi_original)" :key="fi.fi_id">
+                                    <b-icon icon="file-earmark-arrow-down-fill" /> {{fi.fi_original}}
+                                </b-button>
+                            </div>
+                            <hr>
+                        </template>
                         <div class="desc" v-html="nl2br(reply.er_content)" />
                     </b-col>
-                    <b-col >
+                    <b-col>
                         <h6><b>재견적 요청</b></h6>
                         <validation-provider name="견적 요청 내용" rules="required|min:1" v-slot="validationContext">
                             <b-form-group label-for="eq_content" label-class="required">
@@ -297,96 +307,61 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
-.w_fence { padding-right:0; padding-left:0; }
-.w_fence .container,
-.w_fence .container .row, 
-.w_fence .container .row .col { margin:0; padding:0; }
 h3 { font-size:1.5rem; }
 h3 b { color:#0094EA; font-size:1.3rem; }
-h6 { font-size:1.15rem; font-weight:600; margin-top:2rem; padding-left:2rem; }
-.w_fence .top { border-top:2px solid #4F637B; border-left:1px solid #B7B7B7; }
-.w_fence .top .row .col { border-right:1px solid #B7B7B7; border-bottom:1px solid #B7B7B7; padding:1.2rem 0; text-align:center; }
-.w_fence .top .row .col:nth-of-type(4) { flex:0 0 40%; max-width:40%;  }
-.w_fence .top .row .col span { margin-right:.7rem; font-weight:600; }
-.w_fence .top .row .col b { color:#0094EA; }
-
-.w_fence .top_border { border-top:3px solid #4F637B; }
 
 
-/************************************** */
-.pa_list { margin-bottom:2.5rem; padding:0; }
-.pa_list .row { margin:0; border-bottom:1px solid #D6D6D6; }
-.pa_list .row .col { padding:0; font-size:.93rem; color:#666; }
-.pa_list .row.lbody .col:not(:nth-of-type(2)) { display:flex; align-items:center; justify-content:center; text-align:center; }
+.list_wrap .top { border-top:2px solid #4F637B; border-left:1px solid #B7B7B7; }
+.list_wrap .top .row .col { border-right:1px solid #B7B7B7; border-bottom:1px solid #B7B7B7; padding:1.2rem 0; text-align:center; }
+.list_wrap .top .row .col:nth-of-type(4) { flex:0 0 40%; max-width:40%;  }
+.list_wrap .top .row .col span { margin-right:.7rem; font-weight:600; }
+.list_wrap .top .row .col b { color:#0094EA; }
 
-.pa_list .row .col .row:last-child { border-bottom-width:0; }
-.pa_list .row.lbody>.col:first-child { border-right:1px solid #D6D6D6; }
-.pa_list .row.lbody>.col:last-child { border-left:1px solid #D6D6D6; }
+.list_wrap .myCheck >>> .custom-control-label::before, 
+.list_wrap .myCheck >>> .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }
 
-.pa_list .lhead .col { font-weight:bold; text-align:center; padding:.74rem 0 !important; color:#000; }
-.pa_list .lhead .col:nth-of-type(2) { flex-basis:11.2%; max-width:11.2%; }
-.pa_list .lhead .col:nth-of-type(3) { flex-basis:8.8%; max-width:8.8%; }
-.pa_list .lhead .col:nth-of-type(4) { flex-basis:7.2%; max-width:7.2%; }
-.pa_list .lhead .col:nth-of-type(5) { flex-basis:9.6%; max-width:9.6%; }
-.pa_list .lhead .col:nth-of-type(6) { flex-basis:10%; max-width:10%; }
+.list_wrap .goods { padding:1em 0; }
+.list_wrap .goods h4 { font-weight:bolder; font-size:1em; padding:1em 0; border-width:0; margin:0; border-bottom:2px solid #000; }
+.list_wrap .goods .gm_box { padding:.8rem 0 .5rem 0; }
+.list_wrap .goods .gm_box:not(:first-child) { border-top:1px solid #AAA; }
+.list_wrap .goods .gm_box .myCheck { position:absolute; top:0; left:0; }
+.list_wrap .goods .gm_box .gd_img { flex-basis:17%; max-width:17%; display:flex; align-items:center; justify-content:center; }
+.list_wrap .goods .gm_box .gd_img img { width:100%; max-width:120px; height:auto; object-fit:contain; }
 
-.pa_list .lbody>.col:nth-of-type(1),
-.pa_list .lbody>.col:nth-of-type(3) { flex-basis:10%; max-width:10%; font-weight:600; color:#000; }
-.pa_list .lbody .col .row .col:nth-of-type(1) { flex-basis:18%; max-width:18%; }
-.pa_list .lbody .col .row .col:nth-of-type(3) { flex-basis:14%; max-width:14%; }
-.pa_list .lbody .col .row .col:nth-of-type(4) { flex-basis:11%; max-width:11%; justify-content:flex-end; padding-right:.5rem; }
-.pa_list .lbody .col .row .col:nth-of-type(5) { flex-basis:9%; max-width:9%; justify-content:flex-end; padding-right:.5rem; }
-.pa_list .lbody .col .row .col:nth-of-type(6) { flex-basis:12%; max-width:12%; font-weight:600; color:#000; justify-content:flex-end; padding-right:.5rem; }
-.pa_list .lbody .col .row .col:nth-of-type(6) span { font-size:.7rem; color:#666;  }
+.list_wrap .goods .gm_box .gd_txt { padding-left:8px; }
+.list_wrap .goods .gm_box .gd_txt .explain p { margin:0; color:#999; }
+.list_wrap .goods .gm_box .gd_txt .explain p:first-of-type { color:#000; font-weight:700; margin-bottom:.8rem; }
+.list_wrap .goods .gm_box .gd_txt .col_price { display:flex; align-items:center; justify-content:flex-end; }
+.list_wrap .goods .gm_box .gd_txt .col_price svg { margin:0 .2em; }
+.list_wrap .goods .gm_box .gd_txt .price_info { text-align:right; color:#999; }
+.list_wrap .goods .gm_box .gd_txt .price_info .price_dc { display:block; color:#cc0000; }
+.list_wrap .goods .dlvy_box { padding: 12px 16px; background: #f5f5f5; border-radius: 8px; }
+.list_wrap .goods .dlvy_box .col { color:#9e9e9e; font-size:.9em; }
+.list_wrap .goods .dlvy_box .price_box { text-align:right; }
 
-.pa_list .row .col .row.option { background:#F4F1EC; }
-.pa_list .row .col .row .col { padding:.8rem 0; }
-.pa_list .row .col .row .col img { width:119px; height:119px; object-fit:contain; }
-.pa_list .row .col .row .col p { margin-bottom:.2rem; }
-.pa_list .row .col .row .col:nth-of-type(2) { padding-left:1rem; }
-.pa_list .row .col .row .col:nth-of-type(2) p:nth-of-type(1){ font-weight:bold; margin-bottom:.8rem; color:#000; }
-.pa_list .row .col >>> .myCheck { display:inline-block; padding-left:1.3em; margin:0 .5rem; }
-.pa_list .row .col >>> .myCheck .custom-control-label::before, 
-.pa_list .row .col >>> .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }
+.list_wrap .total { background:#EEE; padding:.5rem; border-radius:8px; }
+.list_wrap .total .row { align-items:baseline; }
+.list_wrap .total .row .col { font-size:.85em; color:#777; flex:0 0 25%; max-width:25%;}
+.list_wrap .total .row .col:first-child { margin-left:auto; }
+.list_wrap .total .row .col:nth-child(even) { text-align:right; }
+.list_wrap .total .row .col:nth-child(even) b { font-size:1.35em; color:#000; }
+.list_wrap .total .row.coupon_dc .col,
+.list_wrap .total .row.coupon_dc .col b { color:#cc0000 !important; }
 
-.pa_list .total { margin-top:1.6rem; border-top:2px solid #363636; border-bottom:1px solid #D6D6D6; }
-.pa_list .total .col { color:#000; font-weight:bold; }
-.pa_list .total .col:nth-of-type(odd) { display: flex; align-items: center; flex-basis: 12%; max-width: 12%; padding: 1vw 0 1vw 2vw; font-size: .9vw; }
-.pa_list .total .col:nth-of-type(even) { text-align: right; padding: 1vw 2vw 1vw 0; }
-.pa_list .total .col:nth-of-type(2):after,
-.pa_list .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.32rem; top:50%; transform:translateY(-50%); }
-.pa_list .total .col b { font-size:1.4rem; }
-.pa_list .total .col:nth-of-type(2) { border-right:1px solid #D6D6D6; }
-.pa_list .total .col:nth-of-type(2):after { content:"+"; }
-.pa_list .total .col:nth-of-type(4) { border-right:1px solid #D6D6D6; }
-.pa_list .total .col:nth-of-type(4):after { content:"="; }
-.pa_list .total .col:nth-of-type(5) { flex-basis:20%; max-width:20%; }
-.pa_list .total .col:nth-of-type(6) { flex-basis:20%; max-width:20%; }
-
-.pa_list .total_sub { background:#F2F3F5; border-bottom-width:0; }
-.pa_list .total_sub>.col:nth-of-type(1) { border-right:1px solid #D6D6D6; }
-.pa_list .total_sub>.col:nth-of-type(2) { border-right:1px solid #D6D6D6; }
-.pa_list .total_sub>.col:nth-of-type(3) { flex-basis:40%; max-width:40%; }
-.pa_list .total_sub .col>div { display:flex; flex-wrap:wrap; }
-.pa_list .total_sub .col>div:nth-of-type(1) { padding:1.3rem 3rem .5rem 3rem; }
-.pa_list .total_sub .col>div:nth-of-type(2) { padding:0 3rem 2.5rem 3rem; }
-.pa_list .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }
-.pa_list .total_sub .col>div .col:nth-of-type(2) { text-align:right; }
-/************************************** */
-
-
-
-
-
-.w_fence .extra { margin-top:2rem; }
-.w_fence .extra .row .col:nth-child(1) { margin-right:2rem; }
-.w_fence .extra .row .col h6 { border-bottom:2px solid #707070; margin-bottom:.7rem; padding-bottom:.5rem; }
-.w_fence .extra .row .col h6 b { color:#0094EA; }
-.w_fence .extra .row .col:nth-child(1) .desc { border:1px solid #D6D6D6; padding:1rem; min-height:calc(3vw + 5rem); }
-.w_fence .extra .row .col .btn { font-size:.85rem; padding:.3rem; }
+.list_wrap .extra { margin-top:2rem; }
+.list_wrap .extra .row .col:nth-child(1) { margin-right:2rem; }
+.list_wrap .extra .row .col h6 { border-bottom:2px solid #707070; margin-bottom:.7rem; padding-bottom:.5rem; }
+.list_wrap .extra .row .col h6 b { color:#0094EA; }
+.list_wrap .extra .row .col:nth-child(1) .desc { border:1px solid #D6D6D6; padding:1rem; min-height:158px; }
+.list_wrap .extra .row .col .btn { font-size:.85rem; padding:.3rem; }
 @media (max-width: 992px){
-    .w_fence .top .row .col { flex:0 0 50%; max-width:50%;  }
-    .w_fence .top .row .col:nth-of-type(4) { flex:0 0 50%; max-width:50%;  }
+    .list_wrap .top .row .col { flex:0 0 100%; max-width:100%; padding:0 .3rem; text-align:left; }
+    .list_wrap .top .row .col:nth-of-type(4) { flex:0 0 100%; max-width:100%; line-height:1.75; word-spacing:6px; letter-spacing:-1px; text-indent:-77px; padding-left:80px; }
+    .list_wrap .top .row .col:nth-of-type(4) span { letter-spacing:8px; margin-right:-4px; }
+        
+    .list_wrap .total .row .col { flex:0 0 50%; max-width:50%; }
+    .list_wrap .total .row .col:first-child { margin-left:0; }
+
+    .list_wrap .extra .row .col { flex:0 0 100%; max-width:100%; margin:0 0 2rem 0 !important; }
 }
 </style>

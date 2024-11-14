@@ -11,11 +11,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['value', 'order_config'],
   components: {
     'order-step': function orderStep() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage__comp_OrderStep_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../_comp/OrderStep.vue */ "./resources/js/views/web/mypage/_comp/OrderStep.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage__comp_OrderStep_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../_comp/OrderStep */ "./resources/js/views/web/mypage/_comp/OrderStep.vue"));
+    },
+    'responsive-str': function responsiveStr() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_ResponsiveStr_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/ResponsiveStr */ "./resources/js/views/_common/ResponsiveStr.vue"));
+    }
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('common', ['deviceType'])),
+  methods: {
+    go_order_show: function go_order_show(od_id) {
+      this.$router.push({
+        name: 'my_order_show',
+        params: {
+          od_id: od_id
+        }
+      });
+    },
+    go_goods_show: function go_goods_show(gd_id) {
+      this.$router.push({
+        name: 'goods_show',
+        params: {
+          gd_id: gd_id
+        }
+      });
     }
   }
 });
@@ -53,34 +83,34 @@ var render = function render() {
   }, [_vm._v("진행현황")])], 1), _vm._v(" "), _vm._l(_vm.value, function (od) {
     return _c("b-row", {
       key: od.od_id,
-      staticClass: "data"
-    }, [_c("b-col", {
-      staticClass: "date"
-    }, [_vm._v(_vm._s(_vm._f("formatDate_YY_MM_DD")(od.created_at)))]), _vm._v(" "), _c("b-col", {
-      staticClass: "num"
-    }, [_c("div", [_vm._v(_vm._s(od.od_no))]), _vm._v(" "), _c("b-button", {
-      attrs: {
-        pill: "",
-        variant: "outline-dark",
-        to: {
-          name: "my_order_show",
-          params: {
-            od_id: od.od_id
-          }
+      staticClass: "data",
+      on: {
+        click: function click($event) {
+          return _vm.go_order_show(od.od_id);
         }
       }
-    }, [_vm._v("상세보기")])], 1), _vm._v(" "), _c("b-col", {
+    }, [_c("b-col", {
+      staticClass: "date"
+    }, [_vm.deviceType == "pc" ? [_vm._v(_vm._s(_vm._f("formatDate_YY_MM_DD")(od.created_at)))] : _vm._e(), _vm._v(" "), _vm.deviceType == "mobile" ? [_vm._v(_vm._s(_vm._f("formatDate_MM_DD")(od.created_at)))] : _vm._e()], 2), _vm._v(" "), _c("b-col", {
+      staticClass: "num"
+    }, [_vm.deviceType == "pc" ? [_vm._v(_vm._s(od.od_no))] : _vm.deviceType == "mobile" ? _c("responsive-str", {
+      model: {
+        value: od.od_name,
+        callback: function callback($$v) {
+          _vm.$set(od, "od_name", $$v);
+        },
+        expression: "od.od_name"
+      }
+    }) : _vm._e()], 2), _vm._v(" "), _c("b-col", {
       staticClass: "product"
     }, [_vm._l(od.order_model, function (odm, i) {
       var _odm$odm_gm_name_eng;
       return [i < 5 ? _c("b-link", {
         key: i,
-        attrs: {
-          to: {
-            name: "goods_show",
-            params: {
-              gd_id: odm.odm_gd_id
-            }
+        on: {
+          click: function click($event) {
+            $event.stopPropagation();
+            return _vm.go_goods_show(odm.odm_gd_id);
           }
         }
       }, [_c("img", {
@@ -133,7 +163,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.list01 .data .col[data-v-58e2416e]:nth-child(4) { text-align:right;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.list01 .data[data-v-58e2416e]:hover { background-color:#EEE; cursor:pointer;\n}\n.list01 .data .col[data-v-58e2416e]:nth-child(4) { text-align:right;\n}\n@media (max-width: 992px) {\n.list01 .row .date[data-v-58e2416e] { flex:0 0 15%; max-width:15%;\n}\n.list01 .data .product[data-v-58e2416e] { display:none;\n}\n.list01 .row .num[data-v-58e2416e] { flex:0 0 75%; max-width:75%; padding:0 9px !important; text-align:left;\n}\n.list01 .row .price[data-v-58e2416e] { display:none;\n}\n.list01 .row .step[data-v-58e2416e] { flex:0 0 10%; max-width:10%; text-align:center !important;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -300,42 +300,26 @@ var render = function render() {
               _vm.isLoadingModalViewed = false;
             }
           }
-        }, [_vm._v("Loading ......")]) : _c("div", [_c("b-container", {
+        }, [_vm._v("Loading ......")]) : _c("div", {
+          staticClass: "list_wrap"
+        }, [_c("b-container", {
           staticClass: "top"
-        }, [_c("b-row", [_c("b-col", [_c("span", [_vm._v("견적일자")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm._f("formatDate_YYYY_MM_DD")(_vm.reply.created_at)))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("유효기간")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm.reply.er_effective_at))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("납품기일")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm.reply.er_dlvy_at))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("담당자/문의")]), _vm._v(" " + _vm._s(_vm.reply.estimate_req.mng.name) + "   " + _vm._s(_vm.reply.estimate_req.mng.tel) + "   " + _vm._s(_vm.reply.estimate_req.mng.email))])], 1)], 1), _vm._v(" "), _c("h6", [_vm._v("상품정보")]), _vm._v(" "), _c("div", {
-          staticClass: "top_border"
-        }), _vm._v(" "), _c("b-container", {
-          staticClass: "pa_list frm_st"
-        }, [_c("b-row", {
-          staticClass: "lhead"
-        }, [_c("b-col", [_c("b-form-checkbox", {
-          staticClass: "myCheck",
-          attrs: {
-            indeterminate: _vm.indeterminate
-          },
-          on: {
-            change: _vm.toggle_all_chk
-          },
-          model: {
-            value: _vm.all_chk,
-            callback: function callback($$v) {
-              _vm.all_chk = $$v;
-            },
-            expression: "all_chk"
-          }
-        }), _vm._v("\r\n                        주문 상품\r\n                    ")], 1), _vm._v(" "), _c("b-col", [_vm._v("제조사")]), _vm._v(" "), _c("b-col", [_vm._v("판매가")]), _vm._v(" "), _c("b-col", [_vm._v("수량")]), _vm._v(" "), _c("b-col", [_vm._v("금액")]), _vm._v(" "), _c("b-col", [_vm._v("배송비")])], 1), _vm._v(" "), _vm._l(_vm.reply.collect.lists, function (pa, pa_id) {
-          return _c("b-row", {
+        }, [_c("b-row", [_c("b-col", [_c("span", [_vm._v("견적일자")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm._f("formatDate_YYYY_MM_DD")(_vm.reply.created_at)))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("유효기간")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm.reply.er_effective_at))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("납품기일")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm.reply.er_dlvy_at))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("담당자"), _c("span", {
+          staticClass: "m_hide"
+        }, [_vm._v("/문의")])]), _vm._v("\r\n                        " + _vm._s(_vm.reply.estimate_req.mng.name) + "\r\n                        " + _vm._s(_vm.reply.estimate_req.mng.tel) + "\r\n                        " + _vm._s(_vm.reply.estimate_req.mng.email) + "\r\n                    ")])], 1)], 1), _vm._v(" "), _vm._l(_vm.reply.collect.lists, function (pa, pa_id) {
+          return _c("b-container", {
             key: pa_id,
-            staticClass: "lbody"
-          }, [_c("b-col", {
-            staticClass: "m_hide"
-          }, [_vm._v(_vm._s(pa[0]["pa_name"] ? "업체" : "포사이언스")), _c("br"), _vm._v("배송")]), _vm._v(" "), _c("b-col", _vm._l(pa, function (item, i_item) {
+            staticClass: "goods"
+          }, [_c("h4", [_c("b-icon-house"), _vm._v(" " + _vm._s(pa[0]["pa_name"] ? "업체" : "포사이언스") + " 배송")], 1), _vm._v(" "), _vm._l(pa, function (item, i_item) {
             return _c("b-row", {
               key: "".concat(pa_id).concat(i_item),
+              staticClass: "gm_box",
               "class": {
                 option: item.type == "option"
               }
-            }, [item.type == "model" ? [_c("b-col", [_c("b-form-checkbox", {
+            }, [item.type == "model" ? [_c("b-col", {
+              staticClass: "gd_img"
+            }, [_c("b-form-checkbox", {
               staticClass: "myCheck",
               on: {
                 change: _vm.chkChange
@@ -351,22 +335,85 @@ var render = function render() {
               attrs: {
                 src: item.img
               }
-            })], 1), _vm._v(" "), _c("b-col", [_c("p", [_vm._v(_vm._s(item.gd_name))]), _vm._v(" "), _c("p", [_vm._v("제품명:" + _vm._s(item.gm_name) + " / Cat.No.:" + _vm._s(item.gm_catno))]), _vm._v(" "), _c("p", [_vm._v("모델명:" + _vm._s(item.gm_code) + " / 판매단위:" + _vm._s(item.gm_unit))]), _vm._v("\r\n                                    사양:"), _c("span", {
+            })], 1), _vm._v(" "), _c("b-col", {
+              staticClass: "gd_txt"
+            }, [_c("div", {
+              staticClass: "explain"
+            }, [_c("p", [_vm._v(_vm._s(item.gd_name))]), _vm._v(" "), _c("p", [_c("b", {
+              staticClass: "m_hide"
+            }, [_vm._v("제품명:")]), _vm._v(_vm._s(item.gm_name) + " / "), _c("b", {
+              staticClass: "m_hide"
+            }, [_vm._v("Cat.No.:")]), _vm._v(_vm._s(item.gm_catno))]), _vm._v(" "), _c("p", [_c("b", {
+              staticClass: "m_hide"
+            }, [_vm._v("모델명:")]), _vm._v(_vm._s(item.gm_code) + " / "), _c("b", {
+              staticClass: "m_hide"
+            }, [_vm._v("판매단위:")]), _vm._v(_vm._s(item.gm_unit))]), _vm._v(" "), _c("p", [_c("b", {
+              staticClass: "m_hide"
+            }, [_vm._v("제조사:")]), _vm._v(_vm._s(item.mk_name))]), _vm._v(" "), _c("p", [_c("b", {
+              staticClass: "m_hide"
+            }, [_vm._v("사양:")]), _vm._v(" "), _c("span", {
               domProps: {
                 innerHTML: _vm._s(_vm.nl2br(item.gm_spec))
               }
-            })]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(item.mk_name))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(item.price)) + " 원")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(item.ea) + " 개")]), _vm._v(" "), _c("b-col", [_c("div", [_vm._v("\r\n                                        " + _vm._s(_vm._f("comma")(item.price * item.ea)) + " 원\r\n                                        "), _c("br"), _vm._v(" "), _c("span", [_vm._v("(" + _vm._s(_vm._f("comma")(item.price * _vm.reply.estimate_req.user.mileage_mul * item.ea)) + "p 적립)")])])])] : item.type == "option" ? [_c("b-col", [_vm._v("추가 옵션")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(item.goc_name))]), _vm._v(" "), _c("b-col"), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(item.price)) + " 원")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(item.ea) + " 개")]), _vm._v(" "), _c("b-col", [_c("div", [_vm._v("\r\n                                        " + _vm._s(_vm._f("comma")(item.price * item.ea)) + " 원\r\n                                        "), _c("br"), _vm._v(" "), _c("span", [_vm._v("(" + _vm._s(_vm._f("comma")(item.price * _vm.reply.estimate_req.user.mileage_mul * item.ea)) + "p 적립)")])])])] : _vm._e()], 2);
-          }), 1), _vm._v(" "), _c("b-col", [_vm.reply.er_no_dlvy_fee !== "Y" ? [pa[0]["pa_type"] == "AIR" ? [_vm._v("항공운임료")] : [_vm._v("배송비")], _vm._v(" "), _c("br")] : _vm._e(), _vm._v("                            \r\n                        " + _vm._s(_vm._f("comma")(pa[0].pa_dlvy_p_add_vat)) + " 원\r\n                    ")], 2)], 1);
-        }), _vm._v(" "), _c("b-row", {
+            })])]), _vm._v(" "), _c("div", {
+              staticClass: "col_price"
+            }, [_c("div", {
+              staticClass: "price_box"
+            }, [_c("span", {
+              staticClass: "normal"
+            }, [_vm._v(_vm._s(_vm._f("comma")(item.price)))])]), _vm._v(" "), _c("font-awesome-icon", {
+              attrs: {
+                icon: "times"
+              }
+            }), _vm._v(" "), _c("div", [_vm._v(_vm._s(item.ea))]), _vm._v(" "), _c("font-awesome-icon", {
+              attrs: {
+                icon: "equals"
+              }
+            }), _vm._v(" "), _c("div", {
+              staticClass: "price_box"
+            }, [_c("span", {
+              staticClass: "normal"
+            }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price * item.ea))))])])], 1), _vm._v(" "), _c("div", {
+              staticClass: "price_info"
+            }, [_vm._v("\r\n                                (" + _vm._s(_vm._f("comma")(item.price * _vm.reply.estimate_req.user.mileage_mul * item.ea)) + "p 적립)\r\n                            ")])])] : item.type == "option" ? [_c("b-col", {
+              staticClass: "gd_img"
+            }, [_vm._v("추가 옵션")]), _vm._v(" "), _c("b-col", {
+              staticClass: "gd_txt"
+            }, [_c("div", {
+              staticClass: "explain"
+            }, [_c("b", [_vm._v(_vm._s(item.goc_name) + ":")]), _vm._v(" " + _vm._s(item.goc_name) + "\r\n                            ")]), _vm._v(" "), _c("div", {
+              staticClass: "col_price"
+            }, [_c("div", {
+              staticClass: "price_box"
+            }, [_c("span", {
+              staticClass: "normal"
+            }, [_vm._v(_vm._s(_vm._f("comma")(item.price)))])]), _vm._v(" "), _c("font-awesome-icon", {
+              attrs: {
+                icon: "times"
+              }
+            }), _vm._v(" "), _c("div", [_vm._v(_vm._s(item.ea))]), _vm._v(" "), _c("font-awesome-icon", {
+              attrs: {
+                icon: "equals"
+              }
+            }), _vm._v(" "), _c("div", {
+              staticClass: "price_box"
+            }, [_c("span", {
+              staticClass: "normal"
+            }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price * item.ea))))])])], 1), _vm._v(" "), _c("div", {
+              staticClass: "price_info"
+            }, [_vm._v("\r\n                                (" + _vm._s(_vm._f("comma")(item.price * _vm.reply.estimate_req.user.mileage_mul * item.ea)) + "p 적립)\r\n                            ")])])] : _vm._e()], 2);
+          }), _vm._v(" "), _c("b-row", {
+            staticClass: "dlvy_box"
+          }, [_vm.reply.er_no_dlvy_fee !== "Y" ? _c("b-col", {
+            staticClass: "text_box"
+          }, [pa[0]["pa_type"] == "AIR" ? [_vm._v("항공운임료")] : [_vm._v("배송비")]], 2) : _vm._e(), _vm._v(" "), _c("b-col", {
+            staticClass: "price_box"
+          }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(pa[0].pa_dlvy_p_add_vat))))])], 1)], 2);
+        }), _vm._v(" "), _c("b-container", {
           staticClass: "total"
-        }, [_c("b-col", [_vm._v("상품금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.gd_price + _vm.surtax)))]), _vm._v(" 원")]), _vm._v(" "), _c("b-col", [_vm._v("배송료")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_4s + _vm.air_price + _vm.dlvy_other)))]), _vm._v(" 원")]), _vm._v(" "), _c("b-col", [_vm._v("결제 예정 금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.all_price)))]), _vm._v(" 원")])], 1), _vm._v(" "), _c("b-row", {
-          staticClass: "total_sub",
-          attrs: {
-            id: "total_sub"
-          }
-        }, [_c("b-col", [_c("div", [_c("b-col", [_vm._v("상품가")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.gd_price)) + " 원")])], 1), _vm._v(" "), _c("div", [_c("b-col", [_vm._v("부가세")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.surtax)) + " 원")])], 1)]), _vm._v(" "), _c("b-col", [_c("div", [_c("b-col", [_vm._v("포사이언스 배송")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_4s)) + " 원")])], 1), _vm._v(" "), _c("div", [_c("b-col", [_vm._v("업체 배송")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.air_price + _vm.dlvy_other)) + " 원")])], 1)]), _vm._v(" "), _c("b-col", [_c("div", [_c("b-col", [_vm._v("적립예정 마일리지")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.sum_mileage)) + " 원")])], 1)])], 1)], 2), _vm._v(" "), _c("b-container", {
+        }, [_c("b-row", [_c("b-col", [_vm._v("상품금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.gd_price + _vm.surtax)))]), _vm._v(" 원")])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("배송료")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_4s + _vm.air_price + _vm.dlvy_other)))]), _vm._v(" 원")])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("결제예정금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.all_price)))]), _vm._v(" 원")])], 1)], 1), _vm._v(" "), _c("b-container", {
           staticClass: "extra"
-        }, [_c("b-row", [_c("b-col", [_c("h6", [_vm._v("추가정보")]), _vm._v(" "), _c("div", _vm._l(_vm.reply.file_info, function (fi) {
+        }, [_c("b-row", [_c("b-col", [_c("h6", [_vm._v("추가정보")]), _vm._v(" "), _vm.reply.file_info.length ? [_c("div", _vm._l(_vm.reply.file_info, function (fi) {
           return _c("b-button", {
             key: fi.fi_id,
             staticClass: "white mr-2",
@@ -379,13 +426,13 @@ var render = function render() {
             attrs: {
               icon: "file-earmark-arrow-down-fill"
             }
-          }), _vm._v(" " + _vm._s(fi.fi_original) + "\r\n                            ")], 1);
-        }), 1), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
+          }), _vm._v(" " + _vm._s(fi.fi_original) + "\r\n                                ")], 1);
+        }), 1), _vm._v(" "), _c("hr")] : _vm._e(), _vm._v(" "), _c("div", {
           staticClass: "desc",
           domProps: {
             innerHTML: _vm._s(_vm.nl2br(_vm.reply.er_content))
           }
-        })]), _vm._v(" "), _c("b-col", [_c("h6", [_c("b", [_vm._v("재견적 요청")])]), _vm._v(" "), _c("validation-provider", {
+        })], 2), _vm._v(" "), _c("b-col", [_c("h6", [_c("b", [_vm._v("재견적 요청")])]), _vm._v(" "), _c("validation-provider", {
           attrs: {
             name: "견적 요청 내용",
             rules: "required|min:1"
@@ -439,7 +486,7 @@ var render = function render() {
           on: {
             click: _vm.settle
           }
-        }, [_vm._v("선택상품 주문하기")]) : _vm._e()], 1)], 1)];
+        }, [_vm._v("선택상품 주문하기")]) : _vm._e()], 1)], 2)];
       }
     }])
   })], 1);
@@ -466,7 +513,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-76fdf33c] { padding-right:0; padding-left:0;\n}\n.w_fence .container[data-v-76fdf33c],\r\n.w_fence .container .row[data-v-76fdf33c], \r\n.w_fence .container .row .col[data-v-76fdf33c] { margin:0; padding:0;\n}\nh3[data-v-76fdf33c] { font-size:1.5rem;\n}\nh3 b[data-v-76fdf33c] { color:#0094EA; font-size:1.3rem;\n}\nh6[data-v-76fdf33c] { font-size:1.15rem; font-weight:600; margin-top:2rem; padding-left:2rem;\n}\n.w_fence .top[data-v-76fdf33c] { border-top:2px solid #4F637B; border-left:1px solid #B7B7B7;\n}\n.w_fence .top .row .col[data-v-76fdf33c] { border-right:1px solid #B7B7B7; border-bottom:1px solid #B7B7B7; padding:1.2rem 0; text-align:center;\n}\n.w_fence .top .row .col[data-v-76fdf33c]:nth-of-type(4) { flex:0 0 40%; max-width:40%;\n}\n.w_fence .top .row .col span[data-v-76fdf33c] { margin-right:.7rem; font-weight:600;\n}\n.w_fence .top .row .col b[data-v-76fdf33c] { color:#0094EA;\n}\n.w_fence .top_border[data-v-76fdf33c] { border-top:3px solid #4F637B;\n}\r\n\r\n\r\n/************************************** */\n.pa_list[data-v-76fdf33c] { margin-bottom:2.5rem; padding:0;\n}\n.pa_list .row[data-v-76fdf33c] { margin:0; border-bottom:1px solid #D6D6D6;\n}\n.pa_list .row .col[data-v-76fdf33c] { padding:0; font-size:.93rem; color:#666;\n}\n.pa_list .row.lbody .col[data-v-76fdf33c]:not(:nth-of-type(2)) { display:flex; align-items:center; justify-content:center; text-align:center;\n}\n.pa_list .row .col .row[data-v-76fdf33c]:last-child { border-bottom-width:0;\n}\n.pa_list .row.lbody>.col[data-v-76fdf33c]:first-child { border-right:1px solid #D6D6D6;\n}\n.pa_list .row.lbody>.col[data-v-76fdf33c]:last-child { border-left:1px solid #D6D6D6;\n}\n.pa_list .lhead .col[data-v-76fdf33c] { font-weight:bold; text-align:center; padding:.74rem 0 !important; color:#000;\n}\n.pa_list .lhead .col[data-v-76fdf33c]:nth-of-type(2) { flex-basis:11.2%; max-width:11.2%;\n}\n.pa_list .lhead .col[data-v-76fdf33c]:nth-of-type(3) { flex-basis:8.8%; max-width:8.8%;\n}\n.pa_list .lhead .col[data-v-76fdf33c]:nth-of-type(4) { flex-basis:7.2%; max-width:7.2%;\n}\n.pa_list .lhead .col[data-v-76fdf33c]:nth-of-type(5) { flex-basis:9.6%; max-width:9.6%;\n}\n.pa_list .lhead .col[data-v-76fdf33c]:nth-of-type(6) { flex-basis:10%; max-width:10%;\n}\n.pa_list .lbody>.col[data-v-76fdf33c]:nth-of-type(1),\r\n.pa_list .lbody>.col[data-v-76fdf33c]:nth-of-type(3) { flex-basis:10%; max-width:10%; font-weight:600; color:#000;\n}\n.pa_list .lbody .col .row .col[data-v-76fdf33c]:nth-of-type(1) { flex-basis:18%; max-width:18%;\n}\n.pa_list .lbody .col .row .col[data-v-76fdf33c]:nth-of-type(3) { flex-basis:14%; max-width:14%;\n}\n.pa_list .lbody .col .row .col[data-v-76fdf33c]:nth-of-type(4) { flex-basis:11%; max-width:11%; justify-content:flex-end; padding-right:.5rem;\n}\n.pa_list .lbody .col .row .col[data-v-76fdf33c]:nth-of-type(5) { flex-basis:9%; max-width:9%; justify-content:flex-end; padding-right:.5rem;\n}\n.pa_list .lbody .col .row .col[data-v-76fdf33c]:nth-of-type(6) { flex-basis:12%; max-width:12%; font-weight:600; color:#000; justify-content:flex-end; padding-right:.5rem;\n}\n.pa_list .lbody .col .row .col:nth-of-type(6) span[data-v-76fdf33c] { font-size:.7rem; color:#666;\n}\n.pa_list .row .col .row.option[data-v-76fdf33c] { background:#F4F1EC;\n}\n.pa_list .row .col .row .col[data-v-76fdf33c] { padding:.8rem 0;\n}\n.pa_list .row .col .row .col img[data-v-76fdf33c] { width:119px; height:119px; -o-object-fit:contain; object-fit:contain;\n}\n.pa_list .row .col .row .col p[data-v-76fdf33c] { margin-bottom:.2rem;\n}\n.pa_list .row .col .row .col[data-v-76fdf33c]:nth-of-type(2) { padding-left:1rem;\n}\n.pa_list .row .col .row .col:nth-of-type(2) p[data-v-76fdf33c]:nth-of-type(1){ font-weight:bold; margin-bottom:.8rem; color:#000;\n}\n.pa_list .row .col[data-v-76fdf33c] .myCheck { display:inline-block; padding-left:1.3em; margin:0 .5rem;\n}\n.pa_list .row .col[data-v-76fdf33c] .myCheck .custom-control-label::before, \r\n.pa_list .row .col[data-v-76fdf33c] .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px;\n}\n.pa_list .total[data-v-76fdf33c] { margin-top:1.6rem; border-top:2px solid #363636; border-bottom:1px solid #D6D6D6;\n}\n.pa_list .total .col[data-v-76fdf33c] { color:#000; font-weight:bold;\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(odd) { display: flex; align-items: center; flex-basis: 12%; max-width: 12%; padding: 1vw 0 1vw 2vw; font-size: .9vw;\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(even) { text-align: right; padding: 1vw 2vw 1vw 0;\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(2):after,\r\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.32rem; top:50%; transform:translateY(-50%);\n}\n.pa_list .total .col b[data-v-76fdf33c] { font-size:1.4rem;\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(2):after { content:\"+\";\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(4) { border-right:1px solid #D6D6D6;\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(4):after { content:\"=\";\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(5) { flex-basis:20%; max-width:20%;\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(6) { flex-basis:20%; max-width:20%;\n}\n.pa_list .total_sub[data-v-76fdf33c] { background:#F2F3F5; border-bottom-width:0;\n}\n.pa_list .total_sub>.col[data-v-76fdf33c]:nth-of-type(1) { border-right:1px solid #D6D6D6;\n}\n.pa_list .total_sub>.col[data-v-76fdf33c]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.pa_list .total_sub>.col[data-v-76fdf33c]:nth-of-type(3) { flex-basis:40%; max-width:40%;\n}\n.pa_list .total_sub .col>div[data-v-76fdf33c] { display:flex; flex-wrap:wrap;\n}\n.pa_list .total_sub .col>div[data-v-76fdf33c]:nth-of-type(1) { padding:1.3rem 3rem .5rem 3rem;\n}\n.pa_list .total_sub .col>div[data-v-76fdf33c]:nth-of-type(2) { padding:0 3rem 2.5rem 3rem;\n}\n.pa_list .total_sub .col>div .col[data-v-76fdf33c] { color:#A8A9AB; font-weight:bold; font-size:.84rem;\n}\n.pa_list .total_sub .col>div .col[data-v-76fdf33c]:nth-of-type(2) { text-align:right;\n}\r\n/************************************** */\n.w_fence .extra[data-v-76fdf33c] { margin-top:2rem;\n}\n.w_fence .extra .row .col[data-v-76fdf33c]:nth-child(1) { margin-right:2rem;\n}\n.w_fence .extra .row .col h6[data-v-76fdf33c] { border-bottom:2px solid #707070; margin-bottom:.7rem; padding-bottom:.5rem;\n}\n.w_fence .extra .row .col h6 b[data-v-76fdf33c] { color:#0094EA;\n}\n.w_fence .extra .row .col:nth-child(1) .desc[data-v-76fdf33c] { border:1px solid #D6D6D6; padding:1rem; min-height:calc(3vw + 5rem);\n}\n.w_fence .extra .row .col .btn[data-v-76fdf33c] { font-size:.85rem; padding:.3rem;\n}\n@media (max-width: 992px){\n.w_fence .top .row .col[data-v-76fdf33c] { flex:0 0 50%; max-width:50%;\n}\n.w_fence .top .row .col[data-v-76fdf33c]:nth-of-type(4) { flex:0 0 50%; max-width:50%;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nh3[data-v-76fdf33c] { font-size:1.5rem;\n}\nh3 b[data-v-76fdf33c] { color:#0094EA; font-size:1.3rem;\n}\n.list_wrap .top[data-v-76fdf33c] { border-top:2px solid #4F637B; border-left:1px solid #B7B7B7;\n}\n.list_wrap .top .row .col[data-v-76fdf33c] { border-right:1px solid #B7B7B7; border-bottom:1px solid #B7B7B7; padding:1.2rem 0; text-align:center;\n}\n.list_wrap .top .row .col[data-v-76fdf33c]:nth-of-type(4) { flex:0 0 40%; max-width:40%;\n}\n.list_wrap .top .row .col span[data-v-76fdf33c] { margin-right:.7rem; font-weight:600;\n}\n.list_wrap .top .row .col b[data-v-76fdf33c] { color:#0094EA;\n}\n.list_wrap .myCheck[data-v-76fdf33c] .custom-control-label::before, \r\n.list_wrap .myCheck[data-v-76fdf33c] .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px;\n}\n.list_wrap .goods[data-v-76fdf33c] { padding:1em 0;\n}\n.list_wrap .goods h4[data-v-76fdf33c] { font-weight:bolder; font-size:1em; padding:1em 0; border-width:0; margin:0; border-bottom:2px solid #000;\n}\n.list_wrap .goods .gm_box[data-v-76fdf33c] { padding:.8rem 0 .5rem 0;\n}\n.list_wrap .goods .gm_box[data-v-76fdf33c]:not(:first-child) { border-top:1px solid #AAA;\n}\n.list_wrap .goods .gm_box .myCheck[data-v-76fdf33c] { position:absolute; top:0; left:0;\n}\n.list_wrap .goods .gm_box .gd_img[data-v-76fdf33c] { flex-basis:17%; max-width:17%; display:flex; align-items:center; justify-content:center;\n}\n.list_wrap .goods .gm_box .gd_img img[data-v-76fdf33c] { width:100%; max-width:120px; height:auto; -o-object-fit:contain; object-fit:contain;\n}\n.list_wrap .goods .gm_box .gd_txt[data-v-76fdf33c] { padding-left:8px;\n}\n.list_wrap .goods .gm_box .gd_txt .explain p[data-v-76fdf33c] { margin:0; color:#999;\n}\n.list_wrap .goods .gm_box .gd_txt .explain p[data-v-76fdf33c]:first-of-type { color:#000; font-weight:700; margin-bottom:.8rem;\n}\n.list_wrap .goods .gm_box .gd_txt .col_price[data-v-76fdf33c] { display:flex; align-items:center; justify-content:flex-end;\n}\n.list_wrap .goods .gm_box .gd_txt .col_price svg[data-v-76fdf33c] { margin:0 .2em;\n}\n.list_wrap .goods .gm_box .gd_txt .price_info[data-v-76fdf33c] { text-align:right; color:#999;\n}\n.list_wrap .goods .gm_box .gd_txt .price_info .price_dc[data-v-76fdf33c] { display:block; color:#cc0000;\n}\n.list_wrap .goods .dlvy_box[data-v-76fdf33c] { padding: 12px 16px; background: #f5f5f5; border-radius: 8px;\n}\n.list_wrap .goods .dlvy_box .col[data-v-76fdf33c] { color:#9e9e9e; font-size:.9em;\n}\n.list_wrap .goods .dlvy_box .price_box[data-v-76fdf33c] { text-align:right;\n}\n.list_wrap .total[data-v-76fdf33c] { background:#EEE; padding:.5rem; border-radius:8px;\n}\n.list_wrap .total .row[data-v-76fdf33c] { align-items:baseline;\n}\n.list_wrap .total .row .col[data-v-76fdf33c] { font-size:.85em; color:#777; flex:0 0 25%; max-width:25%;}\n.list_wrap .total .row .col[data-v-76fdf33c]:first-child { margin-left:auto;\n}\n.list_wrap .total .row .col[data-v-76fdf33c]:nth-child(even) { text-align:right;\n}\n.list_wrap .total .row .col:nth-child(even) b[data-v-76fdf33c] { font-size:1.35em; color:#000;\n}\n.list_wrap .total .row.coupon_dc .col[data-v-76fdf33c],\r\n.list_wrap .total .row.coupon_dc .col b[data-v-76fdf33c] { color:#cc0000 !important;\n}\n.list_wrap .extra[data-v-76fdf33c] { margin-top:2rem;\n}\n.list_wrap .extra .row .col[data-v-76fdf33c]:nth-child(1) { margin-right:2rem;\n}\n.list_wrap .extra .row .col h6[data-v-76fdf33c] { border-bottom:2px solid #707070; margin-bottom:.7rem; padding-bottom:.5rem;\n}\n.list_wrap .extra .row .col h6 b[data-v-76fdf33c] { color:#0094EA;\n}\n.list_wrap .extra .row .col:nth-child(1) .desc[data-v-76fdf33c] { border:1px solid #D6D6D6; padding:1rem; min-height:158px;\n}\n.list_wrap .extra .row .col .btn[data-v-76fdf33c] { font-size:.85rem; padding:.3rem;\n}\n@media (max-width: 992px){\n.list_wrap .top .row .col[data-v-76fdf33c] { flex:0 0 100%; max-width:100%; padding:0 .3rem; text-align:left;\n}\n.list_wrap .top .row .col[data-v-76fdf33c]:nth-of-type(4) { flex:0 0 100%; max-width:100%; line-height:1.75; word-spacing:6px; letter-spacing:-1px; text-indent:-77px; padding-left:80px;\n}\n.list_wrap .top .row .col:nth-of-type(4) span[data-v-76fdf33c] { letter-spacing:8px; margin-right:-4px;\n}\n.list_wrap .total .row .col[data-v-76fdf33c] { flex:0 0 50%; max-width:50%;\n}\n.list_wrap .total .row .col[data-v-76fdf33c]:first-child { margin-left:0;\n}\n.list_wrap .extra .row .col[data-v-76fdf33c] { flex:0 0 100%; max-width:100%; margin:0 0 2rem 0 !important;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -270,7 +270,7 @@ var render = function render() {
         staticClass: "explain"
       }, [_c("b-col", [_c("p", {
         staticClass: "gd_name"
-      }, [_vm._v(_vm._s(item.gd_name))]), _vm._v(" "), _c("p", [_c("b", {
+      }, [_vm._v(_vm._s(item.odm_gd_name))]), _vm._v(" "), _c("p", [_c("b", {
         staticClass: "m_hide"
       }, [_vm._v("제품명:")]), _vm._v(" " + _vm._s(item.odm_gm_name) + " / "), _c("b", {
         staticClass: "m_hide"

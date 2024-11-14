@@ -208,7 +208,7 @@ export default {
 #mypage .middle .left .b-sidebar-outer { z-index:16; }
 
 @media (min-width: 992px) {
-    #menu_btn { display:none; }
+    .container h2 button { display:none; }
     .b-sidebar-outer { position:relative; height:100%; }
     .b-sidebar-outer >>> .b-sidebar-backdrop { display:none; }
     .b-sidebar-outer >>> .b-sidebar { position:relative; box-shadow: none !important; display:flex !important; background:none !important; height:100%; }
@@ -265,16 +265,5 @@ export default {
     #mypage .middle .mypage { padding:0; flex: 0 0 100%; max-width: 100%; }
     #mypage .middle .mypage h5 { margin-top:0; margin-top:14px; font-size:1rem; }
     .list01 .header { display:none; }
-    .list01 .row .date { flex: 0 0 25%; max-width: 25%; }
-    .list01 .data .product { display:none; }
-    .list01 .row .num { flex: 0 0 70%; max-width: 70%; }
-    .list01 .row .num div { display:inline-block; margin-right:1rem; width:40%; }
-    .list01 .row .num .btn { width:30%; }
-    .list01 .row .price { flex:0 0 30%; max-width:30%; text-align:center !important;}
-    .list01 .row .step { flex:0 0 23%; max-width:23%; text-align:center !important; }
-    .list01.order .row .step { margin-left:40%;}
-    .list01.estimate .row>div:last-child { flex:0 0 52%; max-width:52%; }
-    .list01.estimate .row>div:last-child > div { display: flex; justify-content: space-evenly; }
- 
 }
 </style>
