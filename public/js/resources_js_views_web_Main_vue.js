@@ -213,14 +213,6 @@ var render = function render() {
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {
-      to: "/shop/goods/800994"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2024/1015/slide.jpg"
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
       to: "/board/notice/show/55"
     }
   }, [_c("b-carousel-slide", {
@@ -258,14 +250,6 @@ var render = function render() {
   }, [_c("b-carousel-slide", {
     attrs: {
       "img-src": "/storage/event/2024/1028/estimate.jpg"
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
-      to: "/shop/goods/800994"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2024/1015/sign.jpg"
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {

@@ -16,9 +16,6 @@
             <b-link to="/shop/goods?mode=maker&keyword=i-GEST&sort=hot">
                 <b-carousel-slide img-src="/storage/event/2024/1028/slide.jpg"></b-carousel-slide>
             </b-link>
-            <b-link to="/shop/goods/800994">
-                <b-carousel-slide img-src="/storage/event/2024/1015/slide.jpg"></b-carousel-slide>
-            </b-link>
             <b-link to="/board/notice/show/55">
                 <b-carousel-slide img-src="/storage/main/slide/2024/0108.png"></b-carousel-slide>
             </b-link>
@@ -36,9 +33,6 @@
             </b-link>
             <b-link to="/shop/goods?mode=maker&keyword=i-GEST&sort=hot">
                 <b-carousel-slide img-src="/storage/event/2024/1028/estimate.jpg"></b-carousel-slide>
-            </b-link>
-            <b-link to="/shop/goods/800994">
-                <b-carousel-slide img-src="/storage/event/2024/1015/sign.jpg"></b-carousel-slide>
             </b-link>
             <b-link to="/shop/goods?mode=maker&keyword=radwag">
                 <b-carousel-slide img-src="/storage/event/2023/0918/sign.jpg"></b-carousel-slide>
