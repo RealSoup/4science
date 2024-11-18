@@ -41,6 +41,7 @@ class UserController extends Controller {
     public function update(Request $req) {
         $r_m = User::validate_rule_msg(auth()->user()->is_dealer);
         unset($r_m['rule']['email']);
+        unset($r_m['rule']['mng']);
         Validator::make($req->all(), $r_m['rule'], $r_m['message'])->validate();
         $user = auth()->user();        
         $user->name         = $req->name;
