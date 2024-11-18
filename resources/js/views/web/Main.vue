@@ -10,6 +10,9 @@
         <!-- this.$store.state.common.deviceType -->
 
         <template v-if="deviceType=='pc'">
+            <b-link to="/shop/goods?keyword=%EC%A0%9C%EC%9D%B4%EC%98%A4%ED%85%8D%20%EC%9D%B4%EB%B2%A4%ED%8A%B8&sort=hot">
+                <b-carousel-slide img-src="/storage/event/2024/1118/slide.jpg"></b-carousel-slide>
+            </b-link>
             <b-link to="/shop/goods?ca01=45&sort=hot">
                 <b-carousel-slide img-src="/storage/event/2024/1111/slide.jpg"></b-carousel-slide>
             </b-link>            
@@ -28,6 +31,9 @@
         </template>
 
         <template v-if="deviceType=='mobile'">
+            <b-link to="/shop/goods?keyword=%EC%A0%9C%EC%9D%B4%EC%98%A4%ED%85%8D%20%EC%9D%B4%EB%B2%A4%ED%8A%B8&sort=hot">
+                <b-carousel-slide img-src="/storage/event/2024/1118/sign.jpg"></b-carousel-slide>
+            </b-link>
             <b-link to="/shop/goods?ca01=45&sort=hot">
                 <b-carousel-slide img-src="/storage/event/2024/1111/sign.jpg"></b-carousel-slide>
             </b-link>
