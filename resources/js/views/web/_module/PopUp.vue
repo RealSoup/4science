@@ -2,7 +2,7 @@
 <div>
 
     <div class="popup pop_0" v-if="$route.name == 'main' && view_check(0)">
-        <b-img src="/storage/main/popup/240905.jpg" width="500"></b-img>
+        <b-img src="/storage/main/popup/241128.jpg" width="450"></b-img>
         <div class="ctrl">
             <b-button class="white xm" @click="todayStop(0)">24시간 안 보기</b-button>
         </div>
@@ -34,7 +34,7 @@ export default {
     data () {
         return {
             pop: [ 
-                {ck_key: 'view01', is_view: false, ck_view: false},
+                {ck_key: 'view01', is_view: true, ck_view: false},
                 {ck_key: 'view02', is_view: false, ck_view: false}, 
                 {ck_key: 'view03', is_view: false, ck_view: false}, 
             ]          
