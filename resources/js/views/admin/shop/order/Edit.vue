@@ -207,16 +207,6 @@
                                     </b-card>
                                 </b-collapse>
                             </template>
-
-
-
-
-
-
-
-
-
-
                         </b-col>
                     </b-row>
                 </b-col>
@@ -227,8 +217,7 @@
                         {{pa.odpa_dlvy_p_add_vat | comma | won}}
                     </div>
                 </b-col>
-            </b-row>
-   
+            </b-row>   
             
             <div class="top_border" />
             <div class="sum_up">

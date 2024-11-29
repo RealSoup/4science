@@ -362,7 +362,7 @@ class OrderController extends Controller {
 						foreach ($req->order_purchase_at as $opa) {
 							foreach ($opa['order_model'] as $odm) {
 								if ($odm['odm_type'] == 'MODEL')
-									OrderDlvyInfo::firstOrCreate(['oddi_odm_id' => $odm['order_dlvy_info']['oddi_odm_id']]);
+									OrderDlvyInfo::firstOrCreate(['oddi_odm_id' => $odm['odm_id']]);
 							}
 						}
 						if(intval($req->od_step) == 50 && intval($req->user['level']) == 1 )
