@@ -67,7 +67,7 @@ var render = function render() {
     staticClass: "popup pop_0"
   }, [_c("b-img", {
     attrs: {
-      src: "/storage/main/popup/241128.jpg",
+      src: "/storage/main/popup/241129.jpg",
       width: "450"
     }
   }), _vm._v(" "), _c("div", {

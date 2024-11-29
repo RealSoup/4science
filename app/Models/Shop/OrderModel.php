@@ -21,7 +21,7 @@ class OrderModel extends Model {
 
     public function order() { return $this->belongsTo(Order::class, 'odm_od_id'); }
     public function goodsModel() { return $this->hasOne(GoodsModel::class, 'gm_id', 'odm_gm_id'); }
-    public function orderDlvyInfo() { return $this->hasOne(OrderDlvyInfo::class, "oddi_odm_id")->withDefault(); }
+    public function orderDlvyInfo() { return $this->hasMany(OrderDlvyInfo::class, "oddi_odm_id"); }
     public function fileGoodsGoods() {  return $this->hasMany(\App\Models\FileGoods::class, 'fi_key', 'odm_gd_id')->Kind('goods')->orderBy('fi_seq'); }
     //public function user() { return $this->belongsTo(User::class, 'created_id'); }
     //public function scopeToday($query) { return $query->where('created_at', '>', 'curdate()'); }

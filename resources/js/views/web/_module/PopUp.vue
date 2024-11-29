@@ -2,7 +2,7 @@
 <div>
 
     <div class="popup pop_0" v-if="$route.name == 'main' && view_check(0)">
-        <b-img src="/storage/main/popup/241128.jpg" width="450"></b-img>
+        <b-img src="/storage/main/popup/241129.jpg" width="450"></b-img>
         <div class="ctrl">
             <b-button class="white xm" @click="todayStop(0)">24시간 안 보기</b-button>
         </div>

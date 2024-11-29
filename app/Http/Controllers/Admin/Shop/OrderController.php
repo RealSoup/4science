@@ -414,13 +414,16 @@ class OrderController extends Controller {
 				foreach ($req->order_purchase_at as $opa) {
 					foreach ($opa['order_model'] as $odm) {
 						if ($odm['odm_type'] == 'MODEL' && $odm['dlvy_chk'] == 'Y') {
-							OrderDlvyInfo::updateOrCreate( [
-								'oddi_odm_id' => $odm['order_dlvy_info']['oddi_odm_id']
-							], [
-								'oddi_dlvy_com' => $odm['order_dlvy_info']['oddi_dlvy_com'],
-								'oddi_dlvy_num'	=> $odm['order_dlvy_info']['oddi_dlvy_num'],
-								'oddi_dlvy_created_at' => \Carbon\Carbon::now()
-							]);
+							DB::table('shop_order_dlvy_info')->where('oddi_odm_id', $odm['odm_id'])->delete();
+							foreach ($odm['order_dlvy_info'] as $dlvy_info) {
+								if( trim($dlvy_info['oddi_dlvy_num']) != '' )
+									OrderDlvyInfo::insert([
+										'oddi_odm_id' 		   => $dlvy_info['oddi_odm_id'],
+										'oddi_dlvy_com' 	   => $dlvy_info['oddi_dlvy_com'],
+										'oddi_dlvy_num'		   => $dlvy_info['oddi_dlvy_num'],
+										'oddi_dlvy_created_at' => \Carbon\Carbon::now()
+									]);
+							}
 						}
 					}
 				}
@@ -428,12 +431,20 @@ class OrderController extends Controller {
 				foreach ($req->order_purchase_at as $opa) {
 					foreach ($opa['order_model'] as $odm) {
 						if ($odm['odm_type'] == 'MODEL' && $odm['dlvy_chk'] == 'Y') {
-							if ( $odm['order_dlvy_info']['oddi_arrival_date'] ) {
+							if ( count($odm['order_dlvy_info']) == 1 ) {
 								OrderDlvyInfo::updateOrCreate(
-									['oddi_odm_id' => $odm['order_dlvy_info']['oddi_odm_id']], 
+									['oddi_odm_id' => $odm['odm_id']], 
 									['oddi_arrival_date'=> \Carbon\Carbon::now()]
 								);
+							} else {
+								foreach ($odm['order_dlvy_info'] as $dlvy_info) {
+									OrderDlvyInfo::updateOrCreate(
+										['oddi_id' => $dlvy_info['oddi_id']], 
+										['oddi_arrival_date'=> \Carbon\Carbon::now()]
+									);
+								}
 							}
+							
 						}
 					}
 				}
