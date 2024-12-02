@@ -202,6 +202,7 @@
                                         </b-input-group>
                                         <b-row class="ctrl">
                                             <b-col><b-button class="xm green" @click="update('arrival', odm.odm_id)">배송완료</b-button></b-col>
+                                            <b-col><b-button class="xm plum" @click="update('dlvy_del', odm.odm_id)">삭제</b-button></b-col>
                                             <b-col><b-button class="xm" @click="update('dlvy', odm.odm_id)">등록</b-button></b-col>
                                         </b-row>
                                     </b-card>
@@ -685,6 +686,13 @@ export default {
                                 }
                         });
                     });
+                } else if (type == 'dlvy_del') {
+                    this.od.order_purchase_at.forEach(opa => {
+                        opa.order_model.forEach(odm => {
+                            if (odm.dlvy_chk == 'Y')
+                                odm.order_dlvy_info.splice(0)
+                        });
+                    });
                 }
                 const res = await ax.post(`/api/admin/shop/order/${this.$route.params.od_id}`, this.od);
                 if (res && res.status === 200 && res.data.message === 'success') {
@@ -703,11 +711,16 @@ export default {
                         Notify.toast('success', '상품 수령 정보 수정');
                         this.$router.go();
                     } else if (type == 'dlvy') {
-                        this.$root.$emit('bv::toggle::collapse', `dlvy_info_box_${mode}`)
+                        this.$root.$emit('bv::toggle::collapse', `dlvy_info_box_${mode}`);
                         Notify.toast('success', '배송 정보 등록');
                         this.offAllCheck();
                     } else if (type == 'arrival') {
+                        this.$root.$emit('bv::toggle::collapse', `dlvy_info_box_${mode}`);
                         Notify.toast('success', '배송 완료 등록');
+                        this.offAllCheck();
+                    } else if (type == 'dlvy_del') {
+                        this.$root.$emit('bv::toggle::collapse', `dlvy_info_box_${mode}`);
+                        Notify.toast('success', '배송 정보 삭제 완료');
                         this.offAllCheck();
                     } else if (type == 'pay') {
                         Notify.toast('success', '결제정보 수정');
@@ -897,7 +910,7 @@ export default {
         },
 
         insert_dlvy(order_dlvy_info, odm_id) {
-            order_dlvy_info.push({ oddi_odm_id: odm_id, oddi_dlvy_com:'한진택배', oddi_dlvy_num: '' });
+            order_dlvy_info.push({ oddi_id:0, oddi_odm_id: odm_id, oddi_dlvy_com:'한진택배', oddi_dlvy_num: '' });
         },
         remove_dlvy(order_dlvy_info, i) {
             order_dlvy_info.splice(i, 1); 
@@ -916,7 +929,7 @@ export default {
         },
         collapseHide(order_dlvy_info) {
             for( let i in order_dlvy_info )
-                if (order_dlvy_info[i].oddi_dlvy_num.trim() == "") 
+                if (order_dlvy_info[i].oddi_dlvy_num.trim() == "" && isEmpty(order_dlvy_info[i].oddi_arrival_date)) 
                     order_dlvy_info.splice(i, 1);             
         },
 
@@ -961,10 +974,10 @@ export default {
 .p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box { position:absolute; right:73%; top:80%; width:350px; z-index:2; }
 .p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box >>> .shadow { box-shadow: -0.9rem 0.9rem 1rem rgba(0, 0, 0, 0.7) !important; }
 .p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .btn { color:#FFF; }
-.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body { padding-bottom:.4rem; }
-.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body .ctrl .col { flex:0 0 50%; max-width:50%; text-align:left; padding:5px 0; border-width:0; }
+.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body { padding:.4rem; }
+.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body .ctrl .col { flex-basis:0; flex-grow:1; max-width:100%; text-align:left; padding:5px 0; border-width:0; }
+.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body .ctrl .col:nth-child(2) { text-align:center; }
 .p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body .ctrl .col:last-child { text-align:right; }
-
 .p_wrap .od_addr .row .adm_memo div { cursor:pointer; }
 .p_wrap .od_addr .row .adm_memo div:hover { box-shadow:0 1px 5px 7px #015b7e; }
 
