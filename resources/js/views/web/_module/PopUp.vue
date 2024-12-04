@@ -34,7 +34,7 @@ export default {
     data () {
         return {
             pop: [ 
-                {ck_key: 'view01', is_view: true, ck_view: false},
+                {ck_key: 'view01', is_view: false, ck_view: false},
                 {ck_key: 'view02', is_view: false, ck_view: false}, 
                 {ck_key: 'view03', is_view: false, ck_view: false}, 
             ]          

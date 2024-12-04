@@ -963,6 +963,8 @@ export default {
 .p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn { background-color:#ffffff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem; }
 .p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8; }
 .p_wrap .box .goods .gd_con .row .col:nth-child(7) { border-right-width:1px; }
+.p_wrap .box .goods .gd_con .row .myCheck >>> .custom-control-label::before, 
+.p_wrap .box .goods .gd_con .row .myCheck >>> .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }
 .p_wrap .box .goods .gd_con .model.today { background-color:#fff2cb; }
 .p_wrap .box .goods .gd_con .model .signboard { text-align:center; margin:0 -10px; padding:10px; }
 .p_wrap .box .goods .gd_con .model .signboard .neonText { font-size:14px; color:#e600ff; }
