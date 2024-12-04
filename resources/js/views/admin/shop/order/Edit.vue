@@ -178,28 +178,32 @@
                         </b-col>
                         <b-col class="align print_hide_flex dlvy_info">
                             <template v-if="odm.odm_type=='MODEL'">
-                                <p v-for="dlvy in odm.order_dlvy_info" :key="dlvy.oddi_id">
-                                    <b-badge v-if="(!isEmpty(dlvy.oddi_receive_date) && dlvy.oddi_receive_date !='0000-00-00')" class="gray">수취완료</b-badge>
-                                    <b-badge v-else-if="(!isEmpty(dlvy.oddi_arrival_date) && dlvy.oddi_arrival_date!='0000-00-00')" class="green">배송완료</b-badge>
-                                    <b-button v-if="!isEmpty(dlvy.oddi_dlvy_num)" :href="getHref(dlvy.oddi_dlvy_com, dlvy.oddi_dlvy_num)" class="teal xm" target="_blank">배송조회</b-button>
-                                </p>                                
+                                <template v-for="(dlvy, i) in odm.order_dlvy_info">
+                                    <p v-if="dlvy.oddi_dlvy_created_at !== 'delete'" :key="`${odm.odm_id}_dlvy_info_btn_${i}`">
+                                        <b-badge v-if="(!isEmpty(dlvy.oddi_receive_date) && dlvy.oddi_receive_date !='0000-00-00')" class="gray">수취완료</b-badge>
+                                        <b-badge v-else-if="(!isEmpty(dlvy.oddi_arrival_date) && dlvy.oddi_arrival_date!='0000-00-00')" class="green">배송완료</b-badge>
+                                        <b-button v-if="!isEmpty(dlvy.oddi_dlvy_num)" :href="getHref(dlvy.oddi_dlvy_com, dlvy.oddi_dlvy_num)" class="teal xm" target="_blank">배송조회</b-button>
+                                    </p>
+                                </template>
 
                                 <b-button class="white xm dlvy_info_box_switch" v-b-toggle="`dlvy_info_box_${odm.odm_id}`">배송정보</b-button>
 
                                 <b-collapse :id="`dlvy_info_box_${odm.odm_id}`" class="dlvy_info_box" @show="collapseShow(odm.order_dlvy_info, odm.odm_id)" @hide="collapseHide(odm.order_dlvy_info)" accordion="group_dlvy">
                                     <b-card class="shadow">
-                                        <b-input-group size="sm" v-for="(dlvy, dlvy_i) in odm.order_dlvy_info" :key="dlvy.oddi_id">
-                                            <b-input-group-prepend>
-                                                <b-form-select v-model="dlvy.oddi_dlvy_com" size="sm">
-                                                    <b-form-select-option v-for="(v, k) in order_config.delivery_com" :key="k" :value="k">{{ k }}</b-form-select-option>
-                                                </b-form-select>
-                                            </b-input-group-prepend>
-                                            <b-form-input v-model="dlvy.oddi_dlvy_num" />
-                                            <b-input-group-append>
-                                                <b-button v-if="dlvy_i === 0" variant="info"   @click="insert_dlvy(odm.order_dlvy_info, odm.odm_id)"><b-icon-plus-circle-fill></b-icon-plus-circle-fill></b-button>
-                                                <b-button v-else              variant="danger" @click="remove_dlvy(odm.order_dlvy_info, dlvy_i)"><b-icon icon="dash-circle-fill"></b-icon></b-button>
-                                            </b-input-group-append>
-                                        </b-input-group>
+                                        <template v-for="(dlvy, dlvy_i) in odm.order_dlvy_info">
+                                            <b-input-group size="sm" v-if="dlvy.oddi_dlvy_created_at !== 'delete'" :key="`dlvy_input_group_${dlvy_i}`">
+                                                <b-input-group-prepend>
+                                                    <b-form-select v-model="dlvy.oddi_dlvy_com" size="sm">
+                                                        <b-form-select-option v-for="(v, k) in order_config.delivery_com" :key="k" :value="k">{{ k }}</b-form-select-option>
+                                                    </b-form-select>
+                                                </b-input-group-prepend>
+                                                <b-form-input v-model="dlvy.oddi_dlvy_num" />
+                                                <b-input-group-append>
+                                                    <b-button v-if="dlvy_i === 0" variant="info"   @click="insert_dlvy(odm.order_dlvy_info, odm.odm_id)"><b-icon-plus-circle-fill></b-icon-plus-circle-fill></b-button>
+                                                    <b-button v-else              variant="danger" @click="remove_dlvy(odm.order_dlvy_info, dlvy_i)"><b-icon icon="dash-circle-fill"></b-icon></b-button>
+                                                </b-input-group-append>
+                                            </b-input-group>
+                                        </template>
                                         <b-row class="ctrl">
                                             <b-col><b-button class="xm green" @click="update('arrival', odm.odm_id)">배송완료</b-button></b-col>
                                             <b-col><b-button class="xm plum" @click="update('dlvy_del', odm.odm_id)">삭제</b-button></b-col>
@@ -673,6 +677,7 @@ export default {
                             }
                         });
                     });
+                    this.od.type = 'dlvy_all';                    
                 } else if (type == 'arrival') {
                     this.od.order_purchase_at.forEach(opa => {
                         opa.order_model.forEach(odm => {
@@ -713,6 +718,7 @@ export default {
                     } else if (type == 'dlvy') {
                         this.$root.$emit('bv::toggle::collapse', `dlvy_info_box_${mode}`);
                         Notify.toast('success', '배송 정보 등록');
+                        this.edit();
                         this.offAllCheck();
                     } else if (type == 'arrival') {
                         this.$root.$emit('bv::toggle::collapse', `dlvy_info_box_${mode}`);
@@ -913,7 +919,10 @@ export default {
             order_dlvy_info.push({ oddi_id:0, oddi_odm_id: odm_id, oddi_dlvy_com:'한진택배', oddi_dlvy_num: '' });
         },
         remove_dlvy(order_dlvy_info, i) {
-            order_dlvy_info.splice(i, 1); 
+            if ( order_dlvy_info[i].oddi_id > 0 )
+                order_dlvy_info[i].oddi_dlvy_created_at = 'delete';
+            else 
+                order_dlvy_info.splice(i, 1);
         },
         collapseShow(order_dlvy_info, odm_id) {
             if (order_dlvy_info.length == 0) 
@@ -928,9 +937,10 @@ export default {
             }
         },
         collapseHide(order_dlvy_info) {
-            for( let i in order_dlvy_info )
-                if (order_dlvy_info[i].oddi_dlvy_num.trim() == "" && isEmpty(order_dlvy_info[i].oddi_arrival_date)) 
-                    order_dlvy_info.splice(i, 1);             
+            for( let i in order_dlvy_info ){            
+                if (isEmpty(order_dlvy_info[i].oddi_dlvy_num) && isEmpty(order_dlvy_info[i].oddi_arrival_date)) 
+                    order_dlvy_info.splice(i, 1);
+            }
         },
 
         dlvy_info_all_collapse() {
@@ -971,7 +981,6 @@ export default {
 .p_wrap .box .goods .gd_con .dlvy_info { flex-wrap:wrap; text-align:center; padding-bottom:0; align-items:flex-end !important; }
 .p_wrap .box .goods .gd_con .dlvy_info p { padding:.2rem 0 .25rem 0; width:100%; }
 .p_wrap .box .goods .gd_con .dlvy_info p:not(:last-of-type) { border-bottom:1px solid #aaa; }
-.p_wrap .box .goods .gd_con .dlvy_info p:nth-of-type(even) { background-color:#EEE; }
 .p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box_switch { border-bottom:0; border-radius:9px 9px 0 0; }
 .p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box { position:absolute; right:73%; top:80%; width:350px; z-index:2; }
 .p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box >>> .shadow { box-shadow: -0.9rem 0.9rem 1rem rgba(0, 0, 0, 0.7) !important; }

@@ -228,6 +228,7 @@ var dt = new Date();
                     }
                   });
                 });
+                _this2.od.type = 'dlvy_all';
               } else if (type == 'arrival') {
                 _this2.od.order_purchase_at.forEach(function (opa) {
                   opa.order_model.forEach(function (odm) {
@@ -270,6 +271,7 @@ var dt = new Date();
                 } else if (type == 'dlvy') {
                   _this2.$root.$emit('bv::toggle::collapse', "dlvy_info_box_".concat(mode));
                   Notify.toast('success', '배송 정보 등록');
+                  _this2.edit();
                   _this2.offAllCheck();
                 } else if (type == 'arrival') {
                   _this2.$root.$emit('bv::toggle::collapse', "dlvy_info_box_".concat(mode));
@@ -660,7 +662,7 @@ var dt = new Date();
       });
     },
     remove_dlvy: function remove_dlvy(order_dlvy_info, i) {
-      order_dlvy_info.splice(i, 1);
+      if (order_dlvy_info[i].oddi_id > 0) order_dlvy_info[i].oddi_dlvy_created_at = 'delete';else order_dlvy_info.splice(i, 1);
     },
     collapseShow: function collapseShow(order_dlvy_info, odm_id) {
       if (order_dlvy_info.length == 0) this.insert_dlvy(order_dlvy_info, odm_id);
@@ -691,7 +693,9 @@ var dt = new Date();
       }
     },
     collapseHide: function collapseHide(order_dlvy_info) {
-      for (var i in order_dlvy_info) if (order_dlvy_info[i].oddi_dlvy_num.trim() == "" && isEmpty(order_dlvy_info[i].oddi_arrival_date)) order_dlvy_info.splice(i, 1);
+      for (var i in order_dlvy_info) {
+        if (isEmpty(order_dlvy_info[i].oddi_dlvy_num) && isEmpty(order_dlvy_info[i].oddi_arrival_date)) order_dlvy_info.splice(i, 1);
+      }
     },
     dlvy_info_all_collapse: function dlvy_info_all_collapse() {
       if (this.didCheck()) this.$root.$emit('bv::toggle::collapse', "dlvy_info_box_all");
@@ -1207,9 +1211,9 @@ var render = function render() {
         }
       }, [_vm._v("\r\n                                    배송비 포함\r\n                                ")]) : _vm._e()], 1)]), _vm._v(" "), _c("b-col", {
         staticClass: "align print_hide_flex dlvy_info"
-      }, [odm.odm_type == "MODEL" ? [_vm._l(odm.order_dlvy_info, function (dlvy) {
-        return _c("p", {
-          key: dlvy.oddi_id
+      }, [odm.odm_type == "MODEL" ? [_vm._l(odm.order_dlvy_info, function (dlvy, i) {
+        return [dlvy.oddi_dlvy_created_at !== "delete" ? _c("p", {
+          key: "".concat(odm.odm_id, "_dlvy_info_btn_").concat(i)
         }, [!_vm.isEmpty(dlvy.oddi_receive_date) && dlvy.oddi_receive_date != "0000-00-00" ? _c("b-badge", {
           staticClass: "gray"
         }, [_vm._v("수취완료")]) : !_vm.isEmpty(dlvy.oddi_arrival_date) && dlvy.oddi_arrival_date != "0000-00-00" ? _c("b-badge", {
@@ -1220,7 +1224,7 @@ var render = function render() {
             href: _vm.getHref(dlvy.oddi_dlvy_com, dlvy.oddi_dlvy_num),
             target: "_blank"
           }
-        }, [_vm._v("배송조회")]) : _vm._e()], 1);
+        }, [_vm._v("배송조회")]) : _vm._e()], 1) : _vm._e()];
       }), _vm._v(" "), _c("b-button", {
         directives: [{
           name: "b-toggle",
@@ -1246,8 +1250,8 @@ var render = function render() {
       }, [_c("b-card", {
         staticClass: "shadow"
       }, [_vm._l(odm.order_dlvy_info, function (dlvy, dlvy_i) {
-        return _c("b-input-group", {
-          key: dlvy.oddi_id,
+        return [dlvy.oddi_dlvy_created_at !== "delete" ? _c("b-input-group", {
+          key: "dlvy_input_group_".concat(dlvy_i),
           attrs: {
             size: "sm"
           }
@@ -1299,7 +1303,7 @@ var render = function render() {
           attrs: {
             icon: "dash-circle-fill"
           }
-        })], 1)], 1)], 1);
+        })], 1)], 1)], 1) : _vm._e()];
       }), _vm._v(" "), _c("b-row", {
         staticClass: "ctrl"
       }, [_c("b-col", [_c("b-button", {
@@ -1981,7 +1985,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.i(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_public_css_adm_shop_order_edit_css_ver_2_0__WEBPACK_IMPORTED_MODULE_1__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-ca63be56] { padding-top:1rem;\n}\n.p_wrap .print_mng_nm[data-v-ca63be56] { display:none;\n}\n.p_wrap .print_hide[data-v-ca63be56] { display:block !important;\n}\n.p_wrap .print_hide_flex[data-v-ca63be56] { display:flex !important;\n}\n.p_wrap .print_hide_inline_block[data-v-ca63be56] { display:inline-block !important;\n}\n.p_wrap .print_show_inline[data-v-ca63be56]  { display:none;\n}\n.p_wrap .act_ctrl[data-v-ca63be56] { border-width:5px;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ca63be56] { display:flex; justify-content:flex-end; flex:0 0 530px; max-width:530px;\n}\n.p_wrap .act_ctrl .btn_area>*[data-v-ca63be56] { margin-left:.5%; margin-right:.5%;\n}\n.p_wrap .act_ctrl .btn_area .input-group[data-v-ca63be56] { max-width:150px;\n}\n.p_wrap .act_ctrl .def_info b[data-v-ca63be56]:not(:last-of-type) { margin-right:.5vw;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle { display:block !important; text-align:center;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle .btn { background-color:#ffffff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(7) { border-right-width:1px;\n}\n.p_wrap .box .goods .gd_con .row .myCheck[data-v-ca63be56] .custom-control-label::before, \r\n.p_wrap .box .goods .gd_con .row .myCheck[data-v-ca63be56] .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px;\n}\n.p_wrap .box .goods .gd_con .model.today[data-v-ca63be56] { background-color:#fff2cb;\n}\n.p_wrap .box .goods .gd_con .model .signboard[data-v-ca63be56] { text-align:center; margin:0 -10px; padding:10px;\n}\n.p_wrap .box .goods .gd_con .model .signboard .neonText[data-v-ca63be56] { font-size:14px; color:#e600ff;\n}\n.p_wrap .box .goods .gd_con .dlvy_info[data-v-ca63be56] { flex-wrap:wrap; text-align:center; padding-bottom:0; align-items:flex-end !important;\n}\n.p_wrap .box .goods .gd_con .dlvy_info p[data-v-ca63be56] { padding:.2rem 0 .25rem 0; width:100%;\n}\n.p_wrap .box .goods .gd_con .dlvy_info p[data-v-ca63be56]:not(:last-of-type) { border-bottom:1px solid #aaa;\n}\n.p_wrap .box .goods .gd_con .dlvy_info p[data-v-ca63be56]:nth-of-type(even) { background-color:#EEE;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box_switch[data-v-ca63be56] { border-bottom:0; border-radius:9px 9px 0 0;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box[data-v-ca63be56] { position:absolute; right:73%; top:80%; width:350px; z-index:2;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box[data-v-ca63be56] .shadow { box-shadow: -0.9rem 0.9rem 1rem rgba(0, 0, 0, 0.7) !important;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .btn[data-v-ca63be56] { color:#FFF;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body[data-v-ca63be56] { padding:.4rem;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body .ctrl .col[data-v-ca63be56] { flex-basis:0; flex-grow:1; max-width:100%; text-align:left; padding:5px 0; border-width:0;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body .ctrl .col[data-v-ca63be56]:nth-child(2) { text-align:center;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body .ctrl .col[data-v-ca63be56]:last-child { text-align:right;\n}\n.p_wrap .od_addr .row .adm_memo div[data-v-ca63be56] { cursor:pointer;\n}\n.p_wrap .od_addr .row .adm_memo div[data-v-ca63be56]:hover { box-shadow:0 1px 5px 7px #015b7e;\n}\n.p_wrap .sm_ib_v[data-v-ca63be56] { display:none;\n}\n@media (max-width: 1472px){\n.p_wrap .act_ctrl .def_info[data-v-ca63be56],\r\n    .p_wrap .act_ctrl .btn_area[data-v-ca63be56] { flex:0 0 100%; max-width:100%;\n}\n}\n@media (max-width: 992px){\n.p_wrap .sm_ib_v[data-v-ca63be56] { display:inline-block !important;\n}\n.p_wrap .sm_ib_h[data-v-ca63be56] { display:none !important;\n}\n.p_wrap .act_ctrl[data-v-ca63be56] { font-size:.8em;\n}\n.p_wrap .act_ctrl .btn[data-v-ca63be56] { font-size:.9em;\n}\n.p_wrap .act_ctrl .def_info span[data-v-ca63be56] { margin-left:0;\n}\n.p_wrap .act_ctrl .def_info b[data-v-ca63be56] { margin-right:2%; margin-left:.1rem;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ca63be56] { flex: 0 0 100%; max-width: 100%;\n}\n.p_wrap .act_ctrl .btn_area .input-group[data-v-ca63be56] { max-width:95px;\n}\n.p_wrap .act_ctrl .btn_area .btn[data-v-ca63be56] { padding: 0.1rem 0.2rem !important;\n}\n.label_st .dt[data-v-ca63be56] { padding-left:.2rem;\n}\n.label_st .lb[data-v-ca63be56] { flex:0 0 40%; max-width:40%;\n}\n.label_st .wd1_3[data-v-ca63be56], .label_st .wd54[data-v-ca63be56], .label_st .wd1_2[data-v-ca63be56], \r\n    .label_st .wd1_1[data-v-ca63be56] { flex:0 0 60%; max-width:60%;\n}\n.p_wrap .box .goods .pa_tit[data-v-ca63be56] { display:none !important;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(1) { display:none !important;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(2) { flex:0 0 35%; max-width:35%; border-top:2px solid #000;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(3) { flex:0 0 65%; max-width:65%; border-top:2px solid #000;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(4) { display:none !important;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(5) { flex:0 0 33.333333%; max-width:33.333333%;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(6) { flex:0 0 33.333333%; max-width:33.333333%;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(7) { flex:0 0 33.333333%; max-width:33.333333%;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(8) { display:none !important;\n}\n.p_wrap .box .goods .dlvy_fare[data-v-ca63be56] { display:none !important;\n}\n.p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(2):after,\r\n    .p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(4):after { content:none;\n}\n.p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(odd) { flex-basis:50%; max-width:50%; font-size:1rem;\n}\n.p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(6) { flex-basis:50%; max-width:50%;\n}\n.p_wrap .box .sum_up .total .col b[data-v-ca63be56] { font-size:1em;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-ca63be56] { padding-top:1rem;\n}\n.p_wrap .print_mng_nm[data-v-ca63be56] { display:none;\n}\n.p_wrap .print_hide[data-v-ca63be56] { display:block !important;\n}\n.p_wrap .print_hide_flex[data-v-ca63be56] { display:flex !important;\n}\n.p_wrap .print_hide_inline_block[data-v-ca63be56] { display:inline-block !important;\n}\n.p_wrap .print_show_inline[data-v-ca63be56]  { display:none;\n}\n.p_wrap .act_ctrl[data-v-ca63be56] { border-width:5px;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ca63be56] { display:flex; justify-content:flex-end; flex:0 0 530px; max-width:530px;\n}\n.p_wrap .act_ctrl .btn_area>*[data-v-ca63be56] { margin-left:.5%; margin-right:.5%;\n}\n.p_wrap .act_ctrl .btn_area .input-group[data-v-ca63be56] { max-width:150px;\n}\n.p_wrap .act_ctrl .def_info b[data-v-ca63be56]:not(:last-of-type) { margin-right:.5vw;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle { display:block !important; text-align:center;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle .btn { background-color:#ffffff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(7) { border-right-width:1px;\n}\n.p_wrap .box .goods .gd_con .row .myCheck[data-v-ca63be56] .custom-control-label::before, \r\n.p_wrap .box .goods .gd_con .row .myCheck[data-v-ca63be56] .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px;\n}\n.p_wrap .box .goods .gd_con .model.today[data-v-ca63be56] { background-color:#fff2cb;\n}\n.p_wrap .box .goods .gd_con .model .signboard[data-v-ca63be56] { text-align:center; margin:0 -10px; padding:10px;\n}\n.p_wrap .box .goods .gd_con .model .signboard .neonText[data-v-ca63be56] { font-size:14px; color:#e600ff;\n}\n.p_wrap .box .goods .gd_con .dlvy_info[data-v-ca63be56] { flex-wrap:wrap; text-align:center; padding-bottom:0; align-items:flex-end !important;\n}\n.p_wrap .box .goods .gd_con .dlvy_info p[data-v-ca63be56] { padding:.2rem 0 .25rem 0; width:100%;\n}\n.p_wrap .box .goods .gd_con .dlvy_info p[data-v-ca63be56]:not(:last-of-type) { border-bottom:1px solid #aaa;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box_switch[data-v-ca63be56] { border-bottom:0; border-radius:9px 9px 0 0;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box[data-v-ca63be56] { position:absolute; right:73%; top:80%; width:350px; z-index:2;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box[data-v-ca63be56] .shadow { box-shadow: -0.9rem 0.9rem 1rem rgba(0, 0, 0, 0.7) !important;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .btn[data-v-ca63be56] { color:#FFF;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body[data-v-ca63be56] { padding:.4rem;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body .ctrl .col[data-v-ca63be56] { flex-basis:0; flex-grow:1; max-width:100%; text-align:left; padding:5px 0; border-width:0;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body .ctrl .col[data-v-ca63be56]:nth-child(2) { text-align:center;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body .ctrl .col[data-v-ca63be56]:last-child { text-align:right;\n}\n.p_wrap .od_addr .row .adm_memo div[data-v-ca63be56] { cursor:pointer;\n}\n.p_wrap .od_addr .row .adm_memo div[data-v-ca63be56]:hover { box-shadow:0 1px 5px 7px #015b7e;\n}\n.p_wrap .sm_ib_v[data-v-ca63be56] { display:none;\n}\n@media (max-width: 1472px){\n.p_wrap .act_ctrl .def_info[data-v-ca63be56],\r\n    .p_wrap .act_ctrl .btn_area[data-v-ca63be56] { flex:0 0 100%; max-width:100%;\n}\n}\n@media (max-width: 992px){\n.p_wrap .sm_ib_v[data-v-ca63be56] { display:inline-block !important;\n}\n.p_wrap .sm_ib_h[data-v-ca63be56] { display:none !important;\n}\n.p_wrap .act_ctrl[data-v-ca63be56] { font-size:.8em;\n}\n.p_wrap .act_ctrl .btn[data-v-ca63be56] { font-size:.9em;\n}\n.p_wrap .act_ctrl .def_info span[data-v-ca63be56] { margin-left:0;\n}\n.p_wrap .act_ctrl .def_info b[data-v-ca63be56] { margin-right:2%; margin-left:.1rem;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ca63be56] { flex: 0 0 100%; max-width: 100%;\n}\n.p_wrap .act_ctrl .btn_area .input-group[data-v-ca63be56] { max-width:95px;\n}\n.p_wrap .act_ctrl .btn_area .btn[data-v-ca63be56] { padding: 0.1rem 0.2rem !important;\n}\n.label_st .dt[data-v-ca63be56] { padding-left:.2rem;\n}\n.label_st .lb[data-v-ca63be56] { flex:0 0 40%; max-width:40%;\n}\n.label_st .wd1_3[data-v-ca63be56], .label_st .wd54[data-v-ca63be56], .label_st .wd1_2[data-v-ca63be56], \r\n    .label_st .wd1_1[data-v-ca63be56] { flex:0 0 60%; max-width:60%;\n}\n.p_wrap .box .goods .pa_tit[data-v-ca63be56] { display:none !important;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(1) { display:none !important;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(2) { flex:0 0 35%; max-width:35%; border-top:2px solid #000;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(3) { flex:0 0 65%; max-width:65%; border-top:2px solid #000;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(4) { display:none !important;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(5) { flex:0 0 33.333333%; max-width:33.333333%;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(6) { flex:0 0 33.333333%; max-width:33.333333%;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(7) { flex:0 0 33.333333%; max-width:33.333333%;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(8) { display:none !important;\n}\n.p_wrap .box .goods .dlvy_fare[data-v-ca63be56] { display:none !important;\n}\n.p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(2):after,\r\n    .p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(4):after { content:none;\n}\n.p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(odd) { flex-basis:50%; max-width:50%; font-size:1rem;\n}\n.p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(6) { flex-basis:50%; max-width:50%;\n}\n.p_wrap .box .sum_up .total .col b[data-v-ca63be56] { font-size:1em;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

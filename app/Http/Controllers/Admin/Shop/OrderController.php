@@ -415,14 +415,30 @@ class OrderController extends Controller {
 					foreach ($opa['order_model'] as $odm) {
 						if ($odm['odm_type'] == 'MODEL' && $odm['dlvy_chk'] == 'Y') {
 							foreach ($odm['order_dlvy_info'] as $dlvy_info) {
-								OrderDlvyInfo::updateOrCreate(
-									['oddi_id' => $dlvy_info['oddi_id']], 
-									['oddi_odm_id' 		   => $dlvy_info['oddi_odm_id'],
-										'oddi_dlvy_com' 	   => $dlvy_info['oddi_dlvy_com'],
-										'oddi_dlvy_num'		   => $dlvy_info['oddi_dlvy_num'],
-										'oddi_dlvy_created_at' => \Carbon\Carbon::now()]
-								);
+								if (array_key_exists('oddi_dlvy_created_at', $dlvy_info) && $dlvy_info['oddi_dlvy_created_at'] == 'delete')
+									DB::table('shop_order_dlvy_info')->where('oddi_id', $dlvy_info['oddi_id'])->delete();
+								else
+									OrderDlvyInfo::updateOrCreate(
+										['oddi_id' 					=> $dlvy_info['oddi_id']], 
+										['oddi_odm_id' 		   		=> $dlvy_info['oddi_odm_id'],
+											'oddi_dlvy_com' 	   	=> $dlvy_info['oddi_dlvy_com'],
+											'oddi_dlvy_num'		   	=> $dlvy_info['oddi_dlvy_num'],
+											'oddi_dlvy_created_at' 	=> \Carbon\Carbon::now()]
+									);
 							}
+						}
+					}
+				}
+			} else if ($req->type == 'dlvy_all') {
+				foreach ($req->order_purchase_at as $opa) {
+					foreach ($opa['order_model'] as $odm) {
+						if ($odm['odm_type'] == 'MODEL' && $odm['dlvy_chk'] == 'Y') {
+							DB::table('shop_order_dlvy_info')->where('oddi_odm_id', $odm['odm_id'])->delete();
+							OrderDlvyInfo::insert([ 'oddi_odm_id' 		   => $odm['order_dlvy_info'][0]['oddi_odm_id'],
+													'oddi_dlvy_com' 	   => $odm['order_dlvy_info'][0]['oddi_dlvy_com'],
+													'oddi_dlvy_num'		   => $odm['order_dlvy_info'][0]['oddi_dlvy_num'],
+													'oddi_dlvy_created_at' => \Carbon\Carbon::now()]
+							);
 						}
 					}
 				}
