@@ -669,7 +669,7 @@ export default {
                         opa.order_model.forEach(odm => {
                             if (odm.dlvy_chk == 'Y') {
                                 odm.order_dlvy_info.splice(0)
-                                odm.order_dlvy_info.push({ oddi_odm_id: odm.odm_id, oddi_dlvy_com: this.dlvy_info.company, oddi_dlvy_num: this.dlvy_info.number });
+                                odm.order_dlvy_info.push({ oddi_id:0, oddi_odm_id: odm.odm_id, oddi_dlvy_com: this.dlvy_info.company, oddi_dlvy_num: this.dlvy_info.number });
                             }
                         });
                     });

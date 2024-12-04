@@ -220,6 +220,7 @@ var dt = new Date();
                     if (odm.dlvy_chk == 'Y') {
                       odm.order_dlvy_info.splice(0);
                       odm.order_dlvy_info.push({
+                        oddi_id: 0,
                         oddi_odm_id: odm.odm_id,
                         oddi_dlvy_com: _this2.dlvy_info.company,
                         oddi_dlvy_num: _this2.dlvy_info.number
