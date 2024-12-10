@@ -9,48 +9,29 @@
         </b-carousel-slide> -->
         <!-- this.$store.state.common.deviceType -->
 
-        <template v-if="deviceType=='pc'">
+        <template>
             <b-link to="/shop/goods/801046">
-                <b-carousel-slide img-src="/storage/event/2024/1203/slide.jpg"></b-carousel-slide>
+                <b-carousel-slide :img-src="`/storage/event/2024/1203/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link>
             <b-link to="/shop/goods?keyword=%EC%A0%9C%EC%9D%B4%EC%98%A4%ED%85%8D%20%EC%9D%B4%EB%B2%A4%ED%8A%B8&sort=hot">
-                <b-carousel-slide img-src="/storage/event/2024/1118/slide.jpg"></b-carousel-slide>
+                <b-carousel-slide :img-src="`/storage/event/2024/1118/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link>
             <b-link to="/shop/goods?ca01=45&sort=hot">
-                <b-carousel-slide img-src="/storage/event/2024/1111/slide.jpg"></b-carousel-slide>
+                <b-carousel-slide :img-src="`/storage/event/2024/1111/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link>            
             <b-link to="/shop/goods?mode=maker&keyword=i-GEST&sort=hot">
-                <b-carousel-slide img-src="/storage/event/2024/1028/slide.jpg"></b-carousel-slide>
+                <b-carousel-slide :img-src="`/storage/event/2024/1028/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link>
-            <b-link to="/board/notice/show/55">
+            <b-link to="/board/notice/show/55" v-if="deviceType=='pc'">
                 <b-carousel-slide img-src="/storage/main/slide/2024/0108.png"></b-carousel-slide>
             </b-link>
-            <b-link to="/shop/rental">
+            <b-link to="/shop/rental" v-if="deviceType=='pc'">
                 <b-carousel-slide img-src="/storage/event/2023/1208/slide.jpg"></b-carousel-slide>
             </b-link>
             <b-link to="/shop/goods?mode=maker&keyword=radwag">
-                <b-carousel-slide img-src="/storage/event/2023/0918/slide.jpg"></b-carousel-slide>
+                <b-carousel-slide :img-src="`/storage/event/2023/0918/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link>
         </template>
-
-        <template v-if="deviceType=='mobile'">
-            <b-link to="/shop/goods/801046">
-                <b-carousel-slide img-src="/storage/event/2024/1203/sign.jpg"></b-carousel-slide>
-            </b-link>
-            <b-link to="/shop/goods?keyword=%EC%A0%9C%EC%9D%B4%EC%98%A4%ED%85%8D%20%EC%9D%B4%EB%B2%A4%ED%8A%B8&sort=hot">
-                <b-carousel-slide img-src="/storage/event/2024/1118/sign.jpg"></b-carousel-slide>
-            </b-link>
-            <b-link to="/shop/goods?ca01=45&sort=hot">
-                <b-carousel-slide img-src="/storage/event/2024/1111/sign.jpg"></b-carousel-slide>
-            </b-link>
-            <b-link to="/shop/goods?mode=maker&keyword=i-GEST&sort=hot">
-                <b-carousel-slide img-src="/storage/event/2024/1028/estimate.jpg"></b-carousel-slide>
-            </b-link>
-            <b-link to="/shop/goods?mode=maker&keyword=radwag">
-                <b-carousel-slide img-src="/storage/event/2023/0918/sign.jpg"></b-carousel-slide>
-            </b-link>
-        </template>
-
     </b-carousel>
 
     <b-row id="best" class="layout">
@@ -195,6 +176,7 @@ export default {
         filteredCategories () { return this.category.filter(ca => ![38].includes(ca.ca_id)); },
         slide_check01() { return this.date01 < this.date_now && this.date_now < this.date02; },
         slide_check02() { return this.date02 < this.date_now; },
+        slide_file_nm() { return this.deviceType === "pc" ? "slide" : "sign"; }
     },
     methods: {
         scrollToCate(i){

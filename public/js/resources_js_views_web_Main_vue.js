@@ -84,6 +84,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     },
     slide_check02: function slide_check02() {
       return this.date02 < this.date_now;
+    },
+    slide_file_nm: function slide_file_nm() {
+      return this.deviceType === "pc" ? "slide" : "sign";
     }
   }),
   methods: {
@@ -195,13 +198,13 @@ var render = function render() {
       indicators: "",
       interval: 0
     }
-  }, [_vm.deviceType == "pc" ? [_c("b-link", {
+  }, [[_c("b-link", {
     attrs: {
       to: "/shop/goods/801046"
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": "/storage/event/2024/1203/slide.jpg"
+      "img-src": "/storage/event/2024/1203/".concat(_vm.slide_file_nm, ".jpg")
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {
@@ -209,7 +212,7 @@ var render = function render() {
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": "/storage/event/2024/1118/slide.jpg"
+      "img-src": "/storage/event/2024/1118/".concat(_vm.slide_file_nm, ".jpg")
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {
@@ -217,7 +220,7 @@ var render = function render() {
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": "/storage/event/2024/1111/slide.jpg"
+      "img-src": "/storage/event/2024/1111/".concat(_vm.slide_file_nm, ".jpg")
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {
@@ -225,9 +228,9 @@ var render = function render() {
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": "/storage/event/2024/1028/slide.jpg"
+      "img-src": "/storage/event/2024/1028/".concat(_vm.slide_file_nm, ".jpg")
     }
-  })], 1), _vm._v(" "), _c("b-link", {
+  })], 1), _vm._v(" "), _vm.deviceType == "pc" ? _c("b-link", {
     attrs: {
       to: "/board/notice/show/55"
     }
@@ -235,7 +238,7 @@ var render = function render() {
     attrs: {
       "img-src": "/storage/main/slide/2024/0108.png"
     }
-  })], 1), _vm._v(" "), _c("b-link", {
+  })], 1) : _vm._e(), _vm._v(" "), _vm.deviceType == "pc" ? _c("b-link", {
     attrs: {
       to: "/shop/rental"
     }
@@ -243,55 +246,15 @@ var render = function render() {
     attrs: {
       "img-src": "/storage/event/2023/1208/slide.jpg"
     }
-  })], 1), _vm._v(" "), _c("b-link", {
+  })], 1) : _vm._e(), _vm._v(" "), _c("b-link", {
     attrs: {
       to: "/shop/goods?mode=maker&keyword=radwag"
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": "/storage/event/2023/0918/slide.jpg"
+      "img-src": "/storage/event/2023/0918/".concat(_vm.slide_file_nm, ".jpg")
     }
-  })], 1)] : _vm._e(), _vm._v(" "), _vm.deviceType == "mobile" ? [_c("b-link", {
-    attrs: {
-      to: "/shop/goods/801046"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2024/1203/sign.jpg"
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
-      to: "/shop/goods?keyword=%EC%A0%9C%EC%9D%B4%EC%98%A4%ED%85%8D%20%EC%9D%B4%EB%B2%A4%ED%8A%B8&sort=hot"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2024/1118/sign.jpg"
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
-      to: "/shop/goods?ca01=45&sort=hot"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2024/1111/sign.jpg"
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
-      to: "/shop/goods?mode=maker&keyword=i-GEST&sort=hot"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2024/1028/estimate.jpg"
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
-      to: "/shop/goods?mode=maker&keyword=radwag"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2023/0918/sign.jpg"
-    }
-  })], 1)] : _vm._e()], 2), _vm._v(" "), _c("b-row", {
+  })], 1)]], 2), _vm._v(" "), _c("b-row", {
     staticClass: "layout",
     attrs: {
       id: "best"

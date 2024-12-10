@@ -923,10 +923,12 @@ var render = function render() {
       target: "_blank"
     }
   }, [_c("img", {
+    staticStyle: {
+      "max-width": "100%"
+    },
     attrs: {
       src: "/storage/goods/hazmat_info.jpg",
-      title: "유해화학물질 시약 관련 안내",
-      width: "500"
+      title: "유해화학물질 시약 관련 안내"
     }
   })])]) : _vm._e(), _vm._v(" "), _vm.content.goods_category_first.gc_ca01 == 38 ? _c("p", {
     staticClass: "warning"

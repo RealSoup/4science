@@ -197,7 +197,7 @@
                         </p>
                         <br>
                         <a href="https://kreach.me.go.kr/repwrt/index.do" target="_blank" style="display:block; text-align:center;">
-                            <img src="/storage/goods/hazmat_info.jpg" title="유해화학물질 시약 관련 안내" width="500">
+                            <img src="/storage/goods/hazmat_info.jpg" title="유해화학물질 시약 관련 안내" style="max-width:100%;">
                         </a>
                     </div>
 
