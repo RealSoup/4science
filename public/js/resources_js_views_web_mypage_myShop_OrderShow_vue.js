@@ -89,9 +89,11 @@ var dt = new Date();
     }
   }),
   methods: {
-    receiptConfirm: function receiptConfirm(odm) {
+    receiptConfirm: function receiptConfirm(odm, i) {
       this.isModalViewed = true;
-      this.receiptItem = Object.assign({}, odm);
+      this.receiptItem = Object.assign({}, odm, {
+        order_dlvy_info_index: i
+      });
     },
     hide_modal: function hide_modal() {
       this.isModalViewed = false;
@@ -286,35 +288,41 @@ var render = function render() {
         }
       })]), _vm._v(" "), item.odm_dlvy_at ? _c("p", [_c("b", {
         staticClass: "m_hide"
-      }, [_vm._v("납기:")]), _vm._v(" " + _vm._s(item.odm_dlvy_at))]) : _vm._e()]), _vm._v(" "), _c("b-col", [item.odm_type == "MODEL" ? [item.order_dlvy_info.oddi_receive_date ? _c("b-badge", {
-        attrs: {
-          variant: "light"
-        }
-      }, [_vm._v("수취완료")]) : item.order_dlvy_info.oddi_arrival_date ? _c("b-badge", {
-        attrs: {
-          variant: "success"
-        }
-      }, [_vm._v("배송완료")]) : item.order_dlvy_info.oddi_dlvy_num ? _c("b-badge", {
-        attrs: {
-          variant: "info"
-        }
-      }, [_vm._v("배송중")]) : _c("b-badge", {
-        attrs: {
-          variant: "primary"
-        }
-      }, [_vm._v("준비중")]), _vm._v(" "), _c("br"), _vm._v(" "), item.order_dlvy_info.oddi_dlvy_num ? _c("b-link", {
-        staticClass: "dlvy_link",
-        attrs: {
-          href: _vm.getHref(item.order_dlvy_info.oddi_dlvy_com, item.order_dlvy_info.oddi_dlvy_num)
-        }
-      }, [_vm._v(_vm._s(item.order_dlvy_info.oddi_dlvy_com) + " " + _vm._s(item.order_dlvy_info.oddi_dlvy_num))]) : _vm._e(), _vm._v(" "), _c("br"), _vm._v(" "), !item.order_dlvy_info.oddi_receive_date ? [_vm.od.od_step == "40" || _vm.od.od_step == "50" ? _c("b-button", {
-        staticClass: "teal xm",
-        on: {
-          click: function click($event) {
-            return _vm.receiptConfirm(item);
+      }, [_vm._v("납기:")]), _vm._v(" " + _vm._s(item.odm_dlvy_at))]) : _vm._e()]), _vm._v(" "), _c("b-col", [item.odm_type == "MODEL" ? _vm._l(item.order_dlvy_info, function (dlvy, dlvy_i) {
+        return _c("p", {
+          key: "".concat(i_item, "_").concat(dlvy_i),
+          staticClass: "dlvy_info_box"
+        }, [dlvy.oddi_receive_date ? _c("b-badge", {
+          attrs: {
+            variant: "light"
           }
-        }
-      }, [_vm._v("수취확인")]) : _vm._e()] : _vm._e()] : _vm._e()], 2)], 1), _vm._v(" "), _c("div", {
+        }, [_vm._v("수취완료")]) : dlvy.oddi_arrival_date ? _c("b-badge", {
+          attrs: {
+            variant: "success"
+          }
+        }, [_vm._v("배송완료")]) : dlvy.oddi_dlvy_num ? _c("b-badge", {
+          attrs: {
+            variant: "info"
+          }
+        }, [_vm._v("배송중")]) : _c("b-badge", {
+          attrs: {
+            variant: "primary"
+          }
+        }, [_vm._v("준비중")]), _vm._v(" "), _c("br"), _vm._v(" "), dlvy.oddi_dlvy_num ? _c("b-button", {
+          staticClass: "white xm",
+          attrs: {
+            href: _vm.getHref(dlvy.oddi_dlvy_com, dlvy.oddi_dlvy_num),
+            target: "_blank"
+          }
+        }, [_vm._v("배송조회")]) : _vm._e(), _vm._v(" "), _c("br"), _vm._v(" "), !dlvy.oddi_receive_date ? [_vm.od.od_step == "40" || _vm.od.od_step == "50" ? _c("b-button", {
+          staticClass: "teal xm",
+          on: {
+            click: function click($event) {
+              return _vm.receiptConfirm(item, dlvy_i);
+            }
+          }
+        }, [_vm._v("수취확인")]) : _vm._e()] : _vm._e()], 2);
+      }) : _vm._e()], 2)], 1), _vm._v(" "), _c("div", {
         staticClass: "col_price"
       }, [_c("div", {
         staticClass: "price_box"
@@ -475,7 +483,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-6f27c228] { max-width:100%; padding:2rem; border:1px solid #CCC; border-radius:.5rem; margin-top: 3rem;\n}\n.top[data-v-6f27c228] { border-top:2px solid #363636; border-bottom:1px solid #B6B6B6; border-right:1px solid #B6B6B6; border-left:1px solid #B6B6B6; padding:0 2rem; line-height:4; word-spacing:20px;\n}\n.goods[data-v-6f27c228] { border-top:3px solid #4F637B; padding:1em 0;\n}\n.goods[data-v-6f27c228]:not(:first-child) { border-top:1px solid #AAA;\n}\n.goods h4[data-v-6f27c228] { font-weight:bolder; font-size:1em; padding:1em 0; border-width:0;\n}\n.goods .gm_box[data-v-6f27c228] { margin-bottom:1em; align-items:flex-start;\n}\n.goods .gm_box .gd_img[data-v-6f27c228] { flex-basis:17%; max-width:17%; display:flex; align-items:center; justify-content:center;\n}\n.goods .gm_box .gd_img img[data-v-6f27c228] { width:100%; max-width:120px; height:auto; -o-object-fit:contain; object-fit:contain;\n}\n.goods .gm_box .gd_txt .explain[data-v-6f27c228] { display:flex;\n}\n.goods .gm_box .gd_txt .explain .col[data-v-6f27c228]:last-child { flex:0 0 25%; max-width:25%; text-align:right;\n}\n.goods .gm_box .gd_txt .explain .col p[data-v-6f27c228] { margin:0; color:#999;\n}\n.goods .gm_box .gd_txt .explain .col .gd_name[data-v-6f27c228] { color:#000; font-weight:700;\n}\n.goods .gm_box .gd_txt .explain .col .dlvy_link[data-v-6f27c228] { background-color: #00a1cb; border-radius: .25rem; color: #fff; padding: 3px; display:inline-block; width:140px; text-align:center; word-break:break-word;\n}\n.goods .gm_box .gd_txt .col_price[data-v-6f27c228] { display:flex; align-items:center; justify-content:flex-end;\n}\n.goods .gm_box .gd_txt .col_price svg[data-v-6f27c228] { margin:0 .2em;\n}\n.goods .gm_box .gd_txt .price_info[data-v-6f27c228] { text-align:right; color:#999;\n}\n.goods .gm_box .gd_txt .price_info .price_dc[data-v-6f27c228] { display:block; color:#cc0000;\n}\n.goods .dlvy_box[data-v-6f27c228] { padding: 12px 16px; background: #f5f5f5; border-radius: 8px;\n}\n.goods .dlvy_box .col[data-v-6f27c228] { color:#9e9e9e; font-size:.9em;\n}\n.goods .dlvy_box .price_box[data-v-6f27c228] { text-align:right;\n}\n.total[data-v-6f27c228] { padding-bottom:0;\n}\n.total .row[data-v-6f27c228] { align-items:baseline;\n}\n.total .row .col[data-v-6f27c228] { font-size:.85em; color:#777; flex:0 0 25%; max-width:25%;}\n.total .row .col[data-v-6f27c228]:first-child { margin-left:auto;\n}\n.total .row .col[data-v-6f27c228]:nth-child(even) { text-align:right;\n}\n.total .row .col:nth-child(even) b[data-v-6f27c228] { font-size:1.35em; color:#000;\n}\n.total .row.coupon_dc .col[data-v-6f27c228],\r\n.total .row.coupon_dc .col b[data-v-6f27c228] { color:#cc0000 !important;\n}\n.extra_info[data-v-6f27c228] { margin-top:3rem; font-size:.95rem;\n}\n.extra_info>.row>.col[data-v-6f27c228] { border:1px solid #D7D7D7; padding:2%;\n}\n.extra_info>.row>.col .label_st[data-v-6f27c228] { flex-basis:88px; max-width:88px; padding-top:0;\n}\n.extra_info>.row>.col .label_st.od_part[data-v-6f27c228] { flex-basis:130px; max-width:130px;\n}\n.extra_info>.row>.col[data-v-6f27c228]:nth-of-type(1) { flex-basis:30%; max-width:30%;\n}\n.extra_info>.row>.col[data-v-6f27c228]:not(:nth-of-type(1)) { margin-left:-1px;\n}\n.extra_info>.row>.col .row[data-v-6f27c228] { margin-left: 0; margin-right: 0;\n}\n@media (max-width: 992px){\n.w_fence[data-v-6f27c228] { padding:.5rem; margin-top:1rem;\n}\n.top[data-v-6f27c228] { padding:0 .3rem; line-height:1.75; word-spacing:6px; letter-spacing:-1px;\n}\n.goods .gm_box .gd_txt[data-v-6f27c228] { padding-left:8px;\n}\n.goods .gm_box .gd_txt .explain[data-v-6f27c228] { flex-direction:column;\n}\n.goods .gm_box .gd_txt .explain .col[data-v-6f27c228]:last-child { flex:0 0 100%; max-width:100%;\n}\n.total .row .col[data-v-6f27c228] { flex:0 0 50%; max-width:50%;}\n.extra_info[data-v-6f27c228] { margin-top:1rem;\n}\n.extra_info>.row>.col[data-v-6f27c228] { flex:0 0 100% !important; max-width:100% !important;\n}\n.btn_box .lg[data-v-6f27c228] { width:100px;\n}\n.btn_box .lg span[data-v-6f27c228] { display:block;\n}\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-6f27c228] { max-width:100%; padding:2rem; border:1px solid #CCC; border-radius:.5rem; margin-top: 3rem;\n}\n.top[data-v-6f27c228] { border-top:2px solid #363636; border-bottom:1px solid #B6B6B6; border-right:1px solid #B6B6B6; border-left:1px solid #B6B6B6; padding:0 2rem; line-height:4; word-spacing:20px;\n}\n.goods[data-v-6f27c228] { border-top:3px solid #4F637B; padding:1em 0;\n}\n.goods[data-v-6f27c228]:not(:first-child) { border-top:1px solid #AAA;\n}\n.goods h4[data-v-6f27c228] { font-weight:bolder; font-size:1em; padding:1em 0; border-width:0;\n}\n.goods .gm_box[data-v-6f27c228] { margin-bottom:1em; align-items:flex-start;\n}\n.goods .gm_box .gd_img[data-v-6f27c228] { flex-basis:17%; max-width:17%; display:flex; align-items:center; justify-content:center;\n}\n.goods .gm_box .gd_img img[data-v-6f27c228] { width:100%; max-width:120px; height:auto; -o-object-fit:contain; object-fit:contain;\n}\n.goods .gm_box .gd_txt .explain[data-v-6f27c228] { display:flex;\n}\n.goods .gm_box .gd_txt .explain .col[data-v-6f27c228]:last-child { flex:0 0 25%; max-width:25%; text-align:right;\n}\n.goods .gm_box .gd_txt .explain .col p[data-v-6f27c228] { margin:0; color:#999;\n}\n.goods .gm_box .gd_txt .explain .col .gd_name[data-v-6f27c228] { color:#000; font-weight:700;\n}\n.goods .gm_box .gd_txt .explain .col .dlvy_info_box[data-v-6f27c228] { background:linear-gradient(to right, #FFF, #EEE); padding:2px 5px 6px; margin-bottom:4px; border-radius:5px;\n}\n.goods .gm_box .gd_txt .explain .col .dlvy_info_box span[data-v-6f27c228] { width:54px;\n}\n.goods .gm_box .gd_txt .col_price[data-v-6f27c228] { display:flex; align-items:center; justify-content:flex-end;\n}\n.goods .gm_box .gd_txt .col_price svg[data-v-6f27c228] { margin:0 .2em;\n}\n.goods .gm_box .gd_txt .price_info[data-v-6f27c228] { text-align:right; color:#999;\n}\n.goods .gm_box .gd_txt .price_info .price_dc[data-v-6f27c228] { display:block; color:#cc0000;\n}\n.goods .dlvy_box[data-v-6f27c228] { padding: 12px 16px; background: #f5f5f5; border-radius: 8px;\n}\n.goods .dlvy_box .col[data-v-6f27c228] { color:#9e9e9e; font-size:.9em;\n}\n.goods .dlvy_box .price_box[data-v-6f27c228] { text-align:right;\n}\n.total[data-v-6f27c228] { padding-bottom:0;\n}\n.total .row[data-v-6f27c228] { align-items:baseline;\n}\n.total .row .col[data-v-6f27c228] { font-size:.85em; color:#777; flex:0 0 25%; max-width:25%;}\n.total .row .col[data-v-6f27c228]:first-child { margin-left:auto;\n}\n.total .row .col[data-v-6f27c228]:nth-child(even) { text-align:right;\n}\n.total .row .col:nth-child(even) b[data-v-6f27c228] { font-size:1.35em; color:#000;\n}\n.total .row.coupon_dc .col[data-v-6f27c228],\r\n.total .row.coupon_dc .col b[data-v-6f27c228] { color:#cc0000 !important;\n}\n.extra_info[data-v-6f27c228] { margin-top:3rem; font-size:.95rem;\n}\n.extra_info>.row>.col[data-v-6f27c228] { border:1px solid #D7D7D7; padding:2%;\n}\n.extra_info>.row>.col .label_st[data-v-6f27c228] { flex-basis:88px; max-width:88px; padding-top:0;\n}\n.extra_info>.row>.col .label_st.od_part[data-v-6f27c228] { flex-basis:130px; max-width:130px;\n}\n.extra_info>.row>.col[data-v-6f27c228]:nth-of-type(1) { flex-basis:30%; max-width:30%;\n}\n.extra_info>.row>.col[data-v-6f27c228]:not(:nth-of-type(1)) { margin-left:-1px;\n}\n.extra_info>.row>.col .row[data-v-6f27c228] { margin-left: 0; margin-right: 0;\n}\n@media (max-width: 992px){\n.w_fence[data-v-6f27c228] { padding:.5rem; margin-top:1rem;\n}\n.top[data-v-6f27c228] { padding:0 .3rem; line-height:1.75; word-spacing:6px; letter-spacing:-1px;\n}\n.goods .gm_box .gd_txt[data-v-6f27c228] { padding-left:8px;\n}\n.goods .gm_box .gd_txt .explain[data-v-6f27c228] { flex-direction:column;\n}\n.goods .gm_box .gd_txt .explain .col[data-v-6f27c228]:last-child { flex:0 0 100%; max-width:100%;\n}\n.total .row .col[data-v-6f27c228] { flex:0 0 50%; max-width:50%;}\n.extra_info[data-v-6f27c228] { margin-top:1rem;\n}\n.extra_info>.row>.col[data-v-6f27c228] { flex:0 0 100% !important; max-width:100% !important;\n}\n.btn_box .lg[data-v-6f27c228] { width:100px;\n}\n.btn_box .lg span[data-v-6f27c228] { display:block;\n}\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

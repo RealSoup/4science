@@ -24,11 +24,12 @@ class CronTabController extends Controller {
 			->StartDate('2022-01-01')
 			->EndDate(date('Y-m-d', strtotime(date('Y-m-d')." -2 week")))
 			->whereNull('shop_order_dlvy_info.oddi_receive_date')
+			->groupBy('shop_order_model.odm_id')
 			->orderBy('shop_order.od_id')
 			->get();
 
 		foreach( $od as $v ){
-			if(intval($v->user->level) < 5) {	//	딜러회원은 제외
+			if(intval($v->user->level) > 5) {	//	딜러회원은 제외
 				$p = $v->odm_price*$v->odm_ea*$v->user->mileage_mul;
 				$content='수취확인(자동)';
 				if($v->orderCoupon && count($v->orderCoupon)) {

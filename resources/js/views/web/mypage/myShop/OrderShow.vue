@@ -39,20 +39,20 @@
                                 <p v-if="item.odm_dlvy_at"><b class="m_hide">납기:</b> {{item.odm_dlvy_at}}</p>
                             </b-col>
                             <b-col>
-                                <template v-if="item.odm_type=='MODEL'">                                    
-                                    <b-badge v-if="item.order_dlvy_info.oddi_receive_date" variant="light">수취완료</b-badge>
-                                    <b-badge v-else-if="item.order_dlvy_info.oddi_arrival_date" variant="success">배송완료</b-badge>
-                                    <b-badge v-else-if="item.order_dlvy_info.oddi_dlvy_num" variant="info">배송중</b-badge>
-                                    <b-badge v-else variant="primary">준비중</b-badge>
-                                    <br />
-                                    <b-link v-if="item.order_dlvy_info.oddi_dlvy_num" class="dlvy_link"
-                                        :href="getHref(item.order_dlvy_info.oddi_dlvy_com, item.order_dlvy_info.oddi_dlvy_num)"
-                                    >{{item.order_dlvy_info.oddi_dlvy_com}} {{item.order_dlvy_info.oddi_dlvy_num}}</b-link>
-                                    <br />
-                                    
-                                    <template v-if="!item.order_dlvy_info.oddi_receive_date"> <!-- 수취확인날짜가 없다면 -->
-                                        <b-button v-if="od.od_step=='40' || od.od_step=='50'" class="teal xm"  @click="receiptConfirm(item)">수취확인</b-button>
-                                    </template>
+                                <template v-if="item.odm_type=='MODEL'">
+                                    <p v-for="(dlvy, dlvy_i) in item.order_dlvy_info" :key="`${i_item}_${dlvy_i}`" class="dlvy_info_box">
+                                        <b-badge v-if="dlvy.oddi_receive_date" variant="light">수취완료</b-badge>
+                                        <b-badge v-else-if="dlvy.oddi_arrival_date" variant="success">배송완료</b-badge>
+                                        <b-badge v-else-if="dlvy.oddi_dlvy_num" variant="info">배송중</b-badge>
+                                        <b-badge v-else variant="primary">준비중</b-badge>
+                                        <br />
+                                        <b-button v-if="dlvy.oddi_dlvy_num" class="white xm" :href="getHref(dlvy.oddi_dlvy_com, dlvy.oddi_dlvy_num)" target="_blank">배송조회</b-button>
+                                        <br />
+                                        
+                                        <template v-if="!dlvy.oddi_receive_date"> <!-- 수취확인날짜가 없다면 -->
+                                            <b-button v-if="od.od_step=='40' || od.od_step=='50'" class="teal xm"  @click="receiptConfirm(item, dlvy_i)">수취확인</b-button>
+                                        </template>
+                                    </p>
                                 </template>
                             </b-col>
                         </div>
@@ -260,9 +260,9 @@ export default {
         },
     },
     methods:{
-        receiptConfirm(odm) {
+        receiptConfirm(odm, i) {
             this.isModalViewed = true;
-            this.receiptItem = Object.assign( {}, odm );
+            this.receiptItem = Object.assign( {}, odm, {order_dlvy_info_index:i} );
         },
         hide_modal() {
             this.isModalViewed = false;
@@ -337,7 +337,8 @@ export default {
 .goods .gm_box .gd_txt .explain .col:last-child { flex:0 0 25%; max-width:25%; text-align:right; }
 .goods .gm_box .gd_txt .explain .col p { margin:0; color:#999; }
 .goods .gm_box .gd_txt .explain .col .gd_name { color:#000; font-weight:700; }
-.goods .gm_box .gd_txt .explain .col .dlvy_link { background-color: #00a1cb; border-radius: .25rem; color: #fff; padding: 3px; display:inline-block; width:140px; text-align:center; word-break:break-word; }
+.goods .gm_box .gd_txt .explain .col .dlvy_info_box { background:linear-gradient(to right, #FFF, #EEE); padding:2px 5px 6px; margin-bottom:4px; border-radius:5px; }
+.goods .gm_box .gd_txt .explain .col .dlvy_info_box span { width:54px; }
 .goods .gm_box .gd_txt .col_price { display:flex; align-items:center; justify-content:flex-end; }
 .goods .gm_box .gd_txt .col_price svg { margin:0 .2em; }
 .goods .gm_box .gd_txt .price_info { text-align:right; color:#999; }

@@ -1,4 +1,4 @@
-http://localhost:3000/shop/goods?ca01=21
-http://localhost:3000/shop/goods?ca01=23
-http://localhost:3000/shop/goods?ca01=22
-http://localhost:3000/shop/goods?ca01=25
+https://4science.net/shop/goods?ca01=21
+https://4science.net/shop/goods?ca01=23
+https://4science.net/shop/goods?ca01=22
+https://4science.net/shop/goods?ca01=25

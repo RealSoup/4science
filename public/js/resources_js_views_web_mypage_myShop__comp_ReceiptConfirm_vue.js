@@ -48,6 +48,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/board/review/store", _this.boFrm);
             case 5:
               resBo = _context.sent;
+              _this.item.order_dlvy_info[_this.item.order_dlvy_info_index].oddi_receive_date = new Date().format("yyyy-MM-dd HH:mm:ss");
               _this.odFrm = Object.assign({},
               // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
               _this.odFrm,
@@ -56,18 +57,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               // 삽입하려는 내용
               {
                 'did_use_coupon': _this.coupon.length > 0
+              }, {
+                'order_dlvy_info_index': _this.item.order_dlvy_info_index
               });
-              _context.next = 9;
+              _context.next = 10;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/order/".concat(_this.item.odm_od_id), _this.odFrm);
-            case 9:
+            case 10:
               resOr = _context.sent;
               if (resOr && resOr.status === 200) {
                 _this.clickable = true;
-                _this.item.order_dlvy_info.oddi_receive_date = new Date().format("yyyy-MM-dd HH:mm:ss");
                 Notify.toast('success', '수취 확인 완료');
                 _this.$emit('hide_modal');
               }
-            case 11:
+            case 12:
             case "end":
               return _context.stop();
           }

@@ -336,28 +336,31 @@ class OrderController extends Controller {
 
     public function update(Request $req, $id) {
 		if ($req->filled('type')) {
-			if ($req->type == 'receipt_confirm')
+			if ($req->type == 'receipt_confirm') {
                 $rst = DB::table('shop_order_dlvy_info')
-                        ->where('oddi_id', $req->order_dlvy_info['oddi_id'])
+                        ->where('oddi_id', $req->order_dlvy_info[$req->order_dlvy_info_index]['oddi_id'])
                         ->update(['oddi_receive_date'=> \Carbon\Carbon::now()]);
+            }
 		}
 		if ($rst) {
             if ( auth()->user()->level < 5 || auth()->user()->level > 20 ) {
-                $m = new \App\Models\UserMileage;
-                $p = $m->mileage_calculation($req->odm_price, $req->odm_ea, auth()->user()->level);
-                $content = '수취 확인';
-                if ( $req->did_use_coupon ) {
-                    $p=0;
-                    $content.=' - 쿠폰 사용으로 마일리지 지급 비대상';
+                $empty_value = array_filter( $req->order_dlvy_info, fn($v) => empty($v['oddi_receive_date']) ); //  수취 확인 안한거 체크
+                if (count($empty_value) == 0) { //  수취 확인 안한게 없다면 마일리지 지급
+                    $m = new \App\Models\UserMileage;
+                    $p = $m->mileage_calculation($req->odm_price, $req->odm_ea, auth()->user()->level);
+                    $content = '수취 확인';
+                    if ( $req->did_use_coupon ) {
+                        $p=0;
+                        $content.=' - 쿠폰 사용으로 마일리지 지급 비대상';
+                    }
+                    event(new Mileage(  "insert", 
+                                        auth()->user()->id, 
+                                        'shop_order_model', 
+                                        $req->odm_id, 'SV', 
+                                        $content,
+                                        $p 
+                                        ));
                 }
-                event(new Mileage(  "insert", 
-                                    auth()->user()->id, 
-                                    'shop_order_model', 
-                                    $req->odm_id, 'SV', 
-                                    $content,
-                                    $p 
-                                    ));
-                
             }
             return response()->json(["message"=>"success"], 200);
         } else

@@ -63,16 +63,19 @@ export default {
             if ( isEmpty(this.boFrm.bo_subject) ) this.boFrm.bo_subject = this.item.odm_gd_name;
             if ( isEmpty(this.boFrm.bo_content) ) this.boFrm.bo_content = "만족";
             const resBo = await ax.post(`/api/board/review/store`, this.boFrm);
+
+            this.item.order_dlvy_info[this.item.order_dlvy_info_index].oddi_receive_date = new Date().format("yyyy-MM-dd HH:mm:ss");
             this.odFrm = Object.assign(
                 {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
                 this.odFrm, // 수정하려는 객체
                 this.item, // 삽입하려는 내용
                 {'did_use_coupon': (this.coupon.length>0)},
+                {'order_dlvy_info_index': this.item.order_dlvy_info_index},
             );
+
             const resOr = await ax.post(`/api/shop/order/${this.item.odm_od_id}`, this.odFrm);
             if (resOr && resOr.status === 200) {    
-                this.clickable = true; 
-                this.item.order_dlvy_info.oddi_receive_date = new Date().format("yyyy-MM-dd HH:mm:ss");
+                this.clickable = true;
                 Notify.toast('success', '수취 확인 완료');
                 this.$emit('hide_modal');
             }
