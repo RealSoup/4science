@@ -12,17 +12,22 @@
         <b-col>{{bm.bm_orderid}}</b-col>
         <b-col><p v-for="(bmm, j) in bm.b2b_merck_model" :key="bmm.bmm_id">{{j+1}}. {{bmm.bmm_gm_name}} ( {{bmm.bmm_gm_code}} )</p></b-col>
         <b-col class="result">
-            <div v-for="bmc in bm.b2b_merck_confirmation.bmc_data_item" :key="bmc.no">
-                <span>{{bmc.no}}. {{bmc.ea}}</span>
-                <ul>
-                    <li v-for="(bmcr, l) in bmc.rst" :key="l">
-                        <span>{{bmcr.ea}}</span>
-                        <span>{{bmcr.price}}</span>
-                        <span>{{bmcr.dlvy}}</span>
-                        <span>{{bmcr.accept}}</span>
-                    </li>
-                </ul>
+            <div v-if="bm.b2b_merck_confirmation.bmc_data_item == 'cancel'">
+                <span></span><ul><li><b-badge class="red">취소</b-badge></li></ul>
             </div>
+            <template v-else>
+                <div v-for="bmc in bm.b2b_merck_confirmation.bmc_data_item" :key="bmc.no">
+                    <span>{{bmc.no}}. {{bmc.ea}}</span>
+                    <ul>
+                        <li v-for="(bmcr, l) in bmc.rst" :key="l">
+                            <span>{{bmcr.ea}}</span>
+                            <span>{{bmcr.price}}</span>
+                            <span>{{bmcr.dlvy}}</span>
+                            <span>{{bmcr.accept}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </template>
         </b-col>
         <b-col class="price">{{ bm.bm_total_amt | comma }} 원</b-col>
     </b-row>

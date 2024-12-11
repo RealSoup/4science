@@ -101,7 +101,9 @@ var render = function render() {
       }, [_vm._v(_vm._s(j + 1) + ". " + _vm._s(bmm.bmm_gm_name) + " ( " + _vm._s(bmm.bmm_gm_code) + " )")]);
     }), 0), _vm._v(" "), _c("b-col", {
       staticClass: "result"
-    }, _vm._l(bm.b2b_merck_confirmation.bmc_data_item, function (bmc) {
+    }, [bm.b2b_merck_confirmation.bmc_data_item == "cancel" ? _c("div", [_c("span"), _c("ul", [_c("li", [_c("b-badge", {
+      staticClass: "red"
+    }, [_vm._v("취소")])], 1)])]) : _vm._l(bm.b2b_merck_confirmation.bmc_data_item, function (bmc) {
       return _c("div", {
         key: bmc.no
       }, [_c("span", [_vm._v(_vm._s(bmc.no) + ". " + _vm._s(bmc.ea))]), _vm._v(" "), _c("ul", _vm._l(bmc.rst, function (bmcr, l) {
@@ -109,7 +111,7 @@ var render = function render() {
           key: l
         }, [_c("span", [_vm._v(_vm._s(bmcr.ea))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(bmcr.price))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(bmcr.dlvy))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(bmcr.accept))])]);
       }), 0)]);
-    }), 0), _vm._v(" "), _c("b-col", {
+    })], 2), _vm._v(" "), _c("b-col", {
       staticClass: "price"
     }, [_vm._v(_vm._s(_vm._f("comma")(bm.bm_total_amt)) + " 원")])], 1);
   }), _vm._v(" "), _c("pagination", {
