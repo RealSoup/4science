@@ -32,8 +32,7 @@ export default {
     data() {
         return {
             od_id:this.$route.params.od_id,
-            order:{ order_extra_info:{}, },
-            config:{ pay_method:[] },
+            od_all_price:0,
         }
     },
     computed: {
@@ -65,7 +64,7 @@ export default {
     async mounted() {
         const res = await ax.get(`/api/shop/order/done/${this.od_id}`);
         if (res && res.status === 200) {
-            // this.order = res.data.order;
+            this.od_all_price = res.data.od_all_price;
             // this.config = res.data.config;
 
                     /* 네이버 분석 관련 스크립트 */
@@ -73,7 +72,7 @@ export default {
             wcs_add["wa"] = "s_256b3162e372";
             var _nasa={};
             if (window.wcs) {
-                _nasa["cnv"] = wcs.cnv("1",this.order.od_all_price);
+                _nasa["cnv"] = wcs.cnv("1", this.od_all_price);
                 wcs_do(_nasa);
             }
 

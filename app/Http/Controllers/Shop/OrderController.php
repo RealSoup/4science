@@ -612,8 +612,9 @@ class OrderController extends Controller {
             }
         }
 
-        return response()->json(true, 200);
+        // return response()->json(true, 200);
         // return response()->json(['order'=>$data, 'config'=>Order::$orderConfig], 200);
+        return response()->json(['od_all_price'=>$data->od_all_price], 200);
     }
 
    

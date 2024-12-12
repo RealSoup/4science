@@ -27,12 +27,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       od_id: this.$route.params.od_id,
-      order: {
-        order_extra_info: {}
-      },
-      config: {
-        pay_method: []
-      }
+      od_all_price: 0
     };
   },
   computed: {
@@ -84,10 +79,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           case 2:
             res = _context.sent;
             if (!(res && res.status === 200)) {
-              _context.next = 10;
+              _context.next = 11;
               break;
             }
-            // this.order = res.data.order;
+            _this.od_all_price = res.data.od_all_price;
             // this.config = res.data.config;
 
             /* 네이버 분석 관련 스크립트 */
@@ -95,17 +90,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             wcs_add["wa"] = "s_256b3162e372";
             _nasa = {};
             if (window.wcs) {
-              _nasa["cnv"] = wcs.cnv("1", _this.order.od_all_price);
+              _nasa["cnv"] = wcs.cnv("1", _this.od_all_price);
               wcs_do(_nasa);
             }
-            _context.next = 10;
+            _context.next = 11;
             return _this.$router.push({
               name: 'my_order_show',
               params: {
                 od_id: _this.od_id
               }
             });
-          case 10:
+          case 11:
           case "end":
             return _context.stop();
         }
