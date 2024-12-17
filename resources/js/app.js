@@ -116,14 +116,12 @@ import VueScrollactive from 'vue-scrollactive';
 Vue.use(VueScrollactive);
 
 
-
-
-
+let gtm_id = (process.env.MIX_APP_ENV=='production') ? 'AW-965653965' : 'GTM-NJK884V';
 import VueGtm from '@gtm-support/vue2-gtm';
-
 Vue.use(VueGtm, {
     // id: 'AW-965653965',
-    id: 'GTM-NJK884V',
+    // 'GTM-NJK884V'
+    id: gtm_id,
     defer: false,
     compatibility: false,
     nonce: '2726c7f26c',
@@ -133,10 +131,6 @@ Vue.use(VueGtm, {
     vueRouter: router,
     trackOnNextTick: false,
 });
-
-
-
-
 
 
 let nextPath= '/login';
