@@ -10,6 +10,9 @@
         <!-- this.$store.state.common.deviceType -->
 
         <template>
+            <b-link to="/shop/goods/10395">
+                <b-carousel-slide :img-src="`/storage/event/2024/1219/${slide_file_nm}.jpg`"></b-carousel-slide>
+            </b-link>
             <b-link to="/shop/goods/801046">
                 <b-carousel-slide :img-src="`/storage/event/2024/1203/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link>

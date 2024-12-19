@@ -182,7 +182,7 @@
                                     <p v-if="dlvy.oddi_dlvy_created_at !== 'delete'" :key="`${odm.odm_id}_dlvy_info_btn_${i}`">
                                         <b-badge v-if="(!isEmpty(dlvy.oddi_receive_date) && dlvy.oddi_receive_date !='0000-00-00')" class="gray">수취완료</b-badge>
                                         <b-badge v-else-if="(!isEmpty(dlvy.oddi_arrival_date) && dlvy.oddi_arrival_date!='0000-00-00')" class="green">배송완료</b-badge>
-                                        <b-button v-if="!isEmpty(dlvy.oddi_dlvy_num)" :href="getHref(dlvy.oddi_dlvy_com, dlvy.oddi_dlvy_num)" class="teal xm" target="_blank">배송조회</b-button>
+                                        <b-button v-if="!isEmpty(dlvy.oddi_dlvy_com) && !isEmpty(dlvy.oddi_dlvy_num)" :href="getHref(dlvy.oddi_dlvy_com, dlvy.oddi_dlvy_num)" class="teal xm" target="_blank">배송조회</b-button>
                                     </p>
                                 </template>
 
@@ -668,16 +668,35 @@ export default {
                         this.od.od_mng = Auth.user().id;
                         this.od.mng = Auth.user();
                     }
-                } else if (type == 'dlvy' && mode == 'all') {
-                    this.od.order_purchase_at.forEach(opa => {
-                        opa.order_model.forEach(odm => {
-                            if (odm.dlvy_chk == 'Y') {
-                                odm.order_dlvy_info.splice(0)
-                                odm.order_dlvy_info.push({ oddi_id:0, oddi_odm_id: odm.odm_id, oddi_dlvy_com: this.dlvy_info.company, oddi_dlvy_num: this.dlvy_info.number });
-                            }
+                } else if (type == 'dlvy') {
+                    if (mode == 'all') {
+                        this.od.order_purchase_at.forEach(opa => {
+                            opa.order_model.forEach(odm => {
+                                if (odm.dlvy_chk == 'Y') {
+                                    odm.order_dlvy_info.splice(0)
+                                    odm.order_dlvy_info.push({ oddi_id:0, oddi_odm_id: odm.odm_id, oddi_dlvy_com: this.dlvy_info.company, oddi_dlvy_num: this.dlvy_info.number });
+                                }
+                            });
                         });
-                    });
-                    this.od.type = 'dlvy_all';                    
+                        this.od.type = 'dlvy_all';                    
+                    }
+
+                    // forEach로 하면 return으로 함수 탈출이 안된다
+                    for (let i = 0; i < this.od.order_purchase_at.length; i++) {
+                        for (let j = 0; j < this.od.order_purchase_at[i].order_model.length; j++) {
+                            for (let k = 0; k < this.od.order_purchase_at[i].order_model[j].order_dlvy_info.length; k++) {
+                                if ( this.od.order_purchase_at[i].order_model[j].dlvy_chk == 'Y' &&
+                                    (   isEmpty(this.od.order_purchase_at[i].order_model[j].order_dlvy_info[k].oddi_dlvy_com)
+                                    || isEmpty(this.od.order_purchase_at[i].order_model[j].order_dlvy_info[k].oddi_dlvy_num)
+                                    )
+                                ) {
+                                    Notify.modal('배송정보를 모두 입력하세요.', 'danger');
+                                    return false;
+                                }
+                            }
+                        }                        
+                    }
+                    
                 } else if (type == 'arrival') {
                     this.od.order_purchase_at.forEach(opa => {
                         opa.order_model.forEach(odm => {
@@ -699,6 +718,7 @@ export default {
                         });
                     });
                 }
+
                 const res = await ax.post(`/api/admin/shop/order/${this.$route.params.od_id}`, this.od);
                 if (res && res.status === 200 && res.data.message === 'success') {
                     if (type == 'od_mng') {
@@ -927,6 +947,9 @@ export default {
         collapseShow(order_dlvy_info, odm_id) {
             if (order_dlvy_info.length == 0) 
                 this.insert_dlvy(order_dlvy_info, odm_id);
+            else if (order_dlvy_info.length == 1 && isEmpty(order_dlvy_info[0].oddi_dlvy_com) && isEmpty(order_dlvy_info[0].oddi_dlvy_num)) {
+                order_dlvy_info[0].oddi_dlvy_com = '한진택배';                
+            }
 
             for (let opa of this.od.order_purchase_at) {    //  모든 제품을 확인해서 내가 누를 품목이 아니라면 체크 해제
                 opa.dlvy_all_chk = false;   

@@ -193,7 +193,7 @@ var dt = new Date();
       var _arguments = arguments,
         _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var mode, res;
+        var mode, i, j, k, res;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
@@ -208,13 +208,22 @@ var dt = new Date();
                 type: type
               } // 삽입하려는 내용
               );
-
-              if (type == 'od_mng') {
-                if (mode !== 'other') {
-                  _this2.od.od_mng = Auth.user().id;
-                  _this2.od.mng = Auth.user();
-                }
-              } else if (type == 'dlvy' && mode == 'all') {
+              if (!(type == 'od_mng')) {
+                _context2.next = 7;
+                break;
+              }
+              if (mode !== 'other') {
+                _this2.od.od_mng = Auth.user().id;
+                _this2.od.mng = Auth.user();
+              }
+              _context2.next = 30;
+              break;
+            case 7:
+              if (!(type == 'dlvy')) {
+                _context2.next = 29;
+                break;
+              }
+              if (mode == 'all') {
                 _this2.od.order_purchase_at.forEach(function (opa) {
                   opa.order_model.forEach(function (odm) {
                     if (odm.dlvy_chk == 'Y') {
@@ -229,7 +238,50 @@ var dt = new Date();
                   });
                 });
                 _this2.od.type = 'dlvy_all';
-              } else if (type == 'arrival') {
+              }
+
+              // forEach로 하면 return으로 함수 탈출이 안된다
+              i = 0;
+            case 10:
+              if (!(i < _this2.od.order_purchase_at.length)) {
+                _context2.next = 27;
+                break;
+              }
+              j = 0;
+            case 12:
+              if (!(j < _this2.od.order_purchase_at[i].order_model.length)) {
+                _context2.next = 24;
+                break;
+              }
+              k = 0;
+            case 14:
+              if (!(k < _this2.od.order_purchase_at[i].order_model[j].order_dlvy_info.length)) {
+                _context2.next = 21;
+                break;
+              }
+              if (!(_this2.od.order_purchase_at[i].order_model[j].dlvy_chk == 'Y' && (isEmpty(_this2.od.order_purchase_at[i].order_model[j].order_dlvy_info[k].oddi_dlvy_com) || isEmpty(_this2.od.order_purchase_at[i].order_model[j].order_dlvy_info[k].oddi_dlvy_num)))) {
+                _context2.next = 18;
+                break;
+              }
+              Notify.modal('배송정보를 모두 입력하세요.', 'danger');
+              return _context2.abrupt("return", false);
+            case 18:
+              k++;
+              _context2.next = 14;
+              break;
+            case 21:
+              j++;
+              _context2.next = 12;
+              break;
+            case 24:
+              i++;
+              _context2.next = 10;
+              break;
+            case 27:
+              _context2.next = 30;
+              break;
+            case 29:
+              if (type == 'arrival') {
                 _this2.od.order_purchase_at.forEach(function (opa) {
                   opa.order_model.forEach(function (odm) {
                     if (odm.dlvy_chk == 'Y') if (odm.order_dlvy_info.length == 0) odm.order_dlvy_info.push({
@@ -249,9 +301,10 @@ var dt = new Date();
                   });
                 });
               }
-              _context2.next = 6;
+            case 30:
+              _context2.next = 32;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/shop/order/".concat(_this2.$route.params.od_id), _this2.od);
-            case 6:
+            case 32:
               res = _context2.sent;
               if (res && res.status === 200 && res.data.message === 'success') {
                 if (type == 'od_mng') {
@@ -288,18 +341,18 @@ var dt = new Date();
                 }
                 _this2.$delete(_this2.od, '_method');
               } else Notify.toast('warning', '수정 실패');
-              _context2.next = 14;
+              _context2.next = 40;
               break;
-            case 10:
-              _context2.prev = 10;
+            case 36:
+              _context2.prev = 36;
               _context2.t0 = _context2["catch"](1);
               Notify.consolePrint(_context2.t0);
               Notify.toast('warning', _context2.t0.response);
-            case 14:
+            case 40:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[1, 10]]);
+        }, _callee2, null, [[1, 36]]);
       }))();
     },
     print: function print() {
@@ -665,7 +718,9 @@ var dt = new Date();
       if (order_dlvy_info[i].oddi_id > 0) order_dlvy_info[i].oddi_dlvy_created_at = 'delete';else order_dlvy_info.splice(i, 1);
     },
     collapseShow: function collapseShow(order_dlvy_info, odm_id) {
-      if (order_dlvy_info.length == 0) this.insert_dlvy(order_dlvy_info, odm_id);
+      if (order_dlvy_info.length == 0) this.insert_dlvy(order_dlvy_info, odm_id);else if (order_dlvy_info.length == 1 && isEmpty(order_dlvy_info[0].oddi_dlvy_com) && isEmpty(order_dlvy_info[0].oddi_dlvy_num)) {
+        order_dlvy_info[0].oddi_dlvy_com = '한진택배';
+      }
       var _iterator7 = _createForOfIteratorHelper(this.od.order_purchase_at),
         _step7;
       try {
@@ -1218,7 +1273,7 @@ var render = function render() {
           staticClass: "gray"
         }, [_vm._v("수취완료")]) : !_vm.isEmpty(dlvy.oddi_arrival_date) && dlvy.oddi_arrival_date != "0000-00-00" ? _c("b-badge", {
           staticClass: "green"
-        }, [_vm._v("배송완료")]) : _vm._e(), _vm._v(" "), !_vm.isEmpty(dlvy.oddi_dlvy_num) ? _c("b-button", {
+        }, [_vm._v("배송완료")]) : _vm._e(), _vm._v(" "), !_vm.isEmpty(dlvy.oddi_dlvy_com) && !_vm.isEmpty(dlvy.oddi_dlvy_num) ? _c("b-button", {
           staticClass: "teal xm",
           attrs: {
             href: _vm.getHref(dlvy.oddi_dlvy_com, dlvy.oddi_dlvy_num),

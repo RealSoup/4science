@@ -200,6 +200,14 @@ var render = function render() {
     }
   }, [[_c("b-link", {
     attrs: {
+      to: "/shop/goods/10395"
+    }
+  }, [_c("b-carousel-slide", {
+    attrs: {
+      "img-src": "/storage/event/2024/1219/".concat(_vm.slide_file_nm, ".jpg")
+    }
+  })], 1), _vm._v(" "), _c("b-link", {
+    attrs: {
       to: "/shop/goods/801046"
     }
   }, [_c("b-carousel-slide", {

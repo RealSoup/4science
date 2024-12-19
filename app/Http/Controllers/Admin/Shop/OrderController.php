@@ -361,6 +361,8 @@ class OrderController extends Controller {
 					if(intval($req->od_step) >= 20 && intval($req->od_step) <= 50) {
 						foreach ($req->order_purchase_at as $opa) {
 							foreach ($opa['order_model'] as $odm) {
+								/*	송장번호 없이 배송 완료 처리시
+									아래 필요함 */
 								if ($odm['odm_type'] == 'MODEL')
 									OrderDlvyInfo::firstOrCreate(['oddi_odm_id' => $odm['odm_id']]);
 							}
