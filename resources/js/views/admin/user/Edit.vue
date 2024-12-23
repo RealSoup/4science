@@ -325,9 +325,15 @@ export default {
     methods: {
         async edit() {
             const user = await ax.get(`/api/admin/user/${this.id}/edit`);
-            if (user && user.status === 200)
-                this.frm = user.data;
-            
+            if (user)
+                if(user.status === 200)
+                    this.frm = user.data;
+                else if (user.status === 204) {
+                    Notify.modal("정보가 없습니다.", 'danger');
+                    // this.$router.go(-1);
+                    return false;
+                }
+
             const od = await ax.get(`/api/admin/shop/order`, { params: {writer:this.id, limit:10}});
             if (od && od.status === 200) {
                 this.order = od.data.list;

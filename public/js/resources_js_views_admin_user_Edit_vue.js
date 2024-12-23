@@ -251,32 +251,51 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin/user/".concat(_this.id, "/edit"));
             case 2:
               user = _context.sent;
-              if (user && user.status === 200) _this.frm = user.data;
-              _context.next = 6;
+              if (!user) {
+                _context.next = 11;
+                break;
+              }
+              if (!(user.status === 200)) {
+                _context.next = 8;
+                break;
+              }
+              _this.frm = user.data;
+              _context.next = 11;
+              break;
+            case 8:
+              if (!(user.status === 204)) {
+                _context.next = 11;
+                break;
+              }
+              Notify.modal("정보가 없습니다.", 'danger');
+              // this.$router.go(-1);
+              return _context.abrupt("return", false);
+            case 11:
+              _context.next = 13;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin/shop/order", {
                 params: {
                   writer: _this.id,
                   limit: 10
                 }
               });
-            case 6:
+            case 13:
               od = _context.sent;
               if (od && od.status === 200) {
                 _this.order = od.data.list;
                 _this.order_config = od.data.order_config;
                 _this.mng_off = od.data.mng_off;
               }
-              _context.next = 10;
+              _context.next = 17;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin/shop/estimate", {
                 params: {
                   writer: _this.id,
                   limit: 10
                 }
               });
-            case 10:
+            case 17:
               eq = _context.sent;
               if (eq && eq.status === 200) _this.estimate = eq.data.list;
-            case 12:
+            case 19:
             case "end":
               return _context.stop();
           }

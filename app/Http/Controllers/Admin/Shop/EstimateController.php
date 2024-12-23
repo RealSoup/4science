@@ -533,11 +533,14 @@ class EstimateController extends Controller {
         $is_success = false;
         switch ($req->type) {
             case 'req':
-                if(EstimateReq::destroy($id))
+                if(DB::table('shop_estimate_req')->where('eq_id', $id)->update(['updated_id'=>auth()->user()->id, 'deleted_at' => DB::raw('NOW()')]))
                     $is_success = true;
-                EstimateReply::where('er_eq_id', $id)->delete();
+                DB::table('shop_estimate_reply')->where('er_eq_id', $id)->update(['updated_id'=>auth()->user()->id, 'deleted_at' => DB::raw('NOW()')]);
             break;
-            case 'reply':   if(EstimateReply::destroy($id)) $is_success = true; break;
+            case 'reply':   
+                if(DB::table('shop_estimate_reply')->where('er_id', $id)->update(['updated_id'=>auth()->user()->id, 'deleted_at' => DB::raw('NOW()')])) 
+                    $is_success = true; 
+            break;
         }
         if ($is_success) {
             $rst_data = "success";

@@ -7,6 +7,7 @@ use App\Models\{User, UserMng, UserAddr, UserBiz};
 use Cache;
 use DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller {
     public function index(User $user, Request $req) {
@@ -52,16 +53,21 @@ class UserController extends Controller {
 
     public function edit(Request $req, $id) {
         $user = User::with('UserMng')->with('UserBiz')->find($id);
-        if(!$user->userBiz->ub_id){
-            $user->userBiz->file_info = [];
+        // abort_if(is_null($user), 403, '회원정보가 없습니다.');
+        if(is_null($user))
+            return response()->json('No data', 204);
+        else {
+            if(!$user->userBiz->ub_id){
+                $user->userBiz->file_info = [];
+            }
+            if ($user->code_01) $user->introducer = User::find($user->code_01);
+            else                $user->introducer = NULL;
+            $user->option = User::$option;
+            $user->mng_list = User::whereHas('userMng', function ($query) { $query->where('um_status', 'Y'); })->get();
+            $um = new UserMng;
+            $user->mng_info = $um->getMngInfo();
+            return response()->json($user, 200);
         }
-        if ($user->code_01) $user->introducer = User::find($user->code_01);
-        else                $user->introducer = NULL;
-        $user->option = User::$option;
-        $user->mng_list = User::whereHas('userMng', function ($query) { $query->where('um_status', 'Y'); })->get();
-        $um = new UserMng;
-        $user->mng_info = $um->getMngInfo();
-        return response()->json($user, 200);
     }
 
     public function update(Request $req, $id) {

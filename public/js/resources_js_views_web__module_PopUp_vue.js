@@ -16,17 +16,17 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       pop: [{
-        ck_key: 'view01',
-        is_view: false,
-        ck_view: false
+        ck_key: '4S_PopUp_01',
+        ck_view: false,
+        is_view: false
       }, {
-        ck_key: 'view02',
-        is_view: false,
-        ck_view: false
+        ck_key: '4S_PopUp_02',
+        ck_view: false,
+        is_view: false
       }, {
-        ck_key: 'view03',
-        is_view: false,
-        ck_view: false
+        ck_key: '4S_PopUp_03',
+        ck_view: false,
+        is_view: false
       }]
     };
   },
@@ -67,8 +67,8 @@ var render = function render() {
     staticClass: "popup pop_0"
   }, [_c("b-img", {
     attrs: {
-      src: "/storage/main/popup/241129.jpg",
-      width: "450"
+      src: "/storage/main/popup/251223_24.jpg",
+      width: "600"
     }
   }), _vm._v(" "), _c("div", {
     staticClass: "ctrl"

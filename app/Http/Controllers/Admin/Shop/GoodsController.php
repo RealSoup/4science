@@ -439,7 +439,7 @@ class GoodsController extends Controller {
         //     $gm->delete();
         // }
         // DB::table('shop_goods_category')->where('gc_gd_id', $id)->delete();
-        DB::table('shop_goods')->where('gd_id', $id)->update(['deleted_at' => \Carbon\Carbon::now()]);
+        DB::table('shop_goods')->where('gd_id', $id)->update(['updated_id'=>auth()->user()->id, 'deleted_at' => \Carbon\Carbon::now()]);
     }
 
     public function goods_paramImplant($goods, $req){
