@@ -367,7 +367,7 @@ class OrderController extends Controller {
 									OrderDlvyInfo::firstOrCreate(['oddi_odm_id' => $odm['odm_id']]);
 							}
 						}
-						if(intval($req->od_step) == 50 && intval($req->user['level']) == 1 )
+						if(intval($req->od_step) == 50 && array_key_exists('id', $req->user) && intval($req->user['level']) == 1 )
 							DB::table('users')->where('id', $req->user['id'])->update([ 'level' => 2 ] );
 
 						//  재고 상품 구매시 수량 감소
