@@ -1,14 +1,12 @@
 <template>
 <div>
-    
     <pop-up></pop-up> <!-- 팝업 -->
+    
     <b-carousel controls indicators :interval='0' class="slide_banner">
         <!-- <b-carousel-slide :img-src="s3url+'event/2023/0901/slide.jpg'" class="evt01">
             <router-link to="/shop/goods/616504" id="evt01_1" class="split_evt01"></router-link>
             <router-link to="/shop/goods/616505" id="evt01_2" class="split_evt01"></router-link>
         </b-carousel-slide> -->
-        <!-- this.$store.state.common.deviceType -->
-
         <template>
             <b-link to="/shop/goods/10395">
                 <b-carousel-slide :img-src="`/storage/event/2024/1219/${slide_file_nm}.jpg`"></b-carousel-slide>

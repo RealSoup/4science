@@ -7,7 +7,25 @@
             <b-button class="white xm" @click="todayStop(0)">24시간 안 보기</b-button>
         </div>
     </div>
+
+    <!-- 
+    <div class="popup pop_1" v-if="$route.name == 'order_settle' && view_check(1)">
+        <b-img src="/storage/order/popup.png"></b-img>
+        <div class="ctrl">
+            <b-button class="white xm" @click="todayStop(1)">24시간 안 보기</b-button>
+        </div>
+    </div>
+    
+ 
+    <div class="popup pop_2" v-if="$route.name == 'main' && pop[2].is_view && pop[2].ck_view">
+        <b-img :src="`/storage/main/popup/230508_1.jpg`"></b-img>
+        <div class="ctrl">
+            <b-button class="white xm" @click="todayStop(2)">24시간 안 보기</b-button>
+        </div>
+    </div>
+    -->
 </div>
+
 </template>
 
 <script>
