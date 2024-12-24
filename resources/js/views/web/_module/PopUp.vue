@@ -1,5 +1,6 @@
 <template>
 <div>
+    <div class="poop"></div>
     <div class="popup pop_0" v-if="$route.name == 'main' && view_check(0)">
         <b-img src="/storage/main/popup/251223_24.jpg" width="600"></b-img>
         <div class="ctrl">

@@ -63,7 +63,9 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_vm.$route.name == "main" && _vm.view_check(0) ? _c("div", {
+  return _c("div", [_c("div", {
+    staticClass: "poop"
+  }), _vm._v(" "), _vm.$route.name == "main" && _vm.view_check(0) ? _c("div", {
     staticClass: "popup pop_0"
   }, [_c("b-img", {
     attrs: {
