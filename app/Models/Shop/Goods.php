@@ -73,8 +73,17 @@ class Goods extends Model {
     public function joinGoodsCate() { return $this->join('shop_goods_category', 'shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id'); }
 
     public function gdImgSrc($thumb=FALSE) {    // 상품 상세화면, 목록 이미지
+        return self::imgMaker($this, $thumb);
+    }
+    
+
+    public static function gdMaker($gd_id) {
+        return Maker::find(self::select('gd_mk_id')->find($gd_id)->gd_mk_id)->mk_name;
+    }
+
+    public static function imgMaker($obj, $thumb) {    // 상품 상세화면, 목록 이미지
         $rst = NULL;
-        foreach ($this->fileGoodsGoods as $fi) {
+        foreach ($obj->fileGoodsGoods as $fi) {
             $th = $thumb ? '/thumb' : '';
             $src = "";
             if (strpos($fi->fi_new, "https://") === 0 || strpos($fi->fi_new, "http://") === 0)
@@ -84,13 +93,13 @@ class Goods extends Model {
             $rst[] = $src;
         }
         $noimg_p = null;
-        if ($this->goodsCategoryFirst) {
-            if ($this->goodsCategoryFirst->gc_ca01 == 28 ) {
-                if ( $this->goodsCategoryFirst->gc_ca02 == 3614 ) { $rst = NULL; $noimg_p = 'trc.png'; }
+        if ($obj->goodsCategoryFirst) {
+            if ($obj->goodsCategoryFirst->gc_ca01 == 28 ) {
+                if ( $obj->goodsCategoryFirst->gc_ca02 == 3614 ) { $rst = NULL; $noimg_p = 'trc.png'; }
                 else {
                     $mk_name = '';
-                         if ( isset($this->mk_name) )   $mk_name = $this->mk_name;
-                    else if ( $this->maker )            $mk_name = $this->maker->mk_name;
+                         if ( isset($obj->mk_name) )   $mk_name = $obj->mk_name;
+                    else if ( $obj->maker )            $mk_name = $obj->maker->mk_name;
 
                     if ( $mk_name == 'Burdick & Jackson' )  $noimg_p = 'Burdick Jackson.png';
                     else if ( $mk_name == 'DAEJUNG' )       $noimg_p = 'DAEJUNG.png';
@@ -102,7 +111,7 @@ class Goods extends Model {
                     else if ( $mk_name == 'YAKURI' )        $noimg_p = 'YAKURI.png';
                 }
                 
-            } else if ($this->goodsCategoryFirst->gc_ca01 == 40 ) {
+            } else if ($obj->goodsCategoryFirst->gc_ca01 == 40 ) {
                 $rst = array();
                 $noimg_p = 'noimg_merck.png';
             }
@@ -111,12 +120,6 @@ class Goods extends Model {
         if (!$rst){ $rst[] = noimg($noimg_p); }
         return $rst;
     }
-
-    public static function gdMaker($gd_id) {
-        return Maker::find(self::select('gd_mk_id')->find($gd_id)->gd_mk_id)->mk_name;
-    }
-
-
 
     //  요청한 상품 정보를 직배송 형태로 변환, 리턴
     public function getGoodsDataCollection($some, $type='buy_cart', $mode=null) {

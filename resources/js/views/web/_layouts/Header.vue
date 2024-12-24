@@ -23,7 +23,7 @@
     </div>
     <div id="afterimage"></div>
     <div id="core">
-        <div class="the_top layout">
+        <div class="the_top layout" :class="{new_year1:this.$store.state.common.deviceType=='pc'}">
             <b-link class="logo" :to="{name: 'main'}">
                 <b-img :src="`/storage/common/logo/logo.png`" />
             <!-- 
@@ -202,6 +202,7 @@ export default {
 /* #header #core { background:#0098FF url(/storage/common/logo/230725.gif) no-repeat center 16px; } */
 #header #core .the_top { position:relative; display:flex; align-items:flex-end; height:6.625em; padding-bottom:.75em; }
 #header #core .the_top>* { flex-basis:0; flex-grow:1; max-width:100%; }
+#header #core .the_top.new_year { background:#fff url(/storage/common/logo/251224.png)  no-repeat center center; }
 /*#header #core .layout .logo { flex:0 0 250px; max-width:250px; height:72px; background:top left/238px 72px no-repeat url('/storage/common/logo/logo.png'); } */
 /*#header #core .layout .logo { flex:0 0 292px; max-width:292px; height:100%; position:relative; display:block;}*/
 #header #core .the_top .logo { flex:0 0 28.533333%; max-width:28.533333%; }
