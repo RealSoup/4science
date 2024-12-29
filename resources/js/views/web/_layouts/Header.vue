@@ -23,7 +23,7 @@
     </div>
     <div id="afterimage"></div>
     <div id="core">
-        <div class="the_top layout" :class="{new_year1:this.$store.state.common.deviceType=='pc'}">
+        <div class="the_top layout" :class="{new_year:this.$store.state.common.deviceType=='pc'}">
             <b-link class="logo" :to="{name: 'main'}">
                 <b-img :src="`/storage/common/logo/logo.png`" />
             <!-- 
