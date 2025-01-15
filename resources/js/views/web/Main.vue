@@ -10,16 +10,7 @@
         <template>
             <b-link to="/shop/goods/10395">
                 <b-carousel-slide :img-src="`/storage/event/2024/1219/${slide_file_nm}.jpg`"></b-carousel-slide>
-            </b-link>
-            <b-link to="/shop/goods/801046">
-                <b-carousel-slide :img-src="`/storage/event/2024/1203/${slide_file_nm}.jpg`"></b-carousel-slide>
-            </b-link>
-            <b-link to="/shop/goods?keyword=%EC%A0%9C%EC%9D%B4%EC%98%A4%ED%85%8D%20%EC%9D%B4%EB%B2%A4%ED%8A%B8&sort=hot">
-                <b-carousel-slide :img-src="`/storage/event/2024/1118/${slide_file_nm}.jpg`"></b-carousel-slide>
-            </b-link>
-            <b-link to="/shop/goods?ca01=45&sort=hot">
-                <b-carousel-slide :img-src="`/storage/event/2024/1111/${slide_file_nm}.jpg`"></b-carousel-slide>
-            </b-link>            
+            </b-link>                      
             <b-link to="/shop/goods?mode=maker&keyword=i-GEST&sort=hot">
                 <b-carousel-slide :img-src="`/storage/event/2024/1028/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link>
