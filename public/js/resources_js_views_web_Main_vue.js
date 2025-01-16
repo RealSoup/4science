@@ -208,30 +208,6 @@ var render = function render() {
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {
-      to: "/shop/goods/801046"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2024/1203/".concat(_vm.slide_file_nm, ".jpg")
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
-      to: "/shop/goods?keyword=%EC%A0%9C%EC%9D%B4%EC%98%A4%ED%85%8D%20%EC%9D%B4%EB%B2%A4%ED%8A%B8&sort=hot"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2024/1118/".concat(_vm.slide_file_nm, ".jpg")
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
-      to: "/shop/goods?ca01=45&sort=hot"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2024/1111/".concat(_vm.slide_file_nm, ".jpg")
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
       to: "/shop/goods?mode=maker&keyword=i-GEST&sort=hot"
     }
   }, [_c("b-carousel-slide", {

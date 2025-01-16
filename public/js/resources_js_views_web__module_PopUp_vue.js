@@ -18,7 +18,7 @@ __webpack_require__.r(__webpack_exports__);
       pop: [{
         ck_key: '4S_PopUp_01',
         ck_view: false,
-        is_view: false
+        is_view: true
       }, {
         ck_key: '4S_PopUp_02',
         ck_view: false,
@@ -67,7 +67,7 @@ var render = function render() {
     staticClass: "popup pop_0"
   }, [_c("b-img", {
     attrs: {
-      src: "/storage/main/popup/251223_24.jpg",
+      src: "/storage/main/popup/250116.jpg",
       width: "600"
     }
   }), _vm._v(" "), _c("div", {
