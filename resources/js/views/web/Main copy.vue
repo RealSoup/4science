@@ -1,8 +1,12 @@
 <template>
 <div>
-    <pop-up></pop-up>
+    <pop-up></pop-up> <!-- 팝업 -->
     
     <b-carousel controls indicators :interval='0' class="slide_banner">
+        <!-- <b-carousel-slide :img-src="s3url+'event/2023/0901/slide.jpg'" class="evt01">
+            <router-link to="/shop/goods/616504" id="evt01_1" class="split_evt01"></router-link>
+            <router-link to="/shop/goods/616505" id="evt01_2" class="split_evt01"></router-link>
+        </b-carousel-slide> -->
         <template>
             <b-link to="/shop/goods/10395">
                 <b-carousel-slide :img-src="`/storage/event/2024/1219/${slide_file_nm}.jpg`"></b-carousel-slide>
@@ -75,6 +79,11 @@
                     <img :src="(ca.hover||ca.showing ) ? `${s3url}main/cate/${ca.ca_id}_.png` : `${s3url}main/cate/${ca.ca_id}.png`" />
                     <span v-if="ca.hover">{{ca.ca_name}}</span>
                 </li>
+                <!-- <li>
+                    <button @click="scrollch('+')">up</button>
+                    <input v-model="currentScroll" @keyup.enter="scrollch('e')" />
+                    <button @click="scrollch('-')">dn</button>
+                </li> -->
             </ul>
         </aside>
 
@@ -125,6 +134,15 @@ export default {
             scrollEnd: 11549,
             currentScroll:0,
 
+            // best:[
+            //     { title: 'First', text: 'text', url: '#', image: '/images/one.jpg' },
+            // ],
+            // styles: {
+            //     li: {
+            //         backgroundSize:'cover',
+            //     },
+
+            // }
             date01: new Date('2023-05-02 00:00'),
             date02: new Date('2023-05-16 23:59'),
             date_now: new Date(),
@@ -150,7 +168,14 @@ export default {
         slide_file_nm() { return this.deviceType === "pc" ? "slide" : "sign"; }
     },
     methods: {
-        scrollToCate(i){    
+        scrollToCate(i){
+
+            // this.intervalMoveScroll = setInterval(() => {
+            //     if (window.pageYOffset === 0) {
+            //         clearInterval(this.intervalMoveScroll);
+            //     }
+            //     window.scroll(0, window.pageYOffset - 50);
+            // }, 20);
             window.scrollTo({
                 top: this.scrollVal[i],
                 left: 0,
@@ -191,9 +216,17 @@ export default {
             }
             
         }
+        // addClass: function (e) {
+        //     e.target.classList.add("hover");
+        // },
+        // removeClass: function (e) {
+        //     e.target.classList.remove("hover");
+        // },
     },
     async mounted() {
-        window.addEventListener('scroll', this.scrollListener)  
+        window.addEventListener('scroll', this.scrollListener)
+
+        // this.index(this.listType.best);
 
         let rst = await ax.get(`/api/main`);
         this.best_cate = rst.data.best_cate;
