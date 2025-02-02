@@ -6,6 +6,23 @@
             <b-button class="white xm" @click="todayStop(0)">24시간 안 보기</b-button>
         </div>
     </div>
+
+    <!-- 
+    <div class="popup pop_1" v-if="$route.name == 'order_settle' && view_check(1)">
+        <b-img src="/storage/order/popup.png"></b-img>
+        <div class="ctrl">
+            <b-button class="white xm" @click="todayStop(1)">24시간 안 보기</b-button>
+        </div>
+    </div>
+    
+ 
+    <div class="popup pop_2" v-if="$route.name == 'main' && pop[2].is_view && pop[2].ck_view">
+        <b-img :src="`/storage/main/popup/230508_1.jpg`"></b-img>
+        <div class="ctrl">
+            <b-button class="white xm" @click="todayStop(2)">24시간 안 보기</b-button>
+        </div>
+    </div>
+    -->
 </div>
 
 </template>
@@ -45,6 +62,7 @@ export default {
 
 .pop_1 { position:absolute; top:20%; left:20%; box-shadow: 0 1px 15px 1px rgba(39,39,39,.5); border-radius: 50px 50px 0 0; background: #FFF; }
 .pop_2 { left:720px; }
+
 
 @media (max-width: 992px){ .popup { top:0; left:0;  } .popup img { width:100%; } }
 @media (max-width: 576px){ .popup { width:100%; } }
