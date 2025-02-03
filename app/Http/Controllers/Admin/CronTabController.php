@@ -49,7 +49,7 @@ class CronTabController extends Controller {
 					'ml_enable_m' => $p,
 				]);
 
-				// exit;
+				exit;
 				//	일반회원이 구매를 하면 브론즈 등급으로 레벨업
 				if(intval($v->user->level) == 1)
 					DB::table('users')->where('id', $v->user->id)->update(['level' => 2]);
