@@ -5,6 +5,8 @@ if (! function_exists('echo_query')) {
         dump(array_reduce($obj->getBindings(), function($sql, $binding){
             return preg_replace('/\?/', is_numeric($binding) ? $binding : "'".$binding."'" , $sql, 1);
         }, $obj->toSql()));
+        echo "exit exist";
+        exit;
     }
 }
 

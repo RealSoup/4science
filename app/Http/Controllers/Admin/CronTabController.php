@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Shop\Order;
+use App\Models\Shop\{Order, OrderDlvyInfo};
 use DB;
 
 class CronTabController extends Controller {
@@ -15,8 +15,61 @@ class CronTabController extends Controller {
 	 * 로그인을 묻지 않게 하기 위해 메인으로 이동
      */
 	public function receiveConfirm(){
+		$od = Order::with('user')->with('orderCoupon')
+			->select('shop_order.od_id', 'shop_order.created_id', 'shop_order_model.odm_id', 'shop_order_model.odm_ea', 'shop_order_model.odm_price', 'shop_order_dlvy_info.oddi_id')
+			->join('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
+			->join('shop_order_dlvy_info', 'shop_order_model.odm_id', '=', 'shop_order_dlvy_info.oddi_odm_id')
+			->OdStep('50')
+			->where('od_type', '<>', 'buy_temp')
+			->StartDate('2022-01-01')
+			->EndDate(date('Y-m-d', strtotime(date('Y-m-d')." -2 week")))
+			->whereRaw('HOUR(la_shop_order_dlvy_info.oddi_receive_date) = 6')
+			->whereRaw("DATE(la_shop_order_dlvy_info.oddi_receive_date) >= '2024-12-12'")
+			->groupBy('shop_order_model.odm_id')
+			->orderBy('shop_order.od_id')
+			->get();
+
+
+		foreach( $od as $v ){
+			if(intval($v->user->level) < 5) {	//	딜러회원은 제외
+				$p = $v->odm_price*$v->odm_ea*$v->user->mileage_mul;
+				$content='수취확인(자동)';
+				if($v->orderCoupon && count($v->orderCoupon)) {
+					$content.=' - 쿠폰 사용으로 마일리지 지급 비대상';
+					$p=0;
+				}
+					
+				DB::table('user_mileage')->insert([
+					'ml_uid'	  => $v->created_id,
+					'ml_tbl'	  => 'shop_order_model',
+					'ml_key'	  => $v->odm_id,
+					'ml_type'	  => 'SV',
+					'ml_content'  => $content,
+					'ml_mileage'  => $p,
+					'ml_enable_m' => $p,
+				]);
+
+				// exit;
+				//	일반회원이 구매를 하면 브론즈 등급으로 레벨업
+				if(intval($v->user->level) == 1)
+					DB::table('users')->where('id', $v->user->id)->update(['level' => 2]);
+
+				
+			}
+		}	
+
+
+
+
+
+
+
+
+	
+
+/*
         $od = Order::with('user')->with('orderCoupon')
-			->select('shop_order.od_id', 'shop_order.created_id', 'shop_order_model.odm_id', 'shop_order_model.odm_ea', 'shop_order_model.odm_price')
+			->select('shop_order.od_id', 'shop_order.created_id', 'shop_order_model.odm_id', 'shop_order_model.odm_ea', 'shop_order_model.odm_price', 'shop_order_dlvy_info.oddi_id')
 			->join('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
 			->join('shop_order_dlvy_info', 'shop_order_model.odm_id', '=', 'shop_order_dlvy_info.oddi_odm_id')
 			->OdStep('50')
@@ -29,7 +82,7 @@ class CronTabController extends Controller {
 			->get();
 
 		foreach( $od as $v ){
-			if(intval($v->user->level) > 5) {	//	딜러회원은 제외
+			if(intval($v->user->level) < 5) {	//	딜러회원은 제외
 				$p = $v->odm_price*$v->odm_ea*$v->user->mileage_mul;
 				$content='수취확인(자동)';
 				if($v->orderCoupon && count($v->orderCoupon)) {
@@ -50,15 +103,10 @@ class CronTabController extends Controller {
 				if(intval($v->user->level) == 1)
 					DB::table('users')->where('id', $v->user->id)->update(['level' => 2]);
 			}
+			
+			OrderDlvyInfo::where('oddi_id', $v->oddi_id)->update(['oddi_receive_date' => \Carbon\Carbon::now()]);
 		}
-		Order::join('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
-			->join('shop_order_dlvy_info', 'shop_order_model.odm_id', '=', 'shop_order_dlvy_info.oddi_odm_id')
-			->where('od_step', '50')
-			->where('od_type', '<>', 'buy_temp')
-			->StartDate('2022-01-01')
-			->EndDate(date('Y-m-d', strtotime(date('Y-m-d')." -2 week")))
-			->whereNull('shop_order_dlvy_info.oddi_receive_date')
-			->update(['shop_order_dlvy_info.oddi_receive_date' => \Carbon\Carbon::now()]);
+*/					
 	}
 
 

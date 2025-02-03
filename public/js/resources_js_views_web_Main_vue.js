@@ -46,15 +46,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       scrollVal: [1690, 2232, 2776, 3317, 3859, 4401, 4943, 5485, 6027, 6569, 7111, 7653, 8195, 8737, 9279, 9821, 10363, 10905, 11447, 11983],
       scrollEnd: 11549,
       currentScroll: 0,
-      // best:[
-      //     { title: 'First', text: 'text', url: '#', image: '/images/one.jpg' },
-      // ],
-      // styles: {
-      //     li: {
-      //         backgroundSize:'cover',
-      //     },
-
-      // }
       date01: new Date('2023-05-02 00:00'),
       date02: new Date('2023-05-16 23:59'),
       date_now: new Date()
@@ -91,12 +82,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   }),
   methods: {
     scrollToCate: function scrollToCate(i) {
-      // this.intervalMoveScroll = setInterval(() => {
-      //     if (window.pageYOffset === 0) {
-      //         clearInterval(this.intervalMoveScroll);
-      //     }
-      //     window.scroll(0, window.pageYOffset - 50);
-      // }, 20);
       window.scrollTo({
         top: this.scrollVal[i],
         left: 0,
@@ -131,12 +116,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         if (i < this.scrollVal.length - 1 && this.scrollVal[i] < window.scrollY && window.scrollY < this.scrollVal[Number(i) + 1]) this.category[i].showing = true;else this.category[i].showing = false;
       }
     }
-    // addClass: function (e) {
-    //     e.target.classList.add("hover");
-    // },
-    // removeClass: function (e) {
-    //     e.target.classList.remove("hover");
-    // },
   },
   mounted: function mounted() {
     var _this = this;
@@ -146,8 +125,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         while (1) switch (_context.prev = _context.next) {
           case 0:
             window.addEventListener('scroll', _this.scrollListener);
-
-            // this.index(this.listType.best);
             _context.next = 3;
             return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/main");
           case 3:
@@ -205,14 +182,6 @@ var render = function render() {
   }, [_c("b-carousel-slide", {
     attrs: {
       "img-src": "/storage/event/2024/1219/".concat(_vm.slide_file_nm, ".jpg")
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
-      to: "/shop/goods?mode=maker&keyword=i-GEST&sort=hot"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2024/1028/".concat(_vm.slide_file_nm, ".jpg")
     }
   })], 1), _vm._v(" "), _vm.deviceType == "pc" ? _c("b-link", {
     attrs: {

@@ -81,7 +81,7 @@ class User extends Authenticatable implements MustVerifyEmail {
 
     ];
 
-    protected $mileage_rate = [ 2 => 0.5, 3 => 1, 4 => 1.5 ];
+    protected $mileage_rate = [ 1 => 0, 2 => 0.5, 3 => 1, 4 => 1.5 ];
     
 
     public function userMng()       { return $this->hasOne(UserMng::class, 'um_user_id')->withDefault(); }
@@ -119,8 +119,9 @@ class User extends Authenticatable implements MustVerifyEmail {
     public function getMileageMulAttribute() {
         $lv = $this->level;
         if ($lv>20) $lv = 3;    //  관리자 테스트용
-        if ($lv>4) $lv = 4;
-        if ($lv<2) $lv = 2;
+        else if ($lv>10) $lv = 1;
+        else if ($lv>4) $lv = 4;
+        else if ($lv<2) $lv = 2;
         $rate = $this->mileage_rate[$lv];
         return $rate/100; 
     }
