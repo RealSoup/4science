@@ -175,15 +175,7 @@ var render = function render() {
       indicators: "",
       interval: 0
     }
-  }, [[_c("b-link", {
-    attrs: {
-      to: "/shop/goods/10395"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2024/1219/".concat(_vm.slide_file_nm, ".jpg")
-    }
-  })], 1), _vm._v(" "), _vm.deviceType == "pc" ? _c("b-link", {
+  }, [[_vm.deviceType == "pc" ? _c("b-link", {
     attrs: {
       to: "/board/notice/show/55"
     }

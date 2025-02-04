@@ -23,7 +23,7 @@ class CronTabController extends Controller {
 			->OdStep('50')
 			->where('od_type', '<>', 'buy_temp')
 			->StartDate('2022-01-01')
-			->EndDate(date('Y-m-d', strtotime(date('Y-m-d')." -2 week")))
+			->whereDate('shop_order.od_dlvy_date', '<=', date('Y-m-d', strtotime(date('Y-m-d')." -2 week")))
 			->whereNull('shop_order_dlvy_info.oddi_receive_date')
 			->groupBy('shop_order_model.odm_id')
 			->orderBy('shop_order.od_id')
@@ -47,9 +47,6 @@ class CronTabController extends Controller {
 					'ml_mileage'  => $p,
 					'ml_enable_m' => $p,
 				]);
-				//	일반회원이 구매를 하면 브론즈 등급으로 레벨업
-				if(intval($v->user->level) == 1)
-					DB::table('users')->where('id', $v->user->id)->update(['level' => 2]);
 			}
 			
 			OrderDlvyInfo::where('oddi_id', $v->oddi_id)->update(['oddi_receive_date' => \Carbon\Carbon::now()]);

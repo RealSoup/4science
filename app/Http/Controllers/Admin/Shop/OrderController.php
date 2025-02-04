@@ -367,12 +367,20 @@ class OrderController extends Controller {
 									OrderDlvyInfo::firstOrCreate(['oddi_odm_id' => $odm['odm_id']]);
 							}
 						}
-						if(intval($req->od_step) == 50 && array_key_exists('id', $req->user) && intval($req->user['level']) == 1 )
-							DB::table('users')->where('id', $req->user['id'])->update([ 'level' => 2 ] );
+
+						if (intval($req->od_step) == 50) {
+							//	배송완료 시간 등록
+							$od->od_dlvy_date = \Carbon\Carbon::now();
+
+							//	신입 회원 등급 상승
+							if( array_key_exists('id', $req->user) && intval($req->user['level']) == 1 )
+								DB::table('users')->where('id', $req->user['id'])->update([ 'level' => 2 ] );
+						}
 
 						//  재고 상품 구매시 수량 감소
 						if(intval($od->od_step) < 20)
 							GoodsModel::minus_limit_ea($od_id);
+						
 					} else if (intval($req->od_step) == 60) {
 						//	주문 취소시	쿠폰 부활
 						$odc = DB::table('shop_order_coupon')->where('odc_od_id', $od_id)->first();
