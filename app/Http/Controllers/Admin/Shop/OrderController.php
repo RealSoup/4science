@@ -361,34 +361,30 @@ class OrderController extends Controller {
 					if(intval($req->od_step) >= 20 && intval($req->od_step) <= 50) {
 						foreach ($req->order_purchase_at as $opa) {
 							foreach ($opa['order_model'] as $odm) {
-								/*	송장번호 없이 배송 완료 처리시
-									아래 필요함 */
+								/*	송장번호 없이 배송 완료 처리시 아래 필요함 */
 								if ($odm['odm_type'] == 'MODEL')
 									OrderDlvyInfo::firstOrCreate(['oddi_odm_id' => $odm['odm_id']]);
 							}
 						}
-
-						if (intval($req->od_step) == 50) {
-							//	배송완료 시간 등록
-							$od->od_dlvy_date = \Carbon\Carbon::now();
-
-							//	신입 회원 등급 상승
-							if( array_key_exists('id', $req->user) && intval($req->user['level']) == 1 )
-								DB::table('users')->where('id', $req->user['id'])->update([ 'level' => 2 ] );
-						}
-
-						//  재고 상품 구매시 수량 감소
-						if(intval($od->od_step) < 20)
-							GoodsModel::minus_limit_ea($od_id);
+							
+						if( intval($req->od_step) == 50 && array_key_exists('id', $req->user) && intval($req->user['level']) == 1 )
+							DB::table('users')->where('id', $req->user['id'])->update([ 'level' => 2 ] );	//	신입 회원 등급 상승	
 						
-					} else if (intval($req->od_step) == 60) {
-						//	주문 취소시	쿠폰 부활
+					} else if (intval($req->od_step) == 60) { //	주문 취소시	쿠폰 부활
 						$odc = DB::table('shop_order_coupon')->where('odc_od_id', $od_id)->first();
 						if ($odc)
 							DB::table('user_coupon')->where('uc_id', $odc->odc_uc_id)->update(['uc_is_use' => 'N']);
 					}
 				}
+
+				if (intval($req->od_step) == 50) //	배송완료 시간 등록
+					$od->od_dlvy_date = \Carbon\Carbon::now();
+				
+				if (intval($od->od_step) < 20)	//  재고 상품 구매시 수량 감소
+					GoodsModel::minus_limit_ea($od_id);
+						
 				$od->od_step = $req->od_step;
+
 			} else if ($req->type == 'odm_ea') {
 				foreach ($req->order_purchase_at as $opa) {
 					foreach ($opa['order_model'] as $odm) {
