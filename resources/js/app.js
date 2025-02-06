@@ -116,10 +116,10 @@ import VueScrollactive from 'vue-scrollactive';
 Vue.use(VueScrollactive);
 
 
-// let gtm_id = (process.env.MIX_APP_ENV=='production') ? 'AW-965653965' : 'GTM-NJK884V';
 import VueGtm from '@gtm-support/vue2-gtm';
 Vue.use(VueGtm, {
-    id: 'GTM-NJK884V',
+    // id: 'GTM-NJK884V',
+    id: 'GTM-NRSG9LSM',
     defer: false,
     compatibility: false,
     nonce: '2726c7f26c',
