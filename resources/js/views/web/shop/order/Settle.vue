@@ -514,7 +514,7 @@ export default {
                         category: 'Order',
                         action: 'click',
                         label: '상품 주문',
-                        value: this.order.price.total,
+                        value: `price=${this.order.price.total}&name=${this.user.name}&email=${this.user.email}&phone=${this.user.hp}`,
                         noninteraction: false, // Optional
                     });
                     

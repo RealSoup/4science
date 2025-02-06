@@ -517,7 +517,7 @@ var paymentWidget = null;
                 category: 'Order',
                 action: 'click',
                 label: '상품 주문',
-                value: _this2.order.price.total,
+                value: "price=".concat(_this2.order.price.total, "&name=").concat(_this2.user.name, "&email=").concat(_this2.user.email, "&phone=").concat(_this2.user.hp),
                 noninteraction: false // Optional
               });
               if (!(_this2.order.extra.oex_hasBizLicense && !isEmpty(_this2.order.extra.oex_file))) {
