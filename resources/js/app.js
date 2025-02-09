@@ -118,7 +118,6 @@ Vue.use(VueScrollactive);
 
 import VueGtm from '@gtm-support/vue2-gtm';
 Vue.use(VueGtm, {
-    // id: 'GTM-NJK884V',
     id: 'GTM-NRSG9LSM',
     defer: false,
     compatibility: false,
