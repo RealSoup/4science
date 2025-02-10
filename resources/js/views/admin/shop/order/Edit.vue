@@ -22,7 +22,7 @@
                     <span>주문유형</span> <b v-if="order_config.type">{{ order_config.type[od.od_type]}}</b>
                 </b-col>
                 <b-col class="btn_area print_hide_flex">
-                    <b-button @click="destroy" class="red sm"><b-icon icon="trash-fill"></b-icon><span class="sm_ib_h"> 삭제</span></b-button>
+                    <b-button v-if="user.is_super" @click="destroy" class="red sm"><b-icon icon="trash-fill"></b-icon><span class="sm_ib_h"> 삭제</span></b-button>
                     <b-button v-if="od.od_er_id" @click="openWinPop(`/admin/shop/estimate/reply/${od.od_er_id}`)" class="plum sm print_hide_inline_block"><b-icon-box-arrow-up-right /> 견적서</b-button>
                     <b-button :to="{name: 'adm_order_index'}" class="white sm"><b-icon-list /><span class="sm_ib_h"> 목록</span></b-button>
 

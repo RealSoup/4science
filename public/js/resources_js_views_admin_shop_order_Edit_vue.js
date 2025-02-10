@@ -871,7 +871,7 @@ var render = function render() {
     staticClass: "def_info"
   }, [_c("span", [_vm._v("No.")]), _c("b", [_vm._v(_vm._s(_vm.od.od_id))]), _vm._v(" "), _c("span", [_vm._v("주문번호")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm.od.od_no))]), _vm._v(" "), _c("span", [_vm._v("주문날짜")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm._f("formatDate_MM_DD_HH:mm")(_vm.od.created_at)))]), _vm._v(" "), _c("span", [_vm._v("주문환경")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm._f("sale_env")(_vm.od.od_sale_env)))]), _vm._v(" "), _c("span", [_vm._v("주문유형")]), _vm._v(" "), _vm.order_config.type ? _c("b", [_vm._v(_vm._s(_vm.order_config.type[_vm.od.od_type]))]) : _vm._e()]), _vm._v(" "), _c("b-col", {
     staticClass: "btn_area print_hide_flex"
-  }, [_c("b-button", {
+  }, [_vm.user.is_super ? _c("b-button", {
     staticClass: "red sm",
     on: {
       click: _vm.destroy
@@ -882,7 +882,7 @@ var render = function render() {
     }
   }), _c("span", {
     staticClass: "sm_ib_h"
-  }, [_vm._v(" 삭제")])], 1), _vm._v(" "), _vm.od.od_er_id ? _c("b-button", {
+  }, [_vm._v(" 삭제")])], 1) : _vm._e(), _vm._v(" "), _vm.od.od_er_id ? _c("b-button", {
     staticClass: "plum sm print_hide_inline_block",
     on: {
       click: function click($event) {
