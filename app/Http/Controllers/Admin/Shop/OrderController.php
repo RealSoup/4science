@@ -644,4 +644,8 @@ class OrderController extends Controller {
 		}
 		return view('admin.shop.order.delivery', $odm);
 	}
+
+	public function destroy($id) {
+        DB::table('shop_order')->where('od_id', $id)->update(['updated_id'=>auth()->user()->id, 'deleted_at' => \Carbon\Carbon::now()]);
+    }
 }

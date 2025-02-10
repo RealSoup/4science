@@ -193,12 +193,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::POST('order/exportTransactionPdf',   'Admin\Shop\OrderController@exportTransactionPdf')->name('admin.shop.order.exportTransactionPdf');
                 Route::POST('order/exportShippingListExcel','Admin\Shop\OrderController@exportShippingListExcel')->name('admin.shop.order.exportShippingListExcel');
                 Route::resource('order', 'Admin\Shop\OrderController', [
-                    'except' => [ 'show', 'create', 'destroy' ],
+                    'except' => [ 'show', 'create' ],
                     'names' => [
                         'index'		=> 'admin.shop.order.index',
                         'store'     => 'admin.shop.order.store',
                         'edit'		=> 'admin.shop.order.edit',
                         'update'	=> 'admin.shop.order.update',
+                        'destroy'   => 'admin.shop.order.destroy',
                     ],
                 ]);
 

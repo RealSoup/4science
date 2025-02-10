@@ -3,10 +3,12 @@
 namespace App\Models\Shop;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 use DateTimeInterface;
 
 class Order extends Model {
+    use SoftDeletes;
     protected $table = 'shop_order';
     protected $primaryKey = 'od_id';
     protected $fillable = ['od_no', 'od_step', 'od_receive_confirm_possible', 'od_depositor', 'od_mng', 'created_id', 'created_at', 'ip']; // 수정가능 필드 입력
