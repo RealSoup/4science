@@ -1006,7 +1006,7 @@ export default {
 .p_wrap .print_show_inline  { display:none; }
 
 .p_wrap .act_ctrl { border-width:5px; }
-.p_wrap .act_ctrl .btn_area { display:flex; justify-content:flex-end; flex:0 0 530px; max-width:530px; }
+.p_wrap .act_ctrl .btn_area { display:flex; justify-content:flex-end; flex:0 0 630px; max-width:630px; }
 .p_wrap .act_ctrl .btn_area>* { margin-left:.5%; margin-right:.5%; }
 .p_wrap .act_ctrl .btn_area .input-group { max-width:150px; }
 .p_wrap .act_ctrl .def_info b:not(:last-of-type) { margin-right:.5vw; }
@@ -1037,7 +1037,7 @@ export default {
 
 
 .p_wrap .sm_ib_v { display:none; }
-@media (max-width: 1472px){
+@media (max-width: 1580px){
     .p_wrap .act_ctrl .def_info,
     .p_wrap .act_ctrl .btn_area { flex:0 0 100%; max-width:100%; }
 }
