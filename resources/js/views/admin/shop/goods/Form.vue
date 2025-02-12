@@ -310,7 +310,6 @@
 <script>
 import ax from '@/api/http';
 import draggable from 'vuedraggable';
-// import Multiselect from 'vue-multiselect'
 import Ckeditor from '@/views/_common/ckeditor5/Ckeditor.vue'
 import FileUpload from '@/views/_common/FileUpload.vue'
 import { Vue2TinymceEditor } from "vue2-tinymce-editor";
@@ -319,7 +318,6 @@ export default {
     name: 'admShopGoodsForm',
     components: {
         draggable,
-        // Multiselect,
         'file-upload': FileUpload,
         'validation': () =>     import('@/views/_common/Validation'),
         'categorys': () =>      import('@/views/admin/shop/goods/_comp/Categorys'),
