@@ -1,8 +1,8 @@
 <template>
 <div>
     <b-input-group size="sm">
-        <b-form-input ref="input_cat" @keyup.enter="getOptList" />
-        <b-input-group-append><b-button size="sm" @click="getOptList" ><b-icon-search /></b-button></b-input-group-append>
+        <b-form-input ref="input_cat" @keyup.enter="getOptList"></b-form-input>
+        <b-input-group-append><b-button size="sm" @click="getOptList" ><b-icon-search></b-icon-search></b-button></b-input-group-append>
     </b-input-group>
     <ul class="list-group autocomplete" v-if="list.length" v-click-outside="hide">
         <li class="list-group-item" v-for="(itm, i) in list" @click="setOpt(i)" :key="i">{{ itm.go_name }}</li>
