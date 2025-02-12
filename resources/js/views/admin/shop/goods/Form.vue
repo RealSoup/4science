@@ -122,13 +122,13 @@
         <b-row class="align-items-start">
             <b-col class="label">상품 이미지</b-col>
             <b-col class="type11">
-                <file-upload ref="fileupload1" v-model="value.file_goods_goods" :fi_group="'goods'" :fi_kind="'goods'" :is_thumb="true" />
+                <file-upload ref="fileupload1" v-model="value.file_goods_goods" :fi_group="'goods'" :fi_kind="'goods'" :is_thumb="true"></file-upload>
             </b-col>
         </b-row>
         <b-row class="align-items-start">
             <b-col class="label">첨부 파일</b-col>
             <b-col class="type11">
-                <file-upload ref="fileupload2" v-model="value.file_goods_add" :fi_group="'goods'" :fi_kind="'add'" :is_thumb="true" />
+                <file-upload ref="fileupload2" v-model="value.file_goods_add" :fi_group="'goods'" :fi_kind="'add'" :is_thumb="true"></file-upload>
             </b-col>
         </b-row>
     </b-container>
@@ -142,13 +142,13 @@
         <draggable :list="value.goods_relate" handle=".handle" class="row list" @change="gr_updateSeq">
             <b-col v-for="(gr, i) in value.goods_relate" :key="i" cols="2" col>
                 <template v-if="gr.goods">
-                    <b-button variant="info" class="handle"><b-icon-arrows-move /></b-button>
-                    <b-button variant="danger" class="btn_del" @click="gr_destroy(i)"><b-icon-x-square /></b-button>
+                    <b-button variant="info" class="handle"><b-icon-arrows-move></b-icon-arrows-move></b-button>
+                    <b-button variant="danger" class="btn_del" @click="gr_destroy(i)"><b-icon-x-square></b-icon-x-square></b-button>
                     <b-img :src="gr.goods.image_src_thumb[0]" />
                     <span>{{gr.goods.gd_name}}</span>
                 </template>
                 <template v-else>
-                    <b-button variant="danger" class="btn_del" @click="gr_destroy(i)"><b-icon-x-square /></b-button>
+                    <b-button variant="danger" class="btn_del" @click="gr_destroy(i)"><b-icon-x-square></b-icon-x-square></b-button>
                     <span>상품이 삭제됨</span>
                 </template>
             </b-col>
@@ -195,46 +195,46 @@
             <b-col>
                 <b-input-group size="sm">
                     <b-input-group-prepend is-text v-b-tooltip="'제품 활성화'">
-                        <b-form-checkbox switch class="mr-n2 mb-n1" v-model='model.gm_enable' value="Y" unchecked-value="N" />
+                        <b-form-checkbox switch class="mr-n2 mb-n1" v-model='model.gm_enable' value="Y" unchecked-value="N"></b-form-checkbox>
                     </b-input-group-prepend>
-                    <b-form-input :id="`goods_model.${i}.gm_name`" v-model='model.gm_name' />
+                    <b-form-input :id="`goods_model.${i}.gm_name`" v-model='model.gm_name'></b-form-input>
                 </b-input-group>
-                <validation :error="$store.state.error.validations[`goods_model.${i}.gm_name`]" />
+                <validation :error="$store.state.error.validations[`goods_model.${i}.gm_name`]"></validation>
             </b-col>
             <b-col v-if="value.gd_type == 'NON'">
-                <b-form-input v-model='model.gm_catno' readonly />
+                <b-form-input v-model='model.gm_catno' readonly></b-form-input>
             </b-col>
             <b-col>
-                <b-form-input :id="`goods_model.${i}.gm_code`" v-model='model.gm_code' />
-                <validation :error="$store.state.error.validations[`goods_model.${i}.gm_code`]" />
+                <b-form-input :id="`goods_model.${i}.gm_code`" v-model='model.gm_code'></b-form-input>
+                <validation :error="$store.state.error.validations[`goods_model.${i}.gm_code`]"></validation>
             </b-col>
             <b-col>
-                <b-form-input :id="`goods_model.${i}.gm_spec`" v-model='model.gm_spec' />
-                <validation :error="$store.state.error.validations[`goods_model.${i}.gm_spec`]" />
+                <b-form-input :id="`goods_model.${i}.gm_spec`" v-model='model.gm_spec'></b-form-input>
+                <validation :error="$store.state.error.validations[`goods_model.${i}.gm_spec`]"></validation>
             </b-col>
             <b-col>
-                <b-form-input :id="`goods_model.${i}.gm_unit`" v-model='model.gm_unit' />
-                <validation :error="$store.state.error.validations[`goods_model.${i}.gm_unit`]" />
+                <b-form-input :id="`goods_model.${i}.gm_unit`" v-model='model.gm_unit'></b-form-input>
+                <validation :error="$store.state.error.validations[`goods_model.${i}.gm_unit`]"></validation>
             </b-col>
             <b-col class="gm_price">
                 <b-input-group size="sm">
-                    <b-form-input :id="`goods_model.${i}.gm_price`" v-model='model.gm_price' class="text-right" />
+                    <b-form-input :id="`goods_model.${i}.gm_price`" v-model='model.gm_price' class="text-right"></b-form-input>
                     <b-input-group-append is-text>
-                        <b-form-checkbox switch class="mr-n2 mb-n1" v-model='model.gm_prime' value="Y" unchecked-value="N" @input="uniqueCheck(i)" v-b-tooltip="'대표 가격'" />
+                        <b-form-checkbox switch class="mr-n2 mb-n1" v-model='model.gm_prime' value="Y" unchecked-value="N" @input="uniqueCheck(i)" v-b-tooltip="'대표 가격'"></b-form-checkbox>
                     </b-input-group-append>
                 </b-input-group>
-                <validation :error="$store.state.error.validations[`goods_model.${i}.gm_price`]" />
+                <validation :error="$store.state.error.validations[`goods_model.${i}.gm_price`]"></validation>
             </b-col>
             <b-col class="ctrlBox">
-                <b-button class="sm green" v-b-toggle="`bundleDc_box${i}`" v-b-tooltip="'묶음 할인'"><b-icon icon="tags-fill" /></b-button>
+                <b-button class="sm green" v-b-toggle="`bundleDc_box${i}`" v-b-tooltip="'묶음 할인'"><b-icon icon="tags-fill"></b-icon></b-button>
                 <b-button class="sm red" @click="removeAtModel(i)" v-b-tooltip="'삭제'"><b-icon icon="trash-fill"></b-icon></b-button>
 
                 <b-collapse :id="`bundleDc_box${i}`" class="bundle_box" @hide="bd_hide(model.bundle_dc)" v-model="model.bd_open">
                     <b-card header-tag="header" footer-tag="footer" class="shadow">
                         <template #header>
                             <b>묶음할인</b>
-                            <b-button variant="danger" size="sm" @click="model.bd_open=false"><b-icon-x-square-fill /></b-button>
-                            <b-button variant="info" size="sm" @click="insertAtBundle(model.bundle_dc)"><b-icon-plus-circle-fill /></b-button>
+                            <b-button variant="danger" size="sm" @click="model.bd_open=false"><b-icon-x-square-fill></b-icon-x-square-fill></b-button>
+                            <b-button variant="info" size="sm" @click="insertAtBundle(model.bundle_dc)"><b-icon-plus-circle-fill></b-icon-plus-circle-fill></b-button>
                         </template>
                         <b-input-group size="sm" v-for="(bundle, bd_idx) in model.bundle_dc" :key="bd_idx">
                             <b-form-input v-model='bundle.bd_ea' placeholder="갯수"></b-form-input>
