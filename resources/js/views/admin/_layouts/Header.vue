@@ -34,11 +34,7 @@
                     </b-nav-item-dropdown>
                     
                     <b-nav-item @click="strongReload('/admin/shop/order')" active-class="active" exact>주문목록</b-nav-item>
-
-                    <!-- <b-nav-item-dropdown text="주문관리">
-                        <b-dropdown-item :to="{name: 'adm_order_index'}">주문목록</b-dropdown-item>
-                        <b-dropdown-item :to="{name: 'adm_merck_index'}">Merck 발주</b-dropdown-item>
-                    </b-nav-item-dropdown> -->
+    
                     <b-nav-item-dropdown text="통계">
                         <b-dropdown-item :to="{name: 'adm_stats_join'}">가입자</b-dropdown-item>
                         <b-dropdown-divider></b-dropdown-divider>
@@ -96,16 +92,16 @@
                     <b-button class="blink teal sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqVoucher'"
                         v-if="reqVoucher.length"
                     >
-                        <b-icon-gift /> ({{reqVoucher.length}})
+                        <b-icon-gift></b-icon-gift> ({{reqVoucher.length}})
                     </b-button>
                     <b-button class="blink black sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqAsk'"
                         v-if="reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length" 
                     >
-                        <b-icon-chat-square-text /> ({{reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length}})
+                        <b-icon-chat-square-text></b-icon-chat-square-text> ({{reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length}})
                     </b-button>                    
         
                     <b-link :to="{name:'main'}" target="_blank" class="go_shop logo_link">
-                        <b-img :src="`${s3url}common/logo/admin_4s.png`" />
+                        <b-img :src="`${s3url}common/logo/admin_4s.png`"></b-img>
                     </b-link>
                 </b-navbar-nav>
             </b-collapse>
@@ -114,10 +110,10 @@
 
     <transition name="modal">
         <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="1100">
-            <req-voucher  v-if="modalMode == 'reqVoucher'" @close-modal="isModalViewed = false" :list="reqVoucher" />
-            <req-ask      v-if="modalMode == 'reqAsk'" @close-modal="isModalViewed = false" :list="reqAsk" />
-            <req-order    v-if="modalMode == 'reqOrder'" @close-modal="isModalViewed = false" :list="reqOrder" />
-            <req-estimate v-if="modalMode == 'reqEstimate'" @close-modal="isModalViewed = false" :list="reqEstimate" />
+            <req-voucher  v-if="modalMode == 'reqVoucher'" @close-modal="isModalViewed = false" :list="reqVoucher"></req-voucher>
+            <req-ask      v-if="modalMode == 'reqAsk'" @close-modal="isModalViewed = false" :list="reqAsk"></req-ask>
+            <req-order    v-if="modalMode == 'reqOrder'" @close-modal="isModalViewed = false" :list="reqOrder"></req-order>
+            <req-estimate v-if="modalMode == 'reqEstimate'" @close-modal="isModalViewed = false" :list="reqEstimate"></req-estimate>
         </modal>
     </transition>
 </header>
