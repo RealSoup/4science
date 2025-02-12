@@ -31,20 +31,20 @@
                 </b-col>
             </b-col>
             <b-col cols="12" lg="1">
-                <b-button variant="info" size="sm" @click="add_cate"><b-icon-plus-lg /> 추가</b-button>
+                <b-button variant="info" size="sm" @click="add_cate"><b-icon-plus-lg></b-icon-plus-lg> 추가</b-button>
             </b-col>                
         </b-row>
         <b-row class="selected" v-for="(ca, i) in value.goods_category" :key="i">
             <b-col>
                 <b-button class="xm red mr-3" @click="removeCate(i)">X</b-button>   
                 <span>{{ca.gc_ca01_name}}</span>
-                <b-icon-chevron-right v-if="ca.gc_ca02" /><span v-if="ca.gc_ca02">{{ca.gc_ca02_name}}</span>
-                <b-icon-chevron-right v-if="ca.gc_ca03" /><span v-if="ca.gc_ca03">{{ca.gc_ca03_name}}</span>
-                <b-icon-chevron-right v-if="ca.gc_ca04" /><span v-if="ca.gc_ca04">{{ca.gc_ca04_name}}</span>
+                <b-icon-chevron-right v-if="ca.gc_ca02"></b-icon-chevron-right><span v-if="ca.gc_ca02">{{ca.gc_ca02_name}}</span>
+                <b-icon-chevron-right v-if="ca.gc_ca03"></b-icon-chevron-right><span v-if="ca.gc_ca03">{{ca.gc_ca03_name}}</span>
+                <b-icon-chevron-right v-if="ca.gc_ca04"></b-icon-chevron-right><span v-if="ca.gc_ca04">{{ca.gc_ca04_name}}</span>
                 <b-form-checkbox size="lg" v-model="ca.gc_prime" value="Y" unchecked-value="N" class="ml-5" @change="gc_prime(i)">대표</b-form-checkbox>                       
             </b-col>
         </b-row>
-        <validation :error="$store.state.error.validations.goods_category" />
+        <validation :error="$store.state.error.validations.goods_category"></validation>
     </b-container>
 
    
@@ -58,21 +58,21 @@
         <b-row>
             <b-col class="label">상품명</b-col>
             <b-col>
-                <b-form-input id="gd_name" v-model="value.gd_name" />
-                <validation :error="$store.state.error.validations.gd_name" />
+                <b-form-input id="gd_name" v-model="value.gd_name"></b-form-input>
+                <validation :error="$store.state.error.validations.gd_name"></validation>
             </b-col>
             <b-col class="label">납기일</b-col>
             <b-col class="type01">
-                <b-form-input id="gd_dlvy_at" v-model="value.gd_dlvy_at" />
-                <validation :error="$store.state.error.validations.gd_dlvy_at" />
+                <b-form-input id="gd_dlvy_at" v-model="value.gd_dlvy_at"></b-form-input>
+                <validation :error="$store.state.error.validations.gd_dlvy_at"></validation>
             </b-col>
         </b-row>
 
         <b-row>
             <b-col class="label">제조사</b-col>
             <b-col class="type02">
-                <maker-input v-model="value.gd_mk_name" :frm="value" />
-                <validation :error="$store.state.error.validations.gd_mk_id" />
+                <maker-input v-model="value.gd_mk_name" :frm="value"></maker-input>
+                <validation :error="$store.state.error.validations.gd_mk_id"></validation>
             </b-col>
             <b-col class="label short">매입처 직배송</b-col>
             <b-col class="type02">
@@ -83,17 +83,17 @@
             </b-col>
             <b-col class="label short">관리자 정보</b-col>
             <b-col class="type02">
-                <b-form-input v-model="value.gd_mng_info" />
+                <b-form-input v-model="value.gd_mng_info"></b-form-input>
             </b-col>
             <b-col class="label">검색 순위</b-col>
             <b-col class="type02" v-b-tooltip="'낮을 수록 먼저 나옵니다.'">
-                <b-form-input v-model="value.gd_seq" />
+                <b-form-input v-model="value.gd_seq"></b-form-input>
             </b-col>
         </b-row>
 
         <b-row>                
             <b-col class="label">키워드</b-col>
-            <b-col><b-form-input id="gd_keyword" v-model="value.gd_keyword" /></b-col>
+            <b-col><b-form-input id="gd_keyword" v-model="value.gd_keyword"></b-form-input></b-col>
             <b-col class="label"></b-col>
             <b-col class="type01">
                 <b-form-checkbox switch class="float-right" v-model="value.gd_billing" value="1" unchecked-value="0">
@@ -105,14 +105,14 @@
         <b-row class="align-items-baseline">
             <b-col class="label">상품 설명</b-col>
             <b-col class="type11">
-                <vue2-tinymce-editor v-model="value.gd_desc" ref="tinymce_editor" :options="TinymceOpt" />
-                <validation :error="$store.state.error.validations.gd_desc" />
+                <vue2-tinymce-editor v-model="value.gd_desc" ref="tinymce_editor" :options="TinymceOpt"></vue2-tinymce-editor>
+                <validation :error="$store.state.error.validations.gd_desc"></validation>
             </b-col>
         </b-row>
         <b-row class="align-items-baseline">
             <b-col class="label">영상 정보</b-col>
             <b-col class="type11">
-                <b-form-textarea v-model="value.gd_video" placeholder="영상 태그 입력" rows="2" />
+                <b-form-textarea v-model="value.gd_video" placeholder="영상 태그 입력" rows="2"></b-form-textarea>
             </b-col>
         </b-row>
     </b-container>
