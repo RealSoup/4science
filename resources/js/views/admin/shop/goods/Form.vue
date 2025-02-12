@@ -258,9 +258,9 @@
                 </b-container>
             </b-col>
         </b-row>
-        <validation :error="$store.state.error.validations.goods_model" />
+        <validation :error="$store.state.error.validations.goods_model"></validation>
         <b-row>
-            <b-col class="btn_box"><b-button variant="info" size="sm" @click="insertAtModel()"><b-icon-plus-lg /> 모델 추가</b-button></b-col>
+            <b-col class="btn_box"><b-button variant="info" size="sm" @click="insertAtModel()"><b-icon-plus-lg></b-icon-plus-lg> 모델 추가</b-button></b-col>
         </b-row>
     </b-container>
     <!-- 모델 -->
@@ -279,19 +279,19 @@
         </b-row>
         <b-row v-for="(go, idx) in value.goods_option" :key="idx" class="body">
             <b-col>
-                <span @click="removeAtOpt(idx)"><b-icon-x-circle-fill /></span>
-                <b-form-input v-model='go.go_name' size="sm" />
+                <span @click="removeAtOpt(idx)"><b-icon-x-circle-fill></b-icon-x-circle-fill></span>
+                <b-form-input v-model='go.go_name' size="sm"></b-form-input>
                 <b-form-checkbox v-model='go.go_required' value="Y" unchecked-value="N" switch class="mt-2">필수 옵션</b-form-checkbox>
             </b-col>
             
             <!-- 옵션 아이템 -->
             <b-col>
                 <b-row v-for="(goc, goc_idx) in go.goods_option_child" :key="goc_idx">
-                    <b-col><b-form-input size="sm" v-model="goc.goc_name" /></b-col>
+                    <b-col><b-form-input size="sm" v-model="goc.goc_name"></b-form-input></b-col>
                     <b-col>
-                        <b-form-input size="sm" v-model="goc.goc_price" />
-                        <span v-if="goc_idx == 0" @click="insertAtOptItem(go.goods_option_child)" class="add"><b-icon-plus-circle-fill /></span>
-                        <span v-else @click="removeAtOptItem(go.goods_option_child, goc_idx)" class="del"><b-icon-x-circle-fill /></span>
+                        <b-form-input size="sm" v-model="goc.goc_price"></b-form-input>
+                        <span v-if="goc_idx == 0" @click="insertAtOptItem(go.goods_option_child)" class="add"><b-icon-plus-circle-fill></b-icon-plus-circle-fill></span>
+                        <span v-else @click="removeAtOptItem(go.goods_option_child, goc_idx)" class="del"><b-icon-x-circle-fill></b-icon-x-circle-fill></span>
                     </b-col>
                 </b-row>
             </b-col>
@@ -299,7 +299,7 @@
         </b-row>
         <b-row>
             <b-col class="btn_box">
-                <b-button class="mint xm float-right" @click="insertAtOpt()"><b-icon-plus-lg /></b-button>
+                <b-button class="mint xm float-right" @click="insertAtOpt()"><b-icon-plus-lg></b-icon-plus-lg></b-button>
             </b-col>
         </b-row>
     </b-container>
