@@ -48,8 +48,19 @@
             <b-link :class="{focus:$route.params.stats_type == 'sales'}" :to="{name: 'adm_stats', params: {stats_type: 'sales'}}"><i>매출</i></b-link>
             <b-link :class="{focus:$route.params.stats_type == 'sales_goods'}" :to="{name: 'adm_stats', params: {stats_type: 'sales_goods'}}"><i>매출-상품</i></b-link>
             <b-link :class="{focus:$route.params.stats_type == 'sales_user'}" :to="{name: 'adm_stats', params: {stats_type: 'sales_user'}}"><i>매출-유저</i></b-link>
+            <!-- <b-link :class="{focus:$route.params.stats_type == 'attend'}" :to="{name: 'adm_stats', params: {stats_type: 'attend'}}"><i>출석 체크</i></b-link> -->
         </section>
-   
+        <!-- <template v-if="user.id != 286">
+            <b-nav-item-dropdown v-if="user.user_mng.um_group == 'acc'" text="매출장부">
+                <b-dropdown-item :to="{name: 'adm_ledger'}">통합 장부</b-dropdown-item>
+                <b-dropdown-item :to="{name: 'adm_ledger_acct_wait'}">매출 대기</b-dropdown-item>
+                <b-dropdown-item :to="{name: 'adm_ledger_acct_soon'}">결제 예정분</b-dropdown-item>
+                <b-dropdown-item :to="{name: 'adm_ledger_acct_pay_od'}">매출 내역</b-dropdown-item>
+                <b-dropdown-item :to="{name: 'adm_ledger_acct_pay_tx'}">매출장</b-dropdown-item>
+            </b-nav-item-dropdown>
+
+            <b-nav-item :to="{name: 'adm_ledger'}" v-else active-class="active" exact>영업장부</b-nav-item>
+        </template> -->    
         <section>
             <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_board_')}"><i>게시판</i></p>
             <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'notice'}"     @click="strongReload('/admin/board/notice')"><i>공지사항</i></b-link>
@@ -106,6 +117,8 @@
             <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="1100">
                 <req-voucher  v-if="modalMode == 'reqVoucher'" @close-modal="isModalViewed = false" :list="reqVoucher"></req-voucher>
                 <req-ask      v-if="modalMode == 'reqAsk'" @close-modal="isModalViewed = false" :list="reqAsk"></req-ask>
+                <!-- <req-order    v-if="modalMode == 'reqOrder'" @close-modal="isModalViewed = false" :list="reqOrder" /> -->
+                <!-- <req-estimate v-if="modalMode == 'reqEstimate'" @close-modal="isModalViewed = false" :list="reqEstimate" /> -->
             </modal>
         </transition>
     </aside>
@@ -126,6 +139,8 @@ export default {
     name: 'Header',
     components: {
         'modal'     : () => import('@/views/_common/Modal'),
+        // 'req-order'   : () => import('./_comp/ReqOrder'),
+        // 'req-estimate'    : () => import('./_comp/ReqEstimate'),
         'req-voucher': () => import('./_comp/ReqVoucher'),
         'req-ask'    : () => import('./_comp/ReqAsk'),
     },
@@ -189,7 +204,26 @@ export default {
                     Notify.modal('다른 유저가 검색어를 등록중입니다.', 'danger');
                 }
             }
-        }, 
+        },
+
+        // route_push(type) {
+        //     let today = new Date().format("yyyy-MM-dd");
+        //     let route_name = '';
+        //     let route_query = '';
+        //     if ( type == 'order' ) {
+        //         route_name = 'adm_order_index';
+        //         route_query = { startDate   :today,
+        //                         endDate     :today,
+        //                         od_step     :'10', };
+        //     } else if ( type == 'estimate' ) {
+        //         route_name = 'adm_estimate_index';
+        //         route_query = { date_type   :'reque',
+        //                         startDate   :today,
+        //                         endDate     :today,
+        //                         eq_step     :'DONOT', };
+        //     }
+        //     this.$router.push({name: route_name, query: route_query});
+        // }
     },
 
     async mounted(){
@@ -234,6 +268,11 @@ aside section .focus i { color:#4C647C; font-weight:900; }
     aside { position:fixed; /*display:block;*/ width:10.625em;  transition:all .1s; transform:translateX(-170px); }
     aside.open { transform:translateX(0px); }
     .sm_view { display:inline-flex; }
-    .sm_view .go_back { display:inline-block; background:#FFF; padding:6.5px 12px; border:1px solid #CCCCCC; text-align:center; }  
+    .sm_view .go_back { display:inline-block; background:#FFF; padding:6.5px 12px; border:1px solid #CCCCCC; text-align:center; }
+    /*
+    aside section p:not(.solo):after { content:none; }
+    aside.open i { text-align:left; white-space:nowrap }
+    aside.open i b { display:inline-block; text-align:center; font-size:1.5em; }
+    */
 }
 </style>
