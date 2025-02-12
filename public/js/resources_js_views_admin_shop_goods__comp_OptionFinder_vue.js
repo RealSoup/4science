@@ -72,6 +72,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     setOpt: function setOpt(i) {
       if (this.list[i] && this.list[i].go_name != "정보없음") {
+        this.list[i].goods_option_child = this.list[i].goods_option_child.map(function (el) {
+          return {
+            goc_id: 0,
+            goc_go_id: 0,
+            goc_name: el.goc_name,
+            goc_price: el.goc_price
+          };
+        });
         this.opt.push({
           go_id: 0,
           go_name: this.list[i].go_name,
