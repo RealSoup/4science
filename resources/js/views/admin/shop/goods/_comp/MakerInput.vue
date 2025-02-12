@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
 <div>
     <b-form-input autocomplete="off"
         id="gd_mk_id"
@@ -6,11 +6,11 @@
         @keyup.enter="getMakerList"
         v-b-tooltip.hover title="입력 후 엔터 or 버튼"
         ref="sch_field"
-    />
+    ></b-form-input>
 
-    <b-button @click="getMakerList" size="sm" class="overlap"><b-icon-search /></b-button>
+    <b-button @click="getMakerList" size="sm" class="overlap"><b-icon-search></b-icon-search></b-button>
     <ul class="list-group autocomplete" v-if="maker.length" v-click-outside="hide">
-        <li class="list-group-item" v-for="(mk, i) in maker" @click="setMaker(i)">{{ mk.mk_name }}</li>
+        <li class="list-group-item" v-for="(mk, i) in maker" :key="i" @click="setMaker(i)">{{ mk.mk_name }}</li>
     </ul>
 </div>
 </template>

@@ -8,7 +8,7 @@
     />
     <label for="relate_finder_input">CAT.No</label>
 
-    <b-button @click="getGoodsList" class="xm"><b-icon-search /></b-button>
+    <b-button @click="getGoodsList" class="xm"><b-icon-search></b-icon-search></b-button>
     <ul class="list-group autocomplete" v-if="sch_list.length" v-click-outside="hide">
         <li class="list-group-item" v-for="(gd, i) in sch_list" :key="i" @click="setGoods(i)">{{ gd.gd_name }}</li>
     </ul>
