@@ -30,9 +30,6 @@ export default {
     name: 'admShopGoodsEdit',
     components: {
         Form,
-        // 'Form': () => import('./Form.vue'),
-        //  자식 컴포넌트의 Method를 호출하려면 위와같이 하면 안됨
-        //  import 명령어 써서 컴포넌트 삽입해야 함
         'loading-modal': () => import('@/views/_common/LoadingModal.vue'),
     },
     data() {
@@ -65,9 +62,9 @@ export default {
         async update(){
             
             this.frm = Object.assign(
-                {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
-                this.frm, // 수정하려는 객체
-                {_method : 'PATCH'} // 삽입하려는 내용
+                {},
+                this.frm,
+                {_method : 'PATCH'}
             );
             await this.$refs.form.$refs.tinymce_editor.editor.uploadImages();
             const res = await ax.post(`/api/admin/shop/goods/${this.$route.params.gd_id}`, this.frm);
@@ -75,7 +72,6 @@ export default {
                 await this.$refs.form.$refs.fileupload1.fileProcessor(res.data);
                 await this.$refs.form.$refs.fileupload2.fileProcessor(res.data);
                 Notify.toast('success', '수정 완료')
-                // window.location.reload(true);
             }
         },
         async destroy(){
@@ -100,9 +96,9 @@ export default {
             var rst = await Notify.confirm('이 상품의 모든 자료를 복제', 'danger');
             if (rst) {
                 this.frm = Object.assign(
-                    {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
-                    this.frm, // 수정하려는 객체
-                    {gd_type : 'REN'} // 삽입하려는 내용
+                    {},
+                    this.frm,
+                    {gd_type : 'REN'}
                 );
                 this.isLoadingModalViewed=true;
                 let res = await ax.post(`/api/admin/shop/goods`, this.frm);
