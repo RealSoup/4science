@@ -633,7 +633,8 @@ var render = function render() {
   }, [_c("b-form-input", {
     attrs: {
       size: "sm",
-      placeholder: "도로명"
+      placeholder: "도로명 (최대 20자)",
+      maxlength: "20"
     },
     model: {
       value: _vm.address.street,
@@ -651,7 +652,8 @@ var render = function render() {
   }, [_c("b-form-input", {
     attrs: {
       size: "sm",
-      placeholder: "상세 동호수"
+      placeholder: "상세 동호수 (최대 20자)",
+      maxlength: "20"
     },
     model: {
       value: _vm.address.detail,

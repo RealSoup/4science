@@ -22,8 +22,6 @@ import WebHead      from '@/views/web/_layouts/Header.vue';
 import WebFooter    from '@/views/web/_layouts/Footer.vue';
 import HeaderSimple from '@/views/web/_layouts/HeaderSimple.vue';
 import AdmLeft      from '@/views/admin/_layouts/Left.vue';
-// import AdmFooter    from '@/views/admin/_layouts/Footer.vue';
-
 
 export default {
     name: 'app',
@@ -32,7 +30,6 @@ export default {
         'web-footer'    : WebFooter, 
         'header-simple' : HeaderSimple, 
         'adm-left'      : AdmLeft, 
-        // 'adm-footer'    : AdmFooter 
     },
     data() {
         return {
@@ -51,7 +48,6 @@ export default {
         	switch(this.$store.state.mode){
             	case 'web':
                 case 'simple':   return 'web-footer';  break;
-                // case 'adm':     return 'adm-footer';  break;
                 case 'nothing': return false;  break;
             }
         },
@@ -68,38 +64,15 @@ export default {
             this.$store.dispatch('recent_goods/index');
         }
     },
-    // computed: {
-    //     ...mapState('error', {
-    //         identifyErrors: state => state.identify
-    //     }),
-    // },
-    // watch: {
-    //     identifyErrors: function(newVal, oldVal) {
-    //         this.makeAlert(newVal.message);
-    //     }
-    // },
-    // mixins:[common],
-    // mounted(){
-    //
-    // }
 }
 
 </script>
 
 
 <style type="text/css">
-/*
-@import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-@import url(https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css);
-@import url(https://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
-@import url(https://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
-@import url(https://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
-@import url(https://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css);
-*/
+
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
-html, body/*, ul, li, ol, input, img, dl, dd, dt, p, div, h1, h2, h3, h4, h5, h6, form, tr, th, td*/
-{ height:100%; margin:0px; padding:0px; font-family:'NanumSquare', Dotum; color: #333; font-size:16px; }
-/*#site.adm{ background:#FADBFB; margin-left:15px; margin-right:15px; padding-bottom:15px; width: calc(100% - 30px);}*/
+html, body { height:100%; margin:0px; padding:0px; font-family:'NanumSquare', Dotum; color: #333; font-size:16px; }
 #site.adm>main { display:flex; }
 #site.adm>main .main_con { flex-basis:0; flex-grow:1; max-width:100%; padding:2.5em; }
 @media (max-width: 992px){ 
@@ -212,7 +185,7 @@ label { margin-bottom:0; }
 .awesome_p textarea:focus,
 .awesome_p input:valid,
 .awesome_p textarea:read-only,
-.awesome_p textarea:valid { border:1px solid /*#6200EE*/#17a2b8; }
+.awesome_p textarea:valid { border:1px solid #17a2b8; }
 .awesome_p>input:focus + label,
 .awesome_p>textarea:focus + label,
 .awesome_p>input:valid + label,

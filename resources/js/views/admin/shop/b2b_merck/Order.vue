@@ -47,8 +47,8 @@
         <b-col col sm="12" md="2"><b-form-input size="sm" placeholder="업체명" v-model="address.company" /></b-col>
         <b-col col sm="12" md="2"><b-form-input size="sm" placeholder="우편번호" v-model="address.code" /></b-col>
         <b-col col sm="12" md="2"><b-form-input size="sm" placeholder="**시 **구" v-model="address.city" /></b-col>
-        <b-col col sm="12" md="3"><b-form-input size="sm" placeholder="도로명" v-model="address.street" /></b-col>
-        <b-col col sm="12" md="3"><b-form-input size="sm" placeholder="상세 동호수" v-model="address.detail" /></b-col>
+        <b-col col sm="12" md="3"><b-form-input size="sm" placeholder="도로명 (최대 20자)" v-model="address.street" maxlength="20" /></b-col>
+        <b-col col sm="12" md="3"><b-form-input size="sm" placeholder="상세 동호수 (최대 20자)" v-model="address.detail" maxlength="20" /></b-col>
         <b-col col sm="12"><b-form-textarea v-model="address.req_dlvy" placeholder="배송시 요청사항 입력" /></b-col>
     </b-row>
 
