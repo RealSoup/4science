@@ -100,11 +100,11 @@
             
             <dt>카드전표</dt>
             <dd>
-                <a href="https://www.inicis.com/payment_view" target="_blank" class="btn btn-warning btn_link" style='color:#fff;'>카드 전표 인쇄 바로가기</a>
+                <a href="https://consumer.tosspayments.com/payment-history/account" target="_blank" class="btn btn-warning btn_link" style='color:#fff;'>카드 전표 인쇄 바로가기</a>
                 <br /><br />
                 <ul>
-                    <li>바로가기 버튼을 누르면 이니시스 홈페이지로 연결됩니다. </li>
-                    <li>이니시스에서 <b>카드사용 내역 조회</b> 메뉴에서 카드사, 카드번호, E-mail, 거래일자를 입력하시면 해당 서류를 출력하실 수 있습니다.</li>
+                    <li>바로가기 버튼을 누르면 토스페이먼츠 홈페이지로 연결됩니다. </li>
+                    <li>토스페이먼츠에서 <b>카드사용 내역 조회</b> 메뉴에서 카드번호, 결제금액, 거래일자를 입력하시면 해당 서류를 출력하실 수 있습니다.</li>
                 </ul>                        
             </dd>
             
@@ -131,11 +131,11 @@ export default {
 
 <style lang="css" scoped>
 .pay_info { margin:0; }
-.pay_info>>> > div:first-child { width:230px; padding-left:0; flex:0 0 auto; max-width:100%; }
-.pay_info>>> > div:first-child .nav-tabs { flex-direction:column; }
-.pay_info>>> > div:first-child .nav-tabs .nav-link { background:#fff !important; border:1px solid #DDDDDD; padding:12px 25px; border-radius:0; color:#62615D; }
-.pay_info>>> > div:first-child .nav-tabs .nav-link.active { background:#F6F6F6 !important; color:#000 !important; }
-.pay_info>>>.tab-content { padding-left:15px; flex-basis: 0; flex-grow: 1; max-width: 100%;}
+.pay_info::v-deep > div:first-child { width:230px; padding-left:0; flex:0 0 auto; max-width:100%; }
+.pay_info::v-deep > div:first-child .nav-tabs { flex-direction:column; }
+.pay_info::v-deep > div:first-child .nav-tabs .nav-link { background:#fff !important; border:1px solid #DDDDDD; padding:12px 25px; border-radius:0; color:#62615D; }
+.pay_info::v-deep > div:first-child .nav-tabs .nav-link.active { background:#F6F6F6 !important; color:#000 !important; }
+.pay_info::v-deep .tab-content { padding-left:15px; flex-basis: 0; flex-grow: 1; max-width: 100%;}
 
 dl.payment { border:1px solid #E3E3E3; }
 dl.payment dt { font-size:1rem; background-color:#F6F6F6; padding:1rem; }
@@ -151,11 +151,11 @@ dl.payment dd a { font-weight:900; color:#0D4D9C; }
 dl.payment dd .view_img { font-size: 0.7rem; padding: 0.12rem 0.2rem 0 0.2rem; line-height: 0.9rem; }
 
 @media (max-width: 992px){
-    .pay_info>>> > div:first-child { width:100%; }
-    .pay_info>>> > div:first-child .nav-tabs { flex-direction:row; }
-    .pay_info>>> > div:first-child .nav-tabs li { flex: 0 0 33.333333%; max-width:33.333333%; }
-    .pay_info>>> > div:first-child .nav-tabs .nav-link { padding:5px 0; font-size:.8rem; text-align:center; }
+    .pay_info::v-deep > div:first-child { width:100%; }
+    .pay_info::v-deep > div:first-child .nav-tabs { flex-direction:row; }
+    .pay_info::v-deep > div:first-child .nav-tabs li { flex: 0 0 33.333333%; max-width:33.333333%; }
+    .pay_info::v-deep > div:first-child .nav-tabs .nav-link { padding:5px 0; font-size:.8rem; text-align:center; }
 
-    .pay_info>>>.tab-content { padding-left:0; margin-top:.5rem; }
+    .pay_info::v-deep .tab-content { padding-left:0; margin-top:.5rem; }
 }
 </style>

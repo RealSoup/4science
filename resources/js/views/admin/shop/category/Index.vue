@@ -7,7 +7,7 @@
             </transition>
             <h3 class="p_tit">
                 카테고리
-                <b-button @click="rewrite"><b-icon-recycle /></b-button>
+                <b-button @click="rewrite">웹 적용 <b-icon-recycle /></b-button>
             </h3>
             <b-card>
                 <tree-view :cate="ca.subCate" :parent="ca" :depth="1" :ca_papa="0" @get-sub='getSub' />

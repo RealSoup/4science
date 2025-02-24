@@ -155,7 +155,7 @@ var render = function render() {
     on: {
       click: _vm.rewrite
     }
-  }, [_c("b-icon-recycle")], 1)], 1), _vm._v(" "), _c("b-card", [_c("tree-view", {
+  }, [_vm._v("웹 적용 "), _c("b-icon-recycle")], 1)], 1), _vm._v(" "), _c("b-card", [_c("tree-view", {
     attrs: {
       cate: _vm.ca.subCate,
       parent: _vm.ca,

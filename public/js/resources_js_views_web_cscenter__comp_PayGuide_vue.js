@@ -85,10 +85,10 @@ var render = function render() {
       color: "#fff"
     },
     attrs: {
-      href: "https://www.inicis.com/payment_view",
+      href: "https://consumer.tosspayments.com/payment-history/account",
       target: "_blank"
     }
-  }, [_vm._v("카드 전표 인쇄 바로가기")]), _vm._v(" "), _c("br"), _c("br"), _vm._v(" "), _c("ul", [_c("li", [_vm._v("바로가기 버튼을 누르면 이니시스 홈페이지로 연결됩니다. ")]), _vm._v(" "), _c("li", [_vm._v("이니시스에서 "), _c("b", [_vm._v("카드사용 내역 조회")]), _vm._v(" 메뉴에서 카드사, 카드번호, E-mail, 거래일자를 입력하시면 해당 서류를 출력하실 수 있습니다.")])])]), _vm._v(" "), _c("dt", [_vm._v("제품사양서")]), _vm._v(" "), _c("dd", [_c("ul", [_c("li", [_vm._v("제품 상세페이지에서 "), _c("b", [_vm._v("제품사양서")]), _vm._v("를 클릭하시면 해당 서류를 출력하실 수 있습니다.")]), _vm._v(" "), _c("li", [_vm._v("제품사양서 인쇄는 Internet Explorer 환경에 따라 잘림 현상이 발생될 수 있습니다.")])])])])])], 1);
+  }, [_vm._v("카드 전표 인쇄 바로가기")]), _vm._v(" "), _c("br"), _c("br"), _vm._v(" "), _c("ul", [_c("li", [_vm._v("바로가기 버튼을 누르면 토스페이먼츠 홈페이지로 연결됩니다. ")]), _vm._v(" "), _c("li", [_vm._v("토스페이먼츠에서 "), _c("b", [_vm._v("카드사용 내역 조회")]), _vm._v(" 메뉴에서 카드번호, 결제금액, 거래일자를 입력하시면 해당 서류를 출력하실 수 있습니다.")])])]), _vm._v(" "), _c("dt", [_vm._v("제품사양서")]), _vm._v(" "), _c("dd", [_c("ul", [_c("li", [_vm._v("제품 상세페이지에서 "), _c("b", [_vm._v("제품사양서")]), _vm._v("를 클릭하시면 해당 서류를 출력하실 수 있습니다.")]), _vm._v(" "), _c("li", [_vm._v("제품사양서 인쇄는 Internet Explorer 환경에 따라 잘림 현상이 발생될 수 있습니다.")])])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
