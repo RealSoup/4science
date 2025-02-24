@@ -154,17 +154,17 @@ var render = function render() {
   }, [_vm._v(" "), _c("img", {
     staticClass: "m_hide",
     attrs: {
-      src: "".concat(_vm.s3url, "cscenter/member_info.jpg")
+      src: "/storage/cscenter/member_info.jpg"
     }
   }), _vm._v(" "), _c("img", {
     staticClass: "m_show",
     attrs: {
-      src: "".concat(_vm.s3url, "cscenter/member_info_m01.jpg")
+      src: "/storage/cscenter/member_info_m01.jpg"
     }
   }), _vm._v(" "), _c("img", {
     staticClass: "m_show",
     attrs: {
-      src: "".concat(_vm.s3url, "cscenter/member_info_m02.jpg")
+      src: "/storage/cscenter/member_info_m02.jpg"
     }
   })])], 1)], 1);
 };

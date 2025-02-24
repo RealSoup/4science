@@ -181,7 +181,7 @@ var render = function render() {
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": "/storage/main/slide/2024/0108.png"
+      "img-src": "/storage/event/2025/0224/slide.jpg"
     }
   })], 1) : _vm._e(), _vm._v(" "), _vm.deviceType == "pc" ? _c("b-link", {
     attrs: {
