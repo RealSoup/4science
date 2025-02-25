@@ -844,7 +844,8 @@ export default {
 .settle_split .right .pay_method .tax_paper div .custom-radio>>>label { color:#616161; font-size:.8rem; cursor:pointer; vertical-align: baseline; }
 .settle_split .right .pay_method .tax_paper div .custom-radio>>>label::before, 
 .settle_split .right .pay_method .tax_paper div .custom-radio>>>label::after { top:2px; left:-1.2rem; }
-.settle_split .right .pay_method .tax_paper .oex_type_fir_no_info { color:#616161; font-size:14px; line-height:1.3; text-align:justify; padding-top:7px;}
+.settle_split .right .pay_method .tax_paper .oex_type_fir_no_info { color:#616161; font-size:14px; line-height:1.3; text-align:justify; padding:13px;
+    border:3px solid #000; border-radius:1em; transition:all .2s; box-shadow:-2px -2px 8px 1px rgba(39, 39, 39, .5); margin-top:15px; }
 .settle_split .right .pay_exe { margin-top:1.5em; border-radius:.9rem; border:1px solid #000; position:sticky; top:180px; }
 .settle_split .right .pay_exe .pay_price { font-weight:bold; text-align:right; flex-basis:60%; max-width:60%; }
 .settle_split .right .pay_exe .pay_price b { font-size:2.1rem; }
