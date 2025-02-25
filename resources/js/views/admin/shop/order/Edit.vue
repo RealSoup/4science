@@ -411,7 +411,11 @@
                         <b-col class="lb">지출 증빙 서류</b-col><b-col class="dt wd1_1">세금계산서 입력안함</b-col>
                     </template>
                     <template v-else-if="od.order_extra_info.oex_type == 'NO'">
-                        <b-col class="lb">지출 증빙 서류</b-col><b-col class="dt wd1_1">미발급</b-col>
+                        <b-col class="lb">지출 증빙 서류</b-col>
+                        <b-col class="dt wd1_1">
+                            <template v-if="od.od_pay_method == 'B'">미발급</template>
+                            <template v-else-if="od.od_pay_method == 'L'">나중선택</template>
+                        </b-col>
                     </template>
                     <template v-else>
                         <b-col class="lb">
