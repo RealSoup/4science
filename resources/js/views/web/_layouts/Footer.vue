@@ -137,7 +137,7 @@ export default {
 #footer #footer_bottom .container .row .col .copy { margin-top: 22px; }
 #footer #footer_bottom .container .row .col.logo { text-align:right; }
 
-#footer #expansion { position:fixed; bottom:1%; right:7%; z-index:17; }
+#footer #expansion { position:fixed; bottom:1%; right:6.3%; z-index:17; }
 
 @media (max-width: 992px){
     #footer { margin-top:1rem; padding-top:1rem; }

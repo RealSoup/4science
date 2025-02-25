@@ -1,7 +1,8 @@
 <template>
 <ul id="category" :class="{all_focus:all_focus}" @mouseenter="all_focus=true" @mouseleave="all_focus=false, $emit('close_cate')" :style="{ maxHeight:`${cate_height}px`}">
-    <li v-for="ca in category" :key="ca.ca_id" @mouseenter="set_focus(ca.ca_id)" :class="{focus:ca.sub_show}">
+    <li v-for="ca in category" :key="ca.ca_id" @mouseenter="set_focus(ca.ca_id)" :class="{focus:ca.sub_show, [`ca01_${ca.ca_id}`]:true}">
         <b-link class="dep01" @click.stop="ca.sub_show=false, $emit('close_cate')" :to="{name: 'goods_index', query: {ca01:ca.ca_id}}">
+            <template v-if="ca.ca_id==36"><img src="/storage/common/cate/icon_36.svg" /></template>
             {{ca.ca_name}}
         </b-link>
         <CateSub v-if="ca.sub_show && ca.sub.length" :depth='1' :cate="ca.sub" :paramLink="'/'+ca.ca_id"></CateSub>
@@ -53,6 +54,8 @@ export default {
 #category.all_focus { width:100%; }
 #category >>> li { line-height:1em; width:11.25em; }
 #category >>> li a { padding:.4em; display: inline-block; font-size:.85em; width:100%; letter-spacing:-1px; text-align:left; } 
+#category >>> li.ca01_36 a { color:#ff8a00; }
+#category >>> li.ca01_36 a img { width:19px; }
 #category >>> li.focus>ul { width:calc(100% - 11.25em); }
 #category >>> li.focus>a,
 #category >>> li a:hover { background-color:#4F708F; color:#FFF; font-weight:900; padding:1em .4em; }

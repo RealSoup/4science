@@ -198,13 +198,27 @@
                     <pay-plan v-if="order.od_pay_method == 'L' || order.od_pay_method == 'S'" v-model="order.extra"></pay-plan>
                     
                     <transition name="slideUpDown">
-                        <div v-if="order.od_pay_method == 'B' || order.od_pay_method == 'L'" class="tax_paper">
+                        <div v-if="order.od_pay_method == 'B' || order.od_pay_method == 'L'" class="tax_paper" id="oex_type_fir">
                             <h6>지출 증빙 서류</h6>
                             <div>
                                 <b-form-radio v-model="order.extra.oex_type_fir" value="TX" @click.native="tax_invoice()">세금계산서</b-form-radio>
                                 <b-form-radio v-model="order.extra.oex_type_fir" value="CA" @click.native="tax_invoice()">현금영수증</b-form-radio>
-                                <b-form-radio v-model="order.extra.oex_type_fir" value="NO">미발급</b-form-radio>
+                                <b-form-radio v-model="order.extra.oex_type_fir" value="NO">
+                                    <template v-if="order.od_pay_method == 'B'">미발급</template>
+                                    <template v-else-if="order.od_pay_method == 'L'">나중선택</template>
+                                </b-form-radio>
                             </div>
+                            
+                            <transition name="slideUpDown">
+                                <div v-if="order.extra.oex_type_fir=='NO'" class="oex_type_fir_no_info">
+                                    <template v-if="order.od_pay_method=='B'">
+                                        현금영수증 발급을 원하지 않으신 경우 입금확인 후 국세청 지정 코드(010-000-1234)로 자진발급 진행 함
+                                    </template>
+                                    <template v-else-if="order.od_pay_method=='L'">
+                                        결제방식이 결정되는 시점에 영업 담당자나 고객센터(1644-4214)를 통해 연락주시면 결제를 도와드리겠습니다.
+                                    </template>
+                                </div>
+                            </transition>
                         </div>
                     </transition>
                     
@@ -305,7 +319,8 @@ export default {
                     this.order.extra.oex_num_tel = '';
                     this.order.extra.oex_email = '';
                 }
-                this.order.extra.oex_type = 'NO'; 
+                this.order.extra.oex_type = 'NO';
+                this.order.extra.oex_type_fir = '';
             },
             deep: true,
         },
@@ -357,7 +372,7 @@ export default {
                     oex_pay_plan: 'soon',
                     oex_pay_plan_etc: '',
                     oex_bank: 'K',
-                    oex_type_fir: 'NO',
+                    oex_type_fir: '',
                     oex_type: '',
                     
                     oex_req_est: 'N',
@@ -632,6 +647,9 @@ export default {
                 document.getElementById('payment').scrollIntoView();
                 return false;
             }
+            
+
+            
             switch (frm.od_pay_method) {
                 case 'B':
                     if (isEmpty(frm.extra.oex_depositor)) { Notify.toast('danger', "입금자명을 입력해주세요"); this.$refs.oex_depositor.focus(); return false; }
@@ -670,6 +688,14 @@ export default {
                 Notify.modal("정확한 도로명 주소로 수정해주세요.", 'danger');
                 this.go_scroll_address();
                 return false; 
+            }
+
+            
+            if ((this.order.od_pay_method == 'B' || this.order.od_pay_method == 'L') && this.order.extra.oex_type_fir == '') { 
+                Notify.toast('danger', "지출 증빙 서류를 선택하세요.");
+                document.getElementById('oex_type_fir').scrollIntoView();
+                window.scrollBy(0, -160);
+                return false;
             }
             
             return true;
@@ -818,7 +844,7 @@ export default {
 .settle_split .right .pay_method .tax_paper div .custom-radio>>>label { color:#616161; font-size:.8rem; cursor:pointer; vertical-align: baseline; }
 .settle_split .right .pay_method .tax_paper div .custom-radio>>>label::before, 
 .settle_split .right .pay_method .tax_paper div .custom-radio>>>label::after { top:2px; left:-1.2rem; }
-
+.settle_split .right .pay_method .tax_paper .oex_type_fir_no_info { color:#616161; font-size:14px; line-height:1.3; text-align:justify; padding-top:7px;}
 .settle_split .right .pay_exe { margin-top:1.5em; border-radius:.9rem; border:1px solid #000; position:sticky; top:180px; }
 .settle_split .right .pay_exe .pay_price { font-weight:bold; text-align:right; flex-basis:60%; max-width:60%; }
 .settle_split .right .pay_exe .pay_price b { font-size:2.1rem; }
