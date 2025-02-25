@@ -212,7 +212,7 @@
                             <transition name="slideUpDown">
                                 <div v-if="order.extra.oex_type_fir=='NO'" class="oex_type_fir_no_info">
                                     <template v-if="order.od_pay_method=='B'">
-                                        현금영수증 발급을 원하지 않으신 경우 입금확인 후 국세청 지정 코드(010-000-1234)로 자진발급 진행 함
+                                        세금계산서나 현금영수증의 발급 신청을 하지 않은 경우 국세청 지정 코드(010-000-1234)로 자진발급 처리됩니다.
                                     </template>
                                     <template v-else-if="order.od_pay_method=='L'">
                                         결제방식이 결정되는 시점에 영업 담당자나 고객센터(1644-4214)를 통해 연락주시면 결제를 도와드리겠습니다.

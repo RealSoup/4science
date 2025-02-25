@@ -54,8 +54,8 @@ export default {
 #category.all_focus { width:100%; }
 #category >>> li { line-height:1em; width:11.25em; }
 #category >>> li a { padding:.4em; display: inline-block; font-size:.85em; width:100%; letter-spacing:-1px; text-align:left; } 
-#category >>> li.ca01_36 a { color:#ff8a00; }
-#category >>> li.ca01_36 a img { width:19px; }
+#category >>> li.ca01_36>a { color:#ff8a00; }
+#category >>> li.ca01_36>a img { width:19px; }
 #category >>> li.focus>ul { width:calc(100% - 11.25em); }
 #category >>> li.focus>a,
 #category >>> li a:hover { background-color:#4F708F; color:#FFF; font-weight:900; padding:1em .4em; }

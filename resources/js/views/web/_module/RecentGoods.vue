@@ -32,7 +32,7 @@ export default {
 /*.remote_btn { background-color:#51B948; border:3px solid #FFF; width:70px; height:70px; border-radius:100%; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); 
     color:#FFF; font-size:.95em; display:flex; align-items:center; justify-content:center;  text-align:center; margin:0 0 10px -10px; cursor:pointer; }
 */
-.remote_btn { background:url(/storage/common/btn_recent.png) no-repeat center center; width:80px; height:80px; color:#FFF; font-weight:bold; 
+.remote_btn { background:url(/storage/common/footer/btn_recent.png) no-repeat center center; width:80px; height:80px; color:#FFF; font-weight:bold; 
                 font-size:.95em; display:flex; align-items:center; justify-content:center; text-align:center; line-height:19px; margin:0 0 10px -15px; 
                 cursor:pointer; box-shadow:3px 1px 4px 1px rgba(39, 39, 39, .5); border-radius:100%; }
 .modal_recent_gd,
