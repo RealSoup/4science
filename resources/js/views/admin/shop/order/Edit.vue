@@ -317,7 +317,7 @@
                     <b-col class="lb">결제수단</b-col>
                     <b-col class="dt wd1_2">
                         <span class="print_show_inline">{{order_config.pay_method[od.od_pay_method]}}</span>
-                        <b-form-select v-model="od.od_pay_method" size="sm" :style="{ maxWidth:'100px' }" class="print_hide_inline_block">
+                        <b-form-select v-model="od.od_pay_method" size="sm" :style="{ maxWidth:'150px' }" class="print_hide_inline_block">
                             <b-form-select-option v-for="(v, k) in order_config.pay_method" :key="k" :value="k">{{ v }}</b-form-select-option>
                         </b-form-select>
                     </b-col>
@@ -338,7 +338,7 @@
                     <b-col class="lb">결제수단</b-col>
                     <b-col class="dt wd1_1">
                         <span class="print_show_inline">{{order_config.pay_method[od.od_pay_method]}}</span>
-                        <b-form-select v-model="od.od_pay_method" size="sm" :style="{ maxWidth:'100px' }" class="print_hide_inline_block">
+                        <b-form-select v-model="od.od_pay_method" size="sm" :style="{ maxWidth:'150px' }" class="print_hide_inline_block">
                             <b-form-select-option v-for="(v, k) in order_config.pay_method" :key="k" :value="k">{{ v }}</b-form-select-option>
                         </b-form-select>
                     </b-col>
@@ -360,7 +360,7 @@
                     <b-col class="lb">결제수단</b-col>
                     <b-col class="dt wd1_2">
                         <span class="print_show_inline">{{order_config.pay_method[od.od_pay_method]}}</span>
-                        <b-form-select v-model="od.od_pay_method" size="sm" :style="{ maxWidth:'100px' }" class="print_hide_inline_block">
+                        <b-form-select v-model="od.od_pay_method" size="sm" :style="{ maxWidth:'150px' }" class="print_hide_inline_block">
                             <b-form-select-option v-for="(v, k) in order_config.pay_method" :key="k" :value="k">{{ v }}</b-form-select-option>
                         </b-form-select>
                         <b-button v-if="od.order_pg && od.order_pg.pg_id" class="sm teal print_hide_inline_block ml-3" @click="getReceipt">매출전표</b-button>
@@ -419,13 +419,16 @@
                     </template>
                     <template v-else>
                         <b-col class="lb">
-                            지출 증빙 서류<br />
-                            (
-                                <span v-if="od.order_extra_info.oex_type == 'HP'">휴대폰번호</span>
-                                <span v-else-if="od.order_extra_info.oex_type == 'IN'">주민등록번호</span>
-                                <span v-else-if="od.order_extra_info.oex_type == 'CN'">카드번호</span>
-                                <span v-else-if="od.order_extra_info.oex_type == 'BN'">사업자번호</span>
-                            )
+                            지출 증빙 서류
+                            <template v-if="!isEmpty(od.order_extra_info.oex_type)">
+                                <br />
+                                (
+                                    <span v-if="od.order_extra_info.oex_type == 'HP'">휴대폰번호</span>
+                                    <span v-else-if="od.order_extra_info.oex_type == 'IN'">주민등록번호</span>
+                                    <span v-else-if="od.order_extra_info.oex_type == 'CN'">카드번호</span>
+                                    <span v-else-if="od.order_extra_info.oex_type == 'BN'">사업자번호</span>
+                                )
+                            </template>
                         </b-col>
                         <b-col class="dt wd1_1">{{od.order_extra_info.oex_num}}</b-col>
                     </template>
@@ -1076,5 +1079,8 @@ export default {
     .p_wrap .box .sum_up .total .col:nth-of-type(odd) { flex-basis:50%; max-width:50%; font-size:1rem; }
     .p_wrap .box .sum_up .total .col:nth-of-type(6) { flex-basis:50%; max-width:50%; }
     .p_wrap .box .sum_up .total .col b { font-size:1em; }
+    .p_wrap .od_addr .address { display:block; }
+    .p_wrap .od_addr .address .addr_list, 
+    .p_wrap .od_addr .address .btn_copy { display:none; }
 }
 </style>
