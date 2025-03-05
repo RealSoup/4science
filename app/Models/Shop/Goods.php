@@ -18,7 +18,7 @@ class Goods extends Model {
     protected $primaryKey = 'gd_id';
     protected $dates = [ 'created_at', 'updated_at', 'deleted_at' ];
     protected $table = 'shop_goods';
-    protected $appends = ['image_src', 'image_src_thumb', 'dlvy_fee', 'dlvy_fee_add_vat', 'free_dlvy_max'];
+    protected $appends = ['image_src', 'image_src_thumb', 'dlvy_fee', 'dlvy_fee_add_vat', 'free_dlvy_max', 'hazard_matl'];
     protected $casts = [
         'gm_price_add_vat' => 'integer',
         'created_at' => 'datetime:Y-m-d H:i'
@@ -32,16 +32,27 @@ class Goods extends Model {
 
     public function getImageSrcAttribute() { return self::gdImgSrc(); }
     public function getImageSrcThumbAttribute() { return self::gdImgSrc(true); }
-    // public function getMkNameAttribute() { return isset($this->maker) ? $this->maker->mk_name : NULL; }
-    // public function getManagerAttribute() { return isset($this->user) ? $this->user->name : NULL; }
+    public function getHazardMatlAttribute() {
+        if ( strpos($this->gd_keyword, '유해물질안내') !== false )
+            return true;
+        else if ($this->gd_mk_id == 982 || $this->gd_mk_id == 1789) // 982:US Research Nanomaterials, Inc., 1789:Novarials
+            return true;
+        else {
+            $ca_flag = false;
+            foreach ($this->goodsCategory as $v) {
+                if ($v->gc_ca01 == 28 || $v->gc_ca01 == 40)
+                    return true;
+                else if ($v->gc_ca01 == 33)
+                    if ($v->gc_ca02 == 5579 || $v->gc_ca02 == 5590)
+                        return true;
+            }
+        }
+        return false;
+    }
 
     public function getDlvyFeeAttribute() { return $this->dlvy_fee; }
     public function getDlvyFeeAddVatAttribute() { return floor($this->dlvy_fee*1.1); }
     public function getFreeDlvyMaxAttribute() { return $this->free_dlvy_max; }
-
-    // public function getGmPriceAddVatAttribute($v) { return ($v>0) ? intval($v) : '견적가'; }
-    // public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }
-
 
     public function goodsCategory() {       return $this->hasMany(GoodsCategory::class, "gc_gd_id")->orderBy('gc_prime'); }
     public function goodsCategoryFirst() {  return $this->hasOne(GoodsCategory::class, "gc_gd_id")->Prime(); }
@@ -201,6 +212,7 @@ class Goods extends Model {
                                         'ea'                => $em->em_ea,
                                         'img'               => $gd->image_src_thumb[0],
                                         'gd_name'           => $gd->gd_name,
+                                        'hazard_matl'       => $gd->hazard_matl ?? false,
                                         'gm_name'           => $em->em_name,
                                         'gm_catno'          => $em->em_catno,
                                         'gm_code'           => $em->em_code,
@@ -249,6 +261,7 @@ class Goods extends Model {
                                         'ea'                => $v['model'][$gm->gm_id]['ea'],
                                         'img'               => $gd->image_src_thumb[0],
                                         'gd_name'           => $gd->gd_name,
+                                        'hazard_matl'       => $gd->hazard_matl ?? false,
                                         'gd_dc'             => $gd->gd_dc,
                                         'gm_name'           => $gm->gm_name,
                                         'gm_catno'          => $gm->gm_catno,

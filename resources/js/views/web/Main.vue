@@ -4,6 +4,9 @@
     
     <b-carousel controls indicators :interval='0' class="slide_banner">
         <template>
+            <b-link to="/shop/goods/808133">
+                <b-carousel-slide :img-src="`/storage/event/2025/0304/${slide_file_nm}.jpg`"></b-carousel-slide>
+            </b-link>
             <b-link to="/board/notice/show/55" v-if="deviceType=='pc'">
                 <b-carousel-slide img-src="/storage/event/2025/0224/slide.jpg"></b-carousel-slide>
             </b-link>

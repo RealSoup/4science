@@ -87,7 +87,6 @@ Route::post('social/connectExistAccount', ['as' => 'social.connectExistAccount',
 Route::post('auth/create/{code}', 'Auth\SocialController@socialUserJoin')->name('auth.create');
 Route::post('auth/join_sync_choice', 'Auth\SocialController@socialUserJoin')->name('auth.join_sync_choice');
 
-
 Route::prefix('shop')->group(function () {
     Route::prefix('order')->group(function () {
         Route::GET( 'payReturn/{od_id?}',        'Shop\OrderController@payReturn');
@@ -96,6 +95,7 @@ Route::prefix('shop')->group(function () {
         Route::POST('payReturnPsys',              'Shop\OrderController@payReturnPsys');
         Route::GET('tossBrandPayAccessToken',     'Shop\OrderController@tossBrandPayAccessToken');
         Route::GET('tossBillingKeyIssue/{od_id}', 'Shop\OrderController@tossBillingKeyIssue');
+        Route::POST('adult_popup',                'KcpController@ReqPopUp')->name('shop.order.adult_popup');   //  kcp 본인확인 리턴
     });
 
     Route::prefix('estimate')->group(function () {

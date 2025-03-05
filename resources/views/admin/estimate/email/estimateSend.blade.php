@@ -39,8 +39,11 @@
                     </td>
                 </tr>
             </table> -->
-            <a href="https://4science.net/board/notice/show/55" target='_blank'>
+            <!-- <a href="https://4science.net/board/notice/show/55" target='_blank'>
                 <img src="{{ asset('storage/event/2025/0204/estimate.jpg') }}" />
+            </a> -->
+            <a href="https://4science.net/shop/goods/808133" target='_blank'>
+                <img src="{{ asset('storage/event/2025/0304/estimate.jpg') }}" />
             </a>
         </td>
     </tr>

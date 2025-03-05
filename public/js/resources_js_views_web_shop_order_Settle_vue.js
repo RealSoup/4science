@@ -237,6 +237,9 @@ var paymentWidget = null;
     },
     'coupon': function coupon() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_order__comp_Coupon_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/shop/order/_comp/Coupon */ "./resources/js/views/web/shop/order/_comp/Coupon.vue"));
+    },
+    'person-verification': function personVerification() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_person_verification_Index_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/_module/person_verification/Index */ "./resources/js/views/web/_module/person_verification/Index.vue"));
     }
   },
   watch: {
@@ -327,7 +330,8 @@ var paymentWidget = null;
       config: {},
       goods_def: {},
       clickable: true,
-      toss: []
+      toss: [],
+      is_adult: false
     };
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)('auth', ['isLoggedin', 'user'])), {}, {
@@ -350,6 +354,12 @@ var paymentWidget = null;
           return acc02 || Number(gm.gd_id) > 0 && gm.gm_catno.substr(0, 3) !== '40-';
         }, false);
       }, false);
+    },
+    chk_hazard_matl: function chk_hazard_matl() {
+      // return Object.values(this.order.lists).find(e => e[0].hazard_matl === true) !== undefined; 
+      return this.user.is_super && Object.values(this.order.lists).find(function (e) {
+        return e[0].hazard_matl === true;
+      }) !== undefined;
     }
   }),
   methods: {
@@ -810,6 +820,12 @@ var paymentWidget = null;
     go_scroll_address: function go_scroll_address() {
       document.getElementById('address_box').scrollIntoView();
       window.scrollBy(0, -160);
+    },
+    are_you_adult: function are_you_adult(v) {
+      if (v == 'adult_true') this.is_adult = true;else if (v == 'adult_false') {
+        this.is_adult = false;
+        Notify.modal("성인만 구매 가능합니다.", 'danger');
+      }
     }
   },
   created: function created() {
@@ -1548,7 +1564,17 @@ var render = function render() {
       },
       expression: "order.extra.oex_memo"
     }
-  })], 1)], 2), _vm._v(" "), _c("b-row", {
+  })], 1)], 2), _vm._v(" "), _c("transition", {
+    attrs: {
+      name: "slideUpDown"
+    }
+  }, [_vm.chk_hazard_matl && !_vm.is_adult ? _c("b-row", {
+    staticClass: "pay_exe area_piece"
+  }, [_c("b-col", [_c("person-verification", {
+    on: {
+      are_you_adult: _vm.are_you_adult
+    }
+  })], 1)], 1) : !_vm.chk_hazard_matl || _vm.chk_hazard_matl && _vm.is_adult ? _c("b-row", {
     staticClass: "pay_exe area_piece"
   }, [_c("b-col", [_vm._v("최종 결제 금액")]), _vm._v(" "), _c("b-col", {
     staticClass: "pay_price"
@@ -1565,7 +1591,7 @@ var render = function render() {
     attrs: {
       cols: "12"
     }
-  }, [_c("b-spinner"), _vm._v(" 주문 중...")], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _c("transition", {
+  }, [_c("b-spinner"), _vm._v(" 주문 중...")], 1)], 1) : _vm._e()], 1)], 1)], 1)], 1), _vm._v(" "), _c("transition", {
     attrs: {
       name: "modal"
     }

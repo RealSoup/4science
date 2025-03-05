@@ -356,4 +356,5 @@ export default [
         component:() => import('@/views/web/test/Psys'),
         // beforeEnter: isLoggedin(),
     },
+
 ];

@@ -911,7 +911,7 @@ var render = function render() {
     staticClass: "prev_alarm"
   }, [_vm.content.goods_category_first.gc_ca01 == 28 && _vm.content.goods_category_first.gc_ca02 == 3481 ? _c("p", {
     staticClass: "warning"
-  }, [_vm._v("\n                    ※제품 특성상 주문 접수 후 교환, 취소, 환불이 불가하오니 신중한 구매 부탁드리겠습니다.\n                ")]) : _vm._e(), _vm._v(" "), _vm.content.goods_category_first.gc_ca01 == 28 || _vm.content.goods_category_first.gc_ca01 == 40 || _vm.content.goods_category_first.gc_ca01 == 33 && _vm.content.goods_category_first.gc_ca02 == 5579 || _vm.content.goods_category_first.gc_ca01 == 33 && _vm.content.goods_category_first.gc_ca02 == 5590 || _vm.content.maker.mk_name == "US Research Nanomaterials, Inc." || _vm.content.maker.mk_name == "Novarials" || _vm.content.gd_keyword && _vm.content.gd_keyword.indexOf("유해물질안내") !== -1 ? _c("div", [_c("br"), _vm._v(" "), _c("p", {
+  }, [_vm._v("\n                    ※제품 특성상 주문 접수 후 교환, 취소, 환불이 불가하오니 신중한 구매 부탁드리겠습니다.\n                ")]) : _vm._e(), _vm._v(" "), _vm.content.hazard_matl ? _c("div", [_c("br"), _vm._v(" "), _c("p", {
     staticClass: "warning"
   }, [_vm._v("\n                        ※ 해당 제품은 개인 및 미성년자의 구매를 금합니다."), _c("br"), _vm._v("\n                        ※ 연구목적 외(식품 첨가, 의료용 등) 사용 불가합니다."), _c("br"), _vm._v("\n                        ※ 제품 이미지 참고용이며, 실제와 다를 수 있습니다."), _c("br"), _vm._v(" "), _c("br"), _vm._v("\n                        ※ 이 안내는 「화학물질관리법」 제29조의 2 및 같은 법 시행규칙 제31조의 2에 따라 유해화학물질 시약을 해당 용도로만 사용하며, 유해화학물질 취급기준을 준수하여야 함을 구매자에게 서면 또는 전자 문서로 알려주는 것을 목적으로 하고 있습니다.\n                    ")]), _vm._v(" "), _c("br"), _vm._v(" "), _c("a", {
     staticStyle: {

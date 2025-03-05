@@ -19,6 +19,7 @@ class VerifyCsrfToken extends Middleware {
         'shop/order/payReturn/*',
         'shop/order/payReturnMobile',
         'shop/order/payReturnPsys',
+        'shop/order/adult_popup',
         'social/*/callback',
         'admin/shop/b2b_merck/*',
     ];

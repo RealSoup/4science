@@ -179,14 +179,7 @@
                         ※제품 특성상 주문 접수 후 교환, 취소, 환불이 불가하오니 신중한 구매 부탁드리겠습니다.
                     </p>
 
-                    <div v-if="content.goods_category_first.gc_ca01==28 || 
-                        content.goods_category_first.gc_ca01==40 || 
-                        ( content.goods_category_first.gc_ca01==33 && content.goods_category_first.gc_ca02 ==5579) || 
-                        ( content.goods_category_first.gc_ca01==33 && content.goods_category_first.gc_ca02 ==5590) || 
-                        content.maker.mk_name=='US Research Nanomaterials, Inc.' || 
-                        content.maker.mk_name=='Novarials' || 
-                        ( content.gd_keyword && content.gd_keyword.indexOf('유해물질안내') !== -1 )"
-                    >
+                    <div v-if="content.hazard_matl">
                         <br>
                         <p class="warning">
                             ※ 해당 제품은 개인 및 미성년자의 구매를 금합니다.<br />

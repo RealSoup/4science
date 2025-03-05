@@ -1858,7 +1858,7 @@ var render = function render() {
     staticClass: "dt wd1_1"
   }, [_vm.od.od_pay_method == "B" ? [_vm._v("미발급")] : _vm.od.od_pay_method == "L" ? [_vm._v("나중선택")] : _vm._e()], 2)] : [_c("b-col", {
     staticClass: "lb"
-  }, [_vm._v("\r\n                            지출 증빙 서류"), _c("br"), _vm._v("\r\n                            (\r\n                                "), _vm.od.order_extra_info.oex_type == "HP" ? _c("span", [_vm._v("휴대폰번호")]) : _vm.od.order_extra_info.oex_type == "IN" ? _c("span", [_vm._v("주민등록번호")]) : _vm.od.order_extra_info.oex_type == "CN" ? _c("span", [_vm._v("카드번호")]) : _vm.od.order_extra_info.oex_type == "BN" ? _c("span", [_vm._v("사업자번호")]) : _vm._e(), _vm._v("\r\n                            )\r\n                        ")]), _vm._v(" "), _c("b-col", {
+  }, [_vm._v("\r\n                            지출 증빙 서류\r\n                            "), !_vm.isEmpty(_vm.od.order_extra_info.oex_type) ? [_c("br"), _vm._v("\r\n                                (\r\n                                    "), _vm.od.order_extra_info.oex_type == "HP" ? _c("span", [_vm._v("휴대폰번호")]) : _vm.od.order_extra_info.oex_type == "IN" ? _c("span", [_vm._v("주민등록번호")]) : _vm.od.order_extra_info.oex_type == "CN" ? _c("span", [_vm._v("카드번호")]) : _vm.od.order_extra_info.oex_type == "BN" ? _c("span", [_vm._v("사업자번호")]) : _vm._e(), _vm._v("\r\n                                )\r\n                            ")] : _vm._e()], 2), _vm._v(" "), _c("b-col", {
     staticClass: "dt wd1_1"
   }, [_vm._v(_vm._s(_vm.od.order_extra_info.oex_num))])]] : _vm._e(), _vm._v(" "), _c("b-col", {
     staticClass: "lb"

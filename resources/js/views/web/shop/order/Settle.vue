@@ -233,18 +233,24 @@
                         <b-form-textarea v-model="order.extra.oex_memo" size="sm" placeholder="추가 사항 메모" ></b-form-textarea>
                     </div>
                 </div>
+                <transition name="slideUpDown">
+                    <b-row class="pay_exe area_piece" v-if="chk_hazard_matl && !is_adult">
+                        <b-col>
+                            <person-verification @are_you_adult="are_you_adult"></person-verification>
+                        </b-col>
+                    </b-row>
 
-                <b-row class="pay_exe area_piece">
-                    <b-col>최종 결제 금액</b-col>
-                    <b-col class="pay_price"><b>{{order.price.total | comma}}</b> 원<span>부가세 포함</span></b-col>
+                    <b-row class="pay_exe area_piece" v-else-if="!chk_hazard_matl || (chk_hazard_matl && is_adult)">
+                        <b-col>최종 결제 금액</b-col>
+                        <b-col class="pay_price"><b>{{order.price.total | comma}}</b> 원<span>부가세 포함</span></b-col>
 
-                    <b-col cols="12" v-if="clickable" class="pay_go" @click="exePayment">
-                        <template v-if="order.od_pay_method == 'BL'">정기 배송 신청하기</template>
-                        <template v-else>주문하기</template>
-                    </b-col>
-                    <b-col cols="12" v-else class="pay_go gray"><b-spinner /> 주문 중...</b-col>
-                </b-row>
-                
+                        <b-col cols="12" v-if="clickable" class="pay_go" @click="exePayment">
+                            <template v-if="order.od_pay_method == 'BL'">정기 배송 신청하기</template>
+                            <template v-else>주문하기</template>
+                        </b-col>
+                        <b-col cols="12" v-else class="pay_go gray"><b-spinner /> 주문 중...</b-col>
+                    </b-row>
+                </transition>
             </b-col>
         </b-row>
     </div>
@@ -303,6 +309,7 @@ export default {
         'pop-up'         : () => import('@/views/web/_module/PopUp'),
         'goods-list'     : () => import('@/views/web/shop/order/_comp/GoodsList'),
         'coupon'         : () => import('@/views/web/shop/order/_comp/Coupon'),
+        'person-verification': () => import('@/views/web/_module/person_verification/Index'),
     },
     watch: {
         'order.od_pay_method': {
@@ -397,6 +404,7 @@ export default {
             goods_def: {},
             clickable : true,
             toss : [],
+            is_adult: false,
         }
     },
     computed: {
@@ -410,6 +418,10 @@ export default {
                     return acc02 || (Number(gm.gd_id) > 0 && gm.gm_catno.substr(0, 3) !== '40-');
                 }, false);
             }, false);
+        },
+        chk_hazard_matl () { 
+            // return Object.values(this.order.lists).find(e => e[0].hazard_matl === true) !== undefined; 
+            return this.user.is_super && (Object.values(this.order.lists).find(e => e[0].hazard_matl === true) !== undefined);
         },
     },
     methods:{
@@ -705,6 +717,14 @@ export default {
             document.getElementById('address_box').scrollIntoView(); 
             window.scrollBy(0, -160); 
         },
+
+        are_you_adult (v) {
+            if (v == 'adult_true')          this.is_adult = true; 
+            else if (v == 'adult_false') {
+                this.is_adult = false;
+                Notify.modal("성인만 구매 가능합니다.", 'danger');
+            }
+        }
         
     },
     async created(){

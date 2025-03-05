@@ -83,6 +83,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::GET('goodBad/{bo_id}/{type}', 'BoardController@goodBad')->name('board.goodBad')->where('bo_cd', '[a-zA-Z0-9_]+');
         });
 
+        Route::prefix('kcp')->group(function () {
+            Route::POST('person_verification', 'KcpController@person_verification');
+        });
+
         
 
 
