@@ -180,8 +180,8 @@ class KcpController extends Controller {
                 else
                     $age = ($a_year-1);
 
-                if($age < 20)   $json_res["is_adult"] = false;
-                else            $json_res["is_adult"] = true;
+                if($age < 20)   $json_res["is_adult"] = 'false';
+                else            $json_res["is_adult"] = 'true';
             } else { 
                 dd($json_res); 
             }
@@ -192,6 +192,7 @@ class KcpController extends Controller {
             $json_res["rst"] = 'fail';
         }
 
-        // return redirect()->route('shop.order.adult_popup', $json_res);
+        // return response()->json($json_res, 200);
+        return redirect()->route('shop.order.adult_popup', $json_res);
     }
 }

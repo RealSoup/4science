@@ -719,6 +719,8 @@ export default {
         },
 
         are_you_adult (v) {
+            console.log(v);
+            
             if (v == 'adult_true')          this.is_adult = true; 
             else if (v == 'adult_false') {
                 this.is_adult = false;

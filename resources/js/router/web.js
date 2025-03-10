@@ -237,7 +237,13 @@ export default [
         name: 'order_settle_psys',
         component:() => import('@/views/web/shop/order/SettlePsys'),
         beforeEnter: isLoggedin(),
+    }, {    //      Psys 결제 팝업
+        path: '/shop/order/adult_popup',
+        name: 'shop_order_adult_popup',
+        component:() => import('@/views/web/_module/person_verification/ReqPopUp'),
+        beforeEnter: isLoggedin(),
     },
+    
 
 //      견적요청
     {   path: '/shop/estimate/create',

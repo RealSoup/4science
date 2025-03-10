@@ -150,8 +150,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   objs18.setAttribute('value', '');
                   form.appendChild(objs18);
                   form.setAttribute('method', 'post');
-                  form.setAttribute('action', "https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp");
-                  // form.setAttribute('action', "https://cert.kcp.co.kr/kcp_cert/cert_view.jsp");
+                  // form.setAttribute('action', "https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp");
+                  form.setAttribute('action', "https://cert.kcp.co.kr/kcp_cert/cert_view.jsp");
                   form.setAttribute('target', "kcp_popup");
                   document.body.appendChild(form);
                   form.submit();

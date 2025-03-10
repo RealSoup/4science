@@ -822,6 +822,7 @@ var paymentWidget = null;
       window.scrollBy(0, -160);
     },
     are_you_adult: function are_you_adult(v) {
+      console.log(v);
       if (v == 'adult_true') this.is_adult = true;else if (v == 'adult_false') {
         this.is_adult = false;
         Notify.modal("성인만 구매 가능합니다.", 'danger');

@@ -23,7 +23,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
-            if (!_this.$route.query.birth_day !== '20010101') window.opener.postMessage('adult_true');else window.opener.postMessage('adult_false');
+            if (_this.$route.query.is_adult == 'true') window.opener.postMessage('adult_true');else if (_this.$route.query.is_adult == 'false') window.opener.postMessage('adult_false');
             self.close();
           case 2:
           case "end":
