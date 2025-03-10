@@ -3,9 +3,9 @@
     <b-row class="info">
         <b-col><b>19</b></b-col>
         <b-col>
-            19세 미만의 청소년이 이용할 수 없습니다.
+            4science에서 판매되는 시약류를 포함한 유해화학물질은 19세 미만의 청소년이 구매 할 수 없습니다.
             <br />
-            성인 인증 후 구매 가능합니다.
+            성인 인증 후 구매를 진행해주시기 바랍니다.
         </b-col>
     </b-row>
     <b-row class="btn_row">
@@ -143,8 +143,8 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.info .col:first-child { flex:0 0 25%; max-width:25%; text-align:center; margin:5px 0 10px; }
-.info .col:first-child b { border:3px solid red; border-radius:50%; padding:5px 5px 5px 3px; font-size:30px; }
-.info .col:last-child { display:flex; justify-content:center; flex-direction:column; text-align:center; }
-.btn_row button { width:100%; }
+.info .col:first-child { flex:0 0 25%; max-width:25%; margin:5px 0 10px; display:flex; flex-direction:row; justify-content:center; align-items:center;  }
+.info .col:first-child b { border:3px solid red; border-radius:50%; padding:3px 6px 0px 4px; font-size:30px; }
+.info .col:last-child { display:flex; justify-content:center; flex-direction:column; text-align:justify; }
+.btn_row button { width:100%; margin-top:10px; }
 </style>    

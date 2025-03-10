@@ -420,8 +420,8 @@ export default {
             }, false);
         },
         chk_hazard_matl () { 
-            // return Object.values(this.order.lists).find(e => e[0].hazard_matl === true) !== undefined; 
-            return this.user.is_super && (Object.values(this.order.lists).find(e => e[0].hazard_matl === true) !== undefined);
+            return Object.values(this.order.lists).find(e => e[0].hazard_matl === true) !== undefined; 
+            // return this.user.is_super && (Object.values(this.order.lists).find(e => e[0].hazard_matl === true) !== undefined);
         },
     },
     methods:{

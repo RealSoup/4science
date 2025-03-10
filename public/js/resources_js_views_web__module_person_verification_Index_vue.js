@@ -236,7 +236,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", [_c("b-row", {
     staticClass: "info"
-  }, [_c("b-col", [_c("b", [_vm._v("19")])]), _vm._v(" "), _c("b-col", [_vm._v("\r\n            19세 미만의 청소년이 이용할 수 없습니다.\r\n            "), _c("br"), _vm._v("\r\n            성인 인증 후 구매 가능합니다.\r\n        ")])], 1), _vm._v(" "), _c("b-row", {
+  }, [_c("b-col", [_c("b", [_vm._v("19")])]), _vm._v(" "), _c("b-col", [_vm._v("\r\n            4science에서 판매되는 시약류를 포함한 유해화학물질은 19세 미만의 청소년이 구매 할 수 없습니다.\r\n            "), _c("br"), _vm._v("\r\n            성인 인증 후 구매를 진행해주시기 바랍니다.\r\n        ")])], 1), _vm._v(" "), _c("b-row", {
     staticClass: "btn_row"
   }, [_c("b-button", {
     staticClass: "teal",
@@ -277,7 +277,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.info .col[data-v-2470c97a]:first-child { flex:0 0 25%; max-width:25%; text-align:center; margin:5px 0 10px;\n}\n.info .col:first-child b[data-v-2470c97a] { border:3px solid red; border-radius:50%; padding:5px 5px 5px 3px; font-size:30px;\n}\n.info .col[data-v-2470c97a]:last-child { display:flex; justify-content:center; flex-direction:column; text-align:center;\n}\n.btn_row button[data-v-2470c97a] { width:100%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.info .col[data-v-2470c97a]:first-child { flex:0 0 25%; max-width:25%; margin:5px 0 10px; display:flex; flex-direction:row; justify-content:center; align-items:center;\n}\n.info .col:first-child b[data-v-2470c97a] { border:3px solid red; border-radius:50%; padding:3px 6px 0px 4px; font-size:30px;\n}\n.info .col[data-v-2470c97a]:last-child { display:flex; justify-content:center; flex-direction:column; text-align:justify;\n}\n.btn_row button[data-v-2470c97a] { width:100%; margin-top:10px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
