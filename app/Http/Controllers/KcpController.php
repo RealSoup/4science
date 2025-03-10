@@ -10,8 +10,8 @@ class KcpController extends Controller {
     protected $pri_key;     // privatekey 추출,  'changeit' 은 테스트용 개인키비밀번호
         
     public function __construct() {
-        $this->key_data = Storage::disk('public')->get('kcp/splPrikeyPKCS8.pem');
-        $this->pri_key = openssl_pkey_get_private($this->key_data, "changeit");
+        $this->key_data = Storage::disk('public')->get('kcp/KCP_AUTH_AKZZO_PRIKEY.pem');
+        $this->pri_key = openssl_pkey_get_private($this->key_data, "4science20@%");
     }
 
     public function person_verification(Request $req) {
@@ -133,7 +133,7 @@ class KcpController extends Controller {
         
                 // RES JSON DATA Parsing
                 $json_res = json_decode($res_data, true);
-        
+
                 $res_cd = $json_res["res_cd"];
                 $res_msg = $json_res["res_msg"];
                 $comm_id = $json_res["comm_id"];
@@ -169,8 +169,9 @@ class KcpController extends Controller {
                 $year = substr($birth_day,0,4);
                 $month = substr($birth_day,2,2);
                 $day = substr($birth_day,4,2);  
-// dd($year, $month, $day);
-                $a_year  = date("Y")-$year;
+
+
+                $a_year  = intval(date("Y"))-intval($year);
                 $a_month = date("m");
                 $a_day  = date("d");
 
@@ -181,6 +182,8 @@ class KcpController extends Controller {
 
                 if($age < 20)   $json_res["is_adult"] = false;
                 else            $json_res["is_adult"] = true;
+            } else { 
+                dd($json_res); 
             }
         } else/*if( res_cd.equals( "0000" ) != true )*/ { // 인증실패
             echo "인증 실패<br>";
@@ -189,6 +192,6 @@ class KcpController extends Controller {
             $json_res["rst"] = 'fail';
         }
 
-        return redirect()->route('shop.order.adult_popup', $json_res);
+        // return redirect()->route('shop.order.adult_popup', $json_res);
     }
 }
