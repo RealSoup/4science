@@ -143,7 +143,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.info .col:first-child { flex:0 0 25%; max-width:25%; margin:5px 0 10px; display:flex; flex-direction:row; justify-content:center; align-items:center;  }
+.info .col:first-child { flex:0 0 25%; max-width:25%; display:flex; flex-direction:row; justify-content:center; align-items:center;  }
 .info .col:first-child b { border:3px solid red; border-radius:50%; padding:3px 6px 0px 4px; font-size:30px; }
 .info .col:last-child { display:flex; justify-content:center; flex-direction:column; text-align:justify; }
 .btn_row button { width:100%; margin-top:10px; }
