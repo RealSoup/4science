@@ -26,7 +26,7 @@ class SearchKeywordListener {
         if(!in_array($e->keyword, $prev_keyword)) {
             array_push($prev_keyword, $e->keyword);
             Redis::set('SearchKeyword'.$e->ip, json_encode($prev_keyword), 'EX', 60*60*24); //60*60*24
-            SearchKeyword::insert( ['sk_keyword'=>$e->keyword, 'sk_uid'=>$e->uid] );
+            SearchKeyword::insert( ['sk_keyword'=>$e->keyword, 'sk_uid'=>$e->uid, 'ip'=>$e->ip] );
         }
     }
 }

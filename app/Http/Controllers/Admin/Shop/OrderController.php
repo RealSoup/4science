@@ -87,6 +87,7 @@ class OrderController extends Controller {
 			$orders = $orders->whereIn('od_mng', (count($group) ? $group : ['']));
 		}
 		if (isset($data['sale_env']))	$orders = $orders->where('od_sale_env', $data['sale_env']);
+		//	회원정보에서 해당회원의 최근 주문 내역을 가져오는데 활용
 		if (isset($data['writer']))		$orders = $orders->SchWriter($data['writer']);
         if (isset($data['keyword'])){
 			$txt = $data['keyword'];
