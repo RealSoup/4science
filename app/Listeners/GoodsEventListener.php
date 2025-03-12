@@ -3,11 +3,8 @@
 namespace App\Listeners;
 
 use App\Events\GoodsView;
-use App\Events\GoodsSearch;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use App\Model\Shop\Goods;
-use App\Models\{Search};
 use Cookie;
 use DB;
 
@@ -17,11 +14,6 @@ class GoodsEventListener {
         $events->listen(
             \App\Events\GoodsView::class,
             __CLASS__.'@goodsView' // 'App\Listeners\GoodsEventListener@viewGoods'
-        );
-
-        $events->listen(
-            \App\Events\GoodsSearch::class,
-            __CLASS__. '@goodsSearch'
         );
     }
 
@@ -53,9 +45,5 @@ class GoodsEventListener {
         } else
             $rst = $event->gd_id;
         Cookie::queue($ck_key, $rst);
-    }
-
-    public function goodsSearch(GoodsSearch $event) {
-        Search::insert( ['sc_keyword'=>$event->sch_text] );
     }
 }

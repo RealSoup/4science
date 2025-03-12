@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Storage;
+use DB;
+
 
 class KcpController extends Controller {
     
@@ -180,8 +182,12 @@ class KcpController extends Controller {
                 else
                     $age = ($a_year-1);
 
-                if($age < 20)   $json_res["is_adult"] = 'false';
-                else            $json_res["is_adult"] = 'true';
+                if($age < 20)
+                    $json_res["is_adult"] = 'false';
+                else {
+                    DB::table('users')->where('id', auth()->user()->id)->update(['adult_verified_at'=> \Carbon\Carbon::now()]);
+                    $json_res["is_adult"] = 'true';
+                }
             } else { 
                 dd($json_res); 
             }

@@ -29,6 +29,9 @@ var this_year = new Date().getFullYear();
     },
     'Attend': function Attend() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_stats__comp_Attend_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/stats/_comp/Attend */ "./resources/js/views/admin/stats/_comp/Attend.vue"));
+    },
+    'SchKeyword': function SchKeyword() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_stats__comp_SchKeyword_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/stats/_comp/SchKeyword */ "./resources/js/views/admin/stats/_comp/SchKeyword.vue"));
     }
   },
   data: function data() {
@@ -57,6 +60,9 @@ var this_year = new Date().getFullYear();
         case 'attend':
           return 'Attend';
           break;
+        case 'sch_keyword':
+          return 'SchKeyword';
+          break;
       }
     },
     year: function year() {
@@ -75,11 +81,19 @@ var this_year = new Date().getFullYear();
     },
     graphLabel: function graphLabel() {
       if (this.selectedDate.month && !this.selectedDate.year) this.selectedDate.month = '';
-      var label = '매출';
+      var label = '';
+      switch (this.$route.params.stats_type) {
+        case 'sch_keyword':
+          label = '검색어';
+          break;
+        default:
+          label = '매출';
+          break;
+      }
       if (this.selectedDate.month) {
-        label = this.selectedDate.year + '년 ' + this.selectedDate.month + '월 매출';
+        label = this.selectedDate.year + '년 ' + this.selectedDate.month + '월 ' + label;
       } else if (this.selectedDate.year) {
-        label = this.selectedDate.year + '년 매출';
+        label = this.selectedDate.year + '년 ' + label;
       }
       return label;
     }
@@ -109,7 +123,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", [_c("b-card", {
     staticClass: "shadow p_wrap"
-  }, [_c("b-card-title", [_c("div", [_vm._v("통계 - \r\n            "), _vm.$route.params.stats_type == "join" ? [_vm._v("가입자")] : _vm.$route.params.stats_type == "sales" ? [_vm._v("매출")] : _vm.$route.params.stats_type == "sales_goods" ? [_vm._v("상품별 매출")] : _vm.$route.params.stats_type == "sales_user" ? [_vm._v("회원별 매출")] : _vm.$route.params.stats_type == "attend" ? [_vm._v("출석 일수 순위")] : _vm._e()], 2), _vm._v(" "), _vm.$route.params.stats_type !== "attend" ? _c("div", {
+  }, [_c("b-card-title", [_c("div", [_vm._v("통계 - \r\n            "), _vm.$route.params.stats_type == "join" ? [_vm._v("가입자")] : _vm.$route.params.stats_type == "sales" ? [_vm._v("매출")] : _vm.$route.params.stats_type == "sales_goods" ? [_vm._v("상품별 매출")] : _vm.$route.params.stats_type == "sales_user" ? [_vm._v("회원별 매출")] : _vm.$route.params.stats_type == "attend" ? [_vm._v("출석 일수 순위")] : _vm.$route.params.stats_type == "sch_keyword" ? [_vm._v("검색어 데이터")] : _vm._e()], 2), _vm._v(" "), _vm.$route.params.stats_type !== "attend" ? _c("div", {
     staticClass: "input-group"
   }, [_c("b-form-select", {
     model: {

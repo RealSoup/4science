@@ -277,7 +277,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.info .col[data-v-2470c97a]:first-child { flex:0 0 25%; max-width:25%; margin:5px 0 10px; display:flex; flex-direction:row; justify-content:center; align-items:center;\n}\n.info .col:first-child b[data-v-2470c97a] { border:3px solid red; border-radius:50%; padding:3px 6px 0px 4px; font-size:30px;\n}\n.info .col[data-v-2470c97a]:last-child { display:flex; justify-content:center; flex-direction:column; text-align:justify;\n}\n.btn_row button[data-v-2470c97a] { width:100%; margin-top:10px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.info .col[data-v-2470c97a]:first-child { flex:0 0 25%; max-width:25%; display:flex; flex-direction:row; justify-content:center; align-items:center;\n}\n.info .col:first-child b[data-v-2470c97a] { border:3px solid red; border-radius:50%; padding:3px 6px 0px 4px; font-size:30px;\n}\n.info .col[data-v-2470c97a]:last-child { display:flex; justify-content:center; flex-direction:column; text-align:justify;\n}\n.btn_row button[data-v-2470c97a] { width:100%; margin-top:10px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

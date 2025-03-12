@@ -48,6 +48,7 @@
             <b-link :class="{focus:$route.params.stats_type == 'sales'}" :to="{name: 'adm_stats', params: {stats_type: 'sales'}}"><i>매출</i></b-link>
             <b-link :class="{focus:$route.params.stats_type == 'sales_goods'}" :to="{name: 'adm_stats', params: {stats_type: 'sales_goods'}}"><i>매출-상품</i></b-link>
             <b-link :class="{focus:$route.params.stats_type == 'sales_user'}" :to="{name: 'adm_stats', params: {stats_type: 'sales_user'}}"><i>매출-유저</i></b-link>
+            <b-link :class="{focus:$route.params.stats_type == 'sch_keyword'}" :to="{name: 'adm_stats', params: {stats_type: 'sch_keyword'}}"><i>검색어</i></b-link>
         </section>
    
         <section>

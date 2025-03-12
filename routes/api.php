@@ -196,6 +196,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::POST('order/exportTransactionExcel', 'Admin\Shop\OrderController@exportTransactionExcel')->name('admin.shop.order.exportTransactionExcel');
                 Route::POST('order/exportTransactionPdf',   'Admin\Shop\OrderController@exportTransactionPdf')->name('admin.shop.order.exportTransactionPdf');
                 Route::POST('order/exportShippingListExcel','Admin\Shop\OrderController@exportShippingListExcel')->name('admin.shop.order.exportShippingListExcel');
+                Route::POST('order/exportOrderListExcel',   'Admin\Shop\OrderController@exportOrderListExcel')->name('admin.shop.order.exportOrderListExcel');
                 Route::resource('order', 'Admin\Shop\OrderController', [
                     'except' => [ 'show', 'create' ],
                     'names' => [
@@ -271,6 +272,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::GET('/goods',        'Admin\StatsController@goods');
                 Route::GET('/userOrder',    'Admin\StatsController@userOrder');
                 Route::GET('/userAttend',   'Admin\StatsController@userAttend');
+                Route::GET('/schKeyword',   'Admin\StatsController@schKeyword');
             });
         });
         

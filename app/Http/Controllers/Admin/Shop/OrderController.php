@@ -13,7 +13,7 @@ use App\Events\{Mileage};
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redis;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\ {InvoicesExport, OrderEstimateExport, OrderTransactionExport, OrderShippingListExport};
+use App\Exports\ {InvoicesExport, OrderEstimateExport, OrderTransactionExport, OrderShippingListExport, OrderListExport};
 use App\Mail\SendTransaction;
 use Mail;
 use DateTime;
@@ -87,8 +87,6 @@ class OrderController extends Controller {
 			$orders = $orders->whereIn('od_mng', (count($group) ? $group : ['']));
 		}
 		if (isset($data['sale_env']))	$orders = $orders->where('od_sale_env', $data['sale_env']);
-		if (isset($data['writer']))		$orders = $orders->SchWriter($data['writer']);
-
         if (isset($data['keyword'])){
 			$txt = $data['keyword'];
             switch ($data['mode']) {
@@ -100,7 +98,6 @@ class OrderController extends Controller {
 				case 'od_id':			$orders = $orders->where('od_id', $txt); break;
 				case 'od_receiver':		$orders = $orders->where('od_receiver', 'like' , "%$txt%"); break;
 				case 'od_addr1':		$orders = $orders->where('od_addr1', 'like' , "%$txt%"); break;
-				case 'or_company':		$orders = $orders->where('or_company', 'like' , "%$txt%"); break;
 				case 'oex_depositor':
 					$ids = $this->orderExtraInfo::where('oex_depositor', 'like' , "%$txt%")->pluck('oex_od_id');
 					$orders = $orders->whereIn('od_id', (count($ids) ? $ids : ['']));
@@ -346,6 +343,10 @@ class OrderController extends Controller {
 
 	public function exportShippingListExcel(Request $req) {
 		return Excel::download(new OrderShippingListExport($req->all()), 'order.xlsx');
+	}
+
+	public function exportOrderListExcel(Request $req) {
+		return Excel::download(new OrderListExport($req), 'order'.date("Ymd").'.xlsx');
 	}
 
 	

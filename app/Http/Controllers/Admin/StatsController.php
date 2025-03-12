@@ -134,5 +134,24 @@ class StatsController extends Controller {
             ->get();
         return response()->json($list);
     }
+
+    public function schKeyword(Request $req) {
+        $list = DB::table('search_keyword')
+            ->leftjoin('users', 'search_keyword.sk_uid', '=', 'users.id')
+            ->select('search_keyword.sk_keyword')
+            ->selectRaw("count(*) cnt")
+            ->groupBy('search_keyword.sk_keyword')
+            ->orderBy('cnt', 'desc');
+        if ($req->filled('month')) {
+            $list = $list->whereYear('search_keyword.created_at', $req->year)
+                        ->whereMonth('search_keyword.created_at', $req->month);
+        } else if ($req->filled('year')) {
+            $list = $list->whereYear('search_keyword.created_at', $req->year);
+        }
+        // echo_query($list->limit(30));
+        $list = $list->limit(30)->get();
+  
+        return response()->json($list);
+    }
     
 }

@@ -265,3 +265,7 @@ if(! function_exists('translator')) {
         else return NULL;
     }
 }
+
+if(! function_exists('if_not_my_ip')) {
+    function if_not_my_ip ($ip) { return !in_array($ip, ['125.132.234.16', '121.133.240.149']); }
+}

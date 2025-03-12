@@ -8,6 +8,7 @@
             <template v-else-if="$route.params.stats_type == 'sales_goods'">상품별 매출</template>
             <template v-else-if="$route.params.stats_type == 'sales_user'">회원별 매출</template>
             <template v-else-if="$route.params.stats_type == 'attend'">출석 일수 순위</template>
+            <template v-else-if="$route.params.stats_type == 'sch_keyword'">검색어 데이터</template>
         </div>
 
         <div class="input-group" v-if="$route.params.stats_type !== 'attend'">
@@ -39,6 +40,7 @@ export default {
         'SalesGoods': () => import('@/views/admin/stats/_comp/SalesGoods'),
         'SalesUser': () =>  import('@/views/admin/stats/_comp/SalesUser'),
         'Attend': () =>     import('@/views/admin/stats/_comp/Attend'),
+        'SchKeyword': () => import('@/views/admin/stats/_comp/SchKeyword'),
     },
     data() { return { selectedDate:{ year:this_year, month:'', } } },
     computed : {
@@ -49,17 +51,23 @@ export default {
                 case 'sales_goods': return 'SalesGoods';    break;
                 case 'sales_user':  return 'SalesUser';     break;
                 case 'attend':      return 'Attend';        break;
+                case 'sch_keyword': return 'SchKeyword';    break;
             }
         },
         year () { return Array.from({length: this_year - 1999}, (value, index) => Number(this_year) - index); },
         month () { return Array.from({length: 12}, (value, index) => 1 + index); },
         graphLabel () {
             if (this.selectedDate.month && !this.selectedDate.year) this.selectedDate.month = '';
-            let label = '매출';
+            let label = '';
+            switch (this.$route.params.stats_type) {
+                case 'sch_keyword': label = '검색어'; break;
+                default:            label = '매출'; break;
+            }
+            
             if ( this.selectedDate.month ) {
-                label = this.selectedDate.year+'년 '+this.selectedDate.month+'월 매출';
+                label = this.selectedDate.year+'년 '+this.selectedDate.month+'월 '+label;
             } else if ( this.selectedDate.year ) {
-                label = this.selectedDate.year+'년 매출';
+                label = this.selectedDate.year+'년 '+label;
             }
             return label;
         }

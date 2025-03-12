@@ -43,5 +43,6 @@ class EventServiceProvider extends ServiceProvider
         \App\Listeners\BoardSubscriber::class,
         \App\Listeners\MileageSubscriber::class,
         \App\Listeners\GoodsEventListener::class,
+        \App\Listeners\SearchKeywordListener::class,
     ];
 }

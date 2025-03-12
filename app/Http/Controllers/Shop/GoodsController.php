@@ -42,7 +42,10 @@ class GoodsController extends Controller {
             $offset = ($page*$limit)-$limit;
         }       
 
-        if ($req->filled('keyword')) { 
+        if ($req->filled('keyword')) {
+            if (if_not_my_ip($req->ip()))
+                event(new \App\Events\GoodsSearch($req->keyword, auth()->check() ? auth()->user()->id : 0));  //  검색어 데이터화
+            
             $kw = '*'.trim($req->keyword).'*';
             if ( $req->filled('mode') ) {
                 if($req->mode == 'gd_name') $kw .= "@gd_name {$kw}";

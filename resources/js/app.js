@@ -184,7 +184,7 @@ ax.get('auth_check').then((res) => {
     }
 }).catch(() => {});
 
-
+// chrome에서 개발자도구에서 콘솔에서 찍어볼수있다 document.getElementsByTagName('a')[0].__vue__.$store.state
 
 
 // const app = new Vue({

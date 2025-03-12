@@ -91,6 +91,7 @@
         <b-row class="list_top m_hide">
             <b-col sm="12" md="6">Total : <b>{{this.list.total}}</b></b-col>
             <b-col sm="12" md="6" col class="text-right">
+                <b-button class="mint xm" @click="exportList" v-if="down_auth">Excel Down</b-button>
                 <b-badge pill class="plum">서&middot;경</b-badge> 서울&middot;경기 주문
                 <b-badge pill class="yellow">&nbsp;</b-badge> 미수회원
                 <b-badge pill class="gray">&nbsp;</b-badge> 취소주문
@@ -148,8 +149,12 @@ export default {
 
         }
     },
+    computed: {
+        down_auth () {            
+            return this.$store.state.auth.user.user_mng.um_group == 'acc' || this.$store.state.auth.user.is_super;
+        },
+    },
     methods: {
-        
         async index() {
             try {
                 if (this.sch_frm.startDate && this.sch_frm.endDate && this.sch_frm.startDate > this.sch_frm.endDate) {
@@ -172,6 +177,15 @@ export default {
         routerPush(p){
             this.sch_frm.page = p;
             this.$router.push({name: 'adm_order_index', query: this.sch_frm }).catch(()=>{});
+        },
+        async exportList(){
+            const res = await ax.post(`/api/admin/shop/order/exportOrderListExcel`, this.sch_frm, { responseType: 'blob' });
+            let fileUrl = window.URL.createObjectURL(new Blob([res.data]));
+            let fileLink = document.createElement('a');
+            fileLink.href = fileUrl;
+            fileLink.setAttribute('download', `${this.sch_frm.startDate}-${this.sch_frm.endDate}_OrderList.xlsx`);
+            document.body.appendChild(fileLink);
+            fileLink.click();
         },
     },
     mounted() {

@@ -718,11 +718,11 @@ export default {
             window.scrollBy(0, -160); 
         },
 
-        are_you_adult (v) {
-            console.log(v);
-            
-            if (v == 'adult_true')          this.is_adult = true; 
-            else if (v == 'adult_false') {
+        are_you_adult (v) {            
+            if (v == 'adult_true') {
+                this.is_adult = true;
+                this.$store.state.auth.user.adult_verified_at = new Date().format("yyyy-MM-dd");
+            } else if (v == 'adult_false') {
                 this.is_adult = false;
                 Notify.modal("성인만 구매 가능합니다.", 'danger');
             }
@@ -770,7 +770,12 @@ export default {
         if ( this.$route.query.od_plan ) {
             this.order.od_pay_method = 'BL';
             this.order.od_plan = this.$route.query.od_plan;
-        }
+        }  
+        
+        //  선인인증한지 1년 이내면 인증필요없음
+        let now = new Date();	// 현재 날짜 및 시간
+        let oneYearAgo = new Date(now.setFullYear(now.getFullYear() - 1));	// 일년 전
+        this.is_adult = this.user.adult_verified_at >= oneYearAgo.toISOString().split('T')[0];
 
         this.$gtm.trackView('상품 주문 페이지', 'https://4science.net/shop/order/settle');
     },

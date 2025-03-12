@@ -62,6 +62,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     };
   },
+  computed: {
+    down_auth: function down_auth() {
+      return this.$store.state.auth.user.user_mng.um_group == 'acc' || this.$store.state.auth.user.is_super;
+    }
+  },
   methods: {
     index: function index() {
       var _this = this;
@@ -111,6 +116,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: 'adm_order_index',
         query: this.sch_frm
       })["catch"](function () {});
+    },
+    exportList: function exportList() {
+      var _this2 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var res, fileUrl, fileLink;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/shop/order/exportOrderListExcel", _this2.sch_frm, {
+                responseType: 'blob'
+              });
+            case 2:
+              res = _context2.sent;
+              fileUrl = window.URL.createObjectURL(new Blob([res.data]));
+              fileLink = document.createElement('a');
+              fileLink.href = fileUrl;
+              fileLink.setAttribute('download', "".concat(_this2.sch_frm.startDate, "-").concat(_this2.sch_frm.endDate, "_OrderList.xlsx"));
+              document.body.appendChild(fileLink);
+              fileLink.click();
+            case 9:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }))();
     }
   },
   mounted: function mounted() {
@@ -436,7 +467,12 @@ var render = function render() {
       md: "6",
       col: ""
     }
-  }, [_c("b-badge", {
+  }, [_vm.down_auth ? _c("b-button", {
+    staticClass: "mint xm",
+    on: {
+      click: _vm.exportList
+    }
+  }, [_vm._v("Excel Down")]) : _vm._e(), _vm._v(" "), _c("b-badge", {
     staticClass: "plum",
     attrs: {
       pill: ""
