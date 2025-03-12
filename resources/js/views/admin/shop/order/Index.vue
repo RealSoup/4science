@@ -158,7 +158,7 @@ export default {
         async index() {
             try {
                 if (this.sch_frm.startDate && this.sch_frm.endDate && this.sch_frm.startDate > this.sch_frm.endDate) {
-                    Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
+                    Notify.modal('주문 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
                     return false;
                 }
                 const res = await ax.get(`/api/admin/shop/order`, { params: this.sch_frm});
@@ -179,6 +179,14 @@ export default {
             this.$router.push({name: 'adm_order_index', query: this.sch_frm }).catch(()=>{});
         },
         async exportList(){
+            if (isEmpty(this.sch_frm.startDate)) {
+                Notify.modal('주문 시작일을 선택하세요.', 'warning');
+                return false;
+            }
+            if (this.sch_frm.startDate && this.sch_frm.endDate && this.sch_frm.startDate > this.sch_frm.endDate) {
+                Notify.modal('주문 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
+                return false;
+            }
             const res = await ax.post(`/api/admin/shop/order/exportOrderListExcel`, this.sch_frm, { responseType: 'blob' });
             let fileUrl = window.URL.createObjectURL(new Blob([res.data]));
             let fileLink = document.createElement('a');

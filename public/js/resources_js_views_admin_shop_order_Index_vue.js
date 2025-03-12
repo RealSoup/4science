@@ -80,7 +80,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 4;
                 break;
               }
-              Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
+              Notify.modal('주문 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
               return _context.abrupt("return", false);
             case 4:
               _context.next = 6;
@@ -124,11 +124,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.next = 2;
+              if (!isEmpty(_this2.sch_frm.startDate)) {
+                _context2.next = 3;
+                break;
+              }
+              Notify.modal('주문 시작일을 선택하세요.', 'warning');
+              return _context2.abrupt("return", false);
+            case 3:
+              if (!(_this2.sch_frm.startDate && _this2.sch_frm.endDate && _this2.sch_frm.startDate > _this2.sch_frm.endDate)) {
+                _context2.next = 6;
+                break;
+              }
+              Notify.modal('주문 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
+              return _context2.abrupt("return", false);
+            case 6:
+              _context2.next = 8;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/shop/order/exportOrderListExcel", _this2.sch_frm, {
                 responseType: 'blob'
               });
-            case 2:
+            case 8:
               res = _context2.sent;
               fileUrl = window.URL.createObjectURL(new Blob([res.data]));
               fileLink = document.createElement('a');
@@ -136,7 +150,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               fileLink.setAttribute('download', "".concat(_this2.sch_frm.startDate, "-").concat(_this2.sch_frm.endDate, "_OrderList.xlsx"));
               document.body.appendChild(fileLink);
               fileLink.click();
-            case 9:
+            case 15:
             case "end":
               return _context2.stop();
           }

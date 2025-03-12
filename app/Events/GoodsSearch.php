@@ -14,9 +14,11 @@ class GoodsSearch {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $keyword;
     public $uid;
-    public function __construct($keyword, $uid) { 
+    public $ip;
+    public function __construct($keyword, $uid, $ip) { 
         $this->keyword = $keyword;
         $this->uid = $uid;
+        $this->ip = $ip;
     }
     public function broadcastOn() { return new PrivateChannel('channel-name'); }
 }

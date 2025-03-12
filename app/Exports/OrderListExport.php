@@ -3,15 +3,47 @@
 namespace App\Exports;
 
 use App\Models\Shop\Order;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\{FromCollection, WithHeadings, WithStyles};
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use DB;
 
-class OrderListExport implements FromCollection {
+class OrderListExport implements FromCollection, WithHeadings, WithStyles {
     protected $req;
     function __construct($req) { $this->req = $req; }
+	
+	public function headings(): array {
+        return [
+			'글번호',
+			'주문번호',
+			'주문상품',
+			'결제금액',
+			'담당자',
+			'소속',
+			'주문자',
+			'회원번호',
+			'결제수단'
+        ];
+    }
+
+	public function styles(Worksheet $sheet) {
+
+		$sheet_style = [
+            'A1:I1' => [
+                'font' => ['size' => 12, 'bold' => true],
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+				'fill' => [
+					'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+					'startColor' => [ 'argb' => 'FFc0ffba' ],
+				],
+            ],
+		];
+        return $sheet_style;
+    }
 
     public function collection() {
-        // 
         $order_config = Order::$orderConfig['pay_method'];
         $pay_method_query_str = "case ";
         foreach ($order_config as $k => $v)
@@ -22,7 +54,7 @@ class OrderListExport implements FromCollection {
         $orders = Order::with('orderExtraInfo')
         ->select("od_id", "od_no", "od_name", "od_all_price",
 			DB::raw("(SELECT name FROM la_users WHERE id = od_mng) AS mng_nm"),
-            "od_company", "od_orderer", "created_id",
+            "od_company", "od_orderer", "created_id", 
             DB::raw($pay_method_query_str)
         )
 		->when($req->startDate,     fn ($q, $v) => $q->StartDate($v))
