@@ -55,8 +55,7 @@ class User extends Authenticatable implements MustVerifyEmail {
                             '4' => '주위의 소개',
                             '5' => '학회 및 전시회 부스',
                             '6' => '잡지 소식지',
-                            '7' => '담당자 초대',
-                            '8' => '기타', ],
+                            '7' => '담당자 초대',],
 
         'interest'  => [    '1'  => '생명',
                             '2'  => '광학',
