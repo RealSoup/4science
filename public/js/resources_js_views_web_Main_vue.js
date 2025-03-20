@@ -177,11 +177,11 @@ var render = function render() {
     }
   }, [[_c("b-link", {
     attrs: {
-      to: "/shop/goods?ca01=36&ca02=8146"
+      to: "/shop/goods?ca01=36"
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": "/storage/event/2025/0319/".concat(_vm.slide_file_nm, ".jpg")
+      "img-src": "/storage/event/2025/0320/".concat(_vm.slide_file_nm, ".jpg")
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {

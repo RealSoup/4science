@@ -42,8 +42,8 @@
             <!-- <a href="https://4science.net/board/notice/show/55" target='_blank'>
                 <img src="{{ asset('storage/event/2025/0204/estimate.jpg') }}" />
             </a> -->
-            <a href="https://4science.net/shop/goods?ca01=36&ca02=8146" target='_blank'>
-                <img src="{{ asset('storage/event/2025/0319/estimate.jpg') }}" />
+            <a href="https://4science.net/shop/goods?ca01=36" target='_blank'>
+                <img src="{{ asset('storage/event/2025/0320/estimate.jpg') }}" />
             </a>
         </td>
     </tr>
