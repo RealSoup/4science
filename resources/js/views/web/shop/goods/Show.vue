@@ -20,17 +20,23 @@
                 </b-carousel>
 
                 <ul>
-                    <li><div>제조사</div>  <div>{{content.maker.mk_name}}</div></li>
-                    <li><div>배송료</div>  <div>{{content.dlvy_fee_add_vat | comma}}원</div></li>
+                    <li>
+                        <div>제조사</div>  
+                        <div>
+                            {{content.maker.mk_name}}
+                            <span v-if="content.purchase_at" style="color:#E17474;"> (제조사 직배송)</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div>배송료</div>
+                        <div>
+                            <template v-if="content.purchase_at && content.purchase_at.pa_price_add_vat">{{content.purchase_at.pa_price_add_vat | comma}}원</template>
+                            <template v-else>{{content.dlvy_fee_add_vat | comma}}원</template>
+                        </div>
+                    </li>             
                     <li><div>배송정보</div><div>10만원 이상 구매시 기본택배 배송료 무료</div></li>
                     <li><div>납기일</div>  <div>{{content.gd_dlvy_at}}</div></li>
                     <li><div>담당자</div>  <div>{{content.gd_mng_info}}</div></li>
-                </ul>
-
-                <ul v-if="content.purchase_at">
-                    <li><div>직배송업체명</div><div>{{content.purchase_at.pa_name}}</div></li>
-                    <li><div>배송타입</div>    <div>{{content.purchase_at.pa_type}}</div></li>
-                    <li><div>배송료</div>      <div>{{content.purchase_at.pa_price_add_vat | comma}}원</div></li>
                 </ul>
 
                 <ul v-if="content.file_goods_add.length">
