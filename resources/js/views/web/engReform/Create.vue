@@ -12,11 +12,7 @@
                 </tr>
                 <tr>
                     <th>파일서식</th> 
-                    <td colspan="5" class="other">
-                        MS word 파일, LaTex파일, TeX파일, PDF파일, 텍스트 파일, MS Excel파일, PPT파일<br>
-                        (PDF, LaTex 와 TeX (.tex) 형식의 파일에는 15%의 추가요금이 적용됩니다)<br>
-                        PDF 파일은 복잡한 교정과정을 수작업으로 진행으로 프리미엄 교정이 불가합니다.
-                    </td> 
+                    <td colspan="5" class="other">MS word 파일, 텍스트 파일</td> 
                 </tr>
                 <tr>
                     <th rowspan="2">일반 교정<p>(부가세포함)</p></th> 
