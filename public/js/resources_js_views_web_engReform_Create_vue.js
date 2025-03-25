@@ -508,7 +508,7 @@ var render = function render() {
     attrs: {
       colspan: "5"
     }
-  }, [_vm._v("\r\n                        MS word 파일, LaTex파일, TeX파일, PDF파일, 텍스트 파일, MS Excel파일, PPT파일"), _c("br"), _vm._v("\r\n                        (PDF, LaTex 와 TeX (.tex) 형식의 파일에는 15%의 추가요금이 적용됩니다)"), _c("br"), _vm._v("\r\n                        PDF 파일은 복잡한 교정과정을 수작업으로 진행으로 프리미엄 교정이 불가합니다.\r\n                    ")])]), _vm._v(" "), _c("tr", [_c("th", {
+  }, [_vm._v("MS word 파일, 텍스트 파일")])]), _vm._v(" "), _c("tr", [_c("th", {
     attrs: {
       rowspan: "2"
     }
