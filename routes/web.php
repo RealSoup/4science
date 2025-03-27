@@ -36,6 +36,8 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/admin/shop/order/exportEstimatePdf/{od_id}', 'Admin\Shop\OrderController@exportEstimatePdf');
 // Route::get('/admin/shop/order/exportTransactionExcel/{od_id}', 'Admin\Shop\OrderController@exportTransactionExcel');
 // Route::get('/admin/shop/order/exportTransactionPdf/{od_id}', 'Admin\Shop\OrderController@exportTransactionPdf');
+// Route::get('/admin/shop/order/exportOrderListExcel', 'Admin\Shop\OrderController@exportOrderListExcel');
+
 
 
 // Route::get('e_test', function () {

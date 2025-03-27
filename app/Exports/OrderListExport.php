@@ -21,14 +21,15 @@ class OrderListExport implements FromCollection, WithHeadings, WithStyles {
 			'소속',
 			'주문자',
 			'회원번호',
-			'결제수단'
+			'결제수단',
+			'진행현황'
         ];
     }
 
 	public function styles(Worksheet $sheet) {
 
 		$sheet_style = [
-            'A1:I1' => [
+            'A1:J1' => [
                 'font' => ['size' => 12, 'bold' => true],
                 'alignment' => [
                     'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -44,18 +45,25 @@ class OrderListExport implements FromCollection, WithHeadings, WithStyles {
     }
 
     public function collection() {
-        $order_config = Order::$orderConfig['pay_method'];
+        $config_pay_method = Order::$orderConfig['pay_method'];
         $pay_method_query_str = "case ";
-        foreach ($order_config as $k => $v)
+        foreach ($config_pay_method as $k => $v)
             $pay_method_query_str .= "when od_pay_method = '".$k."' then '".$v."' ";
         $pay_method_query_str .= " end";
+
+		$config_od_step = Order::$orderConfig['step'];
+        $od_step_query_str = "case ";
+        foreach ($config_od_step as $k => $v)
+            $od_step_query_str .= "when od_step = '".$k."' then '".$v['name']."' ";
+        $od_step_query_str .= " end";
 
         $req = $this->req;
         $orders = Order::with('orderExtraInfo')
         ->select("od_id", "od_no", "od_name", "od_all_price",
 			DB::raw("(SELECT name FROM la_users WHERE id = od_mng) AS mng_nm"),
             "od_company", "od_orderer", "created_id", 
-            DB::raw($pay_method_query_str)
+            DB::raw($pay_method_query_str),
+			DB::raw($od_step_query_str)
         )
 		->when($req->startDate,     fn ($q, $v) => $q->StartDate($v))
         ->when($req->endDate,		fn ($q, $v) => $q->EndDate($v))
