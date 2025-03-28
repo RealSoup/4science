@@ -586,9 +586,9 @@ export default {
 
         return {
             meta: [ { 
-                vmid: 'keywords',
-                name: 'keywords',
-                content: keywords, 
+                vmid: 'description',
+                name: 'description',
+                content: keywords+'으로 표현 할 수 있습니다.', 
             } ],};
     },
 
