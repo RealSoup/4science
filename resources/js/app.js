@@ -129,6 +129,8 @@ Vue.use(VueGtm, {
     trackOnNextTick: false,
 });
 
+import Meta from 'vue-meta';
+Vue.use(Meta);
 
 let nextPath= '/login';
 router.onError((error) => {

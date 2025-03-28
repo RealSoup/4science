@@ -575,6 +575,22 @@ export default {
         this.$store.dispatch('recent_goods/index');
     },
     destroyed() { clearInterval(this.interval); },
+    metaInfo() {
+        let keywords = this.content.gd_keyword;
+        if (keywords.indexOf(',') !== -1)    // 키워드가 공백으로 구분되어 있으면 콤마로 바꿔 키워드로 인식되게함
+            keywords = keywords.replaceAll(" ", ",")
+
+;  
+        let arr_keywords = [...new Set(keywords.split(","))]; // 모든키워드를 배열화하여 키워드에 중복을 재거함
+        keywords = arr_keywords.join(",")  // 배열화했던 키워드들을 평문화한다. (문자열화)
+
+        return {
+            meta: [ { 
+                vmid: 'keywords',
+                name: 'keywords',
+                content: keywords, 
+            } ],};
+    },
 
 }
 </script>
