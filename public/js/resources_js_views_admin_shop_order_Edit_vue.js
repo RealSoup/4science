@@ -69,7 +69,7 @@ var dt = new Date();
       }
     };
   },
-  computed: _objectSpread({
+  computed: _objectSpread(_objectSpread({
     payPlanDisplay: function payPlanDisplay() {
       var plan = this.od.order_extra_info ? this.od.order_extra_info.oex_pay_plan : '';
       var returnMsg = '';
@@ -111,7 +111,11 @@ var dt = new Date();
     }
   }, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
     user: 'auth/user'
-  })),
+  })), {}, {
+    down_auth: function down_auth() {
+      return this.$store.state.auth.user.user_mng.um_group == 'acc' || this.$store.state.auth.user.is_super;
+    }
+  }),
   filters: {
     sale_env: function sale_env(str) {
       var rst = '';
@@ -448,6 +452,9 @@ var dt = new Date();
               if (type == 'send') {
                 query = "trans_date=".concat(_this7.od.trans_date, "&trans_receive=").concat(_this7.od.trans_receive, "&trans_email=").concat(_this7.od.trans_email, "&trans_mng_email=").concat(_this7.od.mng.email);
                 _this7.isModalViewed = false;
+              } else if (type == 'mail') {
+                query = "email_msg=".concat(_this7.od.email_msg);
+                _this7.isModalViewed = false;
               }
               _context7.next = 5;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/shop/order/exportTransactionPdf?".concat(query), _this7.od, {
@@ -456,7 +463,7 @@ var dt = new Date();
             case 5:
               res = _context7.sent;
               if (res && res.status === 200) {
-                if (type == 'send') Notify.toast('success', '발송 완료');else {
+                if (['send', 'mail'].indexOf(type) !== -1) Notify.toast('success', '발송 완료');else {
                   _this7.orderDocumentDown(res, "".concat(_this7.od.od_no, "_Statement.pdf"));
                   Notify.toast('success', '다운 완료');
                 }
@@ -496,6 +503,10 @@ var dt = new Date();
     sendTran: function sendTran() {
       this.isModalViewed = !this.isModalViewed;
       this.modalType = 'sendTransaction';
+    },
+    payReqSendMail: function payReqSendMail() {
+      this.isModalViewed = !this.isModalViewed;
+      this.modalType = 'payReqSendMail';
     },
     orderDocumentDown: function orderDocumentDown(res, fileNm) {
       var fileUrl = window.URL.createObjectURL(new Blob([res.data]));
@@ -882,7 +893,12 @@ var render = function render() {
     }
   }), _c("span", {
     staticClass: "sm_ib_h"
-  }, [_vm._v(" 삭제")])], 1) : _vm._e(), _vm._v(" "), _vm.od.od_er_id ? _c("b-button", {
+  }, [_vm._v(" 삭제")])], 1) : _vm._e(), _vm._v(" "), _vm.down_auth && _vm.od.od_mng ? _c("b-button", {
+    staticClass: "teal sm",
+    on: {
+      click: _vm.payReqSendMail
+    }
+  }, [_vm._v("미결제 메일")]) : _vm._e(), _vm._v(" "), _vm.od.od_er_id ? _c("b-button", {
     staticClass: "plum sm print_hide_inline_block",
     on: {
       click: function click($event) {
@@ -2030,13 +2046,41 @@ var render = function render() {
         return _vm.transactionPdf("send");
       }
     }
+  }, [_vm._v("발송")])], 1)], 1)], 1)] : _vm.modalType == "payReqSendMail" ? [_c("template", {
+    slot: "header"
+  }, [_vm._v("결제 안내 메일 발송")]), _vm._v(" "), _c("b-container", {
+    staticClass: "adform layerModal"
+  }, [_c("b-row", [_c("b-col", {
+    staticClass: "label"
+  }, [_vm._v("추가 정보")]), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+    on: {
+      keyup: function keyup($event) {
+        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+        return _vm.transactionPdf("mail");
+      }
+    },
+    model: {
+      value: _vm.od.email_msg,
+      callback: function callback($$v) {
+        _vm.$set(_vm.od, "email_msg", $$v);
+      },
+      expression: "od.email_msg"
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "ctrl"
+  }, [_c("b-button", {
+    on: {
+      click: function click($event) {
+        return _vm.transactionPdf("mail");
+      }
+    }
   }, [_vm._v("발송")])], 1)], 1)], 1)] : _vm.modalType == "changeMng" ? [_c("template", {
     slot: "header"
   }, [_vm._v("담당자 변경")]), _vm._v(" "), _c("b-container", {
     staticClass: "adform layerModal"
   }, [_c("b-row", [_c("b-col", {
     staticClass: "label"
-  }, [_vm._v("당당자")]), _vm._v(" "), _c("b-col", [_c("b-form-select", {
+  }, [_vm._v("담당자")]), _vm._v(" "), _c("b-col", [_c("b-form-select", {
     staticClass: "sm_ib_h",
     model: {
       value: _vm.od.od_mng,

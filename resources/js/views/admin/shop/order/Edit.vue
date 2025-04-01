@@ -23,6 +23,7 @@
                 </b-col>
                 <b-col class="btn_area print_hide_flex">
                     <b-button v-if="user.is_super" @click="destroy" class="red sm"><b-icon icon="trash-fill"></b-icon><span class="sm_ib_h"> 삭제</span></b-button>
+                    <b-button v-if="down_auth && od.od_mng" @click="payReqSendMail " class="teal sm">미결제 메일</b-button>
                     <b-button v-if="od.od_er_id" @click="openWinPop(`/admin/shop/estimate/reply/${od.od_er_id}`)" class="plum sm print_hide_inline_block"><b-icon-box-arrow-up-right /> 견적서</b-button>
                     <b-button :to="{name: 'adm_order_index'}" class="white sm"><b-icon-list /><span class="sm_ib_h"> 목록</span></b-button>
 
@@ -505,11 +506,25 @@
                     </b-container>
                 </template>
 
+                <template v-else-if="modalType == 'payReqSendMail'">
+                    <template slot="header">결제 안내 메일 발송</template>
+                    <b-container class="adform layerModal">                        
+                        <b-row>
+                            <b-col class="label">추가 정보</b-col>
+                            <b-col><b-form-input v-model="od.email_msg" @keyup.enter="transactionPdf('mail')" /></b-col>
+                        </b-row>
+                        
+                        <b-row>
+                            <b-col class="ctrl"><b-button @click="transactionPdf('mail')">발송</b-button></b-col>
+                        </b-row>
+                    </b-container>
+                </template>
+
                 <template v-else-if="modalType == 'changeMng'">
                     <template slot="header">담당자 변경</template>
                     <b-container class="adform layerModal">
                         <b-row>
-                            <b-col class="label">당당자</b-col>
+                            <b-col class="label">담당자</b-col>
                             <b-col>
                                 <b-form-select v-model="od.od_mng" class="sm_ib_h">
                                     <b-form-select-option :value="null" disabled>◖처리 상태◗</b-form-select-option>
@@ -618,7 +633,10 @@ export default {
         },
         ...mapGetters({
             user: 'auth/user',
-        })
+        }),
+        down_auth () {            
+            return this.$store.state.auth.user.user_mng.um_group == 'acc' || this.$store.state.auth.user.is_super;
+        },
     },
     filters: {
         sale_env (str) {
@@ -795,10 +813,13 @@ export default {
             if ( type == 'send' ) {
                 query = `trans_date=${this.od.trans_date}&trans_receive=${this.od.trans_receive}&trans_email=${this.od.trans_email}&trans_mng_email=${this.od.mng.email}`;
                 this.isModalViewed = false;
-            }
+            } else if ( type == 'mail' ) {
+                query = `email_msg=${this.od.email_msg}`;
+                this.isModalViewed = false;
+            } 
             const res = await ax.post(`/api/admin/shop/order/exportTransactionPdf?${query}`, this.od, { responseType: 'blob' });
             if (res && res.status === 200) {
-                if ( type == 'send' ) Notify.toast('success', '발송 완료');
+                if ( ['send', 'mail'].indexOf(type) !== -1 ) Notify.toast('success', '발송 완료');
                 else {
                     this.orderDocumentDown(res, `${this.od.od_no}_Statement.pdf`);
                     Notify.toast('success', '다운 완료');
@@ -817,6 +838,11 @@ export default {
             this.isModalViewed = !this.isModalViewed; 
             this.modalType = 'sendTransaction';
         },
+        payReqSendMail(){
+            this.isModalViewed = !this.isModalViewed; 
+            this.modalType = 'payReqSendMail'; 
+        },
+
         orderDocumentDown(res, fileNm){
             let fileUrl = window.URL.createObjectURL(new Blob([res.data]));
             let fileLink = document.createElement('a');

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redis;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ {InvoicesExport, OrderEstimateExport, OrderTransactionExport, OrderShippingListExport, OrderListExport};
-use App\Mail\SendTransaction;
+use App\Mail\{SendTransaction, PayReq};
 use Mail;
 use DateTime;
 use Session;
@@ -336,6 +336,16 @@ class OrderController extends Controller {
 			$filename = uniqid();
 			Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
 			return Mail::to($to_email)->queue(new SendTransaction(config('mail.mailers.smtp.username'), $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
+		} else if ($req->filled('email_msg')) {
+			$subject = '[4science] 납품완료 후 미결제 안내 드립니다. (거래명세서 첨부)';
+			$to_email = [$req->od_orderer_email, $req->mng['email'], auth()->user()->email];
+        	$req->merge(array('main_tel' => "ADM"));
+			$req->merge(array('file_nm' => $req->od_no));
+			$pdf = $this->pdf->loadView('admin.order.pdf.order_transaction', $req->all());
+			// $pdf->setOptions(['dpi' => 96 ]);
+			$filename = uniqid();
+			Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
+			return Mail::to($to_email)->queue(new PayReq(config('mail.mailers.smtp.username'), $subject, $req->all(), public_path('storage/estimatePdf/'.$filename.'.pdf')));
 		} else {
 			return $this->pdf->loadView('admin.order.pdf.order_transaction', $req->all())
 				// ->download('order.pdf');
