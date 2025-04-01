@@ -52,7 +52,8 @@
             </table>
         </td>
     </tr>
-    
+
+    @if ( $od_type !== 'buy_temp' )
     <tr>
         <td align="center" style="padding:20px 0 30px;">
             <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size:12px;">
@@ -65,6 +66,7 @@
             </table>
         </td>
     </tr>
+    @endif
     <tr><td><img src="{{ asset('storage/common/email_bottom.png') }}" /></td></tr>
 </table>
 </center>
