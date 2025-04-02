@@ -399,12 +399,6 @@ class OrderController extends Controller {
 				$od->od_step = $req->od_step;
 
 			} else if ($req->type == 'odm_ea') {
-				$gd = new Goods;
-				$updated_item = $gd->getGoodsDataCollection($this->order->find($od_id), 'order');
-				if ( gettype($updated_item) == 'string' && strpos($updated_item, 'goods null') === 0 )
-					return response()->json(["message"=>$updated_item], 200);
-				if (auth()->user()->id == 130)
-				 dd($updated_item);
 				foreach ($req->order_purchase_at as $opa) {
 					foreach ($opa['order_model'] as $odm) {
 						$odModel = OrderModel::find($odm['odm_id']);
@@ -420,6 +414,11 @@ class OrderController extends Controller {
 						}
 					}
 				}
+
+				$gd = new Goods;
+				$updated_item = $gd->getGoodsDataCollection($this->order->find($od_id), 'order');
+				if ( gettype($updated_item) == 'string' && strpos($updated_item, 'goods null') === 0 )
+					return response()->json(["message"=>$updated_item], 200);
 				
 				$od_rst = DB::table('shop_order')->where('od_id', $od_id)->update([
 					'od_gd_price' 	=> $updated_item['price']['goods'],
