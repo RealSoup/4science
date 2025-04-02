@@ -781,7 +781,7 @@ export default {
                     }
                     this.$delete(this.od, '_method');
                 } else if (res.data.message === 'goods null')
-                    Notify.toast('warning', '삭제된 상품이 있어 상품정보를 참조 할 수 없습니다.');
+                    Notify.toast('danger', '삭제된 상품이 있어 상품정보를 참조 할 수 없습니다.');
                 else
                     Notify.toast('warning', '수정 실패');
             } catch (e) {
