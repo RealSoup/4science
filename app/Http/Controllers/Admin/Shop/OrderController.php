@@ -401,7 +401,7 @@ class OrderController extends Controller {
 			} else if ($req->type == 'odm_ea') {
 				$gd = new Goods;
 				$updated_item = $gd->getGoodsDataCollection($this->order->find($od_id), 'order');
-				if ( strpos($updated_item, 'goods null') === 0 )
+				if ( gettype($updated_item) == 'string' && strpos($updated_item, 'goods null') === 0 )
 					return response()->json(["message"=>$updated_item], 200);
 				
 				foreach ($req->order_purchase_at as $opa) {
