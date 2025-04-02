@@ -248,7 +248,7 @@ class Goods extends Model {
                 if ( $gd_id > 0 ) {
                     $gd = self::with('purchaseAt')->with('maker')->find($gd_id);
                     if( auth()->check() && auth()->user()->id == 130 ) 
-                        dd($gd->purchaseAt);
+                        dd($gd->purchaseAt ? $gd->purchaseAt->pa_name : NULL);
                     foreach (GoodsModel::find(Arr::pluck($v['model'], 'gm_id')) as $gm) {  //  gm_id만 추출하여 모델 검색
                         $tmpModel = [   'type'              => 'model',
                                         'gd_id'             => $gd_id,
