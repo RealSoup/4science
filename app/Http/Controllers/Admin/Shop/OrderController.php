@@ -423,6 +423,14 @@ class OrderController extends Controller {
 					'od_air_price' 	=> $updated_item['price']['air_add_vat'],
 					'od_all_price' 	=> $updated_item['price']['total'],
 				] );
+				
+				foreach ($updated_item['lists'] as $k => $v) {
+					DB::table('shop_order_purchase_at')
+						->where('odpa_od_id', $od_id)
+						->where('odpa_pa_id', $k)
+						->update(['odpa_dlvy_p' => $v[0]['pa_dlvy_p']]);
+				}
+
 			} else if ($req->type == 'addr') {
 				$od->od_receiver = $req->od_receiver;
 				$od->od_receiver_hp = $req->od_receiver_hp;

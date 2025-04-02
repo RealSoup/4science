@@ -430,16 +430,20 @@ class Goods extends Model {
 
             // if ( $pa_group[0]['pa_type'] !== 'AIR' ) {
             if ( intval($pa_group[0]['pa_dlvy_p']) === 0 ) {
-                $rst['lists'][$pa_id][0]['pa_dlvy_p'] = rrp($paSum-$dcSum) < $this->free_dlvy_max ? $this->dlvy_fee : 0;
+                //  정해진 주문금액 이상시 배송료 무료 정책은
+                //  부가세 제외 금액을 기준으로 한다.
+                $rst['lists'][$pa_id][0]['pa_dlvy_p'] = (($paSum-$dcSum) >= $this->free_dlvy_max || $paSum == 0) ? 0 : $this->dlvy_fee;
                 $rst['lists'][$pa_id][0]['pa_dlvy_p_add_vat'] = rrp($rst['lists'][$pa_id][0]['pa_dlvy_p']);
                 //  $pa_group[0] 변수를 사용하면 값이 대입되지 않아서 저렇게 했다
+            } else if ($paSum == 0) {
+                $rst['lists'][$pa_id][0]['pa_dlvy_p'] = 0;
+                $rst['lists'][$pa_id][0]['pa_dlvy_p_add_vat'] = 0;
             }
+
             if ( $pa_group[0]['pa_type'] == 'AIR' )
                 $rst['price']['air'] += $rst['lists'][$pa_id][0]['pa_dlvy_p'];
             else
                 $rst['price']['dlvy'] += $rst['lists'][$pa_id][0]['pa_dlvy_p'];
-                //  정해진 주문금액 이상시 배송료 무료 정책은
-                //  부가세 제외 금액을 기준으로 한다.
         }
         $rst['price']['surtax'] = surtax($rst['price']['goods']);
         $rst['price']['goods_add_vat']  = $rst['price']['goods'] + $rst['price']['surtax'];
