@@ -31,6 +31,8 @@ class CartController extends Controller {
         $carts = self::find_only_option_and_delete($carts);
         // dd($carts);
         $collect = $this->goods->getGoodsDataCollection($carts, 'cart');
+        if(auth()->user()->id == 7695)
+            dd($collect);
         foreach ($collect['lists'] as $pa) {
             foreach ($pa as $item)
                 $rst[] = $item;

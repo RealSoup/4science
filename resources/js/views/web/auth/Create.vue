@@ -121,16 +121,13 @@ export default {
         }
         next();
     },
-    mounted() {
-        console.log(isEmpty(this.$route.query.ucode));
-        
+    mounted() {        
         if (this.$route.params.code == 'dealer')
             this.frm.level = 11;
         if (this.$route.query.msg_type == 'duplicate')
             Notify.modal('이미 가입된 이메일입니다. 로그인하여 연동하세요.', 'warning');
         if (!isEmpty(this.$route.query.ucode))
             this.frm.join_route = '담당자 초대';
-        
     },
 }
 </script>
