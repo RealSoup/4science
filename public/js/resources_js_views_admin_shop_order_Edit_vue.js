@@ -197,7 +197,7 @@ var dt = new Date();
       var _arguments = arguments,
         _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var mode, i, j, k, res;
+        var mode, i, j, k, res, null_id;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
@@ -344,6 +344,9 @@ var dt = new Date();
                   Notify.toast('success', '수정');
                 }
                 _this2.$delete(_this2.od, '_method');
+              } else if (res.data.message.startsWith('goods null')) {
+                null_id = res.data.message.replace("goods null ", "");
+                Notify.toast('danger', "\uC0AD\uC81C\uB41C \uC0C1\uD488\uC774 \uC788\uC5B4 \uC0C1\uD488\uC815\uBCF4\uB97C \uCC38\uC870 \uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4. \uC0C1\uD488\uBC88\uD638: ".concat(null_id));
               } else Notify.toast('warning', '수정 실패');
               _context2.next = 40;
               break;

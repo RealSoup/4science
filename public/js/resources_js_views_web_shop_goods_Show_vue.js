@@ -406,19 +406,21 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   },
   metaInfo: function metaInfo() {
     var keywords = this.content.gd_keyword;
-    if (keywords.indexOf(',') !== -1)
-      // 키워드가 공백으로 구분되어 있으면 콤마로 바꿔 키워드로 인식되게함
-      keywords = keywords.replaceAll(" ", ",");
-    var arr_keywords = _toConsumableArray(new Set(keywords.split(","))); // 모든키워드를 배열화하여 키워드에 중복을 재거함
-    keywords = arr_keywords.join(","); // 배열화했던 키워드들을 평문화한다. (문자열화)
+    if (!isEmpty(keywords)) {
+      if (keywords.indexOf(',') !== -1)
+        // 키워드가 공백으로 구분되어 있으면 콤마로 바꿔 키워드로 인식되게함
+        keywords = keywords.replaceAll(" ", ",");
+      var arr_keywords = _toConsumableArray(new Set(keywords.split(","))); // 모든키워드를 배열화하여 키워드에 중복을 재거함
+      keywords = arr_keywords.join(","); // 배열화했던 키워드들을 평문화한다. (문자열화)
 
-    return {
-      meta: [{
-        vmid: 'description',
-        name: 'description',
-        content: keywords + ' 으로 표현 할 수 있습니다.'
-      }]
-    };
+      return {
+        meta: [{
+          vmid: 'description',
+          name: 'description',
+          content: keywords + ' 으로 표현 할 수 있습니다.'
+        }]
+      };
+    }
   }
 });
 

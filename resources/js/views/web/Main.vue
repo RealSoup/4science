@@ -4,6 +4,14 @@
     
     <b-carousel controls indicators :interval='0' class="slide_banner">
         <template>
+            <b-carousel-slide :img-src="`/storage/event/2025/0407/${slide_file_nm}.jpg`" class="evt01">
+                <router-link to="/shop/goods?ca01=27&ca02=1232&ca03=1233" id="app01" class="split_link">
+                    <span class="tooltiptext">멤브레인필터 바로가기</span>
+                </router-link>
+                <router-link to="/shop/goods?ca01=27&ca02=1232&ca03=1242" id="app02" class="split_link">
+                    <span class="tooltiptext">실린지필터 바로가기</span>
+                </router-link>
+            </b-carousel-slide>
             <b-link to="/shop/goods?ca01=36">
                 <b-carousel-slide :img-src="`/storage/event/2025/0320/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link>
@@ -217,14 +225,30 @@ export default {
 .slide_banner >>> .carousel-control-prev:hover,
 .slide_banner >>> .carousel-control-next:hover { background-color:#55888888; }
 
-.slide_banner .split_link { position:absolute; display: block; width:190px; height:57px; bottom:25px; transform:translateX(-50%); }
-.slide_banner a#app01 { left:23%; }
-.slide_banner a#app02 { left:77%;}
-.slide_banner >>> .evt01 .split_evt01 { position:absolute; display: block; width: 700px; height:150px; right:0;  }
-.slide_banner >>> .evt01 .split_evt01:hover { border:15px solid #015B7E; opacity: .3; }
+.slide_banner .split_link { position:absolute; display:block; width:50%; height:100%; bottom:0; transform:translateX(-50%); } 
+.slide_banner a#app01 { left:25%; }
+.slide_banner a#app02 { left:75%;}
 .slide_banner >>> .evt01 .carousel-caption { position:static; padding:0; }
-.slide_banner a#evt01_1 { bottom:143px; }
-.slide_banner a#evt01_2 { bottom: 0px; }
+.slide_banner .split_link:hover { border:15px solid #015B7E99; }
+.slide_banner .split_link .tooltiptext {
+  visibility: hidden;
+  padding: 0.25em 0.5em;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 0.25em;
+  white-space: nowrap;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  transition-property: visibility;
+  transition-delay: 0s;
+}
+.slide_banner a#app01 .tooltiptext { right:25%; }
+.slide_banner a#app02 .tooltiptext { left:25%; }
+.slide_banner .split_link:hover .tooltiptext { visibility: visible; opacity:1; }
 
 #best { margin-top:26px; }
 #best>.col { padding:0; }

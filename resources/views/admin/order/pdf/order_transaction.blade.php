@@ -80,7 +80,7 @@ table tr th, table tr td { padding:5px; }
         </tr>
         <tr>
             <td align="center" width="60%" style="padding:10px 0;">
-                <p>{{ isset($trans_date) ? $trans_date : date('Y-m-d', strtotime($created_at)) }}</p>
+                <p>{{ isset($trans_date) ? $trans_date : date('Y년 m월 d일', strtotime($created_at)) }}</p>
                 <p>{{ isset($trans_receive) ? $trans_receive : $od_company }} 귀하</p>
                 아래와 같이 계산 합니다.
             </td>

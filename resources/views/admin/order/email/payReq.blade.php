@@ -26,8 +26,8 @@
             <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size:12px;">
                 <tr><td colspan="4" style="padding-bottom:5px;"><b>주문 정보</b></td></tr>
                 <tr>
-                    <th style="border-top:2px solid #50b947; border-bottom:2px solid #50b947; padding:13px 0;">주문자</th>
-                    <td style="border-top:2px solid #50b947; border-bottom:2px solid #50b947; padding:13px 10px;" colspan="3">{{$od_orderer}}</td>
+                    <th style="border-top:2px solid #FDECA6; border-bottom:2px solid #FDECA6; padding:13px 0;">주문자</th>
+                    <td style="border-top:2px solid #FDECA6; border-bottom:2px solid #FDECA6; padding:13px 10px;" colspan="3">{{$od_orderer}}</td>
                 </tr>
                 <tr>
                     <th width="20%" style="padding:13px 0; background-color:#f8f8f8; border-bottom:1px solid #d5d5d5;">담당자</th>
