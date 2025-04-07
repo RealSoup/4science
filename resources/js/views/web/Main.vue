@@ -4,6 +4,7 @@
     
     <b-carousel controls indicators :interval='0' class="slide_banner">
         <template>
+            <!--
             <b-carousel-slide :img-src="`/storage/event/2025/0407/${slide_file_nm}.jpg`" class="evt01">
                 <router-link to="/shop/goods?ca01=27&ca02=1232&ca03=1233" id="app01" class="split_link">
                     <span class="tooltiptext">멤브레인필터 바로가기</span>
@@ -12,6 +13,7 @@
                     <span class="tooltiptext">실린지필터 바로가기</span>
                 </router-link>
             </b-carousel-slide>
+            -->
             <b-link to="/shop/goods?ca01=36">
                 <b-carousel-slide :img-src="`/storage/event/2025/0320/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link>
