@@ -4,16 +4,21 @@
     
     <b-carousel controls indicators :interval='0' class="slide_banner">
         <template>
-            <!--
-            <b-carousel-slide :img-src="`/storage/event/2025/0407/${slide_file_nm}.jpg`" class="evt01">
+            
+            <b-carousel-slide v-if="deviceType=='pc'" :img-src="`/storage/event/2025/0407/slide_bg.jpg`" class="evt01">
                 <router-link to="/shop/goods?ca01=27&ca02=1232&ca03=1233" id="app01" class="split_link">
+                    <b-img src="/storage/event/2025/0407/slide01.png" class="product pd01" />
                     <span class="tooltiptext">멤브레인필터 바로가기</span>
                 </router-link>
                 <router-link to="/shop/goods?ca01=27&ca02=1232&ca03=1242" id="app02" class="split_link">
+                    <b-img src="/storage/event/2025/0407/slide02.png" class="product pd02" />
                     <span class="tooltiptext">실린지필터 바로가기</span>
                 </router-link>
             </b-carousel-slide>
-            -->
+            <b-link v-else to="/shop/goods?ca01=27&ca02=1232&ca03=1233">
+                <b-carousel-slide :img-src="`/storage/event/2025/0407/${slide_file_nm}.jpg`"></b-carousel-slide>
+            </b-link>
+            
             <b-link to="/shop/goods?ca01=36">
                 <b-carousel-slide :img-src="`/storage/event/2025/0320/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link>
@@ -27,8 +32,8 @@
                 <b-carousel-slide :img-src="`/storage/event/2023/0918/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link>
         </template>
-    </b-carousel>
-
+    </b-carousel>    
+    
     <b-row id="best" class="layout">
         <b-col>
             <b-img src="/storage/main/best.gif"></b-img>
@@ -231,7 +236,7 @@ export default {
 .slide_banner a#app01 { left:25%; }
 .slide_banner a#app02 { left:75%;}
 .slide_banner >>> .evt01 .carousel-caption { position:static; padding:0; }
-.slide_banner .split_link:hover { border:15px solid #015B7E99; }
+.slide_banner .split_link:hover { background-color:#015B7E55; }
 .slide_banner .split_link .tooltiptext {
   visibility: hidden;
   padding: 0.25em 0.5em;
@@ -251,6 +256,31 @@ export default {
 .slide_banner a#app01 .tooltiptext { right:25%; }
 .slide_banner a#app02 .tooltiptext { left:25%; }
 .slide_banner .split_link:hover .tooltiptext { visibility: visible; opacity:1; }
+
+
+/***************************************** */
+.slide_banner .split_link .product { position:absolute; }
+/*.product { position:absolute; animation:appearance 0.5s forwards ease-in-out 1.2s, product 3s infinite ease-in-out 2s; }*/
+.slide_banner .split_link .product.pd01 { top:80px; right:420px; animation:product 3s infinite ease-in-out 1s; }
+.slide_banner .split_link .product.pd02 { top:70px; left:395px;  animation:product 3s infinite ease-in-out 1.3s; }
+.slide_banner .split_link:hover .product.pd01 { animation:ani02 3s infinite ease-in-out .1s; }
+.slide_banner .split_link:hover .product.pd02 { animation:ani02 3s infinite ease-in-out .1s; }
+
+@keyframes appearance { 0% { transform: scale(0); }
+                    80% { transform: scale(1.1); }
+                    100% { transform: scale(1); opacity:1; } }
+@keyframes product { 0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(60px); } }
+/* @keyframes product { 0%, 100% { transform: translateY(0) scale(1) rotate(-10deg); }
+                    50% { transform: translateY(60px) scale(0.7) rotate(10deg); } } */
+@keyframes ani02 { 0% { transform: translateY(0) scale(.95) rotate(-15deg); }
+                  50% { transform: translateY(0) scale(1.1) rotate(15deg); }
+                 100% { transform: translateY(0) scale(.95) rotate(-15deg); } }                    
+
+
+
+
+
 
 #best { margin-top:26px; }
 #best>.col { padding:0; }

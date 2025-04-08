@@ -10,6 +10,7 @@
 export default { 
     name: "WebEventLayout", 
     computed: {
+        // checkTheEndOfTheEvent(){ return !['no', 'event_attend'].includes(this.$route.name); },
         checkTheEndOfTheEvent(){ return !['no'].includes(this.$route.name); },
     },
 }

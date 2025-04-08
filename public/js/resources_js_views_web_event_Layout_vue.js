@@ -14,6 +14,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "WebEventLayout",
   computed: {
+    // checkTheEndOfTheEvent(){ return !['no', 'event_attend'].includes(this.$route.name); },
     checkTheEndOfTheEvent: function checkTheEndOfTheEvent() {
       return !['no'].includes(this.$route.name);
     }
