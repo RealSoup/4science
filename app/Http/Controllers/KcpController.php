@@ -185,7 +185,7 @@ class KcpController extends Controller {
                 if($age < 20)
                     $json_res["is_adult"] = 'false';
                 else {
-                    dump(auth()->user());
+                    var_dump(auth()->user());
                     dd(auth()->user()->id);
                     DB::table('users')->where('id', auth()->user()->id)->update(['adult_verified_at'=> \Carbon\Carbon::now()]);
                     $json_res["is_adult"] = 'true';
