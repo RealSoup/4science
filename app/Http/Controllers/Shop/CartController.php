@@ -31,7 +31,7 @@ class CartController extends Controller {
         $carts = self::find_only_option_and_delete($carts);
         // dd($carts);
         $collect = $this->goods->getGoodsDataCollection($carts, 'cart');
-        if ( gettype($collect) == 'string' && strpos($updatcollected_item, 'goods null') === 0 )
+        if ( gettype($collect) == 'string' && strpos($collect, 'goods null') === 0 )
             return response()->json(["message"=>$collect], 200);
         
         foreach ($collect['lists'] as $pa) {
