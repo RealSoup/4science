@@ -143,7 +143,11 @@ return [
     */
 
     'path' => '/',
-
+    // 'same_site' => 'lax',
+    'secure' => env('SESSION_SECURE_COOKIE'),
+    // 'same_site' => 'none',
+    // 'secure' => env('SESSION_SECURE_COOKIE', true),
+    
     /*
     |--------------------------------------------------------------------------
     | Session Cookie Domain
@@ -168,7 +172,7 @@ return [
     |
     */
 
-    'secure' => env('SESSION_SECURE_COOKIE'),
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -196,6 +200,5 @@ return [
     |
     */
 
-    'same_site' => 'lax',
 
 ];
