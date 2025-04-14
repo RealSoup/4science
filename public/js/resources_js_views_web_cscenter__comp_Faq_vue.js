@@ -271,28 +271,6 @@ var render = function render() {
   }, [_c("b-button", {
     directives: [{
       name: "b-toggle",
-      rawName: "v-b-toggle.accordion-1",
-      modifiers: {
-        "accordion-1": true
-      }
-    }],
-    attrs: {
-      block: ""
-    }
-  }, [_vm._v("비회원으로 상품구매가 가능한가요?")])], 1), _vm._v(" "), _c("b-collapse", {
-    attrs: {
-      id: "accordion-1",
-      accordion: "my-accordion",
-      role: "tabpanel"
-    }
-  }, [_c("b-card-body", [_vm._v("\r\n                예. 가능합니다."), _c("br"), _vm._v("\r\n                원하시는 상품을 선택하신 후 ‘구매하기’ 버튼을 클릭하시면 주문서 작성 페이지로 이동하게 됩니다."), _c("br"), _vm._v("\r\n                1)주문상품"), _c("br"), _vm._v("\r\n                2)주문고객 정보 입력"), _c("br"), _vm._v("\r\n                3)배송지 정보 입력"), _c("br"), _vm._v("\r\n                4)결제정보 입력"), _c("br"), _vm._v("\r\n                5)주문하기의 순서로 비회원 주문이 가능합니다.\r\n            ")])], 1), _vm._v(" "), _c("b-card-header", {
-    attrs: {
-      "header-tag": "header",
-      role: "tab"
-    }
-  }, [_c("b-button", {
-    directives: [{
-      name: "b-toggle",
       rawName: "v-b-toggle.accordion-2",
       modifiers: {
         "accordion-2": true
@@ -329,29 +307,7 @@ var render = function render() {
       accordion: "my-accordion",
       role: "tabpanel"
     }
-  }, [_c("b-card-body", [_vm._v("\r\n                상품검색을 해도 검색이 되지 않는 상품인 경우, 검색엔진 밑에 ‘견적요청하기’버튼을 클릭하면"), _c("br"), _vm._v("\r\n                온라인 견적요청서 작성 페이지로 이동하게 됩니다."), _c("br"), _vm._v("\r\n                회원이신 경우 로그인을 하시고, 원하시는 상품의 상품명, 사양, 수량 등을 기재해주시고 ‘견적요청’ 버튼을 클릭하여 접수해주시면 됩니다."), _c("br"), _vm._v("\r\n                비회원이신 경우 성함, 소속, 이메일, 연락처를 필수 기재해주시고 ‘견적요청’ 버튼을 클릭하여 접수해주시면 됩니다.\r\n            ")])], 1), _vm._v(" "), _c("b-card-header", {
-    attrs: {
-      "header-tag": "header",
-      role: "tab"
-    }
-  }, [_c("b-button", {
-    directives: [{
-      name: "b-toggle",
-      rawName: "v-b-toggle.accordion-4",
-      modifiers: {
-        "accordion-4": true
-      }
-    }],
-    attrs: {
-      block: ""
-    }
-  }, [_vm._v("견적서를 파일형식으로 받을 수 있나요?")])], 1), _vm._v(" "), _c("b-collapse", {
-    attrs: {
-      id: "accordion-4",
-      accordion: "my-accordion",
-      role: "tabpanel"
-    }
-  }, [_c("b-card-body", [_vm._v("\r\n                가능합니다. 홈페이지에 ‘견적서 조회’버튼을 클릭하시면 일반로그인과 비회원 로그인 페이지로 이동하게 됩니다."), _c("br"), _vm._v("\r\n                회원이신 경우 아이디와 비밀번호를 입력하신 후 ‘마이페이지’버튼을 클릭하시고 나의 쇼핑내역의 ‘견적서조회’ 버튼을 클릭하시면"), _c("br"), _vm._v("\r\n                견적 받으신 내역을 확인하실 수 있습니다. 원하시는 견적서를 선택하여"), _c("br"), _vm._v("\r\n                하단의 ‘견적서 EXCEL 다운’버튼을 클릭하셔서 사용하실 수 있습니다."), _c("br"), _vm._v("\r\n                비회원이신 경우 성명을 입력하고"), _c("br"), _vm._v("\r\n                견적요청번호 ‘Q-******’중 ‘Q-‘를 제외한 나머지 ‘******’만 입력해주시면 ‘견적서’페이지로 이동하게 됩니다."), _c("br"), _vm._v("\r\n                확인 후 하단의 ‘견적서 EXCEL 다운’버튼을 클릭하셔서 사용하실 수 있습니다.\r\n            ")])], 1), _vm._v(" "), _c("b-card-header", {
+  }, [_c("b-card-body", [_vm._v("\r\n                상품검색을 해도 검색이 되지 않는 상품인 경우, 검색엔진 밑에 ‘견적요청하기’버튼을 클릭하면"), _c("br"), _vm._v("\r\n                온라인 견적요청서 작성 페이지로 이동하게 됩니다."), _c("br"), _vm._v("\r\n                회원이신 경우 로그인을 하시고, 원하시는 상품의 상품명, 사양, 수량 등을 기재해주시고 ‘견적요청’ 버튼을 클릭하여 접수해주시면 됩니다.\r\n            ")])], 1), _vm._v(" "), _c("b-card-header", {
     attrs: {
       "header-tag": "header",
       role: "tab"
@@ -766,55 +722,7 @@ var render = function render() {
       accordion: "my-accordion",
       role: "tabpanel"
     }
-  }, [_c("b-card-body", [_vm._v("\r\n                회원일 경우, My Page “주문/배송조회” 메뉴에서 주문하신 내용을 클릭하시면 해당 서류를 출력하실 수 있습니다."), _c("br"), _c("br"), _vm._v("비회원의 경우, 상단의 주문/배송 메뉴를 클릭하거나 고객센터의 “비회원 주문/배송조회” 메뉴에서 주문하신 내용을 클릭하시면 해당 서류를 출력하실 수 있습니다."), _c("br"), _c("br"), _vm._v("자세한 내용은 고객센터의 이용안내를 참조 바랍니다. "), _c("br"), _c("a", {
-    attrs: {
-      href: "https://www.4science.net/cscenter/quide_payment3.do"
-    }
-  }, [_vm._v("https://www.4science.net/cscenter/quide_payment3.do")])])], 1), _vm._v(" "), _c("b-card-header", {
-    attrs: {
-      "header-tag": "header",
-      role: "tab"
-    }
-  }, [_c("b-button", {
-    directives: [{
-      name: "b-toggle",
-      rawName: "v-b-toggle.accordion-17",
-      modifiers: {
-        "accordion-17": true
-      }
-    }],
-    attrs: {
-      block: ""
-    }
-  }, [_vm._v("3만원 미만은 온라인주문이 되지 않는데 어떻게 해야 되나요?")])], 1), _vm._v(" "), _c("b-collapse", {
-    attrs: {
-      id: "accordion-17",
-      accordion: "my-accordion",
-      role: "tabpanel"
-    }
-  }, [_c("b-card-body", [_vm._v("\r\n                3만원 미만은 메일이나 팩스로 주문해주시면 됩니다."), _c("br"), _vm._v("\r\n                메일 주문 시 견적요청으로 받으신 E-mail을 답장하기로 주문 E-mail을 보내주시면 됩니다."), _c("br"), _vm._v("\r\n                팩스 주문 시 홈페이지 상단의 견적서 조회를 통해 받으신 견적서를 다운 받습니다."), _c("br"), _vm._v("\r\n                견적서 하단에 있는 주문요청란의 내용을 기입하신 후 031-8018-7272~4로 FAX 보내주시면 됩니다."), _c("br"), _vm._v("\r\n                주문 시 이름, 소속, 연락처, 주소, 주문하실 제품(모델명), 수량, 결제 방법, 추가 요청 서류를 꼭 기재하여 보내주시기 바랍니다.\r\n            ")])], 1), _vm._v(" "), _c("b-card-header", {
-    attrs: {
-      "header-tag": "header",
-      role: "tab"
-    }
-  }, [_c("b-button", {
-    directives: [{
-      name: "b-toggle",
-      rawName: "v-b-toggle.accordion-18",
-      modifiers: {
-        "accordion-18": true
-      }
-    }],
-    attrs: {
-      block: ""
-    }
-  }, [_vm._v("비회원 로그인 시 주문번호와 성명을 입력해도 로그인이 되지 않는데 어떻게 해야 되죠?")])], 1), _vm._v(" "), _c("b-collapse", {
-    attrs: {
-      id: "accordion-18",
-      accordion: "my-accordion",
-      role: "tabpanel"
-    }
-  }, [_c("b-card-body", [_vm._v("\r\n                주문번호는 ‘B-*****’로 부여가 되는데, 주문번호 입력란에 ‘B-‘를 제외한 나머지 5자리 숫자만 입력하고"), _c("br"), _vm._v("\r\n                성명은 주문 시 작성하셨던 성명을 입력해주셔야 조회가 가능합니다.\r\n            ")])], 1), _vm._v(" "), _c("b-card-header", {
+  }, [_c("b-card-body", [_vm._v("\r\n                My Page “주문/배송조회” 메뉴에서 주문하신 내용을 클릭하시면 해당 서류를 출력하실 수 있습니다.\r\n            ")])], 1), _vm._v(" "), _c("b-card-header", {
     attrs: {
       "header-tag": "header",
       role: "tab"
@@ -972,11 +880,7 @@ var render = function render() {
       accordion: "my-accordion",
       role: "tabpanel"
     }
-  }, [_c("b-card-body", [_vm._v("\r\n                포사이언스 홈페이지("), _c("a", {
-    attrs: {
-      href: "http://www.4science.net"
-    }
-  }, [_vm._v("www.4science.net")]), _vm._v(") 오른쪽 상단에 있는 주문배송조회를 클릭합니다."), _c("br"), _vm._v("\r\n                해당페이지에서 로그인을 하신 후(회원의 경우 일반로그인, 비회원은 비회원 로그인), 주문명을 클릭하면 주문진행상태를 확인할 수 있습니다.\r\n            ")])], 1), _vm._v(" "), _c("b-card-header", {
+  }, [_c("b-card-body", [_vm._v("\r\n                로그인을 하신 후 주문명을 클릭하면 주문진행상태를 확인할 수 있습니다.\r\n            ")])], 1), _vm._v(" "), _c("b-card-header", {
     attrs: {
       "header-tag": "header",
       role: "tab"
@@ -1227,28 +1131,6 @@ var render = function render() {
       role: "tabpanel"
     }
   }, [_c("b-card-body", [_vm._v("\r\n                평일 오전 9시 ~ 오후 6시이며, 토요일/일요일/공휴일은 휴무입니다.\r\n            ")])], 1), _vm._v(" "), _c("b-card-header", {
-    attrs: {
-      "header-tag": "header",
-      role: "tab"
-    }
-  }, [_c("b-button", {
-    directives: [{
-      name: "b-toggle",
-      rawName: "v-b-toggle.accordion-2",
-      modifiers: {
-        "accordion-2": true
-      }
-    }],
-    attrs: {
-      block: ""
-    }
-  }, [_vm._v("비회원으로 구매하면 마일리지를 적립 할 수 없나요?")])], 1), _vm._v(" "), _c("b-collapse", {
-    attrs: {
-      id: "accordion-2",
-      accordion: "my-accordion",
-      role: "tabpanel"
-    }
-  }, [_c("b-card-body", [_vm._v("\r\n                회원가입 후 홈페이지에서 주문하셔야 마일리지를 적립 하실 수 있습니다."), _c("br"), _vm._v("\r\n                비회원 및 오프라인 구매는 마일리지 적립이 되지 않습니다.\r\n            ")])], 1), _vm._v(" "), _c("b-card-header", {
     attrs: {
       "header-tag": "header",
       role: "tab"
