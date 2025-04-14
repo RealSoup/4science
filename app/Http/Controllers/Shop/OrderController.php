@@ -84,7 +84,8 @@ class OrderController extends Controller {
         $params['addr'] = auth()->check() ? auth()->user()->userAddr : [];
         $params['coupon'] = auth()->check() ? app('App\Http\Controllers\Auth\UserController')->coupon(new \Illuminate\Http\Request([ 'isAvailable' => 'Y' ])) : [];
 
-        $params['toss']['customerKey']  = auth()->user()->email.'=='.auth()->user()->id;
+        $domainCheck = (config('app.url') !== env('APP_URL')) ? $req->getHost() : '';
+        $params['toss']['customerKey']  = $domainCheck.auth()->user()->email.'=='.auth()->user()->id;
         $params['toss']['successUrl']   = config('app.url')."shop/order/payReturn";
         $params['toss']['failUrl']      = config('app.url')."shop/order/payCardFail";
         $params['toss']['clientKey']    = env('TOSS_CLIENTKEY');
