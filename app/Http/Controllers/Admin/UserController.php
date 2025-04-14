@@ -291,6 +291,6 @@ class UserController extends Controller {
         $u = User::find($id);
         $token = app('auth.password.broker')->createToken($u);
         // DB::table('password_resets')->insert(['email' => $u->email, 'token' => $token]);
-        return response()->json(env('APP_URL')."auth/password/reset/{$token}?email={$u->email}", 200);
+        return response()->json(config('app.url')."auth/password/reset/{$token}?email={$u->email}", 200);
     } 
 }

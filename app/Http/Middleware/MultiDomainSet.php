@@ -19,13 +19,10 @@ class MultiDomainSet {
         // }
         // return $next($request);
 
-        $allowedOrigins = ['test.co.kr:3000', 'menlo.co.kr:3000', 'thz.co.kr'];
+        $allowedOrigins = ['menlo.co.kr', 'thz.co.kr'];
         $origin = $request->getHost();
         if (in_array($origin, $allowedOrigins)) {
-            return $next($request)
-                ->header('Access-Control-Allow-Origin', $origin)
-                ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
-                ->header('Access-Control-Allow-Headers', 'Content-Type');
+            config([ 'app.url' => $request->getSchemeAndHttpHost() ]);
         }
 
         return $next($request);
