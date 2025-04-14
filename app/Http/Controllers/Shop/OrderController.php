@@ -84,7 +84,8 @@ class OrderController extends Controller {
         $params['addr'] = auth()->check() ? auth()->user()->userAddr : [];
         $params['coupon'] = auth()->check() ? app('App\Http\Controllers\Auth\UserController')->coupon(new \Illuminate\Http\Request([ 'isAvailable' => 'Y' ])) : [];
 
-        $params['toss']['customerKey']  = auth()->user()->email.'=='.auth()->user()->id;
+        $domainCheck = (config('app.url') !== env('APP_URL')) ? $req->getHost() : '';
+        $params['toss']['customerKey']  = $domainCheck.auth()->user()->email.'=='.auth()->user()->id;
         $params['toss']['successUrl']   = config('app.url')."shop/order/payReturn";
         $params['toss']['failUrl']      = config('app.url')."shop/order/payCardFail";
         $params['toss']['clientKey']    = env('TOSS_CLIENTKEY');
@@ -491,7 +492,7 @@ class OrderController extends Controller {
         $rst['api_key'] = env('PSYS_APIKEY');
         $rst['api_id']  = env('PSYS_APIID');
         $rst['api_url'] = env('PSYS_URL02');
-        $rst['ReturnURL'] = env('APP_URL').'shop/order/payReturnPsys';
+        $rst['ReturnURL'] = config('app.url').'shop/order/payReturnPsys';
         $rst['Psys_securekey'] = $result_array['encryptData'];
         if($result_array['RESULTCODE'] == "9999") { 
             echo "result_code=E009\r\nresult_msg=웹연동 결제 설정이 되어있지 않습니다.";
