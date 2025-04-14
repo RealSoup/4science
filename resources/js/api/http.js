@@ -3,7 +3,7 @@ import store from '@/store';
 import router from '@/router';
 
 const instance = axios.create({
-    // baseURL: process.env.MIX_APP_URL,
+    baseURL: process.env.MIX_APP_URL,
     withCredentials: true,
     // headers: {
     //     // 'Accept' : 'application/json',

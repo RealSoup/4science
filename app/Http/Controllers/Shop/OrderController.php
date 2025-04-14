@@ -491,7 +491,7 @@ class OrderController extends Controller {
         $rst['api_key'] = env('PSYS_APIKEY');
         $rst['api_id']  = env('PSYS_APIID');
         $rst['api_url'] = env('PSYS_URL02');
-        $rst['ReturnURL'] = config('app.url').'shop/order/payReturnPsys';
+        $rst['ReturnURL'] = env('APP_URL').'shop/order/payReturnPsys';
         $rst['Psys_securekey'] = $result_array['encryptData'];
         if($result_array['RESULTCODE'] == "9999") { 
             echo "result_code=E009\r\nresult_msg=웹연동 결제 설정이 되어있지 않습니다.";

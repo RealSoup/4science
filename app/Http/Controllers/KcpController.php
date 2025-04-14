@@ -56,7 +56,7 @@ class KcpController extends Controller {
         $json_res['site_cd'] = env('g_conf_site_cd');
         $json_res['web_siteid_hashYN'] = env('g_conf_web_siteid_hashYN');
         $json_res['web_siteid'] = env('g_conf_web_siteid');
-        $json_res['return_url'] = config('app.url')."shop/order/adult_popup";
+        $json_res['return_url'] = env('APP_URL')."shop/order/adult_popup";
         return response()->json($json_res, 200);
     }
 
