@@ -22,7 +22,7 @@ class MultiDomainSet {
         $allowedOrigins = ['menlo.co.kr', 'thz.co.kr'];
         $origin = $request->getHost();
         if (in_array($origin, $allowedOrigins)) {
-            config([ 'app.url' => $request->getSchemeAndHttpHost() ]);
+            config([ 'app.url' => $request->getSchemeAndHttpHost().'/' ]);
         }
 
         return $next($request);
