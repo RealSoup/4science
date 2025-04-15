@@ -24,6 +24,12 @@ class MultiDomainSet {
         if (in_array($origin, $allowedOrigins)) {
             config([ 'app.url' => $request->getSchemeAndHttpHost().'/' ]);
         }
+        
+        if ($origin === '127.0.0.1'){
+            config([ 'app.img_host_url' => 'https://4science.net/' ]);
+        } else {
+            config([ 'app.img_host_url' => $request->getSchemeAndHttpHost().'/' ]);
+        }
 
         return $next($request);
     }
