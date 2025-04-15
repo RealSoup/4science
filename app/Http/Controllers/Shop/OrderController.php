@@ -412,8 +412,13 @@ class OrderController extends Controller {
         if ( $req->filled("paymentType") &&  $req->paymentType == 'KEYIN' )     $mod_data['od_pay_method'] = 'CK';
 
 
-        
-
+if (auth()->check() && auth()->user()->id == 130){
+    dump(property_exists($rst_toss, 'message'));
+    dump($req->filled("paymentType") &&  $req->paymentType == 'BRANDPAY');
+    dump($mod_data);
+    dd(DB::table('shop_order')->where('od_id', $rst_toss->orderId)->update($mod_data));
+    // dd($req->filled("paymentType"));
+}
 
         if (property_exists($rst_toss, 'message')) {  //  결제 실패
             $mod_data = ['od_step'=> '61'];
@@ -432,14 +437,6 @@ class OrderController extends Controller {
 
             $mod_data = ['od_step'=> '20'];
             DB::table('shop_order')->where('od_id', $rst_toss->orderId)->update($mod_data);
-
-            if (auth()->check() && auth()->user()->id == 130){
-                dump($req->all());
-                dump($req->filled("paymentType") &&  $req->paymentType == 'BRANDPAY');
-                dump($mod_data);
-                dd(DB::table('shop_order')->where('od_id', $rst_toss->orderId)->update($mod_data));
-                // dd($req->filled("paymentType"));
-            }
             return redirect("/shop/order/done/{$rst_toss->orderId}");
         }
     }
