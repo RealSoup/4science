@@ -411,9 +411,6 @@ class OrderController extends Controller {
         if ( $req->filled("paymentType") &&  $req->paymentType == 'BRANDPAY' )  $mod_data['od_pay_method'] = 'CP';
         if ( $req->filled("paymentType") &&  $req->paymentType == 'KEYIN' )     $mod_data['od_pay_method'] = 'CK';
 
-        $mod_data['od_memo'] = $req->paymentType . '==' . auth()->check();
-  
-
         if (property_exists($rst_toss, 'message')) {  //  결제 실패
             $mod_data = ['od_step'=> '61'];
             DB::table('shop_order')->where('od_id', $req->orderId)->update($mod_data);
