@@ -81,6 +81,8 @@ export default {
     },
 
     beforeRouteEnter (to, from, next) {
+        console.log(from.name);
+        
         if (from.name == 'order_settle')
             next();
         else {
