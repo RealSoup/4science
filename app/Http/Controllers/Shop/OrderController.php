@@ -412,7 +412,7 @@ class OrderController extends Controller {
         if ( $req->filled("paymentType") &&  $req->paymentType == 'KEYIN' )     $mod_data['od_pay_method'] = 'CK';
 
         if (property_exists($rst_toss, 'message')) {  //  결제 실패
-            $mod_data = ['od_step'=> '61'];
+            $mod_data['od_step'] = '61';
             DB::table('shop_order')->where('od_id', $req->orderId)->update($mod_data);
             OrderPg::insert([
                 'pg_od_id'    => $req->orderId,
@@ -426,7 +426,7 @@ class OrderController extends Controller {
             
             GoodsModel::minus_limit_ea($rst_toss->orderId); //  재고 상품 구매시 수량 감소
 
-            $mod_data = ['od_step'=> '20'];
+            $mod_data['od_step'] = '20';
 
             if (DB::table('shop_order')->where('od_id', $rst_toss->orderId)->update($mod_data)) {
                 if (auth()->check() && auth()->user()->id == 130){
