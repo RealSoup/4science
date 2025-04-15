@@ -81,11 +81,7 @@ export default {
     },
 
     beforeRouteEnter (to, from, next) {
-        console.log(from.name);
-        console.log(to);
-        console.log(to.query);
-        // func_name=payReturn
-        if (from.name == 'order_settle')
+        if (from.name == 'order_settle' || to.query.func_name === "payReturn")
             next();
         else {
             Notify.modal("구매 완료한 상품입니다.", 'warning');
