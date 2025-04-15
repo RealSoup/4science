@@ -385,10 +385,6 @@ class OrderController extends Controller {
     }
 
     public function payReturn(Request $req, $od_id=0){
-        if (auth()->check() && auth()->user()->id == 130){
-            dump($req->all());
-            dd($req->filled("paymentType"));
-        }
         
         if ($req->filled("paymentType")) //  결제 승인 (일반카드, 브랜드페이, 키인)
             $rst_toss = self::tossCurl('tossSuccess', $req);
@@ -414,6 +410,14 @@ class OrderController extends Controller {
         
         if ( $req->filled("paymentType") &&  $req->paymentType == 'BRANDPAY' )  $mod_data['od_pay_method'] = 'CP';
         if ( $req->filled("paymentType") &&  $req->paymentType == 'KEYIN' )     $mod_data['od_pay_method'] = 'CK';
+
+
+        if (auth()->check() && auth()->user()->id == 130){
+            dump($req->all());
+            dump($req->filled("paymentType") &&  $req->paymentType == 'BRANDPAY');
+            dd($req->filled("paymentType"));
+        }
+
 
         if (property_exists($rst_toss, 'message')) {  //  결제 실패
             $mod_data = ['od_step'=> '61'];
