@@ -429,7 +429,7 @@ class OrderController extends Controller {
             $mod_data['od_step'] = '20';
 
             DB::table('shop_order')->where('od_id', $rst_toss->orderId)->update($mod_data);
-            return redirect("/shop/order/done/{$rst_toss->orderId}");
+            return redirect("/shop/order/done/{$rst_toss->orderId}?func_name=payReturn");
         }
     }
 
