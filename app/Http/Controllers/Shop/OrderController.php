@@ -411,15 +411,6 @@ class OrderController extends Controller {
         if ( $req->filled("paymentType") &&  $req->paymentType == 'BRANDPAY' )  $mod_data['od_pay_method'] = 'CP';
         if ( $req->filled("paymentType") &&  $req->paymentType == 'KEYIN' )     $mod_data['od_pay_method'] = 'CK';
 
-
-if (auth()->check() && auth()->user()->id == 130){
-    dump(property_exists($rst_toss, 'message'));
-    dump($req->filled("paymentType") &&  $req->paymentType == 'BRANDPAY');
-    dump($mod_data);
-    dd(DB::table('shop_order')->where('od_id', $rst_toss->orderId)->update($mod_data));
-    // dd($req->filled("paymentType"));
-}
-
         if (property_exists($rst_toss, 'message')) {  //  결제 실패
             $mod_data = ['od_step'=> '61'];
             DB::table('shop_order')->where('od_id', $req->orderId)->update($mod_data);
@@ -436,8 +427,17 @@ if (auth()->check() && auth()->user()->id == 130){
             GoodsModel::minus_limit_ea($rst_toss->orderId); //  재고 상품 구매시 수량 감소
 
             $mod_data = ['od_step'=> '20'];
-            DB::table('shop_order')->where('od_id', $rst_toss->orderId)->update($mod_data);
-            return redirect("/shop/order/done/{$rst_toss->orderId}");
+
+            if (DB::table('shop_order')->where('od_id', $rst_toss->orderId)->update($mod_data)) {
+                if (auth()->check() && auth()->user()->id == 130){
+                    dump(property_exists($rst_toss, 'message'));
+                    dump($req->filled("paymentType") &&  $req->paymentType == 'BRANDPAY');
+                    dump($mod_data);
+                    dd(123);
+                    // dd($req->filled("paymentType"));
+                }
+                return redirect("/shop/order/done/{$rst_toss->orderId}");
+            }
         }
     }
 
