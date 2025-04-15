@@ -82,7 +82,8 @@ export default {
 
     beforeRouteEnter (to, from, next) {
         console.log(from.name);
-        console.log(this.$route.query);
+        console.log(to);
+        console.log(to.query);
         // func_name=payReturn
         if (from.name == 'order_settle')
             next();
