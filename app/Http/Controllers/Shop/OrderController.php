@@ -385,7 +385,7 @@ class OrderController extends Controller {
     }
 
     public function payReturn(Request $req, $od_id=0){
-        
+        dd($req->all());
         if ($req->filled("paymentType")) //  결제 승인 (일반카드, 브랜드페이, 키인)
             $rst_toss = self::tossCurl('tossSuccess', $req);
         else if ($req->filled("authKey") && $od_id>0) {
