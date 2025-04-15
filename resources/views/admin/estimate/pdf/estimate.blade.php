@@ -118,14 +118,7 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
 
     <table class="profile">
         <tr class="line01 line02">
-            <th>견적번호
-@if ( auth()->check() && auth()->user()->id == 130 )
-{{ config('app.img_host_url') }}
-<img src="{{ config('app.img_host_url') }}storage/common/addr_estimate200921.gif" width="270px" height="67px" />
-{{ env('APP_URL') }}
-<img src="{{ env('APP_URL') }}storage/common/addr_estimate200921.gif" width="270px" height="67px" />
-@endif
-            </th> <td width="33%">{{ $er['er_id'] }}</td>
+            <th>견적번호</th> <td width="33%">{{ $er['er_id'] }}</td>
             <th>납품기일</th> <td>납기 {{ $er['er_dlvy_at'] }} 이내</td>
         </tr>
         <tr class="line01">
