@@ -1,23 +1,24 @@
 <template>
-<b-container id="adm_estimate_create" class="p_wrap">
-    <h3>견적서 작성</h3>
-    <form-ctrl v-model="frm.estimate_reply" @all_dc_update="all_dc_apply" @save="store" :clickable="clickable"></form-ctrl>
-    <form-user v-model="frm.estimate_req"></form-user>
-    <form-goods ref="form_goods" v-model="frm.estimate_model" :frm="frm"></form-goods>
-    <form-extra ref="form_extra" v-model="frm.estimate_reply" :isLoadingModalViewed="isLoadingModalViewed"></form-extra>
-</b-container>
+    <b-container id="adm_estimate_create" class="p_wrap">
+        <h3>견적서 작성</h3>
+        <form-ctrl v-model="frm.estimate_reply" @all_dc_update="all_dc_apply" @save="store" :clickable="clickable"></form-ctrl>
+        <form-user v-model="frm.estimate_req"></form-user>
+        <form-goods ref="form_goods" v-model="frm.estimate_model" :frm="frm"></form-goods>
+        <form-extra ref="form_extra" v-model="frm.estimate_reply" :isLoadingModalViewed="isLoadingModalViewed"></form-extra>
+    </b-container>
 </template>
 
 <script>
 import ax from '@/api/http';
 import FormGoods from '@/views/admin/shop/estimate/FormGoods.vue';
 import { validationCheckerUser, validationCheckerGoods, validationCheckerExtra } from '@/views/admin/shop/estimate/FormValidation.js'
+
 export default {
     name: 'Create',
     components: {
         'form-ctrl': () =>  import('@/views/admin/shop/estimate/FormCtrl.vue'),
         'form-user': () =>  import('@/views/admin/shop/estimate/FormUser.vue'),
-        'form-goods':FormGoods,
+        'form-goods': FormGoods,
         'form-extra': () => import('@/views/admin/shop/estimate/FormExtra.vue'),
         // 'Form': () => import('./Form.vue'),
         //  자식 컴포넌트의 Method를 호출하려면 위와같이 하면 안됨
