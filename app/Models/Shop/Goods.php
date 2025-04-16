@@ -432,8 +432,10 @@ class Goods extends Model {
 
             // if ( $pa_group[0]['pa_type'] !== 'AIR' ) {
 
-            /*  resources\js\views\admin\shop\estimate\FormGoods.vue
-            이 위치에 견적서 배송비 계산기가 있다
+            /*  
+            resources\js\views\admin\shop\estimate\FormGoods.vue
+            resources\js\views\web\_module\PaList.vue
+            위 2개 위치에 견적서 배송비 계산기가 있다
             배송비 정책 변경시 같이 수정하자~!
             */
             if ( intval($pa_group[0]['pa_dlvy_p']) === 0 ) {

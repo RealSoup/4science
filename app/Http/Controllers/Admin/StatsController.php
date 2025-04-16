@@ -88,6 +88,7 @@ class StatsController extends Controller {
             // $order = $order->selectRaw(" YEAR(created_at) label ");
         }
         // ->reorder('email', 'desc')
+        // echo_query($order->reorder('all_ea', 'desc')->limit(1000));
         $rst['by_allPrice'] = $order->orderBy('all_price', 'desc')->limit(30)->get();
         $rst['by_allEa'] = $order->reorder('all_ea', 'desc')->get();
         $rst['by_allOrder'] = $order->reorder('all_order', 'desc')->get();

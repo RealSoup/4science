@@ -309,22 +309,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           if (em.goods && em.goods.purchase_at) pa_id = em.goods.gd_pa_id;
           if (!collect.hasOwnProperty(pa_id)) {
             if (pa_id > 0) {
-              if (em.goods.purchase_at.pa_type == "AIR") collect[pa_id] = {
+              if (em.goods.purchase_at.pa_type == "AIR") {
+                collect[pa_id] = {
+                  'goods': 0,
+                  'dlvy': 0,
+                  'air': Number(em.goods.purchase_at.pa_price_add_vat)
+                };
+              } else {
+                collect[pa_id] = {
+                  'goods': 0,
+                  'dlvy': Number(em.goods.purchase_at.pa_price_add_vat),
+                  'air': 0
+                };
+              }
+            } else {
+              collect[pa_id] = {
                 'goods': 0,
-                'dlvy': 0,
-                'air': Number(em.goods.purchase_at.pa_price_add_vat)
-              };else collect[pa_id] = {
-                'goods': 0,
-                'dlvy': Number(em.goods.purchase_at.pa_price_add_vat),
+                'dlvy': Number(em.goods.dlvy_fee_add_vat),
+                'free_dlvy_max': Number(em.goods.free_dlvy_max),
                 'air': 0
               };
-              console.log(em.goods.purchase_at.pa_price_add_vat);
-            } else collect[pa_id] = {
-              'goods': 0,
-              'dlvy': Number(em.goods.dlvy_fee_add_vat),
-              'free_dlvy_max': Number(em.goods.free_dlvy_max),
-              'air': 0
-            };
+            }
           }
           collect[pa_id].goods += Number(em.em_price) * Number(em.em_ea);
           var _iterator3 = _createForOfIteratorHelper(em.estimate_option),
@@ -357,11 +362,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           if (key > 0) {
             //  직배송 제품이면
             dlvy += Number(collect[key].dlvy);
-            console.log('key>0', dlvy);
           } else if (collect[key].goods < collect[key].free_dlvy_max) {
             //  포사 제품이면
             dlvy += Number(collect[key].dlvy);
-            console.log('free_dlvy_max', dlvy);
           }
         }
       }

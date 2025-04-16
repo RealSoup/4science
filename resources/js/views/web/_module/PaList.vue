@@ -118,7 +118,7 @@ export default {
         },
         dlvy_other () {
             return Object.values(this.value).reduce((acc, el) => {
-                return acc + el[0].pa_name != '' ? el[0].pa_dlvy_p_add_vat : 0
+                return acc + (!isEmpty(el[0].pa_name) ? el[0].pa_dlvy_p_add_vat : 0)
             }, 0);
         },
         sum_mileage () {
