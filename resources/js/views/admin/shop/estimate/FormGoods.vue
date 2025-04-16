@@ -159,6 +159,8 @@ export default {
                             collect[pa_id] = { 'goods':0, 'dlvy':0, 'air':Number(em.goods.purchase_at.pa_price_add_vat)};
                         else
                             collect[pa_id] = { 'goods':0, 'dlvy':Number(em.goods.purchase_at.pa_price_add_vat), 'air':0};
+                    console.log(em.goods.purchase_at.pa_price_add_vat);
+                    
                     } else
                         collect[pa_id] = { 'goods':0, 'dlvy':Number(em.goods.dlvy_fee_add_vat), 'free_dlvy_max':Number(em.goods.free_dlvy_max), 'air':0};
                 }
@@ -171,10 +173,13 @@ export default {
             this.frm.estimate_reply.er_surtax = Math.floor(this.frm.estimate_reply.er_gd_price*0.1);
             for (var key in collect) {
                 if (collect[key].dlvy > 0) {
-                    if (key>0)  //  직배송 제품이면
+                    if (key>0){  //  직배송 제품이면
                         dlvy += Number(collect[key].dlvy);
-                    else if (collect[key].goods < collect[key].free_dlvy_max)  //  포사 제품이면
+                        console.log('key>0', dlvy);
+                    }else if (collect[key].goods < collect[key].free_dlvy_max){  //  포사 제품이면
                         dlvy += Number(collect[key].dlvy);
+                        console.log('free_dlvy_max', dlvy);
+                    }
                 }
             }
             this.frm.estimate_reply.er_dlvy_price = dlvy;

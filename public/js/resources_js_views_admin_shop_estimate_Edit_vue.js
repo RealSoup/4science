@@ -318,6 +318,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 'dlvy': Number(em.goods.purchase_at.pa_price_add_vat),
                 'air': 0
               };
+              console.log(em.goods.purchase_at.pa_price_add_vat);
             } else collect[pa_id] = {
               'goods': 0,
               'dlvy': Number(em.goods.dlvy_fee_add_vat),
@@ -353,11 +354,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.frm.estimate_reply.er_surtax = Math.floor(this.frm.estimate_reply.er_gd_price * 0.1);
       for (var key in collect) {
         if (collect[key].dlvy > 0) {
-          if (key > 0)
+          if (key > 0) {
             //  직배송 제품이면
-            dlvy += Number(collect[key].dlvy);else if (collect[key].goods < collect[key].free_dlvy_max)
+            dlvy += Number(collect[key].dlvy);
+            console.log('key>0', dlvy);
+          } else if (collect[key].goods < collect[key].free_dlvy_max) {
             //  포사 제품이면
             dlvy += Number(collect[key].dlvy);
+            console.log('free_dlvy_max', dlvy);
+          }
         }
       }
       this.frm.estimate_reply.er_dlvy_price = dlvy;
