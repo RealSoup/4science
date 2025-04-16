@@ -225,10 +225,6 @@ export default {
                 for (var j in this.frm.collect.lists[i]) 
                     if (this.frm.collect.lists[i][j].em_id !== em_id) 
                         this.frm.collect.lists[i][j].dlvy_all_in = false;
-            // console.log(this.frm.collect.lists);
-            // for (var i in this.frm.collect.lists)
-            //     for (var j of this.frm.collect.lists[i]) 
-            //         
         },
 
     },
