@@ -108,7 +108,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }))();
   },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
-    if (from.name == 'order_settle') next();else {
+    if (from.name == 'order_settle' || to.query.func_name === "payReturn") next();else {
       Notify.modal("구매 완료한 상품입니다.", 'warning');
       // next(from.path);
       history.forward();

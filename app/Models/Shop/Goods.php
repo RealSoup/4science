@@ -431,6 +431,11 @@ class Goods extends Model {
             }
 
             // if ( $pa_group[0]['pa_type'] !== 'AIR' ) {
+
+            /*  resources\js\views\admin\shop\estimate\FormGoods.vue
+            이 위치에 견적서 배송비 계산기가 있다
+            배송비 정책 변경시 같이 수정하자~!
+            */
             if ( intval($pa_group[0]['pa_dlvy_p']) === 0 ) {
                 //  정해진 주문금액 이상시 배송료 무료 정책은
                 //  부가세 제외 금액을 기준으로 한다.

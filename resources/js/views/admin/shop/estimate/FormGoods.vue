@@ -154,22 +154,27 @@ export default {
                 if (em.goods&&em.goods.purchase_at)
                     pa_id = em.goods.gd_pa_id;
                 if (!collect.hasOwnProperty(pa_id)) {
-                    if (pa_id>0 && em.goods.purchase_at.pa_type == "AIR")
-                        collect[pa_id] = { 'goods':0, 'dlvy':0, 'air':Number(em.goods.purchase_at.pa_price_add_vat)};
-                    else
+                    if (pa_id>0) {
+                        if (em.goods.purchase_at.pa_type == "AIR")
+                            collect[pa_id] = { 'goods':0, 'dlvy':0, 'air':Number(em.goods.purchase_at.pa_price_add_vat)};
+                        else
+                            collect[pa_id] = { 'goods':0, 'dlvy':Number(em.goods.purchase_at.pa_price_add_vat), 'air':0};
+                    } else
                         collect[pa_id] = { 'goods':0, 'dlvy':Number(em.goods.dlvy_fee_add_vat), 'free_dlvy_max':Number(em.goods.free_dlvy_max), 'air':0};
                 }
                 collect[pa_id].goods += Number(em.em_price) * Number(em.em_ea);
                 for (var eo of em.estimate_option)
                     collect[pa_id].goods += Number(eo.eo_price) * Number(eo.eo_ea);
             }
-        
             this.frm.estimate_reply.er_gd_price = Object.values(collect).reduce((acc, el) => acc + el.goods, 0);
             this.frm.estimate_reply.er_air_price = Object.values(collect).reduce((acc, el) => acc + el.air, 0);
             this.frm.estimate_reply.er_surtax = Math.floor(this.frm.estimate_reply.er_gd_price*0.1);
             for (var key in collect) {
-                if (collect[key].dlvy && (collect[key].goods*1.1) < collect[key].free_dlvy_max) {
-                    dlvy += Number(collect[key].dlvy);
+                if (collect[key].dlvy > 0) {
+                    if (key>0)  //  직배송 제품이면
+                        dlvy += Number(collect[key].dlvy);
+                    else if (collect[key].goods < collect[key].free_dlvy_max)  //  포사 제품이면
+                        dlvy += Number(collect[key].dlvy);
                 }
             }
             this.frm.estimate_reply.er_dlvy_price = dlvy;
