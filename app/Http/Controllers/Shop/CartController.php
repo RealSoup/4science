@@ -31,8 +31,8 @@ class CartController extends Controller {
         $carts = self::find_only_option_and_delete($carts);
         // dd($carts);
         $collect = $this->goods->getGoodsDataCollection($carts, 'cart');
-        if ( gettype($collect) == 'string' && strpos($collect, 'goods null') === 0 )
-            return response()->json(["message"=>$collect], 200);
+        // if ( gettype($collect) == 'string' && strpos($collect, 'goods null') === 0 )
+            // return response()->json(["message"=>$collect], 200);
         
         foreach ($collect['lists'] as $pa) {
             foreach ($pa as $item)
@@ -53,12 +53,12 @@ class CartController extends Controller {
     }
 
     public function find_deleted_goods_and_delete() {
-        //  삭제된 상품 체크 & 삭제
-        $del_cart_gd = DB::table('shop_cart')
-        ->join('shop_goods', 'shop_cart.ct_gd_id', '=', 'shop_goods.gd_id')
-        ->where('shop_cart.created_id', auth()->user()->id)
-        ->whereNotNull('shop_goods.deleted_at')
-        ->delete();        
+        $q = "DELETE ct FROM la_shop_cart ct 
+                LEFT JOIN la_shop_goods gd on ct.ct_gd_id = gd.gd_id 
+                WHERE 
+                    ct.created_id = ?
+                    AND (gd.deleted_at is not null or gd.gd_id is null)";
+        DB::delete($q, array(auth()->user()->id));
     }
 
     public function store(Request $req) {
