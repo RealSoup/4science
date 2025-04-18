@@ -43,6 +43,7 @@
                     <li>
                         <div>첨부파일</div>
                         <div>
+
                             <b-button class="white sm mr-2" v-for="(file, i) in content.file_goods_add" :key="i" @click="fileDown(file.down_path, file.fi_original)">{{file.fi_original}}</b-button>
                             <!-- <b-button v-for="(file, i) in content.file_goods_add" :key="i" @click="fileDown('api/downloadGoods/1760', file.fi_original)">{{file.fi_original}}</b-button> -->
                         </div>
@@ -602,7 +603,7 @@ export default {
 #goods_show>.row>.col { padding:0; }
 #goods_show .atrium { position:relative; align-items:flex-start; }
 .atrium .rack { flex-basis:0px; max-width:0px; }
-.atrium .conLeft { flex:33.333333%; max-width:33.333333%; height:auto; max-height:90vh; overflow:auto; }
+.atrium .conLeft { flex:33.333333%; max-width:33.333333%; height:auto; max-height:76vh; overflow:auto; }
 .atrium.fixed .conLeft { position:absolute; z-index:2; }
 .atrium.fixed .rack { flex:33.333333%; max-width:33.333333%; }
 .conLeft .carousel >>> .carousel-inner .carousel-item img { width:100%; height:498px; object-fit:contain; }
