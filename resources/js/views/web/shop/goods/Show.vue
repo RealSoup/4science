@@ -603,7 +603,7 @@ export default {
 #goods_show>.row>.col { padding:0; }
 #goods_show .atrium { position:relative; align-items:flex-start; }
 .atrium .rack { flex-basis:0px; max-width:0px; }
-.atrium .conLeft { flex:33.333333%; max-width:33.333333%; height:auto; max-height:76vh; overflow:auto; }
+.atrium .conLeft { flex:33.333333%; max-width:33.333333%; height:auto; max-height:calc(100vh - 156px); overflow:auto; }
 .atrium.fixed .conLeft { position:absolute; z-index:2; }
 .atrium.fixed .rack { flex:33.333333%; max-width:33.333333%; }
 .conLeft .carousel >>> .carousel-inner .carousel-item img { width:100%; height:498px; object-fit:contain; }
@@ -615,7 +615,7 @@ export default {
 .conLeft ul { margin:1rem 0 0 1rem; padding:1rem 0 0 1rem; border-top:1px solid #D7D7D7; }
 .conLeft ul li { display:flex; line-height:1.5rem; }
 .conLeft ul li div { font-size:.9rem; flex-basis: 0; flex-grow:1; max-width:100%; }
-.conLeft ul li div:nth-child(1) { flex-basis:30%; max-width:30%; font-weight:bold; }
+.conLeft ul li div:nth-child(1) { flex-basis:30%; max-width:30%; font-weight:bold; }  
 
 .conRight { border-top:1px solid #D8D8D8; margin-left:10px; color:#000; flex:0 0 calc(66.666667% - 10px); max-width:calc(66.666667% - 10px); }
 .conRight h3 { padding:1.1rem .5rem; font-weight:bold; }
