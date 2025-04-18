@@ -522,12 +522,12 @@ export default {
         },
 
         scrollListener: function (e) {
-            this.isScrollPass = window.scrollY >= this.location_h+1;
+            this.isScrollPass = window.scrollY >= this.location_h+500;   //  500은 상품 img 높이
             this.is_bottom = (window.innerHeight + window.scrollY) >= (this.scrollHeight-this.footer_h);
             if (window.innerWidth>992 && this.isScrollPass) {
                 // if (this.is_bottom) this.top_y = this.fix_y-((window.innerHeight + window.scrollY)-(this.scrollHeight-this.footer_h));
                 // else                this.top_y = this.fix_y;
-                if (!this.is_bottom) this.top_y = window.scrollY-this.location_h+1;
+                if (!this.is_bottom) this.top_y = window.scrollY-this.location_h-500;   //  500은 상품 img 높이
             } else                  this.top_y = 0;
         },
 
@@ -603,7 +603,7 @@ export default {
 #goods_show>.row>.col { padding:0; }
 #goods_show .atrium { position:relative; align-items:flex-start; }
 .atrium .rack { flex-basis:0px; max-width:0px; }
-.atrium .conLeft { flex:33.333333%; max-width:33.333333%; height:auto; max-height:calc(100vh - 170px); overflow:auto; }
+.atrium .conLeft { flex:33.333333%; max-width:33.333333%; height:auto; max-height:100vh; overflow:auto; }
 .atrium.fixed .conLeft { position:absolute; z-index:2; }
 .atrium.fixed .rack { flex:33.333333%; max-width:33.333333%; }
 .conLeft .carousel >>> .carousel-inner .carousel-item img { width:100%; height:498px; object-fit:contain; }
