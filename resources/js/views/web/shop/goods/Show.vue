@@ -603,7 +603,7 @@ export default {
 #goods_show>.row>.col { padding:0; }
 #goods_show .atrium { position:relative; align-items:flex-start; }
 .atrium .rack { flex-basis:0px; max-width:0px; }
-.atrium .conLeft { flex:33.333333%; max-width:33.333333%; height:auto; max-height:calc(100vh - 156px); overflow:auto; }
+.atrium .conLeft { flex:33.333333%; max-width:33.333333%; height:auto; max-height:calc(100vh - 170px); overflow:auto; }
 .atrium.fixed .conLeft { position:absolute; z-index:2; }
 .atrium.fixed .rack { flex:33.333333%; max-width:33.333333%; }
 .conLeft .carousel >>> .carousel-inner .carousel-item img { width:100%; height:498px; object-fit:contain; }
