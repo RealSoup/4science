@@ -175,7 +175,15 @@ var render = function render() {
       indicators: "",
       interval: 0
     }
-  }, [[_vm.deviceType == "pc" ? _c("b-carousel-slide", {
+  }, [[_c("b-link", {
+    attrs: {
+      to: "/shop/goods?ca01=36&ca02=8077"
+    }
+  }, [_c("b-carousel-slide", {
+    attrs: {
+      "img-src": "/storage/event/2025/0421/".concat(_vm.slide_file_nm, ".jpg")
+    }
+  })], 1), _vm._v(" "), _vm.deviceType == "pc" ? _c("b-carousel-slide", {
     staticClass: "evt01",
     attrs: {
       "img-src": "/storage/event/2025/0407/slide_bg.jpg"

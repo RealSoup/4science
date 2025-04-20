@@ -39,23 +39,9 @@
                     </td>
                 </tr>
             </table> -->
-            <!-- <a href="https://4science.net/board/notice/show/55" target='_blank'>
-                <img src="{{ asset('storage/event/2025/0204/estimate.jpg') }}" />
-            </a> -->
-            <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                <tr>
-                    <td>
-                        <a href="https://4science.net/shop/goods?ca01=27&ca02=1232&ca03=1233" target='_blank'>
-                            <img src="{{ asset('storage/event/2025/0407/estimate01.jpg') }}" />
-                        </a>
-                    </td>
-                    <td>
-                        <a href="https://4science.net/shop/goods?ca01=27&ca02=1232&ca03=1242" target='_blank'>
-                            <img src="{{ asset('storage/event/2025/0407/estimate02.jpg') }}" />
-                        </a>
-                    </td>
-                </tr>
-            </table>
+            <a href="https://4science.net/shop/goods?ca01=36&ca02=8077" target='_blank'>
+                <img src="{{ asset('storage/event/2025/0421/estimate.jpg') }}" />
+            </a>
         </td>
     </tr>
 
@@ -192,10 +178,26 @@
         </td>
     </tr>
     <tr>
-        <td style='border-top:2px solid #0095eb;'>         
-            <a href="https://4science.net/shop/goods?ca01=36" target='_blank'>
+        <td style='border-top:2px solid #0095eb;'>
+            
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td>
+                        <a href="https://4science.net/shop/goods?ca01=27&ca02=1232&ca03=1233" target='_blank'>
+                            <img src="{{ asset('storage/event/2025/0407/estimate01.jpg') }}" />
+                        </a>
+                    </td>
+                    <td>
+                        <a href="https://4science.net/shop/goods?ca01=27&ca02=1232&ca03=1242" target='_blank'>
+                            <img src="{{ asset('storage/event/2025/0407/estimate02.jpg') }}" />
+                        </a>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- <a href="https://4science.net/shop/goods?ca01=36" target='_blank'>
                 <img src="{{ asset('storage/event/2025/0320/estimate.jpg') }}" />
-            </a>
+            </a> -->
             <!-- <a href="https://pf.kakao.com/_AxmKUj" target='_blank'>
                 <img src="{{ asset('storage/event/2023/1205/estimate.jpg') }}" />
             </a> -->
