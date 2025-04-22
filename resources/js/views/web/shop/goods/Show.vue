@@ -725,7 +725,7 @@ export default {
 .conRight #goods_desc #style01 { padding-left:0px; }
 .conRight #goods_desc #style01 .desc_title { border-left:1px solid #999; margin-bottom:2px; font-weight:bold; width:10%; background-color:#F8F8F8; }
 .conRight .desc_pdf { margin-top:3rem; }
-.conRight .go_for_seo { color:#ffffff00; }
+.conRight .go_for_seo { color:#ffffff00; margin-top:16px; }
 
 .conRight .goods_desc_piece { margin-top:3rem; }
 .conRight .goods_desc_piece h4 { font-size:1.5rem; font-weight:bold; }
