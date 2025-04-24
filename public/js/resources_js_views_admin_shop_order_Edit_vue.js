@@ -2055,12 +2055,10 @@ var render = function render() {
     staticClass: "adform layerModal"
   }, [_c("b-row", [_c("b-col", {
     staticClass: "label"
-  }, [_vm._v("추가 정보")]), _vm._v(" "), _c("b-col", [_c("b-form-input", {
-    on: {
-      keyup: function keyup($event) {
-        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
-        return _vm.transactionPdf("mail");
-      }
+  }, [_vm._v("추가 정보")]), _vm._v(" "), _c("b-col", [_c("b-form-textarea", {
+    attrs: {
+      id: "eq_content",
+      rows: "3"
     },
     model: {
       value: _vm.od.email_msg,

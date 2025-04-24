@@ -511,7 +511,9 @@
                     <b-container class="adform layerModal">                        
                         <b-row>
                             <b-col class="label">추가 정보</b-col>
-                            <b-col><b-form-input v-model="od.email_msg" @keyup.enter="transactionPdf('mail')" /></b-col>
+                            <b-col>
+                                <b-form-textarea v-model="od.email_msg" id="eq_content" rows="3" />
+                            </b-col>
                         </b-row>
                         
                         <b-row>

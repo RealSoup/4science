@@ -18,7 +18,7 @@
         </td>
     </tr>
     <tr>
-        <td style="border-top:2px solid #0095eb; padding-bottom:6px;"><img src="{{ asset('storage/common/email_top_pay_req.png') }}" /></td>
+        <td style="border-top:2px solid #0E999C; padding-bottom:6px;"><img src="{{ asset('storage/common/email_top_pay_req.jpg') }}" /></td>
     </tr>
 
     <tr>
@@ -47,7 +47,7 @@
                 </tr>
                 <tr>
                     <th width="20%" style="padding:13px 0; background-color:#f8f8f8; border-bottom:1px solid #d5d5d5;">추가정보</th>
-                    <td style="padding:13px 10px; border-bottom:1px solid #d5d5d5;" colspan="3">{{$email_msg}}</td>
+                    <td style="padding:13px 10px; border-bottom:1px solid #d5d5d5;" colspan="3">@nl2br($email_msg)</td>
                 </tr>
             </table>
         </td>
