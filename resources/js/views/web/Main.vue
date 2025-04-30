@@ -7,7 +7,7 @@
             <b-link to="/shop/goods?ca01=36&ca02=8077">
                 <b-carousel-slide :img-src="`/storage/event/2025/0421/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link>
-            <b-carousel-slide v-if="deviceType=='pc'" :img-src="`/storage/event/2025/0407/slide_bg.jpg`" class="evt01">
+            <!-- <b-carousel-slide v-if="deviceType=='pc'" :img-src="`/storage/event/2025/0407/slide_bg.jpg`" class="evt01">
                 <router-link to="/shop/goods?ca01=27&ca02=1232&ca03=1233" id="app01" class="split_link">
                     <b-img src="/storage/event/2025/0407/slide01.png" class="product pd01" />
                     <span class="tooltiptext">멤브레인필터 바로가기</span>
@@ -19,7 +19,7 @@
             </b-carousel-slide>
             <b-link v-else to="/shop/goods?ca01=27&ca02=1232&ca03=1233">
                 <b-carousel-slide :img-src="`/storage/event/2025/0407/${slide_file_nm}.jpg`"></b-carousel-slide>
-            </b-link>
+            </b-link> -->
             
             <b-link to="/shop/goods?ca01=36">
                 <b-carousel-slide :img-src="`/storage/event/2025/0320/${slide_file_nm}.jpg`"></b-carousel-slide>

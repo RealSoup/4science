@@ -183,45 +183,6 @@ var render = function render() {
     attrs: {
       "img-src": "/storage/event/2025/0421/".concat(_vm.slide_file_nm, ".jpg")
     }
-  })], 1), _vm._v(" "), _vm.deviceType == "pc" ? _c("b-carousel-slide", {
-    staticClass: "evt01",
-    attrs: {
-      "img-src": "/storage/event/2025/0407/slide_bg.jpg"
-    }
-  }, [_c("router-link", {
-    staticClass: "split_link",
-    attrs: {
-      to: "/shop/goods?ca01=27&ca02=1232&ca03=1233",
-      id: "app01"
-    }
-  }, [_c("b-img", {
-    staticClass: "product pd01",
-    attrs: {
-      src: "/storage/event/2025/0407/slide01.png"
-    }
-  }), _vm._v(" "), _c("span", {
-    staticClass: "tooltiptext"
-  }, [_vm._v("멤브레인필터 바로가기")])], 1), _vm._v(" "), _c("router-link", {
-    staticClass: "split_link",
-    attrs: {
-      to: "/shop/goods?ca01=27&ca02=1232&ca03=1242",
-      id: "app02"
-    }
-  }, [_c("b-img", {
-    staticClass: "product pd02",
-    attrs: {
-      src: "/storage/event/2025/0407/slide02.png"
-    }
-  }), _vm._v(" "), _c("span", {
-    staticClass: "tooltiptext"
-  }, [_vm._v("실린지필터 바로가기")])], 1)], 1) : _c("b-link", {
-    attrs: {
-      to: "/shop/goods?ca01=27&ca02=1232&ca03=1233"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2025/0407/".concat(_vm.slide_file_nm, ".jpg")
-    }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {
       to: "/shop/goods?ca01=36"
