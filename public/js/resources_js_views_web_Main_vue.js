@@ -177,6 +177,14 @@ var render = function render() {
     }
   }, [[_c("b-link", {
     attrs: {
+      to: "/shop/goods?ca01=29&ca02=4182&ca03=4199&ca04=4202"
+    }
+  }, [_c("b-carousel-slide", {
+    attrs: {
+      "img-src": "/storage/event/2025/0512/".concat(_vm.slide_file_nm, ".jpg")
+    }
+  })], 1), _vm._v(" "), _c("b-link", {
+    attrs: {
       to: "/shop/goods?ca01=36&ca02=8077"
     }
   }, [_c("b-carousel-slide", {

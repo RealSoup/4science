@@ -4,9 +4,6 @@
     
     <b-carousel controls indicators :interval='0' class="slide_banner">
         <template>
-            <b-link to="/shop/goods?ca01=36&ca02=8077">
-                <b-carousel-slide :img-src="`/storage/event/2025/0421/${slide_file_nm}.jpg`"></b-carousel-slide>
-            </b-link>
             <!-- <b-carousel-slide v-if="deviceType=='pc'" :img-src="`/storage/event/2025/0407/slide_bg.jpg`" class="evt01">
                 <router-link to="/shop/goods?ca01=27&ca02=1232&ca03=1233" id="app01" class="split_link">
                     <b-img src="/storage/event/2025/0407/slide01.png" class="product pd01" />
@@ -20,7 +17,13 @@
             <b-link v-else to="/shop/goods?ca01=27&ca02=1232&ca03=1233">
                 <b-carousel-slide :img-src="`/storage/event/2025/0407/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link> -->
-            
+
+            <b-link to="/shop/goods?ca01=29&ca02=4182&ca03=4199&ca04=4202">
+                <b-carousel-slide :img-src="`/storage/event/2025/0512/${slide_file_nm}.jpg`"></b-carousel-slide>
+            </b-link>
+            <b-link to="/shop/goods?ca01=36&ca02=8077">
+                <b-carousel-slide :img-src="`/storage/event/2025/0421/${slide_file_nm}.jpg`"></b-carousel-slide>
+            </b-link>            
             <b-link to="/shop/goods?ca01=36">
                 <b-carousel-slide :img-src="`/storage/event/2025/0320/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link>
