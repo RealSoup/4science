@@ -295,6 +295,7 @@ Route::get('category/{ca_id}', 'Shop\CategoryController@index')->name('category.
 Route::prefix('shop')->group(function () {
     Route::GET('goods/recentGoods', 'Shop\GoodsController@recentGoods')->name('goods.recentGoods');
     Route::GET('goods/getDef', 'Shop\GoodsController@getDef');
+    Route::GET('goods/getThermo_desc', 'Shop\GoodsController@getThermo_desc');
     Route::resource('goods', 'Shop\GoodsController', [
         'except' => [ 'create', 'store', 'destroy', 'edit', 'update'],
         'names' => [

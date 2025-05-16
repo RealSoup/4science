@@ -49,7 +49,6 @@ class CommonController extends Controller {
             $url = "/storage/api_{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}/{$file->hashName()}";
             return response()->json(['location'=>$url], 200);
         }
-           
     }
 
     

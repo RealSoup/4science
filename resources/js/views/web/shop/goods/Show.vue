@@ -217,6 +217,9 @@
                 <div id="goods_desc">
                     <div v-html="content.gd_desc"></div>
                     <div v-if="content.gd_video" v-html="content.gd_video"></div>
+
+                    <!-- 써모 크롤링된 상세 설명 -->
+                    <div id="thermo_desc" v-if="thermo_desc" class="row" v-html="thermo_desc"></div>
                 </div>
 
                 <p class="go_for_seo" v-if="content.gd_keyword">연관 검색어:{{content.gd_keyword}}</p>
@@ -334,6 +337,7 @@ export default {
             },
             has_plan: false,
             od_plan: '',
+            thermo_desc: '',
         }
     },
     watch: {
@@ -381,6 +385,14 @@ export default {
             if (res && res.status === 200) {
                 this.content = res.data.goods;
                 this.categorys = res.data.categorys;
+                
+                if (!isEmpty(res.data.gd_desc_thermo))
+                    await ax.get(`/api/shop/goods/getThermo_desc?url=${res.data.gd_desc_thermo}`).then(response => {
+                        this.thermo_desc = response.data.html;
+                    }).catch(error => {
+                        console.error('불러오기 실패:', error);
+                        this.thermo_desc = '<p>데이터를 가져오지 못했습니다.</p>';
+                    });
             }
         },
         async action(type) {            
@@ -565,12 +577,12 @@ export default {
         },
 */        
     },
-    mounted() {
+    async mounted() {
         this.show();
         window.addEventListener('scroll', this.scrollListener);
         this.interval = setInterval(() => {
             this.scrollHeight = document.body.scrollHeight;
-        }, 100);        
+        }, 100);
     },
 
     beforeDestroy() { 
@@ -724,6 +736,7 @@ export default {
 .conRight #goods_desc #style01 span { display:inline-block; line-height:24px; color:#666; padding:5px 15px; }
 .conRight #goods_desc #style01 { padding-left:0px; }
 .conRight #goods_desc #style01 .desc_title { border-left:1px solid #999; margin-bottom:2px; font-weight:bold; width:10%; background-color:#F8F8F8; }
+.conRight #goods_desc::v-deep .external_description_link { display:none; }
 .conRight .desc_pdf { margin-top:3rem; }
 .conRight .go_for_seo { color:#ffffff00; margin-top:16px; }
 
@@ -809,5 +822,528 @@ export default {
 .cube_box .cube .top    { transform: rotateX( 90deg) translateZ(100px); }
 .cube_box .cube .bottom { transform: rotateX(-90deg) translateZ(100px); }
 */
+
+
+
+
+/**
+ * Do not edit directly
+ * Generated on Wed, 05 Feb 2025 19:22:04 GMT V01
+ */
+
+:root {
+  --spacing-09: 48px;
+  --spacing-08: 40px;
+  --spacing-07: 32px;
+  --spacing-06: 24px;
+  --spacing-05: 16px;
+  --spacing-04: 12px;
+  --spacing-03: 8px;
+  --spacing-02: 4px;
+  --spacing-01: 2px;
+  --spacing-00: 0px;
+  --spacing-13: 160px;
+  --spacing-12: 96px;
+  --spacing-11: 80px;
+  --spacing-10: 64px;
+  --yellow-05: #fff5c5;
+  --yellow-100: #2d1700;
+  --yellow-90: #462300;
+  --yellow-80: #5c2e00;
+  --yellow-70: #763c01;
+  --yellow-60: #8d4700;
+  --yellow-50: #b05900;
+  --yellow-40: #de7a00;
+  --yellow-30: #f79905;
+  --yellow-25: #feb323;
+  --yellow-20: #ffd043;
+  --yellow-15: #ffe15d;
+  --yellow-10: #ffec94;
+  --yellow-0: #fff9e1;
+  --white-0: #ffffff;
+  --turquoise-05: #c8fffb;
+  --turquoise-100: #001d1a;
+  --turquoise-90: #002824;
+  --turquoise-80: #003633;
+  --turquoise-70: #004742;
+  --turquoise-60: #015d58;
+  --turquoise-50: #007972;
+  --turquoise-40: #009990;
+  --turquoise-30: #00bdb3;
+  --turquoise-25: #00dace;
+  --turquoise-20: #38f0e6;
+  --turquoise-15: #7efff8;
+  --turquoise-10: #a4fffa;
+  --turquoise-0: #e8fffd;
+  --teal-05: #cef6ff;
+  --teal-100: #001a20;
+  --teal-90: #00232b;
+  --teal-80: #002d38;
+  --teal-70: #003b49;
+  --teal-60: #004e61;
+  --teal-50: #00677f;
+  --teal-40: #05819d;
+  --teal-30: #25a1be;
+  --teal-25: #42bdd9;
+  --teal-20: #68d1e9;
+  --teal-15: #8de4f8;
+  --teal-10: #aff0ff;
+  --teal-0: #eafbff;
+  --steel-blue-05: #e1e9ff;
+  --steel-blue-100: #13161f;
+  --steel-blue-90: #1e2432;
+  --steel-blue-80: #293044;
+  --steel-blue-70: #343b57;
+  --steel-blue-60: #3e486b;
+  --steel-blue-50: #4e5987;
+  --steel-blue-40: #606ea6;
+  --steel-blue-30: #7688c7;
+  --steel-blue-25: #869bdb;
+  --steel-blue-20: #9db0ea;
+  --steel-blue-15: #b3c0ef;
+  --steel-blue-10: #cad5f4;
+  --steel-blue-0: #f5f7ff;
+  --sapphire-05: #dfeeff;
+  --sapphire-100: #00143a;
+  --sapphire-90: #001d54;
+  --sapphire-80: #002874;
+  --sapphire-70: #00399c;
+  --sapphire-60: #0049c8;
+  --sapphire-50: #025df2;
+  --sapphire-40: #2678ff;
+  --sapphire-30: #498dff;
+  --sapphire-25: #679fff;
+  --sapphire-20: #86b2ff;
+  --sapphire-15: #abccff;
+  --sapphire-10: #c7e0ff;
+  --sapphire-0: #f3f7fe;
+  --red-05: #fde4e4;
+  --red-100: #310000;
+  --red-90: #560000;
+  --red-80: #790000;
+  --red-70: #a00000;
+  --red-60: #c40003;
+  --red-50: #e71316;
+  --red-40: #fd292c;
+  --red-30: #fe494b;
+  --red-25: #ff6d6d;
+  --red-20: #fb9090;
+  --red-15: #fdabab;
+  --red-10: #fcc9c9;
+  --red-0: #fff4f4;
+  --purple-05: #eedfff;
+  --purple-100: #160031;
+  --purple-90: #230048;
+  --purple-80: #300066;
+  --purple-70: #3e0181;
+  --purple-60: #4c00a4;
+  --purple-50: #6100ce;
+  --purple-40: #802eff;
+  --purple-30: #9061fc;
+  --purple-25: #ab87ff;
+  --purple-20: #c3a7fe;
+  --purple-15: #d5bafe;
+  --purple-10: #e1ceff;
+  --purple-0: #f6f0fd;
+  --pink-05: #ffe1f3;
+  --pink-100: #2a0712;
+  --pink-90: #410520;
+  --pink-80: #640d36;
+  --pink-70: #860842;
+  --pink-60: #b60150;
+  --pink-50: #dc0265;
+  --pink-40: #ff1d7b;
+  --pink-30: #ff5091;
+  --pink-25: #ff70aa;
+  --pink-20: #ff92c2;
+  --pink-15: #ffb1d3;
+  --pink-10: #ffcde3;
+  --pink-0: #fff0f9;
+  --orange-05: #ffddc2;
+  --orange-100: #2b0f00;
+  --orange-90: #491901;
+  --orange-80: #6c2501;
+  --orange-70: #8c3001;
+  --orange-60: #ad3b00;
+  --orange-50: #d14700;
+  --orange-40: #f35200;
+  --orange-30: #f56a00;
+  --orange-25: #ff8b34;
+  --orange-20: #ff9f58;
+  --orange-15: #ffb782;
+  --orange-10: #ffcda8;
+  --orange-0: #ffebd6;
+  --olive-05: #fcffb8;
+  --olive-100: #0f1f00;
+  --olive-90: #152c00;
+  --olive-80: #203900;
+  --olive-70: #2d4b00;
+  --olive-60: #3d5c01;
+  --olive-50: #4f6c00;
+  --olive-40: #698300;
+  --olive-30: #8d9f00;
+  --olive-25: #b5bd00;
+  --olive-20: #d3dc00;
+  --olive-15: #eaf059;
+  --olive-10: #f8fc8a;
+  --olive-0: #fdffdd;
+  --indigo-05: #e8e7ff;
+  --indigo-100: #0b0834;
+  --indigo-90: #161249;
+  --indigo-80: #201c5c;
+  --indigo-70: #2c287a;
+  --indigo-60: #3a339f;
+  --indigo-50: #4a42cd;
+  --indigo-40: #6058df;
+  --indigo-30: #7d76ee;
+  --indigo-25: #9993fc;
+  --indigo-20: #b0abfd;
+  --indigo-15: #c1bdfc;
+  --indigo-10: #d5d2ff;
+  --indigo-0: #f4f4ff;
+  --green-05: #d9fbe2;
+  --green-100: #001d06;
+  --green-90: #002808;
+  --green-80: #00330a;
+  --green-70: #00420e;
+  --green-60: #005512;
+  --green-50: #006816;
+  --green-40: #01891e;
+  --green-30: #00a824;
+  --green-25: #00d82d;
+  --green-20: #22f24e;
+  --green-15: #7ff87d;
+  --green-10: #befbbb;
+  --green-0: #effff3;
+  --gray-05: #e5e5e5;
+  --gray-100: #1b1b1d;
+  --gray-90: #2b2b30;
+  --gray-80: #38383e;
+  --gray-70: #43434a;
+  --gray-60: #54545c;
+  --gray-50: #61616b;
+  --gray-40: #70707a;
+  --gray-30: #81828c;
+  --gray-25: #92929e;
+  --gray-20: #a5a5ae;
+  --gray-15: #b8b7bc;
+  --gray-10: #cccccc;
+  --gray-0: #f7f7f7;
+  --dark-mode-05: #e2e2ed;
+  --dark-mode-100: #17171e;
+  --dark-mode-90: #25252f;
+  --dark-mode-80: #2d2d3a;
+  --dark-mode-70: #363646;
+  --dark-mode-60: #404051;
+  --dark-mode-50: #4e4e62;
+  --dark-mode-40: #5d5d73;
+  --dark-mode-30: #6e6e87;
+  --dark-mode-25: #8b8ba6;
+  --dark-mode-20: #9e9ebb;
+  --dark-mode-15: #b8b8d3;
+  --dark-mode-10: #cfcfe2;
+  --dark-mode-0: #f4f4f8;
+  --blue-05: #d4edff;
+  --blue-100: #001222;
+  --blue-90: #001e36;
+  --blue-80: #00294a;
+  --blue-70: #013560;
+  --blue-60: #00467f;
+  --blue-50: #005daa;
+  --blue-40: #0071d0;
+  --blue-30: #0092f3;
+  --blue-25: #3eafff;
+  --blue-20: #6bc1ff;
+  --blue-15: #90d1ff;
+  --blue-10: #b6e1fe;
+  --blue-0: #f1f9ff;
+  --black-100: #000000;
+  --text-success: var(--green-40);
+  --text-subtle: var(--gray-40);
+  --text-secondary: var(--gray-60);
+  --text-primary: var(--gray-100);
+  --text-on-color: var(--white-0);
+  --text-link-hover: var(--blue-50);
+  --text-link: var(--blue-40);
+  --text-disabled: var(--gray-25);
+  --status-warning: var(--orange-30);
+  --status-success: var(--green-30);
+  --status-info: var(--blue-30);
+  --status-error: var(--red-50);
+  --layer-selected-disabled: var(--sapphire-10);
+  --layer-selected: var(--blue-40);
+  --layer-secondary: var(--gray-0);
+  --layer-primary: var(--white-0);
+  --layer-hover-02: var(--sapphire-05);
+  --layer-hover-01: var(--sapphire-0);
+  --layer-heavy-01: var(--gray-10);
+  --layer-disabled-02: var(--gray-05);
+  --layer-disabled-01: var(--gray-0);
+  --layer-accent-subtle: var(--red-05);
+  --layer-accent-heavy: var(--red-60);
+  --layer-accent: var(--red-50);
+  --icon-subtle: var(--gray-40);
+  --icon-secondary: var(--gray-60);
+  --icon-primary: var(--gray-100);
+  --icon-on-color: var(--white-0);
+  --icon-link-hover: var(--blue-50);
+  --icon-link: var(--blue-40);
+  --icon-disabled-02: var(--gray-25);
+  --icon-disabled-01: var(--gray-20);
+  --focus-default-inset: var(--white-0);
+  --focus-default: var(--purple-40);
+  --button-secondary-label: var(--white-0);
+  --button-secondary-bg-hover: var(--gray-100);
+  --button-secondary-bg: var(--gray-60);
+  --button-primary-label: var(--white-0);
+  --button-primary-bg-hover: var(--red-60);
+  --button-primary-bg: var(--red-50);
+  --button-outline-label: var(--blue-40);
+  --button-outline-border-hover: var(--blue-50);
+  --button-outline-border: var(--gray-25);
+  --button-outline-bg-hover: var(--white-0);
+  --button-outline-bg: var(--white-0);
+  --button-info-label: var(--gray-60);
+  --button-info-border-hover: var(--gray-60);
+  --button-info-border: var(--gray-25);
+  --button-info-bg-hover: var(--white-0);
+  --button-info-bg: var(--white-0);
+  --button-disabled-label: var(--gray-25);
+  --button-disabled-bg: var(--gray-05);
+  --button-attention-label: var(--white-0);
+  --button-attention-bg-hover: var(--red-60);
+  --button-attention-bg: var(--red-50);
+  --brand-primary-subtle: var(--red-05);
+  --brand-primary-heavy: var(--red-60);
+  --brand-primary: var(--red-50);
+  --border-subtle-02: var(--gray-10);
+  --border-subtle-01: var(--gray-05);
+  --border-selected: var(--blue-40);
+  --border-heavy-01: var(--gray-25);
+  --border-active: var(--blue-30);
+  --background-secondary: var(--gray-0);
+  --background-primary: var(--white-0);
+}
+
+.conRight #thermo_desc >>> .pdp-specifications {
+    margin-bottom: 24px
+}
+
+.conRight #thermo_desc >>> .pdp-specifications-card {
+    width: 100%
+}
+
+.conRight #thermo_desc::v-deep .pdp-specifications__title {
+    align-items: center;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: space-between
+}
+
+@media(max-width: 576px) {
+    .conRight #thermo_desc >>> .pdp-specifications__title {
+        align-items:flex-start;
+        flex-direction: column
+    }
+}
+
+.conRight #thermo_desc >>> .pdp-specifications__text {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 10px 24px 10px 32px
+}
+
+.conRight #thermo_desc >>> .pdp-specifications__icon {
+    height: 12px;
+    margin-right: 5px
+}
+
+.conRight #thermo_desc >>> .pdp-specifications__link {
+    font-size: 14px;
+    font-weight: 700;
+    padding: 10px 24px 10px 32px
+}
+
+@media(max-width: 576px) {
+    .conRight #thermo_desc >>> .pdp-specifications__link {
+        padding:0 24px 10px 32px
+    }
+}
+
+.conRight #thermo_desc >>> .pdp-specifications__link:hover {
+    cursor: pointer
+}
+
+.conRight #thermo_desc >>> .pdp-specifications__link a {
+    color: #0071d0
+}
+
+.conRight #thermo_desc >>> .pdp-specifications__view-more {
+    color: #0071d0;
+    padding: 10px 0;
+    text-align: center
+}
+
+.conRight #thermo_desc >>> .pdp-specifications__view-more:hover {
+    cursor: pointer
+}
+
+.conRight #thermo_desc >>> .pdp-specifications .pdp-specification-row {
+    border-bottom: 1px solid #e5e5e5;
+    display: grid;
+    grid-template-columns: 50% 50%
+}
+
+.conRight #thermo_desc >>> .pdp-specifications .pdp-specification-row__name {
+    font-weight: 700;
+    padding: 10px 32px
+}
+
+.conRight #thermo_desc >>> .pdp-specifications .pdp-specification-row__value {
+    border-left: 1px solid #e5e5e5;
+    font-weight: 400;
+    overflow-wrap: anywhere;
+    padding: 10px 32px
+}
+
+.conRight #thermo_desc >>> .pdp-card {
+    background: #0000;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px 0 #0000001a;
+    cursor: default;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+    outline: 1px solid #cccccc;
+    padding: 16px;
+    transition: .3s ease-in-out;
+    width: 100%
+}
+
+.conRight #thermo_desc >>> .pdp-card.nopadding {
+    padding: 0
+}
+
+.conRight #thermo_desc >>> .pdp-chemicals {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 24px;
+    margin-top: 20px
+}
+
+@media(max-width: 990px) {
+    .conRight #thermo_desc >>> .pdp-chemicals {
+        flex-direction:column
+    }
+}
+
+.conRight #thermo_desc >>> .pdp-nav {
+    height: 50px;
+    position: sticky;
+    z-index: 4
+}
+
+@media screen and (max-width: 991px) {
+    .conRight #thermo_desc >>> .pdp-nav {
+        margin-left:-24px
+    }
+}
+
+.conRight #thermo_desc >>> .pdp-nav core-navigationbar {
+    width: 100%
+}
+
+.conRight #thermo_desc >>> .pdp-nav core-navigationbar .pdp-smart-search-widget-title {
+    font-weight: unset;
+    text-transform: none
+}
+
+.conRight #thermo_desc >>> .pdp-product-overview {
+    margin-bottom: 40px!important;
+    margin-top: 20px!important
+}
+
+.conRight #thermo_desc >>> .pdp-product-overview .pdp-product-description p {
+    margin: 12px 0
+}
+
+.conRight #thermo_desc >>> .pdp-product-description {
+    margin-top: 12px
+}
+
+.conRight #thermo_desc >>> .pdp-product-description .pdp-product-description-inner {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 22px;
+    text-align: left
+}
+
+.conRight #thermo_desc >>> .pdp-product-description .pdp-product-description-inner a {
+    color: #0071d0
+}
+
+.conRight #thermo_desc >>> .pdp-product-description .pdp-product-description-disclaimer,.conRight #thermo_desc >>> .pdp-product-description .pdp-product-description-warnings {
+    background-color: #f7f7f7;
+    margin-top: 12px;
+    padding: 24px
+}
+
+.conRight #thermo_desc >>> .pdp-product-description .pdp-product-description-regulatory-stmt,.conRight #thermo_desc >>> .pdp-product-description .pdp-product-description-regulatory-stmt-catalog {
+    background-color: #f7f7f7;
+    margin-top: 16px;
+    padding: 24px
+}
+
+.conRight #thermo_desc >>> .pdp-product-description .pdp-product-description-techdetails-refs {
+    margin-bottom: 16px;
+    margin-left: 16px;
+    margin-top: 16px
+}
+
+.conRight #thermo_desc >>> .pdp-contents-and-storage {
+    margin-bottom: 24px;
+    width: 100%
+}
+
+.conRight #thermo_desc >>> .pdp-contents-and-storage core-card::part(core-card) {
+    outline: 1px solid #cccccc!important
+}
+
+.conRight #thermo_desc >>> .pdp-contents-and-storage__wrapper {
+    border:1px solid #ccc;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+    cursor: default;
+    border-radius: 4px;
+    transition: 300ms ease-in-out;
+    outline-offset: -1px;
+
+}
+.conRight #thermo_desc >>> .pdp-contents-and-storage__title {
+    align-items: center;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: space-between
+}
+
+.conRight #thermo_desc >>> .pdp-contents-and-storage__text {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 12px 24px 10px 32px
+}
+
+.conRight #thermo_desc >>> .pdp-contents-and-storage__desc {
+    font-weight: 400;
+    padding: 16px 32px
+}
+
+@media(max-width: 992px) {
+    .conRight #thermo_desc >>> .pdp-contents-and-storage {
+        margin-bottom:16px
+    }
+}
+
+    
 </style>
 

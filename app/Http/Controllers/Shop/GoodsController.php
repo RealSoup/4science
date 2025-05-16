@@ -7,8 +7,11 @@ use App\Models\Shop\{Goods, Category, GoodsCategory, Order};
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Lib\SphinxClient;
+use App\Traits\Crawling;
 
 class GoodsController extends Controller {
+    use Crawling;    //  trait
+
     protected $goods;
 
 	public function __construct( Goods $gd ) { $this->goods = $gd; }
@@ -242,6 +245,16 @@ class GoodsController extends Controller {
 			}
 		} */
 
+        //  Thermo 상세 설명을 웹에서 크롤링 하기 위한 설정
+        if (isset($data['goods']->gd_desc)) {
+            $pattern = '/<a\b(?=[^>]*\bhref="([^"]+)")(?=[^>]*\bclass="[^"]*\bexternal_description_link\b[^"]*")[^>]*>External Description Link<\/a>/i';
+            preg_match_all($pattern, $data['goods']->gd_desc, $matches);
+            foreach ($matches[1] as $url)
+                if (filter_var($url, FILTER_VALIDATE_URL))
+                    $data['gd_desc_thermo'] = $url;
+        }
+        
+
         event(new \App\Events\GoodsView($gd_id));  //  조회수 증가, 최근 본 상품 등록
         return response()->json($data);
     }
@@ -258,5 +271,9 @@ class GoodsController extends Controller {
     public function getDef(Request $req) {
         //  상품 기본 값 반환 ex) 배송비, 배송비 할인 최대금액
         return response()->json($this->goods);
+    }
+
+    public function getThermo_desc (Request $req) {
+        return $this->crawl($req->url);
     }
 }
