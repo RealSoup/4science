@@ -48,8 +48,8 @@ class GoodsController extends Controller {
 
         if ($req->filled('keyword')) {
             $referer = $_SERVER['HTTP_REFERER'] ?? null;
-            Log::info('🔍 $_SERVER[HTTP_REFERER]: ' . $referer);
-            
+            Log::info('controlloer: ' . $referer);
+
             if (if_not_my_ip($req->ip()))
                 event(new \App\Events\GoodsSearch($req->keyword, auth()->check() ? auth()->user()->id : 0, $req->ip()));  //  검색어 데이터화
             
