@@ -31,8 +31,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     frm_inint: function frm_inint() {
       this.$delete(this.frm, 'ua_def');
       this.$delete(this.frm, 'ua_title');
-      this.$delete(this.frm, 'ua_zip');
+      this.$delete(this.frm, 'ua_name');
       this.$delete(this.frm, 'ua_hp');
+      this.$delete(this.frm, 'ua_zip');
       this.$delete(this.frm, 'ua_addr1');
       this.$delete(this.frm, 'ua_addr2');
       this.$delete(this.frm, 'ua_memo');
@@ -226,15 +227,15 @@ var render = function render() {
   })], 1)], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
     attrs: {
       size: "sm",
-      maxlength: "5",
-      placeholder: "우편번호"
+      maxlength: "20",
+      placeholder: "수령인"
     },
     model: {
-      value: _vm.frm.ua_zip,
+      value: _vm.frm.ua_name,
       callback: function callback($$v) {
-        _vm.$set(_vm.frm, "ua_zip", $$v);
+        _vm.$set(_vm.frm, "ua_name", $$v);
       },
-      expression: "frm.ua_zip"
+      expression: "frm.ua_name"
     }
   })], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
     attrs: {
@@ -260,6 +261,19 @@ var render = function render() {
       }
     }
   }, [_vm._v("추가")])], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+    attrs: {
+      size: "sm",
+      maxlength: "5",
+      placeholder: "우편번호"
+    },
+    model: {
+      value: _vm.frm.ua_zip,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "ua_zip", $$v);
+      },
+      expression: "frm.ua_zip"
+    }
+  })], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
     attrs: {
       size: "sm",
       placeholder: "도로명"
@@ -345,15 +359,15 @@ var render = function render() {
     })], 1)], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
       attrs: {
         size: "sm",
-        maxlength: "5",
-        placeholder: "우편번호"
+        maxlength: "20",
+        placeholder: "수령인"
       },
       model: {
-        value: addr.ua_zip,
+        value: addr.ua_name,
         callback: function callback($$v) {
-          _vm.$set(addr, "ua_zip", $$v);
+          _vm.$set(addr, "ua_name", $$v);
         },
-        expression: "addr.ua_zip"
+        expression: "addr.ua_name"
       }
     })], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
       attrs: {
@@ -389,6 +403,19 @@ var render = function render() {
         }
       }
     }, [_vm._v("수정")])], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+      attrs: {
+        size: "sm",
+        maxlength: "5",
+        placeholder: "우편번호"
+      },
+      model: {
+        value: _vm.frm.ua_zip,
+        callback: function callback($$v) {
+          _vm.$set(_vm.frm, "ua_zip", $$v);
+        },
+        expression: "frm.ua_zip"
+      }
+    })], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
       attrs: {
         size: "sm",
         placeholder: "도로명"
@@ -449,7 +476,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap .row[data-v-cf2b3db2] { margin:.5rem 0; border-bottom:2px solid #666\n}\n.p_wrap .row .col[data-v-cf2b3db2] { margin-bottom:.2rem;\n}\n.p_wrap .row .col[data-v-cf2b3db2]:nth-child(1) { flex:0 0 30%; max-width:30%;\n}\n.p_wrap .row .col[data-v-cf2b3db2]:nth-child(2) { flex:0 0 20%; max-width:20%;\n}\n.p_wrap .row .col[data-v-cf2b3db2]:nth-child(3) { flex:0 0 30%; max-width:30%;\n}\n.p_wrap .row .col[data-v-cf2b3db2]:nth-child(4) { flex:0 0 20%; max-width:20%;\n}\n.p_wrap .row .col[data-v-cf2b3db2]:nth-child(5) { flex:0 0 60%; max-width:60%;\n}\n.p_wrap .row .col[data-v-cf2b3db2]:nth-child(6) { flex:0 0 40%; max-width:40%;\n}\n.p_wrap .row .col[data-v-cf2b3db2]:nth-child(7) { flex:0 0 100%; max-width:100%; padding-bottom:.5rem;\n}\n.input-group-sm .input-group-prepend .input-group-text[data-v-cf2b3db2] { padding:0.15rem 0.5rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap .row[data-v-cf2b3db2] { margin:.5rem 0; border-bottom:2px solid #666\n}\n.p_wrap .row .col[data-v-cf2b3db2] { margin-bottom:.2rem;\n}\n.p_wrap .row .col[data-v-cf2b3db2]:nth-child(1) { flex:0 0 30%; max-width:30%;\n}\n.p_wrap .row .col[data-v-cf2b3db2]:nth-child(2) { flex:0 0 20%; max-width:20%;\n}\n.p_wrap .row .col[data-v-cf2b3db2]:nth-child(3) { flex:0 0 30%; max-width:30%;\n}\n.p_wrap .row .col[data-v-cf2b3db2]:nth-child(4) { flex:0 0 20%; max-width:20%;\n}\n.p_wrap .row .col[data-v-cf2b3db2]:nth-child(5) { flex:0 0 15%; max-width:15%;\n}\n.p_wrap .row .col[data-v-cf2b3db2]:nth-child(6) { flex:0 0 50%; max-width:50%;\n}\n.p_wrap .row .col[data-v-cf2b3db2]:nth-child(7) { flex:0 0 35%; max-width:35%;\n}\n.p_wrap .row .col[data-v-cf2b3db2]:nth-child(8) { flex:0 0 100%; max-width:100%; padding-bottom:.5rem;\n}\n.input-group-sm .input-group-prepend .input-group-text[data-v-cf2b3db2] { padding:0.15rem 0.5rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

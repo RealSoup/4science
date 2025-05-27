@@ -130,7 +130,7 @@ class StatsController extends Controller {
             ->whereMonth('user_attend.ua_date', '8')
             ->groupBy('user_attend.ua_id')
             ->orderBy('cnt', 'desc')
-            ->when($req->onlyCustomer=='Y', fn ($q, $v) => $q->where('users.level', '<=', 20))
+            ->when($req->onlyCustomer=='Y', fn ($q) => $q->where('users.level', '<=', 20))
             ->limit(30)
             ->get();
         return response()->json($list);
@@ -141,6 +141,7 @@ class StatsController extends Controller {
             ->leftjoin('users', 'search_keyword.sk_uid', '=', 'users.id')
             ->select('search_keyword.sk_keyword')
             ->selectRaw("count(*) cnt")
+            ->when($req->external_inflow_counting !== 'Y', fn ($q, $v) => $q->where('is_count', 1))
             ->groupBy('search_keyword.sk_keyword')
             ->orderBy('cnt', 'desc');
         if ($req->filled('month')) {

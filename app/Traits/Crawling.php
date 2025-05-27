@@ -20,8 +20,11 @@ trait Crawling {
             $element = $dom->getElementById('productOverview');
 
             $innerHTML = '';
-            foreach ($element->childNodes as $child) {
-                $innerHTML .= $dom->saveHTML($child);
+
+            if ($element && $element->hasChildNodes()) {
+                foreach ($element->childNodes as $child) {
+                    $innerHTML .= $dom->saveHTML($child);
+                }
             }
 
   

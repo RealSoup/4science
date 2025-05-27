@@ -24,7 +24,23 @@
                 <b-button @click="index" variant="primary"><b-icon-search /> 검색</b-button>
             </div>
         </div>
+        <b-form-checkbox v-if="$route.params.stats_type === 'sch_keyword'" switch v-model="selectedDate.external_inflow_counting" value="Y" unchecked-value="N">
+            {{selectedDate.external_inflow_counting == 'Y' ? "외부 유입" : "내부만"}} 집계
+        </b-form-checkbox>
     </b-card-title>
+    <p v-if="$route.params.stats_type === 'sch_keyword'" class="sch_keyword_info">
+        아래 자료는 <br />
+        <template v-if="selectedDate.external_inflow_counting == 'Y'">
+            조건 1) 25년 3월 12일 부터 <br />
+            조건 2) 외부(구글, 네이버) 키워드 검색도 <b>포함</b>된
+        </template>
+        <template v-else>
+            조건 1) 25년 5월 27일 부터  <br />
+            조건 2) 외부(구글, 네이버) 키워드 검색이 <b>제외</b>된
+            제외 결과
+        </template>
+        결과 입니다.
+    </p>
     <component ref="state_comp" class="state_comp" :is="choiceStats" :selected-date="selectedDate" :graph-label="graphLabel"></component>
 </b-card>
 </div>
@@ -42,7 +58,7 @@ export default {
         'Attend': () =>     import('@/views/admin/stats/_comp/Attend'),
         'SchKeyword': () => import('@/views/admin/stats/_comp/SchKeyword'),
     },
-    data() { return { selectedDate:{ year:this_year, month:'', } } },
+    data() { return { selectedDate:{ year:this_year, month:'', external_inflow_counting:'N' } } },
     computed : {
         choiceStats(){
         	switch(this.$route.params.stats_type){
@@ -72,6 +88,11 @@ export default {
             return label;
         }
     },
+    watch: {
+        'selectedDate.external_inflow_counting'(newVal, oldVal) {
+            this.index();
+        }
+    },
     methods : {
         index () { this.$refs.state_comp.index(); }
     },
@@ -82,7 +103,10 @@ export default {
 .card { margin:1rem; min-width:760px; }
 .card .card-body >>> .card-title { font-weight:bold; display:flex; }
 .card .card-body >>> .card-title div:first-child { margin-right:3%; line-height:1.5; }
-.card .card-body >>> .card-title .input-group { flex:0 0 33%; max-width:33%; }
+.card .card-body >>> .card-title .input-group { flex:0 0 33%; max-width:33%; margin-right:3%; }
+.card .card-body >>> .card-title .custom-switch { display:flex ; align-items:center; }
+.card .card-body >>> .sch_keyword_info { }
+.card .card-body >>> .sch_keyword_info b { color:#FF0000; }
 .card .card-body .state_comp { position: relative; min-height:20rem; }
 .card .card-body >>> hr { margin:3% 0; }
 .card .card-body >>> table { width:100%; max-width:700px; margin:1% auto 0 auto; }
