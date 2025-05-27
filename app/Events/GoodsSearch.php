@@ -15,10 +15,12 @@ class GoodsSearch {
     public $keyword;
     public $uid;
     public $ip;
-    public function __construct($keyword, $uid, $ip) { 
+    public $referer;
+    public function __construct($keyword, $uid, $ip, $referer) { 
         $this->keyword = $keyword;
         $this->uid = $uid;
         $this->ip = $ip;
+        $this->referer = $referer;
     }
     public function broadcastOn() { return new PrivateChannel('channel-name'); }
 }

@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Lib\SphinxClient;
 use App\Traits\Crawling;
-use Illuminate\Support\Facades\Log;
 
 class GoodsController extends Controller {
     use Crawling;    //  trait
@@ -47,10 +46,8 @@ class GoodsController extends Controller {
         }       
 
         if ($req->filled('keyword')) {
-            
-            Log::info('CON: ' . $req->referer);
             if (if_not_my_ip($req->ip()))
-                event(new \App\Events\GoodsSearch($req->keyword, auth()->check() ? auth()->user()->id : 0, $req->ip()));  //  검색어 데이터화
+                event(new \App\Events\GoodsSearch($req->keyword, auth()->check() ? auth()->user()->id : 0, $req->ip(), $req->filled('referer')?$req->referer:''));  //  검색어 데이터화
             
             $kw = '*'.trim($req->keyword).'*';
             if ( $req->filled('mode') ) {
