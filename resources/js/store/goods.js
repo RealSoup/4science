@@ -15,6 +15,7 @@ export default {
             keyword_extra:'',
             sort:'hot',
             page:0,
+            referer: document.referrer
         },
         list: {},
         categorys: {},
