@@ -27,12 +27,17 @@ class SearchKeywordListener {
                 $prev_keyword = array();
             if(!in_array($e->keyword, $prev_keyword)) {
                 array_push($prev_keyword, $e->keyword);
-                Redis::set('SearchKeyword'.$e->ip, json_encode($prev_keyword), 'EX', 60*60*24); //60*60*24
-          
-                $engines = collect(['google.com', 'naver.com']);
-                $matched = $engines->first(fn($engine) => $e->referer && str_contains($e->referer, $engine));
+                Redis::set('SearchKeyword'.$e->ip, json_encode($prev_keyword), 'EX', 60*60*24); //60*60*24          
+               
+                $matched = $e->referer && Str::startsWith($e->referer, 'https://4science.net');
 
-                SearchKeyword::insert( ['sk_keyword'=>$e->keyword, 'sk_uid'=>$e->uid, 'ip'=>$e->ip, 'is_count'=>$matched?0:1, 'prev_url'=> substr($e->referer ?? '', 0, 300)] );
+                SearchKeyword::insert( [
+                    'sk_keyword'=>$e->keyword, 
+                    'sk_uid'=>$e->uid, 
+                    'ip'=>$e->ip, 
+                    'is_count'=>$matched?1:0, 
+                    'prev_url'=> substr($e->referer ?? '', 0, 300)
+                ] );
             }
         }
     }
