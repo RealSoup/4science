@@ -10,6 +10,7 @@ use Cookie;
 use DB;
 use Illuminate\Support\Facades\Redis;
 use App\Traits\Curl;
+use Illuminate\Support\Str;
 
 class SearchKeywordListener {
     public function handle() {  }
