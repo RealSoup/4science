@@ -10,6 +10,7 @@ use Cookie;
 use DB;
 use Illuminate\Support\Facades\Redis;
 use App\Traits\Curl;
+use Illuminate\Support\Facades\Log;
 
 class SearchKeywordListener {
     public function handle() {  }
@@ -32,6 +33,10 @@ class SearchKeywordListener {
                 $engines = collect(['google.com', 'naver.com']);
                 $referer = function_exists('request') ? request()->headers->get('referer') : null;
                 $matched = $engines->first(fn($engine) => $referer && str_contains($referer, $engine));
+                
+
+                $referer = $_SERVER['HTTP_REFERER'] ?? null;
+                Log::info('🔍 $_SERVER[HTTP_REFERER]: ' . $referer);
 
                 SearchKeyword::insert( ['sk_keyword'=>$e->keyword, 'sk_uid'=>$e->uid, 'ip'=>$e->ip, 'is_count'=>$matched?0:1, 'prev_url'=> substr($referer ?? '', 0, 300)] );
             }
