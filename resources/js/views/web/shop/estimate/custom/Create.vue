@@ -24,7 +24,7 @@
                     <file-upload ref="fileupload" v-model="files" :fi_group="'estimateReq'" :fi_kind="'add'" :height="100" />
                 </b-col>
             </b-row>
-            <b-row><b-col class="btn_box"><b-button class="blue wd_100p" @click="store">견적 요청하기</b-button></b-col></b-row>
+            <b-row><b-col class="btn_box"><b-button class="blue wd_100p" @click="store" id="analytics_estimate">견적 요청하기</b-button></b-col></b-row>
         </b-col>
     </b-row>
 </b-container>

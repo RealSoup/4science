@@ -244,7 +244,7 @@
                         <b-col>최종 결제 금액</b-col>
                         <b-col class="pay_price"><b>{{order.price.total | comma}}</b> 원<span>부가세 포함</span></b-col>
 
-                        <b-col cols="12" v-if="clickable" class="pay_go" @click="exePayment">
+                        <b-col cols="12" v-if="clickable" class="pay_go" @click="exePayment" id="analytics_order">
                             <template v-if="order.od_pay_method == 'BL'">정기 배송 신청하기</template>
                             <template v-else>주문하기</template>
                         </b-col>
