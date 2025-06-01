@@ -19,11 +19,11 @@
             </b-link> -->
 
             <b-carousel-slide v-if="deviceType=='pc'" :img-src="`/storage/event/2025/0602/slide.jpg`" class="evt01">
-                <router-link to="/shop/goods/800644" id="app01" class="split_link">
+                <router-link to="/shop/goods/800645" id="app01" class="split_link">
                     <!-- <b-img src="/storage/event/2025/0407/slide01.png" class="product pd01" /> -->
                     <span class="tooltiptext">니트릴 글러브 바로가기</span>
                 </router-link>
-                <router-link to="/shop/goods/800645" id="app02" class="split_link">
+                <router-link to="/shop/goods/800644" id="app02" class="split_link">
                     <!-- <b-img src="/storage/event/2025/0407/slide02.png" class="product pd02" /> -->
                     <span class="tooltiptext">라텍스 글러브 바로가기</span>
                 </router-link>

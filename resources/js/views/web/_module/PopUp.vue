@@ -11,10 +11,10 @@
 
     <div class="popup pop_0" v-if="$route.name == 'main' && view_check(0)">
         <b-img src="/storage/event/2025/0602/popup.jpg" width="500"></b-img>
-        <router-link to="/shop/goods/800644" id="app01" class="split_link">
+        <router-link to="/shop/goods/800645" id="app01" class="split_link">
             <span class="tooltiptext">니트릴 글러브 바로가기</span>
         </router-link>
-        <router-link to="/shop/goods/800645" id="app02" class="split_link">
+        <router-link to="/shop/goods/800644" id="app02" class="split_link">
             <span class="tooltiptext">라텍스 글러브 바로가기</span>
         </router-link>
         
