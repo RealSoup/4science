@@ -5,7 +5,7 @@
     <form-comp v-else ref="form_comp" v-model="frm"></form-comp>
     <b-row>
         <b-col class="btn_box">
-            <b-button class="blue xl" @click="register" id="analytics_signup">
+            <b-button class="blue xl" @click="register">
                 회원 <span v-if="$route.params.code == 'sync'">연동</span><span v-else>가입</span>하기
             </b-button>
         </b-col>

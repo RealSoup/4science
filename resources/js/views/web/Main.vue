@@ -18,6 +18,16 @@
                 <b-carousel-slide :img-src="`/storage/event/2025/0407/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link> -->
 
+            <b-carousel-slide v-if="deviceType=='pc'" :img-src="`/storage/event/2025/0602/slide.jpg`" class="evt01">
+                <router-link to="/shop/goods/800644" id="app01" class="split_link">
+                    <!-- <b-img src="/storage/event/2025/0407/slide01.png" class="product pd01" /> -->
+                    <span class="tooltiptext">니트릴 글러브 바로가기</span>
+                </router-link>
+                <router-link to="/shop/goods/800645" id="app02" class="split_link">
+                    <!-- <b-img src="/storage/event/2025/0407/slide02.png" class="product pd02" /> -->
+                    <span class="tooltiptext">라텍스 글러브 바로가기</span>
+                </router-link>
+            </b-carousel-slide>
             <b-link to="/shop/goods?ca01=29&ca02=4182&ca03=4199&ca04=4202">
                 <b-carousel-slide :img-src="`/storage/event/2025/0512/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link>
@@ -233,44 +243,33 @@ export default {
 
 <style lang="css" scoped>
 .slide_banner { overflow:hidden; max-width: 1920px; margin: auto; }
-.slide_banner >>> .carousel-indicators li { background-color:#898989; }
-.slide_banner >>> .carousel-control-prev:hover,
-.slide_banner >>> .carousel-control-next:hover { background-color:#55888888; }
+.slide_banner::v-deep .carousel-indicators li { background-color:#898989; }
+.slide_banner::v-deep .carousel-control-prev:hover,
+.slide_banner::v-deep .carousel-control-next:hover { background-color:#55888888; }
 
-.slide_banner .split_link { position:absolute; display:block; width:50%; height:100%; bottom:0; transform:translateX(-50%); } 
-.slide_banner a#app01 { left:25%; }
-.slide_banner a#app02 { left:75%;}
-.slide_banner >>> .evt01 .carousel-caption { position:static; padding:0; }
-.slide_banner .split_link:hover { background-color:#015B7E55; }
-.slide_banner .split_link .tooltiptext {
-  visibility: hidden;
-  padding: 0.25em 0.5em;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 0.25em;
-  white-space: nowrap;
-  
+.slide_banner::v-deep .evt01 .split_link { position:absolute; display:block; width:50%; height:100%; bottom:0; transform:translateX(-50%); } 
+.slide_banner::v-deep .evt01 .split_link#app01 { left:25%; }
+.slide_banner::v-deep .evt01 .split_link#app02 { left:75%;}
+.slide_banner::v-deep .evt01 .carousel-caption { position:static; padding:0; }
+.slide_banner::v-deep .evt01 .split_link:hover { background-color:#015B7E55; }
+.slide_banner::v-deep .evt01 .split_link .tooltiptext {
+  visibility:hidden; padding:0.25em 0.5em; background-color:black; color:#fff; text-align:center; border-radius:0.25em; white-space:nowrap;
   /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  transition-property: visibility;
-  transition-delay: 0s;
-}
-.slide_banner a#app01 .tooltiptext { right:25%; }
-.slide_banner a#app02 .tooltiptext { left:25%; }
-.slide_banner .split_link:hover .tooltiptext { visibility: visible; opacity:1; }
+  position:absolute; z-index:1; top:50%; transition-property:visibility; transition-delay:0s; }
+.slide_banner::v-deep .evt01 a#app01 .tooltiptext { right:25%; }
+.slide_banner::v-deep .evt01 a#app02 .tooltiptext { left:25%; }
+.slide_banner::v-deep .evt01 .split_link:hover .tooltiptext { visibility: visible; opacity:1; }
 
 
 /***************************************** */
+/*
 .slide_banner .split_link .product { position:absolute; }
-/*.product { position:absolute; animation:appearance 0.5s forwards ease-in-out 1.2s, product 3s infinite ease-in-out 2s; }*/
+.product { position:absolute; animation:appearance 0.5s forwards ease-in-out 1.2s, product 3s infinite ease-in-out 2s; }
 .slide_banner .split_link .product.pd01 { top:80px; right:420px; animation:product 3s infinite ease-in-out 1s; }
 .slide_banner .split_link .product.pd02 { top:70px; left:395px;  animation:product 3s infinite ease-in-out 1.3s; }
 .slide_banner .split_link:hover .product.pd01 { animation:ani02 3s infinite ease-in-out .1s; }
 .slide_banner .split_link:hover .product.pd02 { animation:ani02 3s infinite ease-in-out .1s; }
-
+*/
 @keyframes appearance { 0% { transform: scale(0); }
                     80% { transform: scale(1.1); }
                     100% { transform: scale(1); opacity:1; } }
@@ -331,7 +330,7 @@ export default {
 
 
 @media (max-width: 992px){
-    .slide_banner >>> .carousel-inner { left:50%; transform:translateX(-50%); width:900px; }
+    .slide_banner::v-deep .carousel-inner { left:50%; transform:translateX(-50%); width:900px; }
     #best { flex-direction: column; margin-top: 10px; }
     #best>.col:nth-of-type(1) { padding:0; }
     #best>.col:nth-of-type(2) { flex:0 0 100%; max-width:100%; }
@@ -357,7 +356,7 @@ export default {
     .byCate .con .row .list .col p { font-size: calc(.3vw + .7rem); margin:0; height:auto; }
 }
 @media (max-width: 768px){
-    .slide_banner >>> .carousel-inner { max-width:450px; width:100%; }
+    .slide_banner::v-deep .carousel-inner { max-width:450px; width:100%; }
 }
 </style>
 

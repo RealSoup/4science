@@ -80,7 +80,7 @@
                 </b-container>
             </b-col>
         </b-row>
-        <b-row><b-col class="btn_box"><b-button class="blue wd_33p" @click="store" id="analytics_estimate">견적 요청하기</b-button></b-col></b-row>
+        <b-row><b-col class="btn_box"><b-button class="blue wd_33p" @click="store">견적 요청하기</b-button></b-col></b-row>
         
     </b-container>
 </template>
