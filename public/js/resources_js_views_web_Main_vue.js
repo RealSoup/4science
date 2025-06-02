@@ -183,7 +183,7 @@ var render = function render() {
   }, [_c("router-link", {
     staticClass: "split_link",
     attrs: {
-      to: "/shop/goods/800644",
+      to: "/shop/goods/800645",
       id: "app01"
     }
   }, [_c("span", {
@@ -191,7 +191,7 @@ var render = function render() {
   }, [_vm._v("니트릴 글러브 바로가기")])]), _vm._v(" "), _c("router-link", {
     staticClass: "split_link",
     attrs: {
-      to: "/shop/goods/800645",
+      to: "/shop/goods/800644",
       id: "app02"
     }
   }, [_c("span", {
