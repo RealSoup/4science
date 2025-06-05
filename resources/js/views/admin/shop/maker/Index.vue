@@ -21,7 +21,7 @@
                                     <b-button variant="info" @click="store"><b-icon-pencil-square /></b-button>
                                 </b-input-group-append>
                             </b-input-group>
-                            <Validation :error="$store.state.error.validations.mk_name" />
+                            <Validation :error="$store.state.error.validations.mk_name"></Validation>
                         </b-col>
                     </b-row>
                 </b-container>
