@@ -67,6 +67,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
             });
             
             Route::GET('maker', 'Shop\MakerController@index');
+
+            Route::GET('makerShop/{mk_id}', 'Shop\MakerController@makerShop');
         });
 
         Route::GET('engReform/getOption', 'EngReformController@getOption');
@@ -172,12 +174,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::GET('goods_option_child', 'Admin\Shop\GoodsOptionChildController@index');
 
                 Route::resource('maker', 'Admin\Shop\MakerController', [
-                    'except' => [ 'show', 'create', 'edit' ],
+                    'except' => [ 'show', 'create' ],
                     'names' => [
                         'index'		=> 'admin.shop.maker.index',
                         'store'		=> 'admin.shop.maker.store',
                         'destroy'	=> 'admin.shop.maker.destroy',
                         'update'	=> 'admin.shop.maker.update',
+                        'edit'	    => 'admin.shop.maker.edit',
                     ]
                 ]);
 

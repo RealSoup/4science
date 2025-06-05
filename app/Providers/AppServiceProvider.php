@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider {
             'engReform'     => 'App\Models\EngReform',
             'boardGood'     => 'App\Models\BoardGood',
             'userBiz'       => 'App\Models\UserBiz',
-            'userBiz'       => 'App\Models\UserBiz',
+            'maker'         => 'App\Models\Shop\Maker',
         ]);
 
         Blade::directive('nl2br', function ($string) {

@@ -272,6 +272,13 @@ export default [
         component:() => import('@/views/web/shop/outlet/Index'),
     },
 
+//      브랜드샾
+    {
+        path: '/shop/makerShop/:mk_id',
+        name: 'makerShop_index',
+        component:() => import('@/views/web/shop/makerShop/Index'),
+    }, 
+
 //      당일출고
     {   path: '/shop/listing/:code/:group',
         name: 'listing',

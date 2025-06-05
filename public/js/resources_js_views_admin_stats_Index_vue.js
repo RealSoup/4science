@@ -193,7 +193,7 @@ var render = function render() {
     }
   }, [_vm._v("\r\n            " + _vm._s(_vm.selectedDate.external_inflow_counting == "Y" ? "외부 유입" : "내부만") + " 집계\r\n        ")]) : _vm._e()], 1), _vm._v(" "), _vm.$route.params.stats_type === "sch_keyword" ? _c("p", {
     staticClass: "sch_keyword_info"
-  }, [_vm._v("\r\n        아래 자료는 "), _c("br"), _vm._v(" "), _vm.selectedDate.external_inflow_counting == "Y" ? [_vm._v("\r\n            조건 1) 25년 3월 12일 부터 "), _c("br"), _vm._v("\r\n            조건 2) 외부(구글, 네이버) 키워드 검색도 "), _c("b", [_vm._v("포함")]), _vm._v("된\r\n        ")] : [_vm._v("\r\n            조건 1) 25년 5월 27일 부터  "), _c("br"), _vm._v("\r\n            조건 2) 외부(구글, 네이버) 키워드 검색이 "), _c("b", [_vm._v("제외")]), _vm._v("된\r\n            제외 결과\r\n        ")], _vm._v("\r\n        결과 입니다.\r\n    ")], 2) : _vm._e(), _vm._v(" "), _c(_vm.choiceStats, {
+  }, [_vm._v("\r\n        아래 자료는 "), _c("br"), _vm._v(" "), _vm.selectedDate.external_inflow_counting == "Y" ? [_vm._v("\r\n            조건 1) 25년 3월 12일 부터 "), _c("br"), _vm._v("\r\n            조건 2) 외부(구글, 네이버) 키워드 검색도 "), _c("b", [_vm._v("포함")]), _vm._v("된\r\n        ")] : [_vm._v("\r\n            조건 1) 25년 5월 27일 부터  "), _c("br"), _vm._v("\r\n            조건 2) 외부(구글, 네이버) 키워드 검색이 "), _c("b", [_vm._v("제외")]), _vm._v("된\r\n        ")], _vm._v("\r\n        결과 입니다.\r\n    ")], 2) : _vm._e(), _vm._v(" "), _c(_vm.choiceStats, {
     ref: "state_comp",
     tag: "component",
     staticClass: "state_comp",

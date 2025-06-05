@@ -58,12 +58,25 @@ var render = function render() {
       },
       expression: "mk.mk_name"
     }
-  }), _vm._v(" "), _c("b-input-group-append", [_c("b-button", {
+  }), _vm._v(" "), _c("b-input-group-append", [_vm.mk.mk_desc ? _c("b-button", {
     attrs: {
-      variant: "warning"
-    },
-    on: {
-      click: _vm.update
+      variant: "info",
+      to: {
+        name: "makerShop_index",
+        params: {
+          mk_id: _vm.mk.mk_id
+        }
+      }
+    }
+  }, [_vm._v("Go Shop")]) : _vm._e(), _vm._v(" "), _c("b-button", {
+    attrs: {
+      variant: "warning",
+      to: {
+        name: "adm_maker_edit",
+        params: {
+          mk_id: _vm.mk.mk_id
+        }
+      }
     }
   }, [_vm._v("수정")]), _vm._v(" "), _c("b-button", {
     attrs: {

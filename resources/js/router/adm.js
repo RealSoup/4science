@@ -84,6 +84,10 @@ export default [
                 name: 'adm_maker',
                 component:() => import('@/views/admin/shop/maker/Index'),
             }, {
+                path: 'shop/maker/:mk_id/edit',
+                name: 'adm_maker_edit',
+                component:() => import('@/views/admin/shop/maker/Edit'),
+            }, {
                 path: 'shop/purchaseAt',
                 name: 'adm_purchaseAt',
                 component:() => import('@/views/admin/shop/purchaseAt/Index'),
