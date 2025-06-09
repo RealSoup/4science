@@ -21,6 +21,8 @@ class MakerController extends Controller {
 	public function index(Request $req) {
 		$data = $req->input();
 		if ($req->filled('mk_name'))   $this->maker = $this->maker->SchMkName($req->mk_name);
+        if ($req->filled('shop_mode')) $this->maker = $this->maker->whereNotNull('mk_desc')->where('mk_desc', '!=', '');
+        
 
         $this->maker = $this->maker->orderBy('mk_name');
         if ($req->filled('type') && $req->type == 'all')    $this->maker = $this->maker->get();

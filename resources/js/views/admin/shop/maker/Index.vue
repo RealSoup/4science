@@ -2,7 +2,12 @@
 <b-container class="p_wrap">
     <b-row class="justify-content-center">
         <b-col sm="12" md="10" lg="6">
-            <h3 class="p_tit">제조사</h3>
+            <h3 class="p_tit">
+                제조사
+                <b-form-checkbox switch v-model="shop_mode">
+                    {{shop_mode ? "Maker Shop" : "Maker 모두"}} 보기
+                </b-form-checkbox>
+            </h3>
             <b-card class="adform">
                 <b-container>
                     <b-row cols="1" cols-md="2">
@@ -61,6 +66,12 @@ export default {
             new_mk_name: '',
             sch_mk_name: '',
             page:0,
+            shop_mode:false,
+        }
+    },
+    watch: {
+        shop_mode (newVal, oldVal) {
+            this.index();
         }
     },
     methods: {
@@ -74,6 +85,8 @@ export default {
                     params.append('mk_name', this.sch_mk_name);
                 if (this.page)
                     params.append('page', this.page);
+                if (this.shop_mode)
+                    params.append('shop_mode', this.shop_mode);
                 const res = await axios.get(`/api/admin/shop/maker`, { params: params});
 
                 if (res && res.status === 200) {
@@ -152,6 +165,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.p_wrap h3 .custom-switch { float:right; }
 .input-group button { border-width:0; }
 .adm_maker table thead th { text-align:center; }
 

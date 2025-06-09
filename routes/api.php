@@ -68,7 +68,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
             
             Route::GET('maker', 'Shop\MakerController@index');
 
-            Route::GET('makerShop/{mk_id}', 'Shop\MakerController@makerShop');
         });
 
         Route::GET('engReform/getOption', 'EngReformController@getOption');
@@ -314,6 +313,7 @@ Route::prefix('shop')->group(function () {
     Route::prefix('outlet')->group(function () {
         Route::GET('{code}/{type}', 'Shop\OutletController@index')->name('shop.outlet.index');
     });
+    Route::GET('makerShop/{mk_id}', 'Shop\MakerController@makerShop');
 });
 Route::prefix('board/{bo_cd}')->group(function () {
     Route::get('', 'BoardController@index')->name('board.index')->where('bo_cd', '[a-zA-Z0-9_]+');

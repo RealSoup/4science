@@ -32,8 +32,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       maker: {},
       new_mk_name: '',
       sch_mk_name: '',
-      page: 0
+      page: 0,
+      shop_mode: false
     };
+  },
+  watch: {
+    shop_mode: function shop_mode(newVal, oldVal) {
+      this.index();
+    }
   },
   methods: {
     numCalc: function numCalc(i) {
@@ -50,27 +56,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               params = new URLSearchParams();
               if (_this.sch_mk_name) params.append('mk_name', _this.sch_mk_name);
               if (_this.page) params.append('page', _this.page);
-              _context.next = 6;
+              if (_this.shop_mode) params.append('shop_mode', _this.shop_mode);
+              _context.next = 7;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/admin/shop/maker", {
                 params: params
               });
-            case 6:
+            case 7:
               res = _context.sent;
               if (res && res.status === 200) {
                 _this.maker = res.data.list;
               }
-              _context.next = 14;
+              _context.next = 15;
               break;
-            case 10:
-              _context.prev = 10;
+            case 11:
+              _context.prev = 11;
               _context.t0 = _context["catch"](0);
               Notify.consolePrint(_context.t0);
               Notify.toast('warning', _context.t0.response.data.message);
-            case 14:
+            case 15:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 10]]);
+        }, _callee, null, [[0, 11]]);
       }))();
     },
     setPage: function setPage(page) {
@@ -243,7 +250,18 @@ var render = function render() {
     }
   }, [_c("h3", {
     staticClass: "p_tit"
-  }, [_vm._v("제조사")]), _vm._v(" "), _c("b-card", {
+  }, [_vm._v("\r\n                제조사\r\n                "), _c("b-form-checkbox", {
+    attrs: {
+      "switch": ""
+    },
+    model: {
+      value: _vm.shop_mode,
+      callback: function callback($$v) {
+        _vm.shop_mode = $$v;
+      },
+      expression: "shop_mode"
+    }
+  }, [_vm._v("\r\n                    " + _vm._s(_vm.shop_mode ? "Maker Shop" : "Maker 모두") + " 보기\r\n                ")])], 1), _vm._v(" "), _c("b-card", {
     staticClass: "adform"
   }, [_c("b-container", [_c("b-row", {
     attrs: {
@@ -369,7 +387,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.input-group button[data-v-5a5cade6] { border-width:0;\n}\n.adm_maker table thead th[data-v-5a5cade6] { text-align:center;\n}\n.card.adform .row .label[data-v-5a5cade6] { flex:0 0 13%; max-width:13%; font-size: .9rem; letter-spacing: -1px;\n}\n.card.adform .row .label + .type04[data-v-5a5cade6] { flex:0 0 37%; max-width:37%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap h3 .custom-switch[data-v-5a5cade6] { display:inline-block; float:right;\n}\n.input-group button[data-v-5a5cade6] { border-width:0;\n}\n.adm_maker table thead th[data-v-5a5cade6] { text-align:center;\n}\n.card.adform .row .label[data-v-5a5cade6] { flex:0 0 13%; max-width:13%; font-size: .9rem; letter-spacing: -1px;\n}\n.card.adform .row .label + .type04[data-v-5a5cade6] { flex:0 0 37%; max-width:37%;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
