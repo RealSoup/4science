@@ -387,7 +387,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap h3 .custom-switch[data-v-5a5cade6] { display:inline-block; float:right;\n}\n.input-group button[data-v-5a5cade6] { border-width:0;\n}\n.adm_maker table thead th[data-v-5a5cade6] { text-align:center;\n}\n.card.adform .row .label[data-v-5a5cade6] { flex:0 0 13%; max-width:13%; font-size: .9rem; letter-spacing: -1px;\n}\n.card.adform .row .label + .type04[data-v-5a5cade6] { flex:0 0 37%; max-width:37%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap h3 .custom-switch[data-v-5a5cade6] { float:right;\n}\n.input-group button[data-v-5a5cade6] { border-width:0;\n}\n.adm_maker table thead th[data-v-5a5cade6] { text-align:center;\n}\n.card.adform .row .label[data-v-5a5cade6] { flex:0 0 13%; max-width:13%; font-size: .9rem; letter-spacing: -1px;\n}\n.card.adform .row .label + .type04[data-v-5a5cade6] { flex:0 0 37%; max-width:37%;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

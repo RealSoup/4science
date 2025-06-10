@@ -56,7 +56,7 @@ var render = function render() {
       }
     }, [_c("b-img", {
       attrs: {
-        src: gd.image_src_thumb[0]
+        src: gd.img_src_thumb
       }
     }), _vm._v(" "), _c("p", [_vm._v(_vm._s(gd.gd_name))])], 1)], 1);
   })], 2);

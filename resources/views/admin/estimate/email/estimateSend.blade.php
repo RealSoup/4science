@@ -39,8 +39,8 @@
                     </td>
                 </tr>
             </table> -->
-            <a href="https://4science.net/shop/goods?ca01=29&ca02=4182&ca03=4199&ca04=4202" target='_blank'>
-                <img src="{{ asset('storage/event/2025/0512/estimate.jpg') }}" />
+            <a href="https://4science.net/shop/goods/10395" target='_blank'>
+                <img src="{{ asset('storage/event/2025/0609/estimate.jpg') }}" />
             </a>
         </td>
     </tr>

@@ -18,6 +18,9 @@
                 <b-carousel-slide :img-src="`/storage/event/2025/0407/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link> -->
 
+            <b-link to="/shop/goods/10395">
+                <b-carousel-slide :img-src="`/storage/event/2025/0609/${slide_file_nm}.jpg`"></b-carousel-slide>
+            </b-link>
             <b-carousel-slide v-if="deviceType=='pc'" :img-src="`/storage/event/2025/0602/slide.jpg`" class="evt01">
                 <router-link to="/shop/goods/800645" id="app01" class="split_link">
                     <!-- <b-img src="/storage/event/2025/0407/slide01.png" class="product pd01" /> -->

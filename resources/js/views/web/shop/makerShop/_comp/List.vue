@@ -11,7 +11,7 @@
     
     <b-col v-for="gd in gd_list" class="goods" :key="gd.gd_id">
         <b-link :to="{name:'goods_show', params:{gd_id:gd.gd_id}}">
-            <b-img :src="gd.image_src_thumb[0]" />
+            <b-img :src="gd.img_src_thumb" />
             <p>{{gd.gd_name}}</p>
         </b-link>
     </b-col>
