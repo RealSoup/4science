@@ -9,7 +9,7 @@
             <b-col>{{data['mk'].mk_desc}}</b-col>
         </b-row>
       
-        <recursive-list v-if="data" :node="data.gd" />
+        <recursive-list v-if="data" :node="data.gd"></recursive-list>
 
         <b-alert v-else variant="danger" show>No Item</b-alert>
     </b-container>
