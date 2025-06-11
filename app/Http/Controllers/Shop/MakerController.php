@@ -19,6 +19,9 @@ class MakerController extends Controller {
         $raw_data = DB::table('shop_goods')->join('shop_goods_category', 'shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id')
             ->select('gc_ca01', 'gc_ca01_name', 'gc_ca02', 'gc_ca02_name', 'gc_ca03', 'gc_ca03_name', 'gc_ca04', 'gc_ca04_name',
                     'gd_id', 'gd_name')
+            ->whereNull('shop_goods.deleted_at') //  삭제 상품 제외
+            ->where('gd_enable', 'Y')               //  활성화 상품만 검색되게
+            ->where('gd_type', 'NON')               //  렌탈은 검색 안되게
             ->where('gd_mk_id', $mk_id)->get();
             
         $ca_data = array();
@@ -37,10 +40,14 @@ class MakerController extends Controller {
                     ->first();
 
                 $src = "";
-                if (strpos($fi->fi_new, "https://") === 0 || strpos($fi->fi_new, "http://") === 0)
-                    $src = $fi->fi_new;
-                else
-                    $src = "/storage/api_{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_kind}/thumb/{$fi->fi_new}";
+                if ($fi) {
+                    if (strpos($fi->fi_new, "https://") === 0 || strpos($fi->fi_new, "http://") === 0)
+                        $src = $fi->fi_new;
+                    else
+                        $src = "/storage/api_{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_kind}/thumb/{$fi->fi_new}";
+                } else {
+                    $noimg_p = "noimg";
+                }
              
 
                 $noimg_p = null;
