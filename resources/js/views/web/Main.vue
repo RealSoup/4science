@@ -30,10 +30,7 @@
                     <!-- <b-img src="/storage/event/2025/0407/slide02.png" class="product pd02" /> -->
                     <span class="tooltiptext">라텍스 글러브 바로가기</span>
                 </router-link>
-            </b-carousel-slide>
-            <b-link to="/shop/goods?ca01=29&ca02=4182&ca03=4199&ca04=4202">
-                <b-carousel-slide :img-src="`/storage/event/2025/0512/${slide_file_nm}.jpg`"></b-carousel-slide>
-            </b-link>        
+            </b-carousel-slide>      
             <b-link to="/shop/goods?ca01=36">
                 <b-carousel-slide :img-src="`/storage/event/2025/0320/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link>
