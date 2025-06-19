@@ -30,10 +30,12 @@ class OutletController extends Controller {
                     if ($group == 'IKA') $mk_id = 446;
                     else if ($group == 'AS ONE') $mk_id = 14;
                     else if ($group == '대한과학') $mk_id = 1078;
-                    else if ($group == 'Lab companion') $mk_id = 24;
+                    else if ($group == 'Lab companion') $mk_id = 3224;
                     else if ($group == 'Global Lab') $mk_id = 394;
                     else if ($group == 'Corning') $mk_id = 26;
                     else if ($group == '미성과학기기') $mk_id = 656;
+                    else if ($group == 'etc') $mk_id = [26, 965, 2613, 3050];
+                    
                 }
             break;
             case 'meter':
@@ -42,7 +44,14 @@ class OutletController extends Controller {
         }
         
         $rst->when($type != 'tweezer', function ($q, $v) use($arr_id) { return $q->SchGd_id($arr_id); })
-            ->when($mk_id, fn ($q, $v) => $q->where("gd_mk_id", $v));
+            ->when($mk_id, function ($q, $v) { 
+                                if (is_array($v)) {
+                                    return $q->whereIn("gd_mk_id", $v);
+                                } else {
+                                    return $q->where("gd_mk_id", $v);
+                                }
+                            }
+            );
                   
         if ($hot_kind) {
             $rst = $rst->join('show_window', function ($join) use($type, $group) { 

@@ -160,13 +160,19 @@ export default {
     computed: {
         bestRemodel: function () {
             let dummy = [];
-            for (let i in this.list.best_main) {
-                dummy.push({
-                    gd_name: this.list.best_main[i].goods.gd_name, 
-                    ca01_name:  this.list.best_main[i].goods.goods_category_first.gc_ca01_name,
-                    gd_id: this.list.best_main[i].goods.gd_id,
-                    image: this.list.best_main[i].goods.image_src_thumb[0] })
-            }
+            const list = this.list.best_main;
+
+            if (Array.isArray(list)) {
+                for (const item of list) {
+                    if (!item || !item.goods) continue;
+                    dummy.push({
+                        gd_name: item.goods.gd_name, 
+                        ca01_name: item.goods.goods_category_first.gc_ca01_name,
+                        gd_id: item.goods.gd_id,
+                        image: item.goods.image_src_thumb?.[0] || ''
+                    });
+                }
+            }            
             return dummy;
         },
         ...mapState('category', ['category']),
