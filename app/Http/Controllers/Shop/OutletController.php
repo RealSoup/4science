@@ -11,7 +11,10 @@ class OutletController extends Controller {
         $arr_id = Array();
         $mk_id = null;
         $hot_kind = false;
-        $rst = Goods::orderBy('gd_rank')->orderBy('gd_view_cnt');
+        $rst = Goods::orderBy('gd_rank')->orderBy('gd_view_cnt')
+                    ->whereNull('shop_goods.deleted_at') //  삭제 상품 제외
+                    ->where('gd_enable', 'Y')               //  활성화 상품만 검색되게
+                    ->where('gd_type', 'NON');               //  렌탈은 검색 안되게
         switch ($type) {
             case 'pipette':
                 $arr_id = ShowWindow::select('sw_key')->Type("outlet_{$type}")->Group($group)->pluck('sw_key');
