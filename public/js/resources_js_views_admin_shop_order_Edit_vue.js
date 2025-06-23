@@ -896,7 +896,7 @@ var render = function render() {
     }
   }), _c("span", {
     staticClass: "sm_ib_h"
-  }, [_vm._v(" 삭제")])], 1) : _vm._e(), _vm._v(" "), _vm.down_auth && _vm.od.od_mng ? _c("b-button", {
+  }, [_vm._v(" 삭제")])], 1) : _vm._e(), _vm._v(" "), _vm.od.od_mng ? _c("b-button", {
     staticClass: "teal sm",
     on: {
       click: _vm.payReqSendMail

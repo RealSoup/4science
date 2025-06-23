@@ -23,7 +23,7 @@
                 </b-col>
                 <b-col class="btn_area print_hide_flex">
                     <b-button v-if="user.is_super" @click="destroy" class="red sm"><b-icon icon="trash-fill"></b-icon><span class="sm_ib_h"> 삭제</span></b-button>
-                    <b-button v-if="down_auth && od.od_mng" @click="payReqSendMail " class="teal sm">미결제 메일</b-button>
+                    <b-button v-if="od.od_mng" @click="payReqSendMail " class="teal sm">미결제 메일</b-button>
                     <b-button v-if="od.od_er_id" @click="openWinPop(`/admin/shop/estimate/reply/${od.od_er_id}`)" class="plum sm print_hide_inline_block"><b-icon-box-arrow-up-right /> 견적서</b-button>
                     <b-button :to="{name: 'adm_order_index'}" class="white sm"><b-icon-list /><span class="sm_ib_h"> 목록</span></b-button>
 
