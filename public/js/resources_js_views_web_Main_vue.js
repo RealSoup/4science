@@ -200,28 +200,7 @@ var render = function render() {
     attrs: {
       "img-src": "/storage/event/2025/0609/".concat(_vm.slide_file_nm, ".jpg")
     }
-  })], 1), _vm._v(" "), _vm.deviceType == "pc" ? _c("b-carousel-slide", {
-    staticClass: "evt01",
-    attrs: {
-      "img-src": "/storage/event/2025/0602/slide.jpg"
-    }
-  }, [_c("router-link", {
-    staticClass: "split_link",
-    attrs: {
-      to: "/shop/goods/800645",
-      id: "app01"
-    }
-  }, [_c("span", {
-    staticClass: "tooltiptext"
-  }, [_vm._v("니트릴 글러브 바로가기")])]), _vm._v(" "), _c("router-link", {
-    staticClass: "split_link",
-    attrs: {
-      to: "/shop/goods/800644",
-      id: "app02"
-    }
-  }, [_c("span", {
-    staticClass: "tooltiptext"
-  }, [_vm._v("라텍스 글러브 바로가기")])])], 1) : _vm._e(), _vm._v(" "), _c("b-link", {
+  })], 1), _vm._v(" "), _c("b-link", {
     attrs: {
       to: "/shop/goods?ca01=36"
     }
