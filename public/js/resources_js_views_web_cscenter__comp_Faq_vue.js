@@ -377,11 +377,11 @@ var render = function render() {
       accordion: "my-accordion",
       role: "tabpanel"
     }
-  }, [_c("b-card-body", [_vm._v("\r\n                4science 홈페이지에서 온라인 결제 완료 시 카드 결제 회사인 이니시스에서 결제정보 입력 후 출력이 가능합니다."), _c("br"), _c("br"), _vm._v("이니시스로 전표 출력이 안되는 분은 고객의 소리에 내용을 남겨주시면 메일로 보내드리겠습니다."), _c("br"), _c("br"), _c("a", {
+  }, [_c("b-card-body", [_vm._v("\r\n                4science 홈페이지에서 온라인 결제 완료 시 카드 결제 회사인 토스페이먼츠에서 결제정보 입력 후 출력이 가능합니다."), _c("br"), _c("br"), _vm._v("토스페이먼츠로 전표 출력이 안되는 분은 고객의 소리에 내용을 남겨주시면 메일로 보내드리겠습니다."), _c("br"), _c("br"), _c("a", {
     attrs: {
-      href: "https://www.inicis.com/payment_view"
+      href: "https://consumer.tosspayments.com/payment-history/card"
     }
-  }, [_vm._v("https://www.inicis.com/payment_view")])])], 1), _vm._v(" "), _c("b-card-header", {
+  }, [_vm._v("https://consumer.tosspayments.com/payment-history/card")])])], 1), _vm._v(" "), _c("b-card-header", {
     attrs: {
       "header-tag": "header",
       role: "tab"

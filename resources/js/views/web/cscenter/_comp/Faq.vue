@@ -152,7 +152,7 @@
         </b-card-header>
         <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
             <b-card-body>
-                4science 홈페이지에서 온라인 결제 완료 시 카드 결제 회사인 이니시스에서 결제정보 입력 후 출력이 가능합니다.<br /><br />이니시스로 전표 출력이 안되는 분은 고객의 소리에 내용을 남겨주시면 메일로 보내드리겠습니다.<br /><br /><a href="https://www.inicis.com/payment_view">https://www.inicis.com/payment_view</a>
+                4science 홈페이지에서 온라인 결제 완료 시 카드 결제 회사인 토스페이먼츠에서 결제정보 입력 후 출력이 가능합니다.<br /><br />토스페이먼츠로 전표 출력이 안되는 분은 고객의 소리에 내용을 남겨주시면 메일로 보내드리겠습니다.<br /><br /><a href="https://consumer.tosspayments.com/payment-history/card">https://consumer.tosspayments.com/payment-history/card</a>
             </b-card-body>
         </b-collapse>
     
