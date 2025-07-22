@@ -40,8 +40,6 @@ __webpack_require__.r(__webpack_exports__);
     if (this.$route.query.view_type == 'membership') this.$nextTick(function () {
       this.info_tab = 3;
       document.getElementById('info_tab_scroll').scrollIntoView();
-      // this.$route.params?.target && this.$refs.target?.scrollIntoView();
-      // https://velog.io/@tjdud0123/vue-router-target-scroll
     });else if (this.$route.query.view_type == 'as') this.$nextTick(function () {
       this.board_tab = 1;
     });else if (this.$route.query.view_type == 'faq') this.$nextTick(function () {
