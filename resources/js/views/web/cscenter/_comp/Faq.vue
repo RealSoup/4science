@@ -545,22 +545,22 @@ export default { name: 'CSCenterFaq' };
 </script>
 <style lang="css" scoped>
 .con_faq { margin:0; }
-.con_faq>>> > div:first-child { width:230px; padding-left:0; flex:0 0 auto; max-width:100%; }
-.con_faq>>> > div:first-child .nav-tabs { flex-direction:column; }
-.con_faq>>> > div:first-child .nav-tabs .nav-link { background:#fff; border:1px solid #DDDDDD; padding:12px 25px; border-radius:0; color:#62615D; }
-.con_faq>>> > div:first-child .nav-tabs .nav-link.active { background:#F6F6F6; color:#000; }
-.con_faq>>>.tab-content { padding-left:15px; flex-basis: 0; flex-grow: 1; max-width: 100%;}
-.con_faq>>>.tab-content .tab-pane .card-header { padding:0; border:0; }
-.con_faq>>>.tab-content .tab-pane .card-header button { display:block; width:100%; text-align:left; background:#F6F6F6; color:#000; border:1px solid #D7D7D7; border-radius:0; margin-bottom:-1px; padding:10px 15px; font-size:.85rem; font-weight:bold; }
-.con_faq>>>.tab-content .tab-pane .collapse { border-left:1px solid #D7D7D7; border-right:1px solid #D7D7D7; }
-.con_faq>>>.tab-content .tab-pane .collapse .card-body { font-size:.77rem; }
+.con_faq::v-deep > div:first-child { width:230px; padding-left:0; flex:0 0 auto; max-width:100%; }
+.con_faq::v-deep > div:first-child .nav-tabs { flex-direction:column; }
+.con_faq::v-deep > div:first-child .nav-tabs .nav-link { background:#fff; border:1px solid #DDDDDD; padding:12px 25px; border-radius:0; color:#62615D; }
+.con_faq::v-deep > div:first-child .nav-tabs .nav-link.active { background:#F6F6F6; color:#000; }
+.con_faq::v-deep.tab-content { padding-left:15px; flex-basis: 0; flex-grow: 1; max-width: 100%;}
+.con_faq::v-deep.tab-content .tab-pane .card-header { padding:0; border:0; }
+.con_faq::v-deep.tab-content .tab-pane .card-header button { display:block; width:100%; text-align:left; background:#F6F6F6; color:#000; border:1px solid #D7D7D7; border-radius:0; margin-bottom:-1px; padding:10px 15px; font-size:.85rem; font-weight:bold; }
+.con_faq::v-deep.tab-content .tab-pane .collapse { border-left:1px solid #D7D7D7; border-right:1px solid #D7D7D7; }
+.con_faq::v-deep.tab-content .tab-pane .collapse .card-body { font-size:.77rem; }
 
 @media (max-width: 992px){
-    .con_faq>>> > div:first-child { width:100%; }
-    .con_faq>>> > div:first-child .nav-tabs { flex-direction:row; }
-    .con_faq>>> > div:first-child .nav-tabs li { flex: 0 0 33.333333%; max-width:33.333333%; }
-    .con_faq>>> > div:first-child .nav-tabs .nav-link { padding:5px 0; font-size:.8rem; text-align:center; }
+    .con_faq::v-deep > div:first-child { width:100%; }
+    .con_faq::v-deep > div:first-child .nav-tabs { flex-direction:row; }
+    .con_faq::v-deep > div:first-child .nav-tabs li { flex: 0 0 33.333333%; max-width:33.333333%; }
+    .con_faq::v-deep > div:first-child .nav-tabs .nav-link { padding:5px 0; font-size:.8rem; text-align:center; }
 
-    .con_faq>>>.tab-content { padding-left:0; margin-top:.5rem; }
+    .con_faq::v-deep.tab-content { padding-left:0; margin-top:.5rem; }
 }
 </style>
