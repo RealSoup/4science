@@ -152,7 +152,11 @@
         </b-card-header>
         <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
             <b-card-body>
-                4science 홈페이지에서 온라인 결제 완료 시 카드 결제 회사인 토스페이먼츠에서 결제정보 입력 후 출력이 가능합니다.<br /><br />토스페이먼츠로 전표 출력이 안되는 분은 고객의 소리에 내용을 남겨주시면 메일로 보내드리겠습니다.<br /><br /><a href="https://consumer.tosspayments.com/payment-history/card">https://consumer.tosspayments.com/payment-history/card</a>
+                4science 홈페이지에서 온라인 결제 완료 시 카드 결제 회사인 토스페이먼츠에서 결제정보 입력 후 출력이 가능합니다.
+                <br /><br />
+                토스페이먼츠로 전표 출력이 안되는 분은 고객의 소리에 내용을 남겨주시면 메일로 보내드리겠습니다.
+                <br /><br />
+                <a href="https://consumer.tosspayments.com/payment-history/card">https://consumer.tosspayments.com/payment-history/card</a>
             </b-card-body>
         </b-collapse>
     
@@ -549,18 +553,17 @@ export default { name: 'CSCenterFaq' };
 .con_faq::v-deep > div:first-child .nav-tabs { flex-direction:column; }
 .con_faq::v-deep > div:first-child .nav-tabs .nav-link { background:#fff; border:1px solid #DDDDDD; padding:12px 25px; border-radius:0; color:#62615D; }
 .con_faq::v-deep > div:first-child .nav-tabs .nav-link.active { background:#F6F6F6; color:#000; }
-.con_faq::v-deep.tab-content { padding-left:15px; flex-basis: 0; flex-grow: 1; max-width: 100%;}
-.con_faq::v-deep.tab-content .tab-pane .card-header { padding:0; border:0; }
-.con_faq::v-deep.tab-content .tab-pane .card-header button { display:block; width:100%; text-align:left; background:#F6F6F6; color:#000; border:1px solid #D7D7D7; border-radius:0; margin-bottom:-1px; padding:10px 15px; font-size:.85rem; font-weight:bold; }
-.con_faq::v-deep.tab-content .tab-pane .collapse { border-left:1px solid #D7D7D7; border-right:1px solid #D7D7D7; }
-.con_faq::v-deep.tab-content .tab-pane .collapse .card-body { font-size:.77rem; }
+.con_faq::v-deep > .tab-content { padding-left:15px; flex-basis: 0; flex-grow: 1; max-width: 100%;}
+.con_faq::v-deep > .tab-content .tab-pane .card-header { padding:0; border:0; }
+.con_faq::v-deep > .tab-content .tab-pane .card-header button { display:block; width:100%; text-align:left; background:#F6F6F6; color:#000; border:1px solid #D7D7D7; border-radius:0; margin-bottom:-1px; padding:10px 15px; font-size:.85rem; font-weight:bold; }
+.con_faq::v-deep > .tab-content .tab-pane .collapse { border-left:1px solid #D7D7D7; border-right:1px solid #D7D7D7; }
+.con_faq::v-deep > .tab-content .tab-pane .collapse .card-body { font-size:.77rem; }
 
 @media (max-width: 992px){
     .con_faq::v-deep > div:first-child { width:100%; }
     .con_faq::v-deep > div:first-child .nav-tabs { flex-direction:row; }
     .con_faq::v-deep > div:first-child .nav-tabs li { flex: 0 0 33.333333%; max-width:33.333333%; }
     .con_faq::v-deep > div:first-child .nav-tabs .nav-link { padding:5px 0; font-size:.8rem; text-align:center; }
-
     .con_faq::v-deep.tab-content { padding-left:0; margin-top:.5rem; }
 }
 </style>
