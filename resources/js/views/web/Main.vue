@@ -4,19 +4,7 @@
     
     <b-carousel controls indicators :interval='0' class="slide_banner">
         <template>
-            <!-- <b-carousel-slide v-if="deviceType=='pc'" :img-src="`/storage/event/2025/0407/slide_bg.jpg`" class="evt01">
-                <router-link to="/shop/goods?ca01=27&ca02=1232&ca03=1233" id="app01" class="split_link">
-                    <b-img src="/storage/event/2025/0407/slide01.png" class="product pd01" />
-                    <span class="tooltiptext">멤브레인필터 바로가기</span>
-                </router-link>
-                <router-link to="/shop/goods?ca01=27&ca02=1232&ca03=1242" id="app02" class="split_link">
-                    <b-img src="/storage/event/2025/0407/slide02.png" class="product pd02" />
-                    <span class="tooltiptext">실린지필터 바로가기</span>
-                </router-link>
-            </b-carousel-slide>
-            <b-link v-else to="/shop/goods?ca01=27&ca02=1232&ca03=1233">
-                <b-carousel-slide :img-src="`/storage/event/2025/0407/${slide_file_nm}.jpg`"></b-carousel-slide>
-            </b-link> -->
+     
 
             <b-link to="/shop/goods/808324">
                 <b-carousel-slide :img-src="`/storage/event/2025/0721/${slide_file_nm}.jpg`"></b-carousel-slide>
