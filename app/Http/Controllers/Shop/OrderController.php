@@ -91,7 +91,125 @@ class OrderController extends Controller {
         $params['toss']['clientKey']    = env('TOSS_CLIENTKEY');
         $params['toss']['billing_clientKey'] = env('TOSS_BILLING_CLIENTKEY');
         $params['toss']['billing_keys'] = DB::table('user_billing')->where('created_id', auth()->user()->id)->get();
-        
+
+
+
+
+
+        // $asdfs = DB::table(DB::raw("
+        //     (
+        //         SELECT odm_gd_id
+        //         FROM (
+        //             SELECT som.odm_gd_id, so.created_at,
+        //                 ROW_NUMBER() OVER (PARTITION BY som.odm_gd_id ORDER BY so.created_at DESC) AS rn
+        //             FROM la_shop_order_model som
+        //             JOIN la_shop_order so ON so.od_id = som.odm_od_id
+        //             WHERE so.created_id = ".auth()->user()->id."
+        //             AND so.od_type <> 'buy_temp'
+        //             AND so.od_step >= '20'
+        //             AND so.od_step < '60'
+        //             AND som.odm_gm_id > 0
+        //         ) AS ranked
+        //         WHERE rn = 1
+        //         ORDER BY created_at DESC
+        //         LIMIT 5
+        //     ) AS t
+        // "))->pluck('odm_gd_id');
+        // dump($asdfs);
+        // $params['ddd'] = $this->goods->SchGd_id($asdfs)->get();
+        // dd($params['ddd']);
+
+
+
+
+
+
+
+
+        // 추천 상품을 위한 이전 구매 상품 5개
+        $latestPerOrderGoods = DB::table('shop_order_model')
+            ->join('shop_order', 'od_id', '=', 'odm_od_id')
+            ->selectRaw("
+                odm_gd_id,
+                created_at,
+                ROW_NUMBER() OVER (
+                    PARTITION BY odm_gd_id
+                    ORDER BY created_at DESC
+                ) as rn
+            ")
+            ->where('created_id', auth()->id())
+            ->where('od_type', '<>', 'buy_temp')
+            ->where('od_step', '>=', '20')   // 문자열 Enum 비교
+            ->where('od_step', '<',  '60')   // 문자열 Enum 비교
+            ->where('odm_gm_id', '>', 0);
+        $params['rec_goods_list_order'] = Goods::query()
+            ->joinSub($latestPerOrderGoods, 'r', 'r.odm_gd_id', '=', 'shop_goods.gd_id')
+            ->where('r.rn', 1)                         // gd_id별 최신 1건만
+            ->whereNull('shop_goods.deleted_at')       // (필요시) 삭제 제외
+            ->where('shop_goods.gd_enable', 'Y')       // (필요시) 활성만
+            ->orderByDesc('r.created_at')
+            ->select('shop_goods.*')                   // 모델 하이드레이션을 위해 모델 컬럼만 선택
+            ->limit(4)
+            ->get();
+
+        // 추천 상품을 위한 이전 견적 상품 5개
+        $latestPerEstimateGoods = DB::table('shop_estimate_model as em')
+            ->join('shop_estimate_reply', 'er_id', '=', 'em_papa_id')
+            ->selectRaw("
+                em_gd_id as odm_gd_id,
+                created_at,
+                ROW_NUMBER() OVER (
+                    PARTITION BY em_gd_id
+                    ORDER BY created_at DESC
+                ) as rn
+            ")
+            ->where('created_id', auth()->id())
+            ->where('em_type', 'estimateReply')  // 모델은 요청 아닌 견적 된 모델
+            ->where('em_gd_id', '>', 0)          // 임의 상품 아닌 온라인 상품
+            ->where('er_step', 1);               // 견적 완료
+        $params['rec_goods_list_estimate'] = Goods::query()
+            ->joinSub($latestPerEstimateGoods, 'r', 'r.odm_gd_id', '=', 'shop_goods.gd_id')
+            ->where('r.rn', 1)                         // gd_id별 최신 1건만
+            ->whereNull('shop_goods.deleted_at')       // (필요시) 삭제 제외
+            ->where('shop_goods.gd_enable', 'Y')       // (필요시) 활성만
+            ->orderByDesc('r.created_at')
+            ->select('shop_goods.*')                   // 모델 하이드레이션을 위해 모델 컬럼만 선택
+            ->limit(4)
+            ->get();
+
+        if (count($params['rec_goods_list_order'])+count($params['rec_goods_list_estimate']) < 1) {
+            $params['rec_goods_list_type'] = "no_history";
+            // 1) 상품별 주문 건수 집계 (모든 사용자 기준)
+            $ordersPerGoods = DB::table('shop_order_model')
+                ->join('shop_order', 'od_id', '=', 'odm_od_id')
+                ->where('od_type', '<>', 'buy_temp')
+                ->where('od_step', '>=', '20')   // 문자열 Enum 비교
+                ->where('od_step', '<',  '60')   // 문자열 Enum 비교
+                ->where('odm_gm_id', '>', 0)
+                ->selectRaw("
+                    odm_gd_id,
+                    COUNT(DISTINCT odm_od_id) as order_cnt,
+                    MAX(created_at) as last_order_at
+                ")
+                ->groupBy('odm_gd_id');
+
+            // 2) Goods에 조인해서 유효 상품만, 주문건수 순으로 5개
+            $params['rec_goods_list_order'] = Goods::query()
+                ->joinSub($ordersPerGoods, 'r', 'r.odm_gd_id', '=', 'shop_goods.gd_id')
+                ->whereNull('shop_goods.deleted_at')
+                ->where('shop_goods.gd_enable', 'Y')
+                ->orderByDesc('r.order_cnt')
+                ->orderByDesc('r.last_order_at')   // 동률이면 더 최근 주문 우선
+                ->select('shop_goods.*')
+                ->limit(20)
+                ->get()
+                ->random(4);
+        }
+
+
+
+
+
         return response()->json($params);
     }
 

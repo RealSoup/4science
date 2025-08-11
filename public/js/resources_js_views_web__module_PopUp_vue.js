@@ -18,7 +18,7 @@ __webpack_require__.r(__webpack_exports__);
       pop: [{
         ck_key: '4S_PopUp_01',
         ck_view: false,
-        is_view: false
+        is_view: true
       }, {
         ck_key: '4S_PopUp_02',
         ck_view: false,
@@ -65,28 +65,16 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", [_vm.$route.name == "main" && _vm.view_check(0) ? _c("div", {
     staticClass: "popup pop_0"
+  }, [_c("router-link", {
+    attrs: {
+      to: "/board/notice/show/63"
+    }
   }, [_c("b-img", {
     attrs: {
-      src: "/storage/event/2025/0602/popup.jpg",
+      src: "/storage/main/popup/250814.jpg",
       width: "500"
     }
-  }), _vm._v(" "), _c("router-link", {
-    staticClass: "split_link",
-    attrs: {
-      to: "/shop/goods/800645",
-      id: "app01"
-    }
-  }, [_c("span", {
-    staticClass: "tooltiptext"
-  }, [_vm._v("니트릴 글러브 바로가기")])]), _vm._v(" "), _c("router-link", {
-    staticClass: "split_link",
-    attrs: {
-      to: "/shop/goods/800644",
-      id: "app02"
-    }
-  }, [_c("span", {
-    staticClass: "tooltiptext"
-  }, [_vm._v("라텍스 글러브 바로가기")])]), _vm._v(" "), _c("div", {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "ctrl"
   }, [_c("b-button", {
     staticClass: "white xm",

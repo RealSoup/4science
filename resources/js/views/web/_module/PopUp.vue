@@ -1,15 +1,18 @@
 <template>
 <div>
-    <!--
+    
     <div class="popup pop_0" v-if="$route.name == 'main' && view_check(0)">
-        <b-img src="/storage/event/2025/0602/popup.jpg" width="500"></b-img>
+        <router-link to="/board/notice/show/63">
+            <b-img src="/storage/main/popup/250814.jpg" width="500"></b-img>
+        </router-link>
+        
         <div class="ctrl">
             <b-button class="white xm" @click="todayStop(0)">24시간 안 보기</b-button>
         </div>
     </div>
-    -->
+   
 
-    <div class="popup pop_0" v-if="$route.name == 'main' && view_check(0)">
+    <!-- <div class="popup pop_0" v-if="$route.name == 'main' && view_check(0)">
         <b-img src="/storage/event/2025/0602/popup.jpg" width="500"></b-img>
         <router-link to="/shop/goods/800645" id="app01" class="split_link">
             <span class="tooltiptext">니트릴 글러브 바로가기</span>
@@ -21,7 +24,7 @@
         <div class="ctrl">
             <b-button class="white xm" @click="todayStop(0)">24시간 안 보기</b-button>
         </div>
-    </div>
+    </div> -->
 </div>
 
 </template>
@@ -32,7 +35,7 @@ export default {
     data () {
         return {
             pop: [ 
-                {ck_key: '4S_PopUp_01', ck_view: false, is_view: false},
+                {ck_key: '4S_PopUp_01', ck_view: false, is_view: true},
                 {ck_key: '4S_PopUp_02', ck_view: false, is_view: false}, 
                 {ck_key: '4S_PopUp_03', ck_view: false, is_view: false}, 
             ]          
