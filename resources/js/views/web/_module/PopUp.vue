@@ -1,19 +1,13 @@
 <template>
-<div>
+<div class="popup pop_0" v-if="$route.name == 'main' && view_check(0)">
+    <router-link to="/board/notice/show/63">
+        <b-img src="/storage/main/popup/250814.jpg" width="500"></b-img>
+    </router-link>
     
-    <div class="popup pop_0" v-if="$route.name == 'main' && view_check(0)">
-        <router-link to="/board/notice/show/63">
-            <b-img src="/storage/main/popup/250814.jpg" width="500"></b-img>
-        </router-link>
-        
-        <div class="ctrl">
-            <b-button class="white xm" @click="todayStop(0)">24시간 안 보기</b-button>
-        </div>
+    <div class="ctrl">
+        <b-button class="white xm" @click="todayStop(0)">24시간 안 보기</b-button>
     </div>
-   
-
 </div>
-
 </template>
 
 <script>
@@ -22,7 +16,7 @@ export default {
     data () {
         return {
             pop: [ 
-                {ck_key: '4S_PopUp_01', ck_view: false, is_view: true},
+                {ck_key: '4S_PopUp_01', ck_view: false, is_view: false},
                 {ck_key: '4S_PopUp_02', ck_view: false, is_view: false}, 
                 {ck_key: '4S_PopUp_03', ck_view: false, is_view: false}, 
             ]          
