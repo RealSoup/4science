@@ -16,11 +16,8 @@
             </b-carousel-slide>
             <b-link v-else to="/shop/goods?ca01=27&ca02=1232&ca03=1233">
                 <b-carousel-slide :img-src="`/storage/event/2025/0407/${slide_file_nm}.jpg`"></b-carousel-slide>
-            </b-link> -->
+            </b-link> -->  
 
-            <b-link to="/shop/goods/808324">
-                <b-carousel-slide :img-src="`/storage/event/2025/0721/${slide_file_nm}.jpg`"></b-carousel-slide>
-            </b-link>
             <b-link to="/shop/goods?ca01=36">
                 <b-carousel-slide :img-src="`/storage/event/2025/0320/${slide_file_nm}.jpg`"></b-carousel-slide>
             </b-link>
