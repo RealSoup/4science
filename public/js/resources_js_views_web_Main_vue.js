@@ -295,12 +295,7 @@ var render = function render() {
     }
   }, [_c("b-link", {
     attrs: {
-      to: {
-        name: "goods_show",
-        params: {
-          gd_id: 1227
-        }
-      }
+      to: "/shop/makerShop/577"
     }
   }, [_c("b-img", {
     attrs: {
@@ -378,10 +373,9 @@ var render = function render() {
   }, [_c("b-link", {
     attrs: {
       to: {
-        name: "goods_index",
-        query: {
-          ca01: "30",
-          ca02: "5042"
+        name: "goods_show",
+        params: {
+          gd_id: 14
         }
       }
     }
