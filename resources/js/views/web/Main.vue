@@ -61,13 +61,13 @@
                 <b-col class="tit">포사의 추천 ></b-col>
             </b-row>
             <b-row>
-                <b-col col cols="12" md="12" lg="6"><b-link :to="{name:'goods_show', params:{gd_id:1227}}"><b-img :src="`${s3url}main/rec01.png`" /></b-link></b-col>
+                <b-col col cols="12" md="12" lg="6"><b-link :to="{name:'goods_show', params:{gd_id:1227}}"><b-img :src="`${s3url}main/rec001.png`" /></b-link></b-col>
                 <b-col col cols="6" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:46852}}"><b-img :src="`${s3url}main/rec02.png`" /></b-link></b-col>
                 <b-col col cols="6" md="6" lg="3"><b-link :to="{name:'goods_index', query: {ca01:'28', ca02:'3481', ca03:'3483'}}"><b-img :src="`${s3url}main/rec03.png`" /></b-link></b-col>
             </b-row>
             <b-row>
                 <b-col col cols="6" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:7919}}"><b-img :src="`${s3url}main/rec04.png`" /></b-link></b-col>
-                <b-col col cols="6" md="6" lg="3"><b-link :to="{name:'goods_index', query: {ca01:'30', ca02:'5042'}}"><b-img :src="`${s3url}main/rec06.png`" /></b-link></b-col>
+                <b-col col cols="6" md="6" lg="3"><b-link :to="{name:'goods_index', query: {ca01:'30', ca02:'5042'}}"><b-img :src="`${s3url}main/rec006.png`" /></b-link></b-col>
                 <b-col col cols="12" md="12" lg="6"><b-link :to="{name:'goods_index', query: {keyword:'goodsgood'}}"><b-img :src="`${s3url}main/rec05.png`" /></b-link></b-col>
             </b-row>
         </b-container>

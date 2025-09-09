@@ -304,7 +304,7 @@ var render = function render() {
     }
   }, [_c("b-img", {
     attrs: {
-      src: "".concat(_vm.s3url, "main/rec01.png")
+      src: "".concat(_vm.s3url, "main/rec001.png")
     }
   })], 1)], 1), _vm._v(" "), _c("b-col", {
     attrs: {
@@ -387,7 +387,7 @@ var render = function render() {
     }
   }, [_c("b-img", {
     attrs: {
-      src: "".concat(_vm.s3url, "main/rec06.png")
+      src: "".concat(_vm.s3url, "main/rec006.png")
     }
   })], 1)], 1), _vm._v(" "), _c("b-col", {
     attrs: {
