@@ -25,8 +25,8 @@
     <div id="core">
         <div class="the_top layout">
             <b-link class="logo" :to="{name: 'main'}">
-                <b-img :src="`/storage/common/logo/logo.png`" />
-                <!-- <b-img :src="`/storage/common/logo/250721.png`" /> -->
+                <!-- <b-img :src="`/storage/common/logo/logo.png`" /> -->
+                <b-img :src="`/storage/common/logo/25090901.png`" />
             <!-- 
                 <b-img :src="`/storage/common/logo/241223.png`" class="season" />
                 <b-img :src="`/storage/common/logo/logo.png`" class="default" />
@@ -206,6 +206,7 @@ export default {
 /*#header #core .layout .logo { flex:0 0 250px; max-width:250px; height:72px; background:top left/238px 72px no-repeat url('/storage/common/logo/logo.png'); } */
 /*#header #core .layout .logo { flex:0 0 292px; max-width:292px; height:100%; position:relative; display:block;}*/
 #header #core .the_top .logo { flex:0 0 28.533333%; max-width:28.533333%; }
+#header #core .the_top .logo img { transform: translateY(10px); }
 #header #core .the_top .logo .season { display:block; width:100%; }
 #header #core .the_top .logo .season { transform:translateY(32px); max-width:400px; }
 #header #core .the_top .logo .default { display:none; }
