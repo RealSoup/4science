@@ -25,8 +25,8 @@
     <div id="core">
         <div class="the_top layout">
             <b-link class="logo" :to="{name: 'main'}">
-                <!-- <b-img :src="`/storage/common/logo/logo.png`" /> -->
-                <b-img :src="`/storage/common/logo/250721.png`" />
+                <b-img :src="`/storage/common/logo/logo.png`" />
+                <!-- <b-img :src="`/storage/common/logo/250721.png`" /> -->
             <!-- 
                 <b-img :src="`/storage/common/logo/241223.png`" class="season" />
                 <b-img :src="`/storage/common/logo/logo.png`" class="default" />

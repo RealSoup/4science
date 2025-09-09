@@ -29,7 +29,7 @@ class SearchKeywordListener {
                 array_push($prev_keyword, $e->keyword);
                 Redis::set('SearchKeyword'.$e->ip, json_encode($prev_keyword), 'EX', 60*60*24); //60*60*24
           
-                $engines = collect(['google.com', 'naver.com']);
+                $engines = collect(['google', 'naver', 'youtube', 'bing']);
                 $matched = $engines->first(fn($engine) => $e->referer && str_contains($e->referer, $engine));
 
                 SearchKeyword::insert( ['sk_keyword'=>$e->keyword, 'sk_uid'=>$e->uid, 'ip'=>$e->ip, 'is_count'=>$matched?0:1, 'prev_url'=> substr($e->referer ?? '', 0, 300)] );
