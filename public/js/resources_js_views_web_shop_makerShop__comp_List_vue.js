@@ -42,6 +42,7 @@ var render = function render() {
   }, [_c("b-col", {
     staticClass: "cate"
   }, [_c("h5", [_vm.gd_list[0].gc_ca01_name ? _c("span", [_vm._v(_vm._s(_vm.gd_list[0].gc_ca01_name))]) : _vm._e(), _vm._v(" "), _vm.gd_list[0].gc_ca02_name ? _c("span", [_c("b", [_vm._v(" > ")]), _vm._v(_vm._s(_vm.gd_list[0].gc_ca02_name))]) : _vm._e(), _vm._v(" "), _vm.gd_list[0].gc_ca03_name ? _c("span", [_c("b", [_vm._v(" > ")]), _vm._v(_vm._s(_vm.gd_list[0].gc_ca03_name))]) : _vm._e(), _vm._v(" "), _vm.gd_list[0].gc_ca04_name ? _c("span", [_c("b", [_vm._v(" > ")]), _vm._v(_vm._s(_vm.gd_list[0].gc_ca04_name))]) : _vm._e()])]), _vm._v(" "), _vm._l(_vm.gd_list, function (gd) {
+    var _gd$goods_model_prime;
     return _c("b-col", {
       key: gd.gd_id,
       staticClass: "goods"
@@ -58,7 +59,7 @@ var render = function render() {
       attrs: {
         src: gd.img_src_thumb
       }
-    }), _vm._v(" "), _c("p", [_vm._v(_vm._s(gd.gd_name))])], 1)], 1);
+    }), _vm._v(" "), _c("p", [_vm._v(_vm._s(gd.gd_name))]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm._f("price_zero")(_vm._f("comma")((_gd$goods_model_prime = gd.goods_model_prime) === null || _gd$goods_model_prime === void 0 ? void 0 : _gd$goods_model_prime.gm_price_add_vat))))])], 1)], 1);
   })], 2);
 };
 var staticRenderFns = [];
@@ -83,7 +84,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.row .cate[data-v-69bf61ba] { flex:0 0 100%; max-width:100%;\n}\n.row .cate h5[data-v-69bf61ba] { background:#fef200; border-radius:25px; display:inline-block; margin-top:50px; min-width:300px; padding:10px 20px; color:#777;\n}\n.row .cate h5 span b[data-v-69bf61ba] { color:#000;\n}\n.row .goods[data-v-69bf61ba] { flex:0 0 20%; max-width:20%; padding:10px;\n}\n.row .goods a[data-v-69bf61ba] { border:1px solid #B6B6B6;  display:block; text-align:center; height:360px; padding:26px; background:#fff; overflow:hidden;\n}\n.row .goods a img[data-v-69bf61ba] { width:100%; height:228px; -o-object-fit:contain; object-fit:contain; margin-bottom:2.8rem; transition:transform .2s;\n}\n.row .goods a p[data-v-69bf61ba] { line-height:1.1; margin:0; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;\n}\n.row .goods:hover a img[data-v-69bf61ba] { transform:scale(1.2);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.row .cate[data-v-69bf61ba] { flex:0 0 100%; max-width:100%;\n}\n.row .cate h5[data-v-69bf61ba] { background:#fef200; border-radius:25px; display:inline-block; margin-top:50px; min-width:300px; padding:10px 20px; color:#777;\n}\n.row .cate h5 span b[data-v-69bf61ba] { color:#000;\n}\n.row .goods[data-v-69bf61ba] { flex:0 0 20%; max-width:20%; padding:10px;\n}\n.row .goods a[data-v-69bf61ba] { border:1px solid #B6B6B6;  display:block; text-align:center; height:388px; padding:26px; background:#fff; overflow:hidden; position:relative;\n}\n.row .goods a img[data-v-69bf61ba] { width:100%; height:228px; -o-object-fit:contain; object-fit:contain; margin-bottom:2.8rem; transition:transform .2s;\n}\n.row .goods a p[data-v-69bf61ba] { line-height:1.1; margin:0; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;\n}\n.row .goods a div[data-v-69bf61ba] { position:absolute; bottom:24px; left:50%; transform:translateX(-50%); color:#C00;\n}\n.row .goods:hover a img[data-v-69bf61ba] { transform:scale(1.2);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

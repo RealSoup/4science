@@ -177,8 +177,7 @@ class OrderController extends Controller {
             ->limit(4)
             ->get();
 
-        if (count($params['rec_goods_list_order'])+count($params['rec_goods_list_estimate']) < 1) {
-            $params['rec_goods_list_type'] = "no_history";
+        if (!count($params['rec_goods_list_order']) || !count($params['rec_goods_list_estimate'])) {
             // 1) 상품별 주문 건수 집계 (모든 사용자 기준)
             $ordersPerGoods = DB::table('shop_order_model')
                 ->join('shop_order', 'od_id', '=', 'odm_od_id')
@@ -194,7 +193,7 @@ class OrderController extends Controller {
                 ->groupBy('odm_gd_id');
 
             // 2) Goods에 조인해서 유효 상품만, 주문건수 순으로 5개
-            $params['rec_goods_list_order'] = Goods::query()
+            $params['rec_goods_list_top04'] = Goods::query()
                 ->joinSub($ordersPerGoods, 'r', 'r.odm_gd_id', '=', 'shop_goods.gd_id')
                 ->whereNull('shop_goods.deleted_at')
                 ->where('shop_goods.gd_enable', 'Y')

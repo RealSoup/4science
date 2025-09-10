@@ -71,33 +71,44 @@
                         </b-collapse>
                     </b-col>
                 </b-row>
+                
+                <div class="suggest">
+                    <b-row class="area_piece" v-if="rec_goods_list_order.length">
+                        <b-col><b>주문하셨던 제품 중 더 필요하신건 없으신가요?</b></b-col>
+                        <b-col v-for="(gd, i) in rec_goods_list_order" :key="i">
+                            <b-link :to="{name: 'goods_show', params:{gd_id:gd.gd_id} }">   
+                                <div>
+                                    <img :src="gd.image_src_thumb[0]" />
+                                </div>
+                                <p class="tit">{{gd.gd_name}}</p>
+                            </b-link>
+                        </b-col>
+                    </b-row>
 
-                <b-row class="area_piece suggest sug01" v-if="rec_goods_list_order.length">
-                    <b-col>
-                        <b v-if="rec_goods_list_type == 'normal'">주문하셨던 제품 중 더 필요하신건 없으신가요?</b>
-                        <b v-else-if="rec_goods_list_type == 'no_history'">이런 제품은 어떠세요?</b>
-                    </b-col>
-                    <b-col v-for="(gd, i) in rec_goods_list_order" :key="i">
-                        <b-link :to="{name: 'goods_show', params:{gd_id:gd.gd_id} }">   
-                            <div>
-                                <img :src="gd.image_src_thumb[0]" />
-                            </div>
-                            <p class="tit">{{gd.gd_name}}</p>
-                        </b-link>
-                    </b-col>
-                </b-row>
-
-                <b-row class="area_piece suggest sug02" v-if="rec_goods_list_estimate.length">
-                    <b-col><b>혹시 이 제품 필요하지 않으신가요?</b></b-col>
-                    <b-col v-for="(gd, i) in rec_goods_list_estimate" :key="i">
-                        <b-link :to="{name: 'goods_show', params:{gd_id:gd.gd_id} }">   
-                            <div>
-                                <img :src="gd.image_src_thumb[0]" />
-                            </div>
-                            <p class="tit">{{gd.gd_name}}</p>
-                        </b-link>
-                    </b-col>
-                </b-row>
+                    <b-row class="area_piece" v-if="rec_goods_list_estimate.length">
+                        <b-col><b>혹시 이 제품 필요하지 않으신가요?</b></b-col>
+                        <b-col v-for="(gd, i) in rec_goods_list_estimate" :key="i">
+                            <b-link :to="{name: 'goods_show', params:{gd_id:gd.gd_id} }">   
+                                <div>
+                                    <img :src="gd.image_src_thumb[0]" />
+                                </div>
+                                <p class="tit">{{gd.gd_name}}</p>
+                            </b-link>
+                        </b-col>
+                    </b-row>
+                    
+                    <b-row class="area_piece" v-if="!(rec_goods_list_order?.length) || !(rec_goods_list_estimate?.length)">
+                        <b-col><b>이런 제품은 어떠세요?</b></b-col>
+                        <b-col v-for="(gd, i) in rec_goods_list_top04" :key="i">
+                            <b-link :to="{name: 'goods_show', params:{gd_id:gd.gd_id} }">   
+                                <div>
+                                    <img :src="gd.image_src_thumb[0]" />
+                                </div>
+                                <p class="tit">{{gd.gd_name}}</p>
+                            </b-link>
+                        </b-col>
+                    </b-row>
+                </div>
             </b-col>
 
 
@@ -434,7 +445,7 @@ export default {
             is_adult: false,
             rec_goods_list_order: [],
             rec_goods_list_estimate: [],
-            rec_goods_list_type: 'normal',
+            rec_goods_list_top04: [],
         }
     },
     computed: {
@@ -470,7 +481,11 @@ export default {
                     this.goods_def = res.data.goods_def;
                     this.rec_goods_list_order = res.data.rec_goods_list_order;
                     this.rec_goods_list_estimate = res.data.rec_goods_list_estimate;
-                    this.rec_goods_list_type = (res.data && res.data.rec_goods_list_type) || 'normal';
+                    if (res.data.rec_goods_list_top04) {
+                        this.rec_goods_list_top04 = res.data.rec_goods_list_top04;
+                        console.log(123);
+                        
+                    }
                     
                     if(this.addr.length)
                         this.addr_choose(this.addr[0]);
@@ -845,22 +860,22 @@ export default {
 .settle_split .left .agreement .col .custom-radio>>>label::before, 
 .settle_split .left .agreement .col .custom-radio>>>label::after { top:.15rem; left:-1.4rem; }
 .settle_split .left .agreement .col .collapse .card { text-align:justify; color:#000; margin-top:1rem; font-size:.8rem; }
-.settle_split .left .suggest { align-items: flex-start; margin-top: 1.5em; }
-.settle_split .left .suggest .col:first-child { flex:0 0 100%; max-width:100%; margin-bottom:10px; }
-.settle_split .left .suggest .col:first-child b { border-radius:0 0 10px 10px; padding:5px 18px; color:#FFF; font-size:18px; display:inline-block;}
+.settle_split .left .suggest .area_piece { align-items: flex-start; margin-top: 1.5em; }
+.settle_split .left .suggest .area_piece .col:first-child { flex:0 0 100%; max-width:100%; margin-bottom:10px; }
+.settle_split .left .suggest .area_piece .col:first-child b { border-radius:0 0 10px 10px; padding:5px 18px; color:#FFF; font-size:18px; display:inline-block;}
 
-.settle_split .left .suggest.sug01 .col:first-child { border-top:3px solid #51B948; }
-.settle_split .left .suggest.sug01 .col:first-child b { background:#51B948; }
-.settle_split .left .suggest.sug02 .col:first-child { border-top:3px solid #1A90D6; }
-.settle_split .left .suggest.sug02 .col:first-child b { background:#1A90D6; }
+.settle_split .left .suggest .area_piece:nth-of-type(1) .col:first-child { border-top:3px solid #51B948; }
+.settle_split .left .suggest .area_piece:nth-of-type(1) .col:first-child b { background:#51B948; }
+.settle_split .left .suggest .area_piece:nth-of-type(2) .col:first-child { border-top:3px solid #1A90D6; }
+.settle_split .left .suggest .area_piece:nth-of-type(2) .col:first-child b { background:#1A90D6; }
 
-.settle_split .left .suggest .col:not(:first-child) { border:1px solid #CCC; flex:0 0 23.2%; max-width:23.2%;  }
-.settle_split .left .suggest .col:not(:first-child):not(:nth-child(2)) { margin-left:2.4%; }
-.settle_split .left .suggest .col a { display:block; }
-.settle_split .left .suggest .col a div { overflow: hidden; display: block; }
-.settle_split .left .suggest .col a div img { width:100%; height:auto; object-fit:contain; transition: transform 0.3s ease; }
-.settle_split .left .suggest .col a div img:hover { transform:scale(1.2); }
-.settle_split .left .suggest .col a p { text-align:center; margin:15px; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; height:42px; font-size:14px; }
+.settle_split .left .suggest .area_piece .col:not(:first-child) { border:1px solid #CCC; flex:0 0 23.2%; max-width:23.2%;  }
+.settle_split .left .suggest .area_piece .col:not(:first-child):not(:nth-child(2)) { margin-left:2.4%; }
+.settle_split .left .suggest .area_piece .col a { display:block; }
+.settle_split .left .suggest .area_piece .col a div { overflow: hidden; display: block; }
+.settle_split .left .suggest .area_piece .col a div img { width:100%; height:auto; object-fit:contain; transition: transform 0.3s ease; }
+.settle_split .left .suggest .area_piece .col a div img:hover { transform:scale(1.2); }
+.settle_split .left .suggest .area_piece .col a p { text-align:center; margin:15px; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; height:42px; font-size:14px; }
 
 
 

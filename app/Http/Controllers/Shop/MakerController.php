@@ -4,7 +4,7 @@ namespace app\Http\Controllers\shop;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Shop\{Goods, GoodsCategory, Maker};
+use App\Models\Shop\{Goods, GoodsModel, GoodsCategory, Maker};
 use Illuminate\Support\Arr;
 use DB;
 
@@ -99,6 +99,12 @@ class MakerController extends Controller {
                         }
                     }
                 }
+            }
+
+            if ($v->gd_id) {
+                $v->goods_model_prime = GoodsModel::where('gm_gd_id', $v->gd_id)
+                    ->where('gm_prime', 'Y')
+                    ->first();
             }
         }
         $rst['gd'] = $ca_data;
