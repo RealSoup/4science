@@ -42,7 +42,6 @@ var render = function render() {
   }, [_c("b-col", {
     staticClass: "cate"
   }, [_c("h5", [_vm.gd_list[0].gc_ca01_name ? _c("span", [_vm._v(_vm._s(_vm.gd_list[0].gc_ca01_name))]) : _vm._e(), _vm._v(" "), _vm.gd_list[0].gc_ca02_name ? _c("span", [_c("b", [_vm._v(" > ")]), _vm._v(_vm._s(_vm.gd_list[0].gc_ca02_name))]) : _vm._e(), _vm._v(" "), _vm.gd_list[0].gc_ca03_name ? _c("span", [_c("b", [_vm._v(" > ")]), _vm._v(_vm._s(_vm.gd_list[0].gc_ca03_name))]) : _vm._e(), _vm._v(" "), _vm.gd_list[0].gc_ca04_name ? _c("span", [_c("b", [_vm._v(" > ")]), _vm._v(_vm._s(_vm.gd_list[0].gc_ca04_name))]) : _vm._e()])]), _vm._v(" "), _vm._l(_vm.gd_list, function (gd) {
-    var _gd$goods_model_prime;
     return _c("b-col", {
       key: gd.gd_id,
       staticClass: "goods"
@@ -59,7 +58,7 @@ var render = function render() {
       attrs: {
         src: gd.img_src_thumb
       }
-    }), _vm._v(" "), _c("p", [_vm._v(_vm._s(gd.gd_name))]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm._f("price_zero")(_vm._f("comma")((_gd$goods_model_prime = gd.goods_model_prime) === null || _gd$goods_model_prime === void 0 ? void 0 : _gd$goods_model_prime.gm_price_add_vat))))])], 1)], 1);
+    }), _vm._v(" "), _c("p", [_vm._v(_vm._s(gd.gd_name))]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm._f("price_zero")(_vm._f("comma")(gd.goods_model_prime && gd.goods_model_prime.gm_price_add_vat || 0))))])], 1)], 1);
   })], 2);
 };
 var staticRenderFns = [];
