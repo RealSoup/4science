@@ -5,7 +5,7 @@
     </loading-modal>
     <b-container v-else class="w_fence">
         <b-row class="mk_info">
-            <b-col><b-img v-if="data['mk'].file_info[0]" :src="data['mk'].file_info[0].path" /></b-col>
+            <b-col><b-img v-if="data['mk'].file_info[0]" :src="data['mk'].file_info[0].path"></b-img></b-col>
             <b-col>{{data['mk'].mk_desc}}</b-col>
         </b-row>
       
