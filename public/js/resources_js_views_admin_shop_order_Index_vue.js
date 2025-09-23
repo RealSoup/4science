@@ -64,7 +64,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   computed: {
     down_auth: function down_auth() {
-      return this.$store.state.auth.user.user_mng.um_group == 'acc' || this.$store.state.auth.user.is_super || this.$store.state.auth.user.id == 32;
+      return this.$store.state.auth.user.user_mng.um_group == 'acc' || this.$store.state.auth.user.is_super || this.$store.state.auth.user.id == 119 || this.$store.state.auth.user.id == 32;
     }
   },
   methods: {
