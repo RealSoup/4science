@@ -1,8 +1,8 @@
 <template>
 <div class="popup pop_0" v-if="$route.name == 'main' && view_check(0)">
-    <router-link to="/board/notice/show/64">
+    <a hrev="/board/notice/show/64">
         <b-img src="/storage/main/popup/250925.jpg" width="500"></b-img>
-    </router-link>
+    </a>
     
     <div class="ctrl">
         <b-button class="white xm" @click="todayStop(0)">24시간 안 보기</b-button>
