@@ -1,7 +1,7 @@
 <template>
 <div class="popup pop_0" v-if="$route.name == 'main' && view_check(0)">
-    <router-link to="/board/notice/show/63">
-        <b-img src="/storage/main/popup/250814.jpg" width="500"></b-img>
+    <router-link to="/board/notice/show/64">
+        <b-img src="/storage/main/popup/250925.jpg" width="500"></b-img>
     </router-link>
     
     <div class="ctrl">
@@ -16,7 +16,7 @@ export default {
     data () {
         return {
             pop: [ 
-                {ck_key: '4S_PopUp_01', ck_view: false, is_view: false},
+                {ck_key: '4S_PopUp_01', ck_view: false, is_view: true},
                 {ck_key: '4S_PopUp_02', ck_view: false, is_view: false}, 
                 {ck_key: '4S_PopUp_03', ck_view: false, is_view: false}, 
             ]          

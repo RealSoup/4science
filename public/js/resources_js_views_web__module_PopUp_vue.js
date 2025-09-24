@@ -18,7 +18,7 @@ __webpack_require__.r(__webpack_exports__);
       pop: [{
         ck_key: '4S_PopUp_01',
         ck_view: false,
-        is_view: false
+        is_view: true
       }, {
         ck_key: '4S_PopUp_02',
         ck_view: false,
@@ -67,11 +67,11 @@ var render = function render() {
     staticClass: "popup pop_0"
   }, [_c("router-link", {
     attrs: {
-      to: "/board/notice/show/63"
+      to: "/board/notice/show/64"
     }
   }, [_c("b-img", {
     attrs: {
-      src: "/storage/main/popup/250814.jpg",
+      src: "/storage/main/popup/250925.jpg",
       width: "500"
     }
   })], 1), _vm._v(" "), _c("div", {
