@@ -65,9 +65,9 @@ var render = function render() {
     _c = _vm._self._c;
   return _vm.$route.name == "main" && _vm.view_check(0) ? _c("div", {
     staticClass: "popup pop_0"
-  }, [_c("b-link", {
+  }, [_c("a", {
     attrs: {
-      to: "/board/notice/show/64"
+      href: "/board/notice/show/64"
     }
   }, [_c("b-img", {
     attrs: {
@@ -83,7 +83,7 @@ var render = function render() {
         return _vm.todayStop(0);
       }
     }
-  }, [_vm._v("24시간 안 보기")])], 1)], 1) : _vm._e();
+  }, [_vm._v("24시간 안 보기")])], 1)]) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
