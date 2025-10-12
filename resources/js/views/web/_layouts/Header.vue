@@ -271,8 +271,8 @@ export default {
     #header #core .the_top .head_sch_box .head_sch button { padding: 0 10px; }
     #header #core .the_top .kakao { bottom:auto; top:0; right:0; width:46px; }
     
-    #header #core>>>#categorys .depth01>li>ul {  overflow:hidden; padding:0; border-width:0; max-width:0; max-height:0; transition:all .2s; }
-    #header #core>>>#categorys.view_cate .depth01>li>ul { padding:.5em; border-width:2px; max-width:240px; max-height:640px; }
+    #header #core::v-deep #categorys .depth01>li>ul {  overflow:hidden; padding:0; border-width:0; max-width:0; max-height:0; transition:all .2s; }
+    #header #core::v-deep #categorys.view_cate .depth01>li>ul { padding:.5em; border-width:2px; max-width:240px; max-height:640px; }
 }
 
 </style>
