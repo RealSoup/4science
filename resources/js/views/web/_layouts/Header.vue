@@ -26,7 +26,7 @@
         <div class="the_top layout">
             <b-link class="logo" :to="{name: 'main'}">
                 <!-- <b-img :src="`/storage/common/logo/logo.png`" /> -->
-                <b-img :src="`/storage/common/logo/25090901.png`" />
+                <b-img :src="`/storage/common/logo/25090901.png`"></b-img>
             <!-- 
                 <b-img :src="`/storage/common/logo/241223.png`" class="season" />
                 <b-img :src="`/storage/common/logo/logo.png`" class="default" />
@@ -51,33 +51,33 @@
             <div class="top_menu">
                 <template v-if="isLoggedin">
                     <b-link @click="logout">
-                        <b-img :src="`/storage/common/icon_login.png`" />
+                        <b-img :src="`/storage/common/icon_login.png`"></b-img>
                         <p>로그아웃</p>
                     </b-link>
                     <b-link :to="{name: 'mypage'}">
-                        <b-img :src="`/storage/common/icon_mypage.png`" />
+                        <b-img :src="`/storage/common/icon_mypage.png`"></b-img>
                         <p>마이페이지</p>
                     </b-link>
                     <b-link :to="{name:'cart_index'}">
-                        <b-img :src="`/storage/common/icon_cart.png`" />
+                        <b-img :src="`/storage/common/icon_cart.png`"></b-img>
                         <p>장바구니</p>
                     </b-link>
                 </template>
                 <template v-else>
                     <b-link @click="isModalViewed=true">
-                        <b-img :src="`/storage/common/icon_login.png`" />
+                        <b-img :src="`/storage/common/icon_login.png`"></b-img>
                         <p>로그인</p>
                     </b-link>
                 </template>
             </div>
             
-            <b-link href="https://pf.kakao.com/_AxmKUj" target='_blank' class="kakao"><b-img :src="`/storage/common/kakao.png`" /></b-link>
+            <b-link href="https://pf.kakao.com/_AxmKUj" target='_blank' class="kakao"><b-img :src="`/storage/common/kakao.png`"></b-img></b-link>
             
         </div>
         <nav class="nav_menu" :class="{view_nav:view_nav}">
             <div class="layout">
                 <b-link id="cate_btn" @click="view_cate = !view_cate">
-                    <b-img :src="`/storage/common/icon_category.png`" /><span class="m_hide"> 카테고리</span>
+                    <b-img :src="`/storage/common/icon_category.png`"></b-img><span class="m_hide"> 카테고리</span>
                     <categorys v-if="view_cate" :class="{view_cate:view_cate}" @close_cate="view_cate=false"></categorys>
                 </b-link>
                 <b-link to="/shop/listing/today_pick_up/all">당일출고</b-link>
@@ -96,7 +96,7 @@
         <b-link @click="$router.go(-1)"><b-icon-arrow-left /></b-link>
         <b-link :to="{name: 'main'}"><b-icon-house-door-fill /></b-link>
         <b-link @click="view_sch=!view_sch"><b-icon-search /></b-link>
-        <b-link :to="{name: 'login'}"><b-img :src="`/storage/common/icon_mypage.gif`" width="35" /><!-- <b-icon-person-fill /> --></b-link>
+        <b-link :to="{name: 'login'}"><b-img :src="`/storage/common/icon_mypage.gif`" width="35"></b-img><!-- <b-icon-person-fill /> --></b-link>
         <b-link :to="{name: 'cart_index'}"><b-icon-basket3-fill /></b-link>
         <b-link v-if="list.length" @click="$store.commit('recent_goods/switch', { recent_goods_view:!recent_goods_view })"><b-icon-clock-fill /></b-link>
     </div>
@@ -200,11 +200,11 @@ export default {
 
 
 #header { background-color:#FFF; }
-
+/* #header #core { background:#0098FF url(/storage/common/logo/230725.gif) no-repeat center 16px; } */
 #header #core .the_top { position:relative; display:flex; align-items:flex-end; height:6.625em; padding-bottom:.75em; }
 #header #core .the_top>* { flex-basis:0; flex-grow:1; max-width:100%; }
-
-
+/*#header #core .layout .logo { flex:0 0 250px; max-width:250px; height:72px; background:top left/238px 72px no-repeat url('/storage/common/logo/logo.png'); } */
+/*#header #core .layout .logo { flex:0 0 292px; max-width:292px; height:100%; position:relative; display:block;}*/
 #header #core .the_top .logo { flex:0 0 28.533333%; max-width:28.533333%; }
 #header #core .the_top .logo img { transform: translateY(10px); }
 #header #core .the_top .logo .season { display:block; width:100%; }
