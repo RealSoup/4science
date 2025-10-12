@@ -16,7 +16,7 @@ export default {
     data () {
         return {
             pop: [ 
-                {ck_key: '4S_PopUp_01', ck_view: false, is_view: true},
+                {ck_key: '4S_PopUp_01', ck_view: false, is_view: false},
                 {ck_key: '4S_PopUp_02', ck_view: false, is_view: false}, 
                 {ck_key: '4S_PopUp_03', ck_view: false, is_view: false}, 
             ]          
