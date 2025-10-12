@@ -46,8 +46,6 @@ export default {
 .pop_1 { position:absolute; top:20%; left:20%; box-shadow: 0 1px 15px 1px rgba(39,39,39,.5); border-radius: 50px 50px 0 0; background: #FFF; }
 .pop_2 { left:720px; }
 
-
-
 .popup .split_link { position:absolute; display:block; width:50%; height:calc(100% - 25px); top:0; transform:translateX(-50%); } 
 .popup .split_link#app01 { left:25%; }
 .popup .split_link#app02 { left:75%;}
@@ -58,7 +56,6 @@ export default {
 .popup a#app01 .tooltiptext { right:25%; }
 .popup a#app02 .tooltiptext { left:25%; }
 .popup .split_link:hover .tooltiptext { visibility: visible; opacity:1; }
-
 
 @media (max-width: 992px){ .popup { top:0; left:0;  } .popup img { width:100%; } }
 @media (max-width: 576px){ .popup { width:100%; } }
