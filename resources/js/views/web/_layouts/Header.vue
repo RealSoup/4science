@@ -111,7 +111,7 @@
 
 <script>
 import LoginPopUp from '../auth/Login.vue';
-import { mapActions, mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 
 

@@ -118,13 +118,15 @@
 
 <script>
 import ax from '@/api/http';
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
+import PopUp from './_module/PopUp';
+import SubString from '@/views/_common/SubString';
 
 export default {
     name:"SiteMain",
     components: {
-        'pop-up': () => import('./_module/PopUp'),
-        'sub-string': () => import('@/views/_common/SubString.vue'),
+        PopUp,
+        SubString,
     },
     data() {
         return {
