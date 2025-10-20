@@ -46,7 +46,7 @@ class Order extends Model {
             // 'E' => '에스크로',
         ],
         'delivery_com' => [
-            "우체국택배" => "https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=&displayHeader=N[송장번호]",
+            "우체국택배" => "https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?displayHeader=N&sid1=[송장번호]",
             "한진택배"   => "https://www.hanjin.co.kr/kor/CMS/DeliveryMgr/WaybillResult.do?mCode=MN038&schLang=KR&wblnumText2=[송장번호]",
             "CJ대한통운" => "https://trace.cjlogistics.com/web/detail.jsp?slipno=[송장번호]",
             "롯데택배"   => "https://www.lotteglogis.com/home/reservation/tracking/linkView?InvNo=[송장번호]",
