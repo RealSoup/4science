@@ -122,10 +122,11 @@ class Goods extends Model {
                     else if ( $mk_name == 'YAKURI' )        $noimg_p = 'YAKURI.png';
                 }
                 
-            } else if ($obj->goodsCategoryFirst->gc_ca01 == 40 ) {
-                $rst = array();
-                $noimg_p = 'noimg_merck.png';
-            }
+            } 
+            // else if ($obj->goodsCategoryFirst->gc_ca01 == 40 ) {
+            //     $rst = array();
+            //     $noimg_p = 'noimg_merck.png';
+            // }
         }
             
         if (!$rst){ $rst[] = noimg($noimg_p); }
