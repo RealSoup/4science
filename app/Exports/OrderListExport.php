@@ -2,9 +2,11 @@
 
 namespace App\Exports;
 
-use App\Models\Shop\Order;
+
 use Maatwebsite\Excel\Concerns\{FromCollection, WithHeadings, WithStyles};
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use App\Models\Shop\{Order, OrderModel};
+use App\Models\{UserMng};
 use DB;
 
 class OrderListExport implements FromCollection, WithHeadings, WithStyles {
@@ -75,16 +77,16 @@ class OrderListExport implements FromCollection, WithHeadings, WithStyles {
 			else return $q->where('od_mng', $v);
 		});
 
-		if (isset($data['startPrice'])) { 	$orders = $orders->where('od_all_price', '>=', preg_replace('/\D/', '', $data['startPrice'])); }
-		if (isset($data['endPrice'])) { 	$orders = $orders->where('od_all_price', '<=', preg_replace('/\D/', '', $data['endPrice'])); }
-        if (isset($data['um_group'])) {
-			$group = UserMng::Group($data['um_group'])->pluck('um_user_id');
+		if (!empty($req['startPrice'])) { 	$orders = $orders->where('od_all_price', '>=', preg_replace('/\D/', '', $req['startPrice'])); }
+		if (!empty($req['endPrice'])) { 	$orders = $orders->where('od_all_price', '<=', preg_replace('/\D/', '', $req['endPrice'])); }
+        if (!empty($req['um_group'])) {
+			$group = UserMng::Group($req['um_group'])->pluck('um_user_id');
 			$orders = $orders->whereIn('od_mng', (count($group) ? $group : ['']));
 		}
-		if (isset($data['sale_env']))	$orders = $orders->where('od_sale_env', $data['sale_env']);
-        if (isset($data['keyword'])){
-			$txt = $data['keyword'];
-            switch ($data['mode']) {
+		if (!empty($req['sale_env']))	$orders = $orders->where('od_sale_env', $req['sale_env']);
+        if (!empty($req['keyword'])){
+			$txt = $req['keyword'];
+            switch ($req['mode']) {
 				case 'od_orderer':		$orders = $orders->where('od_orderer', 'like', "%$txt%"); break;
 				case 'orderer_email':	$orders = $orders->where('od_orderer_email', 'like', "%$txt%"); break;
 				case 'orderer_hp':		$orders = $orders->where('od_orderer_hp', 'like', "%$txt%"); break;
@@ -112,7 +114,7 @@ class OrderListExport implements FromCollection, WithHeadings, WithStyles {
 				case 'u_id':			$orders = $orders->where('created_id', $txt); break;				
             }
         }
-		
+		echo_query($orders);
         return $orders->get();
     }
 }

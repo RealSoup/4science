@@ -34,6 +34,13 @@ export default {
     methods: {
         async addFiles (files) {
             for(let i = 0; i < files.length; i++) {
+                // ✅ 확장자 검사 (대문자 포함 여부 확인)
+                const ext = files[i].name.split('.').pop();
+                if (/[A-Z]/.test(ext)) {
+                    alert(`파일 [${files[i].name}]의 확장자가 대문자입니다.\n확장자를 소문자로 변경한 후 다시 업로드해주세요.`);
+                    continue; // 추가하지 않음
+                }
+                
                 let src = "";
                 if(files[i].type.match(/image/i))
                     src = await this.readFiles(files[i]);

@@ -36,38 +36,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     addFiles: function addFiles(files) {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var i, src;
+        var i, ext, src;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               i = 0;
             case 1:
               if (!(i < files.length)) {
-                _context.next = 16;
+                _context.next = 20;
                 break;
               }
+              // ✅ 확장자 검사 (대문자 포함 여부 확인)
+              ext = files[i].name.split('.').pop();
+              if (!/[A-Z]/.test(ext)) {
+                _context.next = 6;
+                break;
+              }
+              alert("\uD30C\uC77C [".concat(files[i].name, "]\uC758 \uD655\uC7A5\uC790\uAC00 \uB300\uBB38\uC790\uC785\uB2C8\uB2E4.\n\uD655\uC7A5\uC790\uB97C \uC18C\uBB38\uC790\uB85C \uBCC0\uACBD\uD55C \uD6C4 \uB2E4\uC2DC \uC5C5\uB85C\uB4DC\uD574\uC8FC\uC138\uC694."));
+              return _context.abrupt("continue", 17);
+            case 6:
               src = "";
               if (!files[i].type.match(/image/i)) {
-                _context.next = 9;
+                _context.next = 13;
                 break;
               }
-              _context.next = 6;
-              return _this.readFiles(files[i]);
-            case 6:
-              src = _context.sent;
               _context.next = 10;
-              break;
-            case 9:
-              if (files[i].type == 'application/pdf') src = "/storage/common/file_icon_pdf.png";else if (files[i].type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') src = "/storage/common/file_icon_excel.png";else src = "/storage/common/file_icon_default.png";
+              return _this.readFiles(files[i]);
             case 10:
+              src = _context.sent;
+              _context.next = 14;
+              break;
+            case 13:
+              if (files[i].type == 'application/pdf') src = "/storage/common/file_icon_pdf.png";else if (files[i].type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') src = "/storage/common/file_icon_excel.png";else src = "/storage/common/file_icon_default.png";
+            case 14:
               files[i].path_thumb = src;
               files[i].fi_original = files[i].name;
               _this.value.push(files[i]);
-            case 13:
+            case 17:
               i++;
               _context.next = 1;
               break;
-            case 16:
+            case 20:
             case "end":
               return _context.stop();
           }

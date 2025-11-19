@@ -16,7 +16,7 @@ trait FileControl {
         $thumb_wid = config('const.file.thumb_wid');
         $thumb_hei = config('const.file.thumb_hei');
         $mimeArr=['png', 'jpe', 'jpeg', 'jpg', 'gif', 'bmp', 'ico', 'tiff', 'tif', 'svg', 'svgz'];
-        $mime = $file->getClientOriginalExtension();
+        $mime = strtolower($file->getClientOriginalExtension());  // ✅ 여기에 적용
 
         $image_info;
         if (in_array($mime, $mimeArr)) 

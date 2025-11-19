@@ -403,7 +403,7 @@ class GoodsController extends Controller {
                         'fi_new' => $f->hashName(),
                         'fi_seq' => $k,
                         'fi_size' => $f->getSize(),
-                        'fi_ext' => $f->getClientOriginalExtension(),
+                        'fi_ext' => strtolower($f->getClientOriginalExtension()), // ✅ 소문자로 저장
                         'created_id' => auth()->user()->id,
                         'ip' => $req->ip(),
                     ]);

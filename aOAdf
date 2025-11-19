@@ -1,0 +1,64 @@
+warning: LF will be replaced by CRLF in public/js/resources_js_views_admin_board_Create_vue.js.
+The file will have its original line endings in your working directory
+[1mdiff --git a/public/js/resources_js_views_admin_board_Create_vue.js b/public/js/resources_js_views_admin_board_Create_vue.js[m
+[1mindex c1ce862..6775607 100644[m
+[1m--- a/public/js/resources_js_views_admin_board_Create_vue.js[m
+[1m+++ b/public/js/resources_js_views_admin_board_Create_vue.js[m
+[36m@@ -36,38 +36,47 @@[m [mfunction _asyncToGenerator(fn) { return function () { var self = this, args = ar[m
+     addFiles: function addFiles(files) {[m
+       var _this = this;[m
+       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {[m
+[31m-        var i, src;[m
+[32m+[m[32m        var i, ext, src;[m
+         return _regeneratorRuntime().wrap(function _callee$(_context) {[m
+           while (1) switch (_context.prev = _context.next) {[m
+             case 0:[m
+               i = 0;[m
+             case 1:[m
+               if (!(i < files.length)) {[m
+[31m-                _context.next = 16;[m
+[32m+[m[32m                _context.next = 20;[m
+                 break;[m
+               }[m
+[32m+[m[32m              // ✅ 확장자 검사 (대문자 포함 여부 확인)[m
+[32m+[m[32m              ext = files[i].name.split('.').pop();[m
+[32m+[m[32m              if (!/[A-Z]/.test(ext)) {[m
+[32m+[m[32m                _context.next = 6;[m
+[32m+[m[32m                break;[m
+[32m+[m[32m              }[m
+[32m+[m[32m              alert("\uD30C\uC77C [".concat(files[i].name, "]\uC758 \uD655\uC7A5\uC790\uAC00 \uB300\uBB38\uC790\uC785\uB2C8\uB2E4.\n\uD655\uC7A5\uC790\uB97C \uC18C\uBB38\uC790\uB85C \uBCC0\uACBD\uD55C \uD6C4 \uB2E4\uC2DC \uC5C5\uB85C\uB4DC\uD574\uC8FC\uC138\uC694."));[m
+[32m+[m[32m              return _context.abrupt("continue", 17);[m
+[32m+[m[32m            case 6:[m
+               src = "";[m
+               if (!files[i].type.match(/image/i)) {[m
+[31m-                _context.next = 9;[m
+[32m+[m[32m                _context.next = 13;[m
+                 break;[m
+               }[m
+[31m-              _context.next = 6;[m
+[32m+[m[32m              _context.next = 10;[m
+               return _this.readFiles(files[i]);[m
+[31m-            case 6:[m
+[32m+[m[32m            case 10:[m
+               src = _context.sent;[m
+[31m-              _context.next = 10;[m
+[32m+[m[32m              _context.next = 14;[m
+               break;[m
+[31m-            case 9:[m
+[32m+[m[32m            case 13:[m
+               if (files[i].type == 'application/pdf') src = "/storage/common/file_icon_pdf.png";else if (files[i].type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') src = "/storage/common/file_icon_excel.png";else src = "/storage/common/file_icon_default.png";[m
+[31m-            case 10:[m
+[32m+[m[32m            case 14:[m
+               files[i].path_thumb = src;[m
+               files[i].fi_original = files[i].name;[m
+               _this.value.push(files[i]);[m
+[31m-            case 13:[m
+[32m+[m[32m            case 17:[m
+               i++;[m
+               _context.next = 1;[m
+               break;[m
+[31m-            case 16:[m
+[32m+[m[32m            case 20:[m
+             case "end":[m
+               return _context.stop();[m
+           }[m
