@@ -114,7 +114,7 @@ class OrderListExport implements FromCollection, WithHeadings, WithStyles {
 				case 'u_id':			$orders = $orders->where('created_id', $txt); break;				
             }
         }
-		echo_query($orders);
+		// echo_query($orders);
         return $orders->get();
     }
 }
