@@ -118,7 +118,6 @@
 
 <script>
 import ax from '@/api/http';
-import { mapState } from 'vuex';
 export default {
     components: {
         'sch-date': () =>   import('@/views/_common/SchDate'),
