@@ -188,9 +188,9 @@ var render = function render() {
         key: "d".concat(er.er_id)
       }, [_c("b", {
         staticClass: "d-inline-block d-lg-none"
-      }, [_vm._v(_vm._s(_vm._f("formatDate")(er.created_at)))]), _vm._v(" "), _c("b", {
+      }, [_vm._v(_vm._s(_vm._f("formatDate")(er.updated_at)))]), _vm._v(" "), _c("b", {
         staticClass: "d-none d-lg-inline-block"
-      }, [_vm._v(_vm._s(_vm._f("formatDate_MM_DD_HH:mm")(er.created_at)))])])];
+      }, [_vm._v(_vm._s(_vm._f("formatDate_MM_DD_HH:mm")(er.updated_at)))])])];
     })], 2)], 1);
   })], 2);
 };

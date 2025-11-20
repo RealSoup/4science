@@ -58,8 +58,8 @@
                     <span v-else class="btn nametag orange not_fir" @click="exeWinPop(`/admin/shop/estimate/reply/${er.er_id}`)" :key="`b${er.er_id}`">재견적서</span>
                 </template>
                 <span :key="`d${er.er_id}`">
-                    <b class="d-inline-block d-lg-none">{{ er.created_at | formatDate }}</b>
-                    <b class="d-none d-lg-inline-block">{{ er.created_at | formatDate_MM_DD_HH:mm }}</b>
+                    <b class="d-inline-block d-lg-none">{{ er.updated_at | formatDate }}</b>
+                    <b class="d-none d-lg-inline-block">{{ er.updated_at | formatDate_MM_DD_HH:mm }}</b>
                 </span>
             </template>
         </b-col>
