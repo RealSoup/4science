@@ -284,16 +284,17 @@
 
 <script>
 import ax from '@/api/http';
-import FileUpload from '@/views/_common/FileUpload.vue'
+import FileUpload from '@/views/_common/FileUpload';
+import Addr from '@/views/admin/user/_comp/Addr';
 import { mapActions, mapState, mapGetters } from 'vuex';
 
 export default {
     name: 'AdmUserEdit',
     components: {
-        'file-upload': FileUpload,
+        'file-upload'   : FileUpload,
+        'addr'          : Addr,
         'modal': () => import('@/views/_common/Modal'),
         'mileage': () => import('./_comp/Mileage'),
-        'addr': () => import('./_comp/Addr'),
         'order': () => import('@/views/admin/shop/order/_comp/List'),
         'estimate': () => import('@/views/admin/shop/estimate/_comp/List'),
         'loading-modal': () => import('@/views/_common/LoadingModal.vue'),
