@@ -409,11 +409,11 @@ var render = function render() {
         placeholder: "우편번호"
       },
       model: {
-        value: _vm.frm.ua_zip,
+        value: addr.ua_zip,
         callback: function callback($$v) {
-          _vm.$set(_vm.frm, "ua_zip", $$v);
+          _vm.$set(addr, "ua_zip", $$v);
         },
-        expression: "frm.ua_zip"
+        expression: "addr.ua_zip"
       }
     })], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
       attrs: {

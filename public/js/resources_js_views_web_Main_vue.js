@@ -292,7 +292,7 @@ var render = function render() {
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": "/storage/event/2025/1124/".concat(_vm.slide_file_nm, ".jpg")
+      "img-src": "/storage/event/2025/1124/".concat(_vm.slide_file_nm, "01.jpg")
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {

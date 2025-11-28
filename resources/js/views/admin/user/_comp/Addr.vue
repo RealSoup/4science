@@ -36,7 +36,7 @@
             <b-button variant="warning" class="xm" @click="update(i)">수정</b-button>
         </b-col>
 
-        <b-col><b-form-input v-model="frm.ua_zip" size="sm" maxlength="5" placeholder="우편번호" /></b-col>
+        <b-col><b-form-input v-model="addr.ua_zip" size="sm" maxlength="5" placeholder="우편번호" /></b-col>
         <b-col><b-form-input v-model="addr.ua_addr1" size="sm" placeholder="도로명" /></b-col>
         <b-col><b-form-input v-model="addr.ua_addr2" size="sm" placeholder="상세" /></b-col>
         <b-col><b-form-input v-model="addr.ua_memo" size="sm" placeholder="배송시 요청사항" /></b-col>

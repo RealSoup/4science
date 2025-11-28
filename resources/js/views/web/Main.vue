@@ -19,7 +19,7 @@
             </b-link> -->  
 
             <b-link to="/board/event/show/71">
-                <b-carousel-slide :img-src="`/storage/event/2025/1124/${slide_file_nm}.jpg`"></b-carousel-slide>
+                <b-carousel-slide :img-src="`/storage/event/2025/1124/${slide_file_nm}01.jpg`"></b-carousel-slide>
             </b-link>
             <b-link to="/shop/goods?ca01=36">
                 <b-carousel-slide :img-src="`/storage/event/2025/0320/${slide_file_nm}.jpg`"></b-carousel-slide>
