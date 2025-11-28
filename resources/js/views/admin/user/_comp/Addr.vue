@@ -4,42 +4,42 @@
         <b-col>
             <b-input-group size="sm">
                 <b-input-group-prepend is-text>
-                    <b-form-checkbox v-model="frm.ua_def" value='Y' unchecked-value="N" size="sm" v-b-tooltip="'기본 배송지'" />
+                    <b-form-checkbox v-model="frm.ua_def" value='Y' unchecked-value="N" size="sm" v-b-tooltip="'기본 배송지'"></b-form-checkbox>
                 </b-input-group-prepend>
-                <b-form-input v-model="frm.ua_title" size="sm" placeholder="배송지명" />
+                <b-form-input v-model="frm.ua_title" size="sm" placeholder="배송지명"></b-form-input>
             </b-input-group> 
         </b-col>
-        <b-col><b-form-input v-model="frm.ua_name" size="sm" maxlength="20" placeholder="수령인" /></b-col>
-        <b-col><b-form-input v-model="frm.ua_hp" size="sm" placeholder="HP" :formatter="frm_formatHp" /></b-col>
+        <b-col><b-form-input v-model="frm.ua_name" size="sm" maxlength="20" placeholder="수령인"></b-form-input></b-col>
+        <b-col><b-form-input v-model="frm.ua_hp" size="sm" placeholder="HP" :formatter="frm_formatHp"></b-form-input></b-col>
         <b-col>
             <b-button variant="primary" class="xm" @click="store(i)">추가</b-button>
         </b-col>
         
-        <b-col><b-form-input v-model="frm.ua_zip" size="sm" maxlength="5" placeholder="우편번호" /></b-col>
-        <b-col><b-form-input v-model="frm.ua_addr1" size="sm" placeholder="도로명" /></b-col>
-        <b-col><b-form-input v-model="frm.ua_addr2" size="sm" placeholder="상세" /></b-col>
-        <b-col><b-form-input v-model="frm.ua_memo" size="sm" placeholder="배송시 요청사항" /></b-col>
+        <b-col><b-form-input v-model="frm.ua_zip" size="sm" maxlength="5" placeholder="우편번호"></b-form-input></b-col>
+        <b-col><b-form-input v-model="frm.ua_addr1" size="sm" placeholder="도로명"></b-form-input></b-col>
+        <b-col><b-form-input v-model="frm.ua_addr2" size="sm" placeholder="상세"></b-form-input></b-col>
+        <b-col><b-form-input v-model="frm.ua_memo" size="sm" placeholder="배송시 요청사항"></b-form-input></b-col>
     </b-row>
     <b-row v-for="(addr, i) in address" :key="addr.ua_id">
         <b-col>
             <b-input-group size="sm">
                 <b-input-group-prepend is-text>
-                    <b-form-checkbox v-model="addr.ua_def" value='Y' unchecked-value="N" @change="uniqueCheck(i)" size="sm" v-b-tooltip="'기본 배송지'" />
+                    <b-form-checkbox v-model="addr.ua_def" value='Y' unchecked-value="N" @change="uniqueCheck(i)" size="sm" v-b-tooltip="'기본 배송지'"></b-form-checkbox>
                 </b-input-group-prepend>
-                <b-form-input v-model="addr.ua_title" size="sm" placeholder="배송지명" />
+                <b-form-input v-model="addr.ua_title" size="sm" placeholder="배송지명"></b-form-input>
             </b-input-group> 
         </b-col>
-        <b-col><b-form-input v-model="addr.ua_name" size="sm" maxlength="20" placeholder="수령인" /></b-col>
-        <b-col><b-form-input v-model="addr.ua_hp" size="sm" placeholder="HP" :formatter="frm_formatHp" /></b-col>
+        <b-col><b-form-input v-model="addr.ua_name" size="sm" maxlength="20" placeholder="수령인"></b-form-input></b-col>
+        <b-col><b-form-input v-model="addr.ua_hp" size="sm" placeholder="HP" :formatter="frm_formatHp"></b-form-input></b-col>
         <b-col>
             <b-button variant="danger" class="xm" @click="destroy(i)">삭제</b-button>
             <b-button variant="warning" class="xm" @click="update(i)">수정</b-button>
         </b-col>
 
-        <b-col><b-form-input v-model="addr.ua_zip" size="sm" maxlength="5" placeholder="우편번호" /></b-col>
-        <b-col><b-form-input v-model="addr.ua_addr1" size="sm" placeholder="도로명" /></b-col>
-        <b-col><b-form-input v-model="addr.ua_addr2" size="sm" placeholder="상세" /></b-col>
-        <b-col><b-form-input v-model="addr.ua_memo" size="sm" placeholder="배송시 요청사항" /></b-col>
+        <b-col><b-form-input v-model="addr.ua_zip" size="sm" maxlength="5" placeholder="우편번호"></b-form-input></b-col>
+        <b-col><b-form-input v-model="addr.ua_addr1" size="sm" placeholder="도로명"></b-form-input></b-col>
+        <b-col><b-form-input v-model="addr.ua_addr2" size="sm" placeholder="상세"></b-form-input></b-col>
+        <b-col><b-form-input v-model="addr.ua_memo" size="sm" placeholder="배송시 요청사항"></b-form-input></b-col>
     </b-row>
 </b-container>
 </template>
