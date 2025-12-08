@@ -529,7 +529,10 @@
                             <b-col class="label">담당자</b-col>
                             <b-col>
                                 <b-form-select v-model="od.od_mng" class="sm_ib_h">
-                                    <b-form-select-option :value="null" disabled>◖처리 상태◗</b-form-select-option>
+                                    <b-form-select-option :value="null">
+                                        <template v-if="od.od_mng == null">◖처리 상태◗</template>
+                                        <template v-else>-없음-</template>
+                                    </b-form-select-option>
                                     <b-form-select-option v-for="(v, k) in mng_on" :key="k" :value="k">{{v.name}}</b-form-select-option>
                                 </b-form-select>
                             </b-col>

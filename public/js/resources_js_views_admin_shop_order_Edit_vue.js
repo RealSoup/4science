@@ -2092,10 +2092,9 @@ var render = function render() {
     }
   }, [_c("b-form-select-option", {
     attrs: {
-      value: null,
-      disabled: ""
+      value: null
     }
-  }, [_vm._v("◖처리 상태◗")]), _vm._v(" "), _vm._l(_vm.mng_on, function (v, k) {
+  }, [_vm.od.od_mng == null ? [_vm._v("◖처리 상태◗")] : [_vm._v("-없음-")]], 2), _vm._v(" "), _vm._l(_vm.mng_on, function (v, k) {
     return _c("b-form-select-option", {
       key: k,
       attrs: {

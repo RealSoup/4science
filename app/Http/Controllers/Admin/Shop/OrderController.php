@@ -368,7 +368,9 @@ class OrderController extends Controller {
 	public function update(Request $req, $od_id) {
 		$od = $this->order->find($od_id);
 		if ($req->filled('type')) {
-			if 		($req->type == 'od_mng' && $req->filled('od_mng')) 	$od->od_mng = $req->od_mng;
+			//	has()는 값이 null이어도 key만 있으면 true
+			//	filled()은 null -> False
+			if 		($req->type == 'od_mng' && $req->has('od_mng')) 	$od->od_mng = $req->od_mng;
 			else if ($req->type == 'od_step' && $req->filled('od_step')) {
 				if($req->od_type != 'buy_temp') {
 					if(intval($req->od_step) >= 20 && intval($req->od_step) <= 50) {
