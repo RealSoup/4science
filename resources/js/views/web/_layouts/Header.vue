@@ -47,7 +47,9 @@
                     <b-button type="submit"><font-awesome-icon icon="search" /></b-button>
                 </b-form>
             </div>
-   
+
+            <b-img :src="`/storage/common/logo/25121603.png`" class="bd251216"></b-img>
+
             <div class="top_menu">
                 <template v-if="isLoggedin">
                     <b-link @click="logout">
@@ -210,6 +212,10 @@ export default {
 #header #core .the_top .logo .season { display:block; width:100%; }
 #header #core .the_top .logo .season { transform:translateY(32px); max-width:400px; }
 #header #core .the_top .logo .default { display:none; }
+#header #core .the_top .bd251216 { transform:translate(4px, 12px); }
+@media (max-width: 992px){
+    #header #core .the_top .bd251216 { display:none; }
+}
 #header #core .the_top .top_menu { margin-bottom:3px; text-align:right; }
 #header #core .the_top .top_menu a { display:inline-block; text-align:center; padding: 0 0.4em; font-size:.8em; font-weight:600; }
 #header #core .the_top .top_menu a p { margin:.5em 0 0 0; }
