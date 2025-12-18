@@ -82,11 +82,11 @@ var render = function render() {
             }
           }
         }
-      }, [_c("img", {
+      }, [_c("b-img", {
         attrs: {
           src: item.img
         }
-      })]), _vm._v(" "), _c("b-col", {
+      })], 1), _vm._v(" "), _c("b-col", {
         staticClass: "gd_txt"
       }, [_c("div", {
         staticClass: "explain"

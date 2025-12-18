@@ -8,7 +8,7 @@
 
     <b-row v-for="(item, i_item) in pa" :key="`${pa_id}${i_item}`" :class="{option:item.type == 'option'}" class="gm_box">
         <template v-if="item.type == 'model'">
-            <b-link :to="{name: 'goods_show', params:{gd_id:item.gd_id} }" class="gd_img col"><img :src="item.img" /></b-link>
+            <b-link :to="{name: 'goods_show', params:{gd_id:item.gd_id} }" class="gd_img col"><b-img :src="item.img"></b-img></b-link>
             <b-col class="gd_txt">
                 <div class="explain">
                     <p :to="{name: 'goods_show', params:{gd_id:item.gd_id} }" class="gd_name">{{item.gd_name}}</p>
