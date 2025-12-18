@@ -43,7 +43,7 @@
                         <option value="cat_no">Cat.No</option>
                         <option value="maker">제조사</option>
                     </select>
-                    <b-form-input v-model="frm.keyword" placeholder="검색어를 입력하세요" />
+                    <b-form-input v-model="frm.keyword" placeholder="검색어를 입력하세요"></b-form-input>
                     <b-button type="submit"><font-awesome-icon icon="search"></font-awesome-icon></b-button>
                 </b-form>
             </div>
