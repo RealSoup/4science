@@ -14,7 +14,7 @@
                     <p :to="{name: 'goods_show', params:{gd_id:item.gd_id} }" class="gd_name">{{item.gd_name}}</p>
                     <p><b class="m_hide">제품명:</b> {{item.gm_name}} / <b class="m_hide">Cat.No.:</b> {{item.gm_catno}}</p>
                     <p><b class="m_hide">모델명:</b> {{item.gm_code}} / <b class="m_hide">판매단위:</b> {{item.gm_unit}}</p>
-                    <p><b class="m_hide">사양:</b> <span v-html="nl2br(item.gm_spec)" /></p>
+                    <p><b class="m_hide">사양:</b> <span v-html="nl2br(item.gm_spec)"></span></p>
                     <p v-if="item.dlvy_at"><b class="m_hide">납기:</b> {{item.dlvy_at}}</p>
                 </div>
 
