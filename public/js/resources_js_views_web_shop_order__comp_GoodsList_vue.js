@@ -90,7 +90,7 @@ var render = function render() {
         staticClass: "gd_txt"
       }, [_c("div", {
         staticClass: "explain"
-      }, [_c("b-link", {
+      }, [_c("p", {
         staticClass: "gd_name",
         attrs: {
           to: {
@@ -116,7 +116,7 @@ var render = function render() {
         }
       })]), _vm._v(" "), item.dlvy_at ? _c("p", [_c("b", {
         staticClass: "m_hide"
-      }, [_vm._v("납기:")]), _vm._v(" " + _vm._s(item.dlvy_at))]) : _vm._e()], 1), _vm._v(" "), _c("div", {
+      }, [_vm._v("납기:")]), _vm._v(" " + _vm._s(item.dlvy_at))]) : _vm._e()]), _vm._v(" "), _c("div", {
         staticClass: "col_price"
       }, [_c("div", {
         staticClass: "price_box",

@@ -6,13 +6,12 @@
         {{pa[0]['pa_name'] ? '업체' : '포사이언스'}} 배송
     </h4>
 
-
     <b-row v-for="(item, i_item) in pa" :key="`${pa_id}${i_item}`" :class="{option:item.type == 'option'}" class="gm_box">
         <template v-if="item.type == 'model'">
             <b-link :to="{name: 'goods_show', params:{gd_id:item.gd_id} }" class="gd_img col"><img :src="item.img" /></b-link>
             <b-col class="gd_txt">
                 <div class="explain">
-                    <b-link :to="{name: 'goods_show', params:{gd_id:item.gd_id} }" class="gd_name">{{item.gd_name}}</b-link>
+                    <p :to="{name: 'goods_show', params:{gd_id:item.gd_id} }" class="gd_name">{{item.gd_name}}</p>
                     <p><b class="m_hide">제품명:</b> {{item.gm_name}} / <b class="m_hide">Cat.No.:</b> {{item.gm_catno}}</p>
                     <p><b class="m_hide">모델명:</b> {{item.gm_code}} / <b class="m_hide">판매단위:</b> {{item.gm_unit}}</p>
                     <p><b class="m_hide">사양:</b> <span v-html="nl2br(item.gm_spec)" /></p>
@@ -89,20 +88,8 @@
         <b-col>결제예정금액</b-col> 
         <b-col><b>{{price.total | comma}}</b> 원</b-col>
     </b-row>
-</b-container>    
-<!--
-    <b-row v-for="(pa, pa_id) in value" :key="pa_id" class="lbody">
-        <b-col class="m_hide">
-            <template v-if="er_no_dlvy_fee !== 'Y'">
-                <template v-if="pa[0]['pa_type'] == 'AIR'">항공운임료</template>
-                <template v-else>배송비</template>
-                <br />
-                <template v-if="add_vat">{{pa[0].pa_dlvy_p_add_vat | comma | won}}</template>
-                <template v-else>{{pa[0].pa_dlvy_p | comma | won}}</template>
-            </template>
-        </b-col>
-    </b-row>
--->
+</b-container> 
+
 </div>
 </template>
 
