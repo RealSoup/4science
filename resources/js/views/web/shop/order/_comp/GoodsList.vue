@@ -23,9 +23,9 @@
                         <span class="normal">{{item.price_add_vat | comma}}</span>
                         <span class="discount">{{(item.price_dc_add_vat) | comma}}</span>
                     </div>
-                    <font-awesome-icon icon="times" />
+                    <font-awesome-icon icon="times"></font-awesome-icon>
                     <div>{{item.ea}}</div>
-                    <font-awesome-icon icon="equals" />
+                    <font-awesome-icon icon="equals"></font-awesome-icon>
                     <div class="price_box" :class="{price_discount:item.price_dc_add_vat}">
                         <span class="normal">{{item.price_add_vat*item.ea | comma | won}}</span>
                         <span class="discount">{{(item.price_dc_add_vat*item.ea) | comma | won}}</span>
@@ -49,9 +49,9 @@
                         <span class="normal">{{item.price_add_vat | comma}}</span>
                         <span class="discount">{{(item.price_dc_add_vat) | comma}}</span>
                     </div>
-                    <font-awesome-icon icon="times" />
+                    <font-awesome-icon icon="times"></font-awesome-icon>
                     <div>{{item.ea}}</div>
-                    <font-awesome-icon icon="equals" />
+                    <font-awesome-icon icon="equals"></font-awesome-icon>
                     <div class="price_box" :class="{price_discount:item.price_dc_add_vat}">
                         <span class="normal">{{item.price_add_vat*item.ea | comma | won}}</span>
                         <span class="discount">{{(item.price_dc_add_vat*item.ea) | comma | won}}</span>
