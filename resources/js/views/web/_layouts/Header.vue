@@ -95,11 +95,11 @@
     <div class="sm_view">
         <!-- <b-link @click="view_cate=!view_cate"><font-awesome-icon icon="sitemap" /></b-link>
         <b-link @click="view_nav=!view_nav"><b-icon-grid3x3-gap-fill /></b-link> -->
-        <b-link @click="$router.go(-1)"><b-icon-arrow-left /></b-link>
-        <b-link :to="{name: 'main'}"><b-icon-house-door-fill /></b-link>
-        <b-link @click="view_sch=!view_sch"><b-icon-search /></b-link>
+        <b-link @click="$router.go(-1)"><b-icon-arrow-left></b-icon-arrow-left></b-link>
+        <b-link :to="{name: 'main'}"><b-icon-house-door-fill></b-icon-house-door-fill></b-link>
+        <b-link @click="view_sch=!view_sch"><b-icon-search></b-icon-search></b-link>
         <b-link :to="{name: 'login'}"><b-img :src="`/storage/common/icon_mypage.gif`" width="35"></b-img><!-- <b-icon-person-fill /> --></b-link>
-        <b-link :to="{name: 'cart_index'}"><b-icon-basket3-fill /></b-link>
+        <b-link :to="{name: 'cart_index'}"><b-icon-basket3-fill></b-icon-basket3-fill></b-link>
         <b-link v-if="list.length" @click="$store.commit('recent_goods/switch', { recent_goods_view:!recent_goods_view })"><b-icon-clock-fill /></b-link>
     </div>
     <transition name="modal">
@@ -114,27 +114,6 @@
 <script>
 import LoginPopUp from '../auth/Login.vue';
 import { mapState, mapGetters } from 'vuex'
-
-
-
-// 네이버 Papago Text Translation API 예제
-// var express = require('express');
-// var app = express();
-
-//     request.post(options, function(error, response, body) {
-//         if (!error && response.statusCode == 200) {
-//         res.writeHead(200, { 'Content-Type': 'text/json;charset=utf-8' });
-//         res.end(body);
-//         } else {
-//         res.status(response.statusCode).end();
-//         console.log('error = ' + response.statusCode);
-//         }
-//     });
-// });
-// app.listen(3000, function() {
-//     console.log('http://127.0.0.1:3000/translate app listening on port 3000!');
-// });
-
 
 
 export default {
