@@ -44,7 +44,7 @@
                         <option value="maker">제조사</option>
                     </select>
                     <b-form-input v-model="frm.keyword" placeholder="검색어를 입력하세요" />
-                    <b-button type="submit"><font-awesome-icon icon="search" /></b-button>
+                    <b-button type="submit"><font-awesome-icon icon="search"></font-awesome-icon></b-button>
                 </b-form>
             </div>
 
