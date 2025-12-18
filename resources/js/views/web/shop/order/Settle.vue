@@ -140,7 +140,7 @@
                             <b-form-select-option value="">배송시 요청 사항</b-form-select-option>
                             <b-form-select-option v-for="(msg, i) in config.dlvy_msg" :key="i" :value="i">{{msg}}</b-form-select-option>
                         </b-form-select>
-                        <b-form-input v-if="order.od_memo_slt == ''" v-model="order.od_memo" id="od_memo" size="sm" />
+                        <b-form-input v-if="order.od_memo_slt == ''" v-model="order.od_memo" id="od_memo" size="sm"></b-form-input>
                     </template>
                     <b-button v-else class="white wd_100p add_addr" size="sm" ref="add_addr" @click="config_addr">배송지 입력 <small>등록된 배송지 없음</small></b-button>
                 </div>
@@ -184,7 +184,7 @@
                                 <b-col cols="3">예금주</b-col><b-col>(주) 아이넥서스</b-col>
                             </b-row>
                             <b-row>
-                                <b-col cols="3">입금자</b-col><b-col><b-form-input v-model="order.extra.oex_depositor" ref="oex_depositor" placeholder="입금자" size="sm" /></b-col>
+                                <b-col cols="3">입금자</b-col><b-col><b-form-input v-model="order.extra.oex_depositor" ref="oex_depositor" placeholder="입금자" size="sm"></b-form-input></b-col>
                             </b-row>
                         </div>
                         
@@ -195,7 +195,7 @@
                                 <b-col cols="3">결제금액</b-col><b-col><b class="point">{{order.price.total| comma}}</b> 원</b-col>
                             </b-row>
                             <b-row>
-                                <b-col cols="3">결제자</b-col><b-col><b-form-input v-model="order.extra.oex_depositor" ref="oex_depositor" placeholder="결제자" size="sm" /></b-col>
+                                <b-col cols="3">결제자</b-col><b-col><b-form-input v-model="order.extra.oex_depositor" ref="oex_depositor" placeholder="결제자" size="sm"></b-form-input></b-col>
                             </b-row>
                         </div>
                         
@@ -209,7 +209,7 @@
                                     <b-form-radio v-model="order.extra.oex_pay_plan" value="dlvy">납품시 결제</b-form-radio>
                                     <b-form-radio v-model="order.extra.oex_pay_plan" value="etc">기타</b-form-radio>
                                     <transition name="slideUpDown">
-                                        <b-form-input v-if="order.extra.oex_pay_plan == 'etc'" v-model="order.extra.oex_pay_plan_etc" placeholder="30자 이내 작성" size="sm" />
+                                        <b-form-input v-if="order.extra.oex_pay_plan == 'etc'" v-model="order.extra.oex_pay_plan_etc" placeholder="30자 이내 작성" size="sm"></b-form-input>
                                     </transition>
                                 </b-col>
                             </b-row>
