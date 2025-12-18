@@ -5,11 +5,7 @@
         <b-icon-house></b-icon-house>
         {{pa[0]['pa_name'] ? '업체' : '포사이언스'}} 배송
     </h4>
-    <!-- <b-row class="lhead m_hide">
-        <b-col></b-col>
-        <b-col>주문 상품</b-col>
-        <b-col>금액</b-col>
-    </b-row> -->
+
 
     <b-row v-for="(item, i_item) in pa" :key="`${pa_id}${i_item}`" :class="{option:item.type == 'option'}" class="gm_box">
         <template v-if="item.type == 'model'">
