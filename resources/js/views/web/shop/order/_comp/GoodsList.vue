@@ -13,10 +13,10 @@
 
     <b-row v-for="(item, i_item) in pa" :key="`${pa_id}${i_item}`" :class="{option:item.type == 'option'}" class="gm_box">
         <template v-if="item.type == 'model'">
-            <b-col class="gd_img"><img :src="item.img" /></b-col>
+            <b-link :to="{name: 'goods_show', params:{gd_id:item.gd_id} }" class="gd_img col"><img :src="item.img" /></b-link>
             <b-col class="gd_txt">
                 <div class="explain">
-                    <p class="gd_name">{{item.gd_name}}</p>
+                    <b-link :to="{name: 'goods_show', params:{gd_id:item.gd_id} }" class="gd_name">{{item.gd_name}}</b-link>
                     <p><b class="m_hide">제품명:</b> {{item.gm_name}} / <b class="m_hide">Cat.No.:</b> {{item.gm_catno}}</p>
                     <p><b class="m_hide">모델명:</b> {{item.gm_code}} / <b class="m_hide">판매단위:</b> {{item.gm_unit}}</p>
                     <p><b class="m_hide">사양:</b> <span v-html="nl2br(item.gm_spec)" /></p>

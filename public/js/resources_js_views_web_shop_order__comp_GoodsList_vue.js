@@ -72,8 +72,16 @@ var render = function render() {
         "class": {
           option: item.type == "option"
         }
-      }, [item.type == "model" ? [_c("b-col", {
-        staticClass: "gd_img"
+      }, [item.type == "model" ? [_c("b-link", {
+        staticClass: "gd_img col",
+        attrs: {
+          to: {
+            name: "goods_show",
+            params: {
+              gd_id: item.gd_id
+            }
+          }
+        }
       }, [_c("img", {
         attrs: {
           src: item.img
@@ -82,8 +90,16 @@ var render = function render() {
         staticClass: "gd_txt"
       }, [_c("div", {
         staticClass: "explain"
-      }, [_c("p", {
-        staticClass: "gd_name"
+      }, [_c("b-link", {
+        staticClass: "gd_name",
+        attrs: {
+          to: {
+            name: "goods_show",
+            params: {
+              gd_id: item.gd_id
+            }
+          }
+        }
       }, [_vm._v(_vm._s(item.gd_name))]), _vm._v(" "), _c("p", [_c("b", {
         staticClass: "m_hide"
       }, [_vm._v("제품명:")]), _vm._v(" " + _vm._s(item.gm_name) + " / "), _c("b", {
@@ -100,7 +116,7 @@ var render = function render() {
         }
       })]), _vm._v(" "), item.dlvy_at ? _c("p", [_c("b", {
         staticClass: "m_hide"
-      }, [_vm._v("납기:")]), _vm._v(" " + _vm._s(item.dlvy_at))]) : _vm._e()]), _vm._v(" "), _c("div", {
+      }, [_vm._v("납기:")]), _vm._v(" " + _vm._s(item.dlvy_at))]) : _vm._e()], 1), _vm._v(" "), _c("div", {
         staticClass: "col_price"
       }, [_c("div", {
         staticClass: "price_box",

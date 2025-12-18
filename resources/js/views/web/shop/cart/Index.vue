@@ -20,16 +20,14 @@
         <b-row v-for="(ct, i) in cartList" :key="ct.ct_id" class="cart_data" :class="{model:ct.type=='model', option:ct.type=='option', no_ea:ct.ea>ct.gm_limit_ea }">
             <template v-if="ct.type=='model'">
                 <b-col class="check"><b-form-checkbox v-model="ct.ct_check_opt" value='Y' unchecked-value="N" @change="chkChange" /></b-col>
-                <b-col class="img"><img :src="ct.img" class="img-fluid" /></b-col>
+                <b-link :to="{name: 'goods_show', params:{gd_id:ct.gd_id} }" class="img col"><img :src="ct.img" class="img-fluid" /></b-link>
                 <b-col>
-                    <b-link :to="{name: 'goods_show', params:{gd_id:ct.gd_id} }">
-                        <div class="tit">{{ct.gd_name}}</div>
-                        <ul>
-                            <li>모델명:{{ct.gm_code}} / Cat.No.:{{ct.gm_catno}}</li>
-                            <li>제품명:{{ct.gm_name}} / 사양:{{ct.gm_spec}}</li>
-                            <li>판매단위:{{ct.gm_unit}}</li>
-                        </ul>
-                    </b-link>
+                    <b-link :to="{name: 'goods_show', params:{gd_id:ct.gd_id} }" class="tit">{{ct.gd_name}}</b-link>
+                    <ul>
+                        <li>모델명:{{ct.gm_code}} / Cat.No.:{{ct.gm_catno}}</li>
+                        <li>제품명:{{ct.gm_name}} / 사양:{{ct.gm_spec}}</li>
+                        <li>판매단위:{{ct.gm_unit}}</li>
+                    </ul>
                 </b-col>            
                 <b-col class="maker">{{ct.mk_name}}</b-col>
                 <b-col class="price">
@@ -249,7 +247,7 @@ export default {
 .w_fence .body .row.no_ea::before { color:#FF0000; content:"재고 부족"; position:absolute; z-index:2; font-weight:900; font-size:2.5em; left:50%; transform:rotateZ(-21deg); } 
 .w_fence .body .row .col,
 .w_fence .body .row .col ul li { color:#949494; }
-.w_fence .body .row .col a .tit { font-weight:900; font-size:.9.5rem; }
+.w_fence .body .row .col .tit { font-weight:900; font-size:.9.5rem; }
 .w_fence .body .row .col ul li { font-size:.8rem; }
 .w_fence .body .row .price { text-align:right; }
 .w_fence .body .row .sum { font-weight:bold; font-size:1.1rem; color:#000; }
