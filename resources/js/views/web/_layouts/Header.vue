@@ -26,7 +26,7 @@
         <div class="the_top layout">
             <b-link class="logo" :to="{name: 'main'}">
                 <!-- <b-img :src="`/storage/common/logo/logo.png`" /> -->
-                <b-img :src="`/storage/common/logo/251216.png`"></b-img>
+                <b-img :src="`/storage/common/logo/251230.png`" class="season"></b-img>
             <!-- 
                 <b-img :src="`/storage/common/logo/241223.png`" class="season" />
                 <b-img :src="`/storage/common/logo/logo.png`" class="default" />
@@ -47,8 +47,6 @@
                     <b-button type="submit"><font-awesome-icon icon="search"></font-awesome-icon></b-button>
                 </b-form>
             </div>
-
-            <b-img :src="`/storage/common/logo/25121603.png`" class="bd251216"></b-img>
 
             <div class="top_menu">
                 <template v-if="isLoggedin">
@@ -186,15 +184,11 @@ export default {
 #header #core .the_top>* { flex-basis:0; flex-grow:1; max-width:100%; }
 /*#header #core .layout .logo { flex:0 0 250px; max-width:250px; height:72px; background:top left/238px 72px no-repeat url('/storage/common/logo/logo.png'); } */
 /*#header #core .layout .logo { flex:0 0 292px; max-width:292px; height:100%; position:relative; display:block;}*/
-#header #core .the_top .logo { flex:0 0 28.533333%; max-width:28.533333%; }
-#header #core .the_top .logo img { transform: translateY(10px); }
-#header #core .the_top .logo .season { display:block; width:100%; }
-#header #core .the_top .logo .season { transform:translateY(32px); max-width:400px; }
+#header #core .the_top .logo { flex:0 0 28.533333%; max-width:28.533333%; display:flex; justify-content:center; align-items:center; }
+#header #core .the_top .logo img { max-width:100%; max-height:100%; width:auto; height:auto; }
+#header #core .the_top .logo .season { transform:translateY(10px); }
 #header #core .the_top .logo .default { display:none; }
-#header #core .the_top .bd251216 { transform:translate(4px, 12px); }
-@media (max-width: 992px){
-    #header #core .the_top .bd251216 { display:none; }
-}
+
 #header #core .the_top .top_menu { margin-bottom:3px; text-align:right; }
 #header #core .the_top .top_menu a { display:inline-block; text-align:center; padding: 0 0.4em; font-size:.8em; font-weight:600; }
 #header #core .the_top .top_menu a p { margin:.5em 0 0 0; }
@@ -232,9 +226,9 @@ export default {
     #header.headerFix #afterimage { height:100px; }
     #header #core { background:none; }    
     #header #core .the_top { height:5em; justify-content:center; }
-    #header #core .the_top .logo { flex:0 0 132px; max-width:132px; margin-top:1em; }
-    #header #core .the_top .logo img { width:100%; }
-    #header #core .the_top .logo .season { display:none; }
+    #header #core .the_top .logo { flex:0 0 200px; max-width:200px; margin-top:1em; }
+    #header #core .the_top .logo img { max-width:132px; width:auto; height:auto; }
+    #header #core .the_top .logo .season { transform:none; max-width:100%; }
     #header #core .the_top .logo .default { display:block; width:100%; }
     #header #core .the_top .top_menu { display:none; }
     
