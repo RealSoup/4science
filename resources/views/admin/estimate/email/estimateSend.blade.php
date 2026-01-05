@@ -39,9 +39,11 @@
                     </td>
                 </tr>
             </table> -->
-            <a href="https://4science.net/shop/goods?ca01=36" target='_blank'>
-                <img src="{{ asset('storage/event/2025/0320/estimate.jpg') }}" />
+            
+            <a href="https://pf.kakao.com/_AxmKUj" target='_blank'>
+                <img src="{{ asset('storage/event/2023/1205/estimate.jpg') }}" />
             </a>
+          
         </td>
     </tr>
 
@@ -179,9 +181,6 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb;'>
-            <a href="https://pf.kakao.com/_AxmKUj" target='_blank'>
-                <img src="{{ asset('storage/event/2023/1205/estimate.jpg') }}" />
-            </a>
             <!-- <a href="https://4science.net/shop/goods?ca01=36" target='_blank'>
                 <img src="{{ asset('storage/event/2025/0320/estimate.jpg') }}" />
             </a> -->
