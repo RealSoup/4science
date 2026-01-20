@@ -19,13 +19,7 @@ __webpack_require__.r(__webpack_exports__);
         this.$emit('all_dc_update');
       }
     }
-    // 'value.er_no_dlvy_fee': {
-    //     handler(n, o) {
-    //         this.$emit('calculator');
-    //     },
-    // },
   },
-
   methods: {
     save: function save(type) {
       this.$emit('save', type);

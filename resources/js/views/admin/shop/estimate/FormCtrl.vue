@@ -39,11 +39,6 @@ export default {
                 this.$emit('all_dc_update');
             },
         },
-        // 'value.er_no_dlvy_fee': {
-        //     handler(n, o) {
-        //         this.$emit('calculator');
-        //     },
-        // },
     },
 
 
