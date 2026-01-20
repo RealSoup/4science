@@ -137,7 +137,7 @@ var render = function render() {
       staticClass: "d-inline-block d-lg-none"
     }, [_vm._v(_vm._s(_vm._f("formatDate")(row.created_at)))]), _vm._v(" "), _c("b", {
       staticClass: "d-none d-lg-inline-block"
-    }, [_vm._v(_vm._s(_vm._f("formatDate_MM_DD_HH:mm")(row.created_at)))])]), _vm._v(" "), _c("b-col", [row.eq_step === "DONOT" ? _c("span", {
+    }, [_vm._v(_vm._s(_vm._f("formatSmartDate")(row.created_at)))])]), _vm._v(" "), _c("b-col", [row.eq_step === "DONOT" ? _c("span", {
       staticClass: "nametag plum"
     }, [_vm._v(_vm._s(_vm._f("eqStep")(row.eq_step)))]) : row.eq_step === "DOING" ? _c("span", {
       staticClass: "nametag mint"

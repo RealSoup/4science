@@ -33,7 +33,7 @@
         </b-col>
         <b-col>
             <b class="d-inline-block d-lg-none">{{ row.created_at | formatDate }}</b>
-            <b class="d-none d-lg-inline-block">{{ row.created_at | formatDate_MM_DD_HH:mm }}</b>
+            <b class="d-none d-lg-inline-block">{{ row.created_at | formatSmartDate }}</b>
         </b-col>
         <b-col>
             <span class="nametag plum" v-if="row.eq_step==='DONOT'" >{{row.eq_step | eqStep}}</span>

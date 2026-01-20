@@ -43,6 +43,28 @@ Vue.filter('formatDate', function (dt) {
 
 });
 
+Vue.filter('formatSmartDate', function (dt) {
+    if (!dt) return '';
+
+    const targetDate = moment(dt);
+    const now = moment(); // 2026-01-20
+
+    let format = '';
+
+    // 1. 올해인 경우 (2026년) -> 월-일 시:분
+    if (targetDate.isSame(now, 'year')) {
+        format = 'MM-DD HH:mm';
+    } 
+    // 2. 지난해 이전인 경우 -> 연-월-일 (4자리 연도)
+    else {
+        format = 'YY-MM-DD';
+    }
+
+    return targetDate.format(format);
+});
+
+
+
 // Vue.filter('StringShortening', function (str) {
 //     if (str) {
 //         var maxLength = 70;
