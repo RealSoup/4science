@@ -68,10 +68,12 @@
 </template>
 
 <script>
+import SubString from '@/views/_common/SubString';
+
 export default {
     name: 'AdmEstimateIndexList',
     components: { 
-        'sub-string': () => import('@/views/_common/SubString.vue'),  
+        'SubString': SubString
     },
     props:['list', 'mng_off'],
     filters: {
