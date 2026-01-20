@@ -10,13 +10,14 @@
 
 <script>
 import ax from '@/api/http';
+import FormCtrl from '@/views/admin/shop/estimate/FormCtrl';
 import FormGoods from '@/views/admin/shop/estimate/FormGoods.vue';
 import { validationCheckerUser, validationCheckerGoods, validationCheckerExtra } from '@/views/admin/shop/estimate/FormValidation.js'
 
 export default {
     name: 'Create',
     components: {
-        'form-ctrl': () =>  import('@/views/admin/shop/estimate/FormCtrl.vue'),
+        'form-ctrl': FormCtrl,
         'form-user': () =>  import('@/views/admin/shop/estimate/FormUser.vue'),
         'form-goods': FormGoods,
         'form-extra': () => import('@/views/admin/shop/estimate/FormExtra.vue'),
