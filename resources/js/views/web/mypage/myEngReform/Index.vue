@@ -1,6 +1,9 @@
 <template>
 <div class="w_fence">
-    <h3>영문 교정 <small>고객님께서 영문교정을 의뢰하셨던 내역입니다.</small></h3>
+    <b-row class="tit_line">
+        <b-col><h3>영문 교정 <small>고객님께서 영문교정을 의뢰하셨던 내역입니다.</small></h3></b-col>
+        <b-col><b-button :to="{name: 'engReform_create'}" class="d_blue">영문교정가기</b-button></b-col>
+    </b-row>
     <b-container class="list">
         <b-row class="head">
             <b-col>번호</b-col>
@@ -86,8 +89,9 @@ export default {
 </script>
 
 <style scoped>
-h3 { font-size:1.5rem; }
-h3 small { font-size:55%; font-weight:600; }
+.tit_line .col h3 { font-size:1.5rem; }
+.tit_line .col h3 small { font-size:55%; font-weight:600; }
+.tit_line .col:last-child { text-align:right; }
 .list .head { border-top:2px solid #363636; border-bottom:1px solid #ACACAC; background-color:#ECECEC; }
 .list .head .col { font-weight:900; line-height:1.1; padding:.86rem 0; font-size:.9rem; text-align: center; }
 

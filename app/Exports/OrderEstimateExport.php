@@ -57,10 +57,10 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         $data[] = ['견적요청인', '', '', $od['od_orderer'], '', '', '견적담당자', '', '', $od['mng']['name']];
         $data[] = ['전화번호', '', '', ($od['od_orderer_tel']??''), '', '', '전화번호', '', '', $od['mng']['tel']];
         $data[] = ['휴대폰번호', '', '', $od['od_orderer_hp'], '', '', '이메일주소', '', '', $od['mng']['email']];
-        $data[] = ['이메일주소', '', '', $od['od_orderer_email'], '', '', '펙스번호', '', '', $od['mng']['fax']];
-        $data[] = ['펙스번호', '', '', ($od['od_orderer_fax']??'')];
+        $data[] = ['이메일주소', '', '', $od['od_orderer_email']/*, '', '', '펙스번호', '', '', $od['mng']['fax']*/];
+        // $data[] = ['펙스번호', '', '', ($od['od_orderer_fax']??'')];
         $data[] = [''];
-        $data[] = ['No.', 'DESCRIPTION', '', '', '', '', '', 'U/PRICE', '', 'Q\'TY', 'AMOUNT'];
+        $data[] = ['No.', 'DESCRIPTION', '', '', '', 'UNIT', '', 'U/PRICE', '', 'Q\'TY', 'AMOUNT'];
 
         $goods_p = 0;
         $seq = 0;
@@ -102,16 +102,16 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
             $data[] = ['항공 운임료', '', '', '', '', '', '', $od['od_air_price']];
         $data[] = ['TOTAL AMOUNT', '', '', '', '', '', '', rrp($goods_p)+$od['od_dlvy_price']+$od['od_air_price']];
         $data[] = [''];
-        $data[] = ['▶ 주문요청 (주문시 사업자등록증을 팩스로 보내주세요.)'];
-        $data[] = ['발주일'];
-        $data[] = ['수령인성명'];
-        $data[] = ['전화번호'];
-        $data[] = ['핸드폰번호'];
-        $data[] = ['배송지 주소'];
-        $data[] = [''];
-        $data[] = [''];
-        $data[] = ['결제방식'];
-        $data[] = [''];
+        // $data[] = ['▶ 주문요청 (주문시 사업자등록증을 팩스로 보내주세요.)'];
+        // $data[] = ['발주일'];
+        // $data[] = ['수령인성명'];
+        // $data[] = ['전화번호'];
+        // $data[] = ['핸드폰번호'];
+        // $data[] = ['배송지 주소'];
+        // $data[] = [''];
+        // $data[] = [''];
+        // $data[] = ['결제방식'];
+        // $data[] = [''];
         $data[] = [cache('bank')['name01'].' '.cache('bank')['num01'].' '.cache('bank')['owner']];
         $data[] = ['Your R&D Consultant www.4science.net'];
         return collect($data);
@@ -144,19 +144,18 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         $sheet->getRowDimension('10')->setRowHeight(21);
         $sheet->getRowDimension('11')->setRowHeight(21);
         $sheet->getRowDimension('12')->setRowHeight(21);
-        $sheet->getRowDimension('13')->setRowHeight(21);
         $sheet->mergeCells('A9:C9')->mergeCells('D9:F9')->mergeCells('G9:I9')->mergeCells('J9:L9');
         $sheet->mergeCells('A10:C10')->mergeCells('D10:F10')->mergeCells('G10:I10')->mergeCells('J10:L10');
         $sheet->mergeCells('A11:C11')->mergeCells('D11:F11')->mergeCells('G11:I11')->mergeCells('J11:L11');
         $sheet->mergeCells('A12:C12')->mergeCells('D12:F12')->mergeCells('G12:I12')->mergeCells('J12:L12');
-        $sheet->mergeCells('A13:C13')->mergeCells('D13:F13')->mergeCells('G13:I13')->mergeCells('J13:L13');
+        // $sheet->mergeCells('A13:C13')->mergeCells('D13:F13')->mergeCells('G13:I13')->mergeCells('J13:L13');
 
-        $sheet->getRowDimension('14')->setRowHeight(8);
+        $sheet->getRowDimension('13')->setRowHeight(8);
 
-        $sheet->getRowDimension('15')->setRowHeight(18);
-        $sheet->mergeCells('B15:E15')->mergeCells('F15:G15')->mergeCells('H15:I15')->mergeCells('K15:L15');
+        $sheet->getRowDimension('14')->setRowHeight(18);
+        $sheet->mergeCells('B14:E14')->mergeCells('F14:G14')->mergeCells('H14:I14')->mergeCells('K14:L14');
 
-        $n = 16;
+        $n = 15;
         foreach ($this->odm_map as $k => $row) {
             if ( $row['type'] == 'm' ) {
                 $sheet->getRowDimension($n)->setRowHeight(20);
@@ -194,44 +193,43 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         }
         $sheet->getRowDimension($n)->setRowHeight(18);
         $sheet->mergeCells("A{$n}:G{$n}")->mergeCells("H{$n}:L{$n}");
+        // $n+=2;
+
+        // $sheet->getRowDimension($n)->setRowHeight(18);
+        // $n++;
+
+        // $sheet->getRowDimension($n)->setRowHeight(18);
+        // $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:L{$n}");
+        // $n++;
+        // $sheet->getRowDimension($n)->setRowHeight(18);
+        // $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:L{$n}");
+        // $n++;
+        // $sheet->getRowDimension($n)->setRowHeight(18);
+        // $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:L{$n}");
+        // $n++;
+        // $sheet->getRowDimension($n)->setRowHeight(18);
+        // $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:L{$n}");
+        // $n++;
+
+        // $sheet->getRowDimension($n)->setRowHeight(18);
+        // $sheet->mergeCells("A{$n}:E".$n+2)->mergeCells("F{$n}:L{$n}");
+        // $n++;
+        // $sheet->getRowDimension($n)->setRowHeight(18);
+        // $sheet/*->mergeCells("A{$n}:E{$n}")*/->mergeCells("F{$n}:L{$n}");
+        // $n++;
+        // $sheet->getRowDimension($n)->setRowHeight(18);
+        // $sheet/*->mergeCells("A{$n}:E{$n}")*/->mergeCells("F{$n}:L{$n}");
+        // $n++;
+        // $sheet->getRowDimension($n)->setRowHeight(18);
+        // $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:L{$n}");
+        // $n++;
+
+        // $sheet->getRowDimension($n)->setRowHeight(8);
         $n+=2;
-
-        $sheet->getRowDimension($n)->setRowHeight(18);
-        $n++;
-
-        $sheet->getRowDimension($n)->setRowHeight(18);
-        $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:L{$n}");
-        $n++;
-        $sheet->getRowDimension($n)->setRowHeight(18);
-        $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:L{$n}");
-        $n++;
-        $sheet->getRowDimension($n)->setRowHeight(18);
-        $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:L{$n}");
-        $n++;
-        $sheet->getRowDimension($n)->setRowHeight(18);
-        $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:L{$n}");
-        $n++;
-
-        $sheet->getRowDimension($n)->setRowHeight(18);
-        $sheet->mergeCells("A{$n}:E".$n+2)->mergeCells("F{$n}:L{$n}");
-        $n++;
-        $sheet->getRowDimension($n)->setRowHeight(18);
-        $sheet/*->mergeCells("A{$n}:E{$n}")*/->mergeCells("F{$n}:L{$n}");
-        $n++;
-        $sheet->getRowDimension($n)->setRowHeight(18);
-        $sheet/*->mergeCells("A{$n}:E{$n}")*/->mergeCells("F{$n}:L{$n}");
-        $n++;
-        $sheet->getRowDimension($n)->setRowHeight(18);
-        $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:L{$n}");
-        $n++;
-
-        $sheet->getRowDimension($n)->setRowHeight(8);
-        $n++;
-
         $sheet->getRowDimension($n)->setRowHeight(18);
         $sheet->mergeCells("A{$n}:L{$n}");
-        $n++;
 
+        $n++;
         $sheet->getRowDimension($n)->setRowHeight(18);
         $sheet->mergeCells("A{$n}:L{$n}");
 
@@ -301,8 +299,8 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
             'A10' => $tit01, 'G10' => $tit01,
             'A11' => $tit01, 'G11' => $tit01,
             'A12' => $tit01, 'G12' => $tit01,
-            'A13' => $tit01, 'G13' => $tit01,
-            'A9:L13' => [
+            // 'A13' => $tit01, 'G13' => $tit01,
+            'A9:L12' => [
                 'borders' => [
                     'bottom' => [
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
@@ -315,7 +313,7 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                 ],
             ],
 
-            'A15:L15' => [
+            'A14:L14' => [
                 'font' => ['color' =>  ['argb' => 'FFFFFFFF'], 'bold' => true],
                 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
                 'fill' => [
@@ -340,11 +338,11 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         $border_top_thick = ['top' => [ 'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK, 'color' => ['argb' => 'FFD5D5D5'] ]];
        
 
-        $r = 15;
+        $r = 14;
         foreach ($this->odm_map as $row) {
             if ( $row['type'] == 'm' ) {
                 $r++;
-                if($r==16) {
+                if($r==15) {
                     $sheet_style["A{$r}"] = Arr::collapse([ [ 'borders' => $border_right ], $text_center ]);
                     $sheet_style["E{$r}"] = Arr::collapse([ [ 'borders' => $border_right ] ]);
                     $sheet_style["G{$r}"] = Arr::collapse([ [ 'borders' => $border_right ] ]);
@@ -460,65 +458,65 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                 ],
             ],
         ];
-        $r+=2;
+        // $r+=2;
 
-        $sheet_style["A{$r}:L{$r}"] = [
-            'font' => ['bold' => true],
-            'borders' => [
-                'bottom' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
-                    'color' => ['argb' => 'FF3A3A3A'],
-                ],
-            ],
-        ];
-        $r++;
+        // $sheet_style["A{$r}:L{$r}"] = [
+        //     'font' => ['bold' => true],
+        //     'borders' => [
+        //         'bottom' => [
+        //             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+        //             'color' => ['argb' => 'FF3A3A3A'],
+        //         ],
+        //     ],
+        // ];
+        // $r++;
 
-        $sheet_style["A{$r}:L".$r+3] = [
-            'font' => ['bold' => true],
-            'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
-            'borders' => [
-                'inside' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FFD5D5D5'],
-                ],
-                'bottom' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FFD5D5D5'],
-                ],
-            ],
-        ];
-        $r+=4;
+        // $sheet_style["A{$r}:L".$r+3] = [
+        //     'font' => ['bold' => true],
+        //     'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
+        //     'borders' => [
+        //         'inside' => [
+        //             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+        //             'color' => ['argb' => 'FFD5D5D5'],
+        //         ],
+        //         'bottom' => [
+        //             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+        //             'color' => ['argb' => 'FFD5D5D5'],
+        //         ],
+        //     ],
+        // ];
+        // $r+=4;
 
-        $sheet_style["A{$r}:E".$r+2] = [
-            'font' => ['bold' => true],
-            'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
-            'borders' => [
-                'right' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FFD5D5D5'],
-                ],
-            ],
-        ];
-        $r+=3;
+        // $sheet_style["A{$r}:E".$r+2] = [
+        //     'font' => ['bold' => true],
+        //     'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
+        //     'borders' => [
+        //         'right' => [
+        //             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+        //             'color' => ['argb' => 'FFD5D5D5'],
+        //         ],
+        //     ],
+        // ];
+        // $r+=3;
 
-        $sheet_style["A{$r}:L{$r}"] = [
-            'font' => ['bold' => true],
-            'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
-            'borders' => [
-                'inside' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FFD5D5D5'],
-                ],
-                'top' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FFD5D5D5'],
-                ],
-                'bottom' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FFD5D5D5'],
-                ],
-            ],
-        ];
+        // $sheet_style["A{$r}:L{$r}"] = [
+        //     'font' => ['bold' => true],
+        //     'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
+        //     'borders' => [
+        //         'inside' => [
+        //             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+        //             'color' => ['argb' => 'FFD5D5D5'],
+        //         ],
+        //         'top' => [
+        //             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+        //             'color' => ['argb' => 'FFD5D5D5'],
+        //         ],
+        //         'bottom' => [
+        //             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+        //             'color' => ['argb' => 'FFD5D5D5'],
+        //         ],
+        //     ],
+        // ];
         $r++;
 
         $sheet_style["A{$r}:L{$r}"] = [
@@ -574,7 +572,7 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         // 해당 기능없어서 라이브러리 조작
         // C:\WorkSpace\vsCode\4science\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Style\NumberFormat.php
         $rst = [];
-        $r = 15;
+        $r = 14;
         foreach ($this->odm_map as $row) {
             if($row['type'] == 'm') {
                 $r++;

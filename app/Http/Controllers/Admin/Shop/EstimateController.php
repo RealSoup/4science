@@ -468,6 +468,7 @@ class EstimateController extends Controller {
                     'er_air_price'    => isset($er['er_air_price']) && $er['er_air_price']       ? $er['er_air_price']    : 0,
                     'er_all_price'    => isset($er['er_all_price']) && $er['er_all_price']       ? $er['er_all_price']    : 0,
                     'er_no_dlvy_fee'  => isset($er['er_no_dlvy_fee']) && $er['er_no_dlvy_fee']   ? $er['er_no_dlvy_fee']  : 'N',
+                    'er_show_dc'      => isset($er['er_show_dc']) && $er['er_show_dc']           ? $er['er_show_dc']      : 'N',
                     'redirect_url'    => $redirect_url,
                     'domain'          => config('app.url'), 
         ];
@@ -494,7 +495,8 @@ class EstimateController extends Controller {
                     'er_dlvy_price'      => array_key_exists('er_dlvy_price',   $req) && $req['er_dlvy_price']   ? $req['er_dlvy_price']   : 0,
                     'er_air_price'       => array_key_exists('er_air_price',    $req) && $req['er_air_price']    ? $req['er_air_price']    : 0,
                     'er_all_price'       => array_key_exists('er_all_price',    $req) && $req['er_all_price']    ? $req['er_all_price']    : 0,
-                    'er_no_dlvy_fee'     => array_key_exists('er_no_dlvy_fee',  $req) && $req['er_no_dlvy_fee']  ? $req['er_no_dlvy_fee']  : 'N',];
+                    'er_no_dlvy_fee'     => array_key_exists('er_no_dlvy_fee',  $req) && $req['er_no_dlvy_fee']  ? $req['er_no_dlvy_fee']  : 'N',
+                    'er_show_dc'         => array_key_exists('er_show_dc',      $req) && $req['er_show_dc']      ? $req['er_show_dc']      : 'N',];
     }
     public function estimateModel_paramImplant($em, $er_id){
         $em_title = '';

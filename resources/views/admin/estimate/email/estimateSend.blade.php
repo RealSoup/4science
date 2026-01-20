@@ -6,7 +6,7 @@
 </head>
 <body style="padding:0;margin:0;">
 <center>
-<table cellpadding="0" cellspacing="0" border="0" width="700" style="border:1px solid #d5d5d5; font-family:'dotum'; font-size:12px">
+<table cellpadding="0" cellspacing="0" border="0" width="960" style="border:1px solid #d5d5d5; font-family:'dotum'; font-size:12px">
     <tr>
         <td style="padding:13px 30px 10px 30px;">
             <table width="100%"  style="font-size:12px;">
@@ -18,7 +18,7 @@
         </td>
     </tr>
     <tr>
-        <td style="border-top:2px solid #0095eb; padding-bottom:6px;"><img src="{{ asset('storage/common/email_top.png') }}" /></td>
+        <td style="border-top:2px solid #0095eb; padding-bottom:6px;"><img src="{{ asset('storage/common/email_top_960.jpg') }}" /></td>
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb;'>
@@ -41,7 +41,7 @@
             </table> -->
             
             <a href="https://pf.kakao.com/_AxmKUj" target='_blank'>
-                <img src="{{ asset('storage/event/2023/1205/estimate.jpg') }}" />
+                <img src="{{ asset('storage/event/2023/1205/estimate_960.jpg') }}" />
             </a>
           
         </td>
@@ -85,81 +85,134 @@
 
     <tr>
         <td style="padding:0 30px;">
-            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size:12px;">
-                <tr>
-                    <th colspan="7" style="padding-bottom:5px;" align="left">상품 정보</th>
-                </tr>
-                <tr>
-                    <th width="26.5%" style="background-color:#f8f8f8; padding:13px 0; border-top:2px solid #0095eb;">제품설명</th>
-                    <th style="background-color:#f8f8f8; padding:13px 0; border-top:2px solid #0095eb;">Cat. No.</th>
-                    <th style="background-color:#f8f8f8; padding:13px 0; border-top:2px solid #0095eb;">모델명</th>
-                    <th style="background-color:#f8f8f8; padding:13px 0; border-top:2px solid #0095eb;">판매단위</th>
-                    <th style="background-color:#f8f8f8; padding:13px 0; border-top:2px solid #0095eb;">단가</th>
-                    <th style="background-color:#f8f8f8; padding:13px 0; border-top:2px solid #0095eb;">수량</th>
-                    <th style="background-color:#f8f8f8; padding:13px 0; border-top:2px solid #0095eb;">공급가액</th>
-                </tr>
-                @foreach ($estimate_model as $em)
-                <tr>
-                    <td style="border-bottom:1px solid #D5D5D5; padding:13px 0; word-break:break-word;">
-                        <b>{{ $em['em_name'] }}</b>
-                        <br /><br />
-                        @nl2br($em['em_spec'])
-                    </td>
-                    <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;" align="center">{{ $em['em_catno'] }}</td>
-                    <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;" align="center">{{ $em['em_code'] }}</td>
-                    <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;" align="center">{{ $em['em_unit'] }}</td>
-                    <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;" align="center">{{ number_format($em['em_price']) }}</td>
-                    <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;" align="center">{{ $em['em_ea'] }}</td>
-                    <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;" align="center">{{ number_format($em['em_price'] * $em['em_ea']) }}</td>
-                </tr>
+
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size:12px; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th style="padding:4px 7px; background-color:#3A3A3A; color:#fff; border-right:1px solid #fff;">No.</th>
+                        <th style="padding:4px 7px; background-color:#3A3A3A; color:#fff; border-right:1px solid #fff;" width="33%">DESCRIPTION</th>
+                        <th style="padding:4px 7px; background-color:#3A3A3A; color:#fff; border-right:1px solid #fff;">UNIT</th>
+                        <th style="padding:4px 7px; background-color:#3A3A3A; color:#fff; border-right:1px solid #fff;">U&#47;PRICE </th>
+                        <th style="padding:4px 7px; background-color:#3A3A3A; color:#fff; border-right:1px solid #fff;">Q&#039;TY </th>
+                        <th style="padding:4px 7px; background-color:#3A3A3A; color:#fff;">AMOUNT</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+@php
+$no=1;
+@endphp
+                
+            @foreach ($estimate_model as $em) 
+                    <tr>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: 1px dashed #DADADA; text-align:center;">
+                            {{ $no }}
+                        </td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: 1px dashed #DADADA;">
+                            {{ $em['em_name'] }}
+                        </td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: 1px dashed #DADADA;">
+                            {{ $em['em_unit'] }}
+                        </td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: 1px dashed #DADADA; text-align:right;">
+                            <span @if($er_show_dc == 'Y' && $em['em_dc_rate']) style="text-decoration: line-through;" @endif>
+                                @if ($er_show_dc == 'Y' && $em['em_dc_rate'])
+                                    {{ number_format($em['em_cost_price']) }}
+                                @else
+                                    {{ number_format($em['em_price']) }}
+                                @endif
+                            </span>
+                        </td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: 1px dashed #DADADA; text-align:center;">
+                            {{ $em['em_ea'] }}
+                        </td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: 1px dashed #DADADA; border-right:1px solid #DADADA; text-align:right;">
+                            {{ number_format($em['em_price'] * $em['em_ea']) }}
+                        </td> 
+                    </tr>
+
+                    <tr>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: 1px dashed #DADADA; text-align:center;"></td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: 1px dashed #DADADA;">
+                            {{ $em['em_catno'].' / '.$em['em_code'] }}
+                        </td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: 1px dashed #DADADA;"></td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: 1px dashed #DADADA; text-align:right;">
+                            @if ($er_show_dc == 'Y' && $em['em_dc_rate'])
+                                {{ number_format($em['em_price']) }}
+                            @endif
+                        </td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: 1px dashed #DADADA; text-align:center;"></td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: 1px dashed #DADADA; border-right:1px solid #DADADA; text-align:right;"></td>
+                    </tr>
+
+                    <tr>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: {{ $em['estimate_option'] ? '1px dashed #DADADA' : '2px solid #DADADA' }}; text-align:center;"></td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: {{ $em['estimate_option'] ? '1px dashed #DADADA' : '2px solid #DADADA' }};">
+                            <span style="width:213px; display:inline-block;">@nl2br($em['em_spec'])</span>
+                        </td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: {{ $em['estimate_option'] ? '1px dashed #DADADA' : '2px solid #DADADA' }};"></td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: {{ $em['estimate_option'] ? '1px dashed #DADADA' : '2px solid #DADADA' }}; text-align:right;"></td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: {{ $em['estimate_option'] ? '1px dashed #DADADA' : '2px solid #DADADA' }}; text-align:center;"></td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: {{ $em['estimate_option'] ? '1px dashed #DADADA' : '2px solid #DADADA' }}; border-right:1px solid #DADADA; text-align:right;"></td>
+                    </tr>
+
+
+                @if ($em['estimate_option'])
                     @foreach ($em['estimate_option'] as $eo)
                     <tr>
-                        <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;" colspan="4">
-                            {{$eo['eo_tit']}}: {{$eo['eo_name']}}
-                        </td>
-                        <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;" align="center">{{ number_format($eo['eo_price']) }}</td>
-                        <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;" align="center">{{ $eo['eo_ea'] }}</td>
-                        <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;" align="center">{{ number_format($eo['eo_price'] * $eo['eo_ea']) }}</td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: {{ $loop->last ? '2px solid #DADADA' : '1px dashed #DADADA' }}; text-align:center;"></td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: {{ $loop->last ? '2px solid #DADADA' : '1px dashed #DADADA' }};">{{$eo['eo_tit']}}: {{$eo['eo_name']}}</td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: {{ $loop->last ? '2px solid #DADADA' : '1px dashed #DADADA' }};"></td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: {{ $loop->last ? '2px solid #DADADA' : '1px dashed #DADADA' }}; text-align:right;">{{ number_format($eo['eo_price'])}}</td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: {{ $loop->last ? '2px solid #DADADA' : '1px dashed #DADADA' }}; text-align:center;">{{$eo['eo_ea']}}</td>
+                        <td style="word-break: keep-all; word-wrap: break-word; padding:4px 7px; border-left:1px solid #DADADA; border-bottom: {{ $loop->last ? '2px solid #DADADA' : '1px dashed #DADADA' }}; border-right:1px solid #DADADA; text-align:right;">{{ number_format($eo['eo_price']*$eo['eo_ea']) }}</td>
                     </tr>
                     @endforeach
-                @endforeach
-                <tr>
-                    <th style='border-top:2px solid #50b947; border-bottom:1px solid #d5d5d5; padding:17px 0;'>추가정보</th>
-                    <td colspan='6' style='border-top:2px solid #50b947; color:#3a3a3a; border-bottom:1px solid #d5d5d5; padding:17px 0; text-align:justify; word-break:break-all; white-space:pre;'>{{$er_content}}</td>
-                </tr>
+                @endif
+@php
+$no++;
+@endphp
+            @endforeach
+                    <tr>
+                        <th style='border:1px solid #DADADA; padding:4px 7px;'>추가정보</th>
+                        <td colspan='5' style='border:1px solid #DADADA; padding:4px 7px; text-align:justify; word-break:keep-all; word-wrap:break-word;'>{{$er_content}}</td>
+                    </tr>
+
+                    <tr><td colspan="6" style="padding:4px 7px; border:2px solid #DADADA; border-left-width:1px; border-right-width:1px; text-align:right;"></td></tr>
+
+                    <tr>
+                        <td colspan="3" style="padding:4px 7px; word-break:keep-all; word-wrap:break-word; border-left:1px solid #DADADA; border-bottom:1px dashed #DADADA; text-align:right;">SUPPLY PRICE</td>
+                        <td colspan="3" style="padding:4px 7px; word-break:keep-all; word-wrap:break-word; border-right:1px solid #DADADA; border-bottom:1px dashed #DADADA; text-align:right;">{{number_format($er_gd_price)}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="padding:4px 7px; word-break:keep-all; word-wrap:break-word; border-left:1px solid #DADADA; border-bottom:1px dashed #DADADA; text-align:right;">V.A.T</td>
+                        <td colspan="3" style="padding:4px 7px; word-break:keep-all; word-wrap:break-word; border-right:1px solid #DADADA; border-bottom:1px dashed #DADADA; text-align:right;">{{ number_format($er_surtax) }}</td>
+                    </tr>
+                    @if ($er_no_dlvy_fee !== 'Y')
+                    @if ($er_dlvy_price > 0)
+                    <tr>
+                        <td colspan="3" style="padding:4px 7px; word-break:keep-all; word-wrap:break-word; border-left:1px solid #DADADA; border-bottom:1px dashed #DADADA; text-align:right;">배송료</td>
+                        <td colspan="3" style="padding:4px 7px; word-break:keep-all; word-wrap:break-word; border-right:1px solid #DADADA; border-bottom:1px dashed #DADADA; text-align:right;">{{ number_format($er_dlvy_price) }}</td>
+                    </tr>
+                    @endif
+                    @if ($er_air_price)
+                    <tr>
+                        <td colspan="3" style="padding:4px 7px; word-break:keep-all; word-wrap:break-word; border-left:1px solid #DADADA; border-bottom:1px dashed #DADADA; text-align:right;">항공운임료</td>
+                        <td colspan="3" style="padding:4px 7px; word-break:keep-all; word-wrap:break-word; border-right:1px solid #DADADA; border-bottom:1px dashed #DADADA; text-align:right;">{{ number_format($er_air_price) }}</td>
+                    </tr>
+                    @endif
+                    @endif
+                    <tr>
+                        <td colspan="3" style="padding:4px 7px; word-break:keep-all; word-wrap:break-word; border-left:1px solid #DADADA; border-bottom:2px solid #DADADA; text-align:right; font-weight:bold;">TOTAL AMOUNT</td>
+                        <td colspan="3" style="padding:4px 7px; word-break:keep-all; word-wrap:break-word; border-right:1px solid #DADADA; border-bottom:2px solid #DADADA; text-align:right;">{{ number_format($er_all_price) }}</td>
+                    </tr>
+                </tbody>
             </table>
+
         </td>
     </tr>
-    <tr>
-        <td style="padding:0 30px;">
-            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size:12px;">
-                <tr>
-                    <th width="80%" style='background-color:#f8f8f8; font-weight:bold; padding:6px 8px;' align="right">합계 :</th>
-                    <td style='background-color:#f8f8f8; color:red; padding:6px 8px;' align="right">{{number_format($er_gd_price)}}원</td>
-                </tr>
-                <tr>
-                    <th style='background-color:#f8f8f8; font-weight:bold; padding:6px 8px;' align="right">부가세 :</th>
-                    <td style='background-color:#f8f8f8; color:red; padding:6px 8px;' align="right">{{ number_format($er_surtax) }}원</td>
-                </tr>
-                @if ($er_no_dlvy_fee !== 'Y')
-                <tr>
-                    <th style='background-color:#f8f8f8; font-weight:bold; padding:6px 8px;' align="right">배송료 :</th>
-                    <td style='background-color:#f8f8f8; color:red; padding:6px 8px;' align="right">{{ number_format($er_dlvy_price) }}원</td>
-                </tr>
-                @if ($er_air_price)
-                <tr>
-                    <th style='background-color:#f8f8f8; font-weight:bold; padding:6px 8px;' align="right">항공 운임료 :</th>
-                    <td style='background-color:#f8f8f8; color:red; padding:6px 8px;' align="right">{{ number_format($er_air_price) }}원</td>
-                </tr>
-                @endif
-                @endif
-                <tr>
-                    <th style='background-color:#f8f8f8; border-top:1px dashed #d5d5d5; border-bottom:1px solid #d5d5d5; font-weight:bold; padding:17px 8px;' align="right">최종결제금액 :</th>
-                    <td style='background-color:#f8f8f8; border-top:1px dashed #d5d5d5; border-bottom:1px solid #d5d5d5; color:red; font-weight:bold; padding:17px 8px;' align="right">{{ number_format($er_all_price) }}원</td>
-                </tr>
-            </table>
-        </td>
-    </tr>
+    
     <tr>
         <td align="center" style="padding:20px 0 30px;">
             <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size:12px;">
@@ -188,7 +241,7 @@
         </td>
     </tr>
     <tr> 
-        <td><img src="{{ asset('storage/common/email_bottom.png') }}" /></td>
+        <td><img src="{{ asset('storage/common/email_bottom_960.jpg') }}" /></td>
     </tr>
 </table>
 

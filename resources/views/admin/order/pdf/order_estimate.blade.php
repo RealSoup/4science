@@ -155,11 +155,7 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
             <th>이메일주소</th> <td>{{ $mng['email'] }}</td>
         </tr>
         <tr class="line01">
-            <th>이메일주소</th> <td>{{ $od_orderer_email }}</td>
-            <th>팩스주소</th> <td>{{ $mng['fax'] }}</td>
-        </tr>
-        <tr class="line03">
-            <th>팩스주소</th> <td colspan="3">{{ $od_orderer_fax??'' }}</td>
+            <th>이메일주소</th> <td colspan="3">{{ $od_orderer_email }}</td>
         </tr>
     </table>
 
@@ -167,7 +163,7 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
         <tr>
             <th>No.</th>
             <th>DESCRIPTION</th>
-            <th></th>
+            <th>UNIT</th>
             <th>U/PRICE</th>
             <th>Q'TY</th>
             <th>AMOUNT</th>
@@ -250,18 +246,6 @@ $goods_p = 0;
             <tr class="line03 line04"><td colspan="3">항공 운임료</td>     <td colspan="3">{{ number_format($od_air_price) }}</td></tr>
             @endif
         <tr class="line03 line05"><td colspan="3">TOTAL AMOUNT</td>   <td colspan="3">{{ number_format(rrp($goods_p)+$od_dlvy_price+$od_air_price) }}</td></tr>
-    </table>
-
-    <table class="request">
-        <tr><td colspan="2">▶ 주문요청 (주문시 사업자등록증을 팩스로 보내주세요.)</td></tr>
-        <tr class="line01"><th width="35%">발주일</th><td>&nbsp;</td></tr>
-        <tr class="line01"><th>수령인성명</th><td>&nbsp;</td></tr>
-        <tr class="line01"><th>전화번호</th><td>&nbsp;</td></tr>
-        <tr class="line01"><th>핸드폰번호</th><td>&nbsp;</td></tr>
-        <tr class="line01"><th rowspan="3">배송지주소</th><td>&nbsp;</td></tr>
-        <tr class="line01"><td>&nbsp;</td></tr>
-        <tr class="line01"><td>&nbsp;</td></tr>
-        <tr class="line01"><th>결제방식</th><td>&nbsp;</td></tr>
     </table>
 
     <table class="bottom">

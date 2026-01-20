@@ -78,8 +78,8 @@
                         </b-col>
                     </template>
                 </b-row>
-                <b-row class="dlvy_box">
-                    <b-col class="text_box" v-if="reply.er_no_dlvy_fee !== 'Y'">
+                <b-row class="dlvy_box" v-if="reply.er_no_dlvy_fee !== 'Y'">
+                    <b-col class="text_box">
                         <template v-if="pa[0]['pa_type'] == 'AIR'">항공운임료</template>
                         <template v-else>배송비</template>
                     </b-col>
@@ -190,7 +190,7 @@ export default {
                 Notify.modal("모델을 선택하세요", 'info');
                 return false;
             }
-            this.$router.push({name: 'order_settle', params: { od_goods: rst, od_type: 'buy_estimate', od_er_id:this.$route.params.er_id }});
+            this.$router.push({name: 'order_settle', params: { od_goods: rst, od_type: 'buy_estimate', od_er_id:this.$route.params.er_id, er_no_dlvy_fee: this.reply.er_no_dlvy_fee }});
         },
 
         async reEstimate(){

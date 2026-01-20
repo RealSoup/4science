@@ -468,8 +468,18 @@ export default {
     methods:{
         async settle() {
             try {
+                            // 전송할 데이터 객체화
+                const postData = {
+                    type: this.order.od_type,
+                    goods: this.order.goods,
+                    chosen_uc_id: this.order.chosen_uc_id
+                };
+
+                if (this.order.od_type == 'buy_estimate')
+                    postData.od_er_id = this.order.od_er_id;
+                
                 // uc_id user coupon id
-                const res = await ax.post('/api/shop/order/settle', {type:this.order.od_type, goods:this.order.goods, chosen_uc_id:this.order.chosen_uc_id});
+                const res = await ax.post('/api/shop/order/settle', postData);
                 if (res && res.status === 200) {
                     this.order.lists = res.data.lists;
                     this.order.price = res.data.price;
@@ -482,9 +492,7 @@ export default {
                     this.rec_goods_list_order = res.data.rec_goods_list_order;
                     this.rec_goods_list_estimate = res.data.rec_goods_list_estimate;
                     if (res.data.rec_goods_list_top04) {
-                        this.rec_goods_list_top04 = res.data.rec_goods_list_top04;
-                        console.log(123);
-                        
+                        this.rec_goods_list_top04 = res.data.rec_goods_list_top04;                        
                     }
                     
                     if(this.addr.length)

@@ -30,6 +30,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     return {
       all_focus: false,
       custom_focus: false,
+      eng_reform_focus: false,
       cate_height: 0
     };
   },
@@ -37,12 +38,21 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   methods: {
     set_focus: function set_focus(ca_id) {
       this.custom_focus = false;
+      this.eng_reform_focus = false;
       Object.values(this.category).forEach(function (ca) {
         if (ca.ca_id == ca_id) ca.sub_show = true;else ca.sub_show = false;
       });
     },
     custom_hover: function custom_hover() {
+      this.eng_reform_focus = false;
       this.custom_focus = true;
+      Object.values(this.category).forEach(function (ca) {
+        ca.sub_show = false;
+      });
+    },
+    eng_reform_hover: function eng_reform_hover() {
+      this.custom_focus = false;
+      this.eng_reform_focus = true;
       Object.values(this.category).forEach(function (ca) {
         ca.sub_show = false;
       });
@@ -143,7 +153,20 @@ var render = function render() {
         name: "estimate_custom_index"
       }
     }
-  }, [_vm._v("주문제작")])], 1)], 2);
+  }, [_vm._v("주문제작")])], 1), _vm._v(" "), _c("li", {
+    "class": {
+      focus: _vm.eng_reform_focus
+    },
+    on: {
+      mouseenter: _vm.eng_reform_hover
+    }
+  }, [_c("b-link", {
+    attrs: {
+      to: {
+        name: "engReform_create"
+      }
+    }
+  }, [_vm._v("영문교정")])], 1)], 2);
 };
 var staticRenderFns = [];
 render._withStripped = true;

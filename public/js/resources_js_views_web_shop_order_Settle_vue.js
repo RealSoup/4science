@@ -370,21 +370,26 @@ var paymentWidget = null;
     settle: function settle() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var res;
+        var postData, res;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
-              _context.next = 3;
-              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/shop/order/settle', {
+              // 전송할 데이터 객체화
+              postData = {
                 type: _this.order.od_type,
                 goods: _this.order.goods,
                 chosen_uc_id: _this.order.chosen_uc_id
-              });
-            case 3:
+              };
+              if (_this.order.od_type == 'buy_estimate') postData.od_er_id = _this.order.od_er_id;
+
+              // uc_id user coupon id
+              _context.next = 5;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/shop/order/settle', postData);
+            case 5:
               res = _context.sent;
               if (!(res && res.status === 200)) {
-                _context.next = 24;
+                _context.next = 26;
                 break;
               }
               _this.order.lists = res.data.lists;
@@ -399,7 +404,6 @@ var paymentWidget = null;
               _this.rec_goods_list_estimate = res.data.rec_goods_list_estimate;
               if (res.data.rec_goods_list_top04) {
                 _this.rec_goods_list_top04 = res.data.rec_goods_list_top04;
-                console.log(123);
               }
               if (_this.addr.length) _this.addr_choose(_this.addr[0]);
               if (_this.user.is_dealer) _this.calculator(); //  딜러가 계산
@@ -407,28 +411,28 @@ var paymentWidget = null;
               //  toss
               _this.toss = res.data.toss;
               if (!(_this.$route.query.od_pay_method != "BL")) {
-                _context.next = 24;
+                _context.next = 26;
                 break;
               }
-              _context.next = 22;
+              _context.next = 24;
               return (0,_tosspayments_payment_widget_sdk__WEBPACK_IMPORTED_MODULE_2__.loadPaymentWidget)(_this.toss.clientKey, _this.toss.customerKey);
-            case 22:
+            case 24:
               paymentWidget = _context.sent;
               paymentWidget.renderPaymentMethods("#payment-method", _this.order.price.total);
               // paymentWidget.renderAgreement('#agreement');
-            case 24:
-              _context.next = 30;
-              break;
             case 26:
-              _context.prev = 26;
+              _context.next = 32;
+              break;
+            case 28:
+              _context.prev = 28;
               _context.t0 = _context["catch"](0);
               Notify.consolePrint(_context.t0);
               Notify.toast('warning', _context.t0.responsee);
-            case 30:
+            case 32:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 26]]);
+        }, _callee, null, [[0, 28]]);
       }))();
     },
     calculator: function calculator() {

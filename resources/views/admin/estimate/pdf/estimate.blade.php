@@ -52,6 +52,7 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
 .product tr.line01 td:last-child { border-right:1px solid #DADADA; }
 .product tr.line_b td { border-left:1px solid #DADADA; border-bottom:2px solid #DADADA; }
 .product tr.line_b td:last-child { border-right:1px solid #DADADA; }
+.product tr td.price_edit { text-decoration:line-through; }
 .product tr.line01 td:nth-child(1) { text-align:center; }
 .product tr.line01 td:nth-child(4) { text-align:right; }
 .product tr.line01 td:nth-child(5) { text-align:center; }
@@ -143,11 +144,7 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
             <th>이메일주소</th> <td>{{ $er['estimate_req']['mng']['email'] }}</td>
         </tr>
         <tr class="line01">
-            <th>이메일주소</th> <td>{{ $er['estimate_req']['eq_email'] }}</td>
-            <th>팩스주소</th> <td>{{ $er['estimate_req']['mng']['fax'] }}</td>
-        </tr>
-        <tr class="line03">
-            <th>팩스주소</th> <td colspan="3">{{ $er['estimate_req']['eq_fax'] }}</td>
+            <th>이메일주소</th> <td colspan="3">{{ $er['estimate_req']['eq_email'] }}</td>
         </tr>
     </table>
 
@@ -155,7 +152,7 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
         <tr>
             <th>No.</th>
             <th>DESCRIPTION</th>
-            <th></th>
+            <th>UNIT</th>
             <th>U/PRICE</th>
             <th>Q'TY</th>
             <th>AMOUNT</th>
@@ -179,7 +176,15 @@ $no=1;
             <td>{{ $no }}</td>
             <td width="33%">{{ $em['em_name'] }}</td>
             <td>{{ $em['em_unit'] }}</td>
-            <td>{{ number_format($em['em_price']) }}</td>
+            <td @class([ 'price_edit' => $er['er_show_dc'] == 'Y' && $em['em_dc_rate'] ])>
+                
+                @if ($er['er_show_dc'] == 'Y' && $em['em_dc_rate'])
+                    {{ number_format($em['em_cost_price']) }}
+                @else
+                    {{ number_format($em['em_price']) }}
+                @endif
+
+            </td>
             <td>{{ $em['em_ea'] }}</td>
             <td>{{ number_format($em['em_price']*$em['em_ea']) }}</td>
         </tr>
@@ -191,7 +196,11 @@ $no=1;
                     납기 : {{$em['em_dlvy_at']}}
                 @endif
             </td>
-            <td></td>
+            <td>
+                @if ($er['er_show_dc'] == 'Y' && $em['em_dc_rate'])
+                    {{ number_format($em['em_price']) }}
+                @endif
+            </td>
             <td></td>
             <td></td>
         </tr>
@@ -236,17 +245,7 @@ $no=1;
         <tr class="line03 line05"><td colspan="3">TOTAL AMOUNT</td>   <td colspan="3">{{ number_format($er['er_all_price']) }}</td></tr>
     </table>
 
-    <table class="request">
-        <tr><td colspan="2">▶ 주문요청 (주문시 사업자등록증을 팩스로 보내주세요.)</td></tr>
-        <tr class="line01"><th width="40%">발주일</th><td>&nbsp;</td></tr>
-        <tr class="line01"><th>수령인성명</th><td>&nbsp;</td></tr>
-        <tr class="line01"><th>전화번호</th><td>&nbsp;</td></tr>
-        <tr class="line01"><th>핸드폰번호</th><td>&nbsp;</td></tr>
-        <tr class="line01"><th rowspan="3">배송지주소</th><td>&nbsp;</td></tr>
-        <tr class="line01"><td>&nbsp;</td></tr>
-        <tr class="line01"><td>&nbsp;</td></tr>
-        <tr class="line01"><th>결제방식</th><td>&nbsp;</td></tr>
-    </table>
+ 
 
     <table class="bottom">
         <tr><td>{{ cache('bank')['name01'].' '.cache('bank')['num01'].' '.cache('bank')['owner'] }}</td></tr>

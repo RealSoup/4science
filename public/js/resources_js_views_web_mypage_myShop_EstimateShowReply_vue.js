@@ -87,7 +87,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         params: {
           od_goods: rst,
           od_type: 'buy_estimate',
-          od_er_id: this.$route.params.er_id
+          od_er_id: this.$route.params.er_id,
+          er_no_dlvy_fee: this.reply.er_no_dlvy_fee
         }
       });
     },
@@ -402,13 +403,13 @@ var render = function render() {
             }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price * item.ea))))])])], 1), _vm._v(" "), _c("div", {
               staticClass: "price_info"
             }, [_vm._v("\r\n                                (" + _vm._s(_vm._f("comma")(item.price * _vm.reply.estimate_req.user.mileage_mul * item.ea)) + "p 적립)\r\n                            ")])])] : _vm._e()], 2);
-          }), _vm._v(" "), _c("b-row", {
+          }), _vm._v(" "), _vm.reply.er_no_dlvy_fee !== "Y" ? _c("b-row", {
             staticClass: "dlvy_box"
-          }, [_vm.reply.er_no_dlvy_fee !== "Y" ? _c("b-col", {
+          }, [_c("b-col", {
             staticClass: "text_box"
-          }, [pa[0]["pa_type"] == "AIR" ? [_vm._v("항공운임료")] : [_vm._v("배송비")]], 2) : _vm._e(), _vm._v(" "), _c("b-col", {
+          }, [pa[0]["pa_type"] == "AIR" ? [_vm._v("항공운임료")] : [_vm._v("배송비")]], 2), _vm._v(" "), _c("b-col", {
             staticClass: "price_box"
-          }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(pa[0].pa_dlvy_p_add_vat))))])], 1)], 2);
+          }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(pa[0].pa_dlvy_p_add_vat))))])], 1) : _vm._e()], 2);
         }), _vm._v(" "), _c("b-container", {
           staticClass: "total"
         }, [_c("b-row", [_c("b-col", [_vm._v("상품금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.gd_price + _vm.surtax)))]), _vm._v(" 원")])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("배송료")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_4s + _vm.air_price + _vm.dlvy_other)))]), _vm._v(" 원")])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("결제예정금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.all_price)))]), _vm._v(" 원")])], 1)], 1), _vm._v(" "), _c("b-container", {

@@ -103,7 +103,16 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "w_fence"
-  }, [_vm._m(0), _vm._v(" "), _c("b-container", {
+  }, [_c("b-row", {
+    staticClass: "tit_line"
+  }, [_c("b-col", [_c("h3", [_vm._v("영문 교정 "), _c("small", [_vm._v("고객님께서 영문교정을 의뢰하셨던 내역입니다.")])])]), _vm._v(" "), _c("b-col", [_c("b-button", {
+    staticClass: "d_blue",
+    attrs: {
+      to: {
+        name: "engReform_create"
+      }
+    }
+  }, [_vm._v("영문교정가기")])], 1)], 1), _vm._v(" "), _c("b-container", {
     staticClass: "list"
   }, [_c("b-row", {
     staticClass: "head"
@@ -167,11 +176,7 @@ var render = function render() {
     }
   })], 2)], 1);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("h3", [_vm._v("영문 교정 "), _c("small", [_vm._v("고객님께서 영문교정을 의뢰하셨던 내역입니다.")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -193,7 +198,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nh3[data-v-8e75f15c] { font-size:1.5rem;\n}\nh3 small[data-v-8e75f15c] { font-size:55%; font-weight:600;\n}\n.list .head[data-v-8e75f15c] { border-top:2px solid #363636; border-bottom:1px solid #ACACAC; background-color:#ECECEC;\n}\n.list .head .col[data-v-8e75f15c] { font-weight:900; line-height:1.1; padding:.86rem 0; font-size:.9rem; text-align: center;\n}\n.list .body .col[data-v-8e75f15c] { text-align:center; line-height:3.7; color:#5E5E5E;\n}\n.list .body .align[data-v-8e75f15c] { display:flex; align-items:center; justify-content:center;\n}\n.list .row[data-v-8e75f15c] { border-bottom:1px solid #ACACAC;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(1) { flex:0 0 10%; max-width:10%; padding-left:1%;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(2) { flex:0 0 13%; max-width:13%;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(3) {\n}\n.list .row .col[data-v-8e75f15c]:nth-child(4) { flex:0 0 10%; max-width:10%;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(5) { flex:0 0 14%; max-width:14%;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(6) { flex:0 0 14%; max-width:14%;\n}\n.list .body .col b[data-v-8e75f15c] { color:#0094E9;\n}\n.list .body .badge[data-v-8e75f15c] { width:64px;\n}\n.list .body .badge.white[data-v-8e75f15c] { border:1px solid #898989;\n}\n.list .body .col .dropdown[data-v-8e75f15c] { line-height:1.5;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.tit_line .col h3[data-v-8e75f15c] { font-size:1.5rem;\n}\n.tit_line .col h3 small[data-v-8e75f15c] { font-size:55%; font-weight:600;\n}\n.tit_line .col[data-v-8e75f15c]:last-child { text-align:right;\n}\n.list .head[data-v-8e75f15c] { border-top:2px solid #363636; border-bottom:1px solid #ACACAC; background-color:#ECECEC;\n}\n.list .head .col[data-v-8e75f15c] { font-weight:900; line-height:1.1; padding:.86rem 0; font-size:.9rem; text-align: center;\n}\n.list .body .col[data-v-8e75f15c] { text-align:center; line-height:3.7; color:#5E5E5E;\n}\n.list .body .align[data-v-8e75f15c] { display:flex; align-items:center; justify-content:center;\n}\n.list .row[data-v-8e75f15c] { border-bottom:1px solid #ACACAC;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(1) { flex:0 0 10%; max-width:10%; padding-left:1%;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(2) { flex:0 0 13%; max-width:13%;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(3) {\n}\n.list .row .col[data-v-8e75f15c]:nth-child(4) { flex:0 0 10%; max-width:10%;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(5) { flex:0 0 14%; max-width:14%;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(6) { flex:0 0 14%; max-width:14%;\n}\n.list .body .col b[data-v-8e75f15c] { color:#0094E9;\n}\n.list .body .badge[data-v-8e75f15c] { width:64px;\n}\n.list .body .badge.white[data-v-8e75f15c] { border:1px solid #898989;\n}\n.list .body .col .dropdown[data-v-8e75f15c] { line-height:1.5;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

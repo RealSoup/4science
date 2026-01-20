@@ -10,6 +10,11 @@
     <li @mouseenter="custom_hover" :class="{focus:custom_focus}">
         <b-link :to="{name: 'estimate_custom_index' }">주문제작</b-link>
     </li>
+    <li @mouseenter="eng_reform_hover" :class="{focus:eng_reform_focus}">
+        <b-link :to="{name: 'engReform_create'}">영문교정</b-link>
+    </li>
+    
+                
 </ul>
 </template>
 
@@ -22,6 +27,7 @@ export default {
     data() { return { 
             all_focus: false,
             custom_focus: false,
+            eng_reform_focus: false,
             cate_height:0,
         } 
     },
@@ -29,13 +35,20 @@ export default {
     methods: {
         set_focus: function (ca_id) {
             this.custom_focus = false;
+            this.eng_reform_focus = false;
             Object.values(this.category).forEach(ca => {
                 if (ca.ca_id == ca_id) ca.sub_show = true;
                 else ca.sub_show = false;
             });
         },
         custom_hover: function () {
+            this.eng_reform_focus = false;
             this.custom_focus = true;
+            Object.values(this.category).forEach(ca => { ca.sub_show = false; });
+        },
+        eng_reform_hover: function () {
+            this.custom_focus = false;
+            this.eng_reform_focus = true;
             Object.values(this.category).forEach(ca => { ca.sub_show = false; });
         },
     },

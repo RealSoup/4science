@@ -50,10 +50,10 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         $data[] = ['견적요청인', '', '', $this->er['estimate_req']['eq_name'], '', '', '견적담당자', '', '', $this->er['estimate_req']['mng']['name']];
         $data[] = ['전화번호', '', '', $this->er['estimate_req']['eq_tel'], '', '', '전화번호', '', '', $this->er['estimate_req']['mng']['tel']];
         $data[] = ['휴대폰번호', '', '', $this->er['estimate_req']['eq_hp'], '', '', '이메일주소', '', '', $this->er['estimate_req']['mng']['email']];
-        $data[] = ['이메일주소', '', '', $this->er['estimate_req']['eq_email'], '', '', '펙스번호', '', '', $this->er['estimate_req']['mng']['fax']];
-        $data[] = ['펙스번호', '', '', $this->er['estimate_req']['eq_fax']];
+        $data[] = ['이메일주소', '', '', $this->er['estimate_req']['eq_email']/*, '', '', '펙스번호', '', '', $this->er['estimate_req']['mng']['fax']*/];
+        // $data[] = ['펙스번호', '', '', $this->er['estimate_req']['eq_fax']];
         $data[] = [''];
-        $data[] = ['No.', 'DESCRIPTION', '', '', '', '', '', 'U/PRICE', '', 'Q\'TY', 'AMOUNT'];
+        $data[] = ['No.', 'DESCRIPTION', '', '', '', 'UNIT', '', 'U/PRICE', '', 'Q\'TY', 'AMOUNT'];
 
         foreach ($this->er['estimate_model'] as $em) {
             if ( $em['dlvy_all_in'] ) {
@@ -90,16 +90,16 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         }
         $data[] = ['TOTAL AMOUNT', '', '', '', '', '', '', $this->er['er_all_price']];
         $data[] = [''];
-        $data[] = ['▶ 주문요청 (주문시 사업자등록증을 팩스로 보내주세요.)'];
-        $data[] = ['발주일'];
-        $data[] = ['수령인성명'];
-        $data[] = ['전화번호'];
-        $data[] = ['핸드폰번호'];
-        $data[] = ['배송지 주소'];
-        $data[] = [''];
-        $data[] = [''];
-        $data[] = ['결제방식'];
-        $data[] = [''];
+        // $data[] = ['▶ 주문요청 (주문시 사업자등록증을 팩스로 보내주세요.)'];
+        // $data[] = ['발주일'];
+        // $data[] = ['수령인성명'];
+        // $data[] = ['전화번호'];
+        // $data[] = ['핸드폰번호'];
+        // $data[] = ['배송지 주소'];
+        // $data[] = [''];
+        // $data[] = [''];
+        // $data[] = ['결제방식'];
+        // $data[] = [''];
         $data[] = [cache('bank')['name01'].' '.cache('bank')['num01'].' '.cache('bank')['owner']];
         $data[] = ['Your R&D Consultant www.4science.net'];
 
@@ -133,19 +133,18 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         $sheet->getRowDimension('10')->setRowHeight(21);
         $sheet->getRowDimension('11')->setRowHeight(21);
         $sheet->getRowDimension('12')->setRowHeight(21);
-        $sheet->getRowDimension('13')->setRowHeight(21);
         $sheet->mergeCells('A9:C9')->mergeCells('D9:F9')->mergeCells('G9:I9')->mergeCells('J9:L9');
         $sheet->mergeCells('A10:C10')->mergeCells('D10:F10')->mergeCells('G10:I10')->mergeCells('J10:L10');
         $sheet->mergeCells('A11:C11')->mergeCells('D11:F11')->mergeCells('G11:I11')->mergeCells('J11:L11');
         $sheet->mergeCells('A12:C12')->mergeCells('D12:F12')->mergeCells('G12:I12')->mergeCells('J12:L12');
-        $sheet->mergeCells('A13:C13')->mergeCells('D13:F13')->mergeCells('G13:I13')->mergeCells('J13:L13');
+        // $sheet->mergeCells('A13:C13')->mergeCells('D13:F13')->mergeCells('G13:I13')->mergeCells('J13:L13');
 
-        $sheet->getRowDimension('14')->setRowHeight(8);
+        $sheet->getRowDimension('13')->setRowHeight(8);
 
-        $sheet->getRowDimension('15')->setRowHeight(18);
-        $sheet->mergeCells('B15:E15')->mergeCells('F15:G15')->mergeCells('H15:I15')->mergeCells('K15:L15');
+        $sheet->getRowDimension('14')->setRowHeight(18);
+        $sheet->mergeCells('B14:E14')->mergeCells('F14:G14')->mergeCells('H14:I14')->mergeCells('K14:L14');
 
-        $r = 16;
+        $r = 15;
         for ($i=0; $i<$this->gd_cnt; $i++) {
             $height=20;
             $sheet->getRowDimension($r)->setRowHeight($height);
@@ -200,45 +199,45 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             }
         }
 
+        // $r+=2;
+        // $sheet->getRowDimension($r)->setRowHeight(18);
+
+        // $r++;
+        // $sheet->getRowDimension($r)->setRowHeight(18);
+        // $sheet->mergeCells("A{$r}:E{$r}")->mergeCells("F{$r}:L{$r}");
+
+        // $r++;
+        // $sheet->getRowDimension($r)->setRowHeight(18);
+        // $sheet->mergeCells("A{$r}:E{$r}")->mergeCells("F{$r}:L{$r}");
+
+        // $r++;
+        // $sheet->getRowDimension($r)->setRowHeight(18);
+        // $sheet->mergeCells("A{$r}:E{$r}")->mergeCells("F{$r}:L{$r}");
+
+        // $r++;
+        // $sheet->getRowDimension($r)->setRowHeight(18);
+        // $sheet->mergeCells("A{$r}:E{$r}")->mergeCells("F{$r}:L{$r}");
+
+        // $r++;  //  배송지 주소01
+        // $sheet->getRowDimension($r)->setRowHeight(18);
+        // $sheet->mergeCells('A'.($r).':E'.($r+2))->mergeCells("F{$r}:L{$r}");
+
+        // $r++;  //  배송지 주소02
+        // $sheet->getRowDimension($r)->setRowHeight(18);
+        // $sheet/*->mergeCells('A'.($r+27).':E'.($r+27))*/->mergeCells("F{$r}:L{$r}");
+
+        // $r++;  //  배송지 주소03
+        // $sheet->getRowDimension($r)->setRowHeight(18);
+        // $sheet/*->mergeCells('A'.($r+28).':E'.($r+28))*/->mergeCells("F{$r}:L{$r}");
+
+        // $r++;  //  결제방식
+        // $sheet->getRowDimension($r)->setRowHeight(18);
+        // $sheet->mergeCells("A{$r}:E{$r}")->mergeCells("F{$r}:L{$r}");
+
+        // $r++;
+        // $sheet->getRowDimension($r)->setRowHeight(8);
+
         $r+=2;
-        $sheet->getRowDimension($r)->setRowHeight(18);
-
-        $r++;
-        $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells("F{$r}:L{$r}");
-
-        $r++;
-        $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells("F{$r}:L{$r}");
-
-        $r++;
-        $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells("F{$r}:L{$r}");
-
-        $r++;
-        $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells("F{$r}:L{$r}");
-
-        $r++;  //  배송지 주소01
-        $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet->mergeCells('A'.($r).':E'.($r+2))->mergeCells("F{$r}:L{$r}");
-
-        $r++;  //  배송지 주소02
-        $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet/*->mergeCells('A'.($r+27).':E'.($r+27))*/->mergeCells("F{$r}:L{$r}");
-
-        $r++;  //  배송지 주소03
-        $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet/*->mergeCells('A'.($r+28).':E'.($r+28))*/->mergeCells("F{$r}:L{$r}");
-
-        $r++;  //  결제방식
-        $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells("F{$r}:L{$r}");
-
-        $r++;
-        $sheet->getRowDimension($r)->setRowHeight(8);
-
-        $r++;
         $sheet->getRowDimension($r)->setRowHeight(18);
         $sheet->mergeCells("A{$r}:L{$r}");
 
@@ -312,8 +311,8 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             'A10' => $tit01, 'G10' => $tit01,
             'A11' => $tit01, 'G11' => $tit01,
             'A12' => $tit01, 'G12' => $tit01,
-            'A13' => $tit01, 'G13' => $tit01,
-            'A9:L13' => [
+            // 'A13' => $tit01, 'G13' => $tit01,
+            'A9:L12' => [
                 'borders' => [
                     'bottom' => [
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
@@ -326,7 +325,7 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
                 ],
             ],
 
-            'A15:L15' => [
+            'A14:L14' => [
                 'font' => ['color' =>  ['argb' => 'FFFFFFFF'], 'bold' => true],
                 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
                 'fill' => [
@@ -361,7 +360,7 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         $border_top_dashed = ['top' => [ 'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED, 'color' => ['argb' => 'FFE5E5E5'] ]];
         $border_top_thick = ['top' => [ 'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK, 'color' => ['argb' => 'FFD5D5D5'] ]];
 
-        $r = 16;
+        $r = 15;
         for ($i=0; $i < $this->gd_cnt; $i++) {
             if($i==0) {
                 $sheet_style["A{$r}"] = Arr::collapse([ [ 'borders' => $border_right ], $text_center ]);
@@ -490,64 +489,64 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             ],
         ];
 
-        $r+=2; //  ▶ 주문요청 (주문
-        $sheet_style["A{$r}:L{$r}"] = [
-            'font' => ['bold' => true],
-            'borders' => [
-                'bottom' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
-                    'color' => ['argb' => 'FF3A3A3A'],
-                ],
-            ],
-        ];
+        // $r+=2; //  ▶ 주문요청 (주문
+        // $sheet_style["A{$r}:L{$r}"] = [
+        //     'font' => ['bold' => true],
+        //     'borders' => [
+        //         'bottom' => [
+        //             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+        //             'color' => ['argb' => 'FF3A3A3A'],
+        //         ],
+        //     ],
+        // ];
 
-        $r++;  //  발주인, 수령인성명, 전화번호, 핸드폰번호
-        $sheet_style["A{$r}:L".($r+3)] = [
-            'font' => ['bold' => true],
-            'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
-            'borders' => [
-                'inside' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FFD5D5D5'],
-                ],
-                'bottom' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FFD5D5D5'],
-                ],
-            ],
-        ];
+        // $r++;  //  발주인, 수령인성명, 전화번호, 핸드폰번호
+        // $sheet_style["A{$r}:L".($r+3)] = [
+        //     'font' => ['bold' => true],
+        //     'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
+        //     'borders' => [
+        //         'inside' => [
+        //             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+        //             'color' => ['argb' => 'FFD5D5D5'],
+        //         ],
+        //         'bottom' => [
+        //             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+        //             'color' => ['argb' => 'FFD5D5D5'],
+        //         ],
+        //     ],
+        // ];
 
-        $r+=4; // 배송지 주소
-        $sheet_style["A{$r}:E".($r+2)] = [
-            'font' => ['bold' => true],
-            'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
-            'borders' => [
-                'right' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FFD5D5D5'],
-                ],
-            ],
-        ];
+        // $r+=4; // 배송지 주소
+        // $sheet_style["A{$r}:E".($r+2)] = [
+        //     'font' => ['bold' => true],
+        //     'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
+        //     'borders' => [
+        //         'right' => [
+        //             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+        //             'color' => ['argb' => 'FFD5D5D5'],
+        //         ],
+        //     ],
+        // ];
 
-        $r+=3; // 결제 방식
-        $sheet_style["A{$r}:L{$r}"] = [
-            'font' => ['bold' => true],
-            'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
-            'borders' => [
-                'inside' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FFD5D5D5'],
-                ],
-                'top' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FFD5D5D5'],
-                ],
-                'bottom' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FFD5D5D5'],
-                ],
-            ],
-        ];
+        // $r+=3; // 결제 방식
+        // $sheet_style["A{$r}:L{$r}"] = [
+        //     'font' => ['bold' => true],
+        //     'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
+        //     'borders' => [
+        //         'inside' => [
+        //             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+        //             'color' => ['argb' => 'FFD5D5D5'],
+        //         ],
+        //         'top' => [
+        //             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+        //             'color' => ['argb' => 'FFD5D5D5'],
+        //         ],
+        //         'bottom' => [
+        //             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+        //             'color' => ['argb' => 'FFD5D5D5'],
+        //         ],
+        //     ],
+        // ];
 
         $r++;  //  빈칸 하단 굵은 선
         $sheet_style["A{$r}:L{$r}"] = [
@@ -603,7 +602,7 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         // 해당 기능없어서 라이브러리 조작
         // C:\WorkSpace\vsCode\4science\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Style\NumberFormat.php
         $rst = [];        
-        $r = 16;
+        $r = 15;
         for ($i=0; $i < $this->gd_cnt; $i++) {
             $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
             $r+=3;

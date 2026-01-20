@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 use App\Models\{User, FileGoods, UserCoupon};
+use App\Models\Shop\{EstimateReply};
 use DB;
 use Storage;
 use DateTimeInterface;
@@ -195,7 +196,7 @@ class Goods extends Model {
         }
 
         foreach ($d_arrange as $gd_id => $v) {
-            if ($type== 'buy_estimate') {
+            if ($type == 'buy_estimate') {
                 if (isset($v['model'])) {
                     $gd = self::with('purchaseAt')->find($gd_id) ?? new self;
                     foreach (EstimateModel::find(Arr::pluck($v['model'], 'em_id')) as $em) {
@@ -450,11 +451,23 @@ class Goods extends Model {
                 $rst['lists'][$pa_id][0]['pa_dlvy_p_add_vat'] = 0;
             }
 
+
+            //  견적서에서 배송료 제외 체크시 배송료 빼기 -------- Start
+            if ($type == 'buy_estimate' && isset($some->od_er_id) && $some->od_er_id){
+                $er = EstimateReply::find($some->od_er_id);
+                if ($er && $er->er_no_dlvy_fee == 'Y') {
+                    $rst['lists'][$pa_id][0]['pa_dlvy_p'] = 0;
+                    $rst['lists'][$pa_id][0]['pa_dlvy_p_add_vat'] = 0;
+                }
+                    
+            }
+
             if ( $pa_group[0]['pa_type'] == 'AIR' )
                 $rst['price']['air'] += $rst['lists'][$pa_id][0]['pa_dlvy_p'];
             else
                 $rst['price']['dlvy'] += $rst['lists'][$pa_id][0]['pa_dlvy_p'];
         }
+        
         $rst['price']['surtax'] = surtax($rst['price']['goods']);
         $rst['price']['goods_add_vat']  = $rst['price']['goods'] + $rst['price']['surtax'];
         $rst['price']['dlvy_add_vat']   = rrp($rst['price']['dlvy']);
