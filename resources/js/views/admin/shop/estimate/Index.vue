@@ -118,10 +118,12 @@
 
 <script>
 import ax from '@/api/http';
+import List from '@/views/admin/shop/estimate/_comp/List';
+
 export default {
     components: {
         'sch-date': () =>   import('@/views/_common/SchDate'),
-        'list': () =>       import('@/views/admin/shop/estimate/_comp/List'),
+        'list': List,
         'win-pop-up': () => import('@/views/_common/WinPopUp'),
     },
     data() {
