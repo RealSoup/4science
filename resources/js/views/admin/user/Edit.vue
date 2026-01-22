@@ -286,6 +286,7 @@
 import ax from '@/api/http';
 import FileUpload from '@/views/_common/FileUpload';
 import Addr from '@/views/admin/user/_comp/Addr';
+import Estimate from '@/views/admin/shop/estimate/_comp/List';
 import { mapActions, mapState, mapGetters } from 'vuex';
 
 export default {
@@ -296,7 +297,7 @@ export default {
         'modal': () => import('@/views/_common/Modal'),
         'mileage': () => import('./_comp/Mileage'),
         'order': () => import('@/views/admin/shop/order/_comp/List'),
-        'estimate': () => import('@/views/admin/shop/estimate/_comp/List'),
+        'estimate': Estimate,
         'loading-modal': () => import('@/views/_common/LoadingModal.vue'),
     },
 
