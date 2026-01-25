@@ -32,7 +32,7 @@ class OrderListExport implements FromCollection, WithHeadings, WithStyles {
 	public function styles(Worksheet $sheet) {
 
 		$sheet_style = [
-            'A1:J1' => [
+            'A1:K1' => [
                 'font' => ['size' => 12, 'bold' => true],
                 'alignment' => [
                     'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
