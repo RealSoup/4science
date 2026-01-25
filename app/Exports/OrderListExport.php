@@ -62,7 +62,7 @@ class OrderListExport implements FromCollection, WithHeadings, WithStyles {
 
         $req = $this->req;
         $orders = Order::with('orderExtraInfo')
-        ->select("od_orderer_email", "created_id", "od_id", "od_no", "od_name", "od_all_price",
+        ->select("created_id", "od_orderer_email", "od_id", "od_no", "od_name", "od_all_price",
 			DB::raw("(SELECT name FROM la_users WHERE id = od_mng) AS mng_nm"),
             "od_company", "od_orderer", 
             DB::raw($pay_method_query_str),
