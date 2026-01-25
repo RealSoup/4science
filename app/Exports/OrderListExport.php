@@ -15,6 +15,8 @@ class OrderListExport implements FromCollection, WithHeadings, WithStyles {
 	
 	public function headings(): array {
         return [
+			'회원번호',
+			'이메일',
 			'글번호',
 			'주문번호',
 			'주문상품',
@@ -22,7 +24,6 @@ class OrderListExport implements FromCollection, WithHeadings, WithStyles {
 			'담당자',
 			'소속',
 			'주문자',
-			'회원번호',
 			'결제수단',
 			'진행현황'
         ];
@@ -61,9 +62,9 @@ class OrderListExport implements FromCollection, WithHeadings, WithStyles {
 
         $req = $this->req;
         $orders = Order::with('orderExtraInfo')
-        ->select("od_id", "od_no", "od_name", "od_all_price",
+        ->select("od_orderer_email", "created_id", "od_id", "od_no", "od_name", "od_all_price",
 			DB::raw("(SELECT name FROM la_users WHERE id = od_mng) AS mng_nm"),
-            "od_company", "od_orderer", "created_id", 
+            "od_company", "od_orderer", 
             DB::raw($pay_method_query_str),
 			DB::raw($od_step_query_str)
         )
