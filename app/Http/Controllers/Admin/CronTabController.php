@@ -17,7 +17,7 @@ class CronTabController extends Controller {
 	public function receiveConfirm(){
 
         $od = Order::with('user')->with('orderCoupon')
-			->select('shop_order.od_id', 'shop_order.created_id', 'shop_order_model.odm_id', 'shop_order_model.odm_ea', 'shop_order_model.odm_price', 'shop_order_dlvy_info.oddi_id')
+			->select('shop_order.od_id', 'shop_order.od_proc_mileage', 'shop_order.created_id', 'shop_order_model.odm_id', 'shop_order_model.odm_ea', 'shop_order_model.odm_price', 'shop_order_dlvy_info.oddi_id')
 			->join('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
 			->join('shop_order_dlvy_info', 'shop_order_model.odm_id', '=', 'shop_order_dlvy_info.oddi_odm_id')
 			->OdStep('50')
@@ -30,12 +30,17 @@ class CronTabController extends Controller {
 			->get();
 
 		foreach( $od as $v ){
-			if(intval($v->user->level) < 5) {	//	딜러회원은 제외
+			if(intval($v->user->level) < 5 || auth()->user()->level > 20 ) {	//	딜러회원은 제외
 				$p = $v->odm_price*$v->odm_ea*$v->user->mileage_mul;
 				$content='수취확인(자동)';
 				if($v->orderCoupon && count($v->orderCoupon)) {
 					$content.=' - 쿠폰 사용으로 마일리지 지급 비대상';
 					$p=0;
+				} else {
+					if ($v->od_proc_mileage == 'ZERO') {
+						$p=0;
+						$content.=' - 이벤트 혜택으로 마일리지가 적립되지 않습니다.';
+					} 
 				}
 					
 				DB::table('user_mileage')->insert([

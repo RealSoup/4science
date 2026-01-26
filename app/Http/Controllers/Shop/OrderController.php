@@ -470,7 +470,14 @@ class OrderController extends Controller {
                     if ( $req->did_use_coupon ) {
                         $p=0;
                         $content.=' - 쿠폰 사용으로 마일리지 지급 비대상';
+                    } else {
+                        $od = $this->order->find($id);
+                        if ($od->od_proc_mileage == 'ZERO') {
+                            $p=0;
+                            $content.=' - 이벤트 혜택으로 마일리지가 적립되지 않습니다.';
+                        } 
                     }
+
                     event(new Mileage(  "insert", 
                                         auth()->user()->id, 
                                         'shop_order_model', 

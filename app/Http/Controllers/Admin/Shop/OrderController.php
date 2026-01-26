@@ -514,7 +514,12 @@ class OrderController extends Controller {
 				}
 				$oex->oex_adm_memo = $req->order_extra_info['oex_adm_memo'];
 				$oex->save();
+			} else if ($req->type == 'od_proc_mileage') {
+				$od->od_proc_mileage = $req->od_proc_mileage;
 			}
+
+			
+
 			$od->updated_id = auth()->user()->id;
 			$od_rst = $od->save();
 		}

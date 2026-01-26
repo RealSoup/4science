@@ -112,7 +112,7 @@ var dt = new Date();
   }, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
     user: 'auth/user'
   })), {}, {
-    down_auth: function down_auth() {
+    auth_check: function auth_check() {
       return this.$store.state.auth.user.user_mng.um_group == 'acc' || this.$store.state.auth.user.is_super;
     }
   }),
@@ -197,7 +197,7 @@ var dt = new Date();
       var _arguments = arguments,
         _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var mode, i, j, k, res, null_id;
+        var mode, i, j, k, ma_msg, rst, res, null_id;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
@@ -220,7 +220,7 @@ var dt = new Date();
                 _this2.od.od_mng = Auth.user().id;
                 _this2.od.mng = Auth.user();
               }
-              _context2.next = 30;
+              _context2.next = 45;
               break;
             case 7:
               if (!(type == 'dlvy')) {
@@ -282,33 +282,59 @@ var dt = new Date();
               _context2.next = 10;
               break;
             case 27:
-              _context2.next = 30;
+              _context2.next = 45;
               break;
             case 29:
-              if (type == 'arrival') {
-                _this2.od.order_purchase_at.forEach(function (opa) {
-                  opa.order_model.forEach(function (odm) {
-                    if (odm.dlvy_chk == 'Y') if (odm.order_dlvy_info.length == 0) odm.order_dlvy_info.push({
-                      oddi_odm_id: odm.odm_id,
-                      oddi_arrival_date: true
-                    });else {
-                      odm.order_dlvy_info.forEach(function (dlvy) {
-                        dlvy.oddi_arrival_date = true;
-                      });
-                    }
-                  });
-                });
-              } else if (type == 'dlvy_del') {
-                _this2.od.order_purchase_at.forEach(function (opa) {
-                  opa.order_model.forEach(function (odm) {
-                    if (odm.dlvy_chk == 'Y') odm.order_dlvy_info.splice(0);
-                  });
-                });
+              if (!(type == 'arrival')) {
+                _context2.next = 33;
+                break;
               }
-            case 30:
-              _context2.next = 32;
+              _this2.od.order_purchase_at.forEach(function (opa) {
+                opa.order_model.forEach(function (odm) {
+                  if (odm.dlvy_chk == 'Y') if (odm.order_dlvy_info.length == 0) odm.order_dlvy_info.push({
+                    oddi_odm_id: odm.odm_id,
+                    oddi_arrival_date: true
+                  });else {
+                    odm.order_dlvy_info.forEach(function (dlvy) {
+                      dlvy.oddi_arrival_date = true;
+                    });
+                  }
+                });
+              });
+              _context2.next = 45;
+              break;
+            case 33:
+              if (!(type == 'dlvy_del')) {
+                _context2.next = 37;
+                break;
+              }
+              _this2.od.order_purchase_at.forEach(function (opa) {
+                opa.order_model.forEach(function (odm) {
+                  if (odm.dlvy_chk == 'Y') odm.order_dlvy_info.splice(0);
+                });
+              });
+              _context2.next = 45;
+              break;
+            case 37:
+              if (!(type == 'od_proc_mileage')) {
+                _context2.next = 45;
+                break;
+              }
+              ma_msg = '';
+              if (_this2.od.od_proc_mileage == 'ZERO') ma_msg = '추후 수취확인시 마일리지 적립을 0원으로';else if (_this2.od.od_proc_mileage == 'N') ma_msg = '마일리지를 적립하는 주문으로 변경';
+              _context2.next = 42;
+              return Notify.confirm(ma_msg, 'danger');
+            case 42:
+              rst = _context2.sent;
+              if (rst) {
+                _context2.next = 45;
+                break;
+              }
+              return _context2.abrupt("return", false);
+            case 45:
+              _context2.next = 47;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/shop/order/".concat(_this2.$route.params.od_id), _this2.od);
-            case 32:
+            case 47:
               res = _context2.sent;
               if (res && res.status === 200 && res.data.message === 'success') {
                 if (type == 'od_mng') {
@@ -340,6 +366,8 @@ var dt = new Date();
                   _this2.offAllCheck();
                 } else if (type == 'pay') {
                   Notify.toast('success', '결제정보 수정');
+                } else if (type == 'od_proc_mileage') {
+                  Notify.toast('success', '마일리지 0 처리 완료');
                 } else {
                   Notify.toast('success', '수정');
                 }
@@ -348,18 +376,18 @@ var dt = new Date();
                 null_id = res.data.message.replace("goods null ", "");
                 Notify.toast('danger', "\uC0AD\uC81C\uB41C \uC0C1\uD488\uC774 \uC788\uC5B4 \uC0C1\uD488\uC815\uBCF4\uB97C \uCC38\uC870 \uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4. \uC0C1\uD488\uBC88\uD638: ".concat(null_id));
               } else Notify.toast('warning', '수정 실패');
-              _context2.next = 40;
+              _context2.next = 55;
               break;
-            case 36:
-              _context2.prev = 36;
+            case 51:
+              _context2.prev = 51;
               _context2.t0 = _context2["catch"](1);
               Notify.consolePrint(_context2.t0);
               Notify.toast('warning', _context2.t0.response);
-            case 40:
+            case 55:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[1, 36]]);
+        }, _callee2, null, [[1, 51]]);
       }))();
     },
     print: function print() {
@@ -1113,7 +1141,39 @@ var render = function render() {
     }
   }, [_vm._v("주문 상품")]), _vm._v(" "), _c("b-col", {
     staticClass: "text-right print_hide"
-  }, [_vm.od.created_id ? _c("b-button", {
+  }, [_vm.auth_check ? _c("div", {
+    attrs: {
+      id: "proc_mileage_box"
+    }
+  }, [_c("b-input-group", {
+    attrs: {
+      size: "sm"
+    }
+  }, [_c("b-input-group-prepend", {
+    attrs: {
+      "is-text": ""
+    }
+  }, [_c("b-form-checkbox", {
+    staticClass: "mr-n2 mb-n1",
+    attrs: {
+      value: "ZERO",
+      "unchecked-value": "N"
+    },
+    model: {
+      value: _vm.od.od_proc_mileage,
+      callback: function callback($$v) {
+        _vm.$set(_vm.od, "od_proc_mileage", $$v);
+      },
+      expression: "od.od_proc_mileage"
+    }
+  })], 1), _vm._v(" "), _c("b-input-group-append", [_c("b-button", {
+    staticClass: "sm teal",
+    on: {
+      click: function click($event) {
+        return _vm.update("od_proc_mileage");
+      }
+    }
+  }, [_vm._v("마일리지 0 처리")])], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _vm.od.created_id ? _c("b-button", {
     staticClass: "sm green",
     on: {
       click: _vm.toEstimate
@@ -2138,7 +2198,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.i(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_public_css_adm_shop_order_edit_css_ver_2_0__WEBPACK_IMPORTED_MODULE_1__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-ca63be56] { padding-top:1rem;\n}\n.p_wrap .print_mng_nm[data-v-ca63be56] { display:none;\n}\n.p_wrap .print_hide[data-v-ca63be56] { display:block !important;\n}\n.p_wrap .print_hide_flex[data-v-ca63be56] { display:flex !important;\n}\n.p_wrap .print_hide_inline_block[data-v-ca63be56] { display:inline-block !important;\n}\n.p_wrap .print_show_inline[data-v-ca63be56]  { display:none;\n}\n.p_wrap .act_ctrl[data-v-ca63be56] { border-width:5px;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ca63be56] { display:flex; justify-content:flex-end; flex:0 0 730px; max-width:730px;\n}\n.p_wrap .act_ctrl .btn_area>*[data-v-ca63be56] { margin-left:.5%; margin-right:.5%;\n}\n.p_wrap .act_ctrl .btn_area .input-group[data-v-ca63be56] { max-width:150px;\n}\n.p_wrap .act_ctrl .def_info b[data-v-ca63be56]:not(:last-of-type) { margin-right:.5vw;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle { display:block !important; text-align:center;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle .btn { background-color:#ffffff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(7) { border-right-width:1px;\n}\n.p_wrap .box .goods .gd_con .row .myCheck[data-v-ca63be56] .custom-control-label::before, \r\n.p_wrap .box .goods .gd_con .row .myCheck[data-v-ca63be56] .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px;\n}\n.p_wrap .box .goods .gd_con .model.today[data-v-ca63be56] { background-color:#fff2cb;\n}\n.p_wrap .box .goods .gd_con .model .signboard[data-v-ca63be56] { text-align:center; margin:0 -10px; padding:10px;\n}\n.p_wrap .box .goods .gd_con .model .signboard .neonText[data-v-ca63be56] { font-size:14px; color:#e600ff;\n}\n.p_wrap .box .goods .gd_con .dlvy_info[data-v-ca63be56] { flex-wrap:wrap; text-align:center; padding-bottom:0; align-items:flex-end !important;\n}\n.p_wrap .box .goods .gd_con .dlvy_info p[data-v-ca63be56] { padding:.2rem 0 .25rem 0; width:100%;\n}\n.p_wrap .box .goods .gd_con .dlvy_info p[data-v-ca63be56]:not(:last-of-type) { border-bottom:1px solid #aaa;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box_switch[data-v-ca63be56] { border-bottom:0; border-radius:9px 9px 0 0;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box[data-v-ca63be56] { position:absolute; right:73%; top:80%; width:350px; z-index:2;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box[data-v-ca63be56] .shadow { box-shadow: -0.9rem 0.9rem 1rem rgba(0, 0, 0, 0.7) !important;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .btn[data-v-ca63be56] { color:#FFF;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body[data-v-ca63be56] { padding:.4rem;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body .ctrl .col[data-v-ca63be56] { flex-basis:0; flex-grow:1; max-width:100%; text-align:left; padding:5px 0; border-width:0;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body .ctrl .col[data-v-ca63be56]:nth-child(2) { text-align:center;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body .ctrl .col[data-v-ca63be56]:last-child { text-align:right;\n}\n.p_wrap .od_addr .row .adm_memo div[data-v-ca63be56] { cursor:pointer;\n}\n.p_wrap .od_addr .row .adm_memo div[data-v-ca63be56]:hover { box-shadow:0 1px 5px 7px #015b7e;\n}\n.p_wrap .sm_ib_v[data-v-ca63be56] { display:none;\n}\n@media (max-width: 1580px){\n.p_wrap .act_ctrl .def_info[data-v-ca63be56],\r\n    .p_wrap .act_ctrl .btn_area[data-v-ca63be56] { flex:0 0 100%; max-width:100%;\n}\n}\n@media (max-width: 992px){\n.p_wrap .sm_ib_v[data-v-ca63be56] { display:inline-block !important;\n}\n.p_wrap .sm_ib_h[data-v-ca63be56] { display:none !important;\n}\n.p_wrap .act_ctrl[data-v-ca63be56] { font-size:.8em;\n}\n.p_wrap .act_ctrl .btn[data-v-ca63be56] { font-size:.9em;\n}\n.p_wrap .act_ctrl .def_info span[data-v-ca63be56] { margin-left:0;\n}\n.p_wrap .act_ctrl .def_info b[data-v-ca63be56] { margin-right:2%; margin-left:.1rem;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ca63be56] { flex: 0 0 100%; max-width: 100%;\n}\n.p_wrap .act_ctrl .btn_area .input-group[data-v-ca63be56] { max-width:95px;\n}\n.p_wrap .act_ctrl .btn_area .btn[data-v-ca63be56] { padding: 0.1rem 0.2rem !important;\n}\n.label_st .dt[data-v-ca63be56] { padding-left:.2rem;\n}\n.label_st .lb[data-v-ca63be56] { flex:0 0 40%; max-width:40%;\n}\n.label_st .wd1_3[data-v-ca63be56], .label_st .wd54[data-v-ca63be56], .label_st .wd1_2[data-v-ca63be56], \r\n    .label_st .wd1_1[data-v-ca63be56] { flex:0 0 60%; max-width:60%;\n}\n.p_wrap .box .goods .pa_tit[data-v-ca63be56] { display:none !important;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(1) { display:none !important;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(2) { flex:0 0 35%; max-width:35%; border-top:2px solid #000;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(3) { flex:0 0 65%; max-width:65%; border-top:2px solid #000;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(4) { display:none !important;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(5) { flex:0 0 33.333333%; max-width:33.333333%;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(6) { flex:0 0 33.333333%; max-width:33.333333%;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(7) { flex:0 0 33.333333%; max-width:33.333333%;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(8) { display:none !important;\n}\n.p_wrap .box .goods .dlvy_fare[data-v-ca63be56] { display:none !important;\n}\n.p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(2):after,\r\n    .p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(4):after { content:none;\n}\n.p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(odd) { flex-basis:50%; max-width:50%; font-size:1rem;\n}\n.p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(6) { flex-basis:50%; max-width:50%;\n}\n.p_wrap .box .sum_up .total .col b[data-v-ca63be56] { font-size:1em;\n}\n.p_wrap .od_addr .address[data-v-ca63be56] { display:block;\n}\n.p_wrap .od_addr .address .addr_list[data-v-ca63be56], \r\n    .p_wrap .od_addr .address .btn_copy[data-v-ca63be56] { display:none;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-ca63be56] { padding-top:1rem;\n}\n.p_wrap .print_mng_nm[data-v-ca63be56] { display:none;\n}\n.p_wrap .print_hide[data-v-ca63be56] { display:block !important;\n}\n.p_wrap .print_hide_flex[data-v-ca63be56] { display:flex !important;\n}\n.p_wrap .print_hide_inline_block[data-v-ca63be56] { display:inline-block !important;\n}\n.p_wrap .print_show_inline[data-v-ca63be56]  { display:none;\n}\n.p_wrap .act_ctrl[data-v-ca63be56] { border-width:5px;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ca63be56] { display:flex; justify-content:flex-end; flex:0 0 730px; max-width:730px;\n}\n.p_wrap .act_ctrl .btn_area>*[data-v-ca63be56] { margin-left:.5%; margin-right:.5%;\n}\n.p_wrap .act_ctrl .btn_area .input-group[data-v-ca63be56] { max-width:150px;\n}\n.p_wrap .act_ctrl .def_info b[data-v-ca63be56]:not(:last-of-type) { margin-right:.5vw;\n}\n.p_wrap .box .row .col #proc_mileage_box[data-v-ca63be56] { display:inline-block; vertical-align:middle;}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle { display:block !important; text-align:center;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle .btn { background-color:#ffffff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(7) { border-right-width:1px;\n}\n.p_wrap .box .goods .gd_con .row .myCheck[data-v-ca63be56] .custom-control-label::before, \r\n.p_wrap .box .goods .gd_con .row .myCheck[data-v-ca63be56] .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px;\n}\n.p_wrap .box .goods .gd_con .model.today[data-v-ca63be56] { background-color:#fff2cb;\n}\n.p_wrap .box .goods .gd_con .model .signboard[data-v-ca63be56] { text-align:center; margin:0 -10px; padding:10px;\n}\n.p_wrap .box .goods .gd_con .model .signboard .neonText[data-v-ca63be56] { font-size:14px; color:#e600ff;\n}\n.p_wrap .box .goods .gd_con .dlvy_info[data-v-ca63be56] { flex-wrap:wrap; text-align:center; padding-bottom:0; align-items:flex-end !important;\n}\n.p_wrap .box .goods .gd_con .dlvy_info p[data-v-ca63be56] { padding:.2rem 0 .25rem 0; width:100%;\n}\n.p_wrap .box .goods .gd_con .dlvy_info p[data-v-ca63be56]:not(:last-of-type) { border-bottom:1px solid #aaa;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box_switch[data-v-ca63be56] { border-bottom:0; border-radius:9px 9px 0 0;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box[data-v-ca63be56] { position:absolute; right:73%; top:80%; width:350px; z-index:2;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box[data-v-ca63be56] .shadow { box-shadow: -0.9rem 0.9rem 1rem rgba(0, 0, 0, 0.7) !important;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .btn[data-v-ca63be56] { color:#FFF;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body[data-v-ca63be56] { padding:.4rem;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body .ctrl .col[data-v-ca63be56] { flex-basis:0; flex-grow:1; max-width:100%; text-align:left; padding:5px 0; border-width:0;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body .ctrl .col[data-v-ca63be56]:nth-child(2) { text-align:center;\n}\n.p_wrap .box .goods .gd_con .dlvy_info .dlvy_info_box .card .card-body .ctrl .col[data-v-ca63be56]:last-child { text-align:right;\n}\n.p_wrap .od_addr .row .adm_memo div[data-v-ca63be56] { cursor:pointer;\n}\n.p_wrap .od_addr .row .adm_memo div[data-v-ca63be56]:hover { box-shadow:0 1px 5px 7px #015b7e;\n}\n.p_wrap .sm_ib_v[data-v-ca63be56] { display:none;\n}\n@media (max-width: 1580px){\n.p_wrap .act_ctrl .def_info[data-v-ca63be56],\r\n    .p_wrap .act_ctrl .btn_area[data-v-ca63be56] { flex:0 0 100%; max-width:100%;\n}\n}\n@media (max-width: 992px){\n.p_wrap .sm_ib_v[data-v-ca63be56] { display:inline-block !important;\n}\n.p_wrap .sm_ib_h[data-v-ca63be56] { display:none !important;\n}\n.p_wrap .act_ctrl[data-v-ca63be56] { font-size:.8em;\n}\n.p_wrap .act_ctrl .btn[data-v-ca63be56] { font-size:.9em;\n}\n.p_wrap .act_ctrl .def_info span[data-v-ca63be56] { margin-left:0;\n}\n.p_wrap .act_ctrl .def_info b[data-v-ca63be56] { margin-right:2%; margin-left:.1rem;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ca63be56] { flex: 0 0 100%; max-width: 100%;\n}\n.p_wrap .act_ctrl .btn_area .input-group[data-v-ca63be56] { max-width:95px;\n}\n.p_wrap .act_ctrl .btn_area .btn[data-v-ca63be56] { padding: 0.1rem 0.2rem !important;\n}\n.label_st .dt[data-v-ca63be56] { padding-left:.2rem;\n}\n.label_st .lb[data-v-ca63be56] { flex:0 0 40%; max-width:40%;\n}\n.label_st .wd1_3[data-v-ca63be56], .label_st .wd54[data-v-ca63be56], .label_st .wd1_2[data-v-ca63be56], \r\n    .label_st .wd1_1[data-v-ca63be56] { flex:0 0 60%; max-width:60%;\n}\n.p_wrap .box .goods .pa_tit[data-v-ca63be56] { display:none !important;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(1) { display:none !important;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(2) { flex:0 0 35%; max-width:35%; border-top:2px solid #000;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(3) { flex:0 0 65%; max-width:65%; border-top:2px solid #000;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(4) { display:none !important;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(5) { flex:0 0 33.333333%; max-width:33.333333%;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(6) { flex:0 0 33.333333%; max-width:33.333333%;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(7) { flex:0 0 33.333333%; max-width:33.333333%;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(8) { display:none !important;\n}\n.p_wrap .box .goods .dlvy_fare[data-v-ca63be56] { display:none !important;\n}\n.p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(2):after,\r\n    .p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(4):after { content:none;\n}\n.p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(odd) { flex-basis:50%; max-width:50%; font-size:1rem;\n}\n.p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(6) { flex-basis:50%; max-width:50%;\n}\n.p_wrap .box .sum_up .total .col b[data-v-ca63be56] { font-size:1em;\n}\n.p_wrap .od_addr .address[data-v-ca63be56] { display:block;\n}\n.p_wrap .od_addr .address .addr_list[data-v-ca63be56], \r\n    .p_wrap .od_addr .address .btn_copy[data-v-ca63be56] { display:none;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

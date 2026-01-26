@@ -83,6 +83,17 @@
             <b-row tag="h5">
                 <b-col tag="b">주문 상품</b-col>
                 <b-col class="text-right print_hide">
+                    <div id="proc_mileage_box" v-if="auth_check">
+                        <b-input-group size="sm">
+                            <b-input-group-prepend is-text>
+                                <b-form-checkbox class="mr-n2 mb-n1" v-model='od.od_proc_mileage' value="ZERO" unchecked-value="N"></b-form-checkbox>
+                            </b-input-group-prepend>
+                            <b-input-group-append>
+                                <b-button @click="update('od_proc_mileage')" class="sm teal">마일리지 0 처리</b-button>
+                            </b-input-group-append>
+                        </b-input-group>
+                    </div>
+                    
                     <b-button @click="toEstimate" class="sm green" v-if="od.created_id">모든상품 임의견적 복사</b-button>
                     <b-button @click="update('odm_ea')" class="sm teal">상품정보 수정</b-button>
                 </b-col>
@@ -639,7 +650,7 @@ export default {
         ...mapGetters({
             user: 'auth/user',
         }),
-        down_auth () {            
+        auth_check () {            
             return this.$store.state.auth.user.user_mng.um_group == 'acc' || this.$store.state.auth.user.is_super;
         },
     },
@@ -748,6 +759,16 @@ export default {
                                 odm.order_dlvy_info.splice(0)
                         });
                     });
+                } else if (type == 'od_proc_mileage') {
+                    let ma_msg = '';
+                    if (this.od.od_proc_mileage == 'ZERO')
+                        ma_msg = '추후 수취확인시 마일리지 적립을 0원으로';
+                    else if (this.od.od_proc_mileage == 'N')
+                        ma_msg = '마일리지를 적립하는 주문으로 변경';
+                    var rst = await Notify.confirm(ma_msg, 'danger');
+                    if(!rst)
+                        return false;
+
                 }
 
                 const res = await ax.post(`/api/admin/shop/order/${this.$route.params.od_id}`, this.od);
@@ -781,6 +802,8 @@ export default {
                         this.offAllCheck();
                     } else if (type == 'pay') {
                         Notify.toast('success', '결제정보 수정');
+                    } else if (type == 'od_proc_mileage') {
+                        Notify.toast('success', '마일리지 0 처리 완료');
                     } else {
                         Notify.toast('success', '수정');
                     }
@@ -1051,6 +1074,8 @@ export default {
 .p_wrap .act_ctrl .btn_area>* { margin-left:.5%; margin-right:.5%; }
 .p_wrap .act_ctrl .btn_area .input-group { max-width:150px; }
 .p_wrap .act_ctrl .def_info b:not(:last-of-type) { margin-right:.5vw; }
+
+.p_wrap .box .row .col #proc_mileage_box { display:inline-block; vertical-align:middle;}
 
 .p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle { display:block !important; text-align:center; }
 .p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn { background-color:#ffffff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem; }
