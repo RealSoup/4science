@@ -39,7 +39,7 @@ class CronTabController extends Controller {
 				} else {
 					if ($v->od_proc_mileage == 'ZERO') {
 						$p=0;
-						$content.=' - 이벤트 혜택으로 마일리지가 적립되지 않습니다.';
+						$content.=' - 본 주문 건은 마일리지가 적립되지 않습니다.';
 					} 
 				}
 					
