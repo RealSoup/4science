@@ -22,27 +22,29 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb;'>
-            <!-- <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                <tr>
-                    <td colspan="2"><img src="{{ asset('storage/event/2023/0901/estimate01.jpg') }}" /></td>
-                </tr>
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
                     <td>
-                        <a href="https://4science.net/shop/goods/616504" target='_blank'>
-                            <img src="{{ asset('storage/event/2023/0901/estimate02.jpg') }}" />
+                        <a href="https://4science.net/board/event/show/72" target='_blank'>
+                            <img src="{{ asset('storage/event/2026/0203/estimate01.jpg') }}" />
                         </a>
                     </td>
                     <td>
-                        <a href="https://4science.net/shop/goods/616504" target='_blank'>
-                            <img src="{{ asset('storage/event/2023/0901/estimate03.jpg') }}" />
+                        <a href="https://4science.net/shop/goods?ca01=27" target='_blank'>
+                            <img src="{{ asset('storage/event/2026/0203/estimate02.jpg') }}" />
+                        </a>
+                    </td>
+                    <td>
+                        <a href="https://4science.net/board/event/show/72" target='_blank'>
+                            <img src="{{ asset('storage/event/2026/0203/estimate03.jpg') }}" />
                         </a>
                     </td>
                 </tr>
-            </table> -->
+            </table>
             
-            <a href="https://pf.kakao.com/_AxmKUj" target='_blank'>
+            <!-- <a href="https://pf.kakao.com/_AxmKUj" target='_blank'>
                 <img src="{{ asset('storage/event/2023/1205/estimate_960.jpg') }}" />
-            </a>
+            </a> -->
           
         </td>
     </tr>
@@ -234,6 +236,10 @@ $no++;
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb;'>
+
+            <a href="https://pf.kakao.com/_AxmKUj" target='_blank'>
+                <img src="{{ asset('storage/event/2023/1205/estimate_960.jpg') }}" />
+            </a>
             <!-- <a href="https://4science.net/shop/goods?ca01=36" target='_blank'>
                 <img src="{{ asset('storage/event/2025/0320/estimate.jpg') }}" />
             </a> -->
