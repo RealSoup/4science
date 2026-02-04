@@ -132,7 +132,7 @@ import SubString from '@/views/_common/SubString';
 export default {
     name:"SiteMain",
     components: {
-        PopUp,
+        'pop-up': PopUp,
         SubString,
     },
     data() {

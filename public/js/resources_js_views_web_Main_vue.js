@@ -51,7 +51,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "SiteMain",
   components: {
-    PopUp: _module_PopUp__WEBPACK_IMPORTED_MODULE_1__["default"],
+    'pop-up': _module_PopUp__WEBPACK_IMPORTED_MODULE_1__["default"],
     SubString: _views_common_SubString__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
@@ -204,15 +204,15 @@ __webpack_require__.r(__webpack_exports__);
     return {
       pop: [{
         ck_key: '4S_PopUp_01',
-        ck_view: false,
+        cookie_view: false,
         is_view: true
       }, {
         ck_key: '4S_PopUp_02',
-        ck_view: false,
+        cookie_view: false,
         is_view: false
       }, {
         ck_key: '4S_PopUp_03',
-        ck_view: false,
+        cookie_view: false,
         is_view: false
       }]
     };
@@ -223,13 +223,13 @@ __webpack_require__.r(__webpack_exports__);
       this.pop[i].is_view = false;
     },
     view_check: function view_check(i) {
-      return this.pop[i].is_view && this.pop[i].ck_view;
+      return this.pop[i].is_view && this.pop[i].cookie_view;
     }
   },
   mounted: function mounted() {
     var _this = this;
     this.pop.forEach(function (el) {
-      el.ck_view = _this.$cookies.get(el.ck_key) == 'hide' ? false : true;
+      el.cookie_view = _this.$cookies.get(el.ck_key) == 'hide' ? false : true;
     });
   }
 });
