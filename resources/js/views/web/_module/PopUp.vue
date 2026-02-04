@@ -16,9 +16,9 @@ export default {
     data () {
         return {
             pop: [ 
-                {ck_key: '4S_PopUp_01', cookie_view: false, is_view: true},
-                {ck_key: '4S_PopUp_02', cookie_view: false, is_view: false}, 
-                {ck_key: '4S_PopUp_03', cookie_view: false, is_view: false}, 
+                {ck_key: '4S_PopUp_01', ck_view: false, is_view: true},
+                {ck_key: '4S_PopUp_02', ck_view: false, is_view: false}, 
+                {ck_key: '4S_PopUp_03', ck_view: false, is_view: false}, 
             ]          
         }
     },
@@ -28,12 +28,12 @@ export default {
             this.pop[i].is_view = false;
         }, 
         view_check(i) {
-            return this.pop[i].is_view && this.pop[i].cookie_view;
+            return this.pop[i].is_view && this.pop[i].ck_view;
         },
     },
     mounted() {
         this.pop.forEach(el => {
-            el.cookie_view = (this.$cookies.get(el.ck_key) == 'hide') ? false : true;
+            el.ck_view = (this.$cookies.get(el.ck_key) == 'hide') ? false : true;
         });
     },
 }
