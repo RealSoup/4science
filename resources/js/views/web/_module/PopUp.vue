@@ -1,7 +1,7 @@
 <template>
     <div class="popup pop_0" v-if="$route.name == 'main' && view_check(0)">
-        <a href="/board/notice/show/64">
-            <b-img src="/storage/main/popup/250925.jpg" width="500"></b-img>
+        <a href="/board/notice/show/65">
+            <b-img src="/storage/main/popup/260203.jpg" width="500"></b-img>
         </a>
         
         <div class="ctrl">
@@ -16,9 +16,9 @@ export default {
     data () {
         return {
             pop: [ 
-                {ck_key: '4S_PopUp_01', ck_view: false, is_view: false},
-                {ck_key: '4S_PopUp_02', ck_view: false, is_view: false}, 
-                {ck_key: '4S_PopUp_03', ck_view: false, is_view: false}, 
+                {ck_key: '4S_PopUp_01', cookie_view: false, is_view: true},
+                {ck_key: '4S_PopUp_02', cookie_view: false, is_view: false}, 
+                {ck_key: '4S_PopUp_03', cookie_view: false, is_view: false}, 
             ]          
         }
     },
@@ -28,12 +28,12 @@ export default {
             this.pop[i].is_view = false;
         }, 
         view_check(i) {
-            return this.pop[i].is_view && this.pop[i].ck_view;
+            return this.pop[i].is_view && this.pop[i].cookie_view;
         },
     },
     mounted() {
         this.pop.forEach(el => {
-            el.ck_view = (this.$cookies.get(el.ck_key) == 'hide') ? false : true;
+            el.cookie_view = (this.$cookies.get(el.ck_key) == 'hide') ? false : true;
         });
     },
 }
