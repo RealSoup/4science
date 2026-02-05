@@ -115,6 +115,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
     // console.log(to, from);
     this.bo_id = to.params.bo_id;
+    this.bo_cd = to.params.bo_cd;
     this.show();
     next();
   },
