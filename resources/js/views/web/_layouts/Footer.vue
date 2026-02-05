@@ -27,7 +27,7 @@
             
             <b-col class="thi">
                 <p class="tit">공지사항 <b-link :to="{name: `bo_index`, params: { bo_cd:'notice' }}">></b-link></p>
-                <b-link v-for="bo in notice" :key="bo.bo_id" :to="{name: 'bo_show', params: { bo_cd:bo.code, bo_id:bo.bo_id }}">
+                <b-link v-for="bo in notice" :key="bo.bo_id" :to="{name: 'bo_show', params: { bo_cd:'notice', bo_id:bo.bo_id }}">
                     <sub-string v-model="bo.bo_subject" :width="330" />
                     <span>{{bo.created_at | formatDate}}</span>
                 </b-link>
