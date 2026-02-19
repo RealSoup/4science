@@ -1,13 +1,13 @@
 <template>
-    <div class="popup pop_0" v-if="$route.name == 'main' && view_check(0)">
-        <a href="/board/notice/show/65">
-            <b-img src="/storage/main/popup/260203.jpg" width="500"></b-img>
-        </a>
-        
-        <div class="ctrl">
-            <b-button class="white xm" @click="todayStop(0)">24시간 안 보기</b-button>
-        </div>
+<div class="popup pop_0" v-if="$route.name == 'main' && view_check(0)">
+    <a href="/board/notice/show/65">
+        <b-img src="/storage/main/popup/260203.jpg" width="500"></b-img>
+    </a>
+    
+    <div class="ctrl">
+        <b-button class="white xm" @click="todayStop(0)">24시간 안 보기</b-button>
     </div>
+</div>
 </template>
 
 <script>

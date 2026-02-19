@@ -19,14 +19,14 @@
             </b-link> -->  
 
             
-            <b-carousel-slide v-if="deviceType=='pc'" :img-src="`/storage/event/2026/0203/slide.jpg`" class="evt01">
+            <!-- <b-carousel-slide v-if="deviceType=='pc'" :img-src="`/storage/event/2026/0203/slide.jpg`" class="evt01">
                 <router-link to="/board/event/show/72" id="app01" class="split_link">
                     <router-link to="/shop/goods?ca01=27" id="app02" class="split_link"></router-link>
                 </router-link>
             </b-carousel-slide>
             <b-link v-else to="/shop/goods?ca01=27" >
                 <b-carousel-slide :img-src="`/storage/event/2026/0203/${slide_file_nm}.jpg`"></b-carousel-slide>
-            </b-link>
+            </b-link> -->
 
             <b-link to="/board/notice/show/55" v-if="deviceType=='pc'">
                 <b-carousel-slide img-src="/storage/event/2025/0224/slide.jpg"></b-carousel-slide>

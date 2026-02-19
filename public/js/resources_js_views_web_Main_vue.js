@@ -286,32 +286,7 @@ var render = function render() {
       indicators: "",
       interval: 0
     }
-  }, [[_vm.deviceType == "pc" ? _c("b-carousel-slide", {
-    staticClass: "evt01",
-    attrs: {
-      "img-src": "/storage/event/2026/0203/slide.jpg"
-    }
-  }, [_c("router-link", {
-    staticClass: "split_link",
-    attrs: {
-      to: "/board/event/show/72",
-      id: "app01"
-    }
-  }, [_c("router-link", {
-    staticClass: "split_link",
-    attrs: {
-      to: "/shop/goods?ca01=27",
-      id: "app02"
-    }
-  })], 1)], 1) : _c("b-link", {
-    attrs: {
-      to: "/shop/goods?ca01=27"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2026/0203/".concat(_vm.slide_file_nm, ".jpg")
-    }
-  })], 1), _vm._v(" "), _vm.deviceType == "pc" ? _c("b-link", {
+  }, [[_vm.deviceType == "pc" ? _c("b-link", {
     attrs: {
       to: "/board/notice/show/55"
     }
