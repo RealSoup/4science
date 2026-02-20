@@ -139,7 +139,7 @@
                         <b-button class="gray sm" @click="print">견적서 출력</b-button>
                         <b-button class="d_gray sm" @click="estimatePdf">견적서 PDF 다운</b-button>
                         <b-button class="black sm" @click="reEstimate">선택상품 재견적 요청</b-button>
-                        <b-button v-if="new Date(`${reply.er_effective_at} 23:59:59`) >= new Date()" class="blue lg" @click="settle">선택상품 주문하기</b-button>
+                        <b-button v-if="new Date(`${reply.er_effective_at} 23:59:59`) >= new Date()" class="blue sm" @click="settle">선택상품 주문하기</b-button>
                     </div>
 
                 </b-col>

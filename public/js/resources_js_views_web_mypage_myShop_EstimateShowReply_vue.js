@@ -525,7 +525,7 @@ var render = function render() {
             click: _vm.reEstimate
           }
         }, [_vm._v("선택상품 재견적 요청")]), _vm._v(" "), new Date("".concat(_vm.reply.er_effective_at, " 23:59:59")) >= new Date() ? _c("b-button", {
-          staticClass: "blue lg",
+          staticClass: "blue sm",
           on: {
             click: _vm.settle
           }
