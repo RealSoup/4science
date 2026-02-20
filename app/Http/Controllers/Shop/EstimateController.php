@@ -8,8 +8,9 @@ use App\Models\{FileInfo};
 use App\Models\Shop\{EstimateReq, EstimateReply, EstimateModel, EstimateOption, EstimateCustom, Goods, Cart};
 use App\Http\Requests\StoreEstimateReq;
 use Illuminate\Support\Arr;
-use DB;
 use App\Mail\EstimateReq AS MailEstimateReq;
+use DB;
+use PDF;
 use Mail;
 
 class EstimateController extends Controller {
@@ -280,12 +281,21 @@ class EstimateController extends Controller {
         return response()->json($data, 200);
     }
 
-    public function printEstimate(int $er_id) {
+    public function printEstimate(int $er_id, Request $req) {
         $er = EstimateReply::with('estimateReq')->with('estimateModel')->find($er_id);
         $er->estimateReq->mng;
         foreach ($er->estimateModel as $v) 
             $v->estimateOption;
-        return view('admin.estimate.pdf.estimate', ['er' => $er->toArray(), 'type'=>'print']);
+
+
+        if ($req->type == 'down') {
+            $option = ['defaultPaperSize'=>'a4', 'isRemoteEnabled' => true, 'isHtml5ParserEnabled' => true,];
+            if (config('app.env') == "production") { $option['isRemoteEnabled'] = true; }
+            $pdf = PDF::setOptions($option);
+            return $pdf->loadView('admin.estimate.pdf.estimate', ['er' => $er->toArray()])->download('estimate.pdf'); 
+        } else {
+            return view('admin.estimate.pdf.estimate', ['er' => $er->toArray(), 'type'=>'print']);
+        }
 	}
 
     public function getCustomMadeCategory() { return EstimateReq::$option['custom_made_category']; }

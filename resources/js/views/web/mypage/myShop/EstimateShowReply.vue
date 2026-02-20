@@ -22,124 +22,131 @@
                 전체 선택
             </b-form-checkbox>
 -->
-            <b-container v-for="(pa, pa_id) in reply.collect.lists" :key="pa_id" class="goods">
-                <h4><b-icon-house></b-icon-house> {{pa[0]['pa_name'] ? '업체' : '포사이언스'}} 배송</h4>
-                <b-row v-for="(item, i_item) in pa" :key="`${pa_id}${i_item}`" :class="{option:item.type == 'option'}" class="gm_box">
-                    <template v-if="item.type == 'model'">
-                        <b-col class="gd_img">
-                            <b-form-checkbox class="myCheck" v-model="item.em_check_opt" @change="chkChange" />
-                            <img :src="item.img" />
-                        </b-col>
-                        <b-col class="gd_txt">
-                            <div class="explain">
-                                <p>{{item.gd_name}}</p>
-                                <p><b class="m_hide">제품명:</b>{{item.gm_name}} / <b class="m_hide">Cat.No.:</b>{{item.gm_catno}}</p>
-                                <p><b class="m_hide">모델명:</b>{{item.gm_code}} / <b class="m_hide">판매단위:</b>{{item.gm_unit}}</p>
-                                <p><b class="m_hide">제조사:</b>{{item.mk_name}}</p>
-                                <p><b class="m_hide">사양:</b> <span v-html="nl2br(item.gm_spec)" /></p>
-                            </div>
-                            <div class="col_price">
-                                <div class="price_box">
-                                    <span class="normal">{{item.price | comma}}</span>
-                                </div>
-                                <font-awesome-icon icon="times" />
-                                <div>{{item.ea}}</div>
-                                <font-awesome-icon icon="equals" />
-                                <div class="price_box">
-                                    <span class="normal">{{item.price*item.ea | comma | won}}</span>
-                                </div>
-                            </div>
-                            <div class="price_info">
-                                ({{item.price*reply.estimate_req.user.mileage_mul*item.ea | comma}}p 적립)
-                            </div>
-                        </b-col>
-                                            
-                    </template>
-                    <template v-else-if="item.type == 'option'">
-                        <b-col class="gd_img">추가 옵션</b-col>
-                        <b-col class="gd_txt">
-                            <div class="explain">
-                                <b>{{item.goc_name}}:</b> {{item.goc_name}}
-                            </div>
-                            <div class="col_price">
-                                <div class="price_box">
-                                    <span class="normal">{{item.price | comma}}</span>
-                                </div>
-                                <font-awesome-icon icon="times" />
-                                <div>{{item.ea}}</div>
-                                <font-awesome-icon icon="equals" />
-                                <div class="price_box">
-                                    <span class="normal">{{item.price*item.ea | comma | won}}</span>
-                                </div>
-                            </div>
-                            <div class="price_info">
-                                ({{item.price*reply.estimate_req.user.mileage_mul*item.ea | comma}}p 적립)
-                            </div>
-                        </b-col>
-                    </template>
-                </b-row>
-                <b-row class="dlvy_box" v-if="reply.er_no_dlvy_fee !== 'Y'">
-                    <b-col class="text_box">
-                        <template v-if="pa[0]['pa_type'] == 'AIR'">항공운임료</template>
-                        <template v-else>배송비</template>
-                    </b-col>
-                    <b-col class="price_box">{{pa[0].pa_dlvy_p_add_vat | comma | won}}</b-col>
-                </b-row>
-            </b-container>
+            <b-row class="esti_box">
+                <b-col class="left">
+                    <b-container v-for="(pa, pa_id) in reply.collect.lists" :key="pa_id" class="goods">
+                        <h4><b-icon-house></b-icon-house> {{pa[0]['pa_name'] ? '업체' : '포사이언스'}} 배송</h4>
+                        <b-row v-for="(item, i_item) in pa" :key="`${pa_id}${i_item}`" :class="{option:item.type == 'option'}" class="gm_box">
+                            <template v-if="item.type == 'model'">
+                                <b-col class="gd_img">
+                                    <b-form-checkbox class="myCheck" v-model="item.em_check_opt" @change="chkChange" />
+                                    <img :src="item.img" />
+                                </b-col>
+                                <b-col class="gd_txt">
+                                    <div class="explain">
+                                        <p>{{item.gd_name}}</p>
+                                        <p><b class="m_hide">제품명:</b>{{item.gm_name}} / <b class="m_hide">Cat.No.:</b>{{item.gm_catno}}</p>
+                                        <p><b class="m_hide">모델명:</b>{{item.gm_code}} / <b class="m_hide">판매단위:</b>{{item.gm_unit}}</p>
+                                        <p><b class="m_hide">제조사:</b>{{item.mk_name}}</p>
+                                        <p><b class="m_hide">사양:</b> <span v-html="nl2br(item.gm_spec)" /></p>
+                                    </div>
+                                    <div class="col_price">
+                                        <div class="price_box">
+                                            <span class="normal">{{item.price | comma}}</span>
+                                        </div>
+                                        <font-awesome-icon icon="times" />
+                                        <div>{{item.ea}}</div>
+                                        <font-awesome-icon icon="equals" />
+                                        <div class="price_box">
+                                            <span class="normal">{{item.price*item.ea | comma | won}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="price_info">
+                                        ({{item.price*reply.estimate_req.user.mileage_mul*item.ea | comma}}p 적립)
+                                    </div>
+                                </b-col>
+                                                    
+                            </template>
+                            <template v-else-if="item.type == 'option'">
+                                <b-col class="gd_img">추가 옵션</b-col>
+                                <b-col class="gd_txt">
+                                    <div class="explain">
+                                        <b>{{item.goc_name}}:</b> {{item.goc_name}}
+                                    </div>
+                                    <div class="col_price">
+                                        <div class="price_box">
+                                            <span class="normal">{{item.price | comma}}</span>
+                                        </div>
+                                        <font-awesome-icon icon="times" />
+                                        <div>{{item.ea}}</div>
+                                        <font-awesome-icon icon="equals" />
+                                        <div class="price_box">
+                                            <span class="normal">{{item.price*item.ea | comma | won}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="price_info">
+                                        ({{item.price*reply.estimate_req.user.mileage_mul*item.ea | comma}}p 적립)
+                                    </div>
+                                </b-col>
+                            </template>
+                        </b-row>
+                        <b-row class="dlvy_box" v-if="reply.er_no_dlvy_fee !== 'Y'">
+                            <b-col class="text_box">
+                                <template v-if="pa[0]['pa_type'] == 'AIR'">항공운임료</template>
+                                <template v-else>배송비</template>
+                            </b-col>
+                            <b-col class="price_box">{{pa[0].pa_dlvy_p_add_vat | comma | won}}</b-col>
+                        </b-row>
+                    </b-container>
+                </b-col>
+                
+                <b-col class="right">
+                    <b-container class="total">
+                        <b-row>
+                            <b-col>상품금액</b-col>
+                            <b-col><b>{{gd_price+surtax | comma}}</b> 원</b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col>배송료</b-col>      
+                            <b-col><b>{{dlvy_4s+air_price+dlvy_other | comma}}</b> 원</b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col>결제예정금액</b-col> 
+                            <b-col><b>{{all_price | comma}}</b> 원</b-col>
+                        </b-row>
+                    </b-container>
+        
+                    <b-container class="extra">
+                        <b-row>
+                            <b-col>
+                                <h6>추가정보</h6>
+                                <template v-if="reply.file_info.length">
+                                    <div>
+                                        <b-button v-for="fi in reply.file_info" class="white mr-2" @click="fileDown(fi.down_path, fi.fi_original)" :key="fi.fi_id">
+                                            <b-icon icon="file-earmark-arrow-down-fill" /> {{fi.fi_original}}
+                                        </b-button>
+                                    </div>
+                                    <hr>
+                                </template>
+                                <div class="desc" v-html="nl2br(reply.er_content)" />
+                            </b-col>
+                        </b-row>
+                        <b-row :style="{ marginTop:`2rem`}">
+                            <b-col>
+                                <h6><b>재견적 요청</b></h6>
+                                <validation-provider name="견적 요청 내용" rules="required|min:1" v-slot="validationContext">
+                                    <b-form-group label-for="eq_content" label-class="required">
+                                        <b-form-textarea id="eq_content" v-model="reply.eq_content" placeholder="재견적 요청 내용..." rows="6" :state="getValidationState(validationContext)"></b-form-textarea>
+                                        <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                                    </b-form-group>
+                                </validation-provider>
+                            </b-col>
+                        </b-row>
+                    </b-container>
 
-            <b-container class="total">
-                <b-row>
-                    <b-col>상품금액</b-col>
-                    <b-col><b>{{gd_price+surtax | comma}}</b> 원</b-col>
-                </b-row>
-                <b-row>
-                    <b-col>배송료</b-col>      
-                    <b-col><b>{{dlvy_4s+air_price+dlvy_other | comma}}</b> 원</b-col>
-                </b-row>
-                <b-row>
-                    <b-col>결제예정금액</b-col> 
-                    <b-col><b>{{all_price | comma}}</b> 원</b-col>
-                </b-row>
-            </b-container>
+                    <div class="btn_box">
+                        <b-button class="white sm" :to="{name:'my_estimate'}">목록</b-button>
+                        <b-button class="gray sm" @click="print">견적서 출력</b-button>
+                        <b-button class="d_gray sm" @click="estimatePdf">견적서 PDF 다운</b-button>
+                        <b-button class="black sm" @click="reEstimate">선택상품 재견적 요청</b-button>
+                        <b-button v-if="new Date(`${reply.er_effective_at} 23:59:59`) >= new Date()" class="blue lg" @click="settle">선택상품 주문하기</b-button>
+                    </div>
 
+                </b-col>
+            </b-row>
+            
 
-
-
-       
-
-   
-            <b-container class="extra">
-                <b-row>
-                    <b-col>
-                        <h6>추가정보</h6>
-                        <template v-if="reply.file_info.length">
-                            <div>
-                                <b-button v-for="fi in reply.file_info" class="white mr-2" @click="fileDown(fi.down_path, fi.fi_original)" :key="fi.fi_id">
-                                    <b-icon icon="file-earmark-arrow-down-fill" /> {{fi.fi_original}}
-                                </b-button>
-                            </div>
-                            <hr>
-                        </template>
-                        <div class="desc" v-html="nl2br(reply.er_content)" />
-                    </b-col>
-                    <b-col>
-                        <h6><b>재견적 요청</b></h6>
-                        <validation-provider name="견적 요청 내용" rules="required|min:1" v-slot="validationContext">
-                            <b-form-group label-for="eq_content" label-class="required">
-                                <b-form-textarea id="eq_content" v-model="reply.eq_content" placeholder="재견적 요청 내용..." rows="6" :state="getValidationState(validationContext)"></b-form-textarea>
-                                <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                            </b-form-group>
-                        </validation-provider>
-                    </b-col>
-                </b-row>
-            </b-container>
-
-            <div class="btn_box">
-                <b-button class="gray lg" :to="{name:'my_estimate'}">목록</b-button>
-                <b-button class="d_gray lg" @click="print">견적서 출력</b-button>
-                <b-button class="black lg" @click="reEstimate">선택상품 재견적 요청</b-button>
-                <b-button v-if="new Date(`${reply.er_effective_at} 23:59:59`) >= new Date()" class="blue lg" @click="settle">선택상품 주문하기</b-button>
-            </div>
+            
         </div>
     </validation-observer>
 </b-container>    
@@ -218,6 +225,19 @@ export default {
             var name = "견적서 인쇄";
             var option = "width = 900, height = 900, top = 10, left = 10, location = no"
             window.open(url, name, option);
+        },
+
+        
+        async estimatePdf(){
+            const res = await ax.get(`/api/shop/estimate/printEstimate/${this.$route.params.er_id}?type=down`,  { responseType: 'blob' });
+            let now = new Date().format("yyyy-MM-dd");	// 현재 날짜 및 시간
+            
+            let fileUrl = window.URL.createObjectURL(new Blob([res.data]));
+            let fileLink = document.createElement('a');
+            fileLink.href = fileUrl;
+            fileLink.setAttribute('download', now+'_견적서.pdf');
+            document.body.appendChild(fileLink);
+            fileLink.click();
         },
         
         getValidationState({ dirty, validated, valid = null }) {
@@ -320,6 +340,9 @@ h3 b { color:#0094EA; font-size:1.3rem; }
 .list_wrap .myCheck >>> .custom-control-label::before, 
 .list_wrap .myCheck >>> .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }
 
+
+.list_wrap .esti_box>.left { padding:1em 1em 0 0; }
+.list_wrap .esti_box>.right { padding:6em 0 0 1em; }
 .list_wrap .goods { padding:1em 0; }
 .list_wrap .goods h4 { font-weight:bolder; font-size:1em; padding:1em 0; border-width:0; margin:0; border-bottom:2px solid #000; }
 .list_wrap .goods .gm_box { padding:.8rem 0 .5rem 0; }
@@ -349,7 +372,6 @@ h3 b { color:#0094EA; font-size:1.3rem; }
 .list_wrap .total .row.coupon_dc .col b { color:#cc0000 !important; }
 
 .list_wrap .extra { margin-top:2rem; }
-.list_wrap .extra .row .col:nth-child(1) { margin-right:2rem; }
 .list_wrap .extra .row .col h6 { border-bottom:2px solid #707070; margin-bottom:.7rem; padding-bottom:.5rem; }
 .list_wrap .extra .row .col h6 b { color:#0094EA; }
 .list_wrap .extra .row .col:nth-child(1) .desc { border:1px solid #D6D6D6; padding:1rem; min-height:158px; }
@@ -358,7 +380,9 @@ h3 b { color:#0094EA; font-size:1.3rem; }
     .list_wrap .top .row .col { flex:0 0 100%; max-width:100%; padding:0 .3rem; text-align:left; }
     .list_wrap .top .row .col:nth-of-type(4) { flex:0 0 100%; max-width:100%; line-height:1.75; word-spacing:6px; letter-spacing:-1px; text-indent:-77px; padding-left:80px; }
     .list_wrap .top .row .col:nth-of-type(4) span { letter-spacing:8px; margin-right:-4px; }
-        
+
+    .list_wrap .esti_box>.col { flex:0 0 100%; max-width:100%;  } 
+
     .list_wrap .total .row .col { flex:0 0 50%; max-width:50%; }
     .list_wrap .total .row .col:first-child { margin-left:0; }
 

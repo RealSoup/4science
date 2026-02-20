@@ -145,6 +145,33 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var option = "width = 900, height = 900, top = 10, left = 10, location = no";
       window.open(url, name, option);
     },
+    estimatePdf: function estimatePdf() {
+      var _this2 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var res, now, fileUrl, fileLink;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/shop/estimate/printEstimate/".concat(_this2.$route.params.er_id, "?type=down"), {
+                responseType: 'blob'
+              });
+            case 2:
+              res = _context2.sent;
+              now = new Date().format("yyyy-MM-dd"); // 현재 날짜 및 시간
+              fileUrl = window.URL.createObjectURL(new Blob([res.data]));
+              fileLink = document.createElement('a');
+              fileLink.href = fileUrl;
+              fileLink.setAttribute('download', now + '_견적서.pdf');
+              document.body.appendChild(fileLink);
+              fileLink.click();
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }))();
+    },
     getValidationState: function getValidationState(_ref) {
       var dirty = _ref.dirty,
         validated = _ref.validated,
@@ -240,26 +267,26 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    var _this3 = this;
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
       var res;
-      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-        while (1) switch (_context2.prev = _context2.next) {
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) switch (_context3.prev = _context3.next) {
           case 0:
-            _context2.next = 2;
-            return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/shop/estimate/reply/".concat(_this2.$route.params.er_id));
+            _context3.next = 2;
+            return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/shop/estimate/reply/".concat(_this3.$route.params.er_id));
           case 2:
-            res = _context2.sent;
+            res = _context3.sent;
             if (res && res.status === 200) {
-              _this2.reply = res.data;
-              _this2.isLoadingModalViewed = false;
-              _this2.calculator();
+              _this3.reply = res.data;
+              _this3.isLoadingModalViewed = false;
+              _this3.calculator();
             }
           case 4:
           case "end":
-            return _context2.stop();
+            return _context3.stop();
         }
-      }, _callee2);
+      }, _callee3);
     }))();
   }
 });
@@ -307,7 +334,11 @@ var render = function render() {
           staticClass: "top"
         }, [_c("b-row", [_c("b-col", [_c("span", [_vm._v("견적일자")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm._f("formatDate_YYYY_MM_DD")(_vm.reply.created_at)))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("유효기간")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm.reply.er_effective_at))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("납품기일")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm.reply.er_dlvy_at))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("담당자"), _c("span", {
           staticClass: "m_hide"
-        }, [_vm._v("/문의")])]), _vm._v("\r\n                        " + _vm._s(_vm.reply.estimate_req.mng.name) + "\r\n                        " + _vm._s(_vm.reply.estimate_req.mng.tel) + "\r\n                        " + _vm._s(_vm.reply.estimate_req.mng.email) + "\r\n                    ")])], 1)], 1), _vm._v(" "), _vm._l(_vm.reply.collect.lists, function (pa, pa_id) {
+        }, [_vm._v("/문의")])]), _vm._v("\r\n                        " + _vm._s(_vm.reply.estimate_req.mng.name) + "\r\n                        " + _vm._s(_vm.reply.estimate_req.mng.tel) + "\r\n                        " + _vm._s(_vm.reply.estimate_req.mng.email) + "\r\n                    ")])], 1)], 1), _vm._v(" "), _c("b-row", {
+          staticClass: "esti_box"
+        }, [_c("b-col", {
+          staticClass: "left"
+        }, _vm._l(_vm.reply.collect.lists, function (pa, pa_id) {
           return _c("b-container", {
             key: pa_id,
             staticClass: "goods"
@@ -376,13 +407,13 @@ var render = function render() {
               staticClass: "normal"
             }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price * item.ea))))])])], 1), _vm._v(" "), _c("div", {
               staticClass: "price_info"
-            }, [_vm._v("\r\n                                (" + _vm._s(_vm._f("comma")(item.price * _vm.reply.estimate_req.user.mileage_mul * item.ea)) + "p 적립)\r\n                            ")])])] : item.type == "option" ? [_c("b-col", {
+            }, [_vm._v("\r\n                                        (" + _vm._s(_vm._f("comma")(item.price * _vm.reply.estimate_req.user.mileage_mul * item.ea)) + "p 적립)\r\n                                    ")])])] : item.type == "option" ? [_c("b-col", {
               staticClass: "gd_img"
             }, [_vm._v("추가 옵션")]), _vm._v(" "), _c("b-col", {
               staticClass: "gd_txt"
             }, [_c("div", {
               staticClass: "explain"
-            }, [_c("b", [_vm._v(_vm._s(item.goc_name) + ":")]), _vm._v(" " + _vm._s(item.goc_name) + "\r\n                            ")]), _vm._v(" "), _c("div", {
+            }, [_c("b", [_vm._v(_vm._s(item.goc_name) + ":")]), _vm._v(" " + _vm._s(item.goc_name) + "\r\n                                    ")]), _vm._v(" "), _c("div", {
               staticClass: "col_price"
             }, [_c("div", {
               staticClass: "price_box"
@@ -402,7 +433,7 @@ var render = function render() {
               staticClass: "normal"
             }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price * item.ea))))])])], 1), _vm._v(" "), _c("div", {
               staticClass: "price_info"
-            }, [_vm._v("\r\n                                (" + _vm._s(_vm._f("comma")(item.price * _vm.reply.estimate_req.user.mileage_mul * item.ea)) + "p 적립)\r\n                            ")])])] : _vm._e()], 2);
+            }, [_vm._v("\r\n                                        (" + _vm._s(_vm._f("comma")(item.price * _vm.reply.estimate_req.user.mileage_mul * item.ea)) + "p 적립)\r\n                                    ")])])] : _vm._e()], 2);
           }), _vm._v(" "), _vm.reply.er_no_dlvy_fee !== "Y" ? _c("b-row", {
             staticClass: "dlvy_box"
           }, [_c("b-col", {
@@ -410,7 +441,9 @@ var render = function render() {
           }, [pa[0]["pa_type"] == "AIR" ? [_vm._v("항공운임료")] : [_vm._v("배송비")]], 2), _vm._v(" "), _c("b-col", {
             staticClass: "price_box"
           }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(pa[0].pa_dlvy_p_add_vat))))])], 1) : _vm._e()], 2);
-        }), _vm._v(" "), _c("b-container", {
+        }), 1), _vm._v(" "), _c("b-col", {
+          staticClass: "right"
+        }, [_c("b-container", {
           staticClass: "total"
         }, [_c("b-row", [_c("b-col", [_vm._v("상품금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.gd_price + _vm.surtax)))]), _vm._v(" 원")])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("배송료")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_4s + _vm.air_price + _vm.dlvy_other)))]), _vm._v(" 원")])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("결제예정금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.all_price)))]), _vm._v(" 원")])], 1)], 1), _vm._v(" "), _c("b-container", {
           staticClass: "extra"
@@ -427,13 +460,17 @@ var render = function render() {
             attrs: {
               icon: "file-earmark-arrow-down-fill"
             }
-          }), _vm._v(" " + _vm._s(fi.fi_original) + "\r\n                                ")], 1);
+          }), _vm._v(" " + _vm._s(fi.fi_original) + "\r\n                                        ")], 1);
         }), 1), _vm._v(" "), _c("hr")] : _vm._e(), _vm._v(" "), _c("div", {
           staticClass: "desc",
           domProps: {
             innerHTML: _vm._s(_vm.nl2br(_vm.reply.er_content))
           }
-        })], 2), _vm._v(" "), _c("b-col", [_c("h6", [_c("b", [_vm._v("재견적 요청")])]), _vm._v(" "), _c("validation-provider", {
+        })], 2)], 1), _vm._v(" "), _c("b-row", {
+          style: {
+            marginTop: "2rem"
+          }
+        }, [_c("b-col", [_c("h6", [_c("b", [_vm._v("재견적 요청")])]), _vm._v(" "), _c("validation-provider", {
           attrs: {
             name: "견적 요청 내용",
             rules: "required|min:1"
@@ -466,19 +503,24 @@ var render = function render() {
         })], 1)], 1)], 1), _vm._v(" "), _c("div", {
           staticClass: "btn_box"
         }, [_c("b-button", {
-          staticClass: "gray lg",
+          staticClass: "white sm",
           attrs: {
             to: {
               name: "my_estimate"
             }
           }
         }, [_vm._v("목록")]), _vm._v(" "), _c("b-button", {
-          staticClass: "d_gray lg",
+          staticClass: "gray sm",
           on: {
             click: _vm.print
           }
         }, [_vm._v("견적서 출력")]), _vm._v(" "), _c("b-button", {
-          staticClass: "black lg",
+          staticClass: "d_gray sm",
+          on: {
+            click: _vm.estimatePdf
+          }
+        }, [_vm._v("견적서 PDF 다운")]), _vm._v(" "), _c("b-button", {
+          staticClass: "black sm",
           on: {
             click: _vm.reEstimate
           }
@@ -487,7 +529,7 @@ var render = function render() {
           on: {
             click: _vm.settle
           }
-        }, [_vm._v("선택상품 주문하기")]) : _vm._e()], 1)], 2)];
+        }, [_vm._v("선택상품 주문하기")]) : _vm._e()], 1)], 1)], 1)], 1)];
       }
     }])
   })], 1);
@@ -514,7 +556,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nh3[data-v-76fdf33c] { font-size:1.5rem;\n}\nh3 b[data-v-76fdf33c] { color:#0094EA; font-size:1.3rem;\n}\n.list_wrap .top[data-v-76fdf33c] { border-top:2px solid #4F637B; border-left:1px solid #B7B7B7;\n}\n.list_wrap .top .row .col[data-v-76fdf33c] { border-right:1px solid #B7B7B7; border-bottom:1px solid #B7B7B7; padding:1.2rem 0; text-align:center;\n}\n.list_wrap .top .row .col[data-v-76fdf33c]:nth-of-type(4) { flex:0 0 40%; max-width:40%;\n}\n.list_wrap .top .row .col span[data-v-76fdf33c] { margin-right:.7rem; font-weight:600;\n}\n.list_wrap .top .row .col b[data-v-76fdf33c] { color:#0094EA;\n}\n.list_wrap .myCheck[data-v-76fdf33c] .custom-control-label::before, \r\n.list_wrap .myCheck[data-v-76fdf33c] .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px;\n}\n.list_wrap .goods[data-v-76fdf33c] { padding:1em 0;\n}\n.list_wrap .goods h4[data-v-76fdf33c] { font-weight:bolder; font-size:1em; padding:1em 0; border-width:0; margin:0; border-bottom:2px solid #000;\n}\n.list_wrap .goods .gm_box[data-v-76fdf33c] { padding:.8rem 0 .5rem 0;\n}\n.list_wrap .goods .gm_box[data-v-76fdf33c]:not(:first-child) { border-top:1px solid #AAA;\n}\n.list_wrap .goods .gm_box .myCheck[data-v-76fdf33c] { position:absolute; top:0; left:0;\n}\n.list_wrap .goods .gm_box .gd_img[data-v-76fdf33c] { flex-basis:17%; max-width:17%; display:flex; align-items:center; justify-content:center;\n}\n.list_wrap .goods .gm_box .gd_img img[data-v-76fdf33c] { width:100%; max-width:120px; height:auto; -o-object-fit:contain; object-fit:contain;\n}\n.list_wrap .goods .gm_box .gd_txt[data-v-76fdf33c] { padding-left:8px;\n}\n.list_wrap .goods .gm_box .gd_txt .explain p[data-v-76fdf33c] { margin:0; color:#999;\n}\n.list_wrap .goods .gm_box .gd_txt .explain p[data-v-76fdf33c]:first-of-type { color:#000; font-weight:700; margin-bottom:.8rem;\n}\n.list_wrap .goods .gm_box .gd_txt .col_price[data-v-76fdf33c] { display:flex; align-items:center; justify-content:flex-end;\n}\n.list_wrap .goods .gm_box .gd_txt .col_price svg[data-v-76fdf33c] { margin:0 .2em;\n}\n.list_wrap .goods .gm_box .gd_txt .price_info[data-v-76fdf33c] { text-align:right; color:#999;\n}\n.list_wrap .goods .gm_box .gd_txt .price_info .price_dc[data-v-76fdf33c] { display:block; color:#cc0000;\n}\n.list_wrap .goods .dlvy_box[data-v-76fdf33c] { padding: 12px 16px; background: #f5f5f5; border-radius: 8px;\n}\n.list_wrap .goods .dlvy_box .col[data-v-76fdf33c] { color:#9e9e9e; font-size:.9em;\n}\n.list_wrap .goods .dlvy_box .price_box[data-v-76fdf33c] { text-align:right;\n}\n.list_wrap .total[data-v-76fdf33c] { background:#EEE; padding:.5rem; border-radius:8px;\n}\n.list_wrap .total .row[data-v-76fdf33c] { align-items:baseline;\n}\n.list_wrap .total .row .col[data-v-76fdf33c] { font-size:.85em; color:#777; flex:0 0 25%; max-width:25%;}\n.list_wrap .total .row .col[data-v-76fdf33c]:first-child { margin-left:auto;\n}\n.list_wrap .total .row .col[data-v-76fdf33c]:nth-child(even) { text-align:right;\n}\n.list_wrap .total .row .col:nth-child(even) b[data-v-76fdf33c] { font-size:1.35em; color:#000;\n}\n.list_wrap .total .row.coupon_dc .col[data-v-76fdf33c],\r\n.list_wrap .total .row.coupon_dc .col b[data-v-76fdf33c] { color:#cc0000 !important;\n}\n.list_wrap .extra[data-v-76fdf33c] { margin-top:2rem;\n}\n.list_wrap .extra .row .col[data-v-76fdf33c]:nth-child(1) { margin-right:2rem;\n}\n.list_wrap .extra .row .col h6[data-v-76fdf33c] { border-bottom:2px solid #707070; margin-bottom:.7rem; padding-bottom:.5rem;\n}\n.list_wrap .extra .row .col h6 b[data-v-76fdf33c] { color:#0094EA;\n}\n.list_wrap .extra .row .col:nth-child(1) .desc[data-v-76fdf33c] { border:1px solid #D6D6D6; padding:1rem; min-height:158px;\n}\n.list_wrap .extra .row .col .btn[data-v-76fdf33c] { font-size:.85rem; padding:.3rem;\n}\n@media (max-width: 992px){\n.list_wrap .top .row .col[data-v-76fdf33c] { flex:0 0 100%; max-width:100%; padding:0 .3rem; text-align:left;\n}\n.list_wrap .top .row .col[data-v-76fdf33c]:nth-of-type(4) { flex:0 0 100%; max-width:100%; line-height:1.75; word-spacing:6px; letter-spacing:-1px; text-indent:-77px; padding-left:80px;\n}\n.list_wrap .top .row .col:nth-of-type(4) span[data-v-76fdf33c] { letter-spacing:8px; margin-right:-4px;\n}\n.list_wrap .total .row .col[data-v-76fdf33c] { flex:0 0 50%; max-width:50%;\n}\n.list_wrap .total .row .col[data-v-76fdf33c]:first-child { margin-left:0;\n}\n.list_wrap .extra .row .col[data-v-76fdf33c] { flex:0 0 100%; max-width:100%; margin:0 0 2rem 0 !important;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nh3[data-v-76fdf33c] { font-size:1.5rem;\n}\nh3 b[data-v-76fdf33c] { color:#0094EA; font-size:1.3rem;\n}\n.list_wrap .top[data-v-76fdf33c] { border-top:2px solid #4F637B; border-left:1px solid #B7B7B7;\n}\n.list_wrap .top .row .col[data-v-76fdf33c] { border-right:1px solid #B7B7B7; border-bottom:1px solid #B7B7B7; padding:1.2rem 0; text-align:center;\n}\n.list_wrap .top .row .col[data-v-76fdf33c]:nth-of-type(4) { flex:0 0 40%; max-width:40%;\n}\n.list_wrap .top .row .col span[data-v-76fdf33c] { margin-right:.7rem; font-weight:600;\n}\n.list_wrap .top .row .col b[data-v-76fdf33c] { color:#0094EA;\n}\n.list_wrap .myCheck[data-v-76fdf33c] .custom-control-label::before, \r\n.list_wrap .myCheck[data-v-76fdf33c] .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px;\n}\n.list_wrap .esti_box>.left[data-v-76fdf33c] { padding:1em 1em 0 0;\n}\n.list_wrap .esti_box>.right[data-v-76fdf33c] { padding:6em 0 0 1em;\n}\n.list_wrap .goods[data-v-76fdf33c] { padding:1em 0;\n}\n.list_wrap .goods h4[data-v-76fdf33c] { font-weight:bolder; font-size:1em; padding:1em 0; border-width:0; margin:0; border-bottom:2px solid #000;\n}\n.list_wrap .goods .gm_box[data-v-76fdf33c] { padding:.8rem 0 .5rem 0;\n}\n.list_wrap .goods .gm_box[data-v-76fdf33c]:not(:first-child) { border-top:1px solid #AAA;\n}\n.list_wrap .goods .gm_box .myCheck[data-v-76fdf33c] { position:absolute; top:0; left:0;\n}\n.list_wrap .goods .gm_box .gd_img[data-v-76fdf33c] { flex-basis:17%; max-width:17%; display:flex; align-items:center; justify-content:center;\n}\n.list_wrap .goods .gm_box .gd_img img[data-v-76fdf33c] { width:100%; max-width:120px; height:auto; -o-object-fit:contain; object-fit:contain;\n}\n.list_wrap .goods .gm_box .gd_txt[data-v-76fdf33c] { padding-left:8px;\n}\n.list_wrap .goods .gm_box .gd_txt .explain p[data-v-76fdf33c] { margin:0; color:#999;\n}\n.list_wrap .goods .gm_box .gd_txt .explain p[data-v-76fdf33c]:first-of-type { color:#000; font-weight:700; margin-bottom:.8rem;\n}\n.list_wrap .goods .gm_box .gd_txt .col_price[data-v-76fdf33c] { display:flex; align-items:center; justify-content:flex-end;\n}\n.list_wrap .goods .gm_box .gd_txt .col_price svg[data-v-76fdf33c] { margin:0 .2em;\n}\n.list_wrap .goods .gm_box .gd_txt .price_info[data-v-76fdf33c] { text-align:right; color:#999;\n}\n.list_wrap .goods .gm_box .gd_txt .price_info .price_dc[data-v-76fdf33c] { display:block; color:#cc0000;\n}\n.list_wrap .goods .dlvy_box[data-v-76fdf33c] { padding: 12px 16px; background: #f5f5f5; border-radius: 8px;\n}\n.list_wrap .goods .dlvy_box .col[data-v-76fdf33c] { color:#9e9e9e; font-size:.9em;\n}\n.list_wrap .goods .dlvy_box .price_box[data-v-76fdf33c] { text-align:right;\n}\n.list_wrap .total[data-v-76fdf33c] { background:#EEE; padding:.5rem; border-radius:8px;\n}\n.list_wrap .total .row[data-v-76fdf33c] { align-items:baseline;\n}\n.list_wrap .total .row .col[data-v-76fdf33c] { font-size:.85em; color:#777; flex:0 0 25%; max-width:25%;}\n.list_wrap .total .row .col[data-v-76fdf33c]:first-child { margin-left:auto;\n}\n.list_wrap .total .row .col[data-v-76fdf33c]:nth-child(even) { text-align:right;\n}\n.list_wrap .total .row .col:nth-child(even) b[data-v-76fdf33c] { font-size:1.35em; color:#000;\n}\n.list_wrap .total .row.coupon_dc .col[data-v-76fdf33c],\r\n.list_wrap .total .row.coupon_dc .col b[data-v-76fdf33c] { color:#cc0000 !important;\n}\n.list_wrap .extra[data-v-76fdf33c] { margin-top:2rem;\n}\n.list_wrap .extra .row .col h6[data-v-76fdf33c] { border-bottom:2px solid #707070; margin-bottom:.7rem; padding-bottom:.5rem;\n}\n.list_wrap .extra .row .col h6 b[data-v-76fdf33c] { color:#0094EA;\n}\n.list_wrap .extra .row .col:nth-child(1) .desc[data-v-76fdf33c] { border:1px solid #D6D6D6; padding:1rem; min-height:158px;\n}\n.list_wrap .extra .row .col .btn[data-v-76fdf33c] { font-size:.85rem; padding:.3rem;\n}\n@media (max-width: 992px){\n.list_wrap .top .row .col[data-v-76fdf33c] { flex:0 0 100%; max-width:100%; padding:0 .3rem; text-align:left;\n}\n.list_wrap .top .row .col[data-v-76fdf33c]:nth-of-type(4) { flex:0 0 100%; max-width:100%; line-height:1.75; word-spacing:6px; letter-spacing:-1px; text-indent:-77px; padding-left:80px;\n}\n.list_wrap .top .row .col:nth-of-type(4) span[data-v-76fdf33c] { letter-spacing:8px; margin-right:-4px;\n}\n.list_wrap .esti_box>.col[data-v-76fdf33c] { flex:0 0 100%; max-width:100%;\n}\n.list_wrap .total .row .col[data-v-76fdf33c] { flex:0 0 50%; max-width:50%;\n}\n.list_wrap .total .row .col[data-v-76fdf33c]:first-child { margin-left:0;\n}\n.list_wrap .extra .row .col[data-v-76fdf33c] { flex:0 0 100%; max-width:100%; margin:0 0 2rem 0 !important;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
