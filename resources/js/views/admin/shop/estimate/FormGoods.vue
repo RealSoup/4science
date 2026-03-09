@@ -114,7 +114,7 @@ export default {
         "goods-option-add": GoodsOptionAdd,
         'price-input':      PriceInput,
         'dc-late-input': () =>   import('@/views/admin/shop/estimate/_comp/DcLateInput'),
-        'model-sch-input': () => ModelSchInput,
+        'model-sch-input':  ModelSchInput,
         'ea-input':         EaInput,
         'validation': () =>      import('@/views/_common/Validation'),
     },

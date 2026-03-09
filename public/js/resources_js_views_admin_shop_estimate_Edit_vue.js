@@ -253,9 +253,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     'dc-late-input': function dcLateInput() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_DcLateInput_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/shop/estimate/_comp/DcLateInput */ "./resources/js/views/admin/shop/estimate/_comp/DcLateInput.vue"));
     },
-    'model-sch-input': function modelSchInput() {
-      return _views_admin_shop_estimate_comp_ModelSchInput__WEBPACK_IMPORTED_MODULE_3__["default"];
-    },
+    'model-sch-input': _views_admin_shop_estimate_comp_ModelSchInput__WEBPACK_IMPORTED_MODULE_3__["default"],
     'ea-input': _views_admin_shop_estimate_comp_EaInput__WEBPACK_IMPORTED_MODULE_4__["default"],
     'validation': function validation() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation */ "./resources/js/views/_common/Validation.vue"));
