@@ -73,7 +73,7 @@ extend('pwCheck', {
 
 
 Vue.config.productionTip = false;
-
+Vue.config.devtools = true;
 
 
 
