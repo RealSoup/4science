@@ -59,6 +59,7 @@ export default {
             }
         },
         async setModel(i) {
+            //  시약 안내 문구
             if (this.model[i] && this.model[i].gm_name != "정보없음") {
                 this.$set(this.em, 'em_gd_id'     , this.model[i].gm_gd_id);
                 this.$set(this.em, 'em_gm_id'     , this.model[i].gm_id);

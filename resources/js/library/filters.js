@@ -48,15 +48,11 @@ Vue.filter('formatSmartDate', function (dt) {
 
     const targetDate = moment(dt);
     const now = moment(); // 2026-01-20
-
     let format = '';
-
-    // 1. 올해인 경우 (2026년) -> 월-일 시:분
-    if (targetDate.isSame(now, 'year')) {
+    
+    if (targetDate.isSame(now, 'year')) {   // 1. 올해인 경우 (2026년) -> 월-일 시:분
         format = 'MM-DD HH:mm';
-    } 
-    // 2. 지난해 이전인 경우 -> 연-월-일 (4자리 연도)
-    else {
+    } else {                                // 2. 지난해 이전인 경우 -> 연-월-일 (4자리 연도)
         format = 'YY-MM-DD';
     }
 

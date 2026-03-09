@@ -100,6 +100,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
+              //  시약 안내 문구
               if (_this2.model[i] && _this2.model[i].gm_name != "정보없음") {
                 _this2.$set(_this2.em, 'em_gd_id', _this2.model[i].gm_gd_id);
                 _this2.$set(_this2.em, 'em_gm_id', _this2.model[i].gm_id);

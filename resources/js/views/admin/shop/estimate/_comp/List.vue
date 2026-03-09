@@ -59,7 +59,7 @@
                 </template>
                 <span :key="`d${er.er_id}`">
                     <b class="d-inline-block d-lg-none">{{ er.updated_at | formatDate }}</b>
-                    <b class="d-none d-lg-inline-block">{{ er.updated_at | formatDate_MM_DD_HH:mm }}</b>
+                    <b class="d-none d-lg-inline-block">{{ er.updated_at | formatSmartDate }}</b>
                 </span>
             </template>
         </b-col>
