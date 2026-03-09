@@ -93,8 +93,6 @@ export default {
             this.$emit('exe-win-pop', url);
         },        
     },
-    
-            
 };
 </script>
 
