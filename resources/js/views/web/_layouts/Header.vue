@@ -25,8 +25,7 @@
     <div id="core">
         <div class="the_top layout">
             <b-link class="logo" :to="{name: 'main'}">
-                <!-- <b-img :src="`/storage/common/logo/logo.png`" /> -->
-                <b-img :src="`/storage/common/logo/251230.png`" class="season"></b-img>
+                <b-img :src="`/storage/common/logo/logo.png`" />
             <!-- 
                 <b-img :src="`/storage/common/logo/241223.png`" class="season" />
                 <b-img :src="`/storage/common/logo/logo.png`" class="default" />
@@ -185,7 +184,7 @@ export default {
 /*#header #core .layout .logo { flex:0 0 292px; max-width:292px; height:100%; position:relative; display:block;}*/
 #header #core .the_top .logo { flex:0 0 28.533333%; max-width:28.533333%; display:flex; justify-content:center; align-items:center; }
 #header #core .the_top .logo img { max-width:100%; max-height:100%; width:auto; height:auto; }
-#header #core .the_top .logo .season { transform:translateY(10px); }
+/* #header #core .the_top .logo .season { transform:translateY(10px); } */
 #header #core .the_top .logo .default { display:none; }
 
 #header #core .the_top .top_menu { margin-bottom:3px; text-align:right; }
@@ -227,7 +226,7 @@ export default {
     #header #core .the_top { height:5em; justify-content:center; }
     #header #core .the_top .logo { flex:0 0 200px; max-width:200px; margin-top:1em; }
     #header #core .the_top .logo img { max-width:132px; width:auto; height:auto; }
-    #header #core .the_top .logo .season { transform:none; max-width:100%; }
+    /* #header #core .the_top .logo .season { transform:none; max-width:100%; } */
     #header #core .the_top .logo .default { display:block; width:100%; }
     #header #core .the_top .top_menu { display:none; }
     
