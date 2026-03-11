@@ -46,7 +46,6 @@ import UserInput from '@/views/admin/shop/estimate/_comp/UserInput';
 import Validation from '@/views/_common/Validation';
 export default {
     components: {
-        "goods-option-add": GoodsOptionAdd,
         'user-input': UserInput,
         'validation': Validation,
     },

@@ -663,7 +663,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    "goods-option-add": GoodsOptionAdd,
     'user-input': _views_admin_shop_estimate_comp_UserInput__WEBPACK_IMPORTED_MODULE_0__["default"],
     'validation': _views_common_Validation__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
