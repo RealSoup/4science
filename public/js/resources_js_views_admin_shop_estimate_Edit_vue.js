@@ -764,11 +764,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       selOpt: {}
     };
   },
-  // watch: {
-  //     value: function(newVal, oldVal) { // watch it
-  //         this.$emit('calculator');
-  //     },
-  // },
   methods: {
     getOption: function getOption(id) {
       var _this = this;

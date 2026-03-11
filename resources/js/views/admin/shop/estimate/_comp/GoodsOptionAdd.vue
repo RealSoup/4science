@@ -24,11 +24,6 @@ export default {
             selOpt:{}
         }
     },
-    // watch: {
-    //     value: function(newVal, oldVal) { // watch it
-    //         this.$emit('calculator');
-    //     },
-    // },
     methods: {
         async getOption(id){
             if (!id)
