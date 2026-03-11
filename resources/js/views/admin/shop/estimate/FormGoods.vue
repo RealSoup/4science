@@ -1,103 +1,103 @@
 <template>
-<div class="box">
-    <h5>견적상품 등록</h5>
-    <b-container v-for="(em, idx) in value" :key="idx">
-        <!--    이중(중첩)루프 순번을 넣기위한 공
-                    {{ frm.estimate_goods.slice(0, gi).reduce((total, ch)=>total+=ch.estimate_model.length, 0) + mi + 1}}   -->
-        <b-row class="label_form">
-            <b-button-group class="model_ctrl_btn">
-                <b-button class="orange rubber" @click="emReset(idx)"><b-icon-app></b-icon-app> <b>초기화</b></b-button>
-                <b-button class="plum rubber" @click="emDel(idx)"><b-icon-x-lg></b-icon-x-lg> <b>삭제</b></b-button>
-            </b-button-group>
+    <div class="box">
+        <h5>견적상품 등록</h5>
+        <b-container v-for="(em, idx) in value" :key="idx">
+            <!--    이중(중첩)루프 순번을 넣기위한 공
+                        {{ frm.estimate_goods.slice(0, gi).reduce((total, ch)=>total+=ch.estimate_model.length, 0) + mi + 1}}   -->
+            <b-row class="label_form">
+                <b-button-group class="model_ctrl_btn">
+                    <b-button class="orange rubber" @click="emReset(idx)"><b-icon-app></b-icon-app> <b>초기화</b></b-button>
+                    <b-button class="plum rubber" @click="emDel(idx)"><b-icon-x-lg></b-icon-x-lg> <b>삭제</b></b-button>
+                </b-button-group>
 
-            <b-col>
-                <label><b-badge class="no d_gray">{{idx+1}}</b-badge> 제품명</label>
-                <div><b-form-input :id="`estimate_model${idx}em_name`" v-model="em.em_name" size="sm"></b-form-input></div>
-                <validation :error="$store.state.error.validations[`estimate_model${idx}em_name`]"></validation>
-            </b-col>
-            <b-col>
-                <div>
-                    <b-button class="d_gray rubber" @click="openOption(idx, em.em_gd_id)">옵션</b-button>
-                    <b-button class="gray rubber" target="_blank" v-if="em.em_gd_id" :to="{name: 'goods_show', params: { gd_id:em.em_gd_id }}">상품보기</b-button>
-                    <b-badge class="bundle plum" v-if="em.bundle_dc && em.bundle_dc.length">묶음할인</b-badge>
-                    <b-badge class="manufacturer orange" v-if="em.goods && em.goods.purchase_at">매입처 배송</b-badge>
-                </div>
-            </b-col>
-  
-            <b-col>
-                <label>CAT.No</label>
-                <model-sch-input v-model="em.em_catno" :type="'em_catno'" :id="`em_catno${idx}`" :em="em"></model-sch-input>
-            </b-col>
+                <b-col>
+                    <label><b-badge class="no d_gray">{{idx+1}}</b-badge> 제품명</label>
+                    <div><b-form-input :id="`estimate_model${idx}em_name`" v-model="em.em_name" size="sm"></b-form-input></div>
+                    <validation :error="$store.state.error.validations[`estimate_model${idx}em_name`]"></validation>
+                </b-col>
+                <b-col>
+                    <div>
+                        <b-button class="d_gray rubber" @click="openOption(idx, em.em_gd_id)">옵션</b-button>
+                        <b-button class="gray rubber" target="_blank" v-if="em.em_gd_id" :to="{name: 'goods_show', params: { gd_id:em.em_gd_id }}">상품보기</b-button>
+                        <b-badge class="bundle plum" v-if="em.bundle_dc && em.bundle_dc.length">묶음할인</b-badge>
+                        <b-badge class="manufacturer orange" v-if="em.goods && em.goods.purchase_at">매입처 배송</b-badge>
+                    </div>
+                </b-col>
+    
+                <b-col>
+                    <label>CAT.No</label>
+                    <model-sch-input v-model="em.em_catno" :type="'em_catno'" :id="`em_catno${idx}`" :em="em"></model-sch-input>
+                </b-col>
 
-            <b-col>
-                <label>모델명</label>
-                <model-sch-input v-model="em.em_code" :type="'em_code'" :id="`estimate_model${idx}em_code`" :em="em"></model-sch-input>
-                <validation :error="$store.state.error.validations[`estimate_model${idx}em_code`]"></validation>
-            </b-col>
+                <b-col>
+                    <label>모델명</label>
+                    <model-sch-input v-model="em.em_code" :type="'em_code'" :id="`estimate_model${idx}em_code`" :em="em"></model-sch-input>
+                    <validation :error="$store.state.error.validations[`estimate_model${idx}em_code`]"></validation>
+                </b-col>
 
-            <b-col>
-                <label>판매단위</label>
-                <div><b-form-input v-model="em.em_unit" size="sm"></b-form-input></div>
-            </b-col>
+                <b-col>
+                    <label>판매단위</label>
+                    <div><b-form-input v-model="em.em_unit" size="sm"></b-form-input></div>
+                </b-col>
 
-            <b-col>
-                <label>제조사</label>
-                <div><b-form-input v-model="em.em_maker" size="sm"></b-form-input></div>
-            </b-col>
+                <b-col>
+                    <label>제조사</label>
+                    <div><b-form-input v-model="em.em_maker" size="sm"></b-form-input></div>
+                </b-col>
+                
+                <b-col>
+                    <label>수량</label>
+                    <div><ea-input v-model="em.em_ea" :id="`estimate_model${idx}em_ea`" :em="em"></ea-input></div>
+                    <validation :error="$store.state.error.validations[`estimate_model${idx}em_ea`]"></validation>
+                </b-col>
+
+                <b-col>
+                    <label>판매단가({{em.em_cost_price | comma}})</label>
+                    <div><price-input v-model="em.em_price" :id="`estimate_model${idx}em_price`" :em="em"></price-input></div>
+                    <validation :error="$store.state.error.validations[`estimate_model${idx}em_price`]"></validation>
+                </b-col>
+
+                <b-col>
+                    <label>납품기일</label>
+                    <div><b-form-input :id="`estimate_model${idx}em_dlvy_at`" v-model="em.em_dlvy_at" size="sm"></b-form-input></div>
+                    <validation :error="$store.state.error.validations[`estimate_model${idx}em_dlvy_at`]"></validation>
+                </b-col>
+
+                <b-col>
+                    <label>할인율</label>
+                    <div><dc-late-input v-model="em.em_dc_rate" :id="`em_dc_rate${idx}`" :em="em" class="text-right"></dc-late-input></div>
+                </b-col>
+                
+                <b-col class="w_100">
+                    <label>제품정보</label>
+                    <div><b-form-textarea :id="`estimate_model${idx}em_spec`" v-model="em.em_spec" rows="8" size="sm"></b-form-textarea></div>
+                    <validation :error="$store.state.error.validations[`estimate_model${idx}em_spec`]"></validation>
+                </b-col>
+            </b-row>
             
-            <b-col>
-                <label>수량</label>
-                <div><ea-input v-model="em.em_ea" :id="`estimate_model${idx}em_ea`" :em="em"></ea-input></div>
-                <validation :error="$store.state.error.validations[`estimate_model${idx}em_ea`]"></validation>
-            </b-col>
-
-            <b-col>
-                <label>판매단가({{em.em_cost_price | comma}})</label>
-                <div><price-input v-model="em.em_price" :id="`estimate_model${idx}em_price`" :em="em"></price-input></div>
-                <validation :error="$store.state.error.validations[`estimate_model${idx}em_price`]"></validation>
-            </b-col>
-
-            <b-col>
-                <label>납품기일</label>
-                <div><b-form-input :id="`estimate_model${idx}em_dlvy_at`" v-model="em.em_dlvy_at" size="sm"></b-form-input></div>
-                <validation :error="$store.state.error.validations[`estimate_model${idx}em_dlvy_at`]"></validation>
-            </b-col>
-
-            <b-col>
-                <label>할인율</label>
-                <div><dc-late-input v-model="em.em_dc_rate" :id="`em_dc_rate${idx}`" :em="em" class="text-right"></dc-late-input></div>
-            </b-col>
+            <goods-option-add ref="goods_option_add" v-model="em.estimate_option" :em_id="em.em_id??0" :gd_id="em.em_gd_id"></goods-option-add>
             
-            <b-col class="w_100">
-                <label>제품정보</label>
-                <div><b-form-textarea :id="`estimate_model${idx}em_spec`" v-model="em.em_spec" rows="8" size="sm"></b-form-textarea></div>
-                <validation :error="$store.state.error.validations[`estimate_model${idx}em_spec`]"></validation>
-            </b-col>
-        </b-row>
-        
-        <goods-option-add ref="goods_option_add" v-model="em.estimate_option" :em_id="em.em_id??0" :gd_id="em.em_gd_id"></goods-option-add>
-        
-        <b-row v-if="em.estimate_option.length" class="option label_form">
-            <b-col class="w_100">
-                <label>옵션</label>
-                <div>
-                    <p v-for="(eo, oi) in em.estimate_option" :key="`op${idx}_${oi}`">
-                        <b><b-button class="plum xm" @click="delOption(idx, oi)">X</b-button></b>
-                        <span>{{eo.eo_tit}}: {{eo.eo_name}}</span>
-                        <label :for="`eo_ea${idx}_${oi}`">수량</label>
-                        <ea-input v-model="eo.eo_ea" :id="`eo_ea${idx}_${oi}`"></ea-input>
+            <b-row v-if="em.estimate_option.length" class="option label_form">
+                <b-col class="w_100">
+                    <label>옵션</label>
+                    <div>
+                        <p v-for="(eo, oi) in em.estimate_option" :key="`op${idx}_${oi}`">
+                            <b><b-button class="plum xm" @click="delOption(idx, oi)">X</b-button></b>
+                            <span>{{eo.eo_tit}}: {{eo.eo_name}}</span>
+                            <label :for="`eo_ea${idx}_${oi}`">수량</label>
+                            <ea-input v-model="eo.eo_ea" :id="`eo_ea${idx}_${oi}`"></ea-input>
 
-                        <label :for="`eo_price${idx}_${oi}`">판매단가</label>
-                        <price-input v-model="eo.eo_price" :id="`eo_price${idx}_${oi}`"></price-input>
-                    </p>
-                </div>
-            </b-col>
-        </b-row>
-    </b-container>
-    <validation :error="$store.state.error.validations.estimate_model"></validation>
-        
-    <b-row><b-col class="mt-4 text-right"><b-button class="mint rubber" @click="emAdd">제품 추가</b-button></b-col></b-row>
-</div>
+                            <label :for="`eo_price${idx}_${oi}`">판매단가</label>
+                            <price-input v-model="eo.eo_price" :id="`eo_price${idx}_${oi}`"></price-input>
+                        </p>
+                    </div>
+                </b-col>
+            </b-row>
+        </b-container>
+        <validation :error="$store.state.error.validations.estimate_model"></validation>
+            
+        <b-row><b-col class="mt-4 text-right"><b-button class="mint rubber" @click="emAdd">제품 추가</b-button></b-col></b-row>
+    </div>
 
 </template>
 
