@@ -35,12 +35,14 @@
 
 <script>
 import FileUpload from '@/views/_common/FileUpload.vue'
+import Validation from '@/views/_common/Validation.vue'
+import LoadingModal from '@/views/_common/LoadingModal.vue'
 
 export default {
     components: {
-        'file-upload': FileUpload,
-        'validation':       () => import('@/views/_common/Validation.vue'),
-        'loading-modal':    () => import('@/views/_common/LoadingModal.vue'),
+        'file-upload':      FileUpload,
+        'validation':       Validation,
+        'loading-modal':    LoadingModal,
     },
     props: ['value', 'isLoadingModalViewed'],
 }
