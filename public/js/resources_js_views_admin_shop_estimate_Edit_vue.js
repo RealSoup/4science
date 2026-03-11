@@ -553,12 +553,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 2:
               def = _context2.sent;
               // 2. 현재 행(i)의 기존 em_id 값을 보관합니다.
-              currentId = _this2.value[i].em_id; // 3. 스프레드 연산자를 사용하여 빈 객체(def.data)에 기존 em_id만 덮어씁니다.
+              currentId = _this2.value[i].em_id;
+              console.log(currentId);
+
+              // 3. 스프레드 연산자를 사용하여 빈 객체(def.data)에 기존 em_id만 덮어씁니다.
               resetData = _objectSpread(_objectSpread({}, def.data), {}, {
                 em_id: currentId
               }); // 4. 변경된 객체를 Vue 반응성에 맞게 할당합니다.
               _this2.$set(_this2.value, i, resetData);
-            case 6:
+              console.log(_this2.value[i]);
+            case 8:
             case "end":
               return _context2.stop();
           }
