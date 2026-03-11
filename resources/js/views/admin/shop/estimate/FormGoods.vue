@@ -144,9 +144,9 @@ export default {
   
         async emReset(i) {
             let def = await ax.get(`/api/admin/shop/estimate/getEmptyEm`);
-            const currentId = this.value[i].em_id; console.log(currentId);
+            const currentId = this.value[i].em_id;
             const resetData = { ...def.data, em_id: currentId };
-            this.$set(this.value, i, resetData); console.log(this.value[i]);
+            this.$set(this.value, i, resetData);
         },
 
         calculator() {
