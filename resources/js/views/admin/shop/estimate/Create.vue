@@ -19,10 +19,10 @@ import { validationCheckerUser, validationCheckerGoods, validationCheckerExtra }
 export default {
     name: 'Create',
     components: {
-        'form-ctrl': FormCtrl,
-        'form-user': FormUser,
-        'form-goods': FormGoods,
-        'form-extra': FormExtra,
+        'form-ctrl':    FormCtrl,
+        'form-user':    FormUser,
+        'form-goods':   FormGoods,
+        'form-extra':   FormExtra,
         // 'Form': () => import('./Form.vue'),
         //  자식 컴포넌트의 Method를 호출하려면 위와같이 하면 안됨
         //  import 명령어 써서 컴포넌트 삽입해야 함
