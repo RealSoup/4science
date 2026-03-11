@@ -2,8 +2,6 @@
     <div class="box">
         <h5>견적상품 등록</h5>
         <b-container v-for="(em, idx) in value" :key="idx">
-            <!--    이중(중첩)루프 순번을 넣기위한 공
-                        {{ frm.estimate_goods.slice(0, gi).reduce((total, ch)=>total+=ch.estimate_model.length, 0) + mi + 1}}   -->
             <b-row class="label_form">
                 <b-button-group class="model_ctrl_btn">
                     <b-button class="orange rubber" @click="emReset(idx)"><b-icon-app></b-icon-app> <b>초기화</b></b-button>

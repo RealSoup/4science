@@ -1,7 +1,8 @@
 <template>
     <div>
         <b-input-group size="sm">
-            <b-form-input autocomplete="off" :id="`estimate_req.eq_${type}`" ref="sch_field" v-b-tooltip.hover.left title="입력 후 엔터 or 버튼" v-model="input_val" @keyup.enter="getUserList"></b-form-input>
+            <b-form-input autocomplete="off" :id="`estimate_req.eq_${type}`" ref="sch_field" v-model="input_val" @keyup.enter="getUserList"></b-form-input>
+            <!-- v-b-tooltip.hover.left title="입력 후 엔터 or 버튼"  -->
             <b-input-group-append>
                 <b-button size="sm" @click="getUserList">
                     <b-icon-search></b-icon-search>
