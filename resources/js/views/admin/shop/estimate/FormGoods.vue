@@ -143,11 +143,7 @@ export default {
                 this.$set(em, 'em_dc_rate', this.frm.estimate_reply.all_dc);
             }
         },
-        // async emReset(i) {
-        //     let def = await ax.get(`/api/admin/shop/estimate/getEmptyEm`);
-        //     this.$set(this.value, i, def.data);
-        // },
-
+  
         async emReset(i) {
             let def = await ax.get(`/api/admin/shop/estimate/getEmptyEm`);
             const currentId = this.value[i].em_id; console.log(currentId);

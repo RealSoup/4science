@@ -592,10 +592,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _iterator.f();
       }
     },
-    // async emReset(i) {
-    //     let def = await ax.get(`/api/admin/shop/estimate/getEmptyEm`);
-    //     this.$set(this.value, i, def.data);
-    // },
     emReset: function emReset(i) {
       var _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {

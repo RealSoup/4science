@@ -2,7 +2,7 @@
 <div>
     <b-input-group size="sm">
         <b-form-input autocomplete="off" :id="`estimate_req.eq_${type}`" ref="sch_field" v-b-tooltip.hover.left title="입력 후 엔터 or 버튼"
-            v-model="input_val" @keyup.enter="getUserList" />
+            v-model="input_val" @keyup.enter="getUserList"></b-form-input>
         <b-input-group-append><b-button size="sm" @click="getUserList" ><b-icon-search /></b-button></b-input-group-append>
     </b-input-group>
     <ul class="list-group autocomplete" v-if="users.length" v-click-outside="hide">
