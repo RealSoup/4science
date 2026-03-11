@@ -141,9 +141,26 @@ export default {
                 this.$set(em, 'em_dc_rate', this.frm.estimate_reply.all_dc);
             }
         },
+        // async emReset(i) {
+        //     let def = await ax.get(`/api/admin/shop/estimate/getEmptyEm`);
+        //     this.$set(this.value, i, def.data);
+        // },
+
         async emReset(i) {
+            // 1. 서버에서 초기화된 빈 객체(0: Object 형태)를 가져옵니다.
             let def = await ax.get(`/api/admin/shop/estimate/getEmptyEm`);
-            this.$set(this.value, i, def.data);
+            
+            // 2. 현재 행(i)의 기존 em_id 값을 보관합니다.
+            const currentId = this.value[i].em_id;
+
+            // 3. 스프레드 연산자를 사용하여 빈 객체(def.data)에 기존 em_id만 덮어씁니다.
+            const resetData = {
+                ...def.data,
+                em_id: currentId
+            };
+
+            // 4. 변경된 객체를 Vue 반응성에 맞게 할당합니다.
+            this.$set(this.value, i, resetData);
         },
 
         calculator() {
