@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import UserInput from '@/views/admin/shop/estimate/_comp/UserInput';
-import Validation from '@/views/_common/Validation';
+import UserInput from '@/views/admin/shop/estimate/_comp/UserInput.vue';
+import Validation from '@/views/_common/Validation.vue';
 export default {
     components: {
         'user-input': UserInput,

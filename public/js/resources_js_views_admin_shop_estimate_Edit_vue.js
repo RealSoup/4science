@@ -657,14 +657,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _views_admin_shop_estimate_comp_UserInput__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/views/admin/shop/estimate/_comp/UserInput */ "./resources/js/views/admin/shop/estimate/_comp/UserInput.vue");
-/* harmony import */ var _views_common_Validation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/views/_common/Validation */ "./resources/js/views/_common/Validation.vue");
+/* harmony import */ var _views_admin_shop_estimate_comp_UserInput_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/views/admin/shop/estimate/_comp/UserInput.vue */ "./resources/js/views/admin/shop/estimate/_comp/UserInput.vue");
+/* harmony import */ var _views_common_Validation_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/views/_common/Validation.vue */ "./resources/js/views/_common/Validation.vue");
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    'user-input': _views_admin_shop_estimate_comp_UserInput__WEBPACK_IMPORTED_MODULE_0__["default"],
-    'validation': _views_common_Validation__WEBPACK_IMPORTED_MODULE_1__["default"]
+    'user-input': _views_admin_shop_estimate_comp_UserInput_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    'validation': _views_common_Validation_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: ['value']
 });
