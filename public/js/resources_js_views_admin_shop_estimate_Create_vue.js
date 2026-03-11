@@ -2382,7 +2382,7 @@ var render = function render() {
           return _vm.setUser(i);
         }
       }
-    }, [_vm._v("\r\n            " + _vm._s(us.name)), _c("br"), _vm._v(" "), us.email ? _c("p", [_vm._v(_vm._s(us.email))]) : _vm._e(), _vm._v(" "), us.hp ? _c("p", [_vm._v(_vm._s(us.hp))]) : _vm._e(), _vm._v(" "), us.company ? _c("p", [_vm._v(_vm._s(us.company))]) : _vm._e()]);
+    }, [_c("p", [_vm._v(_vm._s(us.name))]), _vm._v(" "), us.email ? _c("p", [_vm._v(_vm._s(us.email))]) : _vm._e(), _vm._v(" "), us.hp ? _c("p", [_vm._v(_vm._s(us.hp))]) : _vm._e(), _vm._v(" "), us.company ? _c("p", [_vm._v(_vm._s(us.company))]) : _vm._e()]);
   }), 0) : _vm._e()], 1);
 };
 var staticRenderFns = [];

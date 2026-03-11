@@ -10,7 +10,7 @@
     </b-input-group>
     <ul class="list-group autocomplete" v-if="users.length" v-click-outside="hide">
         <li class="list-group-item" v-for="(us, i) in users" @click="setUser(i)" :key="i">
-            {{ us.name }}<br />
+            <p>{{ us.name }}</p>
             <p v-if="us.email">{{us.email}}</p>
             <p v-if="us.hp">{{us.hp}}</p>
             <p v-if="us.company">{{us.company}}</p>
