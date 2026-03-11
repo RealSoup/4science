@@ -23,15 +23,11 @@ export default {
         'form-user':    FormUser,
         'form-goods':   FormGoods,
         'form-extra':   FormExtra,
-        // 'Form': () => import('./Form.vue'),
-        //  자식 컴포넌트의 Method를 호출하려면 위와같이 하면 안됨
-        //  import 명령어 써서 컴포넌트 삽입해야 함
     },
     data() {
         return {
             isLoadingModalViewed:false,
             clickable : true,
-            // saveType:'',
             frm:{
                 estimate_req: {},
                 estimate_reply: { file_info:[], },
@@ -43,11 +39,6 @@ export default {
             try {
                 const res = await ax.get(`/api/admin/shop/estimate/${this.$route.params.er_id}/edit`,);
                 if (res && res.status === 200) {
-                    // this.frm = Object.assign(
-                    //     {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
-                    //     this.frm, // 수정하려는 객체
-                    //     res.data.req,
-                    // );
                     this.frm = res.data;
                 }
             } catch (e) {
