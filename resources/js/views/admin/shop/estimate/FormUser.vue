@@ -42,10 +42,13 @@
 </template>
 
 <script>
+import UserInput from '@/views/admin/shop/estimate/_comp/UserInput';
+import Validation from '@/views/_common/Validation';
 export default {
     components: {
-        'user-input': () => import('@/views/admin/shop/estimate/_comp/UserInput.vue'),
-        'validation': () => import('@/views/_common/Validation.vue'),
+        "goods-option-add": GoodsOptionAdd,
+        'user-input': UserInput,
+        'validation': Validation,
     },
     props: ['value'],
 }
