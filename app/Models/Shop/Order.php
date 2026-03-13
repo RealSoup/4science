@@ -54,6 +54,8 @@ class Order extends Model {
             "경동택배"   => "https://kdexp.com/service/delivery/etc/delivery.do?barcode=[송장번호]",
             "대신택배"   => "https://www.ds3211.co.kr/freight/internalFreightSearch.ht?billno=[송장번호]",
             "건영택배"   => "https://www.kunyoung.com/goods/goods_02.php?mulno=[송장번호]",
+            "천일택배"   =>" https://www.chunil.co.kr/HTrace/HTrace.jsp?transNo=[송장번호]",
+            "용마로지스" =>" https://ylis.yongmalogis.co.kr/cmm/modalDeliveryCargoTrace.do?ordno=[송장번호]",
         ],
         'dlvy_msg' => [
             1 => "부재시 경비실에 맡겨주세요.",

@@ -20,6 +20,8 @@
 <script>
 import WebHead      from '@/views/web/_layouts/Header.vue';
 import WebFooter    from '@/views/web/_layouts/Footer.vue';
+import NewHead      from '@/views/web/_layouts/NewHead.vue';
+import NewFooter    from '@/views/web/_layouts/NewFooter.vue';
 import HeaderSimple from '@/views/web/_layouts/HeaderSimple.vue';
 import AdmLeft      from '@/views/admin/_layouts/Left.vue';
 
@@ -30,6 +32,9 @@ export default {
         'web-footer'    : WebFooter, 
         'header-simple' : HeaderSimple, 
         'adm-left'      : AdmLeft, 
+
+        'new_header': NewHead, 
+        'new_footer': NewFooter, 
     },
     data() {
         return {
@@ -42,6 +47,7 @@ export default {
                 // case 'adm':    return 'adm-head';  break;
                 case 'simple':  return 'header-simple';  break;
                 case 'nothing': return false;  break;
+                case 'new': return 'new_header';   break;  // new main
             }
         },
         choiceFooter(){
@@ -49,6 +55,7 @@ export default {
             	case 'web':
                 case 'simple':   return 'web-footer';  break;
                 case 'nothing': return false;  break;
+                case 'new': return 'new_footer';   break;  // new main
             }
         },
     },

@@ -25,6 +25,7 @@ let initSet = () => {
     if (path[1] === 'admin') {      store.state.mode = 'adm'; }
     else if ( ['login', 'register', 'email_verify', 'password', 'auth'].includes(path[1]) ) { store.state.mode = 'simple'; }
     else if ( ['settle_psys'].includes(path[3]) ) { store.state.mode = 'nothing'; }
+    else if ( ['new'].includes(path[1]) ) { store.state.mode = 'new'; } // new main
     else {                          store.state.mode = 'web'; }
 
 

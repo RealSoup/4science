@@ -26,6 +26,10 @@ export default [
         name: 'main',
         component:() => import('@/views/web/Main'),
     },
+    {   path: '/new',
+        name: 'new_main',
+        component:() => import('@/views/web/New'),
+    },
 //      인증
     {   path: '/login',
         name: 'login',
