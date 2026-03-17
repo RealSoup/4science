@@ -66,6 +66,16 @@ class SiteController extends Controller {
         return response()->json($sw);
     }
 
+    public function bannerGoods(Request $req) { 
+        $sw = \App\Models\Shop\Goods::join( 'show_window', 'shop_goods.gd_id', '=', 'show_window.sw_key' )
+            ->where('sw_type', 'banner_goods')
+            ->orderBy("sw_seq")
+            ->limit(6)
+            ->get(); 
+        // $sw = ShowWindow::select('sw_id', 'sw_seq', 'sw_key')->with('goods')->Type('best')->orderBy("sw_seq")->limit(6)->get();
+        return response()->json($sw);
+    }
+
     public function mainBestUpdate(Request $req) {  
         DB::table('show_window')->where('sw_type', 'best')->delete();
         foreach ($req->best as $k=>$sw)
@@ -74,4 +84,21 @@ class SiteController extends Controller {
         DB::table('infos')->where('key', 'update_key_best_main')->update(['val' => uniqid()]);
         return response()->json("success", 200);
     }
+
+    public function bannerGoodsUpdate(Request $req) {  
+        DB::table('show_window')->where('sw_type', 'banner_goods')->delete();
+        foreach ($req->list as $k=>$sw)
+            ShowWindow::insert([ 
+                'sw_type' =>    "banner_goods", 
+                'sw_group' =>   $sw['sw_group'], 
+                'sw_seq' =>     $k, 
+                'sw_key' =>     $sw['sw_key'], 
+                'sw_memo' =>    $sw['sw_memo'] 
+            ]);
+        
+        DB::table('infos')->where('key', 'update_key_banner_goods')->update(['val' => uniqid()]);
+        return response()->json("success", 200);
+    }
+
+    
 }

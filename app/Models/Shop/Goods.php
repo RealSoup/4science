@@ -650,4 +650,132 @@ class Goods extends Model {
 
         return $cl_rst['total_found'];
     }
+
+    public function recommend_goods ($limit = 4) {
+        $order = new class{};
+        $estimate = new class{};
+        $top10 = new class{};
+        // 추천 상품을 위한 이전 구매 상품 5개
+        $latestPerOrderGoods = DB::table('shop_order_model')
+            ->join('shop_order', 'od_id', '=', 'odm_od_id')
+            ->selectRaw("
+                odm_gd_id,
+                created_at,
+                ROW_NUMBER() OVER (
+                    PARTITION BY odm_gd_id
+                    ORDER BY created_at DESC
+                ) as rn
+            ")
+            ->where('created_id', auth()->id())
+            ->where('od_type', '<>', 'buy_temp')
+            ->where('od_step', '>=', '20')   // 문자열 Enum 비교
+            ->where('od_step', '<',  '60')   // 문자열 Enum 비교
+            ->where('odm_gm_id', '>', 0);
+        $order = Goods::query()
+            ->joinSub($latestPerOrderGoods, 'r', 'r.odm_gd_id', '=', 'shop_goods.gd_id')
+            ->where('r.rn', 1)                         // gd_id별 최신 1건만
+            ->whereNull('shop_goods.deleted_at')       // (필요시) 삭제 제외
+            ->where('shop_goods.gd_enable', 'Y')       // (필요시) 활성만
+            ->orderByDesc('r.created_at')
+            ->select('shop_goods.*')                   // 모델 하이드레이션을 위해 모델 컬럼만 선택
+            ->limit($limit)
+            ->get();
+
+        // 추천 상품을 위한 이전 견적 상품 5개
+        $latestPerEstimateGoods = DB::table('shop_estimate_model as em')
+            ->join('shop_estimate_reply', 'er_id', '=', 'em_papa_id')
+            ->selectRaw("
+                em_gd_id as odm_gd_id,
+                created_at,
+                ROW_NUMBER() OVER (
+                    PARTITION BY em_gd_id
+                    ORDER BY created_at DESC
+                ) as rn
+            ")
+            ->where('created_id', auth()->id())
+            ->where('em_type', 'estimateReply')  // 모델은 요청 아닌 견적 된 모델
+            ->where('em_gd_id', '>', 0)          // 임의 상품 아닌 온라인 상품
+            ->where('er_step', 1);               // 견적 완료
+        $estimate = Goods::query()
+            ->joinSub($latestPerEstimateGoods, 'r', 'r.odm_gd_id', '=', 'shop_goods.gd_id')
+            ->where('r.rn', 1)                         // gd_id별 최신 1건만
+            ->whereNull('shop_goods.deleted_at')       // (필요시) 삭제 제외
+            ->where('shop_goods.gd_enable', 'Y')       // (필요시) 활성만
+            ->orderByDesc('r.created_at')
+            ->select('shop_goods.*')                   // 모델 하이드레이션을 위해 모델 컬럼만 선택
+            ->limit($limit)
+            ->get();
+
+        
+        // 1) 상품별 주문 건수 집계 (모든 사용자 기준)
+        $ordersPerGoods = DB::table('shop_order_model')
+            ->join('shop_order', 'od_id', '=', 'odm_od_id')
+            ->where('od_type', '<>', 'buy_temp')
+            ->where('od_step', '>=', '20')   // 문자열 Enum 비교
+            ->where('od_step', '<',  '60')   // 문자열 Enum 비교
+            ->where('odm_gm_id', '>', 0)
+            ->selectRaw("
+                odm_gd_id,
+                COUNT(DISTINCT odm_od_id) as order_cnt,
+                MAX(created_at) as last_order_at
+            ")
+            ->groupBy('odm_gd_id');
+
+        // 2) Goods에 조인해서 유효 상품만, 주문건수 순으로 5개
+        $top10 = Goods::query()
+            ->joinSub($ordersPerGoods, 'r', 'r.odm_gd_id', '=', 'shop_goods.gd_id')
+            ->whereNull('shop_goods.deleted_at')
+            ->where('shop_goods.gd_enable', 'Y')
+            ->orderByDesc('r.order_cnt')
+            ->orderByDesc('r.last_order_at')   // 동률이면 더 최근 주문 우선
+            ->select('shop_goods.*')
+            ->limit(20)
+            ->get()
+            ->random($limit);
+        
+
+        return $this->pickProducts($order, $estimate, $top10);
+    }
+
+
+
+    function pickProducts($order, $estimate, $top10) {
+        $order = collect($order);
+        $estimate = collect($estimate);
+        $top10 = collect($top10);
+
+        $result = collect();
+
+        $orderCount = $order->count();
+        $estimateCount = $estimate->count();
+
+        
+        if ($estimateCount === 0) {             // estimate 없으면 order만 10개
+            $result = $order->take(10);
+        } elseif ($orderCount === 0) {          // order 없으면 estimate만 10개
+            $result = $estimate->take(10);
+        } else {
+            if ($orderCount >= 5 && $estimateCount >= 5) {  // 둘 다 있으면 10개를 비율 맞춰 채우기
+                $orderTake = 5;
+                $estimateTake = 5;
+            } elseif ($orderCount < 5) {
+                $orderTake = $orderCount;
+                $estimateTake = min(10 - $orderTake, $estimateCount);
+            } elseif ($estimateCount < 5) {
+                $estimateTake = $estimateCount;
+                $orderTake = min(10 - $estimateTake, $orderCount);
+            }
+
+            $result = $order->take($orderTake)->merge($estimate->take($estimateTake));
+        }
+
+        // 그래도 10개 미만이면 top10에서 채우기
+        $remain = 10 - $result->count();
+
+        if ($remain > 0) {
+            $result = $result->merge($top10->take($remain));
+        }
+
+        return $result->take(10)->values();
+    }
 }

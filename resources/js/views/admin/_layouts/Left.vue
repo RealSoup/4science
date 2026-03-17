@@ -8,6 +8,7 @@
             <b-link :class="{focus:$route.name.startsWith('adm_site_info')}"            :to="{name: 'adm_site_info'}"><i>정보설정</i></b-link>
             <b-link :class="{focus:$route.name.startsWith('adm_site_main_cate_goods')}" :to="{name: 'adm_site_main_cate_goods'}"><i>메인 카테고리별 추천 상품</i></b-link>
             <b-link :class="{focus:$route.name.startsWith('adm_site_main_best')}"       :to="{name: 'adm_site_main_best'}"><i>메인 Best 상품</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_site_banner_goods')}"    :to="{name: 'adm_site_banner_goods'}"><i>메인 슬라이드 상품</i></b-link>
         </section>
 
         <section>

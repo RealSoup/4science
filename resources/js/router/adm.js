@@ -34,6 +34,10 @@ export default [
                 path: 'site/mainBest',
                 name: 'adm_site_main_best',
                 component:() => import('@/views/admin/site/MainBest'),
+            }, {
+                path: 'site/bannerGoods',
+                name: 'adm_site_banner_goods',
+                component:() => import('@/views/admin/site/BannerGoods'),
             },
 
             //  유저

@@ -43,19 +43,20 @@
 
                 <template v-if="isLoggedin">
                     <b-link @click="logout">
-                        <b-img :src="`/storage/common/icon_login.png`"></b-img>  <p>로그아웃</p>
+                        <b-img :src="`/storage/common/icon/logout.png`"></b-img>  <p>로그아웃</p>
                     </b-link>
                     <b-link :to="{name: 'mypage'}">
-                        <b-img :src="`/storage/common/icon_mypage.png`"></b-img> <p>마이페이지</p>
+                        <b-img :src="`/storage/common/icon/mypage.png`"></b-img> <p>마이페이지</p>
                     </b-link>
                     <b-link :to="{name: 'estimate_create'}">
-                        <b-img :src="`/storage/common/icon_mypage.png`"></b-img> <p>견적요청</p>
+                        <b-img :src="`/storage/common/icon/estimate.png`"></b-img> <p>견적요청</p>
                     </b-link>
                     <b-link :to="{name: 'my_order'}">
-                        <b-img :src="`/storage/common/icon_mypage.png`"></b-img> <p>주문배송</p>
+                        <b-img :src="`/storage/common/icon/order.png`"></b-img> <p>주문배송</p>
                     </b-link>
-                    <b-link :to="{name:'cart_index'}">
-                        <b-img :src="`/storage/common/icon_cart.png`"></b-img>   <p>장바구니</p>
+                    <b-link :to="{name:'cart_index'}" class="cart">
+                        <b-img :src="`/storage/common/icon/cart.png`"></b-img>   <p>장바구니</p>
+                        <b>{{ this.cartList?.length || 0 }}</b>
                     </b-link>
                 </template>
                 <template v-else>
@@ -66,8 +67,6 @@
                 <b-link href="https://pf.kakao.com/_AxmKUj" target='_blank' class="kakao"><b-img :src="`/storage/common/kakao.png`"></b-img></b-link>
             </div>
         </nav>
-
-       
     </div>
     <div class="sm_view">
         <!-- <b-link @click="view_cate=!view_cate"><font-awesome-icon icon="sitemap" /></b-link>
@@ -133,6 +132,7 @@ export default {
             isLoggedin: 'auth/isLoggedin',
             user: 'auth/user',
         }),
+        ...mapGetters('cart', ['cartList']),
         ...mapState('goods', ['frm']),
         ...mapState('recent_goods', ['recent_goods_view', 'list']),
     },
@@ -144,18 +144,18 @@ export default {
                 return false;
             }
             this.$store.dispatch('goods/routerPush', 'new');
-        },
-        onScroll(e) { this.headerFix = window.top.scrollY > 10; },
-        
-        strongReload(url){ if(url!='') window.location.href = url; },
+        },        
     },
-    mounted() { window.addEventListener("scroll", this.onScroll); },
-    beforeDestroy() { window.removeEventListener("scroll", this.onScroll) },
+    mounted() { 
+        this.$store.dispatch('cart/index');
+    },
 }
 </script>
 
 <style lang="css" scoped>
 #header { border-bottom:1px solid #CCCCCC; padding-bottom:10px; }
+#header .admin { position:absolute; top:0; left:50%; transform:translateX(-50%); z-index: 1; }
+#header .admin a { display:inline-block; background-color:#ff4d00; padding:3px 10px; border-radius:0 0 10px 10px; color:#fff; font-weight:bold; text-align:center; }
 
 #header #core .logo { display:inline-block; width:220px; padding:27px 0 0 27px; }
 #header #core .logo img { width:100%; }
@@ -177,8 +177,10 @@ export default {
 #header #core nav .nav_right form button { position:absolute; right:6px; top:50%; transform:translateY(-50%); border:0; background:transparent; }
 #header #core nav .nav_right { display:flex; justify-content:flex-end; align-items:center; }
 #header #core nav .nav_right a { flex-basis:0; flex-grow:1; max-width:68px; width:68px; text-align:center; }
-#header #core nav .nav_right a img { max-width:44px; }
+#header #core nav .nav_right a img { width:40px; height:40px; }
 #header #core nav .nav_right a p { margin:0; font-size:12px;  }
+#header #core nav .nav_right .cart { position: relative; }
+#header #core nav .nav_right .cart b { background-color:#02ABEC; color:#fff; border-radius:14px; padding:3px 6px; font-size:12px; position:absolute; top:0; right:0; }
 
 #header .sm_view { display:none; }
 

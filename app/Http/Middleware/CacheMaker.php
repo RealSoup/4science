@@ -69,6 +69,22 @@ class CacheMaker {
                 ->get()->toJson();
             Redis::set('best_main', $data);
         }
+        
+
+        $key_nm = 'update_key_banner_goods';
+        $db_key = Info::Key($key_nm)->first()->val;
+        if( $db_key !== Redis::get($key_nm) ) {
+            Redis::set($key_nm, $db_key); 
+            $data = ShowWindow::select('sw_key', 'sw_group', 'sw_memo')
+                // ->with('goods')
+                ->with(['goods' => fn ($q) => $q->select('gd_id', 'gd_name')])
+                ->Type('banner_goods')
+                ->orderBy('sw_seq')
+                ->orderBy('sw_id')
+                ->limit(6)
+                ->get()->toJson();
+            Redis::set('banner_goods', $data);
+        }
 
         $key_nm = 'update_key_best_cate';
         $db_key = Info::Key($key_nm)->first()->val;

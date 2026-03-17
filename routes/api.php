@@ -112,6 +112,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::POST('mainCateGoodsUpdate',  'Admin\SiteController@mainCateGoodsUpdate');
                 Route::GET( 'mainBest',             'Admin\SiteController@mainBest');
                 Route::POST('mainBestUpdate',       'Admin\SiteController@mainBestUpdate');
+                Route::GET( 'bannerGoods',          'Admin\SiteController@bannerGoods');
+                Route::POST('bannerGoodsUpdate',    'Admin\SiteController@bannerGoodsUpdate');
             });
 
             Route::RESOURCE('user', 'Admin\UserController')->only([ 'index', 'edit', 'update', 'destroy' ]);

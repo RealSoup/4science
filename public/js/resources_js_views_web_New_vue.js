@@ -57,7 +57,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   data: function data() {
     return {
       list: {
-        best_main: {}
+        best_main: [],
+        banner_goods: [],
+        recommend_goods: [],
+        newest: [],
+        makers: []
       }
     };
   },
@@ -100,13 +104,15 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
-            window.addEventListener('scroll', _this.scrollListener);
-            _context.next = 3;
+            _context.next = 2;
             return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/main");
-          case 3:
+          case 2:
             rst = _context.sent;
-            _this.best_cate = rst.data.best_cate;
             _this.list.best_main = rst.data.best_main;
+            _this.list.banner_goods = rst.data.banner_goods;
+            _this.list.recommend_goods = rst.data.recommend_goods;
+            _this.list.newest = rst.data.newest;
+            _this.list.makers = rst.data.makers;
             if (_this.$route.query.rst == 'social_login') {
               //  소셜 로그인 후 개인정보가 없으면
               if (isEmpty(_this.$store.state.auth.user.email) || isEmpty(_this.$store.state.auth.user.name) || isEmpty(_this.$store.state.auth.user.birth) || isEmpty(_this.$store.state.auth.user.hp)) {
@@ -116,7 +122,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 Notify.modal('필수 개인정보를 입력하세요.', 'warning');
               }
             }
-          case 7:
+          case 9:
           case "end":
             return _context.stop();
         }
@@ -219,7 +225,10 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", [_c("pop-up"), _vm._v(" "), _c("div", {
-    staticClass: "banner_box"
+    staticClass: "layout",
+    attrs: {
+      id: "banner_box"
+    }
   }, [_c("b-link", {
     staticClass: "banner01",
     attrs: {
@@ -227,7 +236,7 @@ var render = function render() {
     }
   }, [_c("img", {
     attrs: {
-      src: "/storage/main/bn01.jpg"
+      src: "/storage/main/new/rec01.jpg"
     }
   })]), _vm._v(" "), _c("b-link", {
     staticClass: "banner02",
@@ -236,22 +245,38 @@ var render = function render() {
     }
   }, [_c("img", {
     attrs: {
-      src: "/storage/main/bn02.jpg"
+      src: "/storage/main/new/rec02.jpg"
     }
   })]), _vm._v(" "), _c("b-carousel", {
-    staticClass: "slide_banner",
     attrs: {
       controls: "",
       indicators: "",
       interval: 0
     }
-  }, [_c("b-link", {
+  }, [_vm._l(_vm.list.banner_goods, function (item, i) {
+    return _c("b-link", {
+      key: i,
+      staticClass: "banner_goods",
+      attrs: {
+        to: {
+          name: "goods_show",
+          params: {
+            gd_id: item.sw_key
+          }
+        }
+      }
+    }, [_c("b-carousel-slide", {
+      attrs: {
+        "img-src": item.goods.image_src[0]
+      }
+    }, [_c("p", [_vm._v(_vm._s(item.sw_group))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(item.sw_memo))])])], 1);
+  }), _vm._v(" "), _c("b-link", {
     attrs: {
       to: "/board/notice/show/55"
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": "/storage/main/slide01.jpg"
+      "img-src": "/storage/main/new/slide.jpg"
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {
@@ -259,7 +284,7 @@ var render = function render() {
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": "/storage/main/slide02.jpg"
+      "img-src": "/storage/main/new/slide.jpg"
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {
@@ -267,16 +292,16 @@ var render = function render() {
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": "/storage/main/slide03.jpg"
+      "img-src": "/storage/main/new/slide.jpg"
     }
-  })], 1)], 1), _vm._v(" "), _c("b-link", {
+  })], 1)], 2), _vm._v(" "), _c("b-link", {
     staticClass: "banner03",
     attrs: {
       to: "/board/notice/show/55"
     }
   }, [_c("img", {
     attrs: {
-      src: "/storage/main/bn01.jpg"
+      src: "/storage/main/new/rec03.jpg"
     }
   })]), _vm._v(" "), _c("b-link", {
     staticClass: "banner04",
@@ -285,7 +310,7 @@ var render = function render() {
     }
   }, [_c("img", {
     attrs: {
-      src: "/storage/main/bn01.jpg"
+      src: "/storage/main/new/rec04.jpg"
     }
   })]), _vm._v(" "), _c("b-link", {
     staticClass: "banner05",
@@ -294,7 +319,7 @@ var render = function render() {
     }
   }, [_c("img", {
     attrs: {
-      src: "/storage/main/bn01.jpg"
+      src: "/storage/main/new/rec05.jpg"
     }
   })]), _vm._v(" "), _c("b-link", {
     staticClass: "banner06",
@@ -303,22 +328,22 @@ var render = function render() {
     }
   }, [_c("img", {
     attrs: {
-      src: "/storage/main/bn03.jpg"
+      src: "/storage/main/new/rec06.jpg"
     }
-  })])], 1), _vm._v(" "), _c("b-row", {
-    staticClass: "layout",
+  })])], 1), _vm._v(" "), _c("b-container", {
     attrs: {
       id: "best"
     }
-  }, [_c("b-col", [_c("b-img", {
-    attrs: {
-      src: "/storage/main/best.gif"
-    }
-  })], 1), _vm._v(" "), _c("b-col", [_c("div", {
-    staticClass: "box-row"
+  }, [_c("b-row", {
+    staticClass: "tit layout"
+  }, [_c("b-col", [_vm._v("베스트 제품만 모아놨어요.")])], 1), _vm._v(" "), _c("div", {
+    staticClass: "inner"
+  }, [_c("b-row", {
+    staticClass: "layout"
   }, _vm._l(_vm.bestRemodel, function (item, i) {
     return _c("b-link", {
       key: i,
+      staticClass: "col",
       attrs: {
         to: {
           name: "goods_show",
@@ -359,7 +384,126 @@ var render = function render() {
         expression: "item.gd_name"
       }
     })], 1)]);
-  }), 1)])], 1)], 1);
+  }), 1)], 1)], 1), _vm._v(" "), _c("b-container", {
+    staticClass: "layout",
+    attrs: {
+      id: "recommend_goods"
+    }
+  }, [_c("b-row", {
+    staticClass: "tit"
+  }, [_c("b-col", [_vm._v("어떤 제품이 필요하세요?")])], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "cont"
+  }, _vm._l(_vm.list.recommend_goods, function (gd, i) {
+    return _c("b-link", {
+      key: i,
+      staticClass: "col",
+      attrs: {
+        to: {
+          name: "goods_show",
+          params: {
+            gd_id: gd.gd_id
+          }
+        }
+      }
+    }, [_c("img", {
+      attrs: {
+        src: gd.image_src_thumb[0]
+      }
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(gd.gd_name))])]);
+  }), 1)], 1), _vm._v(" "), _c("b-container", {
+    staticClass: "layout",
+    attrs: {
+      id: "middle_banner"
+    }
+  }, [_c("b-link", {
+    staticClass: "col",
+    attrs: {
+      to: {
+        name: "goods_show",
+        params: {
+          gd_id: 23266
+        }
+      }
+    }
+  }, [_c("img", {
+    attrs: {
+      src: "/storage/main/new/middle_banner.jpg"
+    }
+  })])], 1), _vm._v(" "), _c("b-container", {
+    staticClass: "layout",
+    attrs: {
+      id: "newest"
+    }
+  }, [_c("b-row", {
+    staticClass: "tit"
+  }, [_c("b-col", [_vm._v("새로 들어온 신상!")])], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "cont"
+  }, _vm._l(_vm.list.newest, function (item, i) {
+    return _c("b-link", {
+      key: i,
+      staticClass: "col",
+      attrs: {
+        to: {
+          name: "goods_show",
+          params: {
+            gd_id: item.gd_id
+          }
+        }
+      }
+    }, [_c("img", {
+      attrs: {
+        src: item.image_src[0]
+      }
+    }), _vm._v(" "), _c("div", [_c("b-badge", {
+      attrs: {
+        variant: "danger"
+      }
+    }, [_vm._v("NEW")]), _vm._v(" "), _c("p", [_vm._v(_vm._s(item.maker.mk_name))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(item.gd_name))])], 1)]);
+  }), 1)], 1), _vm._v(" "), _c("b-container", {
+    staticClass: "layout",
+    attrs: {
+      id: "makers"
+    }
+  }, [_c("b-row", {
+    staticClass: "tit"
+  }, [_c("b-col", [_vm._v("포사이언스와 함께 하는 브랜드")])], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "cont"
+  }, [_c("b-carousel", {
+    attrs: {
+      controls: "",
+      indicators: "",
+      interval: 0
+    }
+  }, _vm._l(_vm.list.makers, function (chunk, i) {
+    return _c("b-carousel-slide", {
+      key: i,
+      scopedSlots: _vm._u([{
+        key: "img",
+        fn: function fn() {
+          return [_c("div", {
+            staticClass: "item_box"
+          }, _vm._l(chunk, function (item, j) {
+            return _c("b-link", {
+              key: "".concat(i, "_").concat(j),
+              attrs: {
+                to: {
+                  name: "makerShop_index",
+                  params: {
+                    mk_id: item.mk_id
+                  }
+                }
+              }
+            }, [_c("img", {
+              attrs: {
+                src: item.file_info[0].path
+              }
+            }), _vm._v(" "), _c("span", [_vm._v(_vm._s(item.mk_name))])]);
+          }), 1)];
+        },
+        proxy: true
+      }], null, true)
+    });
+  }), 1)], 1)], 1)], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -448,7 +592,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.banner_box[data-v-16825bd4] { display:grid; gap:30px; margin-top:20px;\n}\n.banner_box .banner01[data-v-16825bd4] { grid-area: v1;\n}\n.banner_box .banner02[data-v-16825bd4] { grid-area: v2;\n}\n.banner_box .slide_banner[data-v-16825bd4] { grid-area: v3;\n}\n.banner_box .banner03[data-v-16825bd4] { grid-area: v4;\n}\n.banner_box .banner04[data-v-16825bd4] { grid-area: v5;\n}\n.banner_box .banner05[data-v-16825bd4] { grid-area: v6;\n}\n.banner_box .banner06[data-v-16825bd4] { grid-area: v7;\n}\n.banner_box[data-v-16825bd4] { grid-template-areas:\r\n    \"v1 v3 v3 v4\"\r\n    \"v2 v3 v3 v5\"\r\n    \"v2 v6 v7 v7\";\n}\r\n\r\n/* --- [1] 모바일 레이아웃 (오른쪽 그림) --- */\n@media (max-width: 767px) {\n.banner_box[data-v-16825bd4] { gap:10px;\r\n    grid-template-columns: 1fr 1fr; \r\n    grid-template-areas:\r\n      \"v3 v3\"\r\n      \"v3 v3\"\r\n      \"v1 v4\"\r\n      \"v2 v5\"\r\n      \"v2 v6\"\r\n      \"v7 v7\";\n}\n.banner_box>a[data-v-16825bd4] { width:100%;\n}\n.banner_box>a img[data-v-16825bd4] { width:100%;\n}\n}\n.slide_banner[data-v-16825bd4] { overflow:hidden; max-width:640px;\n}\n.slide_banner[data-v-16825bd4] .carousel-indicators li { background-color:#898989;\n}\n.slide_banner[data-v-16825bd4] .carousel-control-prev:hover,\r\n.slide_banner[data-v-16825bd4] .carousel-control-next:hover { background-color:#55888888;\n}\n.slide_banner[data-v-16825bd4] .evt01 .split_link { position:absolute; display:block; height:100%; bottom:0;\n}\n.slide_banner[data-v-16825bd4] .evt01 .split_link#app01 { width: 100%;\n}\n.slide_banner[data-v-16825bd4] .evt01 .split_link#app02 { left:66%; bottom:8%; width:301px; height:91px;}\n.slide_banner[data-v-16825bd4] .evt01 .carousel-caption { position:static; padding:0;\n}\n.slide_banner[data-v-16825bd4] .evt01 .split_link#app02:hover { background-color:#015B7E55;\n}\n.slide_banner[data-v-16825bd4] .evt01 .split_link .tooltiptext {\r\n  visibility:hidden; padding:0.25em 0.5em; background-color:black; color:#fff; text-align:center; border-radius:0.25em; white-space:nowrap;\r\n  /* Position the tooltip */\r\n  position:absolute; z-index:1; top:50%; transition-property:visibility; transition-delay:0s;\n}\n.slide_banner[data-v-16825bd4] .evt01 a#app01 .tooltiptext { right:25%;\n}\n.slide_banner[data-v-16825bd4] .evt01 a#app02 .tooltiptext { right:25%;\n}\n.slide_banner[data-v-16825bd4] .evt01 .split_link#app02:hover .tooltiptext { visibility: visible; opacity:1;\n}\n#best[data-v-16825bd4] { margin-top:26px;\n}\n#best>.col[data-v-16825bd4] { padding:0;\n}\n#best>.col[data-v-16825bd4]:nth-of-type(1) { flex:0 0 6.933334%; max-width:6.933334%; padding-top:20px;\n}\n#best>.col[data-v-16825bd4]:nth-of-type(2) { flex:0 0 93.066666%; max-width:93.066666%;\n}\n#best .col .box-row[data-v-16825bd4] { display:flex; justify-content:center; align-items:center; width:100%; height:320px;\n}\n#best .col .box-row a[data-v-16825bd4] { position: relative; background-color: #FFFFFF; height:288px; width:220px; margin:10px;\n}\n#best .col .box-row a[data-v-16825bd4]:last-of-type { margin-right:0;\n}\n#best .col .box-row a img[data-v-16825bd4] { width: 100%; height: 210px; -o-object-fit:contain; object-fit:contain; border: 1px solid #B7B7B7;\n}\n#best .col .box-row a .box-footer[data-v-16825bd4] { position:absolute; bottom:0; height:80px; padding:10px 15px;\n}\n#best .col .box-row a .box-footer .box_ca[data-v-16825bd4] { color:#1A8FD4; margin-bottom:3px; font-size:.8rem;\n}\n#best .col .box-row a .box-footer .box_tit[data-v-16825bd4] { font-weight:bold;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#banner_box[data-v-16825bd4] { display:grid; gap:30px; margin-top:20px;\n}\n#banner_box .banner01[data-v-16825bd4] { grid-area: v1;\n}\n#banner_box .banner02[data-v-16825bd4] { grid-area: v2;\n}\n#banner_box .slide[data-v-16825bd4] { grid-area: v3;\n}\n#banner_box .banner03[data-v-16825bd4] { grid-area: v4;\n}\n#banner_box .banner04[data-v-16825bd4] { grid-area: v5;\n}\n#banner_box .banner05[data-v-16825bd4] { grid-area: v6;\n}\n#banner_box .banner06[data-v-16825bd4] { grid-area: v7;\n}\n#banner_box[data-v-16825bd4] { grid-template-areas:\r\n    \"v1 v3 v3 v4\"\r\n    \"v2 v3 v3 v5\"\r\n    \"v2 v6 v7 v7\";\n}\n@media (max-width: 767px) {\n#banner_box[data-v-16825bd4] { gap:10px;\r\n    grid-template-columns: 1fr 1fr; \r\n    grid-template-areas:\r\n      \"v3 v3\"\r\n      \"v3 v3\"\r\n      \"v1 v4\"\r\n      \"v2 v5\"\r\n      \"v2 v6\"\r\n      \"v7 v7\";\n}\n#banner_box>a[data-v-16825bd4] { width:100%;\n}\n#banner_box>a img[data-v-16825bd4] { width:100%;\n}\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner { height:100%;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item { height:100%;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item img { -o-object-fit:contain; object-fit:contain; height:100%;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item .carousel-caption { width:100%; height:100%; right:auto; bottom:0; left:auto; padding:0; z-index:1;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item .carousel-caption p { position:absolute; text-align:center; width:100%; background-color:#55888888; padding:8px 5px;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item .carousel-caption p:first-of-type { top:50%; transform:translateY(-50%);\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item .carousel-caption p:last-of-type { bottom:0;\n}\n#banner_box .slide[data-v-16825bd4] { overflow:hidden; max-width:640px;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-indicators li { background-color:#898989;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-control-prev:hover,\r\n#banner_box .slide[data-v-16825bd4] .carousel-control-next:hover { background-color:#55888888;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link { position:absolute; display:block; height:100%; bottom:0;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link#app01 { width: 100%;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link#app02 { left:66%; bottom:8%; width:301px; height:91px;}\n#banner_box .slide[data-v-16825bd4] .evt01 .carousel-caption { position:static; padding:0;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link#app02:hover { background-color:#015B7E55;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link .tooltiptext {\r\n  visibility:hidden; padding:0.25em 0.5em; background-color:black; color:#fff; text-align:center; border-radius:0.25em; white-space:nowrap;\r\n  /* Position the tooltip */\r\n  position:absolute; z-index:1; top:50%; transition-property:visibility; transition-delay:0s;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 a#app01 .tooltiptext { right:25%;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 a#app02 .tooltiptext { right:25%;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link#app02:hover .tooltiptext { visibility: visible; opacity:1;\n}\n.container .tit .col[data-v-16825bd4] { font-size:23px; font-weight:900;\n}\n#best[data-v-16825bd4] { max-width:100% !important; margin:74px auto 0 auto;\n}\n#best .inner[data-v-16825bd4] { background-color:#F6F7FB; padding:24px 0 10px 0; margin:12px;\n}\n#best .inner .row a[data-v-16825bd4] { position: relative; height:324px; width:239px; margin:6px;\n}\n#best .inner .row a img[data-v-16825bd4] { width:100%; height:239px; -o-object-fit:contain; object-fit:contain; background-color: #FFFFFF; border:1px solid #D7D7D7; border-radius:20px;\n}\n#best .inner .row a .box-footer[data-v-16825bd4] { padding:0 8px;\n}\n#best .inner .row a .box-footer .box_ca[data-v-16825bd4] { color:#1A8FD4; margin:3px 0; font-size:.8rem;\n}\n#best .inner .row a .box-footer .box_tit[data-v-16825bd4] { font-weight:bold;\n}\n@media (max-width: 767px) {\n#best .inner .row a[data-v-16825bd4] { flex:0 0 33.333334%; max-width:33.333334%; margin:0; padding:10px;\n}\n}\n#recommend_goods[data-v-16825bd4]  { margin:74px auto 0 auto;\n}\n#recommend_goods .tit .col[data-v-16825bd4] { margin:25px 0px;\n}\n#recommend_goods .cont a[data-v-16825bd4] { flex:0 0 10%; max-width:calc(10% - 20px); margin:0 10px; text-align:center;\n}\n#recommend_goods .cont a img[data-v-16825bd4] { width:100%; height:126px; -o-object-fit:contain; object-fit:contain; background-color:#F3F3F3; border:1px solid #D7D7D7; border-radius:50%; margin-bottom:18px;\n}\n#recommend_goods .cont a span[data-v-16825bd4] { font-weight:bold;\n}\n#middle_banner[data-v-16825bd4] { margin-top:80px;\n}\n#newest[data-v-16825bd4]  { margin:74px auto 0 auto;\n}\n#newest .tit .col[data-v-16825bd4] { margin:25px 0px;\n}\n#newest .cont[data-v-16825bd4] { margin-left:-17px; margin-right:-17px;\n}\n#newest .cont a[data-v-16825bd4] { position:relative; flex:0 0 25%; max-width:calc(25% - 34px); margin:0 17px; text-align:center; height:480px;\n}\n#newest .cont a img[data-v-16825bd4] { width:100%; height:100%; -o-object-fit:contain; object-fit:contain; background-color:#F3F3F3; border:1px solid #D7D7D7; border-radius:35px;\n}\n#newest .cont a div[data-v-16825bd4] { position:absolute; text-align:left; bottom:25px; left:25px;\n}\n#newest .cont a div p[data-v-16825bd4] { margin:0;\n}\n#newest .cont a div p[data-v-16825bd4]:last-of-type { font-weight:900;\n}\n#makers[data-v-16825bd4] { margin-top:80px;\n}\n#makers .tit .col[data-v-16825bd4] { margin:25px 0px;\n}\n#makers .cont .slide[data-v-16825bd4] { overflow:hidden; max-width:100%; width:100%;\n}\n#makers .cont .slide[data-v-16825bd4] .carousel-item .item_box { display:flex; flex-wrap:wrap;\n}\n#makers .cont .slide[data-v-16825bd4] .carousel-item .item_box a { flex:0 0 auto; width:calc(16.666667% - 10px); height:160px; margin:0 5px; text-align:center; overflow:hidden;\n}\n#makers .cont .slide[data-v-16825bd4] .carousel-item .item_box a img { width:100%; height:100px; -o-object-fit:contain; object-fit:contain; border:1px solid #000; border-radius:20px; margin-bottom:10px;\n}\n#makers .cont .slide[data-v-16825bd4] .carousel-control-prev, \r\n#makers .cont .slide[data-v-16825bd4] .carousel-control-next { width:3%;\n}\n#makers .cont .slide[data-v-16825bd4] .carousel-indicators li { background-color:#898989;\n}\n#makers .cont .slide[data-v-16825bd4] .carousel-control-prev:hover,\r\n#makers .cont .slide[data-v-16825bd4] .carousel-control-next:hover { background-color:#55888888;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
