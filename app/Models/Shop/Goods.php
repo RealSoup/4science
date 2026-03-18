@@ -707,7 +707,7 @@ class Goods extends Model {
             ->limit($limit)
             ->get();
         
-        $top_selling = Redis::get('update_key_top_selling');
+        $top_selling = Redis::get('top_selling');
         
         $instance = new self();
 

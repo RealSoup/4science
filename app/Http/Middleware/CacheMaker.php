@@ -152,7 +152,7 @@ class CacheMaker {
                 ->get()
                 ->random(10);
 
-            Redis::set('top_selling', $data);
+            Redis::set('top_selling', $top10);
         }
 
 
