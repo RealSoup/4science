@@ -202,11 +202,7 @@ var render = function render() {
         }
       }
     }
-  }, [_c("b-img", {
-    attrs: {
-      src: "/storage/main/cate/bg".concat(_vm.$route.query.ca01, ".gif")
-    }
-  }), _vm._v(" "), _c("h6", [_vm._v(_vm._s(_vm.thisCaName))])], 1), _vm._v(" "), _vm._l(_vm.category_picks.slice(0, 6), function (gd, i) {
+  }, [_c("h6", [_vm._v(_vm._s(_vm.thisCaName))])]), _vm._v(" "), _vm._l(_vm.category_picks.slice(0, 6), function (gd, i) {
     return _c("b-link", {
       key: i,
       staticClass: "col con",

@@ -59,7 +59,7 @@
         <b-container v-if="category_picks" class="category_picks">
             <b-row>                   
                 <b-link :to="{name: 'goods_index', query: { ca01:$route.query.ca01 } }" class="col tit" >
-                    <b-img :src="`/storage/main/cate/bg${$route.query.ca01}.gif`"></b-img>
+                    <!-- <b-img :src="`/storage/main/cate/bg${$route.query.ca01}.gif`"></b-img> -->
                     <h6>{{thisCaName}}</h6>
                 </b-link>
                 <b-link class="col con" 
