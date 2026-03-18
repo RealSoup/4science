@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Cache;
 use Illuminate\Support\Arr;
 use App\Models\{User, Info, ShowWindow};
-use App\Models\Shop\{Goods, GoodsCategory, Category};
+use App\Models\Shop\{Goods, GoodsCategory, Category, Maker};
 use Illuminate\Support\Facades\Redis;
 
 class CacheMaker {
@@ -54,7 +54,23 @@ class CacheMaker {
             $data = $ca->getCateTree();
             Redis::set('categoryAll',  json_encode($data));
         }
-      
+
+        $key_nm = 'update_key_best_cate';
+        $db_key = Info::Key($key_nm)->first()->val;
+        if( $db_key !== Redis::get($key_nm) ) {
+            Redis::set($key_nm, $db_key); 
+            $data = [];
+            foreach (json_decode(Redis::get('categoryAll')) as $ca) {
+                $data[$ca->ca_id] = Goods::join( 'show_window', 'shop_goods.gd_id', '=', 'show_window.sw_key' )
+                    ->where([['sw_type', 'ca_best'], ['sw_group', $ca->ca_id]])
+                    ->orderBy("sw_seq")
+                    ->get();
+            }
+            Redis::set('best_cate', json_encode($data));
+        }
+
+
+/////////////////////////////////////////////////////////
         $key_nm = 'update_key_best_main';
         $db_key = Info::Key($key_nm)->first()->val;
         if( $db_key !== Redis::get($key_nm) ) {
@@ -69,7 +85,6 @@ class CacheMaker {
                 ->get()->toJson();
             Redis::set('best_main', $data);
         }
-        
 
         $key_nm = 'update_key_banner_goods';
         $db_key = Info::Key($key_nm)->first()->val;
@@ -85,20 +100,26 @@ class CacheMaker {
                 ->get()->toJson();
             Redis::set('banner_goods', $data);
         }
-
-        $key_nm = 'update_key_best_cate';
+        
+        $key_nm = 'update_key_maker_shop';
         $db_key = Info::Key($key_nm)->first()->val;
         if( $db_key !== Redis::get($key_nm) ) {
-            Redis::set($key_nm, $db_key); 
-            $data = [];
-            foreach (json_decode(Redis::get('categoryAll')) as $ca) {
-                $data[$ca->ca_id] = Goods::join( 'show_window', 'shop_goods.gd_id', '=', 'show_window.sw_key' )
-                    ->where([['sw_type', 'ca_best'], ['sw_group', $ca->ca_id]])
-                    ->orderBy("sw_seq")
-                    ->get();
-            }
-            Redis::set('best_cate', json_encode($data));
+            Redis::set($key_nm, $db_key);
+            $data = Maker::with('fileInfo')->whereNotNull('mk_desc')->where('mk_desc', '!=', '')->orderBy('mk_name')->get()->chunk(12)->toJson();
+            Redis::set('maker_shop', $data);
         }
+
+        $key_nm = 'update_key_newest';
+        $db_key = Info::Key($key_nm)->first()->val;
+        if( $db_key !== Redis::get($key_nm) ) {
+            Redis::set($key_nm, $db_key);
+            $data = Goods::with('maker')->latest()->limit(4)->get();
+            Redis::set('newest', $data);
+        }
+
+
+
+
 
         //  검색엔진 인덱스 작업을 관리한 메모리캐쉬 키생성
         if( !Redis::get('is_working_index') )

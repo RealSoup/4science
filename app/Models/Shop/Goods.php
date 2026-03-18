@@ -651,7 +651,7 @@ class Goods extends Model {
         return $cl_rst['total_found'];
     }
 
-    public function recommend_goods ($limit = 4) {
+    public static function recommend_goods ($limit = 4) {
         $order = new class{};
         $estimate = new class{};
         $top10 = new class{};
@@ -733,13 +733,14 @@ class Goods extends Model {
             ->get()
             ->random($limit);
         
+        $instance = new self();
 
-        return $this->pickProducts($order, $estimate, $top10);
+        return $instance->pickProducts($order, $estimate, $top10);
     }
 
 
 
-    function pickProducts($order, $estimate, $top10) {
+    public function pickProducts($order, $estimate, $top10) {
         $order = collect($order);
         $estimate = collect($estimate);
         $top10 = collect($top10);

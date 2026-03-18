@@ -35,7 +35,7 @@
                         <p>{{siteInfo.biz.company}}  &nbsp;|&nbsp;  <span>대표 : {{siteInfo.biz.ceo}}</span></p>
                         <p class="copy">
                             Copyright(c)2016 by iNexus, inc. All rights reserved.
-                            <b-img src="/storage/common/logo/footer_logo01.png" />
+                            <b-img src="/storage/common/logo/footer_logo.png" />
                         </p>                        
                     </b-col>
                 </b-row>

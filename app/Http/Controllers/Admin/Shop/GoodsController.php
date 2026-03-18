@@ -223,6 +223,10 @@ class GoodsController extends Controller {
         foreach ($req->goods_relate as $gr)
             DB::table('shop_goods_relate')->insert( $this->goodsRelate_paramImplant($goods->gd_id, $gr));
 
+
+        //  최신상품 캐시 새로고침
+        DB::table('infos')->where('key', 'update_key_newest')->update(['val' => uniqid()]);
+
         //  검색엔진 갱신
         if ($req->gd_type != 'REN')
             self::exeIndex();

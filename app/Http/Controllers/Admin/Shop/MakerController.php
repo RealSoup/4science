@@ -53,6 +53,7 @@ class MakerController extends Controller {
             'updated_id'    => auth()->user()->id,
             'ip'            => $req->ip() 
         ]);
+        DB::table('infos')->where('key', 'update_key_maker_shop')->update(['val' => uniqid()]);
 		return response()->json('success', 200);
     }
     
