@@ -125,6 +125,8 @@ class GoodsController extends Controller {
                     }
                 }
             }
+        } else {
+            $data['category_picks'] = json_decode(Redis::get('best_cate'), true)[$req->ca01];
         }
 
         $qry = $this->goods->search($req, $offset, $limit);
@@ -151,8 +153,6 @@ class GoodsController extends Controller {
                 $v->goodsModelPrime = $this->goods->goods_discount_checker ($v->goodsModelPrime, $v->gd_dc);
             }
         }
-
-        $data['category_picks'] = json_decode(Redis::get('best_cate'), true)[$req->ca01];
 		return response()->json($data);
     }
 

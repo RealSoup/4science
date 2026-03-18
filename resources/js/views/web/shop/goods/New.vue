@@ -56,7 +56,7 @@
 
       
 
-        <b-container class="category_picks">
+        <b-container v-if="category_picks" class="category_picks">
             <b-row>                   
                 <b-link :to="{name: 'goods_index', query: { ca01:$route.query.ca01 } }" class="col tit" >
                     <b-img :src="`/storage/main/cate/bg${$route.query.ca01}.gif`"></b-img>
@@ -202,7 +202,7 @@ export default {
 .category_picks .tit h6 { position:absolute; top:40px; right:12px; color:#FFF; font-size:21px; font-weight:bold; }
 .category_picks .con { padding:24px; border-bottom:1px solid #1A90D6; border-right:1px solid #1A90D6; }
 .category_picks .con img { width:100%; height:166px; object-fit:contain; margin-bottom:12px; } 
-.category_picks .con p { font-size:14px; margin:0; }
+.category_picks .con p { font-size:14px; margin:0; overflow:hidden; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
 
 .list { align-items:flex-start; margin-top:25px; }
 .list .sort { flex:0 0 9%; max-width:9%; margin-right:15px; } 
