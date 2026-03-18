@@ -130,7 +130,7 @@ export default {
     },
     watch: {
         '$route.query' (to, from) {
-            if ( this.$route.name == 'goods_index' ) {
+            if (['goods_index', 'new_goods_index'].includes(this.$route.name)) {
                 this.$store.commit('goods/setFrm', {
                     ca01:this.$route.query.ca01 ?? 0,
                     ca02:this.$route.query.ca02 ?? 0,

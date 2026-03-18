@@ -215,7 +215,10 @@ export default [
         component:() => import('@/views/web/shop/goods/Show'),
         // beforeEnter: isLoggedin(),
     },
-
+    {   path: '/shop/new',
+        name: 'new_goods_index',
+        component:() => import('@/views/web/shop/goods/New'),
+    },
 //      주문
     {   path: '/shop/order/settle',
         name: 'order_settle',

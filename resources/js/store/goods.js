@@ -21,6 +21,7 @@ export default {
         categorys: {},
         sch_cate_info: {},
         pick: [],
+        category_picks: [],
         isLoadingModalViewed:false,
         default: {},
     },
@@ -44,6 +45,7 @@ export default {
             state.categorys = param.categorys;
             state.sch_cate_info = param.sch_cate_info;
             state.pick = param.pick;
+            state.category_picks = param.category_picks;
             state.isLoadingModalViewed= false;
         },
     },
@@ -59,7 +61,7 @@ export default {
             if (res && res.status === 200) {
                 if(res.data == 'no-catno'){
                     Notify.modal("Cat.No 형식이 아닙니다.", 'warning');
-                    context.commit('setData', {list:[], categorys:[], sch_cate_info:[],pick:[]});
+                    context.commit('setData', {list:[], categorys:[], sch_cate_info:[],pick:[],category_picks:[]});
                 } else {
                     context.commit('setData', res.data);
                 }
