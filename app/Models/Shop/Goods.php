@@ -13,6 +13,7 @@ use Storage;
 use DateTimeInterface;
 use Illuminate\Support\Arr;
 use App\Lib\SphinxClient;
+use Illuminate\Support\Facades\Redis;
 
 class Goods extends Model {
     use SoftDeletes;
@@ -667,7 +668,7 @@ class Goods extends Model {
                 ) as rn
             ")
             ->where('created_id', auth()->id())
-            ->where('od_type', '<>', 'buy_temp')
+            ->whereIn('od_type', ['buy_inst', 'buy_cart', 'buy_estimate'])
             ->where('od_step', '>=', '20')   // 문자열 Enum 비교
             ->where('od_step', '<',  '60')   // 문자열 Enum 비교
             ->where('odm_gm_id', '>', 0);
@@ -705,37 +706,12 @@ class Goods extends Model {
             ->select('shop_goods.*')                   // 모델 하이드레이션을 위해 모델 컬럼만 선택
             ->limit($limit)
             ->get();
-
         
-        // 1) 상품별 주문 건수 집계 (모든 사용자 기준)
-        $ordersPerGoods = DB::table('shop_order_model')
-            ->join('shop_order', 'od_id', '=', 'odm_od_id')
-            ->where('od_type', '<>', 'buy_temp')
-            ->where('od_step', '>=', '20')   // 문자열 Enum 비교
-            ->where('od_step', '<',  '60')   // 문자열 Enum 비교
-            ->where('odm_gm_id', '>', 0)
-            ->selectRaw("
-                odm_gd_id,
-                COUNT(DISTINCT odm_od_id) as order_cnt,
-                MAX(created_at) as last_order_at
-            ")
-            ->groupBy('odm_gd_id');
-
-        // 2) Goods에 조인해서 유효 상품만, 주문건수 순으로 5개
-        $top10 = Goods::query()
-            ->joinSub($ordersPerGoods, 'r', 'r.odm_gd_id', '=', 'shop_goods.gd_id')
-            ->whereNull('shop_goods.deleted_at')
-            ->where('shop_goods.gd_enable', 'Y')
-            ->orderByDesc('r.order_cnt')
-            ->orderByDesc('r.last_order_at')   // 동률이면 더 최근 주문 우선
-            ->select('shop_goods.*')
-            ->limit(20)
-            ->get()
-            ->random($limit);
+        $top_selling = Redis::get('update_key_top_selling');
         
         $instance = new self();
 
-        return $instance->pickProducts($order, $estimate, $top10);
+        return $instance->pickProducts($order, $estimate, $top_selling);
     }
 
 

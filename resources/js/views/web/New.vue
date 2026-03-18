@@ -108,13 +108,13 @@
         </b-row>
     </b-container>
 
-    <b-container id="makers" class="layout">
+    <b-container id="maker_shop" class="layout">
         <b-row class="tit">
             <b-col>포사이언스와 함께 하는 브랜드</b-col>
         </b-row>
         <b-row class="cont">
             <b-carousel controls indicators :interval='0'>
-                <b-carousel-slide v-for="(chunk, i) in list.makers" :key="i">
+                <b-carousel-slide v-for="(chunk, i) in list.maker_shop" :key="i">
                     <template #img>
                         <div class="item_box">
                             <b-link v-for="(item, j) in chunk" :key="`${i}_${j}`" :to="{ name: 'makerShop_index', params: {mk_id: item.mk_id} }">
@@ -150,7 +150,7 @@ export default {
                 banner_goods:[],
                 recommend_goods:[],
                 newest:[],
-                makers:[],
+                maker_shop:[],
             },
         }
     },
@@ -181,7 +181,7 @@ export default {
         this.list.banner_goods =    rst.data.banner_goods;
         this.list.recommend_goods = rst.data.recommend_goods;
         this.list.newest =          rst.data.newest;
-        this.list.makers =          rst.data.makers;
+        this.list.maker_shop =      rst.data.maker_shop;
         if ( this.$route.query.rst=='social_login' ) {  //  소셜 로그인 후 개인정보가 없으면
             if (isEmpty(this.$store.state.auth.user.email) || isEmpty(this.$store.state.auth.user.name) || isEmpty(this.$store.state.auth.user.birth) || isEmpty(this.$store.state.auth.user.hp)) {
                 this.$router.push({ name: 'my_user_edit'});
@@ -276,15 +276,15 @@ export default {
 #newest .cont a div p { margin:0; }
 #newest .cont a div p:last-of-type { font-weight:900; }
 
-#makers { margin-top:80px; }
-#makers .tit .col { margin:25px 0px; }
-#makers .cont .slide { overflow:hidden; max-width:100%; width:100%; }
-#makers .cont .slide::v-deep .carousel-item .item_box { display:flex; flex-wrap:wrap; }
-#makers .cont .slide::v-deep .carousel-item .item_box a { flex:0 0 auto; width:calc(16.666667% - 10px); height:160px; margin:0 5px; text-align:center; overflow:hidden; }
-#makers .cont .slide::v-deep .carousel-item .item_box a img { width:100%; height:100px; object-fit:contain; border:1px solid #000; border-radius:20px; margin-bottom:10px; }
-#makers .cont .slide::v-deep .carousel-control-prev, 
-#makers .cont .slide::v-deep .carousel-control-next { width:3%; }
-#makers .cont .slide::v-deep .carousel-indicators li { background-color:#898989; }
-#makers .cont .slide::v-deep .carousel-control-prev:hover,
-#makers .cont .slide::v-deep .carousel-control-next:hover { background-color:#55888888; }
+#maker_shop { margin-top:80px; }
+#maker_shop .tit .col { margin:25px 0px; }
+#maker_shop .cont .slide { overflow:hidden; max-width:100%; width:100%; }
+#maker_shop .cont .slide::v-deep .carousel-item .item_box { display:flex; flex-wrap:wrap; }
+#maker_shop .cont .slide::v-deep .carousel-item .item_box a { flex:0 0 auto; width:calc(16.666667% - 10px); height:160px; margin:0 5px; text-align:center; overflow:hidden; }
+#maker_shop .cont .slide::v-deep .carousel-item .item_box a img { width:100%; height:100px; object-fit:contain; border:1px solid #000; border-radius:20px; margin-bottom:10px; }
+#maker_shop .cont .slide::v-deep .carousel-control-prev, 
+#maker_shop .cont .slide::v-deep .carousel-control-next { width:3%; }
+#maker_shop .cont .slide::v-deep .carousel-indicators li { background-color:#898989; }
+#maker_shop .cont .slide::v-deep .carousel-control-prev:hover,
+#maker_shop .cont .slide::v-deep .carousel-control-next:hover { background-color:#55888888; }
 </style>

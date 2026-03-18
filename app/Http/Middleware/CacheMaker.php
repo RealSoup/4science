@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Cache;
+use DB;
 use Illuminate\Support\Arr;
 use App\Models\{User, Info, ShowWindow};
 use App\Models\Shop\{Goods, GoodsCategory, Category, Maker};
@@ -115,6 +116,43 @@ class CacheMaker {
             Redis::set($key_nm, $db_key);
             $data = Goods::with('maker')->latest()->limit(4)->get();
             Redis::set('newest', $data);
+        }
+
+        /*
+            새로고침 기준에 매일 새벽 4시임
+            소스 위치
+            \app\Http\Kernel.php -> protected function schedule
+        */
+        
+        $key_nm = 'update_key_top_selling';
+        $db_key = Info::Key($key_nm)->first()->val;
+        if( $db_key !== Redis::get($key_nm) ) {
+            Redis::set($key_nm, $db_key);
+            $ordersPerGoods = DB::table('shop_order')
+                ->whereIn('od_type', ['buy_inst', 'buy_cart', 'buy_estimate'])
+                ->whereIn('od_step', ['20', '30', '31', '40', '50'])
+                ->join('shop_order_model', 'odm_od_id', '=', 'od_id')
+                ->where('odm_gm_id', '>', 0)
+                ->selectRaw("
+                    odm_gd_id,
+                    COUNT(od_id) as order_cnt,
+                    MAX(created_at) as last_order_at
+                ")
+                ->groupBy('odm_gd_id');
+
+            // 2) Goods에 조인해서 유효 상품만, 주문건수 순으로 5개
+            $top10 = Goods::query()
+                ->joinSub($ordersPerGoods, 'r', 'r.odm_gd_id', '=', 'shop_goods.gd_id')
+                ->whereNull('shop_goods.deleted_at')
+                ->where('shop_goods.gd_enable', 'Y')
+                ->orderByDesc('r.order_cnt')
+                ->orderByDesc('r.last_order_at')   // 동률이면 더 최근 주문 우선
+                ->select('shop_goods.*')
+                ->limit(20)
+                ->get()
+                ->random(10);
+
+            Redis::set('top_selling', $data);
         }
 
 
