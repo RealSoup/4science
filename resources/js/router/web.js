@@ -371,9 +371,9 @@ export default [
     
 
 //      테스트
-    {   path: '/test/psys',
-        name: 'test_psys',
-        component:() => import('@/views/web/test/Psys'),
+    {   path: '/test/search_test',
+        name: 'search_test',
+        component:() => import('@/views/web/test/SearchTest'),
         // beforeEnter: isLoggedin(),
     },
 

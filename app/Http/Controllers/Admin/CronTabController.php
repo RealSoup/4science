@@ -30,7 +30,7 @@ class CronTabController extends Controller {
 			->get();
 
 		foreach( $od as $v ){
-			if(intval($v->user->level) < 5 || auth()->user()->level > 20 ) {	//	딜러회원은 제외
+			if(intval($v->user->level) < 6 || auth()->user()->level > 20 ) {	//	딜러회원은 제외
 				$p = $v->odm_price*$v->odm_ea*$v->user->mileage_mul;
 				$content='수취확인(자동)';
 				if($v->orderCoupon && count($v->orderCoupon)) {
@@ -67,6 +67,8 @@ class CronTabController extends Controller {
 	 * 구매 완료시 브론즈
 	 * 200만원 달성 및 유지시 실버
 	 * 500만원 달성 및 유지시 골드
+	 * 
+	 * 단 플래티넘 회원은 그대로 유지한다
      */
 	public function adjustMemberLevel(){
 		//	모든 유저 레벨 초기화

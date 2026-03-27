@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Shop\{Goods, Category, GoodsCategory, Order};
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Lib\SphinxClient;
 use App\Traits\Crawling;
@@ -125,11 +124,9 @@ class GoodsController extends Controller {
                     }
                 }
             }
-        } else {
-            $data['category_picks'] = json_decode(Redis::get('best_cate'), true)[$req->ca01];
         }
 
-        $qry = $this->goods->search($req, $offset, $limit);
+        $qry = $this->goods->goodsSearch($req, $offset, $limit);
      
         if( gettype($qry) == 'string' && $qry == 'no-catno' )
             return response()->json($qry);
@@ -138,8 +135,13 @@ class GoodsController extends Controller {
         if ($req->filled('limit'))  //  메인 베스트
             $data['list'] = $qry->limit($req->limit)->get(); 
         else {
+            // $data['list'] = $qry->paginate();
+            // $data['list']->appends($req->all())->links();
+
             //  포사의 PICK
-            $pick_data = $this->goods->search($req, 0, 12, '4s_pick')->get();
+            $pick_data = $this->goods->goodsSearch($req, 0, 12, '4s_pick')->get();
+            // dd($pick_data);
+            // $pick_data = $pick_data->where('gd_seq', '<', 999999)->orderBy('gd_seq')->limit(12)->get();
             if(count($pick_data)) {
                 $data['pick'][0] = $pick_data->take(6);
                 if (count($pick_data) > 6)
@@ -151,6 +153,15 @@ class GoodsController extends Controller {
 
             foreach ($data['list'] as $v) {
                 $v->goodsModelPrime = $this->goods->goods_discount_checker ($v->goodsModelPrime, $v->gd_dc);
+                // if( auth()->check() && auth()->user()->level == 12 ) {
+                //     $v->goodsModelPrime->dc_type = "dealer";
+                //     $v->goodsModelPrime->gm_price_dc = $v->goodsModelPrime->gm_price*auth()->user()->dc_mul;
+                //     $v->goodsModelPrime->gm_price_dc_add_vat = rrp($v->goodsModelPrime->gm_price_dc);
+                // } else if ($v->gd_dc) {
+                //     $v->goodsModelPrime->dc_type = "goods_dc";
+                //     $v->goodsModelPrime->gm_price_dc = $this->goods->cal_dc($v->goodsModelPrime->gm_price, $v->gd_dc);
+                //     $v->goodsModelPrime->gm_price_dc_add_vat = rrp($v->goodsModelPrime->gm_price_dc);
+                // }
             }
         }
 		return response()->json($data);

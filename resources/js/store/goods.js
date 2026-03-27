@@ -57,7 +57,20 @@ export default {
                 if ( !isEmpty(context.state.frm[i]) )
                     nfrm[i] = context.state.frm[i];
             }
-            const res = await ax.get(`/api/shop/goods`, { params: nfrm});
+
+
+            let res;
+            if (['search_test'].includes(router.currentRoute.name)) {
+                res = await ax.get(`/api/test/search_test`, { params: nfrm});
+            } else {
+                res = await ax.get(`/api/shop/goods`, { params: nfrm});
+            }
+
+
+
+
+            
+            
             if (res && res.status === 200) {
                 if(res.data == 'no-catno'){
                     Notify.modal("Cat.No 형식이 아닙니다.", 'warning');
@@ -90,7 +103,17 @@ export default {
                 if ( !isEmpty(context.state.frm[i]) )
                     nfrm[i] = context.state.frm[i];
             }
-            router.push({ name: 'goods_index', query: nfrm }).catch(()=>{});
+            // router.push({ name: 'goods_index', query: nfrm }).catch(()=>{});
+
+
+            // 조건별 라우팅 처리
+            if (['new_main', 'new_goods_index'].includes(router.currentRoute.name)) {
+                router.push({ name: 'new_goods_index', query: nfrm }).catch(() => {});
+            } else if (['search_test'].includes(router.currentRoute.name)) {                
+                router.push({ name: 'search_test', query: nfrm }).catch(() => {});
+            } else {
+                router.push({ name: 'goods_index', query: nfrm }).catch(() => {});
+            }
         },
     },
 }

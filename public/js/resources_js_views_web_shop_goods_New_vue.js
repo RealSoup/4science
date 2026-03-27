@@ -97,100 +97,7 @@ var render = function render() {
       p_ca03: _vm.$route.query.ca03,
       p_ca04: _vm.$route.query.ca04
     }
-  }) : _vm._e(), _vm._v(" "), _vm.sch_cate_info ? _c("b-container", {
-    staticClass: "layout sch_detail"
-  }, [_c("b-row", [_c("b-col", [_c("h5", [_vm._v("카테고리")]), _vm._v(" "), _c("p", {
-    on: {
-      click: function click($event) {
-        ;
-        _vm.frm.ca01 = 0, _vm.frm.ca02 = 0, _vm.frm.ca03 = 0, _vm.frm.mk_id = 0, _vm.frm.keyword_extra = "", _vm.routerPush();
-      }
-    }
-  }, [_vm._v("전체보기 "), _c("span", [_vm._v(_vm._s(_vm.sch_cate_info.all))])]), _vm._v(" "), _vm._l(_vm.sch_cate_info.ca01, function (ca) {
-    return _c("p", {
-      key: ca.key,
-      "class": {
-        chk: _vm.frm.ca01 == ca.key
-      },
-      on: {
-        click: function click($event) {
-          ;
-          _vm.frm.ca01 = ca.key, _vm.frm.ca02 = 0, _vm.frm.ca03 = 0, _vm.frm.mk_id = 0, _vm.frm.keyword_extra = "", _vm.routerPush();
-        }
-      }
-    }, [_vm._v("\r\n                        " + _vm._s(ca.name) + " "), _c("span", [_vm._v(_vm._s(ca.cnt))])]);
-  })], 2), _vm._v(" "), _c("b-col", [_c("h5", [_vm._v("중분류")]), _vm._v(" "), _vm._l(_vm.sch_cate_info.ca02, function (ca) {
-    return _c("p", {
-      key: ca.key,
-      "class": {
-        chk: _vm.frm.ca02 == ca.key
-      },
-      on: {
-        click: function click($event) {
-          ;
-          _vm.frm.ca02 = ca.key, _vm.frm.ca03 = 0, _vm.frm.mk_id = 0, _vm.frm.keyword_extra = "", _vm.routerPush();
-        }
-      }
-    }, [_vm._v("\r\n                        " + _vm._s(ca.name) + " "), _c("span", [_vm._v(_vm._s(ca.cnt))])]);
-  })], 2), _vm._v(" "), _c("b-col", [_c("h5", [_vm._v("소분류")]), _vm._v(" "), _vm._l(_vm.sch_cate_info.ca03, function (ca) {
-    return _c("p", {
-      key: ca.key,
-      "class": {
-        chk: _vm.frm.ca03 == ca.key
-      },
-      on: {
-        click: function click($event) {
-          ;
-          _vm.frm.ca03 = ca.key, _vm.frm.mk_id = 0, _vm.frm.keyword_extra = "", _vm.routerPush();
-        }
-      }
-    }, [_vm._v("\r\n                        " + _vm._s(ca.name) + " "), _c("span", [_vm._v(_vm._s(ca.cnt))])]);
-  })], 2), _vm._v(" "), _c("b-col", [_c("h5", [_vm._v("제조사")]), _vm._v(" "), _vm._l(_vm.sch_cate_info.maker, function (mk) {
-    return _c("p", {
-      key: mk.key,
-      "class": {
-        chk: _vm.frm.mk_id == mk.key
-      },
-      on: {
-        click: function click($event) {
-          ;
-          _vm.frm.mk_id = mk.key, _vm.frm.keyword_extra = "", _vm.routerPush();
-        }
-      }
-    }, [_vm._v("\r\n                        " + _vm._s(mk.name) + " "), _c("span", [_vm._v(_vm._s(mk.cnt))])]);
-  })], 2)], 1), _vm._v(" "), _c("div", {
-    staticClass: "extra_sch"
-  }, [_c("b", [_vm._v("결과 내 검색")]), _vm._v(" "), _c("b-input-group", [_c("b-form-input", {
-    attrs: {
-      placeholder: "검색어를 입력하세요"
-    },
-    on: {
-      keyup: function keyup($event) {
-        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
-        return _vm.routerPush();
-      }
-    },
-    model: {
-      value: _vm.frm.keyword_extra,
-      callback: function callback($$v) {
-        _vm.$set(_vm.frm, "keyword_extra", $$v);
-      },
-      expression: "frm.keyword_extra"
-    }
-  }), _vm._v(" "), _c("b-input-group-append", [_c("b-button", {
-    attrs: {
-      variant: "info"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.routerPush();
-      }
-    }
-  }, [_c("font-awesome-icon", {
-    attrs: {
-      icon: "search"
-    }
-  })], 1)], 1)], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _vm.category_picks ? _c("b-container", {
+  }) : _vm._e(), _vm._v(" "), _vm.category_picks ? _c("b-container", {
     staticClass: "category_picks"
   }, [_c("b-row", [_c("b-link", {
     staticClass: "col tit",
@@ -224,45 +131,7 @@ var render = function render() {
     staticClass: "layout"
   }, [_c("b-container", [_c("b-row", {
     staticClass: "list"
-  }, [_c("b-col", {
-    staticClass: "sort m_hide"
-  }, [_c("ul", [_c("li", {
-    "class": {
-      active: _vm.frm.sort == "hot"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.sort("hot");
-      }
-    }
-  }, [_vm._v("인기상품순")]), _vm._v(" "), _c("li", {
-    "class": {
-      active: _vm.frm.sort == "new"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.sort("new");
-      }
-    }
-  }, [_vm._v("신상품순")]), _vm._v(" "), _c("li", {
-    "class": {
-      active: _vm.frm.sort == "lowPri"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.sort("lowPri");
-      }
-    }
-  }, [_vm._v("낮은가격순")]), _vm._v(" "), _c("li", {
-    "class": {
-      active: _vm.frm.sort == "highPri"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.sort("highPri");
-      }
-    }
-  }, [_vm._v("높은가격순")])])]), _vm._v(" "), _c("b-col", [_c("b-row", {
+  }, [_c("b-col", [_c("b-row", {
     staticClass: "lhead"
   }, [_c("b-col", [_vm._v("상품")]), _vm._v(" "), _c("b-col", {
     staticClass: "m_hide"

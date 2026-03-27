@@ -49,7 +49,7 @@ class GoodsController extends Controller {
             $page = ceil($total / $limit);
             $offset = ($page*$limit)-$limit;
         }
-        $qry = $this->goods->search($req, $offset, $limit);
+        $qry = $this->goods->goodsSearch($req, $offset, $limit);
      
         if( gettype($qry) == 'string' && $qry == 'no-catno' )
             return response()->json($qry);

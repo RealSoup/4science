@@ -158,7 +158,7 @@ var render = function render() {
     staticClass: "rank"
   }, [_c("p", [_c("span", {
     staticClass: "m_hide"
-  }, [_vm._v("나의 ")]), _vm._v("등급")]), _vm._v(" "), _c("b", [_vm.user.level == 1 ? [_vm._v("       신입")] : _vm.user.level == 2 ? [_vm._v("  브론즈")] : _vm.user.level == 3 ? [_vm._v("  실버")] : _vm.user.level == 4 ? [_vm._v("  골드")] : _vm.user.level == 5 ? [_vm._v("  다이아")] : _vm.user.level == 11 ? [_vm._v(" 딜러")] : _vm.user.level == 12 ? [_vm._v(" 딜러")] : _vm.user.level > 14 ? [_vm._v("  킹왕짱")] : _vm._e()], 2), _vm._v(" "), _c("b-link", {
+  }, [_vm._v("나의 ")]), _vm._v("등급")]), _vm._v(" "), _c("b", [_vm.user.level == 1 ? [_vm._v("       신입")] : _vm.user.level == 2 ? [_vm._v("  브론즈")] : _vm.user.level == 3 ? [_vm._v("  실버")] : _vm.user.level == 4 ? [_vm._v("  골드")] : _vm.user.level == 5 ? [_vm._v("  플래티넘")] : _vm.user.level == 11 ? [_vm._v(" 딜러")] : _vm.user.level == 12 ? [_vm._v(" 딜러")] : _vm.user.level > 14 ? [_vm._v("  킹왕짱")] : _vm._e()], 2), _vm._v(" "), _c("b-link", {
     attrs: {
       to: "/cscenter?view_type=membership"
     }

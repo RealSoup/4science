@@ -461,7 +461,7 @@ class OrderController extends Controller {
             }
 		}
 		if ($rst) {
-            if ( auth()->user()->level < 5 || auth()->user()->level > 20 ) {
+            if ( auth()->user()->level < 6 || auth()->user()->level > 20 ) {
                 $empty_value = array_filter( $req->order_dlvy_info, fn($v) => empty($v['oddi_receive_date']) ); //  수취 확인 안한거 체크
                 if (count($empty_value) == 0) { //  수취 확인 안한게 없다면 마일리지 지급
                     $m = new \App\Models\UserMileage;

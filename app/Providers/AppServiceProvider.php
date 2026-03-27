@@ -10,8 +10,39 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 
 class AppServiceProvider extends ServiceProvider {
     public function register() {
+        $this->app->singleton(\Elastic\Elasticsearch\Client::class, function () {
+            return \Elastic\Elasticsearch\ClientBuilder::create()
+                ->setHosts([env('ELASTICSEARCH_HOST', 'http://localhost:9200')])
+                ->setBasicAuthentication(
+                    env('ELASTICSEARCH_USER', 'elastic'),
+                    env('ELASTICSEARCH_PASSWORD', '')
+                )
+                ->setSSLVerification(false)
+                ->build();
+        });
 
+        // Scout 엔진에 클라이언트 연결
+        $this->app->bind(\Elastic\Client\ClientBuilderInterface::class, function () {
+            return new class($this->app->make(\Elastic\Elasticsearch\Client::class)) 
+                implements \Elastic\Client\ClientBuilderInterface {
+                private $client;
+                public function __construct($client) { $this->client = $client; }
+                public function default(): \Elastic\Elasticsearch\Client { return $this->client; }
+            };
+        });
+
+        $this->app->bind(\Elastic\Client\ClientBuilderInterface::class, function () {
+            return new class($this->app->make(\Elastic\Elasticsearch\Client::class)) 
+                implements \Elastic\Client\ClientBuilderInterface {
+                private $client;
+                public function __construct($client) { $this->client = $client; }
+                public function default(): \Elastic\Elasticsearch\Client { return $this->client; }
+                public function connection(string $name): \Elastic\Elasticsearch\Client { return $this->client; }
+            };
+        });
     }
+
+    
 
     public function boot() {
         if (env('APP_ENV') == 'production') {

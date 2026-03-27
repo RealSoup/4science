@@ -23,6 +23,7 @@
                 <b-link :to="{name: 'outlet'}" class="m_hide">전문관</b-link>
                 <b-link :to="{name: 'cscenter'}">고객센터</b-link>
                 <b-link :to="{name: 'bo_intro'}">커뮤니티</b-link>
+                <b-link :to="{name: 'search_test'}">검색 테스트</b-link>
             </div>
            
             
@@ -109,22 +110,26 @@ export default {
         }
     },
     watch: {
-        '$route.query' (to, from) {
-            if ( this.$route.name == 'goods_index' ) {
-                this.$store.commit('goods/setFrm', {
-                    ca01:this.$route.query.ca01 ?? 0,
-                    ca02:this.$route.query.ca02 ?? 0,
-                    ca03:this.$route.query.ca03 ?? 0,
-                    ca04:this.$route.query.ca04 ?? 0,
-                    mk_id:this.$route.query.mk_id ?? 0,
-                    mode:this.$route.query.mode ?? "",
-                    keyword:this.$route.query.keyword ?? "",
-                    keyword_extra:this.$route.query.keyword_extra ?? "",
-                    sort:this.$route.query.sort ?? "",
-                    page:this.$route.query.page ?? 0,
-                });
-                this.$store.dispatch('goods/index');
-            }
+        '$route.query': {
+            
+            handler(to, from) {
+                if (['goods_index', 'new_goods_index', 'search_test'].includes(this.$route.name)) {
+                    this.$store.commit('goods/setFrm', {
+                        ca01:this.$route.query.ca01 ?? 0,
+                        ca02:this.$route.query.ca02 ?? 0,
+                        ca03:this.$route.query.ca03 ?? 0,
+                        ca04:this.$route.query.ca04 ?? 0,
+                        mk_id:this.$route.query.mk_id ?? 0,
+                        mode:this.$route.query.mode ?? "",
+                        keyword:this.$route.query.keyword ?? "",
+                        keyword_extra:this.$route.query.keyword_extra ?? "",
+                        sort:this.$route.query.sort ?? "",
+                        page:this.$route.query.page ?? 0,
+                    });
+                    this.$store.dispatch('goods/index');
+                }
+            },
+            immediate: true
         }
     },
     computed: {
@@ -142,7 +147,7 @@ export default {
             if(this.frm.keyword == '') {
                 Notify.modal('검색어를 입력하세요.', 'warning');
                 return false;
-            }
+            }            
             this.$store.dispatch('goods/routerPush', 'new');
         },        
     },
@@ -157,7 +162,7 @@ export default {
 #header .admin { position:absolute; top:0; left:50%; transform:translateX(-50%); z-index: 1; }
 #header .admin a { display:inline-block; background-color:#ff4d00; padding:3px 10px; border-radius:0 0 10px 10px; color:#fff; font-weight:bold; text-align:center; }
 
-#header #core .logo { display:inline-block; width:220px; padding:27px 0 0 27px; }
+#header #core .logo { display:inline-block; width:220px; padding:7px 0 0 27px; transform:translateY(20px); }
 #header #core .logo img { width:100%; }
 #header #core nav { display:flex; align-items:flex-end; }
 #header #core nav>div { flex-basis:0; flex-grow:1; max-width:100%; width:100%; }

@@ -70,8 +70,9 @@
                 <b-badge v-if="us.level==2" class="bronz">{{option.level[us.level]}}</b-badge>
                 <b-badge v-if="us.level==3" class="silver">{{option.level[us.level]}}</b-badge>
                 <b-badge v-if="us.level==4" class="gold">{{option.level[us.level]}}</b-badge>
+                <b-badge v-if="us.level==5" class="platinum">{{option.level[us.level]}}</b-badge>
                 <b-badge v-if="us.level==11" class="dealer_new">{{option.level[us.level]}}</b-badge>
-                                <b-badge v-if="us.level==12" class="dealer">{{option.level[us.level]}}</b-badge>
+                <b-badge v-if="us.level==12" class="dealer">{{option.level[us.level]}}</b-badge>
                 <b-badge v-if="us.level==21" class="admin">{{option.level[us.level]}}</b-badge>
                 <b-badge v-if="us.level==29" class="super">{{option.level[us.level]}}</b-badge>
             </b-col>
@@ -166,6 +167,8 @@ export default {
 .cmain .row .col .bronz { background-color:#F16621; }
 .cmain .row .col .silver { background-color:#ACACAC; }
 .cmain .row .col .gold { background-color:#FBC660; }
+.cmain .row .col .platinum { background: radial-gradient(ellipse at 40% 40%, #f0f0f0 0%, #d0d0d0 30%, #a8a8a8 60%, #c0c0c0 100% );
+                            box-shadow: inset 0 1px 3px rgba(255,255,255,0.6), inset 0 -1px 3px rgba(0,0,0,0.2); }
 .cmain .row .col .dealer_new { background-color:#9B1AB2; }
 .cmain .row .col .dealer { background-color:#24cdda; }
 .cmain .row .col .admin { background-color:#0173BA; }

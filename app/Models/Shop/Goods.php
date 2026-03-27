@@ -5,18 +5,19 @@ namespace App\Models\Shop;
 // use App\Events\GoodsDeleted;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
-use App\Models\{User, FileGoods, UserCoupon};
-use App\Models\Shop\{EstimateReply};
-use DB;
-use Storage;
-use DateTimeInterface;
-use Illuminate\Support\Arr;
-use App\Lib\SphinxClient;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Arr;
+use Laravel\Scout\Searchable;
+use App\Models\Shop\{EstimateReply};
+use App\Models\{User, FileGoods, UserCoupon};
+use App\Lib\SphinxClient;
+use Carbon\Carbon;
+use DateTimeInterface;
+use Storage;
+use DB;
 
 class Goods extends Model {
-    use SoftDeletes;
+    use SoftDeletes, Searchable;
     protected $primaryKey = 'gd_id';
     protected $dates = [ 'created_at', 'updated_at', 'deleted_at' ];
     protected $table = 'shop_goods';
@@ -134,6 +135,49 @@ class Goods extends Model {
         if (!$rst){ $rst[] = noimg($noimg_p); }
         return $rst;
     }
+
+    //  Elastic Search
+    public function toSearchableArray() {
+        $this->loadMissing(['maker', 'goodsModel', 'goodsCategoryFirst']);
+        // php artisan scout:sync-settings
+        
+        // Prime 모델 찾기
+        $prime = $this->goodsModel->firstWhere('gm_prime', 'Y') ?? $this->goodsModel->first();
+
+        return [
+            'gd_id'      => $this->gd_id,
+            'gd_name'    => $this->gd_name,
+            'gd_keyword' => $this->gd_keyword ?? '',
+            'mk_name'    => $this->maker->mk_name ?? '',
+
+            // 대표 모델 (목록 표시용)
+            'gm_name'  => $prime->gm_name ?? '',
+            'gm_code'  => $prime->gm_code ?? '',
+            'gm_catno' => $prime->gm_catno ?? '',
+            'gm_price' => $prime->gm_price ?? 0,
+
+            // 전체 모델 (검색용)
+            'gm_name_all'  => $this->goodsModel->pluck('gm_name')->filter()->implode(' '),
+            'gm_code_all'  => $this->goodsModel->pluck('gm_code')->filter()->implode(' '),
+            'gm_catno_all' => $this->goodsModel->pluck('gm_catno')->filter()->implode(' '),
+
+            // 필터용
+            'gd_enable'   => $this->gd_enable,
+            'gd_type'     => $this->gd_type,
+            'gd_mk_id'    => $this->gd_mk_id,
+            'gc_ca01'     => $this->goodsCategoryFirst->gc_ca01 ?? 0,
+            'gc_ca02'     => $this->goodsCategoryFirst->gc_ca02 ?? 0,
+            'gc_ca03'     => $this->goodsCategoryFirst->gc_ca03 ?? 0,
+            'gc_ca04'     => $this->goodsCategoryFirst->gc_ca04 ?? 0,
+
+            // 정렬용
+            'gd_seq'      => (int) $this->gd_seq,
+            'gd_rank'     => $this->gd_rank,
+            'gd_view_cnt' => $this->gd_view_cnt,
+        ];
+    }
+
+   
 
     //  요청한 상품 정보를 직배송 형태로 변환, 리턴
     public function getGoodsDataCollection($some, $type='buy_cart', $mode=null) {
@@ -504,7 +548,7 @@ class Goods extends Model {
         }
     }
 
-    public function search ($req, $offset, $limit, $type=null) {
+    public function goodsSearch ($req, $offset, $limit, $type=null) {
         $q_str = $kw ='';
         
         if ($req->filled('keyword')) {

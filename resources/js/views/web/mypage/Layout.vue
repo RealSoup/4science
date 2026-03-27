@@ -17,7 +17,7 @@
                 <template v-else-if="user.level == 2">  브론즈</template>
                 <template v-else-if="user.level == 3">  실버</template>
                 <template v-else-if="user.level == 4">  골드</template>
-                <template v-else-if="user.level == 5">  다이아</template>
+                <template v-else-if="user.level == 5">  플래티넘</template>
                 <template v-else-if="user.level == 11"> 딜러</template>
                 <template v-else-if="user.level == 12"> 딜러</template>
                 <template v-else-if="user.level > 14">  킹왕짱</template>

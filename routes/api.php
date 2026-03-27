@@ -334,7 +334,9 @@ Route::prefix('event')->group(function () {
     Route::GET('couponDownCheck', 'EventController@couponDownCheck');
 });
 
-
+Route::prefix('test')->group(function () {
+    Route::GET('search_test',       'TestController@search_test');
+});
 
 
             

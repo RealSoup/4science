@@ -3,14 +3,14 @@
     <pop-up></pop-up>
     
     <div id="banner_box" class="layout">
-        <b-link to="/board/notice/show/55" class="banner01">
-            <img src="/storage/main/new/rec01.jpg" />
-        </b-link>
-        <b-link to="/board/notice/show/55" class="banner02">
-            <img src="/storage/main/new/rec02.jpg" />
+        <b-link to="/shop/goods/1227" class="bn01">
+            <img src="/storage/main/new/bn01.jpg" />
         </b-link>
 
-        <b-carousel controls indicators :interval='0'>
+        <b-carousel controls indicators :interval='0' class="bn02">
+            <b-link to="/board/event/show/62">
+                <b-carousel-slide img-src="/storage/main/new/bn02.jpg"></b-carousel-slide>
+            </b-link>
             
             <b-link
                 v-for="(item, i) in list.banner_goods"
@@ -23,32 +23,33 @@
                     <p>{{item.sw_memo}}</p>
                 </b-carousel-slide>
             </b-link>
-
-
-            <b-link to="/board/notice/show/55">
-                <b-carousel-slide img-src="/storage/main/new/slide.jpg"></b-carousel-slide>
-            </b-link>
-            <b-link to="/shop/rental">
-                <b-carousel-slide img-src="/storage/main/new/slide.jpg"></b-carousel-slide>
-            </b-link>
-            <b-link to="/shop/goods?mode=maker&keyword=radwag">
-                <b-carousel-slide :img-src="`/storage/main/new/slide.jpg`"></b-carousel-slide>
-            </b-link>
         </b-carousel>
 
+        <b-link to="/shop/goods/817906" class="bn03">
+            <img src="/storage/main/new/bn03.jpg" />
+        </b-link>
+        <div class="bn04">
+            <img src="/storage/main/new/bn0401.jpg" class="bg" />
+            <div class="scene">
+                <div class="carousel">
+                    <b-link to="/shop/goods/7919" class="item">
+                        <img src="/storage/main/new/bn0402.png" alt="피펫1">
+                    </b-link>
+                    <b-link to="/shop/goods/18182" class="item">
+                        <img src="/storage/main/new/bn0403.png" alt="피펫2">
+                    </b-link>
+                </div>
+            </div>
+        </div>
+        <b-link to="/shop/goods?ca01=28&ca02=3481&ca03=3483" class="bn05">
+            <img src="/storage/main/new/bn05.jpg" />
+        </b-link>
         
-        <b-link to="/board/notice/show/55" class="banner03">
-            <img src="/storage/main/new/rec03.jpg" />
+        <b-link to="/shop/goods?ca01=26&ca02=1008" class="bn06">
+            <img src="/storage/main/new/bn06.jpg" />
         </b-link>
-        <b-link to="/board/notice/show/55" class="banner04">
-            <img src="/storage/main/new/rec04.jpg" />
-        </b-link>
-        
-        <b-link to="/board/notice/show/55" class="banner05">
-            <img src="/storage/main/new/rec05.jpg" />
-        </b-link>
-        <b-link to="/board/notice/show/55" class="banner06">
-            <img src="/storage/main/new/rec06.jpg" />
+        <b-link to="/shop/goods?ca01=26&ca02=1067" class="bn07">
+            <img src="/storage/main/new/bn07.jpg" />
         </b-link>
     </div>        
     
@@ -188,23 +189,104 @@ export default {
                 Notify.modal('필수 개인정보를 입력하세요.', 'warning');
             }
         }
+
+        
+        
+        /////////////////////    회전 베너  시작     //////////////////////////
+        const items = document.querySelectorAll('#banner_box .bn04 .item');
+        const total = items.length;
+        const radius = 55;
+        let angle = 0;
+        let paused = false;  // ✅ animate와 같은 스코프에 있어야 함
+
+        const scene = document.querySelector('#banner_box .bn04 .scene');
+
+        scene.addEventListener('mouseenter', () => {
+            paused = true;
+            const spreadAngle = 360 / total;
+            items.forEach((item, i) => {
+                const targetTheta = i * spreadAngle + 90;
+                const targetRad = targetTheta * Math.PI / 180;
+                const x = Math.sin(targetRad) * radius;
+                const y = Math.cos(targetRad) * 60;
+                const scale = 0.6 + (Math.cos(targetRad) + 1) / 2 * 0.4;
+
+                item.style.transition = 'transform 0.5s ease';
+                item.style.transform = `translateX(${x}px) translateY(${y}px) scale(${scale})`;
+                item.style.zIndex = Math.round(scale * 10);
+            });
+        });
+
+        scene.addEventListener('mouseleave', () => {
+            paused = false;
+            items.forEach(item => item.style.transition = '');
+        });
+
+        function animate() {
+            if (!paused) {
+                angle += 0.7;
+
+                items.forEach((item, i) => {
+                    const theta = (i / total) * 360 + angle;
+                    const rad = theta * Math.PI / 180;
+                    const x = Math.sin(rad) * radius;
+                    const y = Math.cos(rad) * 60;
+                    const scale = 0.6 + (Math.cos(rad) + 1) / 2 * 0.4;
+
+                    item.style.transform = `translateX(${x}px) translateY(${y}px) scale(${scale})`;
+                    item.style.zIndex = Math.round(scale * 10);
+                });
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+        /////////////////////    회전 베너  끝   //////////////////////////
+
     },
 }
 </script>
 
 <style lang="css" scoped>
 #banner_box { display:grid; gap:30px; margin-top:20px; }
-#banner_box .banner01 { grid-area: v1; }
-#banner_box .banner02 { grid-area: v2; }
-#banner_box .slide { grid-area: v3; }
-#banner_box .banner03 { grid-area: v4; }
-#banner_box .banner04 { grid-area: v5; }
-#banner_box .banner05 { grid-area: v6; }
-#banner_box .banner06 { grid-area: v7; }
+#banner_box .bn01 { grid-area: bn01; }
+#banner_box .bn02 { grid-area: bn02; }
+#banner_box .bn03 { grid-area: bn03; }
+#banner_box .bn04 { grid-area: bn04; position: relative; }
+#banner_box .bn04 .bg { position: absolute; }
+#banner_box .bn04 .scene {
+    width: 270px;
+    height: 340px;
+    perspective: 600px;
+    position: relative;
+}
+#banner_box .bn04 .carousel {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+}
+#banner_box .bn04 .item {
+    position: absolute;
+    width: 164px;
+    height: 240px;
+    top: 50%;
+    left: 50%;
+    margin-top: -120px;
+    margin-left: -82px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#banner_box .bn04 .item img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5)); }
+#banner_box .bn05 { grid-area: bn05; }
+#banner_box .bn06 { grid-area: bn06; }
+#banner_box .bn07 { grid-area: bn07; }
 #banner_box { grid-template-areas:
-    "v1 v3 v3 v4"
-    "v2 v3 v3 v5"
-    "v2 v6 v7 v7";
+    "bn01 bn02 bn02 bn03"
+    "bn04 bn02 bn02 bn03"
+    "bn04 bn05 bn06 bn07";
 }
 @media (max-width: 767px) {
   #banner_box { gap:10px;
@@ -220,6 +302,9 @@ export default {
   #banner_box>a { width:100%; }
   #banner_box>a img { width:100%; }
 }
+
+
+#banner_box .slide { overflow:hidden; max-width:900px; max-height:460px; }
 #banner_box .slide::v-deep .carousel-inner { height:100%; }
 #banner_box .slide::v-deep .carousel-inner .banner_goods .carousel-item { height:100%; }
 #banner_box .slide::v-deep .carousel-inner .banner_goods .carousel-item img { object-fit:contain; height:100%; }
@@ -228,7 +313,6 @@ export default {
 #banner_box .slide::v-deep .carousel-inner .banner_goods .carousel-item .carousel-caption p:first-of-type { top:50%; transform:translateY(-50%); }
 #banner_box .slide::v-deep .carousel-inner .banner_goods .carousel-item .carousel-caption p:last-of-type { bottom:0; }
 
-#banner_box .slide { overflow:hidden; max-width:640px;  }
 #banner_box .slide::v-deep .carousel-indicators li { background-color:#898989; }
 #banner_box .slide::v-deep .carousel-control-prev:hover,
 #banner_box .slide::v-deep .carousel-control-next:hover { background-color:#55888888; }
