@@ -146,7 +146,8 @@ class TestController extends Controller {
                 ];
             }
         } else {
-            $data['category_picks'] = json_decode(Redis::get('best_cate'), true)[$req->ca01];
+            if ($req->filled('ca01'))
+                $data['category_picks'] = json_decode(Redis::get('best_cate'), true)[$req->ca01] ?? [];
 
             // ✅ keyword 없을 때: 카테고리 필터만으로 조회
             $searchQuery = !empty($filters)

@@ -27,7 +27,6 @@
                 <b-link :to="{name: 'search_test', query: {ca01:30}}" style="padding:0;">1차(클린룸)</b-link>
                 <b-link :to="{name: 'search_test', query: {ca01:27}}" style="padding:0;">1차(초짜)</b-link>
                 <b-link :to="{name: 'search_test', query: {ca01:47}}" style="padding:0;">1차(토르랩스)</b-link>
-                <b-link :to="{name: 'search_test', query: {ca01:22}}" style="padding:0;">1차(현미경)</b-link>
             </div>
            
             
