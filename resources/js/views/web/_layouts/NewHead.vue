@@ -23,10 +23,8 @@
                 <b-link :to="{name: 'outlet'}" class="m_hide">전문관</b-link>
                 <b-link :to="{name: 'cscenter'}">고객센터</b-link>
                 <b-link :to="{name: 'bo_intro'}">커뮤니티</b-link>
-                <b-link :to="{name: 'search_test'}" style="padding:0;">검색 테스트</b-link>
-                <b-link :to="{name: 'search_test', query: {ca01:30}}" style="padding:0;">1차(클린룸)</b-link>
-                <b-link :to="{name: 'search_test', query: {ca01:27}}" style="padding:0;">1차(초짜)</b-link>
-                <b-link :to="{name: 'search_test', query: {ca01:47}}" style="padding:0;">1차(토르랩스)</b-link>
+                <b-link :to="{name: 'search_test'}">검색 테스트</b-link>
+                <b-link :to="{name: 'search_test', query: {ca01:30}}">1차(클린룸)</b-link>
             </div>
            
             
@@ -171,7 +169,7 @@ export default {
 #header #core nav>div { flex-basis:0; flex-grow:1; max-width:100%; width:100%; }
 #header #core nav div a { color:#727273; }
 
-#header #core nav .nav_left a { padding:0 10px; font-size:13px; }
+#header #core nav .nav_left a { font-size:17px; font-weight:900; padding:0 10px; }
 #header #core nav .nav_left a:first-child { background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2710%27%20height%3D%276%27%20viewBox%3D%270%200%2010%206%27%20fill%3D%27none%27%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%3E%3Cpath%20d%3D%27M1%201L5%205L9%201%27%20stroke%3D%27%23595758%27%20stroke-width%3D%271.2%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat; background-position: right 12px center; padding-right: 23px; }
 
@@ -181,12 +179,14 @@ export default {
     background-repeat:no-repeat; background-position:right 10px center; background-size:12px;
     background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27292.4%27%20height%3D%27292.4%27%3E%3Cpath%20fill%3D%27%23595758%27%20d%3D%27M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%27%2F%3E%3C%2Fsvg%3E");
 }
+
+#header #core nav .nav_right form { margin-top: 8px; }
 #header #core nav .nav_right form input { border:0; background:transparent; }
 #header #core nav .nav_right form button { position:absolute; right:6px; top:50%; transform:translateY(-50%); border:0; background:transparent; }
 #header #core nav .nav_right { display:flex; justify-content:flex-end; align-items:center; }
 #header #core nav .nav_right a { flex-basis:0; flex-grow:1; max-width:68px; width:68px; text-align:center; }
 #header #core nav .nav_right a img { width:40px; height:40px; }
-#header #core nav .nav_right a p { margin:0; font-size:12px;  }
+#header #core nav .nav_right a p { margin:0; font-size:13px; font-weight:600; }
 #header #core nav .nav_right .cart { position: relative; }
 #header #core nav .nav_right .cart b { background-color:#02ABEC; color:#fff; border-radius:14px; padding:3px 6px; font-size:12px; position:absolute; top:0; right:0; }
 
