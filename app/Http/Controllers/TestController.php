@@ -245,62 +245,63 @@ class TestController extends Controller {
 
 
 
+        if ($req->filled('keyword')) {
+            $aggResult = $result->asArray()['aggregations'] ?? [];
 
-        $aggResult = $result->asArray()['aggregations'] ?? [];
+            // ca01 목록
+            if (!empty($aggResult['ca01_list']['buckets'])) {
+                $ids = collect($aggResult['ca01_list']['buckets'])->pluck('key');
+                $names = Category::whereIn('ca_id', $ids)->pluck('ca_name', 'ca_id');
 
-        // ca01 목록
-        if (!empty($aggResult['ca01_list']['buckets'])) {
-            $ids = collect($aggResult['ca01_list']['buckets'])->pluck('key');
-            $names = Category::whereIn('ca_id', $ids)->pluck('ca_name', 'ca_id');
+                $data['sch_cate_info']['all'] = collect($aggResult['ca01_list']['buckets'])
+                    ->sum(fn($b) => $b['gd_count']['value']);
 
-            $data['sch_cate_info']['all'] = collect($aggResult['ca01_list']['buckets'])
-                ->sum(fn($b) => $b['gd_count']['value']);
+                $data['sch_cate_info']['ca01'] = collect($aggResult['ca01_list']['buckets'])
+                    ->map(fn($b) => [
+                        'key'  => $b['key'],
+                        'name' => $names[$b['key']] ?? '',
+                        'cnt'  => $b['gd_count']['value'],
+                    ])->toArray();
+            }
 
-            $data['sch_cate_info']['ca01'] = collect($aggResult['ca01_list']['buckets'])
-                ->map(fn($b) => [
-                    'key'  => $b['key'],
-                    'name' => $names[$b['key']] ?? '',
-                    'cnt'  => $b['gd_count']['value'],
-                ])->toArray();
-        }
+            // ca02 목록
+            if (!empty($aggResult['ca02_list']['by_ca02']['buckets'])) {
+                $ids = collect($aggResult['ca02_list']['by_ca02']['buckets'])->pluck('key');
+                $names = Category::whereIn('ca_id', $ids)->pluck('ca_name', 'ca_id');
 
-        // ca02 목록
-        if (!empty($aggResult['ca02_list']['by_ca02']['buckets'])) {
-            $ids = collect($aggResult['ca02_list']['by_ca02']['buckets'])->pluck('key');
-            $names = Category::whereIn('ca_id', $ids)->pluck('ca_name', 'ca_id');
+                $data['sch_cate_info']['ca02'] = collect($aggResult['ca02_list']['by_ca02']['buckets'])
+                    ->map(fn($b) => [
+                        'key'  => $b['key'],
+                        'name' => $names[$b['key']] ?? '',
+                        'cnt'  => $b['gd_count']['value'],
+                    ])->toArray();
+            }
 
-            $data['sch_cate_info']['ca02'] = collect($aggResult['ca02_list']['by_ca02']['buckets'])
-                ->map(fn($b) => [
-                    'key'  => $b['key'],
-                    'name' => $names[$b['key']] ?? '',
-                    'cnt'  => $b['gd_count']['value'],
-                ])->toArray();
-        }
+            // ca03 목록
+            if (!empty($aggResult['ca03_list']['by_ca03']['buckets'])) {
+                $ids = collect($aggResult['ca03_list']['by_ca03']['buckets'])->pluck('key');
+                $names = Category::whereIn('ca_id', $ids)->pluck('ca_name', 'ca_id');
 
-        // ca03 목록
-        if (!empty($aggResult['ca03_list']['by_ca03']['buckets'])) {
-            $ids = collect($aggResult['ca03_list']['by_ca03']['buckets'])->pluck('key');
-            $names = Category::whereIn('ca_id', $ids)->pluck('ca_name', 'ca_id');
+                $data['sch_cate_info']['ca03'] = collect($aggResult['ca03_list']['by_ca03']['buckets'])
+                    ->map(fn($b) => [
+                        'key'  => $b['key'],
+                        'name' => $names[$b['key']] ?? '',
+                        'cnt'  => $b['gd_count']['value'],
+                    ])->toArray();
+            }
 
-            $data['sch_cate_info']['ca03'] = collect($aggResult['ca03_list']['by_ca03']['buckets'])
-                ->map(fn($b) => [
-                    'key'  => $b['key'],
-                    'name' => $names[$b['key']] ?? '',
-                    'cnt'  => $b['gd_count']['value'],
-                ])->toArray();
-        }
+            // maker 목록
+            if (!empty($aggResult['maker_list']['by_maker']['buckets'])) {
+                $ids = collect($aggResult['maker_list']['by_maker']['buckets'])->pluck('key');
+                $names = \App\Models\Shop\Maker::whereIn('mk_id', $ids)->pluck('mk_name', 'mk_id');
 
-        // maker 목록
-        if (!empty($aggResult['maker_list']['by_maker']['buckets'])) {
-            $ids = collect($aggResult['maker_list']['by_maker']['buckets'])->pluck('key');
-            $names = \App\Models\Shop\Maker::whereIn('mk_id', $ids)->pluck('mk_name', 'mk_id');
-
-            $data['sch_cate_info']['maker'] = collect($aggResult['maker_list']['by_maker']['buckets'])
-                ->map(fn($b) => [
-                    'key'  => $b['key'],
-                    'name' => $names[$b['key']] ?? '',
-                    'cnt'  => $b['gd_count']['value'],
-                ])->toArray();
+                $data['sch_cate_info']['maker'] = collect($aggResult['maker_list']['by_maker']['buckets'])
+                    ->map(fn($b) => [
+                        'key'  => $b['key'],
+                        'name' => $names[$b['key']] ?? '',
+                        'cnt'  => $b['gd_count']['value'],
+                    ])->toArray();
+            }
         }
 
         
