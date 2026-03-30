@@ -54,16 +54,11 @@ class UserMileage extends Model {
 
     
     public function enableMileage($id) { return $this->Uid($id)->Enable()->sum('ml_enable_m'); }
-    /*
-    회원 등급별로 구매 적립 마일러지를 계산해준다.
-    */
+    
+    // 회원 등급별로 구매 적립 마일러지를 계산해준다.
     public function mileage_calculation($p, $ea, $lv) {
-        $rst = 0;
-        if ( $lv <= 2 )      $rst = $p * $ea * 0.5 / 100;
-        else if ( $lv == 3 ) $rst = $p * $ea * 1   / 100;
-        else if ( $lv == 4 ) $rst = $p * $ea * 1.5 / 100;
-        else if ( $lv > 20 ) $rst = $p * $ea * 1   / 100;   //  관리자 테스트용
-        return round($rst);
+        $rate = User::$mileage_rate[$lv] ?? 0;
+        return round($p * $ea * $rate / 100);
     }
 
 }
