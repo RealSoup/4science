@@ -22,10 +22,13 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     'loading-modal': function loadingModal() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal */ "./resources/js/views/_common/LoadingModal.vue"));
     },
     'no-item': function noItem() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_NoItem_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/_module/NoItem */ "./resources/js/views/web/_module/NoItem.vue"));
+    },
+    'location': function location() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_goods__comp_Location_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/shop/goods/_comp/Location */ "./resources/js/views/web/shop/goods/_comp/Location.vue"));
     }
   },
   data: function data() {
@@ -86,7 +89,7 @@ var render = function render() {
         _vm.isLoadingModalViewed = false;
       }
     }
-  }, [_vm._v("\r\n        Loading ......\r\n    ")]) : [_vm.$route.name == "goods_index" && !_vm.$route.query.keyword ? _c("location", {
+  }, [_vm._v("\r\n        Loading ......\r\n    ")]) : [(_vm.$route.name == "goods_index" || _vm.$route.name == "search_test") && !_vm.$route.query.keyword ? _c("location", {
     attrs: {
       categorys: _vm.categorys,
       p_ca01: _vm.$route.query.ca01,
@@ -94,7 +97,68 @@ var render = function render() {
       p_ca03: _vm.$route.query.ca03,
       p_ca04: _vm.$route.query.ca04
     }
-  }) : _vm._e(), _vm._v(" "), _vm.category_picks ? _c("b-container", {
+  }) : _vm._e(), _vm._v(" "), _vm.sch_cate_info ? _c("b-container", {
+    staticClass: "layout sch_detail"
+  }, [_c("b-row", [_c("b-col", [_c("h5", [_vm._v("카테고리")]), _vm._v(" "), _c("p", {
+    on: {
+      click: function click($event) {
+        ;
+        _vm.frm.ca01 = 0, _vm.frm.ca02 = 0, _vm.frm.ca03 = 0, _vm.frm.mk_id = 0, _vm.frm.keyword_extra = "", _vm.routerPush();
+      }
+    }
+  }, [_vm._v("전체보기 "), _c("span", [_vm._v(_vm._s(_vm.sch_cate_info.all))])]), _vm._v(" "), _vm._l(_vm.sch_cate_info.ca01, function (ca) {
+    return _c("p", {
+      key: ca.key,
+      "class": {
+        chk: _vm.frm.ca01 == ca.key
+      },
+      on: {
+        click: function click($event) {
+          ;
+          _vm.frm.ca01 = ca.key, _vm.frm.ca02 = 0, _vm.frm.ca03 = 0, _vm.frm.mk_id = 0, _vm.frm.keyword_extra = "", _vm.routerPush();
+        }
+      }
+    }, [_vm._v("\r\n                        " + _vm._s(ca.name) + " "), _c("span", [_vm._v(_vm._s(ca.cnt))])]);
+  })], 2), _vm._v(" "), _c("b-col", [_c("h5", [_vm._v("중분류")]), _vm._v(" "), _vm._l(_vm.sch_cate_info.ca02, function (ca) {
+    return _c("p", {
+      key: ca.key,
+      "class": {
+        chk: _vm.frm.ca02 == ca.key
+      },
+      on: {
+        click: function click($event) {
+          ;
+          _vm.frm.ca02 = ca.key, _vm.frm.ca03 = 0, _vm.frm.mk_id = 0, _vm.frm.keyword_extra = "", _vm.routerPush();
+        }
+      }
+    }, [_vm._v("\r\n                        " + _vm._s(ca.name) + " "), _c("span", [_vm._v(_vm._s(ca.cnt))])]);
+  })], 2), _vm._v(" "), _c("b-col", [_c("h5", [_vm._v("소분류")]), _vm._v(" "), _vm._l(_vm.sch_cate_info.ca03, function (ca) {
+    return _c("p", {
+      key: ca.key,
+      "class": {
+        chk: _vm.frm.ca03 == ca.key
+      },
+      on: {
+        click: function click($event) {
+          ;
+          _vm.frm.ca03 = ca.key, _vm.frm.mk_id = 0, _vm.frm.keyword_extra = "", _vm.routerPush();
+        }
+      }
+    }, [_vm._v("\r\n                        " + _vm._s(ca.name) + " "), _c("span", [_vm._v(_vm._s(ca.cnt))])]);
+  })], 2), _vm._v(" "), _c("b-col", [_c("h5", [_vm._v("제조사")]), _vm._v(" "), _vm._l(_vm.sch_cate_info.maker, function (mk) {
+    return _c("p", {
+      key: mk.key,
+      "class": {
+        chk: _vm.frm.mk_id == mk.key
+      },
+      on: {
+        click: function click($event) {
+          ;
+          _vm.frm.mk_id = mk.key, _vm.frm.keyword_extra = "", _vm.routerPush();
+        }
+      }
+    }, [_vm._v("\r\n                        " + _vm._s(mk.name) + " "), _c("span", [_vm._v(_vm._s(mk.cnt))])]);
+  })], 2)], 1)], 1) : _vm._e(), _vm._v(" "), _vm.category_picks ? _c("b-container", {
     staticClass: "category_picks"
   }, [_c("b-row", [_c("b-link", {
     staticClass: "col tit",
@@ -128,7 +192,45 @@ var render = function render() {
     staticClass: "layout"
   }, [_c("b-container", [_c("b-row", {
     staticClass: "list"
-  }, [_c("b-col", [_c("b-row", {
+  }, [_c("b-col", {
+    staticClass: "sort m_hide"
+  }, [_c("ul", [_c("li", {
+    "class": {
+      active: _vm.frm.sort == "hot"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.sort("hot");
+      }
+    }
+  }, [_vm._v("인기상품순")]), _vm._v(" "), _c("li", {
+    "class": {
+      active: _vm.frm.sort == "new"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.sort("new");
+      }
+    }
+  }, [_vm._v("신상품순")]), _vm._v(" "), _c("li", {
+    "class": {
+      active: _vm.frm.sort == "lowPri"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.sort("lowPri");
+      }
+    }
+  }, [_vm._v("낮은가격순")]), _vm._v(" "), _c("li", {
+    "class": {
+      active: _vm.frm.sort == "highPri"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.sort("highPri");
+      }
+    }
+  }, [_vm._v("높은가격순")])])]), _vm._v(" "), _c("b-col", [_c("b-row", {
     staticClass: "lhead"
   }, [_c("b-col", [_vm._v("상품")]), _vm._v(" "), _c("b-col", {
     staticClass: "m_hide"
@@ -220,7 +322,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#header #core .nav_menu { display:none !important;\n}\n.sch_detail { margin-top:1em; margin-bottom:1em;\n}\n.sch_detail .row .col { border:1px solid #D7D7D7; padding:0 0 .3rem; max-height:250px; overflow-y:auto;\n}\n.sch_detail .row .col:not(:last-child) { border-right-width:0;\n}\n.sch_detail .row .col h5 { font-weight:bold; font-size:1.1rem; padding:1.4rem 2rem .4rem 2rem;\n}\n.sch_detail .row .col p { padding:.3rem 3rem; color:#4C4C4C; cursor:pointer; margin:0;\n}\n.sch_detail .row .col p:hover,\r\n.sch_detail .row .col p.chk { background:#B2E0FA;\n}\n.sch_detail .row .col p span { color:#C2C2C2; font-size:.8rem; margin-left:.5rem;\n}\n.sch_detail .extra_sch { display:flex; align-items:center; justify-content:flex-end; padding-top:1em;\n}\n.sch_detail .extra_sch b { margin-right: 1em;\n}\n.sch_detail .extra_sch .input-group { max-width:30em;\n}\n.category_picks { margin-top:20px; overflow:hidden; border-top:1px solid #1A90D6; border-left:1px solid #1A90D6; border-radius:30px 0 0 30px;\n}\n.category_picks .tit { background-color:#1A90D6;\n}\n.category_picks .tit img { height:270px;\n}\n.category_picks .tit h6 { position:absolute; top:40px; right:12px; color:#FFF; font-size:21px; font-weight:bold;\n}\n.category_picks .con { padding:24px; border-bottom:1px solid #1A90D6; border-right:1px solid #1A90D6;\n}\n.category_picks .con img { width:100%; height:166px; -o-object-fit:contain; object-fit:contain; margin-bottom:12px;\n}\n.category_picks .con p { font-size:14px; margin:0; overflow:hidden; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2;\n}\n.list { align-items:flex-start; margin-top:25px;\n}\n.list .sort { flex:0 0 9%; max-width:9%; margin-right:15px;\n}\n.list .sort ul { border:1px solid #D7D7D7;\n}\n.list .sort ul li { text-align:center; padding:10px 0; font-size:.9rem; cursor:pointer;\n}\n.list .sort ul li:not(:last-child) { border-bottom:1px solid #D7D7D7;\n}\n.list .sort ul li.active { background:#B2E0FA;\n}\n.list .col .row div:nth-child(2),\r\n.list .col .row div:nth-child(3) { flex:0 0 17%; max-width:17%; display:flex; align-items:center; justify-content:center;\n}\n.list .col .row div.price { align-items:flex-end; flex-direction:column; padding:0 15px;\n}\n.list .col .lhead div { background:#DFEAF0; border:1px solid #D6D6D6; text-align:center; padding:.7rem 0; font-weight:bold; letter-spacing:10px;\n}\n.list .col .lhead div:not(:first-child) { border-left-width:0px;\n}\n.list .col .lbody>* { border:1px solid #D6D6D6; border-top-width:0px;\n}\n.list .col .lbody>*:not(:first-child) { border-left-width:0px;\n}\n.list .col .lbody .link { cursor:pointer; display:flex; align-items:center; padding:0 15px;}\n.list .col .lbody .link img { border:1px solid #ddd; width:150px; height:150px; margin:15px 30px 15px 0;\n}\n.list .col .lbody .link p { display:inline-block; margin-bottom:0;\n}\n.list .col .lbody .link p .info { display:block; color:#949494; margin-top:1.1vw;\n}\n.list .col .lbody .link p i { display:none;\n}\n@media (max-width: 992px){\n.p_wrap { padding: 0 .3rem; margin-top:15px;\n}\n.sch_detail .row .col  { flex:0 0 50%; max-width:50%;\n}\n.sch_detail .row .col h5 { font-size:14px; padding:.4em;\n}\n.sch_detail .row .col p { font-size:12px; padding:.3em;\n}\n.list .col .lbody>* { padding: 0 3px;\n}\n.list .col .lbody .link img { border-width:0; width: 80px; height: 80px; margin: 10px 10px 10px 0;\n}\n.list .col .lbody .link p { font-size: calc(1.2vw + .5rem);\n}\n.list .col .lbody .link p span { margin-top:.4rem;\n}\n.list .col .lbody .link p i { display:inline; font-size: calc(1.3vw + .5rem); font-weight: 600;\n}\n.list .col .lbody .link p i .see_dealer .dealer { display:inline; padding-left:12px; margin-left:12px;\n}\n.list .col .lbody .link p i .see_dealer .dealer:before { left:-6px; width:14px; height:14px; line-height:14px; font-style:normal; font-size:.68rem;\n}\n.p_wrap >>> .page-link { min-width: 30px; padding:0;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#header #core .nav_menu { display:none !important;\n}\n.sch_detail { margin-top:1em; margin-bottom:1em;\n}\n.sch_detail .row .col { border:1px solid #D7D7D7; padding:0 0 .3rem; max-height:250px; overflow-y:auto;\n}\n.sch_detail .row .col:not(:last-child) { border-right-width:0;\n}\n.sch_detail .row .col h5 { font-weight:bold; font-size:1.1rem; padding:1.4rem 2rem .4rem 2rem;\n}\n.sch_detail .row .col p { padding:.3rem 3rem; color:#4C4C4C; cursor:pointer; margin:0;\n}\n.sch_detail .row .col p:hover,\r\n.sch_detail .row .col p.chk { background:#B2E0FA;\n}\n.sch_detail .row .col p span { color:#C2C2C2; font-size:.8rem; margin-left:.5rem;\n}\n.sch_detail .extra_sch { display:flex; align-items:center; justify-content:flex-end; padding-top:1em;\n}\n.sch_detail .extra_sch b { margin-right: 1em;\n}\n.sch_detail .extra_sch .input-group { max-width:30em;\n}\n.category_picks { margin-top:20px; overflow:hidden; border-top:1px solid #1A90D6; border-left:1px solid #1A90D6; border-radius:30px 0 0 30px;\n}\n.category_picks .tit { background-color:#1A90D6;\n}\n.category_picks .tit img { height:270px;\n}\n.category_picks .tit h6 { position:absolute; top:40px; right:12px; color:#FFF; font-size:21px; font-weight:bold;\n}\n.category_picks .con { padding:24px; border-bottom:1px solid #1A90D6; border-right:1px solid #1A90D6;\n}\n.category_picks .con img { width:100%; height:166px; -o-object-fit:contain; object-fit:contain; margin-bottom:12px;\n}\n.category_picks .con p { font-size:14px; margin:0; overflow:hidden; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2;\n}\n.list { align-items:flex-start; margin-top:25px;\n}\n.list .sort { flex:0 0 9%; max-width:9%; margin-right:15px;\n}\n.list .sort ul {\n}\n.list .sort ul li { text-align:center; padding:6px 0; font-size:.85rem; font-weight:600; cursor:pointer; border:1px solid #D7D7D7; border-radius:25px; margin-bottom:10px;\n}\n.list .sort ul li:not(:last-child) {\n}\n.list .sort ul li.active { background:#DFEAF0;\n}\n.list .col .row div:nth-child(2),\r\n.list .col .row div:nth-child(3) { flex:0 0 17%; max-width:17%; display:flex; align-items:center; justify-content:center;\n}\n.list .col .row div.price { align-items:flex-end; flex-direction:column; padding:0 15px;\n}\n.list .col .lhead div { background:#DFEAF0; border:1px solid #D6D6D6; text-align:center; padding:.7rem 0; font-weight:bold; letter-spacing:10px;\n}\n.list .col .lhead div:not(:first-child) { border-left-width:0px;\n}\n.list .col .lbody>* { border:1px solid #D6D6D6; border-top-width:0px;\n}\n.list .col .lbody>*:not(:first-child) { border-left-width:0px;\n}\n.list .col .lbody .link { cursor:pointer; display:flex; align-items:center; padding:0 15px;}\n.list .col .lbody .link img { border:1px solid #ddd; width:150px; height:150px; margin:15px 30px 15px 0;\n}\n.list .col .lbody .link p { display:inline-block; margin-bottom:0;\n}\n.list .col .lbody .link p .info { display:block; color:#949494; margin-top:1.1vw;\n}\n.list .col .lbody .link p i { display:none;\n}\n@media (max-width: 992px){\n.p_wrap { padding: 0 .3rem; margin-top:15px;\n}\n.sch_detail .row .col  { flex:0 0 50%; max-width:50%;\n}\n.sch_detail .row .col h5 { font-size:14px; padding:.4em;\n}\n.sch_detail .row .col p { font-size:12px; padding:.3em;\n}\n.list .col .lbody>* { padding: 0 3px;\n}\n.list .col .lbody .link img { border-width:0; width: 80px; height: 80px; margin: 10px 10px 10px 0;\n}\n.list .col .lbody .link p { font-size: calc(1.2vw + .5rem);\n}\n.list .col .lbody .link p span { margin-top:.4rem;\n}\n.list .col .lbody .link p i { display:inline; font-size: calc(1.3vw + .5rem); font-weight: 600;\n}\n.list .col .lbody .link p i .see_dealer .dealer { display:inline; padding-left:12px; margin-left:12px;\n}\n.list .col .lbody .link p i .see_dealer .dealer:before { left:-6px; width:14px; height:14px; line-height:14px; font-style:normal; font-size:.68rem;\n}\n.p_wrap >>> .page-link { min-width: 30px; padding:0;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

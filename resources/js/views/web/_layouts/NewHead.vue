@@ -23,7 +23,11 @@
                 <b-link :to="{name: 'outlet'}" class="m_hide">전문관</b-link>
                 <b-link :to="{name: 'cscenter'}">고객센터</b-link>
                 <b-link :to="{name: 'bo_intro'}">커뮤니티</b-link>
-                <b-link :to="{name: 'search_test'}">검색 테스트</b-link>
+                <b-link :to="{name: 'search_test'}" style="padding:0;">검색 테스트</b-link>
+                <b-link :to="{name: 'search_test', query: {ca01:30}}" style="padding:0;">1차(클린룸)</b-link>
+                <b-link :to="{name: 'search_test', query: {ca01:27}}" style="padding:0;">1차(초짜)</b-link>
+                <b-link :to="{name: 'search_test', query: {ca01:47}}" style="padding:0;">1차(토르랩스)</b-link>
+                <b-link :to="{name: 'search_test', query: {ca01:22}}" style="padding:0;">1차(현미경)</b-link>
             </div>
            
             
@@ -123,7 +127,7 @@ export default {
                         mode:this.$route.query.mode ?? "",
                         keyword:this.$route.query.keyword ?? "",
                         keyword_extra:this.$route.query.keyword_extra ?? "",
-                        sort:this.$route.query.sort ?? "",
+                        sort:this.$route.query.sort ?? "hot",
                         page:this.$route.query.page ?? 0,
                     });
                     this.$store.dispatch('goods/index');

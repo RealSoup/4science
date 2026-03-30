@@ -140,7 +140,15 @@ class Goods extends Model {
     public function toSearchableArray() {
         $this->loadMissing(['maker', 'goodsModel', 'goodsCategoryFirst']);
         // php artisan scout:sync-settings
+
+        // ✅ 카테고리 이름 미리 로드
+        $ca01 = $this->goodsCategoryFirst->gc_ca01 ?? 0;
+        $ca02 = $this->goodsCategoryFirst->gc_ca02 ?? 0;
+        $ca03 = $this->goodsCategoryFirst->gc_ca03 ?? 0;
         
+        $caNames = Category::whereIn('ca_id', array_filter([$ca01, $ca02, $ca03]))
+            ->pluck('ca_name', 'ca_id');
+
         // Prime 모델 찾기
         $prime = $this->goodsModel->firstWhere('gm_prime', 'Y') ?? $this->goodsModel->first();
 
@@ -165,10 +173,15 @@ class Goods extends Model {
             'gd_enable'   => $this->gd_enable,
             'gd_type'     => $this->gd_type,
             'gd_mk_id'    => $this->gd_mk_id,
-            'gc_ca01'     => $this->goodsCategoryFirst->gc_ca01 ?? 0,
-            'gc_ca02'     => $this->goodsCategoryFirst->gc_ca02 ?? 0,
-            'gc_ca03'     => $this->goodsCategoryFirst->gc_ca03 ?? 0,
+            'gc_ca01'     => $ca01,
+            'gc_ca02'     => $ca02,
+            'gc_ca03'     => $ca03,
             'gc_ca04'     => $this->goodsCategoryFirst->gc_ca04 ?? 0,
+
+            // ✅ 이름
+            'gc_ca01_name' => $caNames[$ca01] ?? '',
+            'gc_ca02_name' => $caNames[$ca02] ?? '',
+            'gc_ca03_name' => $caNames[$ca03] ?? '',
 
             // 정렬용
             'gd_seq'      => (int) $this->gd_seq,

@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Imports\MerckImport;
+use Illuminate\Support\Facades\Redis;
 use App\Models\{EngReform};
 use App\Models\Shop\{Goods, Category, GoodsCategory, Order};
 use DB;
@@ -22,22 +23,36 @@ class TestController extends Controller {
         $data['categorys'] = Category::getSelectedCate( $req->filled('ca01') ? $req->ca01 : 0, 
                                                         $req->filled('ca02') ? $req->ca02 : 0, 
                                                         $req->filled('ca03') ? $req->ca03 : 0 );
-
-      
-
         
-        $keyword  = strtolower($req->keyword) ?? '';        
+        $page   = $req->page ?? 1;
+        $perPage = 20;
+        $offset = ($page - 1) * $perPage;
+        $keyword  = strtolower($req->keyword) ?? '';
+        // ✅ 카테고리 필터 (keyword 유무 무관하게 항상 적용)
+        $filters = array_values(array_filter([
+            $req->filled('ca01') ? ['term' => ['gc_ca01' => (int)$req->ca01]] : null,
+            $req->filled('ca02') ? ['term' => ['gc_ca02' => (int)$req->ca02]] : null,
+            $req->filled('ca03') ? ['term' => ['gc_ca03' => (int)$req->ca03]] : null,
+            $req->filled('ca04') ? ['term' => ['gc_ca04' => (int)$req->ca04]] : null,
+            $req->filled('mk_id') ? ['term' => ['gd_mk_id' => (int)$req->mk_id]] : null,
+        ]));
+        
+        // ✅ 정렬 설정
+        $req->merge(['sort' => $req->sort ?? 'hot']);
+        $sort = match($req->sort) {
+            'new'     => [['gd_id'      => ['order' => 'desc']], '_score'],
+            'lowPri'  => [['gm_price'   => ['order' => 'asc']],  '_score'],
+            'highPri' => [['gm_price'   => ['order' => 'desc']], '_score'],
+            default   => ['_score'],
+        };
+
+
+        $searchQuery = [];
         if ($req->filled('keyword')) {
+        
             if (if_not_my_ip($req->ip()))
                 event(new \App\Events\GoodsSearch($req->keyword, auth()->check() ? auth()->user()->id : 0, $req->ip(), $req->filled('referer')?$req->referer:''));  //  검색어 데이터화
-
-            $page   = $req->page ?? 1;
-            $perPage = 20;
-            $offset = ($page - 1) * $perPage;
-
-
-            // 모드별 검색 필드 설정
-            $searchQuery = [];
+        
             if ($req->filled('mode')) {
                 // 특정 필드만 검색
                 $fieldMap = [
@@ -55,53 +70,57 @@ class TestController extends Controller {
                     'maker'   => ['match' => ['mk_name'  => $keyword]],
                 ];
                 $searchQuery = $fieldMap[$req->mode] ?? [];
-            } else {
-                // 전체 검색
-                $searchQuery = [
-                    'function_score' => [
-                        'query' => [
-                            'bool' => [
-                                'should' => [
-                                    ['term'         => ['gd_name.keyword' => ['value' => $keyword, 'boost' => 100]]],
-                                    ['match_phrase' => ['gd_name.exact'   => ['query' => $keyword, 'boost' => 80]]],  // ✅ 추가
-                                    ['match_phrase' => ['gd_name'         => ['query' => $keyword, 'boost' => 10]]],
-                                    ['match'        => ['gd_name.exact'   => ['query' => $keyword, 'boost' => 30]]],
-                                    ['match'        => ['gd_name'         => ['query' => $keyword, 'boost' => 5]]],
-                                    ['match'        => ['gm_name.exact'   => ['query' => $keyword, 'boost' => 20]]],
-                                    ['match'        => ['mk_name.exact'   => ['query' => $keyword, 'boost' => 20]]],
+            } else {    // 전체 검색
 
-                                    ['term'         => ['gm_catno' => $keyword]],
-                                    ['prefix'       => ['gm_catno' => $keyword]],
+                $boolClause = [
+                    'should' => [
+                        ['term'         => ['gd_name.keyword' => ['value' => $keyword, 'boost' => 100]]],
+                        ['match_phrase' => ['gd_name.exact'   => ['query' => $keyword, 'boost' => 80]]],  // ✅ 추가
+                        ['match_phrase' => ['gd_name'         => ['query' => $keyword, 'boost' => 10]]],
+                        ['match'        => ['gd_name.exact'   => ['query' => $keyword, 'boost' => 30]]],
+                        ['match'        => ['gd_name'         => ['query' => $keyword, 'boost' => 5]]],
+                        ['match'        => ['gm_name.exact'   => ['query' => $keyword, 'boost' => 20]]],
+                        ['match'        => ['mk_name.exact'   => ['query' => $keyword, 'boost' => 20]]],
 
-                                    ['term'         => ['gm_code'  => $keyword]],
-                                    ['prefix'       => ['gm_code'  => $keyword]],
-                                    ['wildcard'     => ['gm_code' => '*' . $keyword]],      // *a2115 → STARA2115 ✅
-                                    ['wildcard'     => ['gm_code' => '*' . $keyword . '*']], // 중간 포함
+                        ['term'         => ['gm_catno' => $keyword]],
+                        ['prefix'       => ['gm_catno' => $keyword]],
 
-                                    ['term'         => ['mk_name.keyword' => $keyword]],
-                                    ['match'        => ['mk_name'         => $keyword]],
-                                    ['wildcard'     => ['mk_name.keyword' => '*' . $keyword . '*']],
+                        ['term'         => ['gm_code'  => $keyword]],
+                        ['prefix'       => ['gm_code'  => $keyword]],
+                        ['wildcard'     => ['gm_code' => '*' . $keyword]],      // *a2115 → STARA2115 ✅
+                        ['wildcard'     => ['gm_code' => '*' . $keyword . '*']], // 중간 포함
 
-                                    [
-                                        'multi_match' => [
-                                            'query'  => $keyword,
-                                            'fields' => [
-                                                'gd_name^10',
-                                                'gd_keyword^3',
-                                                'mk_name^2',
-                                                'gm_code',
-                                                'gm_code_all',
-                                                'gm_catno',
-                                                'gm_catno_all',
-                                                // gm_name, gm_name_all 제거 → 사양값 오매칭 방지
-                                            ],
-                                            'type' => 'best_fields',
-                                        ],
-                                    ],
+                        ['term'         => ['mk_name.keyword' => $keyword]],
+                        ['match'        => ['mk_name'         => $keyword]],
+                        ['wildcard'     => ['mk_name.keyword' => '*' . $keyword . '*']],
+
+                        [
+                            'multi_match' => [
+                                'query'  => $keyword,
+                                'fields' => [
+                                    'gd_name^10',
+                                    'gd_keyword^3',
+                                    'mk_name^2',
+                                    'gm_code',
+                                    'gm_code_all',
+                                    'gm_catno',
+                                    'gm_catno_all',
+                                    // gm_name, gm_name_all 제거 → 사양값 오매칭 방지
                                 ],
-                                'minimum_should_match' => 1,
+                                'type' => 'best_fields',
                             ],
                         ],
+                    ],
+                    'minimum_should_match' => 1,
+                ];
+                
+                if (!empty($filters)) {
+                    $boolClause['filter'] = $filters;
+                }
+                
+                $searchQuery = [
+                    'function_score' => [
+                        'query' => ['bool' => $boolClause],
                         'functions' => [
                                 
                             [ 'filter' => ['term' => ['gd_name.keyword' => $keyword]], 'weight' => 10000, ],            // ✅ 완전일치 (줄자)
@@ -126,178 +145,164 @@ class TestController extends Controller {
                     ],
                 ];
             }
+        } else {
+            $data['category_picks'] = json_decode(Redis::get('best_cate'), true)[$req->ca01];
 
-            $client = app(\Elastic\Elasticsearch\Client::class);
-            
-            $result = $client->search([
-                'index' => 'shop_goods',
-                'body'  => [
-                    'from'  => $offset,
-                    'size'  => $perPage,
-                    'query' => $searchQuery,
-                    'sort'  => [ '_score', ],
-                    'track_total_hits' => true,
-                    'explain' => true,
+            // ✅ keyword 없을 때: 카테고리 필터만으로 조회
+            $searchQuery = !empty($filters)
+                ? ['bool' => ['filter' => $filters]]
+                : ['match_all' => (object)[]];
+        }
+
+        $aggs = [
+            'ca01_list' => [
+                'terms' => ['field' => 'gc_ca01', 'size' => 100],
+                'aggs'  => ['gd_count' => ['value_count' => ['field' => 'gd_id']]],
+            ],
+        ];
+
+        if ($req->filled('ca01')) {
+            $aggs['ca02_list'] = [
+                'filter' => ['term' => ['gc_ca01' => (int)$req->ca01]],
+                'aggs'   => [
+                    'by_ca02' => [
+                        'terms' => ['field' => 'gc_ca02', 'size' => 100],
+                        'aggs'  => ['gd_count' => ['value_count' => ['field' => 'gd_id']]],
+                    ],
                 ],
-            ]);
-            $total = $result->asArray()['hits']['total']['value'];
-            $ids   = collect($result->asArray()['hits']['hits'])->pluck('_source.gd_id');
-
-            if ($ids->isEmpty()) {
-                $data['list'] = new \Illuminate\Pagination\LengthAwarePaginator(
-                    [], 0, $perPage, $page,
-                    ['path' => $req->url(), 'query' => $req->query()]
-                );
-            } else {
-                $items = Goods::with(['maker', 'goodsModelPrime', 'goodsCategoryFirst'])
-                    ->whereIn('gd_id', $ids)
-                    ->orderByRaw('FIELD(gd_id, ' . $ids->implode(',') . ')')
-                    ->get();
-
-                $data['list'] = new \Illuminate\Pagination\LengthAwarePaginator(
-                    $items,
-                    $total,
-                    $perPage,
-                    $page,
-                    ['path' => $req->url(), 'query' => $req->query()]
-                );
-            }
+            ];
         }
-        ///////////////////////////////////////////////////////////////////////////////////////////////
 
-
-        else if ( false ) {
-            $req->merge(array('v_type' => "WEB"));
-
-            $total = $this->goods->search_cnt($req);
-            $page = $req->filled('page') ? $req->page : 1;
-            $limit = $req->filled('limit') ? $req->limit : 15;
-            $offset = ($page*$limit)-$limit;
-            if($offset>intval($total)) {
-                $page = ceil($total / $limit);
-                $offset = ($page*$limit)-$limit;
-            }       
-
-            if ($req->filled('keyword')) {
-                if (if_not_my_ip($req->ip()))
-                    event(new \App\Events\GoodsSearch($req->keyword, auth()->check() ? auth()->user()->id : 0, $req->ip(), $req->filled('referer')?$req->referer:''));  //  검색어 데이터화
-                
-                $kw = '*'.trim($req->keyword).'*';
-                if ( $req->filled('mode') ) {
-                    if($req->mode == 'gd_name') $kw .= "@gd_name {$kw}";
-                    if($req->mode == 'gm_name') $kw .= "@gm_name {$kw}";
-                    if($req->mode == 'gm_code') $kw .= "@gm_code {$kw}";
-                    if($req->mode == 'cat_no')  $kw .= "@gm_catno {$kw}";
-                    if($req->mode == 'maker')   $kw .= "@mk_name {$kw}";
-                }
-                $cl = new SphinxClient ();
-                $cl->SetServer( env('DB_HOST'), 9312 );
-                $cl->SetFilter('deleted_at', array(0));             //  삭제 상품 제외
-                $cl->SetFilter('gd_enable', array(crc32('Y')));     //  활성화 상품만 검색되게
-                $cl->SetFilter('gd_type', array(crc32('NON')));     //  렌탈은 검색 안되게
-                $cl->SetGroupBy('gc_ca01', SPH_GROUPBY_ATTR );
-                $cl->SetGroupDistinct ( "gd_id" );
-                $cl_rst = $cl->Query( $kw, 'sph_goods' );
-                
-                if ($cl_rst['total_found'] > 0) {
-                    $data['sch_cate_info']['all'] = array_reduce( $cl_rst['matches'], fn($sum, $el) => $sum + $el['attrs']['@distinct'], 0);
-        
-                    foreach ($cl_rst['matches'] as $v) {
-                        $tmp['key'] = $v['attrs']['@groupby'];
-                        $tmp['name'] = $v['attrs']['gc_ca01_name'];
-                        $tmp['cnt'] = $v['attrs']['@distinct'];
-                        $data['sch_cate_info']['ca01'][] = $tmp;
-                    }
-                    
-                    if ($req->filled('ca01')) {
-                        $cl->SetFilter('gc_ca01', array($req->ca01));
-                        $cl->SetGroupBy('gc_ca02', SPH_GROUPBY_ATTR );
-                        $cl->SetGroupDistinct ( "gd_id" );
-                        $cl_rst = $cl->Query( $kw, 'sph_goods' );
-                        abort_if(!array_key_exists('matches', $cl_rst), 501, '존재 하지 않는 카테고리 입니다.');
-
-                        foreach ($cl_rst['matches'] as $v) {
-                            $tmp['key'] = $v['attrs']['@groupby'];
-                            $tmp['name'] = $v['attrs']['gc_ca02_name'];
-                            $tmp['cnt'] = $v['attrs']['@distinct'];
-                            $data['sch_cate_info']['ca02'][] = $tmp;
-                        }
-                    }
-        
-                    if ($req->filled('ca02')) {
-                        $cl->SetFilter('gc_ca01', array($req->ca01));
-                        $cl->SetFilter('gc_ca02', array($req->ca02));
-                        $cl->SetGroupBy('gc_ca03', SPH_GROUPBY_ATTR );
-                        $cl->SetGroupDistinct ( "gd_id" );
-                        $cl_rst = $cl->Query( $kw, 'sph_goods' );
-                        abort_if(!array_key_exists('matches', $cl_rst), 501, '존재 하지 않는 카테고리 입니다.');
-        
-                        foreach ($cl_rst['matches'] as $v) {
-                            $tmp['key'] = $v['attrs']['@groupby'];
-                            $tmp['name'] = $v['attrs']['gc_ca03_name'];
-                            $tmp['cnt'] = $v['attrs']['@distinct'];
-                            $data['sch_cate_info']['ca03'][] = $tmp;
-                        }
-                    }
-        
-                    if ($req->filled('ca03')) {
-                        $cl->SetFilter('gc_ca01', array($req->ca01));
-                        $cl->SetFilter('gc_ca02', array($req->ca02));
-                        $cl->SetFilter('gc_ca03', array($req->ca03));
-                        $cl->SetGroupBy('gd_mk_id', SPH_GROUPBY_ATTR );
-                        $cl->SetGroupDistinct ( "gd_id" );
-                        $cl_rst = $cl->Query( $kw, 'sph_goods' );
-                        abort_if(!array_key_exists('matches', $cl_rst), 501, '존재 하지 않는 카테고리 입니다.');
-                        
-                        foreach ($cl_rst['matches'] as $v) {
-                            $tmp['key'] = $v['attrs']['@groupby'];
-                            $tmp['name'] = $v['attrs']['mk_name'];
-                            $tmp['cnt'] = $v['attrs']['@distinct'];
-                            $data['sch_cate_info']['maker'][] = $tmp;
-                        }
-                    }
-                }
-            }
-
-            $qry = $this->goods->search($req, $offset, $limit);
-        
-            if( gettype($qry) == 'string' && $qry == 'no-catno' )
-                return response()->json($qry);
-            
-            
-            if ($req->filled('limit'))  //  메인 베스트
-                $data['list'] = $qry->limit($req->limit)->get(); 
-            else {
-                // $data['list'] = $qry->paginate();
-                // $data['list']->appends($req->all())->links();
-
-                //  포사의 PICK
-                $pick_data = $this->goods->search($req, 0, 12, '4s_pick')->get();
-                // dd($pick_data);
-                // $pick_data = $pick_data->where('gd_seq', '<', 999999)->orderBy('gd_seq')->limit(12)->get();
-                if(count($pick_data)) {
-                    $data['pick'][0] = $pick_data->take(6);
-                    if (count($pick_data) > 6)
-                        $data['pick'][1] = $pick_data->skip(6)->take(6);
-                }
-                
-                $data_rst = $qry->get();
-                $data['list'] = new LengthAwarePaginator($data_rst, $total, $limit, $page, ['path' => $req->url(), 'query' => $req->query()]);
-
-                foreach ($data['list'] as $v) {
-                    $v->goodsModelPrime = $this->goods->goods_discount_checker ($v->goodsModelPrime, $v->gd_dc);
-                    // if( auth()->check() && auth()->user()->level == 12 ) {
-                    //     $v->goodsModelPrime->dc_type = "dealer";
-                    //     $v->goodsModelPrime->gm_price_dc = $v->goodsModelPrime->gm_price*auth()->user()->dc_mul;
-                    //     $v->goodsModelPrime->gm_price_dc_add_vat = rrp($v->goodsModelPrime->gm_price_dc);
-                    // } else if ($v->gd_dc) {
-                    //     $v->goodsModelPrime->dc_type = "goods_dc";
-                    //     $v->goodsModelPrime->gm_price_dc = $this->goods->cal_dc($v->goodsModelPrime->gm_price, $v->gd_dc);
-                    //     $v->goodsModelPrime->gm_price_dc_add_vat = rrp($v->goodsModelPrime->gm_price_dc);
-                    // }
-                }
-            }
+        if ($req->filled('ca02')) {
+            $aggs['ca03_list'] = [
+                'filter' => ['bool' => ['filter' => [
+                    ['term' => ['gc_ca01' => (int)$req->ca01]],
+                    ['term' => ['gc_ca02' => (int)$req->ca02]],
+                ]]],
+                'aggs' => [
+                    'by_ca03' => [
+                        'terms' => ['field' => 'gc_ca03', 'size' => 100],
+                        'aggs'  => ['gd_count' => ['value_count' => ['field' => 'gd_id']]],
+                    ],
+                ],
+            ];
         }
+
+        if ($req->filled('ca03')) {
+            $aggs['maker_list'] = [
+                'filter' => ['bool' => ['filter' => [
+                    ['term' => ['gc_ca01' => (int)$req->ca01]],
+                    ['term' => ['gc_ca02' => (int)$req->ca02]],
+                    ['term' => ['gc_ca03' => (int)$req->ca03]],
+                ]]],
+                'aggs' => [
+                    'by_maker' => [
+                        'terms' => ['field' => 'gd_mk_id', 'size' => 100],
+                        'aggs'  => ['gd_count' => ['value_count' => ['field' => 'gd_id']]],
+                    ],
+                ],
+            ];
+        }
+
+
+        $client = app(\Elastic\Elasticsearch\Client::class);
+        $result = $client->search([
+            'index' => 'shop_goods',
+            'body'  => [
+                'from'  => $offset,
+                'size'  => $perPage,
+                'query' => $searchQuery,
+                'sort'  => $sort,
+                'track_total_hits' => true,
+                'aggs'  => $aggs,
+            ],
+        ]);
+        $total = $result->asArray()['hits']['total']['value'];
+        $ids   = collect($result->asArray()['hits']['hits'])->pluck('_source.gd_id');
+
+        if ($ids->isEmpty()) {
+            $data['list'] = new \Illuminate\Pagination\LengthAwarePaginator(
+                [], 0, $perPage, $page,
+                ['path' => $req->url(), 'query' => $req->query()]
+            );
+        } else {
+            $items = Goods::with(['maker', 'goodsModelPrime', 'goodsCategoryFirst'])
+                ->whereIn('gd_id', $ids)
+                ->orderByRaw('FIELD(gd_id, ' . $ids->implode(',') . ')')
+                ->get();
+
+            $data['list'] = new \Illuminate\Pagination\LengthAwarePaginator(
+                $items,
+                $total,
+                $perPage,
+                $page,
+                ['path' => $req->url(), 'query' => $req->query()]
+            );
+        }
+
+
+
+
+
+
+        $aggResult = $result->asArray()['aggregations'] ?? [];
+
+        // ca01 목록
+        if (!empty($aggResult['ca01_list']['buckets'])) {
+            $ids = collect($aggResult['ca01_list']['buckets'])->pluck('key');
+            $names = Category::whereIn('ca_id', $ids)->pluck('ca_name', 'ca_id');
+
+            $data['sch_cate_info']['all'] = collect($aggResult['ca01_list']['buckets'])
+                ->sum(fn($b) => $b['gd_count']['value']);
+
+            $data['sch_cate_info']['ca01'] = collect($aggResult['ca01_list']['buckets'])
+                ->map(fn($b) => [
+                    'key'  => $b['key'],
+                    'name' => $names[$b['key']] ?? '',
+                    'cnt'  => $b['gd_count']['value'],
+                ])->toArray();
+        }
+
+        // ca02 목록
+        if (!empty($aggResult['ca02_list']['by_ca02']['buckets'])) {
+            $ids = collect($aggResult['ca02_list']['by_ca02']['buckets'])->pluck('key');
+            $names = Category::whereIn('ca_id', $ids)->pluck('ca_name', 'ca_id');
+
+            $data['sch_cate_info']['ca02'] = collect($aggResult['ca02_list']['by_ca02']['buckets'])
+                ->map(fn($b) => [
+                    'key'  => $b['key'],
+                    'name' => $names[$b['key']] ?? '',
+                    'cnt'  => $b['gd_count']['value'],
+                ])->toArray();
+        }
+
+        // ca03 목록
+        if (!empty($aggResult['ca03_list']['by_ca03']['buckets'])) {
+            $ids = collect($aggResult['ca03_list']['by_ca03']['buckets'])->pluck('key');
+            $names = Category::whereIn('ca_id', $ids)->pluck('ca_name', 'ca_id');
+
+            $data['sch_cate_info']['ca03'] = collect($aggResult['ca03_list']['by_ca03']['buckets'])
+                ->map(fn($b) => [
+                    'key'  => $b['key'],
+                    'name' => $names[$b['key']] ?? '',
+                    'cnt'  => $b['gd_count']['value'],
+                ])->toArray();
+        }
+
+        // maker 목록
+        if (!empty($aggResult['maker_list']['by_maker']['buckets'])) {
+            $ids = collect($aggResult['maker_list']['by_maker']['buckets'])->pluck('key');
+            $names = \App\Models\Shop\Maker::whereIn('mk_id', $ids)->pluck('mk_name', 'mk_id');
+
+            $data['sch_cate_info']['maker'] = collect($aggResult['maker_list']['by_maker']['buckets'])
+                ->map(fn($b) => [
+                    'key'  => $b['key'],
+                    'name' => $names[$b['key']] ?? '',
+                    'cnt'  => $b['gd_count']['value'],
+                ])->toArray();
+        }
+
+        
         
 		return response()->json($data);
     }
