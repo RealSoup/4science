@@ -60,7 +60,10 @@
                 </b-row>
                 <b-row class="bank">
                     <b-col>
-                        <b>계좌안내</b>
+                        <b>
+                            <i><span>B</span>ANK</i>
+                            계좌안내
+                        </b>
                         <b-row class="wr">
                             <b-col><b-img :src="`${s3url}common/footer/account_woori.png`" /></b-col>
                             <b-col>{{siteInfo.bank.num01}}</b-col>
@@ -69,7 +72,10 @@
                             <b-col><b-img :src="`${s3url}common/footer/account_kb.png`" /></b-col>
                             <b-col>{{siteInfo.bank.num02}}</b-col>
                         </b-row>
-                        <p class="owner">예금주 : {{siteInfo.bank.owner}}</p>
+                        <b-row class="kb">
+                            <b-col>예금주</b-col>
+                            <b-col>{{siteInfo.bank.owner}}</b-col>
+                        </b-row>
                     </b-col>                    
                 </b-row>
             </b-col>
@@ -117,6 +123,7 @@ export default {
 #footer #footer_info .row .left .link .col a { padding:14px; }
 #footer #footer_info .row .left .biz_info { margin-top:29px; }
 #footer #footer_info .row .left .biz_info .col p { font-size:14px; margin-bottom:6px; }
+
 #footer #footer_info .row .right .row { justify-content:center; }
 #footer #footer_info .row .right .row .col { max-width:520px; }
 #footer #footer_info .row .right .row .col p { margin-bottom:6px; }
@@ -126,13 +133,28 @@ export default {
 #footer #footer_info .row .right .cs_center .col .contact a { border-color:#E1E1E1; background-color:#FFF; color:#000; font-size:13px; padding:2px 10px; }
 #footer #footer_info .row .right .cs_center .col .contact a:last-child { background-color:inherit; border:0; }
 
-#footer #footer_info .row .right .bank>.col { border-top:1px solid #E1E1E1; padding:10px 20px; max-width:560px; margin-top:12px; }
+#footer #footer_info .row .right .bank>.col { border-top:1px solid #E1E1E1; padding:10px 20px; max-width:560px; margin-top:12px; font-size:14px; }
 #footer #footer_info .row .right .bank .col b { font-size:18px; }
+#footer #footer_info .row .right .bank .col b i { position:relative; font-size: 9px; font-style: normal; letter-spacing: 4px; top: -3px; }
+#footer #footer_info .row .right .bank .col b i::before { position: absolute; top: -5px; left: -4px; width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-bottom: 4px solid #554F46; content: ''; }
+#footer #footer_info .row .right .bank .col b i::after { position: absolute; BOTTOM: -6px; LEFT: -4px; width: 40px; height: 4px; background: #554F46; content: ''; }
+#footer #footer_info .row .right .bank .col b i { color:#554F46; }
+#footer #footer_info .row .right .bank .col b i span { color:#FF5757; }
 #footer #footer_info .row .right .bank .col .row .col:first-of-type { flex:0 0 auto; width:133px; }
-#footer #footer_info .row .right .bank .col .row,
-#footer #footer_info .row .right .bank .col .owner { margin-top:5px; font-weight:600; }
+#footer #footer_info .row .right .bank .col .row { margin-top:5px; font-weight:600; }
 #footer #footer_info .row .right .bank .col .wr .col img { width:73px; }
 #footer #footer_info .row .right .bank .col .kb .col img { width:102px; }
+
+
+@media (max-width: 767px) {
+    #footer #notice { margin-bottom:20px; }
+    #footer #footer_info .row .left .biz_info { margin-top:7px; }
+    #footer #footer_info>.row>.col { flex: 0 0 auto; width:100%; padding:10px; }
+    #footer #footer_info .row .left .link .col { margin-left:0; padding:0; display:flex; justify-content:space-evenly; }
+    #footer #footer_info .row .left .link .col a { padding:0; }
+    #footer #footer_info .row .right { margin-bottom:30px; border-top:2px solid #777; }
+    #footer #footer_info .row .right .bank>.col { padding:10px 0px; }
+}
 
 #footer #expansion { position:fixed; bottom:1%; right:6.3%; z-index:17; }
 </style>

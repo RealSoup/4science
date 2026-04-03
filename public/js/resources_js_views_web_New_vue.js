@@ -100,7 +100,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   mounted: function mounted() {
     var _this = this;
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var rst, items, total, radius, angle, paused, scene, animate;
+      var rst, items, total, isMobile, radius, yRadius, angle, paused, scene, animate;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
@@ -111,7 +111,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   var theta = i / total * 360 + angle;
                   var rad = theta * Math.PI / 180;
                   var x = Math.sin(rad) * radius;
-                  var y = Math.cos(rad) * 60;
+                  var y = Math.cos(rad) * yRadius;
                   var scale = 0.6 + (Math.cos(rad) + 1) / 2 * 0.4;
                   item.style.transform = "translateX(".concat(x, "px) translateY(").concat(y, "px) scale(").concat(scale, ")");
                   item.style.zIndex = Math.round(scale * 10);
@@ -139,12 +139,14 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             }
 
             /////////////////////    회전 베너  시작     //////////////////////////
-            items = document.querySelectorAll('#banner_box .bn04 .item');
+            items = document.querySelectorAll('#banner_box .area_bl .scene .carousel a');
             total = items.length;
-            radius = 55;
+            isMobile = window.innerWidth <= 767;
+            radius = isMobile ? 35 : 55;
+            yRadius = isMobile ? 30 : 60;
             angle = 0;
             paused = false; // ✅ animate와 같은 스코프에 있어야 함
-            scene = document.querySelector('#banner_box .bn04 .scene');
+            scene = document.querySelector('#banner_box .area_bl .scene');
             scene.addEventListener('mouseenter', function () {
               paused = true;
               var spreadAngle = 360 / total;
@@ -167,7 +169,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             });
             animate();
             /////////////////////    회전 베너  끝   //////////////////////////
-          case 19:
+          case 21:
           case "end":
             return _context.stop();
         }
@@ -275,7 +277,7 @@ var render = function render() {
       id: "banner_box"
     }
   }, [_c("b-link", {
-    staticClass: "bn01",
+    staticClass: "area_tl",
     attrs: {
       to: "/shop/goods/1227"
     }
@@ -284,7 +286,7 @@ var render = function render() {
       src: "/storage/main/new/bn01.jpg"
     }
   })]), _vm._v(" "), _c("b-carousel", {
-    staticClass: "bn02",
+    staticClass: "area_tc",
     attrs: {
       controls: "",
       indicators: "",
@@ -316,7 +318,7 @@ var render = function render() {
       }
     }, [_c("p", [_vm._v(_vm._s(item.sw_group))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(item.sw_memo))])])], 1);
   })], 2), _vm._v(" "), _c("b-link", {
-    staticClass: "bn03",
+    staticClass: "area_tr",
     attrs: {
       to: "/shop/goods/817906"
     }
@@ -325,7 +327,7 @@ var render = function render() {
       src: "/storage/main/new/bn03.jpg"
     }
   })]), _vm._v(" "), _c("div", {
-    staticClass: "bn04"
+    staticClass: "area_bl"
   }, [_c("img", {
     staticClass: "bg",
     attrs: {
@@ -336,7 +338,6 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "carousel"
   }, [_c("b-link", {
-    staticClass: "item",
     attrs: {
       to: "/shop/goods/7919"
     }
@@ -346,7 +347,6 @@ var render = function render() {
       alt: "피펫1"
     }
   })]), _vm._v(" "), _c("b-link", {
-    staticClass: "item",
     attrs: {
       to: "/shop/goods/18182"
     }
@@ -355,8 +355,10 @@ var render = function render() {
       src: "/storage/main/new/bn0403.png",
       alt: "피펫2"
     }
-  })])], 1)])]), _vm._v(" "), _c("b-link", {
-    staticClass: "bn05",
+  })])], 1)])]), _vm._v(" "), _c("div", {
+    staticClass: "area_bc"
+  }, [_c("b-link", {
+    staticClass: "area_bc01",
     attrs: {
       to: "/shop/goods?ca01=28&ca02=3481&ca03=3483"
     }
@@ -365,7 +367,7 @@ var render = function render() {
       src: "/storage/main/new/bn05.jpg"
     }
   })]), _vm._v(" "), _c("b-link", {
-    staticClass: "bn06",
+    staticClass: "area_bc02",
     attrs: {
       to: "/shop/goods?ca01=26&ca02=1008"
     }
@@ -373,8 +375,8 @@ var render = function render() {
     attrs: {
       src: "/storage/main/new/bn06.jpg"
     }
-  })]), _vm._v(" "), _c("b-link", {
-    staticClass: "bn07",
+  })])], 1), _vm._v(" "), _c("b-link", {
+    staticClass: "area_br",
     attrs: {
       to: "/shop/goods?ca01=26&ca02=1067"
     }
@@ -644,7 +646,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#banner_box[data-v-16825bd4] { display:grid; gap:30px; margin-top:20px;\n}\n#banner_box .bn01[data-v-16825bd4] { grid-area: bn01;\n}\n#banner_box .bn02[data-v-16825bd4] { grid-area: bn02;\n}\n#banner_box .bn03[data-v-16825bd4] { grid-area: bn03;\n}\n#banner_box .bn04[data-v-16825bd4] { grid-area: bn04; position: relative;\n}\n#banner_box .bn04 .bg[data-v-16825bd4] { position: absolute;\n}\n#banner_box .bn04 .scene[data-v-16825bd4] {\r\n    width: 270px;\r\n    height: 340px;\r\n    perspective: 600px;\r\n    position: relative;\n}\n#banner_box .bn04 .carousel[data-v-16825bd4] {\r\n    width: 100%;\r\n    height: 100%;\r\n    position: relative;\r\n    transform-style: preserve-3d;\n}\n#banner_box .bn04 .item[data-v-16825bd4] {\r\n    position: absolute;\r\n    width: 164px;\r\n    height: 240px;\r\n    top: 50%;\r\n    left: 50%;\r\n    margin-top: -120px;\r\n    margin-left: -82px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\n}\n#banner_box .bn04 .item img[data-v-16825bd4] { width: 100%; height: 100%; -o-object-fit: contain; object-fit: contain; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5));\n}\n#banner_box .bn05[data-v-16825bd4] { grid-area: bn05;\n}\n#banner_box .bn06[data-v-16825bd4] { grid-area: bn06;\n}\n#banner_box .bn07[data-v-16825bd4] { grid-area: bn07;\n}\n#banner_box[data-v-16825bd4] { grid-template-areas:\r\n    \"bn01 bn02 bn02 bn03\"\r\n    \"bn04 bn02 bn02 bn03\"\r\n    \"bn04 bn05 bn06 bn07\";\n}\n@media (max-width: 767px) {\n#banner_box[data-v-16825bd4] { gap:10px;\r\n    grid-template-columns: 1fr 1fr; \r\n    grid-template-areas:\r\n      \"v3 v3\"\r\n      \"v3 v3\"\r\n      \"v1 v4\"\r\n      \"v2 v5\"\r\n      \"v2 v6\"\r\n      \"v7 v7\";\n}\n#banner_box>a[data-v-16825bd4] { width:100%;\n}\n#banner_box>a img[data-v-16825bd4] { width:100%;\n}\n}\n#banner_box .slide[data-v-16825bd4] { overflow:hidden; max-width:900px; max-height:460px;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner { height:100%;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item { height:100%;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item img { -o-object-fit:contain; object-fit:contain; height:100%;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item .carousel-caption { width:100%; height:100%; right:auto; bottom:0; left:auto; padding:0; z-index:1;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item .carousel-caption p { position:absolute; text-align:center; width:100%; background-color:#55888888; padding:8px 5px;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item .carousel-caption p:first-of-type { top:50%; transform:translateY(-50%);\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item .carousel-caption p:last-of-type { bottom:0;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-indicators li { background-color:#898989;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-control-prev:hover,\r\n#banner_box .slide[data-v-16825bd4] .carousel-control-next:hover { background-color:#55888888;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link { position:absolute; display:block; height:100%; bottom:0;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link#app01 { width: 100%;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link#app02 { left:66%; bottom:8%; width:301px; height:91px;}\n#banner_box .slide[data-v-16825bd4] .evt01 .carousel-caption { position:static; padding:0;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link#app02:hover { background-color:#015B7E55;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link .tooltiptext {\r\n  visibility:hidden; padding:0.25em 0.5em; background-color:black; color:#fff; text-align:center; border-radius:0.25em; white-space:nowrap;\r\n  /* Position the tooltip */\r\n  position:absolute; z-index:1; top:50%; transition-property:visibility; transition-delay:0s;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 a#app01 .tooltiptext { right:25%;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 a#app02 .tooltiptext { right:25%;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link#app02:hover .tooltiptext { visibility: visible; opacity:1;\n}\n.container .tit .col[data-v-16825bd4] { font-size:23px; font-weight:900;\n}\n#best[data-v-16825bd4] { max-width:100% !important; margin:74px auto 0 auto;\n}\n#best .inner[data-v-16825bd4] { background-color:#F6F7FB; padding:24px 0 10px 0; margin:12px;\n}\n#best .inner .row a[data-v-16825bd4] { position: relative; height:324px; width:239px; margin:6px;\n}\n#best .inner .row a img[data-v-16825bd4] { width:100%; height:239px; -o-object-fit:contain; object-fit:contain; background-color: #FFFFFF; border:1px solid #D7D7D7; border-radius:20px;\n}\n#best .inner .row a .box-footer[data-v-16825bd4] { padding:0 8px;\n}\n#best .inner .row a .box-footer .box_ca[data-v-16825bd4] { color:#1A8FD4; margin:3px 0; font-size:.8rem;\n}\n#best .inner .row a .box-footer .box_tit[data-v-16825bd4] { font-weight:bold;\n}\n@media (max-width: 767px) {\n#best .inner .row a[data-v-16825bd4] { flex:0 0 33.333334%; max-width:33.333334%; margin:0; padding:10px;\n}\n}\n#recommend_goods[data-v-16825bd4]  { margin:74px auto 0 auto;\n}\n#recommend_goods .tit .col[data-v-16825bd4] { margin:25px 0px;\n}\n#recommend_goods .cont a[data-v-16825bd4] { flex:0 0 10%; max-width:calc(10% - 20px); margin:0 10px; text-align:center;\n}\n#recommend_goods .cont a img[data-v-16825bd4] { width:100%; height:126px; -o-object-fit:contain; object-fit:contain; background-color:#F3F3F3; border:1px solid #D7D7D7; border-radius:50%; margin-bottom:18px;\n}\n#recommend_goods .cont a span[data-v-16825bd4] { font-weight:bold;\n}\n#middle_banner[data-v-16825bd4] { margin-top:80px;\n}\n#newest[data-v-16825bd4]  { margin:74px auto 0 auto;\n}\n#newest .tit .col[data-v-16825bd4] { margin:25px 0px;\n}\n#newest .cont[data-v-16825bd4] { margin-left:-17px; margin-right:-17px;\n}\n#newest .cont a[data-v-16825bd4] { position:relative; flex:0 0 25%; max-width:calc(25% - 34px); margin:0 17px; text-align:center; height:480px;\n}\n#newest .cont a img[data-v-16825bd4] { width:100%; height:100%; -o-object-fit:contain; object-fit:contain; background-color:#F3F3F3; border:1px solid #D7D7D7; border-radius:35px;\n}\n#newest .cont a div[data-v-16825bd4] { position:absolute; text-align:left; bottom:25px; left:25px;\n}\n#newest .cont a div p[data-v-16825bd4] { margin:0;\n}\n#newest .cont a div p[data-v-16825bd4]:last-of-type { font-weight:900;\n}\n#maker_shop[data-v-16825bd4] { margin-top:80px;\n}\n#maker_shop .tit .col[data-v-16825bd4] { margin:25px 0px;\n}\n#maker_shop .cont .slide[data-v-16825bd4] { overflow:hidden; max-width:100%; width:100%;\n}\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-item .item_box { display:flex; flex-wrap:wrap;\n}\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-item .item_box a { flex:0 0 auto; width:calc(16.666667% - 10px); height:160px; margin:0 5px; text-align:center; overflow:hidden;\n}\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-item .item_box a img { width:100%; height:100px; -o-object-fit:contain; object-fit:contain; border:1px solid #000; border-radius:20px; margin-bottom:10px;\n}\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-control-prev, \r\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-control-next { width:3%;\n}\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-indicators li { background-color:#898989;\n}\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-control-prev:hover,\r\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-control-next:hover { background-color:#55888888;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#banner_box[data-v-16825bd4] { display:grid; gap:30px; margin-top:20px;\n}\n#banner_box .area_tl[data-v-16825bd4] { grid-area: area_tl;\n}\n#banner_box .area_tc[data-v-16825bd4] { grid-area: area_tc;\n}\n#banner_box .area_tr[data-v-16825bd4] { grid-area: area_tr;\n}\n#banner_box .area_bl[data-v-16825bd4] { grid-area: area_bl; position:relative; width: 100%;\n}\n#banner_box .area_bl .bg[data-v-16825bd4] { position: absolute; width: 100%;\n}\n#banner_box .area_bl .scene[data-v-16825bd4] { width:270px; height:340px; perspective:600px; position:relative;\n}\n#banner_box .area_bl .scene .carousel[data-v-16825bd4] { width:100%; height:100%; position:relative; transform-style:preserve-3d;\n}\n#banner_box .area_bl .scene .carousel a[data-v-16825bd4] { position:absolute; width:164px; height:240px; top:50%; left:50%; margin-top:-120px; margin-left:-82px; display:flex; align-items:center; justify-content:center;\n}\n#banner_box .area_bl .scene .carousel a img[data-v-16825bd4] { width: 100%; height: 100%; -o-object-fit: contain; object-fit: contain; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5));\n}\n#banner_box .area_bc[data-v-16825bd4] { grid-area:area_bc; display:flex; gap:30px;\n}\n#banner_box .area_bc .area_bc01[data-v-16825bd4] { flex: 270;\n}\n#banner_box .area_bc .area_bc02[data-v-16825bd4] { flex: 600;\n}\n#banner_box .area_bc .area_bc01 img[data-v-16825bd4],\r\n#banner_box .area_bc .area_bc02 img[data-v-16825bd4] { width:100%; height:100%; -o-object-fit:cover; object-fit:cover; display:block;\n}\n#banner_box .area_br[data-v-16825bd4] { grid-area:area_br;\n}\n#banner_box[data-v-16825bd4] { \r\n    grid-template-columns: 270px 270px 600px 270px;\r\n    grid-template-areas: \"area_tl area_tc area_tc area_tr\"\r\n                         \"area_bl area_tc area_tc area_tr\"\r\n                         \"area_bl area_bc area_bc area_br\";\n}\n@media (max-width: 767px) {\n#banner_box[data-v-16825bd4] {\r\n        width: 100%;\r\n        gap: 10px;\r\n        grid-template-columns: 1fr 1fr;\r\n        grid-template-areas:\r\n        \"area_tc area_tc\"\r\n        \"area_tl area_tr\"\r\n        \"area_bl area_tr\"\r\n        \"area_bl area_br\"\r\n        \"area_bc area_bc\";  /* 하단을 하나로 묶기 */\n}\n#banner_box .area_bc[data-v-16825bd4] { gap:10px;\n}\n#banner_box .area_bc .area_bc01[data-v-16825bd4],\r\n    #banner_box .area_bc .area_bc02[data-v-16825bd4] { min-width:0;\n}\n#banner_box .area_bc .area_bc02 img[data-v-16825bd4] { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover;\n}\n#banner_box > a[data-v-16825bd4] { width: 100%;\n}\n#banner_box > a img[data-v-16825bd4] { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover;\n}\n#banner_box .area_bl .scene[data-v-16825bd4] { width:100%; height:100%; perspective:600px; position:relative;\n}\n#banner_box .area_bl .scene .carousel a[data-v-16825bd4] { width: 100px; height: 150px; margin-top:-75px; margin-left:-50px; top:30%;\n}\n}\n#banner_box .slide[data-v-16825bd4] { overflow:hidden; max-width:900px; max-height:460px;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner { height:100%;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item { height:100%;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item img { -o-object-fit:contain; object-fit:contain; height:100%;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item .carousel-caption { width:100%; height:100%; right:auto; bottom:0; left:auto; padding:0; z-index:1;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item .carousel-caption p { position:absolute; text-align:center; width:100%; background-color:#55888888; padding:8px 5px;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item .carousel-caption p:first-of-type { top:50%; transform:translateY(-50%);\n}\n#banner_box .slide[data-v-16825bd4] .carousel-inner .banner_goods .carousel-item .carousel-caption p:last-of-type { bottom:0;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-indicators li { background-color:#898989;\n}\n#banner_box .slide[data-v-16825bd4] .carousel-control-prev:hover,\r\n#banner_box .slide[data-v-16825bd4] .carousel-control-next:hover { background-color:#55888888;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link { position:absolute; display:block; height:100%; bottom:0;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link#app01 { width: 100%;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link#app02 { left:66%; bottom:8%; width:301px; height:91px;}\n#banner_box .slide[data-v-16825bd4] .evt01 .carousel-caption { position:static; padding:0;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link#app02:hover { background-color:#015B7E55;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link .tooltiptext {\r\n  visibility:hidden; padding:0.25em 0.5em; background-color:black; color:#fff; text-align:center; border-radius:0.25em; white-space:nowrap;\r\n  /* Position the tooltip */\r\n  position:absolute; z-index:1; top:50%; transition-property:visibility; transition-delay:0s;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 a#app01 .tooltiptext { right:25%;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 a#app02 .tooltiptext { right:25%;\n}\n#banner_box .slide[data-v-16825bd4] .evt01 .split_link#app02:hover .tooltiptext { visibility: visible; opacity:1;\n}\n.container .tit .col[data-v-16825bd4] { font-size:23px; font-weight:900;\n}\n#best[data-v-16825bd4] { max-width:100% !important; margin:74px auto 0 auto;\n}\n#best .inner[data-v-16825bd4] { background-color:#F6F7FB; padding:24px 0 10px 0; margin:12px;\n}\n#best .inner .row a[data-v-16825bd4] { position: relative; margin:6px;\n}\n#best .inner .row a img[data-v-16825bd4] { width:100%; height:239px; -o-object-fit:contain; object-fit:contain; background-color: #FFFFFF; border:1px solid #D7D7D7; border-radius:20px;\n}\n#best .inner .row a .box-footer[data-v-16825bd4] { padding:0 8px;\n}\n#best .inner .row a .box-footer .box_ca[data-v-16825bd4] { color:#1A8FD4; margin:3px 0; font-size:.8rem;\n}\n#best .inner .row a .box-footer .box_tit[data-v-16825bd4] { font-weight:bold;\n}\n@media (max-width: 767px) {\n#best[data-v-16825bd4] { margin-top:30px;\n}\n#best .inner .row a[data-v-16825bd4] { flex:0 0 33.333334%; max-width:33.333334%; margin:0; padding:10px;\n}\n#best .inner .row a img[data-v-16825bd4] { height: auto; aspect-ratio: 1 / 1;\n}\n}\n#recommend_goods[data-v-16825bd4]  { margin:74px auto 0 auto;\n}\n#recommend_goods .tit .col[data-v-16825bd4] { margin:25px 0px;\n}\n#recommend_goods .cont a[data-v-16825bd4] { flex:0 0 10%; max-width:calc(10% - 20px); margin:0 10px; text-align:center;\n}\n#recommend_goods .cont a img[data-v-16825bd4] { width:100%; height:126px; -o-object-fit:contain; object-fit:contain; background-color:#F3F3F3; border:1px solid #D7D7D7; border-radius:50%; margin-bottom:18px;\n}\n#recommend_goods .cont a span[data-v-16825bd4] { font-weight:bold;\n}\n@media (max-width: 767px) {\n#recommend_goods[data-v-16825bd4]  { margin:0;\n}\n#recommend_goods .cont[data-v-16825bd4] { flex-wrap: wrap;\n}\n#recommend_goods .cont a[data-v-16825bd4]:nth-child(n+10) { display: none;\n}\n#recommend_goods .cont a[data-v-16825bd4] { flex:0 0 33.333%; max-width:calc(33.333% - 6px); margin:0 3px 10PX;\n}\n#recommend_goods .cont a img[data-v-16825bd4] { height: auto; aspect-ratio: 1 / 1;\n}\n}\n#middle_banner[data-v-16825bd4] { margin-top:80px;\n}\n#middle_banner .col[data-v-16825bd4] { overflow: hidden;\n}\n#middle_banner .col img[data-v-16825bd4] { width: 100%;\n}\n@media (max-width: 767px) {\n#middle_banner[data-v-16825bd4] { margin-top:30px;\n}\n#middle_banner .col[data-v-16825bd4] { overflow: hidden; width: 100%;\n}\n#middle_banner .col img[data-v-16825bd4] { width:130%; height: auto; position: relative; left: 50%; transform: translateX(-50%);\n}\n}\n#newest[data-v-16825bd4]  { margin:74px auto 0 auto;\n}\n#newest .tit .col[data-v-16825bd4] { margin:25px 0px;\n}\n#newest .cont[data-v-16825bd4] { margin-left:-17px; margin-right:-17px;\n}\n#newest .cont a[data-v-16825bd4] { position:relative; flex:0 0 25%; max-width:calc(25% - 34px); margin:0 17px; text-align:center;\n}\n#newest .cont a img[data-v-16825bd4] { width:100%; height: auto; aspect-ratio: 1 / 1; -o-object-fit:contain; object-fit:contain; background-color:#F3F3F3; border:1px solid #D7D7D7; border-radius:13px;\n}\n#newest .cont a div[data-v-16825bd4] { text-align:left; margin-top:10px;\n}\n#newest .cont a div p[data-v-16825bd4] { margin:0;\n}\n#newest .cont a div p[data-v-16825bd4]:last-of-type { font-weight:900;\n}\n@media (max-width: 767px) {\n#newest[data-v-16825bd4]  { margin:0;\n}\n#newest .cont[data-v-16825bd4] { margin:0;\n}\n#newest .cont a[data-v-16825bd4] { flex:0 0 50%; max-width:calc(50% - 6px); margin:0 3px 10PX;\n}\n#newest .cont a div p[data-v-16825bd4]:last-of-type { font-size: 13px;\n}\n}\n#maker_shop[data-v-16825bd4] { margin-top:80px;\n}\n#maker_shop .tit .col[data-v-16825bd4] { margin:25px 0px;\n}\n#maker_shop .cont .slide[data-v-16825bd4] { overflow:hidden; max-width:100%; width:100%;\n}\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-item .item_box { display:flex; flex-wrap:wrap;\n}\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-item .item_box a { flex:0 0 auto; width:calc(16.666667% - 10px); height:160px; margin:0 5px; text-align:center; overflow:hidden;\n}\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-item .item_box a img { width:100%; height:100px; -o-object-fit:contain; object-fit:contain; border:1px solid #000; border-radius:20px; margin-bottom:10px;\n}\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-control-prev, \r\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-control-next { width:3%;\n}\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-indicators li { background-color:#898989;\n}\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-control-prev:hover,\r\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-control-next:hover { background-color:#55888888;\n}\n@media (max-width: 767px) {\n#maker_shop[data-v-16825bd4] { margin-top:0;\n}\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-item .item_box a { width:calc(25% - 10px); height:auto;\n}\n#maker_shop .cont .slide[data-v-16825bd4] .carousel-item .item_box a img { height: auto; aspect-ratio: 1 / 1;}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

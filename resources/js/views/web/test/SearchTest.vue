@@ -57,7 +57,7 @@
         <b-container v-if="category_picks" class="category_picks">
             <b-row>                   
                 <b-link :to="{name: 'goods_index', query: { ca01:$route.query.ca01 } }" class="col tit" >
-                    <!-- <b-img :src="`/storage/main/cate/bg${$route.query.ca01}.gif`"></b-img> -->
+                    <b-img :src="`/storage/goods/cate/${$route.query.ca01}.png`"></b-img>
                     <h6>{{thisCaName}}</h6>
                 </b-link>
                 <b-link class="col con" 
@@ -197,8 +197,8 @@ export default {
 .sch_detail .extra_sch .input-group { max-width:30em; }
 
 .category_picks { margin-top:20px; overflow:hidden; border-top:1px solid #1A90D6; border-left:1px solid #1A90D6; border-radius:30px 0 0 30px; }
-.category_picks .tit { background-color:#1A90D6; }
-.category_picks .tit img { height:270px; }
+.category_picks .tit { background-color:#1A90D6; max-width:146px; }
+.category_picks .tit img { }
 .category_picks .tit h6 { position:absolute; top:40px; right:12px; color:#FFF; font-size:21px; font-weight:bold; }
 .category_picks .con { padding:24px; border-bottom:1px solid #1A90D6; border-right:1px solid #1A90D6; }
 .category_picks .con img { width:100%; height:166px; object-fit:contain; margin-bottom:12px; } 
@@ -206,9 +206,7 @@ export default {
 
 .list { align-items:flex-start; margin-top:25px; }
 .list .sort { flex:0 0 9%; max-width:9%; margin-right:15px; } 
-.list .sort ul {  }
 .list .sort ul li { text-align:center; padding:6px 0; font-size:.85rem; font-weight:600; cursor:pointer; border:1px solid #D7D7D7; border-radius:25px; margin-bottom:10px; }
-.list .sort ul li:not(:last-child) { }
 .list .sort ul li.active { background:#DFEAF0; } 
 
 .list .col .row div:nth-child(2),
@@ -234,6 +232,13 @@ export default {
     .sch_detail .row .col  { flex:0 0 50%; max-width:50%; }
     .sch_detail .row .col h5 { font-size:14px; padding:.4em; }
     .sch_detail .row .col p { font-size:12px; padding:.3em; }
+    
+    .category_picks { border-radius:0; margin:0 5px; }
+    .category_picks .tit { display:none; }
+    .category_picks .con { flex: 0 0 auto; max-width: 33.333%; padding:5px; }
+    .category_picks .con img { height: auto; aspect-ratio: 1 / 1; }
+    .category_picks .con p  { text-align:center; font-size:12px; }
+
     .list .col .lbody>* { padding: 0 3px; }
     .list .col .lbody .link img { border-width:0; width: 80px; height: 80px; margin: 10px 10px 10px 0; }
     .list .col .lbody .link p { font-size: calc(1.2vw + .5rem); }
@@ -242,5 +247,7 @@ export default {
     .list .col .lbody .link p i .see_dealer .dealer { display:inline; padding-left:12px; margin-left:12px; }
     .list .col .lbody .link p i .see_dealer .dealer:before { left:-6px; width:14px; height:14px; line-height:14px; font-style:normal; font-size:.68rem; }
     .p_wrap >>> .page-link { min-width: 30px; padding:0; }
+
+        
 }
 </style>

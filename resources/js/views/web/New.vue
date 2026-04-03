@@ -3,11 +3,11 @@
     <pop-up></pop-up>
     
     <div id="banner_box" class="layout">
-        <b-link to="/shop/goods/1227" class="bn01">
+        <b-link to="/shop/goods/1227" class="area_tl">
             <img src="/storage/main/new/bn01.jpg" />
         </b-link>
 
-        <b-carousel controls indicators :interval='0' class="bn02">
+        <b-carousel controls indicators :interval='0' class="area_tc">
             <b-link to="/board/event/show/62">
                 <b-carousel-slide img-src="/storage/main/new/bn02.jpg"></b-carousel-slide>
             </b-link>
@@ -25,30 +25,32 @@
             </b-link>
         </b-carousel>
 
-        <b-link to="/shop/goods/817906" class="bn03">
+        <b-link to="/shop/goods/817906" class="area_tr">
             <img src="/storage/main/new/bn03.jpg" />
         </b-link>
-        <div class="bn04">
+        <div class="area_bl">
             <img src="/storage/main/new/bn0401.jpg" class="bg" />
             <div class="scene">
                 <div class="carousel">
-                    <b-link to="/shop/goods/7919" class="item">
+                    <b-link to="/shop/goods/7919">
                         <img src="/storage/main/new/bn0402.png" alt="피펫1">
                     </b-link>
-                    <b-link to="/shop/goods/18182" class="item">
+                    <b-link to="/shop/goods/18182">
                         <img src="/storage/main/new/bn0403.png" alt="피펫2">
                     </b-link>
                 </div>
             </div>
         </div>
-        <b-link to="/shop/goods?ca01=28&ca02=3481&ca03=3483" class="bn05">
-            <img src="/storage/main/new/bn05.jpg" />
-        </b-link>
-        
-        <b-link to="/shop/goods?ca01=26&ca02=1008" class="bn06">
-            <img src="/storage/main/new/bn06.jpg" />
-        </b-link>
-        <b-link to="/shop/goods?ca01=26&ca02=1067" class="bn07">
+
+        <div class="area_bc">
+            <b-link to="/shop/goods?ca01=28&ca02=3481&ca03=3483" class="area_bc01">
+                <img src="/storage/main/new/bn05.jpg" />
+            </b-link>
+            <b-link to="/shop/goods?ca01=26&ca02=1008" class="area_bc02">
+                <img src="/storage/main/new/bn06.jpg" />
+            </b-link>
+        </div>
+        <b-link to="/shop/goods?ca01=26&ca02=1067" class="area_br">
             <img src="/storage/main/new/bn07.jpg" />
         </b-link>
     </div>        
@@ -193,13 +195,15 @@ export default {
         
         
         /////////////////////    회전 베너  시작     //////////////////////////
-        const items = document.querySelectorAll('#banner_box .bn04 .item');
+        const items = document.querySelectorAll('#banner_box .area_bl .scene .carousel a');
         const total = items.length;
-        const radius = 55;
+        const isMobile = window.innerWidth <= 767;
+        const radius = isMobile ? 35 : 55;
+        const yRadius = isMobile ? 30 : 60;
         let angle = 0;
         let paused = false;  // ✅ animate와 같은 스코프에 있어야 함
 
-        const scene = document.querySelector('#banner_box .bn04 .scene');
+        const scene = document.querySelector('#banner_box .area_bl .scene');
 
         scene.addEventListener('mouseenter', () => {
             paused = true;
@@ -230,7 +234,7 @@ export default {
                     const theta = (i / total) * 360 + angle;
                     const rad = theta * Math.PI / 180;
                     const x = Math.sin(rad) * radius;
-                    const y = Math.cos(rad) * 60;
+                    const y = Math.cos(rad) * yRadius;
                     const scale = 0.6 + (Math.cos(rad) + 1) / 2 * 0.4;
 
                     item.style.transform = `translateX(${x}px) translateY(${y}px) scale(${scale})`;
@@ -250,57 +254,50 @@ export default {
 
 <style lang="css" scoped>
 #banner_box { display:grid; gap:30px; margin-top:20px; }
-#banner_box .bn01 { grid-area: bn01; }
-#banner_box .bn02 { grid-area: bn02; }
-#banner_box .bn03 { grid-area: bn03; }
-#banner_box .bn04 { grid-area: bn04; position: relative; }
-#banner_box .bn04 .bg { position: absolute; }
-#banner_box .bn04 .scene {
-    width: 270px;
-    height: 340px;
-    perspective: 600px;
-    position: relative;
-}
-#banner_box .bn04 .carousel {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-}
-#banner_box .bn04 .item {
-    position: absolute;
-    width: 164px;
-    height: 240px;
-    top: 50%;
-    left: 50%;
-    margin-top: -120px;
-    margin-left: -82px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-#banner_box .bn04 .item img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5)); }
-#banner_box .bn05 { grid-area: bn05; }
-#banner_box .bn06 { grid-area: bn06; }
-#banner_box .bn07 { grid-area: bn07; }
-#banner_box { grid-template-areas:
-    "bn01 bn02 bn02 bn03"
-    "bn04 bn02 bn02 bn03"
-    "bn04 bn05 bn06 bn07";
+#banner_box .area_tl { grid-area: area_tl; }
+#banner_box .area_tc { grid-area: area_tc; }
+#banner_box .area_tr { grid-area: area_tr; }
+#banner_box .area_bl { grid-area: area_bl; position:relative; width: 100%; }
+#banner_box .area_bl .bg { position: absolute; width: 100%; }
+#banner_box .area_bl .scene { width:270px; height:340px; perspective:600px; position:relative; }
+#banner_box .area_bl .scene .carousel { width:100%; height:100%; position:relative; transform-style:preserve-3d; }
+#banner_box .area_bl .scene .carousel a { position:absolute; width:164px; height:240px; top:50%; left:50%; margin-top:-120px; margin-left:-82px; display:flex; align-items:center; justify-content:center; }
+#banner_box .area_bl .scene .carousel a img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5)); }
+#banner_box .area_bc { grid-area:area_bc; display:flex; gap:30px; }
+#banner_box .area_bc .area_bc01 { flex: 270; }
+#banner_box .area_bc .area_bc02 { flex: 600; }
+#banner_box .area_bc .area_bc01 img,
+#banner_box .area_bc .area_bc02 img { width:100%; height:100%; object-fit:cover; display:block; }
+#banner_box .area_br { grid-area:area_br; }
+#banner_box { 
+    grid-template-columns: 270px 270px 600px 270px;
+    grid-template-areas: "area_tl area_tc area_tc area_tr"
+                         "area_bl area_tc area_tc area_tr"
+                         "area_bl area_bc area_bc area_br";
 }
 @media (max-width: 767px) {
-  #banner_box { gap:10px;
-    grid-template-columns: 1fr 1fr; 
-    grid-template-areas:
-      "v3 v3"
-      "v3 v3"
-      "v1 v4"
-      "v2 v5"
-      "v2 v6"
-      "v7 v7";
-  }
-  #banner_box>a { width:100%; }
-  #banner_box>a img { width:100%; }
+     #banner_box {
+        width: 100%;
+        gap: 10px;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+        "area_tc area_tc"
+        "area_tl area_tr"
+        "area_bl area_tr"
+        "area_bl area_br"
+        "area_bc area_bc";  /* 하단을 하나로 묶기 */
+    }
+  
+    #banner_box .area_bc { gap:10px; }
+    #banner_box .area_bc .area_bc01,
+    #banner_box .area_bc .area_bc02 { min-width:0; }
+    #banner_box .area_bc .area_bc02 img { width: 100%; height: 100%; object-fit: cover; }
+    #banner_box > a { width: 100%; }
+    #banner_box > a img { width: 100%; height: 100%; object-fit: cover; }
+
+    
+    #banner_box .area_bl .scene { width:100%; height:100%; perspective:600px; position:relative; }
+    #banner_box .area_bl .scene .carousel a { width: 100px; height: 150px; margin-top:-75px; margin-left:-50px; top:30%; }
 }
 
 
@@ -334,13 +331,15 @@ export default {
 
 #best { max-width:100% !important; margin:74px auto 0 auto; }
 #best .inner { background-color:#F6F7FB; padding:24px 0 10px 0; margin:12px; }
-#best .inner .row a { position: relative; height:324px; width:239px; margin:6px; }
+#best .inner .row a { position: relative; margin:6px; }
 #best .inner .row a img { width:100%; height:239px; object-fit:contain; background-color: #FFFFFF; border:1px solid #D7D7D7; border-radius:20px; }
 #best .inner .row a .box-footer { padding:0 8px; }
 #best .inner .row a .box-footer .box_ca { color:#1A8FD4; margin:3px 0; font-size:.8rem; }
 #best .inner .row a .box-footer .box_tit { font-weight:bold; }
 @media (max-width: 767px) {
-  #best .inner .row a { flex:0 0 33.333334%; max-width:33.333334%; margin:0; padding:10px; }
+    #best { margin-top:30px; }
+    #best .inner .row a { flex:0 0 33.333334%; max-width:33.333334%; margin:0; padding:10px; }
+    #best .inner .row a img { height: auto; aspect-ratio: 1 / 1; }
 }
 
 #recommend_goods  { margin:74px auto 0 auto; }
@@ -348,17 +347,38 @@ export default {
 #recommend_goods .cont a { flex:0 0 10%; max-width:calc(10% - 20px); margin:0 10px; text-align:center; }
 #recommend_goods .cont a img { width:100%; height:126px; object-fit:contain; background-color:#F3F3F3; border:1px solid #D7D7D7; border-radius:50%; margin-bottom:18px; }
 #recommend_goods .cont a span { font-weight:bold; }
+@media (max-width: 767px) {
+    #recommend_goods  { margin:0; }
+    #recommend_goods .cont { flex-wrap: wrap; }
+    #recommend_goods .cont a:nth-child(n+10) { display: none; }
+    #recommend_goods .cont a { flex:0 0 33.333%; max-width:calc(33.333% - 6px); margin:0 3px 10PX; }
+    #recommend_goods .cont a img { height: auto; aspect-ratio: 1 / 1; }
+}
 
 #middle_banner { margin-top:80px; }
+#middle_banner .col { overflow: hidden; }
+#middle_banner .col img { width: 100%; }
+
+@media (max-width: 767px) {
+    #middle_banner { margin-top:30px; }
+    #middle_banner .col { overflow: hidden; width: 100%; }
+    #middle_banner .col img { width:130%; height: auto; position: relative; left: 50%; transform: translateX(-50%); }
+}
 
 #newest  { margin:74px auto 0 auto; }
 #newest .tit .col { margin:25px 0px; }
 #newest .cont { margin-left:-17px; margin-right:-17px; }
-#newest .cont a { position:relative; flex:0 0 25%; max-width:calc(25% - 34px); margin:0 17px; text-align:center; height:480px; }
-#newest .cont a img { width:100%; height:100%; object-fit:contain; background-color:#F3F3F3; border:1px solid #D7D7D7; border-radius:35px; }
-#newest .cont a div { position:absolute; text-align:left; bottom:25px; left:25px; }
+#newest .cont a { position:relative; flex:0 0 25%; max-width:calc(25% - 34px); margin:0 17px; text-align:center; }
+#newest .cont a img { width:100%; height: auto; aspect-ratio: 1 / 1; object-fit:contain; background-color:#F3F3F3; border:1px solid #D7D7D7; border-radius:13px; }
+#newest .cont a div { text-align:left; margin-top:10px; }
 #newest .cont a div p { margin:0; }
 #newest .cont a div p:last-of-type { font-weight:900; }
+@media (max-width: 767px) {
+    #newest  { margin:0; }
+    #newest .cont { margin:0; }
+    #newest .cont a { flex:0 0 50%; max-width:calc(50% - 6px); margin:0 3px 10PX; }
+    #newest .cont a div p:last-of-type { font-size: 13px; }
+}
 
 #maker_shop { margin-top:80px; }
 #maker_shop .tit .col { margin:25px 0px; }
@@ -371,4 +391,9 @@ export default {
 #maker_shop .cont .slide::v-deep .carousel-indicators li { background-color:#898989; }
 #maker_shop .cont .slide::v-deep .carousel-control-prev:hover,
 #maker_shop .cont .slide::v-deep .carousel-control-next:hover { background-color:#55888888; }
+@media (max-width: 767px) {
+    #maker_shop { margin-top:0; }
+    #maker_shop .cont .slide::v-deep .carousel-item .item_box a { width:calc(25% - 10px); height:auto; }
+    #maker_shop .cont .slide::v-deep .carousel-item .item_box a img { height: auto; aspect-ratio: 1 / 1;}
+}
 </style>

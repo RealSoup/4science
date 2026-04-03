@@ -17,7 +17,7 @@
         <b-col>{{row.eq_id}}.</b-col>
         <b-col @click="exeWinPop(`/admin/shop/estimate/req/${row.eq_id}`)" class="eq_tit">
             <b v-if="row.eq_title" v-html="row.eq_title"></b>
-            <sub-string v-else v-model="row.eq_content" :width="650"></sub-string>
+            <sub-string v-else v-model="row.eq_content" :width="618"></sub-string>
 
             <span class="badgetag yellow" v-b-tooltip="'임의견적'" v-if="row.eq_type=='TEMP'">임</span>
             <span class="badgetag plum" v-b-tooltip="'재견적요청'" v-else-if="row.eq_type=='REREQ'">재</span>

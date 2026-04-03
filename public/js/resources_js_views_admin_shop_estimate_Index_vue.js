@@ -662,7 +662,7 @@ var render = function render() {
       }
     }) : _c("sub-string", {
       attrs: {
-        width: 650
+        width: 618
       },
       model: {
         value: row.eq_content,
