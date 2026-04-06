@@ -64,6 +64,11 @@ class SyncElasticsearchSettings extends Command
                             'korean' => [           // 일반 텍스트용 (한글 형태소)
                                 'type'      => 'custom',
                                 'tokenizer' => 'nori_tokenizer',
+                                'filter'    => ['lowercase'],
+                            ],
+                            'korean_search' => [
+                                'type'      => 'custom',
+                                'tokenizer' => 'nori_tokenizer',
                                 'filter'    => ['lowercase', 'synonym_filter'],
                             ],
                             'korean_exact' => [     // 정밀 검색용 (쪼개지 않음)
@@ -77,7 +82,7 @@ class SyncElasticsearchSettings extends Command
                 ],
                 'mappings' => [
                     'properties' => [
-                        'gd_name'      => ['type' => 'text', 'analyzer' => 'korean', 'similarity' => 'no_idf', 'fields'   => [ 'keyword' => ['type' => 'keyword', 'normalizer' => 'lowercase_normalizer'], 'exact'   => ['type' => 'text', 'analyzer' => 'korean_exact'], ], ],
+                        'gd_name'      => ['type' => 'text', 'analyzer' => 'korean', 'search_analyzer' => 'korean_search', 'similarity' => 'no_idf', 'fields'   => [ 'keyword' => ['type' => 'keyword', 'normalizer' => 'lowercase_normalizer'], 'exact'   => ['type' => 'text', 'analyzer' => 'korean_exact'], ], ],
                         'gm_name'      => ['type' => 'text', 'analyzer' => 'korean', 'similarity' => 'no_idf', 'fields'   => [ 'keyword' => ['type' => 'keyword', 'normalizer' => 'lowercase_normalizer'], 'exact'   => ['type' => 'text', 'analyzer' => 'korean_exact'], ], ],
                         'mk_name'      => ['type' => 'text', 'analyzer' => 'korean_exact', 'similarity' => 'no_idf', 'fields' => [ 'keyword' => ['type' => 'keyword', 'normalizer' => 'lowercase_normalizer'], 'exact' => ['type' => 'text', 'analyzer' => 'korean_exact'], ], ],
                         'gd_keyword'   => ['type' => 'text', 'analyzer' => 'korean', 'similarity' => 'no_idf'],
