@@ -39,11 +39,18 @@ class SyncElasticsearchSettings extends Command
                                 'filter' => ['lowercase'],  // 소문자 통일만
                             ],
                         ],
-                        'char_filter' => [                          // ✅ 추가
+                        'char_filter' => [
                             'special_chars' => [
                                 'type'        => 'pattern_replace',
                                 'pattern'     => '[().,]',          // 괄호, 쉼표, 마침표 제거 (&는 유지)
                                 'replacement' => '',
+                            ],
+                        ],
+                        'filter' => [
+                            'synonym_filter' => [
+                                'type'          => 'synonym',
+                                'synonyms_path' => 'synonyms_final.txt',
+                                'updateable'    => true,
                             ],
                         ],
                         'tokenizer' => [
@@ -57,13 +64,13 @@ class SyncElasticsearchSettings extends Command
                             'korean' => [           // 일반 텍스트용 (한글 형태소)
                                 'type'      => 'custom',
                                 'tokenizer' => 'nori_tokenizer',
-                                'filter'    => ['lowercase'],
+                                'filter'    => ['lowercase', 'synonym_filter'],
                             ],
                             'korean_exact' => [     // 정밀 검색용 (쪼개지 않음)
                                 'type'      => 'custom',
                                 'tokenizer' => 'whitespace',  // 공백만으로 분리
                                 'filter'    => ['lowercase'],
-                                'char_filter' => ['special_chars'],  // ✅ 추가
+                                'char_filter' => ['special_chars'],
                             ],
                         ],
                     ],
