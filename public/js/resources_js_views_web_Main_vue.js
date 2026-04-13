@@ -57,21 +57,15 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   data: function data() {
     return {
       list: {
-        best_main: {}
-      },
-      best_cate: {},
-      cateSideMenuPosition: 'absolute',
-      cateSideMenuTop: 'auto',
-      cateSideMenuBottom: 'auto',
-      scrollVal: [1690, 2232, 2776, 3317, 3859, 4401, 4943, 5485, 6027, 6569, 7111, 7653, 8195, 8737, 9279, 9821, 10363, 10905, 11447, 11983],
-      scrollEnd: 11549,
-      currentScroll: 0,
-      date01: new Date('2023-05-02 00:00'),
-      date02: new Date('2023-05-16 23:59'),
-      date_now: new Date()
+        best_main: [],
+        banner_goods: [],
+        recommend_goods: [],
+        newest: [],
+        maker_shop: []
+      }
     };
   },
-  computed: _objectSpread(_objectSpread(_objectSpread({
+  computed: _objectSpread(_objectSpread({
     bestRemodel: function bestRemodel() {
       var dummy = [];
       var list = this.list.best_main;
@@ -98,73 +92,42 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       }
       return dummy;
     }
-  }, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)('category', ['category'])), (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)('common', ['deviceType'])), {}, {
-    filteredCategories: function filteredCategories() {
-      return this.category.filter(function (ca) {
-        return ![38].includes(ca.ca_id);
-      });
-    },
-    slide_check01: function slide_check01() {
-      return this.date01 < this.date_now && this.date_now < this.date02;
-    },
-    slide_check02: function slide_check02() {
-      return this.date02 < this.date_now;
-    },
+  }, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)('common', ['deviceType'])), {}, {
     slide_file_nm: function slide_file_nm() {
       return this.deviceType === "pc" ? "slide" : "sign";
     }
   }),
-  methods: {
-    scrollToCate: function scrollToCate(i) {
-      window.scrollTo({
-        top: this.scrollVal[i],
-        left: 0,
-        behavior: 'smooth'
-      });
-    },
-    scrollch: function scrollch(k) {
-      if (k == 'e') {
-        window.scroll(0, this.currentScroll);
-      } else if (k == '+') {
-        window.scroll(0, this.currentScroll++);
-      } else {
-        window.scroll(0, this.currentScroll--);
-      }
-    },
-    scrollListener: function scrollListener(e) {
-      this.currentScroll = window.scrollY;
-      if (window.scrollY > this.scrollEnd) {
-        this.cateSideMenuPosition = 'absolute';
-        this.cateSideMenuTop = 'auto';
-        this.cateSideMenuBottom = 0;
-      } else if (window.scrollY > this.scrollVal[0]) {
-        this.cateSideMenuPosition = 'fixed';
-        this.cateSideMenuTop = '153px';
-        this.cateSideMenuBottom = 'auto';
-      } else if (window.scrollY < this.scrollVal[0]) {
-        this.cateSideMenuPosition = 'absolute';
-        this.cateSideMenuTop = 'auto';
-        this.cateSideMenuBottom = 'auto';
-      }
-      for (var i in this.scrollVal) {
-        if (i < this.scrollVal.length - 1 && this.scrollVal[i] < window.scrollY && window.scrollY < this.scrollVal[Number(i) + 1]) this.category[i].showing = true;else this.category[i].showing = false;
-      }
-    }
-  },
   mounted: function mounted() {
     var _this = this;
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var rst;
+      var rst, items, total, isMobile, radius, yRadius, angle, paused, scene, animate;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
-            window.addEventListener('scroll', _this.scrollListener);
+            animate = function _animate() {
+              if (!paused) {
+                angle += 0.7;
+                items.forEach(function (item, i) {
+                  var theta = i / total * 360 + angle;
+                  var rad = theta * Math.PI / 180;
+                  var x = Math.sin(rad) * radius;
+                  var y = Math.cos(rad) * yRadius;
+                  var scale = 0.6 + (Math.cos(rad) + 1) / 2 * 0.4;
+                  item.style.transform = "translateX(".concat(x, "px) translateY(").concat(y, "px) scale(").concat(scale, ")");
+                  item.style.zIndex = Math.round(scale * 10);
+                });
+              }
+              requestAnimationFrame(animate);
+            };
             _context.next = 3;
             return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/main");
           case 3:
             rst = _context.sent;
-            _this.best_cate = rst.data.best_cate;
             _this.list.best_main = rst.data.best_main;
+            _this.list.banner_goods = rst.data.banner_goods;
+            _this.list.recommend_goods = rst.data.recommend_goods;
+            _this.list.newest = rst.data.newest;
+            _this.list.maker_shop = rst.data.maker_shop;
             if (_this.$route.query.rst == 'social_login') {
               //  소셜 로그인 후 개인정보가 없으면
               if (isEmpty(_this.$store.state.auth.user.email) || isEmpty(_this.$store.state.auth.user.name) || isEmpty(_this.$store.state.auth.user.birth) || isEmpty(_this.$store.state.auth.user.hp)) {
@@ -174,15 +137,44 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 Notify.modal('필수 개인정보를 입력하세요.', 'warning');
               }
             }
-          case 7:
+
+            /////////////////////    회전 베너  시작     //////////////////////////
+            items = document.querySelectorAll('#banner_box .area_bl .scene .carousel a');
+            total = items.length;
+            isMobile = window.innerWidth <= 767;
+            radius = isMobile ? 35 : 55;
+            yRadius = isMobile ? 30 : 60;
+            angle = 0;
+            paused = false; // ✅ animate와 같은 스코프에 있어야 함
+            scene = document.querySelector('#banner_box .area_bl .scene');
+            scene.addEventListener('mouseenter', function () {
+              paused = true;
+              var spreadAngle = 360 / total;
+              items.forEach(function (item, i) {
+                var targetTheta = i * spreadAngle + 90;
+                var targetRad = targetTheta * Math.PI / 180;
+                var x = Math.sin(targetRad) * radius;
+                var y = Math.cos(targetRad) * 60;
+                var scale = 0.6 + (Math.cos(targetRad) + 1) / 2 * 0.4;
+                item.style.transition = 'transform 0.5s ease';
+                item.style.transform = "translateX(".concat(x, "px) translateY(").concat(y, "px) scale(").concat(scale, ")");
+                item.style.zIndex = Math.round(scale * 10);
+              });
+            });
+            scene.addEventListener('mouseleave', function () {
+              paused = false;
+              items.forEach(function (item) {
+                return item.style.transition = '';
+              });
+            });
+            animate();
+            /////////////////////    회전 베너  끝   //////////////////////////
+          case 21:
           case "end":
             return _context.stop();
         }
       }, _callee);
     }))();
-  },
-  beforeDestroy: function beforeDestroy() {
-    window.removeEventListener('scroll', this.scrollListener);
   }
 });
 
@@ -279,51 +271,133 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("pop-up"), _vm._v(" "), _c("b-carousel", {
-    staticClass: "slide_banner",
+  return _c("div", [_c("pop-up"), _vm._v(" "), _c("div", {
+    staticClass: "layout",
+    attrs: {
+      id: "banner_box"
+    }
+  }, [_c("b-link", {
+    staticClass: "area_tl",
+    attrs: {
+      to: "/shop/goods/1227"
+    }
+  }, [_c("img", {
+    attrs: {
+      src: "/storage/main/new/bn01.jpg"
+    }
+  })]), _vm._v(" "), _c("b-carousel", {
+    staticClass: "area_tc",
     attrs: {
       controls: "",
       indicators: "",
       interval: 0
     }
-  }, [[_vm.deviceType == "pc" ? _c("b-link", {
+  }, [_c("b-link", {
     attrs: {
       to: "/board/notice/show/55"
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": "/storage/event/2025/0224/slide.jpg"
+      "img-src": "/storage/main/new/bn02.jpg"
     }
-  })], 1) : _vm._e(), _vm._v(" "), _vm.deviceType == "pc" ? _c("b-link", {
+  })], 1), _vm._v(" "), _vm._l(_vm.list.banner_goods, function (item, i) {
+    return _c("b-link", {
+      key: i,
+      staticClass: "banner_goods",
+      attrs: {
+        to: {
+          name: "goods_show",
+          params: {
+            gd_id: item.sw_key
+          }
+        }
+      }
+    }, [_c("b-carousel-slide", {
+      attrs: {
+        "img-src": item.goods.image_src[0]
+      }
+    }, [_c("p", [_vm._v(_vm._s(item.sw_group))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(item.sw_memo))])])], 1);
+  })], 2), _vm._v(" "), _c("b-link", {
+    staticClass: "area_tr",
     attrs: {
-      to: "/shop/rental"
+      to: "/shop/goods/817906"
     }
-  }, [_c("b-carousel-slide", {
+  }, [_c("img", {
     attrs: {
-      "img-src": "/storage/event/2023/1208/slide.jpg"
+      src: "/storage/main/new/bn03.jpg"
     }
-  })], 1) : _vm._e(), _vm._v(" "), _c("b-link", {
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "area_bl"
+  }, [_c("img", {
+    staticClass: "bg",
     attrs: {
-      to: "/shop/goods?mode=maker&keyword=radwag"
+      src: "/storage/main/new/bn0401.jpg"
     }
-  }, [_c("b-carousel-slide", {
+  }), _vm._v(" "), _c("div", {
+    staticClass: "scene"
+  }, [_c("div", {
+    staticClass: "carousel"
+  }, [_c("b-link", {
     attrs: {
-      "img-src": "/storage/event/2023/0918/".concat(_vm.slide_file_nm, ".jpg")
+      to: "/shop/goods/7919"
     }
-  })], 1)]], 2), _vm._v(" "), _c("b-row", {
-    staticClass: "layout",
+  }, [_c("img", {
+    attrs: {
+      src: "/storage/main/new/bn0402.png",
+      alt: "피펫1"
+    }
+  })]), _vm._v(" "), _c("b-link", {
+    attrs: {
+      to: "/shop/goods/18182"
+    }
+  }, [_c("img", {
+    attrs: {
+      src: "/storage/main/new/bn0403.png",
+      alt: "피펫2"
+    }
+  })])], 1)])]), _vm._v(" "), _c("div", {
+    staticClass: "area_bc"
+  }, [_c("b-link", {
+    staticClass: "area_bc01",
+    attrs: {
+      to: "/shop/goods?ca01=28&ca02=3481&ca03=3483"
+    }
+  }, [_c("img", {
+    attrs: {
+      src: "/storage/main/new/bn05.jpg"
+    }
+  })]), _vm._v(" "), _c("b-link", {
+    staticClass: "area_bc02",
+    attrs: {
+      to: "/shop/goods?ca01=26&ca02=1008"
+    }
+  }, [_c("img", {
+    attrs: {
+      src: "/storage/main/new/bn06.jpg"
+    }
+  })])], 1), _vm._v(" "), _c("b-link", {
+    staticClass: "area_br",
+    attrs: {
+      to: "/shop/goods?ca01=26&ca02=1067"
+    }
+  }, [_c("img", {
+    attrs: {
+      src: "/storage/main/new/bn07.jpg"
+    }
+  })])], 1), _vm._v(" "), _c("b-container", {
     attrs: {
       id: "best"
     }
-  }, [_c("b-col", [_c("b-img", {
-    attrs: {
-      src: "/storage/main/best.gif"
-    }
-  })], 1), _vm._v(" "), _c("b-col", [_c("div", {
-    staticClass: "box-row"
+  }, [_c("b-row", {
+    staticClass: "tit layout"
+  }, [_c("b-col", [_vm._v("베스트 제품만 모아놨어요.")])], 1), _vm._v(" "), _c("div", {
+    staticClass: "inner"
+  }, [_c("b-row", {
+    staticClass: "layout"
   }, _vm._l(_vm.bestRemodel, function (item, i) {
     return _c("b-link", {
       key: i,
+      staticClass: "col",
       attrs: {
         to: {
           name: "goods_show",
@@ -364,209 +438,121 @@ var render = function render() {
         expression: "item.gd_name"
       }
     })], 1)]);
-  }), 1)])], 1), _vm._v(" "), _c("div", {
-    staticClass: "recommend"
-  }, [_c("div", {
-    staticClass: "back"
-  }), _vm._v(" "), _c("b-container", {
-    staticClass: "layout"
-  }, [_c("b-row", [_c("b-col", {
-    staticClass: "tit"
-  }, [_vm._v("포사의 추천 >")])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+  }), 1)], 1)], 1), _vm._v(" "), _c("b-container", {
+    staticClass: "layout",
     attrs: {
-      col: "",
-      cols: "12",
-      md: "12",
-      lg: "6"
+      id: "recommend_goods"
     }
-  }, [_c("b-link", {
-    attrs: {
-      to: "/shop/makerShop/577"
-    }
-  }, [_c("b-img", {
-    attrs: {
-      src: "".concat(_vm.s3url, "main/rec001.png")
-    }
-  })], 1)], 1), _vm._v(" "), _c("b-col", {
-    attrs: {
-      col: "",
-      cols: "6",
-      md: "6",
-      lg: "3"
-    }
-  }, [_c("b-link", {
-    attrs: {
-      to: {
-        name: "goods_show",
-        params: {
-          gd_id: 46852
-        }
-      }
-    }
-  }, [_c("b-img", {
-    attrs: {
-      src: "".concat(_vm.s3url, "main/rec02.png")
-    }
-  })], 1)], 1), _vm._v(" "), _c("b-col", {
-    attrs: {
-      col: "",
-      cols: "6",
-      md: "6",
-      lg: "3"
-    }
-  }, [_c("b-link", {
-    attrs: {
-      to: {
-        name: "goods_index",
-        query: {
-          ca01: "28",
-          ca02: "3481",
-          ca03: "3483"
-        }
-      }
-    }
-  }, [_c("b-img", {
-    attrs: {
-      src: "".concat(_vm.s3url, "main/rec03.png")
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
-    attrs: {
-      col: "",
-      cols: "6",
-      md: "6",
-      lg: "3"
-    }
-  }, [_c("b-link", {
-    attrs: {
-      to: {
-        name: "goods_show",
-        params: {
-          gd_id: 7919
-        }
-      }
-    }
-  }, [_c("b-img", {
-    attrs: {
-      src: "".concat(_vm.s3url, "main/rec04.png")
-    }
-  })], 1)], 1), _vm._v(" "), _c("b-col", {
-    attrs: {
-      col: "",
-      cols: "6",
-      md: "6",
-      lg: "3"
-    }
-  }, [_c("b-link", {
-    attrs: {
-      to: {
-        name: "goods_show",
-        params: {
-          gd_id: 14
-        }
-      }
-    }
-  }, [_c("b-img", {
-    attrs: {
-      src: "".concat(_vm.s3url, "main/rec006.png")
-    }
-  })], 1)], 1), _vm._v(" "), _c("b-col", {
-    attrs: {
-      col: "",
-      cols: "12",
-      md: "12",
-      lg: "6"
-    }
-  }, [_c("b-link", {
-    attrs: {
-      to: {
-        name: "goods_index",
-        query: {
-          keyword: "goodsgood"
-        }
-      }
-    }
-  }, [_c("b-img", {
-    attrs: {
-      src: "".concat(_vm.s3url, "main/rec05.png")
-    }
-  })], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _c("div", {
-    staticClass: "byCate layout"
   }, [_c("b-row", {
-    staticClass: "titByCate"
-  }, [_c("b-col", {
-    attrs: {
-      tag: "h5"
-    }
-  }, [_vm._v("카테고리별 추천")])], 1), _vm._v(" "), _c("aside", {
-    style: {
-      position: _vm.cateSideMenuPosition,
-      top: _vm.cateSideMenuTop,
-      bottom: _vm.cateSideMenuBottom
-    }
-  }, [_c("ul", _vm._l(_vm.filteredCategories, function (ca, i) {
-    return _c("li", {
-      key: ca.ca_id,
-      "class": {
-        active: ca.showing
-      },
-      on: {
-        mouseenter: function mouseenter($event) {
-          ca.hover = !ca.hover;
-        },
-        mouseleave: function mouseleave($event) {
-          ca.hover = !ca.hover;
-        },
-        click: function click($event) {
-          return _vm.scrollToCate(i);
+    staticClass: "tit"
+  }, [_c("b-col", [_vm._v("어떤 제품이 필요하세요?")])], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "cont"
+  }, _vm._l(_vm.list.recommend_goods, function (gd, i) {
+    return _c("b-link", {
+      key: i,
+      staticClass: "col",
+      attrs: {
+        to: {
+          name: "goods_show",
+          params: {
+            gd_id: gd.gd_id
+          }
         }
       }
     }, [_c("img", {
       attrs: {
-        src: ca.hover || ca.showing ? "".concat(_vm.s3url, "main/cate/").concat(ca.ca_id, "_.png") : "".concat(_vm.s3url, "main/cate/").concat(ca.ca_id, ".png")
+        src: gd.image_src_thumb[0]
       }
-    }), _vm._v(" "), ca.hover ? _c("span", [_vm._v(_vm._s(ca.ca_name))]) : _vm._e()]);
-  }), 0)]), _vm._v(" "), _c("b-container", {
-    staticClass: "con"
-  }, _vm._l(_vm.filteredCategories, function (ca) {
-    return _c("b-row", {
-      key: ca.ca_id
-    }, [_c("b-col", {
-      staticClass: "tit"
-    }, [_c("b-link", {
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(gd.gd_name))])]);
+  }), 1)], 1), _vm._v(" "), _c("b-container", {
+    staticClass: "layout",
+    attrs: {
+      id: "middle_banner"
+    }
+  }, [_c("b-link", {
+    staticClass: "col",
+    attrs: {
+      to: "/board/notice/show/55"
+    }
+  }, [_c("img", {
+    attrs: {
+      src: "/storage/main/new/middle_banner.jpg"
+    }
+  })])], 1), _vm._v(" "), _c("b-container", {
+    staticClass: "layout",
+    attrs: {
+      id: "newest"
+    }
+  }, [_c("b-row", {
+    staticClass: "tit"
+  }, [_c("b-col", [_vm._v("새로 들어온 신상!")])], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "cont"
+  }, _vm._l(_vm.list.newest, function (item, i) {
+    return _c("b-link", {
+      key: i,
+      staticClass: "col",
       attrs: {
         to: {
-          name: "goods_index",
-          query: {
-            ca01: ca.ca_id
+          name: "goods_show",
+          params: {
+            gd_id: item.gd_id
           }
         }
       }
-    }, [_c("b-img", {
+    }, [_c("img", {
       attrs: {
-        src: "".concat(_vm.s3url, "main/cate/bg").concat(ca.ca_id, ".gif")
+        src: item.image_src[0]
       }
-    }), _vm._v(" "), _c("h6", [_vm._v(_vm._s(ca.ca_name))]), _vm._v(" "), _c("span", [_vm._v("전체보기 "), _c("b-icon-chevron-right")], 1)], 1)], 1), _vm._v(" "), _c("b-col", {
-      staticClass: "list"
-    }, _vm._l(_vm.best_cate[ca.ca_id], function (gd, i) {
-      return _c("b-link", {
-        key: i,
-        staticClass: "col",
-        attrs: {
-          to: {
-            name: "goods_show",
-            params: {
-              gd_id: gd.sw_key
-            }
-          }
-        }
-      }, [_c("b-img", {
-        attrs: {
-          fluid: "",
-          src: gd.image_src_thumb[0]
-        }
-      }), _vm._v(" "), _c("p", [_vm._v(_vm._s(gd.gd_name))])], 1);
-    }), 1)], 1);
-  }), 1)], 1)], 1);
+    }), _vm._v(" "), _c("div", [_c("b-badge", {
+      attrs: {
+        variant: "danger"
+      }
+    }, [_vm._v("NEW")]), _vm._v(" "), _c("p", [_vm._v(_vm._s(item.maker.mk_name))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(item.gd_name))])], 1)]);
+  }), 1)], 1), _vm._v(" "), _c("b-container", {
+    staticClass: "layout",
+    attrs: {
+      id: "maker_shop"
+    }
+  }, [_c("b-row", {
+    staticClass: "tit"
+  }, [_c("b-col", [_vm._v("포사이언스와 함께 하는 브랜드")])], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "cont"
+  }, [_c("b-carousel", {
+    attrs: {
+      controls: "",
+      indicators: "",
+      interval: 0
+    }
+  }, _vm._l(_vm.list.maker_shop, function (chunk, i) {
+    return _c("b-carousel-slide", {
+      key: i,
+      scopedSlots: _vm._u([{
+        key: "img",
+        fn: function fn() {
+          return [_c("div", {
+            staticClass: "item_box"
+          }, _vm._l(chunk, function (item, j) {
+            return _c("b-link", {
+              key: "".concat(i, "_").concat(j),
+              attrs: {
+                to: {
+                  name: "makerShop_index",
+                  params: {
+                    mk_id: item.mk_id
+                  }
+                }
+              }
+            }, [_c("img", {
+              attrs: {
+                src: item.file_info[0].path
+              }
+            }), _vm._v(" "), _c("span", [_vm._v(_vm._s(item.mk_name))])]);
+          }), 1)];
+        },
+        proxy: true
+      }], null, true)
+    });
+  }), 1)], 1)], 1)], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -655,7 +641,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.slide_banner[data-v-5322a9b3] { overflow:hidden; max-width: 1920px; margin: auto;\n}\n.slide_banner[data-v-5322a9b3] .carousel-indicators li { background-color:#898989;\n}\n.slide_banner[data-v-5322a9b3] .carousel-control-prev:hover,\r\n.slide_banner[data-v-5322a9b3] .carousel-control-next:hover { background-color:#55888888;\n}\n.slide_banner[data-v-5322a9b3] .evt01 .split_link { position:absolute; display:block; height:100%; bottom:0;\n}\n.slide_banner[data-v-5322a9b3] .evt01 .split_link#app01 { width: 100%;\n}\n.slide_banner[data-v-5322a9b3] .evt01 .split_link#app02 { left:66%; bottom:8%; width:301px; height:91px;}\n.slide_banner[data-v-5322a9b3] .evt01 .carousel-caption { position:static; padding:0;\n}\n.slide_banner[data-v-5322a9b3] .evt01 .split_link#app02:hover { background-color:#015B7E55;\n}\n.slide_banner[data-v-5322a9b3] .evt01 .split_link .tooltiptext {\r\n  visibility:hidden; padding:0.25em 0.5em; background-color:black; color:#fff; text-align:center; border-radius:0.25em; white-space:nowrap;\r\n  /* Position the tooltip */\r\n  position:absolute; z-index:1; top:50%; transition-property:visibility; transition-delay:0s;\n}\n.slide_banner[data-v-5322a9b3] .evt01 a#app01 .tooltiptext { right:25%;\n}\n.slide_banner[data-v-5322a9b3] .evt01 a#app02 .tooltiptext { right:25%;\n}\n.slide_banner[data-v-5322a9b3] .evt01 .split_link#app02:hover .tooltiptext { visibility: visible; opacity:1;\n}\r\n\r\n\r\n/***************************************** */\r\n/*\r\n.slide_banner .split_link .product { position:absolute; }\r\n.product { position:absolute; animation:appearance 0.5s forwards ease-in-out 1.2s, product 3s infinite ease-in-out 2s; }\r\n.slide_banner .split_link .product.pd01 { top:80px; right:420px; animation:product 3s infinite ease-in-out 1s; }\r\n.slide_banner .split_link .product.pd02 { top:70px; left:395px;  animation:product 3s infinite ease-in-out 1.3s; }\r\n.slide_banner .split_link:hover .product.pd01 { animation:ani02 3s infinite ease-in-out .1s; }\r\n.slide_banner .split_link:hover .product.pd02 { animation:ani02 3s infinite ease-in-out .1s; }\r\n*/\n@keyframes appearance-5322a9b3 {\n0% { transform: scale(0);\n}\n80% { transform: scale(1.1);\n}\n100% { transform: scale(1); opacity:1;\n}\n}\n@keyframes product-5322a9b3 {\n0%, 100% { transform: translateY(0);\n}\n50% { transform: translateY(60px);\n}\n}\r\n/* @keyframes product { 0%, 100% { transform: translateY(0) scale(1) rotate(-10deg); }\r\n                    50% { transform: translateY(60px) scale(0.7) rotate(10deg); } } */\n@keyframes ani02-5322a9b3 {\n0% { transform: translateY(0) scale(.95) rotate(-15deg);\n}\n50% { transform: translateY(0) scale(1.1) rotate(15deg);\n}\n100% { transform: translateY(0) scale(.95) rotate(-15deg);\n}\n}\n#best[data-v-5322a9b3] { margin-top:26px;\n}\n#best>.col[data-v-5322a9b3] { padding:0;\n}\n#best>.col[data-v-5322a9b3]:nth-of-type(1) { flex:0 0 6.933334%; max-width:6.933334%; padding-top:20px;\n}\n#best>.col[data-v-5322a9b3]:nth-of-type(2) { flex:0 0 93.066666%; max-width:93.066666%;\n}\n#best .col .box-row[data-v-5322a9b3] { display:flex; justify-content:center; align-items:center; width:100%; height:320px;\n}\n#best .col .box-row a[data-v-5322a9b3] { position: relative; background-color: #FFFFFF; height:288px; width:220px; margin:10px;\n}\n#best .col .box-row a[data-v-5322a9b3]:last-of-type { margin-right:0;\n}\n#best .col .box-row a img[data-v-5322a9b3] { width: 100%; height: 210px; -o-object-fit:contain; object-fit:contain; border: 1px solid #B7B7B7;\n}\n#best .col .box-row a .box-footer[data-v-5322a9b3] { position:absolute; bottom:0; height:80px; padding:10px 15px;\n}\n#best .col .box-row a .box-footer .box_ca[data-v-5322a9b3] { color:#1A8FD4; margin-bottom:3px; font-size:.8rem;\n}\n#best .col .box-row a .box-footer .box_tit[data-v-5322a9b3] { font-weight:bold;\n}\n.recommend .back[data-v-5322a9b3] { background:#fbcad0; position:absolute; width:100%; height:18.5rem;\n}\n.recommend .container .row[data-v-5322a9b3]:last-child { margin-top:2rem;\n}\n.recommend .container .row .tit[data-v-5322a9b3] { color:#FFF; font-style:italic; font-size:1.4rem; font-weight:bold; margin-top:1.9Rem; margin-bottom: .6REM;\n}\n.recommend .container .row .col[data-v-5322a9b3] { padding:0 15px;\n}\n.recommend .container .row .col a[data-v-5322a9b3] { display:block;\n}\n.recommend .container .row .col a img[data-v-5322a9b3] { border:1px solid #CCC; border-radius:10px; width:100%;\n}\n.byCate[data-v-5322a9b3] { position:relative; margin-top:5rem;\n}\n.byCate .titByCate[data-v-5322a9b3] { margin-bottom:1.5rem;\n}\n.byCate .titByCate h5[data-v-5322a9b3] { font-style:italic; font-weight:bold; font-size:2rem;\n}\n.byCate aside[data-v-5322a9b3] { margin-left:-76px; z-index:1;\n}\n.byCate aside ul[data-v-5322a9b3] { border:1px solid #898989;\n}\n.byCate aside ul li[data-v-5322a9b3] { padding:4px 6px; cursor:pointer; position:relative;\n}\n.byCate aside ul li.active[data-v-5322a9b3],\r\n.byCate aside ul li[data-v-5322a9b3]:hover { background:#448AC8;\n}\n.byCate aside ul li span[data-v-5322a9b3] { padding-left:10px; background:#448AC8; position:absolute; width:216px; color:#fff; z-index:1; top:0; line-height:44px;\n}\n.byCate .con .row[data-v-5322a9b3] { border-top:2px solid #4A505C; margin-bottom:2.5rem;\n}\n.byCate .con .row .col[data-v-5322a9b3] { padding:0;\n}\n.byCate .con .row .tit[data-v-5322a9b3] { flex:0 0 13.4%; max-width:200px; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1;\n}\n.byCate .con .row .tit a[data-v-5322a9b3] { display:block; position:relative; height:100%; padding: 24px 0 0 16px;\n}\n.byCate .con .row .tit a img[data-v-5322a9b3] { position:absolute; z-index:-1; width:200px; height:500px; -o-object-fit:cover; object-fit:cover; top:0; left:0;\n}\n.byCate .con .row .tit a h6[data-v-5322a9b3] { font-weight:bold; font-size:1.5rem;\n}\n.byCate .con .row .tit a span[data-v-5322a9b3] { color:#9FA0A2;\n}\n.byCate .con .row .list[data-v-5322a9b3] { display:flex; flex-wrap:wrap;\n}\n.byCate .con .row .list .col[data-v-5322a9b3] { flex:0 0 16.666666%; max-width:16.666666%; padding:16px; text-align:center; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1;\n}\n.byCate .con .row .list .col img[data-v-5322a9b3] { width:166px; height:166px; -o-object-fit:contain; object-fit:contain;\n}\n.byCate .con .row .list .col p[data-v-5322a9b3] { margin:9px 0 0 0; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height:42px; font-size:14px;\n}\n@media (max-width: 992px){\n.slide_banner[data-v-5322a9b3] .carousel-inner { left:50%; transform:translateX(-50%); width:900px;\n}\n#best[data-v-5322a9b3] { flex-direction: column; margin-top: 10px;\n}\n#best>.col[data-v-5322a9b3]:nth-of-type(1) { padding:0;\n}\n#best>.col[data-v-5322a9b3]:nth-of-type(2) { flex:0 0 100%; max-width:100%;\n}\n#best .col .box-row[data-v-5322a9b3] { flex-wrap:wrap; height:auto;\n}\n#best .col .box-row a[data-v-5322a9b3] { flex:0 0 33.333334%; max-width:33.333334%; height:180px; margin:0; padding:10px;\n}\n#best .col .box-row a img[data-v-5322a9b3] { height:110px;\n}\n#best .col .box-row a .box-footer[data-v-5322a9b3] { padding: 0 5px; position: static; height: auto; line-height: 1;}\n#best .col .box-row a .box-footer .box_ca[data-v-5322a9b3] { font-size: calc(.3vw + .5rem);\n}\n#best .col .box-row a .box-footer .box_tit[data-v-5322a9b3] { font-size: calc(.3vw + .7rem);\n}\n.recommend .container .row:nth-of-type(2) .col-md-6[data-v-5322a9b3],\r\n    .recommend .container .row[data-v-5322a9b3]:last-child,\r\n    .recommend .container .row:last-child .col-md-12[data-v-5322a9b3]  { margin-top:.5rem;\n}\n.byCate .titByCate[data-v-5322a9b3] { margin:0;\n}\n.byCate .con .row[data-v-5322a9b3] { flex-direction:column; margin-bottom:1rem;\n}\n.byCate .con .row .tit[data-v-5322a9b3] { max-width: 100%;\n}\n.byCate .con .row .tit a[data-v-5322a9b3] { padding: 8px 0 0 8px;\n}\n.byCate .con .row .tit a img[data-v-5322a9b3] { display:none;\n}\n.byCate .con .row .tit a h6[data-v-5322a9b3] { display:inline-block;\n}\n.byCate .con .row .list .col[data-v-5322a9b3] { padding:5px; flex: 0 0 25%; max-width: 25%;\n}\n.byCate .con .row .list .col img[data-v-5322a9b3] { width:100%; height:80px;\n}\n.byCate .con .row .list .col p[data-v-5322a9b3] { font-size: calc(.3vw + .7rem); margin:0; height:auto;\n}\n}\n@media (max-width: 768px){\n.slide_banner[data-v-5322a9b3] .carousel-inner { max-width:450px; width:100%;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#banner_box[data-v-5322a9b3] { display:grid; gap:30px; margin-top:20px;\n}\n#banner_box .area_tl[data-v-5322a9b3] { grid-area: area_tl;\n}\n#banner_box .area_tc[data-v-5322a9b3] { grid-area: area_tc;\n}\n#banner_box .area_tr[data-v-5322a9b3] { grid-area: area_tr;\n}\n#banner_box .area_bl[data-v-5322a9b3] { grid-area: area_bl; position:relative; width: 100%;\n}\n#banner_box .area_bl .bg[data-v-5322a9b3] { position: absolute; width: 100%;\n}\n#banner_box .area_bl .scene[data-v-5322a9b3] { width:270px; height:340px; perspective:600px; position:relative;\n}\n#banner_box .area_bl .scene .carousel[data-v-5322a9b3] { width:100%; height:100%; position:relative; transform-style:preserve-3d;\n}\n#banner_box .area_bl .scene .carousel a[data-v-5322a9b3] { position:absolute; width:164px; height:240px; top:50%; left:50%; margin-top:-120px; margin-left:-82px; display:flex; align-items:center; justify-content:center;\n}\n#banner_box .area_bl .scene .carousel a img[data-v-5322a9b3] { width: 100%; height: 100%; -o-object-fit: contain; object-fit: contain; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5));\n}\n#banner_box .area_bc[data-v-5322a9b3] { grid-area:area_bc; display:flex; gap:30px;\n}\n#banner_box .area_bc .area_bc01[data-v-5322a9b3] { flex: 270;\n}\n#banner_box .area_bc .area_bc02[data-v-5322a9b3] { flex: 600;\n}\n#banner_box .area_bc .area_bc01 img[data-v-5322a9b3],\r\n#banner_box .area_bc .area_bc02 img[data-v-5322a9b3] { width:100%; height:100%; -o-object-fit:cover; object-fit:cover; display:block;\n}\n#banner_box .area_br[data-v-5322a9b3] { grid-area:area_br;\n}\n#banner_box[data-v-5322a9b3] { \r\n    grid-template-columns: 270px 270px 600px 270px;\r\n    grid-template-areas: \"area_tl area_tc area_tc area_tr\"\r\n                         \"area_bl area_tc area_tc area_tr\"\r\n                         \"area_bl area_bc area_bc area_br\";\n}\n@media (max-width: 767px) {\n#banner_box[data-v-5322a9b3] {\r\n        width: 100%;\r\n        gap: 10px;\r\n        grid-template-columns: 1fr 1fr;\r\n        grid-template-areas:\r\n        \"area_tc area_tc\"\r\n        \"area_tl area_tr\"\r\n        \"area_bl area_tr\"\r\n        \"area_bl area_br\"\r\n        \"area_bc area_bc\";  /* 하단을 하나로 묶기 */\n}\n#banner_box .area_bc[data-v-5322a9b3] { gap:10px;\n}\n#banner_box .area_bc .area_bc01[data-v-5322a9b3],\r\n    #banner_box .area_bc .area_bc02[data-v-5322a9b3] { min-width:0;\n}\n#banner_box .area_bc .area_bc02 img[data-v-5322a9b3] { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover;\n}\n#banner_box > a[data-v-5322a9b3] { width: 100%;\n}\n#banner_box > a img[data-v-5322a9b3] { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover;\n}\n#banner_box .area_bl .scene[data-v-5322a9b3] { width:100%; height:100%; perspective:600px; position:relative;\n}\n#banner_box .area_bl .scene .carousel a[data-v-5322a9b3] { width: 100px; height: 150px; margin-top:-75px; margin-left:-50px; top:30%;\n}\n}\n#banner_box .slide[data-v-5322a9b3] { overflow:hidden; max-width:900px; max-height:460px;\n}\n#banner_box .slide[data-v-5322a9b3] .carousel-inner { height:100%;\n}\n#banner_box .slide[data-v-5322a9b3] .carousel-inner .banner_goods .carousel-item { height:100%;\n}\n#banner_box .slide[data-v-5322a9b3] .carousel-inner .banner_goods .carousel-item img { -o-object-fit:contain; object-fit:contain; height:100%;\n}\n#banner_box .slide[data-v-5322a9b3] .carousel-inner .banner_goods .carousel-item .carousel-caption { width:100%; height:100%; right:auto; bottom:0; left:auto; padding:0; z-index:1;\n}\n#banner_box .slide[data-v-5322a9b3] .carousel-inner .banner_goods .carousel-item .carousel-caption p { position:absolute; text-align:center; width:100%; background-color:#55888888; padding:8px 5px;\n}\n#banner_box .slide[data-v-5322a9b3] .carousel-inner .banner_goods .carousel-item .carousel-caption p:first-of-type { top:50%; transform:translateY(-50%);\n}\n#banner_box .slide[data-v-5322a9b3] .carousel-inner .banner_goods .carousel-item .carousel-caption p:last-of-type { bottom:0;\n}\n#banner_box .slide[data-v-5322a9b3] .carousel-indicators li { background-color:#898989;\n}\n#banner_box .slide[data-v-5322a9b3] .carousel-control-prev:hover,\r\n#banner_box .slide[data-v-5322a9b3] .carousel-control-next:hover { background-color:#55888888;\n}\n#banner_box .slide[data-v-5322a9b3] .evt01 .split_link { position:absolute; display:block; height:100%; bottom:0;\n}\n#banner_box .slide[data-v-5322a9b3] .evt01 .split_link#app01 { width: 100%;\n}\n#banner_box .slide[data-v-5322a9b3] .evt01 .split_link#app02 { left:66%; bottom:8%; width:301px; height:91px;}\n#banner_box .slide[data-v-5322a9b3] .evt01 .carousel-caption { position:static; padding:0;\n}\n#banner_box .slide[data-v-5322a9b3] .evt01 .split_link#app02:hover { background-color:#015B7E55;\n}\n#banner_box .slide[data-v-5322a9b3] .evt01 .split_link .tooltiptext {\r\n  visibility:hidden; padding:0.25em 0.5em; background-color:black; color:#fff; text-align:center; border-radius:0.25em; white-space:nowrap;\r\n  /* Position the tooltip */\r\n  position:absolute; z-index:1; top:50%; transition-property:visibility; transition-delay:0s;\n}\n#banner_box .slide[data-v-5322a9b3] .evt01 a#app01 .tooltiptext { right:25%;\n}\n#banner_box .slide[data-v-5322a9b3] .evt01 a#app02 .tooltiptext { right:25%;\n}\n#banner_box .slide[data-v-5322a9b3] .evt01 .split_link#app02:hover .tooltiptext { visibility: visible; opacity:1;\n}\n.container .tit .col[data-v-5322a9b3] { font-size:23px; font-weight:900;\n}\n#best[data-v-5322a9b3] { max-width:100% !important; margin:74px auto 0 auto;\n}\n#best .inner[data-v-5322a9b3] { background-color:#F6F7FB; padding:24px 0 10px 0; margin:12px;\n}\n#best .inner .row a[data-v-5322a9b3] { position: relative; margin:6px;\n}\n#best .inner .row a img[data-v-5322a9b3] { width:100%; height:239px; -o-object-fit:contain; object-fit:contain; background-color: #FFFFFF; border:1px solid #D7D7D7; border-radius:20px;\n}\n#best .inner .row a .box-footer[data-v-5322a9b3] { padding:0 8px;\n}\n#best .inner .row a .box-footer .box_ca[data-v-5322a9b3] { color:#1A8FD4; margin:3px 0; font-size:.8rem;\n}\n#best .inner .row a .box-footer .box_tit[data-v-5322a9b3] { font-weight:bold;\n}\n@media (max-width: 767px) {\n#best[data-v-5322a9b3] { margin-top:30px;\n}\n#best .inner .row a[data-v-5322a9b3] { flex:0 0 33.333334%; max-width:33.333334%; margin:0; padding:10px;\n}\n#best .inner .row a img[data-v-5322a9b3] { height: auto; aspect-ratio: 1 / 1;\n}\n}\n#recommend_goods[data-v-5322a9b3]  { margin:74px auto 0 auto;\n}\n#recommend_goods .tit .col[data-v-5322a9b3] { margin:25px 0px;\n}\n#recommend_goods .cont a[data-v-5322a9b3] { flex:0 0 10%; max-width:calc(10% - 20px); margin:0 10px; text-align:center;\n}\n#recommend_goods .cont a img[data-v-5322a9b3] { width:100%; height:126px; -o-object-fit:contain; object-fit:contain; background-color:#F3F3F3; border:1px solid #D7D7D7; border-radius:50%; margin-bottom:18px;\n}\n#recommend_goods .cont a span[data-v-5322a9b3] { font-weight:bold;\n}\n@media (max-width: 767px) {\n#recommend_goods[data-v-5322a9b3]  { margin:0;\n}\n#recommend_goods .cont[data-v-5322a9b3] { flex-wrap: wrap;\n}\n#recommend_goods .cont a[data-v-5322a9b3]:nth-child(n+10) { display: none;\n}\n#recommend_goods .cont a[data-v-5322a9b3] { flex:0 0 33.333%; max-width:calc(33.333% - 6px); margin:0 3px 10PX;\n}\n#recommend_goods .cont a img[data-v-5322a9b3] { height: auto; aspect-ratio: 1 / 1;\n}\n}\n#middle_banner[data-v-5322a9b3] { margin-top:80px;\n}\n#middle_banner .col[data-v-5322a9b3] { overflow: hidden;\n}\n#middle_banner .col img[data-v-5322a9b3] { width: 100%;\n}\n@media (max-width: 767px) {\n#middle_banner[data-v-5322a9b3] { margin-top:30px;\n}\n#middle_banner .col[data-v-5322a9b3] { overflow: hidden; width: 100%;\n}\n#middle_banner .col img[data-v-5322a9b3] { width:130%; height: auto; position: relative; left: 50%; transform: translateX(-50%);\n}\n}\n#newest[data-v-5322a9b3]  { margin:74px auto 0 auto;\n}\n#newest .tit .col[data-v-5322a9b3] { margin:25px 0px;\n}\n#newest .cont[data-v-5322a9b3] { margin-left:-17px; margin-right:-17px;\n}\n#newest .cont a[data-v-5322a9b3] { position:relative; flex:0 0 25%; max-width:calc(25% - 34px); margin:0 17px; text-align:center;\n}\n#newest .cont a img[data-v-5322a9b3] { width:100%; height: auto; aspect-ratio: 1 / 1; -o-object-fit:contain; object-fit:contain; background-color:#F3F3F3; border:1px solid #D7D7D7; border-radius:13px;\n}\n#newest .cont a div[data-v-5322a9b3] { text-align:left; margin-top:10px;\n}\n#newest .cont a div p[data-v-5322a9b3] { margin:0;\n}\n#newest .cont a div p[data-v-5322a9b3]:last-of-type { font-weight:900;\n}\n@media (max-width: 767px) {\n#newest[data-v-5322a9b3]  { margin:0;\n}\n#newest .cont[data-v-5322a9b3] { margin:0;\n}\n#newest .cont a[data-v-5322a9b3] { flex:0 0 50%; max-width:calc(50% - 6px); margin:0 3px 10PX;\n}\n#newest .cont a div p[data-v-5322a9b3]:last-of-type { font-size: 13px;\n}\n}\n#maker_shop[data-v-5322a9b3] { margin-top:80px;\n}\n#maker_shop .tit .col[data-v-5322a9b3] { margin:25px 0px;\n}\n#maker_shop .cont .slide[data-v-5322a9b3] { overflow:hidden; max-width:100%; width:100%;\n}\n#maker_shop .cont .slide[data-v-5322a9b3] .carousel-item .item_box { display:flex; flex-wrap:wrap;\n}\n#maker_shop .cont .slide[data-v-5322a9b3] .carousel-item .item_box a { flex:0 0 auto; width:calc(16.666667% - 10px); height:160px; margin:0 5px; text-align:center; overflow:hidden;\n}\n#maker_shop .cont .slide[data-v-5322a9b3] .carousel-item .item_box a img { width:100%; height:100px; -o-object-fit:contain; object-fit:contain; border:1px solid #000; border-radius:20px; margin-bottom:10px;\n}\n#maker_shop .cont .slide[data-v-5322a9b3] .carousel-control-prev, \r\n#maker_shop .cont .slide[data-v-5322a9b3] .carousel-control-next { width:3%;\n}\n#maker_shop .cont .slide[data-v-5322a9b3] .carousel-indicators li { background-color:#898989;\n}\n#maker_shop .cont .slide[data-v-5322a9b3] .carousel-control-prev:hover,\r\n#maker_shop .cont .slide[data-v-5322a9b3] .carousel-control-next:hover { background-color:#55888888;\n}\n@media (max-width: 767px) {\n#maker_shop[data-v-5322a9b3] { margin-top:0;\n}\n#maker_shop .cont .slide[data-v-5322a9b3] .carousel-item .item_box a { width:calc(25% - 10px); height:auto;\n}\n#maker_shop .cont .slide[data-v-5322a9b3] .carousel-item .item_box a img { height: auto; aspect-ratio: 1 / 1;}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

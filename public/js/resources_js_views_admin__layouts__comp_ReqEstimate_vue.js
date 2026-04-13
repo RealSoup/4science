@@ -60,7 +60,7 @@ var render = function render() {
       }
     }) : _c("SubString", {
       attrs: {
-        width: 650
+        width: 618
       },
       model: {
         value: eq.eq_content,

@@ -22,11 +22,10 @@ let initSet = () => {
     // else {                          vm.$store.state.mode = 'web'; }
 
     let path = window.location.pathname.split('/');
-    if (path[1] === 'admin') {      store.state.mode = 'adm'; }
+    if (      path[1] === 'admin') {                                                          store.state.mode = 'adm'; }
     else if ( ['login', 'register', 'email_verify', 'password', 'auth'].includes(path[1]) ) { store.state.mode = 'simple'; }
-    else if ( ['settle_psys'].includes(path[3]) ) { store.state.mode = 'nothing'; }
-    else if ( ['new'].includes(path[1]) || ['new', 'search_test'].includes(path[2]) ) { store.state.mode = 'new'; } // new main
-    else {                          store.state.mode = 'web'; }
+    else if ( ['settle_psys'].includes(path[3]) ) {                                           store.state.mode = 'nothing'; }
+    else {                                                                                    store.state.mode = 'web'; }
 
 
 }

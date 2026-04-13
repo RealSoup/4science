@@ -121,7 +121,7 @@ class CacheMaker {
         /*
             새로고침 기준에 매일 새벽 4시임
             소스 위치
-            \app\Http\Kernel.php -> protected function schedule
+            \app\Console\Kernel.php -> protected function schedule
         */
         
         $key_nm = 'update_key_top_selling';

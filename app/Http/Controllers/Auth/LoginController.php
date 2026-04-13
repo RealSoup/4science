@@ -37,6 +37,16 @@ class LoginController extends Controller {
             return $this->sendLockoutResponse($request);
         }
 
+        $userMng = DB::table('la_user_mng')
+            ->join('users', 'users.id', '=', 'la_user_mng.um_user_id')
+            ->where('users.email', $request->email)
+            ->select('la_user_mng.um_status')
+            ->first();
+
+        // 관리자인데 비활성이면 차단
+        if ($userMng && $userMng->um_status !== 'Y')
+            return redirect()->back()->withErrors(['email' => '비활성화된 계정입니다.']);
+            
         if ($this->attemptLogin($request)) {            
             $ci_pw = base64_encode(hash("sha512", $request['password'], true));
             $ci_pw_check = $ci_pw == auth()->user()->password;

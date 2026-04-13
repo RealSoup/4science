@@ -107,6 +107,10 @@ class TestController extends Controller {
                                     'gm_catno_all',
                                     // gm_name, gm_name_all 제거 → 사양값 오매칭 방지
                                 ],
+                                'fuzziness'      => 'AUTO',   // 3~5글자→1오타, 6글자↑→2오타
+                                'prefix_length'  => 2,        // 앞 2글자는 정확해야 함 (오검색 방지)
+                                'max_expansions' => 50,
+                                'boost'          => 0.5,      // 기존 정확 매칭보다 낮게
                                 'type' => 'best_fields',
                             ],
                         ],
@@ -123,11 +127,11 @@ class TestController extends Controller {
                         'query' => ['bool' => $boolClause],
                         'functions' => [
                                 
-                            [ 'filter' => ['term' => ['gd_name.keyword' => $keyword]], 'weight' => 10000, ],            // ✅ 완전일치 (줄자)
-                            [ 'filter' => ['prefix' => ['gd_name.keyword' => $keyword]], 'weight' => 5000, ],           // ✅ 키워드로 시작 (줄자10M, 줄자걸이X → 줄자루는 해당없음)
-                            [ 'filter' => ['wildcard' => ['gd_name.keyword' => '*' . $keyword]], 'weight' => 5000, ],   // ✅ 키워드로 끝남 (삼성줄자)
-                            [ 'filter' => ['wildcard' => ['gd_name.keyword' => '* ' . $keyword . ' *']], 'weight' => 5000, ],   // ✅ 키워드 앞뒤로 공백/경계가 있는 경우 (삼성줄자10M → "줄자" 앞뒤에 경계)
-                            [ 'filter' => ['match_phrase' => ['gd_name.exact' => $keyword]], 'weight' => 8000, ],
+                            // [ 'filter' => ['term' => ['gd_name.keyword' => $keyword]], 'weight' => 10000, ],            // ✅ 완전일치 (줄자)
+                            // [ 'filter' => ['prefix' => ['gd_name.keyword' => $keyword]], 'weight' => 5000, ],           // ✅ 키워드로 시작 (줄자10M, 줄자걸이X → 줄자루는 해당없음)
+                            // [ 'filter' => ['wildcard' => ['gd_name.keyword' => '*' . $keyword]], 'weight' => 5000, ],   // ✅ 키워드로 끝남 (삼성줄자)
+                            // [ 'filter' => ['wildcard' => ['gd_name.keyword' => '* ' . $keyword . ' *']], 'weight' => 5000, ],   // ✅ 키워드 앞뒤로 공백/경계가 있는 경우 (삼성줄자10M → "줄자" 앞뒤에 경계)
+                            // [ 'filter' => ['match_phrase' => ['gd_name.exact' => $keyword]], 'weight' => 8000, ],
 
                             [ 'filter' => ['term' => ['gm_catno' => $keyword]], 'weight' => 10000, ],   //  켓넘버 완전일치 가산점
                             [ 'filter' => ['prefix' => ['gm_catno' => $keyword]], 'weight' => 5000, ],  //  켓넘버 앞부분일치 가산점
@@ -138,7 +142,10 @@ class TestController extends Controller {
                             
                             [ 'filter' => ['term' => ['mk_name.keyword' => $keyword]], 'weight' => 10000, ],    //  제조사 완전일치 가산점
                             [ 'filter' => ['match' => ['mk_name' => $keyword]], 'weight' => 3000, ],  // research 매칭 상위
+                            [ 'filter' => ['match' => ['gd_keyword' => $keyword]], 'weight' => 1000, ],
+                            // 구매수 boost (최대 +5000, 클릭보다 가중치 높게)
                             
+                            [ 'field_value_factor' => [ 'field'    => 'purchase_score', 'factor'   => 1000, 'modifier' => 'none', 'missing'  => 0, ], ],
                         ],
                         'score_mode' => 'sum',
                         'boost_mode' => 'sum',
@@ -216,8 +223,10 @@ class TestController extends Controller {
                 'sort'  => $sort,
                 'track_total_hits' => true,
                 'aggs'  => $aggs,
+                'explain' => true,  // 추가
             ],
         ]);
+
         $total = $result->asArray()['hits']['total']['value'];
         $ids   = collect($result->asArray()['hits']['hits'])->pluck('_source.gd_id');
 
@@ -303,6 +312,8 @@ class TestController extends Controller {
                     ])->toArray();
             }
         }
+
+        $data['Elastic'] = '';
 
         
         

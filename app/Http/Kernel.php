@@ -70,11 +70,4 @@ class Kernel extends HttpKernel
     ];
 
 
-    protected function schedule(Schedule $schedule) {
-        $schedule->call(function () { //  최신상품 캐시 새로고침
-            DB::table('infos')->where('key', 'update_key_top_selling')->update(['val' => uniqid()]);
-        })->dailyAt('04:00'); // 새벽 4시에 갱신
-    }
-
-
 }

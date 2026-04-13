@@ -26,10 +26,6 @@ export default [
         name: 'main',
         component:() => import('@/views/web/Main'),
     },
-    {   path: '/new',
-        name: 'new_main',
-        component:() => import('@/views/web/New'),
-    },
 //      인증
     {   path: '/login',
         name: 'login',
@@ -215,10 +211,7 @@ export default [
         component:() => import('@/views/web/shop/goods/Show'),
         // beforeEnter: isLoggedin(),
     },
-    {   path: '/shop/new',
-        name: 'new_goods_index',
-        component:() => import('@/views/web/shop/goods/New'),
-    },
+
 //      주문
     {   path: '/shop/order/settle',
         name: 'order_settle',

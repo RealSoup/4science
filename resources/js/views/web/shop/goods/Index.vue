@@ -4,14 +4,14 @@
         Loading ......
     </loading-modal>
     <template v-else>
-        <location v-if="$route.name == 'goods_index' && !$route.query.keyword" 
+        <location v-if="($route.name == 'goods_index' || $route.name == 'search_test') && !$route.query.keyword" 
             :categorys="categorys"
             :p_ca01="$route.query.ca01" 
             :p_ca02="$route.query.ca02" 
             :p_ca03="$route.query.ca03" 
             :p_ca04="$route.query.ca04"
         />
-       
+
         <b-container v-if="sch_cate_info" class="layout sch_detail">
             <b-row>
                 <b-col>
@@ -80,6 +80,7 @@
         <div class="layout">
             <b-container>
                 <b-row class="list">
+                    
                     <b-col class="sort m_hide">
                         <ul>
                             <li :class="{active : frm.sort == 'hot'}" @click="sort('hot')">인기상품순</li>
@@ -119,6 +120,7 @@
                                         {{row.goods_model_prime.gm_price_dc_add_vat | comma | price_zero | won}}
                                     </span>
                                 </b-col>
+                                <!-- <b-col class="m_hide">{{row.maker.mk_name}}</b-col> -->
                                 <b-col class="m_hide">{{row.mk_name}}</b-col>
                             </b-row>
 
@@ -141,15 +143,27 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
     components: {
-        'location': () => import('./_comp/Location.vue'),
-        'loading-modal': () =>   import('@/views/_common/LoadingModal.vue'),
+        'loading-modal': () =>   import('@/views/_common/LoadingModal'),
         'no-item': () => import('@/views/web/_module/NoItem'),
+        'location': () => import('@/views/web/shop/goods/_comp/Location'),
     },
     data() {
         return { pick_hover:0, }
     },
     computed: {
-        ...mapState('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys']),
+        ...mapState('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys', 'category_picks']),
+
+        categoryMap() {
+            return Object.fromEntries(
+                Object.values(this.categorys || {})
+                    .flat()
+                    .map(v => [v.ca_id, v.ca_name])
+            );
+        },
+
+        thisCaName() {
+            return this.categoryMap[Number(this.$route.query.ca01)] || '';
+        }
     },
     methods: {
         numCalc(i) {
@@ -169,13 +183,14 @@ export default {
         },
 
         actHover:function(i){ this.pick_hover = i; },
-
     },
     // mounted() { this.$store.dispatch('goods/index'); },
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css" >
+#header #core .nav_menu { display:none !important; }
+
 .sch_detail { margin-top:1em; margin-bottom:1em; }
 .sch_detail .row .col { border:1px solid #D7D7D7; padding:0 0 .3rem; max-height:250px; overflow-y:auto; }
 .sch_detail .row .col:not(:last-child) { border-right-width:0; }
@@ -188,6 +203,15 @@ export default {
 .sch_detail .extra_sch b { margin-right: 1em; }
 .sch_detail .extra_sch .input-group { max-width:30em; }
 
+.category_picks { margin-top:20px; overflow:hidden; border-top:1px solid #1A90D6; border-left:1px solid #1A90D6; border-radius:30px 0 0 30px; }
+.category_picks .tit { background-color:#1A90D6; max-width:146px; }
+.category_picks .tit img { }
+.category_picks .tit h6 { position:absolute; top:40px; right:12px; color:#FFF; font-size:21px; font-weight:bold; }
+.category_picks .con { padding:24px; border-bottom:1px solid #1A90D6; border-right:1px solid #1A90D6; }
+.category_picks .con img { width:100%; height:166px; object-fit:contain; margin-bottom:12px; } 
+.category_picks .con p { font-size:14px; margin:0; overflow:hidden; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+
+
 .pick { background:#0094EA; }
 .pick .row .fir { flex:0 0 120px; max-width:120px; margin-right:25px; }
 .pick .row .col { padding:20px 0; }
@@ -199,12 +223,16 @@ export default {
 .pick .row .col ul li .tit { margin:auto; font-weight:bold; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; max-width:150px; }
 .pick .row .col ul li .pri { font-size:.7rem; margin: 0.3rem 0 0; }
 
+
+
+
+
+
+
 .list { align-items:flex-start; margin-top:25px; }
 .list .sort { flex:0 0 9%; max-width:9%; margin-right:15px; } 
-.list .sort ul { border:1px solid #D7D7D7; }
-.list .sort ul li { text-align:center; padding:10px 0; font-size:.9rem; cursor:pointer; }
-.list .sort ul li:not(:last-child) { border-bottom:1px solid #D7D7D7; }
-.list .sort ul li.active { background:#B2E0FA; } 
+.list .sort ul li { text-align:center; padding:6px 0; font-size:.85rem; font-weight:600; cursor:pointer; border:1px solid #D7D7D7; border-radius:25px; margin-bottom:10px; }
+.list .sort ul li.active { background:#DFEAF0; } 
 
 .list .col .row div:nth-child(2),
 .list .col .row div:nth-child(3) { flex:0 0 17%; max-width:17%; display:flex; align-items:center; justify-content:center; }
@@ -229,6 +257,13 @@ export default {
     .sch_detail .row .col  { flex:0 0 50%; max-width:50%; }
     .sch_detail .row .col h5 { font-size:14px; padding:.4em; }
     .sch_detail .row .col p { font-size:12px; padding:.3em; }
+    
+    .category_picks { border-radius:0; margin:0 5px; }
+    .category_picks .tit { display:none; }
+    .category_picks .con { flex: 0 0 auto; max-width: 33.333%; padding:5px; }
+    .category_picks .con img { height: auto; aspect-ratio: 1 / 1; }
+    .category_picks .con p  { text-align:center; font-size:12px; }
+
     .list .col .lbody>* { padding: 0 3px; }
     .list .col .lbody .link img { border-width:0; width: 80px; height: 80px; margin: 10px 10px 10px 0; }
     .list .col .lbody .link p { font-size: calc(1.2vw + .5rem); }
@@ -237,5 +272,7 @@ export default {
     .list .col .lbody .link p i .see_dealer .dealer { display:inline; padding-left:12px; margin-left:12px; }
     .list .col .lbody .link p i .see_dealer .dealer:before { left:-6px; width:14px; height:14px; line-height:14px; font-style:normal; font-size:.68rem; }
     .p_wrap >>> .page-link { min-width: 30px; padding:0; }
+
+        
 }
 </style>

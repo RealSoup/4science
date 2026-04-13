@@ -31,6 +31,7 @@ class Goods extends Model {
 
     protected $dlvy_fee = 4000;
     protected $free_dlvy_max = 100000;
+    protected $attributes = [ 'gd_view_cnt' => 0, ];
 
 
     public function getImageSrcAttribute() { return self::gdImgSrc(); }

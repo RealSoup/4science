@@ -722,7 +722,7 @@ export default {
 /*.conRight .goods_relate .ps >>> .ps__rail-y { background-color:#eee; opacity:.9; z-index:1; cursor:pointer; }
 .conRight .goods_relate .ps >>> .ps__rail-y > .ps__thumb-y { background-color:#438DCC; width:11px; }*/
 
-.conRight .goods_nav { position:sticky; top:80px; z-index:1; background:#B2BFC5; display:flex; padding-left:3rem; margin-top:2rem; }
+.conRight .goods_nav { position:sticky; top:126px; z-index:1; background:#B2BFC5; display:flex; padding-left:3rem; margin-top:2rem; }
 .conRight .goods_nav a { color:#FFF; padding:7px 22px; border-radius:2rem; margin:.7rem; font-weight:bold; }
 .conRight .goods_nav a b { color:#4E6F8E; }
 .conRight .goods_nav a.is-active { background:#4F708F; }

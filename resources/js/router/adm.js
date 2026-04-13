@@ -38,6 +38,10 @@ export default [
                 path: 'site/bannerGoods',
                 name: 'adm_site_banner_goods',
                 component:() => import('@/views/admin/site/BannerGoods'),
+            }, {
+                path: 'site/synonym',
+                name: 'adm_site_synonym',
+                component:() => import('@/views/admin/site/SynonymManager'),
             },
 
             //  유저

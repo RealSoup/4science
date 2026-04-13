@@ -212,6 +212,9 @@ $goods_p = 0;
             <td></td>
             <td></td>
         </tr>
+            @php
+                $no++;
+            @endphp
         @else        
             @if ( $loop->last )
         <tr class="line_side align_price bottom_thick">
@@ -228,10 +231,7 @@ $goods_p = 0;
         @endif
 
         @php
-
-        $no++;
-        $goods_p += ($odm['odm_price']-$odm['odm_price_coupon_dc'])*$odm['odm_ea'];
-
+            $goods_p += ($odm['odm_price']-$odm['odm_price_coupon_dc'])*$odm['odm_ea'];
         @endphp
     @endforeach
 @endforeach

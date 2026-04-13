@@ -95,6 +95,7 @@ class SyncElasticsearchSettings extends Command
                         'gd_rank'      => ['type' => 'integer'],
                         'gd_view_cnt'  => ['type' => 'integer'],
                         'gm_price'     => ['type' => 'integer'],
+                        'purchase_score' => ['type' => 'float'],
                         'gd_enable'    => ['type' => 'keyword'],
                         'gd_type'      => ['type' => 'keyword'],
                         'gd_mk_id'     => ['type' => 'integer'],

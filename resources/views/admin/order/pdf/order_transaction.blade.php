@@ -123,6 +123,9 @@ $goods_p = 0;
                 <td>{{ $odm['odm_gm_name'] }}</td>
                 <td>{{ $odm['odm_gm_catno'] }}</td>
                 <td>{{ $odm['odm_gm_code'] }}</td>
+                @php
+                    $no++;
+                @endphp
             @else
                 <td></td>
                 <td>{{ $odm['odm_gm_name'] }}: {{ $odm['odm_gm_spec'] }}</td>
@@ -135,11 +138,9 @@ $goods_p = 0;
         </tr>
 
         @php
-
-        $no++;
-        $goods_p += ($odm['odm_price']-$odm['odm_price_coupon_dc'])*$odm['odm_ea'];
-
+            $goods_p += ($odm['odm_price']-$odm['odm_price_coupon_dc'])*$odm['odm_ea']; 
         @endphp
+
     @endforeach
 @endforeach
 

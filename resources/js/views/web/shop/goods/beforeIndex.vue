@@ -12,32 +12,82 @@
             :p_ca04="$route.query.ca04"
         />
        
-      
-
-      
-
-        <b-container v-if="category_picks" class="category_picks">
-            <b-row>                   
-                <b-link :to="{name: 'goods_index', query: { ca01:$route.query.ca01 } }" class="col tit" >
-                    <!-- <b-img :src="`/storage/main/cate/bg${$route.query.ca01}.gif`"></b-img> -->
-                    <h6>{{thisCaName}}</h6>
-                </b-link>
-                <b-link class="col con" 
-                    v-for="(gd, i) in category_picks.slice(0, 6)" :key="i"
-                    :to="{name:'goods_show', params:{gd_id:gd.sw_key}}"
-                >
-                    <b-img fluid :src="gd.image_src_thumb[0]"></b-img>
-                    <p>{{gd.gd_name}}</p>
-                </b-link>
+        <b-container v-if="sch_cate_info" class="layout sch_detail">
+            <b-row>
+                <b-col>
+                    <h5>카테고리</h5>
+                    <p @click="frm.ca01=0, frm.ca02=0, frm.ca03=0, frm.mk_id=0, frm.keyword_extra='', routerPush()">전체보기 <span>{{sch_cate_info.all}}</span></p>
+                    <p v-for="ca in sch_cate_info.ca01" :key="ca.key" :class="{chk:frm.ca01 == ca.key}" @click="frm.ca01=ca.key, frm.ca02=0, frm.ca03=0, frm.mk_id=0, frm.keyword_extra='', routerPush()">
+                        {{ca.name}} <span>{{ca.cnt}}</span>
+                    </p>
+                </b-col>
+                
+                <b-col>
+                    <h5>중분류</h5>
+                    <p v-for="ca in sch_cate_info.ca02" :key="ca.key" :class="{chk:frm.ca02 == ca.key}" @click="frm.ca02=ca.key, frm.ca03=0, frm.mk_id=0, frm.keyword_extra='', routerPush()">
+                        {{ca.name}} <span>{{ca.cnt}}</span>
+                    </p>
+                </b-col>
+                
+                <b-col>
+                    <h5>소분류</h5>
+                    <p v-for="ca in sch_cate_info.ca03" :key="ca.key" :class="{chk:frm.ca03 == ca.key}" @click="frm.ca03=ca.key, frm.mk_id=0, frm.keyword_extra='', routerPush()">
+                        {{ca.name}} <span>{{ca.cnt}}</span>
+                    </p>
+                </b-col>
+                
+                <b-col>
+                    <h5>제조사</h5>
+                    <p v-for="mk in sch_cate_info.maker" :key="mk.key" :class="{chk:frm.mk_id == mk.key}" @click="frm.mk_id=mk.key, frm.keyword_extra='', routerPush()">
+                        {{mk.name}} <span>{{mk.cnt}}</span>
+                    </p>
+                </b-col>
             </b-row>
+            <div class="extra_sch">
+                <b>결과 내 검색</b>
+                <b-input-group>
+                    <b-form-input v-model="frm.keyword_extra" placeholder="검색어를 입력하세요" @keyup.enter="routerPush()" />
+                    <b-input-group-append>
+                        <b-button variant="info" @click="routerPush()"><font-awesome-icon icon="search" /></b-button>
+                    </b-input-group-append>
+                </b-input-group>
+            </div>
         </b-container>
 
-
+        <div v-if="pick" class="pick m_hide">
+            <b-row class="layout">
+                <b-col class="fir">
+                    <b-img :src="`${s3url}goods/4spick.png`" />
+                </b-col>
+                
+                <b-col>
+                    <b-row v-for="(row, i) in pick" :key="i" :class="{active:i == pick_hover}" @mouseover="actHover(i)" tag="ul">
+                        <b-link v-for="gd in row" :key="`4p${gd.gd_id}`"
+                            :to="{name: 'goods_show', params:{gd_id:gd.gd_id} }"
+                            router-tag="li"
+                        >   
+                            <div>
+                                <img :src="gd.image_src_thumb[0]" />
+                            </div>
+                            <p class="tit">{{gd.gd_name}}</p>
+                            <p class="pri">{{gd.goods_model_prime.gm_price_add_vat | comma | price_zero | won}}</p>
+                        </b-link>
+                    </b-row>
+                </b-col>
+            </b-row>
+        </div>
 
         <div class="layout">
             <b-container>
                 <b-row class="list">
-             
+                    <b-col class="sort m_hide">
+                        <ul>
+                            <li :class="{active : frm.sort == 'hot'}" @click="sort('hot')">인기상품순</li>
+                            <li :class="{active : frm.sort == 'new'}" @click="sort('new')">신상품순</li>
+                            <li :class="{active : frm.sort == 'lowPri'}" @click="sort('lowPri')">낮은가격순</li>
+                            <li :class="{active : frm.sort == 'highPri'}" @click="sort('highPri')">높은가격순</li>
+                        </ul>
+                    </b-col>
                     
                     <b-col>
                         <b-row class="lhead">
@@ -96,22 +146,10 @@ export default {
         'no-item': () => import('@/views/web/_module/NoItem'),
     },
     data() {
-        return {  }
+        return { pick_hover:0, }
     },
     computed: {
-        ...mapState('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys', 'category_picks']),
-
-        categoryMap() {
-            return Object.fromEntries(
-                Object.values(this.categorys || {})
-                    .flat()
-                    .map(v => [v.ca_id, v.ca_name])
-            );
-        },
-
-        thisCaName() {
-            return this.categoryMap[Number(this.$route.query.ca01)] || '';
-        }
+        ...mapState('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys']),
     },
     methods: {
         numCalc(i) {
@@ -130,6 +168,7 @@ export default {
             this.$store.dispatch('goods/routerPush');
         },
 
+        actHover:function(i){ this.pick_hover = i; },
 
     },
     // mounted() { this.$store.dispatch('goods/index'); },
@@ -149,13 +188,16 @@ export default {
 .sch_detail .extra_sch b { margin-right: 1em; }
 .sch_detail .extra_sch .input-group { max-width:30em; }
 
-.category_picks { margin-top:20px; overflow:hidden; border-top:1px solid #1A90D6; border-left:1px solid #1A90D6; border-radius:30px 0 0 30px; }
-.category_picks .tit { background-color:#1A90D6; }
-.category_picks .tit img { height:270px; }
-.category_picks .tit h6 { position:absolute; top:40px; right:12px; color:#FFF; font-size:21px; font-weight:bold; }
-.category_picks .con { padding:24px; border-bottom:1px solid #1A90D6; border-right:1px solid #1A90D6; }
-.category_picks .con img { width:100%; height:166px; object-fit:contain; margin-bottom:12px; } 
-.category_picks .con p { font-size:14px; margin:0; overflow:hidden; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+.pick { background:#0094EA; }
+.pick .row .fir { flex:0 0 120px; max-width:120px; margin-right:25px; }
+.pick .row .col { padding:20px 0; }
+.pick .row .col ul li { flex:0 0 13%; max-width:13%; height:150px; transition: all .2s; padding:0 10px; text-align:center; overflow:hidden; background:#fff; border-style:solid; border-color:#0094EA; border-width:10px 20px; cursor:pointer; }
+.pick .row .col ul.active li { flex:0 0 16.666667%; max-width:16.666667%; height:300px; }
+.pick .row .col ul li div { height:99%; position: relative; transition: all .2s;}
+.pick .row .col ul.active li div { height:75%; }
+.pick .row .col ul li div img { width:90%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.pick .row .col ul li .tit { margin:auto; font-weight:bold; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; max-width:150px; }
+.pick .row .col ul li .pri { font-size:.7rem; margin: 0.3rem 0 0; }
 
 .list { align-items:flex-start; margin-top:25px; }
 .list .sort { flex:0 0 9%; max-width:9%; margin-right:15px; } 
