@@ -37,10 +37,10 @@ class LoginController extends Controller {
             return $this->sendLockoutResponse($request);
         }
 
-        $userMng = DB::table('la_user_mng')
-            ->join('users', 'users.id', '=', 'la_user_mng.um_user_id')
+        $userMng = DB::table('user_mng')
+            ->join('users', 'users.id', '=', 'user_mng.um_user_id')
             ->where('users.email', $request->email)
-            ->select('la_user_mng.um_status')
+            ->select('user_mng.um_status')
             ->first();
 
         // 관리자인데 비활성이면 차단
