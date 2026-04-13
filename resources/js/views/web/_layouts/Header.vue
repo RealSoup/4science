@@ -52,7 +52,7 @@
                             <b-img :src="`/storage/common/icon/logout.png`"></b-img>  <p>로그아웃</p>
                         </b-link>
                         <b-link :to="{name: 'mypage'}">
-                            <b-img :src="`/storage/common/icon/mypage.png`"></b-img> <p>마이페이지</p>
+                            <b-img :src="`/storage/common/icon/mypage.png?v=2`"></b-img> <p>마이페이지</p>
                         </b-link>
                     </template>
                     <template v-else>
