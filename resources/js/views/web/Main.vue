@@ -9,7 +9,7 @@
 
         <b-carousel controls indicators :interval='0' class="area_tc">
             <b-link to="/board/notice/show/55">
-                <b-carousel-slide img-src="/storage/main/new/bn02.jpg"></b-carousel-slide>
+                <b-carousel-slide img-src="/storage/main/new/bn02.jpg?v=2"></b-carousel-slide>
             </b-link>
             
             <b-link
