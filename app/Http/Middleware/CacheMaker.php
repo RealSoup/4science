@@ -115,7 +115,7 @@ class CacheMaker {
         $db_key = Info::Key($key_nm)->first()->val;
         if( $db_key !== Redis::get($key_nm) ) {
             Redis::set($key_nm, $db_key);
-            $data = Goods::with('maker')->latest()->limit(4)->get()->toJson();
+            $data = Goods::with([ 'maker', 'fileGoodsGoods', 'goodsCategoryFirst', ])->latest()->limit(4)->get()->toJson();
             Redis::set('newest', $data);
         }
 
