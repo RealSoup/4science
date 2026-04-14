@@ -45,7 +45,7 @@ class LoginController extends Controller {
 
         // 관리자인데 비활성이면 차단
         if ($userMng && $userMng->um_status !== 'Y')
-            return redirect()->back()->withErrors(['email' => '비활성화된 계정입니다.']);
+            abort(500, '비활성화된 계정입니다.');
             
         if ($this->attemptLogin($request)) {            
             $ci_pw = base64_encode(hash("sha512", $request['password'], true));
