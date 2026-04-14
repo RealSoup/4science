@@ -40,6 +40,7 @@ class CacheMaker {
         $key_nm = 'update_key_user_mng';
         $db_key = Info::Key($key_nm)->first()->val;
         if( $db_key !== Redis::get($key_nm) ) {
+            Redis::set($key_nm, $db_key);  // 이거 없으면 매 요청마다 DB 쿼리 실행됨
             $u = User::select('id', 'name', 'email', 'um_status')
             ->join('user_mng', 'users.id', '=', 'user_mng.um_user_id')
             ->get()->keyBy('id');
@@ -114,7 +115,7 @@ class CacheMaker {
         $db_key = Info::Key($key_nm)->first()->val;
         if( $db_key !== Redis::get($key_nm) ) {
             Redis::set($key_nm, $db_key);
-            $data = Goods::with('maker')->latest()->limit(4)->get();
+            $data = Goods::with('maker')->latest()->limit(4)->get()->toJson();
             Redis::set('newest', $data);
         }
 
