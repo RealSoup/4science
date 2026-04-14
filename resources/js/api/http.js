@@ -54,6 +54,8 @@ instance.interceptors.response.use(function (response) {
                 location.replace('/email_verify')
             // location.replace('/email_verify');
             // .catch((e) => console.log(e));
+        } else if ( error.response.data.message ) {
+            Notify.modal(error.response.data.message, 'danger');  // 추가
         }
         return false;
     } else if (error.response.status === 419) {
