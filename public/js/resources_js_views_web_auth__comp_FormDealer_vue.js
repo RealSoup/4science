@@ -140,13 +140,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.addFiles(files);
     },
     fileProcessor: function fileProcessor(fi_key) {
-      var _this2 = this;
+      var _arguments = arguments,
+        _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var frmData, fi_room, i, upUrl;
+        var mode, frmData, fi_room, i, upUrl;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
+              mode = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : null;
               frmData = new FormData();
+              if (mode) frmData.append('mode', mode);
               frmData.append('fi_group', _this2.fi_group);
               frmData.append('fi_key', fi_key);
               fi_room = 0;
@@ -164,11 +167,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               }
               upUrl = "/api/upload";
               if (_this2.fi_group == 'goods') upUrl = "/api/admin/shop/goods/fileUpload";
-              _context4.next = 15;
+              _context4.next = 17;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post(upUrl, frmData);
-            case 15:
+            case 17:
               return _context4.abrupt("return", _context4.sent);
-            case 16:
+            case 18:
             case "end":
               return _context4.stop();
           }

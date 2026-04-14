@@ -225,7 +225,21 @@ class GoodsController extends Controller {
 
 
         //  최신상품 캐시 새로고침
-        DB::table('infos')->where('key', 'update_key_newest')->update(['val' => uniqid()]);
+        /*  
+            파일 업로드는 상품ID가 필요
+            VueJS 실행방식
+            async write() {                
+                await ax.post(`/api/admin/shop/goods`, this.frm);
+                await this.$refs.form.$refs.fileupload1.fileProcessor(res.data, 'store');
+                await this.$refs.form.$refs.fileupload2.fileProcessor(res.data);
+            },
+            파일 정보는 나중에 등록되기에 여기에 레디스에 최신파일 등록하면 이미지가 안나온다
+            아래 파일 업로드 함수에서 기술하자
+            public function fileUpload(Request $req) {}
+
+        */
+
+
 
         //  검색엔진 갱신
         if ($req->gd_type != 'REN')
@@ -426,6 +440,10 @@ class GoodsController extends Controller {
             foreach (json_decode($req->is_delete) as $fi_id)
                 app('App\Http\Controllers\CommonController')->deleteFiles($fi_id, 'goods');
         }
+        
+        //  최신상품 캐시 새로고침
+        DB::table('infos')->where('key', 'update_key_newest')->update(['val' => uniqid()]);
+
         return response()->json("success", 200);
     }
 

@@ -355,7 +355,7 @@ export default {
     #recommend_goods .cont a img { height: auto; aspect-ratio: 1 / 1; }
 }
 
-#middle_banner { margin-top:80px; }
+#middle_banner { margin-top:80px; overflow:hidden; }
 #middle_banner .col { overflow: hidden; }
 #middle_banner .col img { width: 100%; }
 

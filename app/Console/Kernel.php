@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel {
 
 
     protected function schedule(Schedule $schedule) {
-        // 최신상품 캐시 새로고침
+        // 많이 팔린 상품 탑20 캐시 새로고침
         $schedule->call(function () {
             \DB::table('infos')->where('key', 'update_key_top_selling')->update(['val' => uniqid()]);
         })->dailyAt('04:00');

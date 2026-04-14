@@ -86,8 +86,9 @@ export default {
             this.addFiles(files);
         },
 
-        async fileProcessor(fi_key) {
+        async fileProcessor(fi_key, mode = null) {
             const frmData = new FormData()
+            if (mode) frmData.append('mode', mode);
             frmData.append('fi_group', this.fi_group);
             frmData.append('fi_key', fi_key);
             let fi_room = 0;

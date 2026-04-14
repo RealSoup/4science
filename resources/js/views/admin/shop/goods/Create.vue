@@ -70,7 +70,7 @@ export default {
             this.isLoadingModalViewed=true;
             let res = await ax.post(`/api/admin/shop/goods`, this.frm);
             if (res && res.status === 200) {
-                await this.$refs.form.$refs.fileupload1.fileProcessor(res.data);
+                await this.$refs.form.$refs.fileupload1.fileProcessor(res.data, 'store');
                 await this.$refs.form.$refs.fileupload2.fileProcessor(res.data);
                 this.isLoadingModalViewed=false;
                 this.$router.push({ name: 'adm_goods_index' });
