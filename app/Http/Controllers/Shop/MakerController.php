@@ -23,6 +23,7 @@ class MakerController extends Controller {
             ->where('gd_type', 'NON')
             ->where('gd_mk_id', $mk_id)
             ->get();
+        $raw_data->each->setAppends(['image_src_thumb']);
 
         $rst['gd'] = [];
         foreach ($raw_data as $v) {
