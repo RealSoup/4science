@@ -253,13 +253,24 @@ export default {
 </script>
 
 <style lang="css" scoped>
-#banner_box { display:grid; gap:30px; margin-top:20px; }
+#banner_box { 
+    gap:30px; margin-top:20px; 
+    display:grid; box-sizing: border-box;
+    grid-template-columns: 1.93fr 1.93fr 4.28fr 1.93fr;
+    grid-template-areas: "area_tl area_tc area_tc area_tr"
+                         "area_bl area_tc area_tc area_tr"
+                         "area_bl area_bc area_bc area_br";
+}
+#banner_box > a,
+#banner_box .area_bc > a { display: block; width: 100%; min-width: 0; overflow: hidden; }
+#banner_box > a img,
+#banner_box .area_bc > a img { width: 100%; height: 100%; object-fit: cover; display: block; }
 #banner_box .area_tl { grid-area: area_tl; }
 #banner_box .area_tc { grid-area: area_tc; }
 #banner_box .area_tr { grid-area: area_tr; }
 #banner_box .area_bl { grid-area: area_bl; position:relative; width: 100%; }
 #banner_box .area_bl .bg { position: absolute; width: 100%; }
-#banner_box .area_bl .scene { width:270px; height:340px; perspective:600px; position:relative; }
+#banner_box .area_bl .scene { width:100%; height:100%; min-height:200px; perspective:600px; position:relative; }
 #banner_box .area_bl .scene .carousel { width:100%; height:100%; position:relative; transform-style:preserve-3d; }
 #banner_box .area_bl .scene .carousel a { position:absolute; width:164px; height:240px; top:50%; left:50%; margin-top:-120px; margin-left:-82px; display:flex; align-items:center; justify-content:center; }
 #banner_box .area_bl .scene .carousel a img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5)); }
@@ -269,37 +280,19 @@ export default {
 #banner_box .area_bc .area_bc01 img,
 #banner_box .area_bc .area_bc02 img { width:100%; height:100%; object-fit:cover; display:block; }
 #banner_box .area_br { grid-area:area_br; }
-#banner_box { 
-    grid-template-columns: 270px 270px 600px 270px;
-    grid-template-areas: "area_tl area_tc area_tc area_tr"
-                         "area_bl area_tc area_tc area_tr"
-                         "area_bl area_bc area_bc area_br";
-}
-@media (max-width: 767px) {
-     #banner_box {
-        width: 100%;
-        gap: 10px;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas:
-        "area_tc area_tc"
-        "area_tl area_tr"
-        "area_bl area_tr"
-        "area_bl area_br"
-        "area_bc area_bc";  /* 하단을 하나로 묶기 */
-    }
-  
-    #banner_box .area_bc { gap:10px; }
-    #banner_box .area_bc .area_bc01,
-    #banner_box .area_bc .area_bc02 { min-width:0; }
-    #banner_box .area_bc .area_bc02 img { width: 100%; height: 100%; object-fit: cover; }
-    #banner_box > a { width: 100%; }
-    #banner_box > a img { width: 100%; height: 100%; object-fit: cover; }
 
-    
+@media (max-width: 767px) {
+     #banner_box { width:100%; gap:10px; grid-template-columns:1fr 1fr;
+        grid-template-areas: "area_tc area_tc"
+                             "area_tl area_tr"
+                             "area_bl area_tr"
+                             "area_bl area_br"
+                             "area_bc area_bc";  /* 하단을 하나로 묶기 */
+    }
+    #banner_box .area_bc { gap:10px; }
     #banner_box .area_bl .scene { width:100%; height:100%; perspective:600px; position:relative; }
     #banner_box .area_bl .scene .carousel a { width: 100px; height: 150px; margin-top:-75px; margin-left:-50px; top:30%; }
 }
-
 
 #banner_box .slide { overflow:hidden; max-width:900px; max-height:460px; }
 #banner_box .slide::v-deep .carousel-inner { height:100%; }
@@ -330,7 +323,7 @@ export default {
 .container .tit .col { font-size:23px; font-weight:900; }
 
 #best { max-width:100% !important; margin:74px auto 0 auto; }
-#best .inner { background-color:#F6F7FB; padding:24px 0 10px 0; margin:12px; }
+#best .inner { background-color:#F6F7FB; padding:24px 0 10px 0; margin:12px 0; }
 #best .inner .row a { position: relative; margin:6px; }
 #best .inner .row a img { width:100%; height:239px; object-fit:contain; background-color: #FFFFFF; border:1px solid #D7D7D7; border-radius:20px; }
 #best .inner .row a .box-footer { padding:0 8px; }
@@ -344,6 +337,7 @@ export default {
 
 #recommend_goods  { margin:74px auto 0 auto; }
 #recommend_goods .tit .col { margin:25px 0px; }
+#recommend_goods .cont { overflow:hidden; }
 #recommend_goods .cont a { flex:0 0 10%; max-width:calc(10% - 20px); margin:0 10px; text-align:center; }
 #recommend_goods .cont a img { width:100%; height:126px; object-fit:contain; background-color:#F3F3F3; border:1px solid #D7D7D7; border-radius:50%; margin-bottom:18px; }
 #recommend_goods .cont a span { font-weight:bold; }
@@ -365,7 +359,7 @@ export default {
     #middle_banner .col img { width:130%; height: auto; position: relative; left: 50%; transform: translateX(-50%); }
 }
 
-#newest  { margin:74px auto 0 auto; }
+#newest  { margin:74px auto 0 auto; overflow:hidden; }
 #newest .tit .col { margin:25px 0px; }
 #newest .cont { margin-left:-17px; margin-right:-17px; }
 #newest .cont a { position:relative; flex:0 0 25%; max-width:calc(25% - 34px); margin:0 17px; text-align:center; }

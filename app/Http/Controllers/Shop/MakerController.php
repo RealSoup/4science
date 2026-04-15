@@ -14,16 +14,67 @@ class MakerController extends Controller {
         return response()->json(Maker::all(), 200);
     }
 
-	public function makerShop(Request $req, $mk_id) {
+    public function makerShop(Request $req, $mk_id) {
         $rst['mk'] = Maker::with('fileInfo')->find($mk_id);
-        $raw_data = DB::table('shop_goods')->join('shop_goods_category', 'shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id')
-            ->select('gc_ca01', 'gc_ca01_name', 'gc_ca02', 'gc_ca02_name', 'gc_ca03', 'gc_ca03_name', 'gc_ca04', 'gc_ca04_name',
-                    'gd_id', 'gd_name')
+
+        $raw_data = Goods::with(['goodsModelPrime', 'fileGoodsGoods', 'goodsCategoryFirst'])
+            ->whereNull('deleted_at')
+            ->where('gd_enable', 'Y')
+            ->where('gd_type', 'NON')
+            ->where('gd_mk_id', $mk_id)
+            ->get();
+
+        $rst['gd'] = [];
+        foreach ($raw_data as $v) {
+            if (!$v->goodsCategoryFirst || empty($v->goodsCategoryFirst->gc_ca01)) 
+                continue;
+            $this->insertCaData($rst['gd'], $v);
+        }
+
+        return response()->json($rst, 200);
+    }
+
+    private function insertCaData(array &$ca_data, $v) {
+        $cat = $v->goodsCategoryFirst;
+        $ca1 = $cat->gc_ca01;
+
+        if (empty($cat->gc_ca02)) {
+            $ca_data[$ca1]['data'][] = $v; return;
+        }
+
+        $ca2 = $cat->gc_ca02;
+        if (!isset($ca_data[$ca1][$ca2])) $ca_data[$ca1][$ca2] = [];
+
+        if (empty($cat->gc_ca03)) {
+            $ca_data[$ca1][$ca2]['data'][] = $v; return;
+        }
+
+        $ca3 = $cat->gc_ca03;
+        if (!isset($ca_data[$ca1][$ca2][$ca3])) $ca_data[$ca1][$ca2][$ca3] = [];
+
+        if (empty($cat->gc_ca04)) {
+            $ca_data[$ca1][$ca2][$ca3]['data'][] = $v; return;
+        }
+
+        $ca4 = $cat->gc_ca04;
+        if (!isset($ca_data[$ca1][$ca2][$ca3][$ca4])) $ca_data[$ca1][$ca2][$ca3][$ca4] = [];
+
+        $ca_data[$ca1][$ca2][$ca3][$ca4]['data'][] = $v;
+    }
+
+
+    
+	public function prev_makerShop(Request $req, $mk_id) {
+        $rst['mk'] = Maker::with('fileInfo')->find($mk_id);
+        $raw_data = DB::table('shop_goods')
+        // ->join('shop_goods_category', 'shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id')
+        // ->select('gc_ca01', 'gc_ca01_name', 'gc_ca02', 'gc_ca02_name', 'gc_ca03', 'gc_ca03_name', 'gc_ca04', 'gc_ca04_name', 'gd_id', 'gd_name')
             ->whereNull('shop_goods.deleted_at') //  삭제 상품 제외
             ->where('gd_enable', 'Y')               //  활성화 상품만 검색되게
             ->where('gd_type', 'NON')               //  렌탈은 검색 안되게
             ->where('gd_mk_id', $mk_id)->get();
-            
+            dd($raw_data);
+            exit;
         $ca_data = array();
         foreach ($raw_data as $k => $v) {
             if (!empty($v->gc_ca01)) {
@@ -110,7 +161,4 @@ class MakerController extends Controller {
         $rst['gd'] = $ca_data;
         return response()->json($rst, 200);
     }
-    
-
-
 }
