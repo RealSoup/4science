@@ -18,6 +18,7 @@ class MakerController extends Controller {
         $rst['mk'] = Maker::with('fileInfo')->find($mk_id);
 
         $raw_data = Goods::with(['goodsModelPrime', 'fileGoodsGoods', 'goodsCategoryFirst'])
+            ->select('gd_id', 'gd_name')
             ->whereNull('deleted_at')
             ->where('gd_enable', 'Y')
             ->where('gd_type', 'NON')
