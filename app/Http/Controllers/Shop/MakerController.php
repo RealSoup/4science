@@ -17,47 +17,91 @@ class MakerController extends Controller {
     public function makerShop(Request $req, $mk_id) {
         $rst['mk'] = Maker::with('fileInfo')->find($mk_id);
 
+        // 카테고리 트리만 (상품 없이)
+        $raw_data = DB::table('shop_goods')
+            ->join('shop_goods_category', 'shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id')
+            ->select('gc_ca01', 'gc_ca01_name', 'gc_ca02', 'gc_ca02_name', 'gc_ca03', 'gc_ca03_name', 'gc_ca04', 'gc_ca04_name')
+            ->whereNull('shop_goods.deleted_at')
+            ->where('gd_enable', 'Y')
+            ->where('gd_type', 'NON')
+            ->where('gd_mk_id', $mk_id)
+            ->groupBy('gc_ca01', 'gc_ca01_name', 'gc_ca02', 'gc_ca02_name', 'gc_ca03', 'gc_ca03_name', 'gc_ca04', 'gc_ca04_name')
+            ->get();
+
+        $ca_data = [];
+        foreach ($raw_data as $v) {
+            if (empty($v->gc_ca01)) continue;
+
+            $ca1 = $v->gc_ca01;
+            $ca2 = $v->gc_ca02;
+            $ca3 = $v->gc_ca03;
+            $ca4 = $v->gc_ca04;
+
+            if (empty($ca2)) {
+                $ca_data[$ca1] = ['is_leaf'=>true, 'mk_id'=>$mk_id, 'ca01'=>$ca1];
+                continue;
+            }
+            if (!isset($ca_data[$ca1])) $ca_data[$ca1] = [];
+
+            if (empty($ca3)) {
+                $ca_data[$ca1][$ca2] = ['is_leaf'=>true, 'mk_id'=>$mk_id, 'ca01'=>$ca1, 'ca02'=>$ca2];
+                continue;
+            }
+            if (!isset($ca_data[$ca1][$ca2])) $ca_data[$ca1][$ca2] = [];
+
+            if (empty($ca4)) {
+                $ca_data[$ca1][$ca2][$ca3] = ['is_leaf'=>true, 'mk_id'=>$mk_id, 'ca01'=>$ca1, 'ca02'=>$ca2, 'ca03'=>$ca3];
+                continue;
+            }
+            if (!isset($ca_data[$ca1][$ca2][$ca3])) $ca_data[$ca1][$ca2][$ca3] = [];
+
+            $ca_data[$ca1][$ca2][$ca3][$ca4] = ['is_leaf'=>true, 'mk_id'=>$mk_id, 'ca01'=>$ca1, 'ca02'=>$ca2, 'ca03'=>$ca3, 'ca04'=>$ca4];
+        }
+
+        $rst['gd'] = $ca_data;
+        return response()->json($rst, 200);
+    }
+
+    public function makerShopGoods(Request $req, $mk_id, $ca01, $ca02=null, $ca03=null, $ca04=null) {
         $raw_data = Goods::with(['goodsModelPrime', 'fileGoodsGoods', 'goodsCategoryFirst'])
-            ->select('gd_id', 'gd_name')
+            ->select('gd_id', 'gd_name', 'gd_mk_id')
             ->whereNull('deleted_at')
             ->where('gd_enable', 'Y')
             ->where('gd_type', 'NON')
             ->where('gd_mk_id', $mk_id)
+            ->whereHas('goodsCategory', function($q) use ($ca01, $ca02, $ca03, $ca04) {
+                $q->where('gc_ca01', $ca01);
+                if ($ca02) $q->where('gc_ca02', $ca02);
+                if ($ca03) $q->where('gc_ca03', $ca03);
+                if ($ca04) $q->where('gc_ca04', $ca04);
+            })
             ->get();
+
         $raw_data->each->setAppends(['image_src_thumb']);
 
-        $rst['gd'] = [];
-        foreach ($raw_data as $v) {
-            if (!$v->goodsCategoryFirst || empty($v->goodsCategoryFirst->gc_ca01)) 
-                continue;
-            $this->insertCaData($rst['gd'], $v);
-        }
-
-        return response()->json($rst, 200);
+        return response()->json($raw_data, 200);
     }
 
     private function insertCaData(array &$ca_data, $v) {
         $cat = $v->goodsCategoryFirst;
         $ca1 = $cat->gc_ca01;
+        if (!isset($ca_data[$ca1])) $ca_data[$ca1] = [];
 
         if (empty($cat->gc_ca02)) {
             $ca_data[$ca1]['data'][] = $v; return;
         }
-
         $ca2 = $cat->gc_ca02;
         if (!isset($ca_data[$ca1][$ca2])) $ca_data[$ca1][$ca2] = [];
 
         if (empty($cat->gc_ca03)) {
             $ca_data[$ca1][$ca2]['data'][] = $v; return;
         }
-
         $ca3 = $cat->gc_ca03;
         if (!isset($ca_data[$ca1][$ca2][$ca3])) $ca_data[$ca1][$ca2][$ca3] = [];
 
         if (empty($cat->gc_ca04)) {
             $ca_data[$ca1][$ca2][$ca3]['data'][] = $v; return;
         }
-
         $ca4 = $cat->gc_ca04;
         if (!isset($ca_data[$ca1][$ca2][$ca3][$ca4])) $ca_data[$ca1][$ca2][$ca3][$ca4] = [];
 

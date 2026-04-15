@@ -319,6 +319,7 @@ Route::prefix('shop')->group(function () {
         Route::GET('{code}/{type}', 'Shop\OutletController@index')->name('shop.outlet.index');
     });
     Route::GET('makerShop/{mk_id}', 'Shop\MakerController@makerShop');
+    Route::GET('makerShop/{mk_id}/goods/{ca01}/{ca02?}/{ca03?}/{ca04?}', 'Shop\MakerController@makerShopGoods');
 });
 Route::prefix('board/{bo_cd}')->group(function () {
     Route::get('', 'BoardController@index')->name('board.index')->where('bo_cd', '[a-zA-Z0-9_]+');

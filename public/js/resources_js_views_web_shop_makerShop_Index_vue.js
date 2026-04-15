@@ -93,8 +93,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
-    'list': function list() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_makerShop__comp_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./List.vue */ "./resources/js/views/web/shop/makerShop/_comp/List.vue"));
+    'lazy-loader': function lazyLoader() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_makerShop__comp_LazyLoader_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./LazyLoader.vue */ "./resources/js/views/web/shop/makerShop/_comp/LazyLoader.vue"));
     },
     'recursive-list': function recursiveList() {
       return Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./RecursiveList.vue */ "./resources/js/views/web/shop/makerShop/_comp/RecursiveList.vue"));
@@ -163,15 +163,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   render: () => (/* binding */ render),
 /* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
 /* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_vm.node.data ? _c("list", {
+  return _c("div", [_vm.node.is_leaf ? _c("lazy-loader", {
     attrs: {
-      gd_list: _vm.node.data
+      node: _vm.node
     }
-  }) : _vm._e(), _vm._v(" "), _vm._l(_vm.node, function (child, key) {
-    return [key !== "data" ? _c("recursive-list", {
+  }) : _vm._l(_vm.node, function (child, key) {
+    return [key !== "is_leaf" && _typeof(child) === "object" ? _c("recursive-list", {
       key: key,
       attrs: {
         node: child
