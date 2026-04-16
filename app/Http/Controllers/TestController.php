@@ -87,12 +87,12 @@ class TestController extends Controller {
 
                         ['term'         => ['gm_code'  => $keyword]],
                         ['prefix'       => ['gm_code'  => $keyword]],
-                        ['wildcard'     => ['gm_code' => '*' . $keyword]],      // *a2115 → STARA2115 ✅
+                        // ['wildcard'     => ['gm_code' => '*' . $keyword]],      // *a2115 → STARA2115 ✅
                         // ['wildcard'     => ['gm_code' => '*' . $keyword . '*']], // 중간 포함
 
                         ['term'         => ['mk_name.keyword' => $keyword]],
                         ['match'        => ['mk_name'         => $keyword]],
-                        ['wildcard'     => ['mk_name.keyword' => '*' . $keyword . '*']],
+                        // ['wildcard'     => ['mk_name.keyword' => '*' . $keyword . '*']],
 
                         [
                             'multi_match' => [
