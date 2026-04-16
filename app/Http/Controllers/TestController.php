@@ -144,6 +144,9 @@ class TestController extends Controller {
                             [ 'filter' => ['match' => ['mk_name' => $keyword]], 'weight' => 3000, ],  // research 매칭 상위
                             [ 'filter' => ['match' => ['gd_keyword' => $keyword]], 'weight' => 1000, ],
                             // 구매수 boost (최대 +5000, 클릭보다 가중치 높게)
+
+                            ['filter' => ['term' => ['gm_code_all'  => $keyword]], 'weight' => 9000],
+                            ['filter' => ['term' => ['gm_catno_all' => $keyword]], 'weight' => 9000],
                             
                             [ 'field_value_factor' => [ 'field'    => 'purchase_score', 'factor'   => 1000, 'modifier' => 'none', 'missing'  => 0, ], ],
                         ],

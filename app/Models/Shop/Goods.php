@@ -166,9 +166,9 @@ class Goods extends Model {
             'gm_price' => $prime->gm_price ?? 0,
 
             // 전체 모델 (검색용)
-            'gm_name_all'  => $this->goodsModel->pluck('gm_name')->filter()->implode(' '),
-            'gm_code_all'  => $this->goodsModel->pluck('gm_code')->filter()->implode(' '),
-            'gm_catno_all' => $this->goodsModel->pluck('gm_catno')->filter()->implode(' '),
+            'gm_catno_all' => $this->goodsModel->pluck('gm_catno')->filter()->values()->toArray(),
+            'gm_code_all'  => $this->goodsModel->pluck('gm_code')->filter()->values()->toArray(),
+            'gm_name_all'  => $this->goodsModel->pluck('gm_name')->filter()->values()->toArray(),
 
             // 필터용
             'gd_enable'   => $this->gd_enable,
