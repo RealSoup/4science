@@ -12,6 +12,10 @@ class BehaviorController extends Controller {
             'target' => 'nullable|string|max:100',
         ]);
 
+        if (!if_not_my_ip($request->ip())) {
+            return response()->json(['ok' => true]);
+        }
+
         $uuid   = $request->cookie('tracking_uuid');
         $userId = auth()->id();
 
