@@ -67,7 +67,17 @@ export default {
             this.od_all_price = res.data.od_all_price;
             // this.config = res.data.config;
 
-                    /* 네이버 분석 관련 스크립트 */
+            // 구매 완료 로그
+            if (res.data.gm_ids?.length) {
+                for (const gm_id of res.data.gm_ids) {
+                    await ax.post('/api/behavior/log', {
+                        action: 'purchase',
+                        target: String(gm_id),
+                    });
+                }
+            }
+            
+            /* 네이버 분석 관련 스크립트 */
             if (!wcs_add) var wcs_add={};
             wcs_add["wa"] = "s_256b3162e372";
             var _nasa={};

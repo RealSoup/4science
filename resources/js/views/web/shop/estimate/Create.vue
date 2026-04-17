@@ -150,6 +150,24 @@ export default {
                     });
 
                     Notify.toast('success', '견적 요청 완료')
+
+                    // 견적 로그
+                    if (this.od_goods?.length) {
+                        const uniqueGmIds = [...new Set(this.od_goods.map(item => item.gm_id))];
+                        for (const gm_id of uniqueGmIds) {
+                            await ax.post('/api/behavior/log', {
+                                action: 'estimate',
+                                target: String(gm_id),
+                            });
+                        }
+                    } else {
+                        // 텍스트 견적 - target 없이 그냥 로그만
+                        await ax.post('/api/behavior/log', {
+                            action: 'estimate',
+                            target: null,
+                        });
+                    }
+                    
                     this.$store.dispatch('cart/index');
                     this.$router.push({name: 'my_estimate_show', params: { eq_id: res.data }});
                 } else {

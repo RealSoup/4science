@@ -46,6 +46,39 @@ class TestController extends Controller {
             default   => ['_score'],
         };
 
+        // 개인화 boost 함수 생성
+        $personalizeFunctions = [];
+        if (auth()->check()) {
+            $userId = auth()->id();
+            $cacheKey = "user_preference:{$userId}";
+
+            $cached = Redis::get($cacheKey);
+            $ca01List = $cached ? json_decode($cached, true) : [];
+
+            if (empty($ca01List)) {
+                $ca01List = DB::table('user_behavior_logs')
+                    ->where('created_id', $userId)
+                    ->whereIn('action', ['purchase', 'cart', 'view'])
+                    ->where('created_at', '>=', now()->subDays(30))
+                    ->whereNotNull('ca01')
+                    ->where('ca01', '!=', 0)
+                    ->selectRaw('ca01, COUNT(*) as cnt')
+                    ->groupBy('ca01')
+                    ->orderByDesc('cnt')
+                    ->limit(3)
+                    ->pluck('ca01')
+                    ->toArray();
+
+                Redis::setex($cacheKey, 86400, json_encode($ca01List));
+            }
+
+            foreach ($ca01List as $i => $ca01) {
+                $personalizeFunctions[] = [
+                    'filter' => ['term' => ['gc_ca01' => (int)$ca01]],
+                    'weight' => (int)(300 / ($i + 1)),
+                ];
+            }
+        }
 
         $searchQuery = [];
         if ($req->filled('keyword')) {
@@ -58,7 +91,15 @@ class TestController extends Controller {
                 $fieldMap = [
                     'gd_name' => ['match' => ['gd_name' => $keyword]],
                     'gm_name' => ['match' => ['gm_name' => $keyword]],
-                    'gm_code' => ['term'  => ['gm_code'  => $keyword]],
+                    'gm_code' => [
+                        'bool' => [
+                            'should' => [
+                                ['term'  => ['gm_code'             => $keyword]],
+                                ['term'  => ['gm_code_all.keyword' => $keyword]],
+                                ['prefix' => ['gm_code_all.keyword'=> $keyword]],
+                            ]
+                        ]
+                    ],
                     'cat_no'  => [
                         'bool' => [
                             'should' => [
@@ -87,6 +128,8 @@ class TestController extends Controller {
 
                         ['term'         => ['gm_code'  => $keyword]],
                         ['prefix'       => ['gm_code'  => $keyword]],
+                        ['term'         => ['gm_code_all.keyword' => $keyword]],
+                        ['prefix'       => ['gm_code_all.keyword' => $keyword]],
                         // ['wildcard'     => ['gm_code' => '*' . $keyword]],      // *a2115 → STARA2115 ✅
                         // ['wildcard'     => ['gm_code' => '*' . $keyword . '*']], // 중간 포함
 
@@ -125,7 +168,7 @@ class TestController extends Controller {
                 $searchQuery = [
                     'function_score' => [
                         'query' => ['bool' => $boolClause],
-                        'functions' => [
+                        'functions' => array_merge([
                                 
                             // [ 'filter' => ['term' => ['gd_name.keyword' => $keyword]], 'weight' => 10000, ],            // ✅ 완전일치 (줄자)
                             // [ 'filter' => ['prefix' => ['gd_name.keyword' => $keyword]], 'weight' => 5000, ],           // ✅ 키워드로 시작 (줄자10M, 줄자걸이X → 줄자루는 해당없음)
@@ -146,10 +189,11 @@ class TestController extends Controller {
                             // 구매수 boost (최대 +5000, 클릭보다 가중치 높게)
 
                             ['filter' => ['term' => ['gm_code_all.keyword'  => $keyword]], 'weight' => 9000],
+                            ['filter' => ['prefix' => ['gm_code_all.keyword' => $keyword]], 'weight' => 5000], 
                             ['filter' => ['term' => ['gm_catno_all.keyword' => $keyword]], 'weight' => 9000],
                             
                             [ 'field_value_factor' => [ 'field'    => 'purchase_score', 'factor'   => 1000, 'modifier' => 'none', 'missing'  => 0, ], ],
-                        ],
+                        ], $personalizeFunctions),
                         'score_mode' => 'sum',
                         'boost_mode' => 'sum',
                     ],

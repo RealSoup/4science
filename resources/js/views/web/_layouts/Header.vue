@@ -111,6 +111,7 @@
 </template>
 
 <script>
+import ax from '@/api/http';
 import LoginPopUp from '../auth/Login.vue';
 import { mapState, mapGetters } from 'vuex'
 import Header from '../../admin/_layouts/Header.vue';
@@ -168,7 +169,13 @@ export default {
             if(this.frm.keyword == '') {
                 Notify.modal('검색어를 입력하세요.', 'warning');
                 return false;
-            }            
+            }
+
+            ax.post('/api/behavior/log', {
+                action: 'search',
+                target: this.frm.keyword,
+            });
+
             this.$store.dispatch('goods/routerPush', 'new');
         },
         onScroll(e) { this.headerFix = window.top.scrollY > 10; },

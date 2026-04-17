@@ -53,7 +53,27 @@
         <b-link to="/shop/goods?ca01=26&ca02=1067" class="area_br">
             <img src="/storage/main/new/bn07.jpg" />
         </b-link>
-    </div>        
+    </div>
+    
+    <b-container id="ai_recommend" class="layout" v-if="false && isLoggedin() && list.ai_recommend.length">
+        <b-row class="tit">
+            <b-col>고객님이 자주 구매하는 상품 <b-badge variant="primary">AI 추천</b-badge></b-col>
+        </b-row>
+        <b-row class="cont">
+            <b-link 
+                v-for="(item, i) in list.ai_recommend" 
+                :key="i" 
+                :to="{ name: 'goods_show', params: {gd_id: item.gd_id} }" 
+                class="col"
+            >
+                <img :src="item.image_src_thumb[0]" />
+                <div>
+                    <!-- <p>{{item.maker.mk_name}}</p> -->
+                    <p>{{item.gd_name}}</p>
+                </div>
+            </b-link>
+        </b-row>
+    </b-container>
     
     <b-container id="best">
         <b-row class="tit layout">
@@ -154,6 +174,7 @@ export default {
                 recommend_goods:[],
                 newest:[],
                 maker_shop:[],
+                ai_recommend: [],
             },
         }
     },
@@ -192,6 +213,11 @@ export default {
             }
         }
 
+
+        if (this.isLoggedin()) {
+            let rec = await ax.get(`/api/recommend`);
+            this.list.ai_recommend = rec.data.goods ?? [];
+        }
         
         
         /////////////////////    회전 베너  시작     //////////////////////////

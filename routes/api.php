@@ -88,6 +88,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::POST('person_verification', 'KcpController@person_verification');
         });
 
+        Route::get('recommend', 'RecommendController@index');
+
         
 
 
@@ -280,6 +282,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::GET('/userOrder',    'Admin\StatsController@userOrder');
                 Route::GET('/userAttend',   'Admin\StatsController@userAttend');
                 Route::GET('/schKeyword',   'Admin\StatsController@schKeyword');
+                Route::prefix('behavior')->group(function () {
+                    Route::get('goods',     'Admin\StatsController@behaviorGoods');
+                    Route::get('keywords',  'Admin\StatsController@behaviorKeywords');
+                    Route::get('hourly',    'Admin\StatsController@behaviorHourly');
+                    Route::get('category',  'Admin\StatsController@behaviorCategory');
+                });
             });
         });
         
@@ -337,6 +345,8 @@ Route::prefix('event')->group(function () {
     Route::GET('couponDown',      'EventController@couponDown');
     Route::GET('couponDownCheck', 'EventController@couponDownCheck');
 });
+
+Route::post('behavior/log', 'BehaviorController@log');
 
 Route::prefix('test')->group(function () {
     Route::GET('search_test',       'TestController@search_test');

@@ -61,7 +61,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         banner_goods: [],
         recommend_goods: [],
         newest: [],
-        maker_shop: []
+        maker_shop: [],
+        ai_recommend: []
       }
     };
   },
@@ -100,7 +101,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   mounted: function mounted() {
     var _this = this;
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var rst, items, total, isMobile, radius, yRadius, angle, paused, scene, animate;
+      var rst, _rec$data$goods, rec, items, total, isMobile, radius, yRadius, angle, paused, scene, animate;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
@@ -137,7 +138,16 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 Notify.modal('필수 개인정보를 입력하세요.', 'warning');
               }
             }
-
+            if (!_this.isLoggedin()) {
+              _context.next = 15;
+              break;
+            }
+            _context.next = 13;
+            return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/recommend");
+          case 13:
+            rec = _context.sent;
+            _this.list.ai_recommend = (_rec$data$goods = rec.data.goods) !== null && _rec$data$goods !== void 0 ? _rec$data$goods : [];
+          case 15:
             /////////////////////    회전 베너  시작     //////////////////////////
             items = document.querySelectorAll('#banner_box .area_bl .scene .carousel a');
             total = items.length;
@@ -169,7 +179,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             });
             animate();
             /////////////////////    회전 베너  끝   //////////////////////////
-          case 21:
+          case 26:
           case "end":
             return _context.stop();
         }
@@ -384,7 +394,7 @@ var render = function render() {
     attrs: {
       src: "/storage/main/new/bn07.jpg"
     }
-  })])], 1), _vm._v(" "), _c("b-container", {
+  })])], 1), _vm._v(" "),  false ? 0 : _vm._e(), _vm._v(" "), _c("b-container", {
     attrs: {
       id: "best"
     }

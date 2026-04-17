@@ -157,7 +157,7 @@
                         <b-button @click="action('putCart')">장바구니</b-button>
                         <b-button @click="action('estimate')">견적요청</b-button>
                     </b-button-group>
-                </div>
+                </div> 
 
                 <b-row class="goods_relate m_hide" v-if="content.goods_relate.length">
                     <b-col class="head"><b>연관<br>상품</b></b-col>
@@ -338,6 +338,7 @@ export default {
             has_plan: false,
             od_plan: '',
             thermo_desc: '',
+            dwellTimer: null,
         }
     },
     watch: {
@@ -395,6 +396,14 @@ export default {
                     });
             }
         },
+        
+        async logBehavior(action, target = null) {
+            await ax.post('/api/behavior/log', {
+                action,
+                target: target ?? String(this.$route.params.gd_id),
+            });
+        },
+
         async action(type) {            
             let params = this.makeParam();
             let cntModel = params.reduce(function(acc, el) {
@@ -447,7 +456,6 @@ export default {
                         return false;
                     }
 
-
                     let route_obj = {
                         name: 'order_settle', 
                         params: { od_goods: params, od_type: 'buy_inst' }
@@ -463,8 +471,12 @@ export default {
                     // this.$store.dispatch('cart/examine', {goods:this.content});
                     if (Auth.check()) {
                         const res = await ax.post('/api/shop/cart', params);
-                        if (res.status === 200)
-                            Notify.toast('success', "장바구니 등록 완료");                        
+                        if (res.status === 200) {
+                            for (const p of params.filter(p => p.gm_id)) {
+                                await this.logBehavior('cart', String(p.gm_id));
+                            }
+                            Notify.toast('success', "장바구니 등록 완료");
+                        }
                     } else
                         Notify.modal("로그인 해주세요.", 'danger');
                     
@@ -578,14 +590,21 @@ export default {
 */        
     },
     async mounted() {
-        this.show();
+        await this.show();
+        this.logBehavior('view'); // 추가
+
+        this.dwellTimer = setTimeout(() => {
+            this.logBehavior('dwell');
+        }, 10000); // 10초 이상 머물면 기록
+
         window.addEventListener('scroll', this.scrollListener);
         this.interval = setInterval(() => {
             this.scrollHeight = document.body.scrollHeight;
         }, 100);
     },
 
-    beforeDestroy() { 
+    beforeDestroy() {
+        clearTimeout(this.dwellTimer); 
         window.removeEventListener('scroll', this.scrollListener);
         this.$store.dispatch('recent_goods/index');
     },

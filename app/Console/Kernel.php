@@ -21,5 +21,7 @@ class Kernel extends ConsoleKernel {
 
         // 검색 score 업데이트
         $schedule->command('search:update-score')->dailyAt('03:00');
+
+        $schedule->command('behavior:flush')->everyFifteenMinutes();
     }
 }

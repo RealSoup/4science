@@ -702,7 +702,7 @@ class OrderController extends Controller {
     }
 
     public function done($od_id){
-        $data = $this->order->with('orderExtraInfo')->find($od_id);
+        $data = $this->order->with(['orderExtraInfo', 'orderModel'])->find($od_id);
         // dd($od_id);
         $bank = '';
         $account = '';
@@ -740,7 +740,10 @@ class OrderController extends Controller {
 
         // return response()->json(true, 200);
         // return response()->json(['order'=>$data, 'config'=>Order::$orderConfig], 200);
-        return response()->json(['od_all_price'=>$data->od_all_price], 200);
+        return response()->json([
+            'od_all_price' => $data->od_all_price,
+            'gm_ids'       => $data->orderModel->where('odm_type', 'MODEL')->pluck('odm_gm_id')->toArray(),
+        ]);
     }
 
    

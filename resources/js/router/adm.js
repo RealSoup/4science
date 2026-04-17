@@ -165,7 +165,11 @@ export default [
             
 
             //  통계
-            {   path: 'stats/:stats_type',
+            {   path: 'stats/behavior',
+                name: 'adm_stats_behavio',
+                component: () => import('@/views/admin/stats/behavior/Index'),
+            }, {   
+                path: 'stats/:stats_type',
                 name: 'adm_stats',
                 component:() => import('@/views/admin/stats/Index'),
             },

@@ -67,8 +67,8 @@ class StatsController extends Controller {
             ->leftJoin('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
             ->select('odm_gm_name', 'odm_gm_catno', 'odm_gd_id')
             ->selectRaw(" COUNT(*) all_order,
-                          SUM(la_shop_order_model.odm_ea) all_ea,
-                          SUM(la_shop_order_model.odm_price*la_shop_order_model.odm_ea) all_price ")
+                          SUM(shop_order_model.odm_ea) all_ea,
+                          SUM(shop_order_model.odm_price*shop_order_model.odm_ea) all_price ")
             ->where('od_step', '>=', '20')
             ->where('od_step', '<', '60')
             ->groupBy('odm_gm_code')
@@ -154,6 +154,95 @@ class StatsController extends Controller {
         $list = $list->limit(30)->get();
   
         return response()->json($list);
+    }
+
+
+    ////////////////////////////
+    // 상품별 통계
+    public function behaviorGoods(Request $request)
+    {
+        $query = DB::table('user_behavior_logs')
+            ->select(
+                'goods_id',
+                'target',
+                DB::raw("SUM(CASE WHEN action = 'view'     THEN 1 ELSE 0 END) as view_cnt"),
+                DB::raw("SUM(CASE WHEN action = 'cart'     THEN 1 ELSE 0 END) as cart_cnt"),
+                DB::raw("SUM(CASE WHEN action = 'estimate' THEN 1 ELSE 0 END) as estimate_cnt"),
+                DB::raw("SUM(CASE WHEN action = 'purchase' THEN 1 ELSE 0 END) as purchase_cnt"),
+                DB::raw("COUNT(*) as total_cnt")
+            )
+            ->whereNotNull('goods_id')
+            ->groupBy('goods_id', 'target')
+            ->orderByDesc('total_cnt')
+            ->limit(20);
+
+        if ($request->filled('start_date')) $query->whereDate('created_at', '>=', $request->start_date);
+        if ($request->filled('end_date'))   $query->whereDate('created_at', '<=', $request->end_date);
+
+        return response()->json($query->get());
+    }
+
+    // 검색 키워드 순위
+    public function behaviorKeywords(Request $request)
+    {
+        $query = DB::table('user_behavior_logs')
+            ->select('target', DB::raw('COUNT(*) as cnt'))
+            ->where('action', 'search')
+            ->whereNotNull('target')
+            ->groupBy('target')
+            ->orderByDesc('cnt')
+            ->limit(30);
+
+        if ($request->filled('start_date')) $query->whereDate('created_at', '>=', $request->start_date);
+        if ($request->filled('end_date'))   $query->whereDate('created_at', '<=', $request->end_date);
+
+        return response()->json($query->get());
+    }
+
+    // 시간대별 행동 추이
+    public function behaviorHourly(Request $request)
+    {
+        $query = DB::table('user_behavior_logs')
+            ->select(
+                DB::raw('HOUR(created_at) as hour'),
+                DB::raw("SUM(CASE WHEN action = 'view'     THEN 1 ELSE 0 END) as view_cnt"),
+                DB::raw("SUM(CASE WHEN action = 'cart'     THEN 1 ELSE 0 END) as cart_cnt"),
+                DB::raw("SUM(CASE WHEN action = 'estimate' THEN 1 ELSE 0 END) as estimate_cnt"),
+                DB::raw("SUM(CASE WHEN action = 'purchase' THEN 1 ELSE 0 END) as purchase_cnt"),
+                DB::raw("SUM(CASE WHEN action = 'search'   THEN 1 ELSE 0 END) as search_cnt")
+            )
+            ->groupBy(DB::raw('HOUR(created_at)'))
+            ->orderBy('hour');
+
+        if ($request->filled('start_date')) $query->whereDate('created_at', '>=', $request->start_date);
+        if ($request->filled('end_date'))   $query->whereDate('created_at', '<=', $request->end_date);
+
+        return response()->json($query->get());
+    }
+
+    // 카테고리별 인기도
+    public function behaviorCategory(Request $request)
+    {
+        $query = DB::table('user_behavior_logs')
+            ->select(
+                'ca01',
+                'ca01_name',
+                DB::raw("SUM(CASE WHEN action = 'view'     THEN 1 ELSE 0 END) as view_cnt"),
+                DB::raw("SUM(CASE WHEN action = 'cart'     THEN 1 ELSE 0 END) as cart_cnt"),
+                DB::raw("SUM(CASE WHEN action = 'estimate' THEN 1 ELSE 0 END) as estimate_cnt"),
+                DB::raw("SUM(CASE WHEN action = 'purchase' THEN 1 ELSE 0 END) as purchase_cnt"),
+                DB::raw("COUNT(*) as total_cnt")
+            )
+            ->whereNotNull('ca01')
+            ->where('ca01', '!=', 0)
+            ->groupBy('ca01', 'ca01_name')
+            ->orderByDesc('total_cnt')
+            ->limit(20);
+
+        if ($request->filled('start_date')) $query->whereDate('created_at', '>=', $request->start_date);
+        if ($request->filled('end_date'))   $query->whereDate('created_at', '<=', $request->end_date);
+
+        return response()->json($query->get());
     }
     
 }
