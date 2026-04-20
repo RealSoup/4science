@@ -14,7 +14,7 @@ class BehaviorController extends Controller {
         ]);
 
         // if (!if_not_my_ip($request->ip()))      return response()->json(['ok' => true]);    //  사무실 IP 차단
-        // if (!$this->isKoreanIp($request->ip())) return response()->json(['ok' => true]);    //  해외 IP 차단
+        if (!$this->isKoreanIp($request->ip())) return response()->json(['ok' => true]);    //  해외 IP 차단
 
         $uuid   = $request->cookie('tracking_uuid');
         $userId = auth()->id();
@@ -39,7 +39,7 @@ class BehaviorController extends Controller {
 
             $response = @file_get_contents($url);
             $data = json_decode($response, true);
-            $country = $data['response']['body']['countryCode'] ?? 'XX';
+            $country = $data['response']['whois']['countryCode'] ?? 'XX';
         } catch (\Exception $e) {
             $country = 'KR';
         }
