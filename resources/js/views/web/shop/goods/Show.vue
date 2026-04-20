@@ -595,7 +595,7 @@ export default {
 
         this.dwellTimer = setTimeout(() => {
             this.logBehavior('dwell');
-        }, 10000); // 10초 이상 머물면 기록
+        }, 30000); // 30초 이상 머물면 기록
 
         window.addEventListener('scroll', this.scrollListener);
         this.interval = setInterval(() => {

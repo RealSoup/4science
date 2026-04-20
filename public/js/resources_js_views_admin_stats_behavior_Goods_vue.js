@@ -131,7 +131,7 @@ var render = function render() {
         return _vm.sortBy("view_cnt");
       }
     }
-  }, [_vm._v("조회 " + _vm._s(_vm.sortIcon("view_cnt")))]), _vm._v(" "), _c("th", {
+  }, [_vm._v("조회(체류/재방문) " + _vm._s(_vm.sortIcon("view_cnt")))]), _vm._v(" "), _c("th", {
     staticStyle: {
       cursor: "pointer"
     },
@@ -170,7 +170,7 @@ var render = function render() {
   }, [_vm._v("합계 " + _vm._s(_vm.sortIcon("total_cnt")))])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.sortedData, function (row, i) {
     return _c("tr", {
       key: i
-    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.target))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.view_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.cart_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.estimate_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.purchase_cnt))]), _vm._v(" "), _c("td", [_c("strong", [_vm._v(_vm._s(row.total_cnt))])])]);
+    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.target))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.view_cnt) + "(" + _vm._s(row.dwell_cnt) + "/" + _vm._s(row.revisit_cnt) + ")")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.cart_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.estimate_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.purchase_cnt))]), _vm._v(" "), _c("td", [_c("strong", [_vm._v(_vm._s(row.total_cnt))])])]);
   }), 0)])])], 1);
 };
 var staticRenderFns = [];

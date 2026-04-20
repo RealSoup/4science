@@ -472,7 +472,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 
             _this6.dwellTimer = setTimeout(function () {
               _this6.logBehavior('dwell');
-            }, 10000); // 10초 이상 머물면 기록
+            }, 30000); // 30초 이상 머물면 기록
 
             window.addEventListener('scroll', _this6.scrollListener);
             _this6.interval = setInterval(function () {

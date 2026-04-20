@@ -172,6 +172,8 @@ class StatsController extends Controller {
                 'goods_id',
                 'target',
                 DB::raw("SUM(CASE WHEN action = 'view'     THEN 1 ELSE 0 END) as view_cnt"),
+                DB::raw("SUM(CASE WHEN action = 'dwell'    THEN 1 ELSE 0 END) as dwell_cnt"),
+                DB::raw("SUM(CASE WHEN action = 'revisit'  THEN 1 ELSE 0 END) as revisit_cnt"),
                 DB::raw("SUM(CASE WHEN action = 'cart'     THEN 1 ELSE 0 END) as cart_cnt"),
                 DB::raw("SUM(CASE WHEN action = 'estimate' THEN 1 ELSE 0 END) as estimate_cnt"),
                 DB::raw("SUM(CASE WHEN action = 'purchase' THEN 1 ELSE 0 END) as purchase_cnt"),

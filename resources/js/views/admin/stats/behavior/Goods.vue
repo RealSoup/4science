@@ -7,7 +7,7 @@
                 <tr>
                     <th>순위</th>
                     <th>상품명</th>
-                    <th style="cursor:pointer" @click="sortBy('view_cnt')">조회 {{ sortIcon('view_cnt') }}</th>
+                    <th style="cursor:pointer" @click="sortBy('view_cnt')">조회(체류/재방문) {{ sortIcon('view_cnt') }}</th>
                     <th style="cursor:pointer" @click="sortBy('cart_cnt')">장바구니 {{ sortIcon('cart_cnt') }}</th>
                     <th style="cursor:pointer" @click="sortBy('estimate_cnt')">견적 {{ sortIcon('estimate_cnt') }}</th>
                     <th style="cursor:pointer" @click="sortBy('purchase_cnt')">구매 {{ sortIcon('purchase_cnt') }}</th>
@@ -18,7 +18,7 @@
                 <tr v-for="(row, i) in sortedData" :key="i">
                     <td>{{ i + 1 }}</td>
                     <td>{{ row.target }}</td>
-                    <td>{{ row.view_cnt }}</td>
+                    <td>{{ row.view_cnt }}({{ row.dwell_cnt }}/{{ row.revisit_cnt }})</td>
                     <td>{{ row.cart_cnt }}</td>
                     <td>{{ row.estimate_cnt }}</td>
                     <td>{{ row.purchase_cnt }}</td>
