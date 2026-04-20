@@ -67,8 +67,8 @@ class StatsController extends Controller {
             ->leftJoin('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
             ->select('odm_gm_name', 'odm_gm_catno', 'odm_gd_id')
             ->selectRaw(" COUNT(*) all_order,
-                          SUM(shop_order_model.odm_ea) all_ea,
-                          SUM(shop_order_model.odm_price*shop_order_model.odm_ea) all_price ")
+                          SUM(la_shop_order_model.odm_ea) all_ea,
+                          SUM(la_shop_order_model.odm_price*la_shop_order_model.odm_ea) all_price ")
             ->where('od_step', '>=', '20')
             ->where('od_step', '<', '60')
             ->groupBy('odm_gm_code')
