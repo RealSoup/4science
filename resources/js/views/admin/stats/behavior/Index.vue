@@ -4,9 +4,9 @@
         <div class="card-header">
             <h5>행동 통계 대시보드</h5>
             <div class="d-flex gap-2 mt-2">
-                <input type="date" v-model="selectedDate.start_date" class="form-control w-auto">
+                <input type="date" v-model="selectedDate.start_date" class="form-control w-auto" />
                 <span class="align-self-center">~</span>
-                <input type="date" v-model="selectedDate.end_date" class="form-control w-auto">
+                <input type="date" v-model="selectedDate.end_date" class="form-control w-auto" />
                 <button class="btn btn-primary" @click="reload">조회</button>
             </div>
         </div>
