@@ -234,7 +234,7 @@ class StatsController extends Controller {
                 DB::raw("SUM(CASE WHEN action = 'cart'     THEN 1 ELSE 0 END) as cart_cnt"),
                 DB::raw("SUM(CASE WHEN action = 'estimate' THEN 1 ELSE 0 END) as estimate_cnt"),
                 DB::raw("SUM(CASE WHEN action = 'purchase' THEN 1 ELSE 0 END) as purchase_cnt"),
-                DB::raw("COUNT(*) as total_cnt")
+                DB::raw("SUM(CASE WHEN action IN ('view','cart','estimate','purchase') THEN 1 ELSE 0 END) as total_cnt")
             )
             ->whereNotNull('ca01')
             ->where('ca01', '!=', 0)
