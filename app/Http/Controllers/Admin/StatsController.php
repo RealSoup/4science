@@ -159,8 +159,14 @@ class StatsController extends Controller {
 
     ////////////////////////////
     // 상품별 통계
-    public function behaviorGoods(Request $request)
-    {
+    public function behaviorGoods(Request $request) {
+        $sortKey = $request->input('sort_key', 'total_cnt');
+        $sortDir = $request->input('sort_dir', 'desc');
+
+        $allowedKeys = ['view_cnt', 'cart_cnt', 'estimate_cnt', 'purchase_cnt', 'total_cnt'];
+        if (!in_array($sortKey, $allowedKeys)) $sortKey = 'total_cnt';
+        if (!in_array($sortDir, ['asc', 'desc'])) $sortDir = 'desc';
+
         $query = DB::table('user_behavior_logs')
             ->select(
                 'goods_id',
@@ -169,11 +175,11 @@ class StatsController extends Controller {
                 DB::raw("SUM(CASE WHEN action = 'cart'     THEN 1 ELSE 0 END) as cart_cnt"),
                 DB::raw("SUM(CASE WHEN action = 'estimate' THEN 1 ELSE 0 END) as estimate_cnt"),
                 DB::raw("SUM(CASE WHEN action = 'purchase' THEN 1 ELSE 0 END) as purchase_cnt"),
-                DB::raw("COUNT(*) as total_cnt")
+                DB::raw("SUM(CASE WHEN action IN ('view','cart','estimate','purchase') THEN 1 ELSE 0 END) as total_cnt")
             )
             ->whereNotNull('goods_id')
             ->groupBy('goods_id', 'target')
-            ->orderByDesc('total_cnt')
+            ->orderBy($sortKey, $sortDir)  // [수정]
             ->limit(20);
 
         if ($request->filled('start_date')) $query->whereDate('created_at', '>=', $request->start_date);
@@ -183,8 +189,7 @@ class StatsController extends Controller {
     }
 
     // 검색 키워드 순위
-    public function behaviorKeywords(Request $request)
-    {
+    public function behaviorKeywords(Request $request) {
         $query = DB::table('user_behavior_logs')
             ->select('target', DB::raw('COUNT(*) as cnt'))
             ->where('action', 'search')
@@ -200,8 +205,7 @@ class StatsController extends Controller {
     }
 
     // 시간대별 행동 추이
-    public function behaviorHourly(Request $request)
-    {
+    public function behaviorHourly(Request $request) {
         $query = DB::table('user_behavior_logs')
             ->select(
                 DB::raw('HOUR(created_at) as hour'),
@@ -221,8 +225,7 @@ class StatsController extends Controller {
     }
 
     // 카테고리별 인기도
-    public function behaviorCategory(Request $request)
-    {
+    public function behaviorCategory(Request $request) {
         $query = DB::table('user_behavior_logs')
             ->select(
                 'ca01',

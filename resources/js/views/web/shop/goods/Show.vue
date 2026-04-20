@@ -16,7 +16,7 @@
                     controls
                     style="border:1px solid #D8D8D8;"
                 >
-                    <b-carousel-slide v-for="(row, idx) in content.image_src" :key="idx" :img-src="row" />
+                    <b-carousel-slide v-for="(row, idx) in content.image_src" :key="idx" :img-src="row" :img-alt="content.gd_name"  />
                 </b-carousel>
 
                 <ul>

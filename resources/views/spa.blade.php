@@ -12,7 +12,23 @@
     <!-- <meta http-equiv="Cache-control" content="public" /> -->
     
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', '4SCIENCE') }}</title>
+    
+    <title>{{ $meta['title'] }}</title>
+    <meta name="description" content="{{ $meta['description'] }}">
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website">
+    <meta property="og:url"         content="{{ url()->current() }}">
+    <meta property="og:title"       content="{{ $meta['title'] }}">
+    <meta property="og:description" content="{{ $meta['description'] }}">
+    <meta property="og:image"       content="{{ $meta['image'] }}">
+
+    <!-- 카카오/트위터 -->
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="{{ $meta['title'] }}">
+    <meta name="twitter:description" content="{{ $meta['description'] }}">
+    <meta name="twitter:image"       content="{{ $meta['image'] }}">
+
+
     
     <!-- 구글링 결과로 정확한 이유는 모른다. -->
     <base href="/">

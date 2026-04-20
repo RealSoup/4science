@@ -688,7 +688,8 @@ var render = function render() {
     return _c("b-carousel-slide", {
       key: idx,
       attrs: {
-        "img-src": row
+        "img-src": row,
+        "img-alt": _vm.content.gd_name
       }
     });
   }), 1), _vm._v(" "), _c("ul", [_c("li", [_c("div", [_vm._v("제조사")]), _vm._v(" "), _c("div", [_vm._v("\n                        " + _vm._s(_vm.content.maker.mk_name) + "\n                        "), _vm.content.purchase_at ? _c("span", {

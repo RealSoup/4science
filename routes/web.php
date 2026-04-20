@@ -166,8 +166,9 @@ Route::get('/localization', function () {
     exit();
 });
 
+Route::get('/sitemap.xml',        'SitemapController@index');
+Route::get('/sitemap/goods/{page}', 'SitemapController@goods');
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');
-
 // Auth::routes(['verify' => true]);
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
