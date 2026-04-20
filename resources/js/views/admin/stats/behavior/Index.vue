@@ -19,10 +19,10 @@
                 </li>
             </ul>
 
-            <behavior-goods    v-if="currentTab === 'goods'"    :selected-date="selectedDate" ref="goods"/>
-            <behavior-keywords v-if="currentTab === 'keywords'" :selected-date="selectedDate" ref="keywords"/>
-            <behavior-hourly   v-if="currentTab === 'hourly'"   :selected-date="selectedDate" ref="hourly"/>
-            <behavior-category v-if="currentTab === 'category'" :selected-date="selectedDate" ref="category"/>
+            <behavior-goods    v-if="currentTab === 'goods'"    :selected-date="selectedDate" ref="goods"></behavior-goods>
+            <behavior-keywords v-if="currentTab === 'keywords'" :selected-date="selectedDate" ref="keywords"></behavior-keywords>
+            <behavior-hourly   v-if="currentTab === 'hourly'"   :selected-date="selectedDate" ref="hourly"></behavior-hourly>
+            <behavior-category v-if="currentTab === 'category'" :selected-date="selectedDate" ref="category"></behavior-category>
         </div>
     </div>
 </div>
