@@ -42,8 +42,8 @@ class SyncElasticsearchSettings extends Command
                         'char_filter' => [
                             'special_chars' => [
                                 'type'        => 'pattern_replace',
-                                'pattern'     => '[().,]',          // 괄호, 쉼표, 마침표 제거 (&는 유지)
-                                'replacement' => '',
+                                'pattern'     => '[()]',
+                                'replacement' => ' ',
                             ],
                         ],
                         'filter' => [

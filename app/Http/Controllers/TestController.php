@@ -108,7 +108,16 @@ class TestController extends Controller {
                             ],
                         ],
                     ],
-                    'maker'   => ['match' => ['mk_name'  => $keyword]],
+                    'maker' => [
+                        'bool' => [
+                            'should' => [
+                                ['match'    => ['mk_name'         => $keyword]],
+                                ['prefix'   => ['mk_name.keyword' => $keyword]],          // [추가] KAYAKU → KAYAKU(MICROCHEM)
+                                ['wildcard' => ['mk_name.keyword' => '*' . $keyword . '*']], // [추가] 중간포함
+                            ],
+                            'minimum_should_match' => 1,
+                        ]
+                    ],
                 ];
                 $searchQuery = $fieldMap[$req->mode] ?? [];
             } else {    // 전체 검색

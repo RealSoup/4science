@@ -35,6 +35,7 @@ class FlushBehaviorLogs extends Command {
                 'ca04'        => $data['ca04'] ?? null,
                 'ca04_name'   => $data['ca04_name'] ?? null,
                 'created_id'  => $data['created_id'] ?? null,
+                'ip'          => $data['ip'] ?? null,
                 'created_at'  => $data['created_at'],
             ];
 

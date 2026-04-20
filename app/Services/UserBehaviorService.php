@@ -8,7 +8,7 @@ use DB;
 
 class UserBehaviorService {
     // Redis에 행동 임시 저장 (배치로 DB에 flush)
-    public function log(string $uuid, ?int $userId, string $action, ?string $target = null): void {
+    public function log(string $uuid, ?int $userId, string $action, ?string $target = null, ?string $ip = null): void {
         $goods = null;
         $targetType = null;
 
@@ -77,6 +77,7 @@ class UserBehaviorService {
             'ca03_name'   => $goods->gc_ca03_name ?? null,
             'ca04'        => $goods->gc_ca04 ?? null,
             'ca04_name'   => $goods->gc_ca04_name ?? null,
+            'ip'          => $ip,
             'created_at'  => now()->toDateTimeString(),
         ]));
 
