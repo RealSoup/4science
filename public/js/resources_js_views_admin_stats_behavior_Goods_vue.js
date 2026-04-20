@@ -41,13 +41,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       tableData: [],
       isLoadingModalViewed: true,
       sortKey: 'total_cnt',
-      // [추가]
-      sortDir: 'desc' // [추가]
+      sortDir: 'desc'
     };
   },
-
   computed: {
-    // [추가]
     sortedData: function sortedData() {
       var _this = this;
       return _toConsumableArray(this.tableData).sort(function (a, b) {
@@ -68,8 +65,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/admin/stats/behavior/goods', {
                 params: _objectSpread(_objectSpread({}, _this2.selectedDate), {}, {
                   sort_key: _this2.sortKey,
-                  // [추가]
-                  sort_dir: _this2.sortDir // [추가]
+                  sort_dir: _this2.sortDir
                 })
               });
             case 3:
@@ -92,7 +88,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         this.sortKey = key;
         this.sortDir = 'desc';
       }
-      this.index(); // [수정] API 재호출
+      this.index();
     },
     sortIcon: function sortIcon(key) {
       if (this.sortKey !== key) return '↕';

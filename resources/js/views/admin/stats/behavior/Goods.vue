@@ -42,12 +42,11 @@ export default {
         return {
             tableData: [],
             isLoadingModalViewed: true,
-            sortKey: 'total_cnt',   // [추가]
-            sortDir: 'desc',        // [추가]
+            sortKey: 'total_cnt',
+            sortDir: 'desc',
         };
     },
     computed: {
-        // [추가]
         sortedData() {
             return [...this.tableData].sort((a, b) => {
                 return this.sortDir === 'desc'
@@ -62,8 +61,8 @@ export default {
             const res = await ax.get('/api/admin/stats/behavior/goods', {
                 params: {
                     ...this.selectedDate,
-                    sort_key: this.sortKey,  // [추가]
-                    sort_dir: this.sortDir,  // [추가]
+                    sort_key: this.sortKey,
+                    sort_dir: this.sortDir,
                 }
             });
             if (res && res.status === 200) {
@@ -78,7 +77,7 @@ export default {
                 this.sortKey = key;
                 this.sortDir = 'desc';
             }
-            this.index(); // [수정] API 재호출
+            this.index();
         },
         sortIcon(key) {
             if (this.sortKey !== key) return '↕';
