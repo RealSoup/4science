@@ -47,6 +47,11 @@ class UserBehaviorService {
                     ->first();
             } elseif ($action === 'search') {
                 $targetType = 'keyword';
+                
+                // search 중복 방지: 동일 uuid + 키워드 30분 내 재검색 무시
+                $dedupKey = "behavior_dedup:search:{$uuid}:" . md5($target);
+                if (Redis::get($dedupKey)) return;
+                Redis::setex($dedupKey, 1800, 1);
             }
         }
 
