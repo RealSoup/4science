@@ -366,7 +366,7 @@ export default {
 #recommend_goods .cont { overflow:hidden; }
 #recommend_goods .cont a { flex:0 0 10%; max-width:calc(10% - 20px); margin:0 10px; text-align:center; }
 #recommend_goods .cont a img { width:100%; height:126px; object-fit:contain; background-color:#F3F3F3; border:1px solid #D7D7D7; border-radius:50%; margin-bottom:18px; }
-#recommend_goods .cont a span { font-weight:bold; }
+#recommend_goods .cont a span { font-weight:bold; overflow:hidden; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; word-break:break-all; }
 @media (max-width: 767px) {
     #recommend_goods  { margin:0; }
     #recommend_goods .cont { flex-wrap: wrap; }

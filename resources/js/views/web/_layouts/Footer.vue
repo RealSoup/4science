@@ -60,16 +60,13 @@
                 </b-row>
                 <b-row class="bank">
                     <b-col>
-                        <b>
-                            <i><span>B</span>ANK</i>
-                            계좌안내
-                        </b>
+                        <b>계좌안내</b>
                         <b-row class="wr">
-                            <b-col><b-img :src="`${s3url}common/footer/account_woori.png`" /></b-col>
+                            <b-col><b-img :src="`${s3url}common/footer/bottom_wr.png`" /></b-col>
                             <b-col>{{siteInfo.bank.num01}}</b-col>
                         </b-row>
                         <b-row class="kb">
-                            <b-col><b-img :src="`${s3url}common/footer/account_kb.png`" /></b-col>
+                            <b-col><b-img :src="`${s3url}common/footer/bottom_kb.png`" /></b-col>
                             <b-col>{{siteInfo.bank.num02}}</b-col>
                         </b-row>
                         <b-row class="kb">

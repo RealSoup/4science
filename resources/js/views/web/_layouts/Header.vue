@@ -202,10 +202,10 @@ header #fixWrap #core nav>div { flex-basis:0; flex-grow:1; max-width:100%; width
 header #fixWrap #core nav div a { color:#727273; }
 
 header #fixWrap #core nav .nav_left { line-height: 15px; }
-header #fixWrap #core nav .nav_left a { font-size:14px; font-weight:700; padding:0 10px; }
+header #fixWrap #core nav .nav_left a { font-size:17px; font-weight:700; padding:0 10px; }
 header #fixWrap #core nav .nav_left a:first-child { 
     background-image: url(data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2710%27%20height%3D%276%27%20viewBox%3D%270%200%2010%206%27%20fill%3D%27none%27%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%3E%3Cpath%20d%3D%27M1%201L5%205L9%201%27%20stroke%3D%27%23007bff%27%20stroke-width%3D%271.2%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E);
-    color: #007bff; background-repeat: no-repeat; background-position: right 12px center; padding-right: 23px; font-size:17px; 
+    color:#007bff; background-repeat:no-repeat; background-position:right 12px center; padding-right:23px;
 }
 
 header #fixWrap #core nav .nav_right form { position:relative; display:flex; width:55%; border-radius:12px; margin:8px 20px 0;
