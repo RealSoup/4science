@@ -11,7 +11,11 @@
             <b-link to="/board/notice/show/55">
                 <b-carousel-slide img-src="/storage/main/new/bn02.jpg?v=2"></b-carousel-slide>
             </b-link>
+            <b-link to="/board/notice/show/55">
+                <b-carousel-slide img-src="/storage/main/new/bn02.jpg?v=2"></b-carousel-slide>
+            </b-link>
             
+            <!-- 아래는 메인 슬라이드 상품 노출 -->
             <b-link
                 v-for="(item, i) in list.banner_goods"
                 :key="i"
@@ -32,11 +36,14 @@
             <img src="/storage/main/new/bn0401.jpg" class="bg" />
             <div class="scene">
                 <div class="carousel">
-                    <b-link to="/shop/goods/7919">
-                        <img src="/storage/main/new/bn0402.png" alt="피펫1">
+                    <b-link to="/shop/outlet">
+                        <img src="/storage/main/slide/26042101.jpg" alt="종류별로 브랜드별로 몽땅 준비 했습니다. 포사전문관!">
                     </b-link>
-                    <b-link to="/shop/goods/18182">
-                        <img src="/storage/main/new/bn0403.png" alt="피펫2">
+                    <b-link to="/shop/rental">
+                        <img src="/storage/main/slide/260421.jpg" alt="초기 구매비용 절감, 비용처리 가능. 포사 렌탈!">
+                    </b-link>
+                    <b-link to="/shop/goods/7919">
+                        <img src="/storage/main/new/bn0402.png" alt="편리하고 안전한 연구비카드 간편결제. 포사페이!">
                     </b-link>
                 </div>
             </div>
