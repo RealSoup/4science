@@ -9,10 +9,10 @@
 
         <b-carousel controls indicators :interval='0' class="area_tc">
             <b-link to="/shop/outlet">
-                <img src="/storage/main/slide/26042101.jpg" alt="종류별로 브랜드별로 몽땅 준비 했습니다. 포사전문관!">
+                <b-carousel-slide img-src="/storage/main/slide/26042101.jpg" alt="종류별로 브랜드별로 몽땅 준비 했습니다. 포사전문관!"></b-carousel-slide>
             </b-link>
             <b-link to="/shop/rental">
-                <img src="/storage/main/slide/260421.jpg" alt="초기 구매비용 절감, 비용처리 가능. 포사 렌탈!">
+                <b-carousel-slide img-src="/storage/main/slide/260421.jpg" alt="초기 구매비용 절감, 비용처리 가능. 포사 렌탈!"></b-carousel-slide>
             </b-link>
             <b-link to="/board/notice/show/55">
                 <b-carousel-slide img-src="/storage/main/new/bn02.jpg?v=2" alt="편리하고 안전한 연구비카드 간편결제. 포사페이!"></b-carousel-slide>
