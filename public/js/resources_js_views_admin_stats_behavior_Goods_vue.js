@@ -41,7 +41,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       tableData: [],
       isLoadingModalViewed: true,
       sortKey: 'total_cnt',
-      sortDir: 'desc'
+      sortDir: 'desc',
+      // [추가] 모바일 정렬 버튼용
+      sortCols: [{
+        key: 'total_cnt',
+        label: '합계'
+      }, {
+        key: 'view_cnt',
+        label: '조회'
+      }, {
+        key: 'cart_cnt',
+        label: '장바구니'
+      }, {
+        key: 'estimate_cnt',
+        label: '견적'
+      }, {
+        key: 'purchase_cnt',
+        label: '구매'
+      }]
     };
   },
   computed: {
@@ -120,7 +137,9 @@ var render = function render() {
     attrs: {
       position: "absolute"
     }
-  }, [_vm._v("Loading ......")]) : _c("div", [_c("table", {
+  }, [_vm._v("Loading ......")]) : _c("div", [_c("div", {
+    staticClass: "d-none d-md-block"
+  }, [_c("table", {
     staticClass: "table table-sm table-hover"
   }, [_c("thead", [_c("tr", [_c("th", [_vm._v("순위")]), _vm._v(" "), _c("th", [_vm._v("상품명")]), _vm._v(" "), _c("th", {
     staticStyle: {
@@ -171,7 +190,88 @@ var render = function render() {
     return _c("tr", {
       key: i
     }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.target))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.view_cnt) + "(" + _vm._s(row.dwell_cnt) + "/" + _vm._s(row.revisit_cnt) + ")")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.cart_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.estimate_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.purchase_cnt))]), _vm._v(" "), _c("td", [_c("strong", [_vm._v(_vm._s(row.total_cnt))])])]);
-  }), 0)])])], 1);
+  }), 0)])]), _vm._v(" "), _c("div", {
+    staticClass: "d-md-none"
+  }, [_c("div", {
+    staticClass: "d-flex gap-2 mb-3 flex-wrap"
+  }, _vm._l(_vm.sortCols, function (col) {
+    return _c("button", {
+      key: col.key,
+      staticClass: "btn btn-sm",
+      "class": _vm.sortKey === col.key ? "btn-primary" : "btn-outline-secondary",
+      on: {
+        click: function click($event) {
+          return _vm.sortBy(col.key);
+        }
+      }
+    }, [_vm._v("\r\n                    " + _vm._s(col.label) + " " + _vm._s(_vm.sortIcon(col.key)) + "\r\n                ")]);
+  }), 0), _vm._v(" "), _vm._l(_vm.sortedData, function (row, i) {
+    return _c("div", {
+      key: i,
+      staticClass: "card mb-2"
+    }, [_c("div", {
+      staticClass: "card-body py-2 px-3"
+    }, [_c("div", {
+      staticClass: "d-flex align-items-start gap-2 mb-2"
+    }, [_c("span", {
+      staticClass: "badge bg-secondary rounded-circle",
+      staticStyle: {
+        "min-width": "24px",
+        height: "24px",
+        "line-height": "16px",
+        "flex-shrink": "0"
+      }
+    }, [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("span", {
+      staticClass: "fw-500",
+      staticStyle: {
+        "font-size": "13px",
+        "line-height": "1.4"
+      }
+    }, [_vm._v(_vm._s(row.target))])]), _vm._v(" "), _c("div", {
+      staticClass: "row g-1 text-center",
+      staticStyle: {
+        "font-size": "12px"
+      }
+    }, [_c("div", {
+      staticClass: "col-6"
+    }, [_c("div", {
+      staticClass: "bg-light rounded p-1"
+    }, [_c("div", {
+      staticClass: "text-muted"
+    }, [_vm._v("조회")]), _vm._v(" "), _c("div", {
+      staticClass: "fw-bold"
+    }, [_vm._v(_vm._s(row.view_cnt) + " "), _c("small", {
+      staticClass: "text-muted"
+    }, [_vm._v("(" + _vm._s(row.dwell_cnt) + "/" + _vm._s(row.revisit_cnt) + ")")])])])]), _vm._v(" "), _c("div", {
+      staticClass: "col-6"
+    }, [_c("div", {
+      staticClass: "bg-light rounded p-1"
+    }, [_c("div", {
+      staticClass: "text-muted"
+    }, [_vm._v("장바구니")]), _vm._v(" "), _c("div", {
+      staticClass: "fw-bold"
+    }, [_vm._v(_vm._s(row.cart_cnt))])])]), _vm._v(" "), _c("div", {
+      staticClass: "col-6"
+    }, [_c("div", {
+      staticClass: "bg-light rounded p-1"
+    }, [_c("div", {
+      staticClass: "text-muted"
+    }, [_vm._v("견적")]), _vm._v(" "), _c("div", {
+      staticClass: "fw-bold"
+    }, [_vm._v(_vm._s(row.estimate_cnt))])])]), _vm._v(" "), _c("div", {
+      staticClass: "col-6"
+    }, [_c("div", {
+      staticClass: "bg-light rounded p-1"
+    }, [_c("div", {
+      staticClass: "text-muted"
+    }, [_vm._v("구매")]), _vm._v(" "), _c("div", {
+      staticClass: "fw-bold"
+    }, [_vm._v(_vm._s(row.purchase_cnt))])])])]), _vm._v(" "), _c("div", {
+      staticClass: "mt-2"
+    }, [_c("span", {
+      staticClass: "badge bg-primary"
+    }, [_vm._v("합계 " + _vm._s(row.total_cnt))])])])]);
+  })], 2)])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

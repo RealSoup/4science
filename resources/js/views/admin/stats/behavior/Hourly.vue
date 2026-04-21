@@ -2,7 +2,7 @@
 <div>
     <loading-modal v-if="isLoadingModalViewed" :position="'absolute'">Loading ......</loading-modal>
     <div v-else>
-        <chart-bar :chart-data="graphData" :options="options" style="height:350px"/>
+        <chart-bar :chart-data="graphData" :options="chartOptions" :style="chartStyle"/>
     </div>
 </div>
 </template>
@@ -27,6 +27,29 @@ export default {
             },
             isLoadingModalViewed: true,
         };
+    },
+    computed: {
+        chartStyle() {
+            return window.innerWidth < 768 ? 'height:250px' : 'height:350px';
+        },
+        // [추가] 모바일에서 x축 레이블 간격 조절
+        chartOptions() {
+            const isMobile = window.innerWidth < 768;
+            return {
+                ...this.options,
+                legend: { labels: { fontSize: isMobile ? 10 : 12, boxWidth: isMobile ? 10 : 40 } },
+                scales: {
+                    yAxes: [{ ticks: { beginAtZero: true, fontSize: isMobile ? 9 : 12 } }],
+                    xAxes: [{
+                        ticks: {
+                            fontSize: isMobile ? 9 : 12,
+                            // [추가] 모바일에서 짝수 시간만 표시
+                            callback: (val, idx) => isMobile ? (idx % 2 === 0 ? val : '') : val,
+                        }
+                    }],
+                },
+            };
+        },
     },
     methods: {
         async index() {
