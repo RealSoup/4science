@@ -47,13 +47,18 @@
 </template>
 
 <script>
+import BehaviorGoods    from '@/views/admin/stats/behavior/Goods';
+import BehaviorKeywords from '@/views/admin/stats/behavior/Keywords';
+import BehaviorHourly   from '@/views/admin/stats/behavior/Hourly';
+import BehaviorCategory from '@/views/admin/stats/behavior/Category';
+
 export default {
     name: 'BehaviorStatsIndex',
     components: {
-        'BehaviorGoods':    () => import('./Goods'),
-        'BehaviorKeywords': () => import('./Keywords'),
-        'BehaviorHourly':   () => import('./Hourly'),
-        'BehaviorCategory': () => import('./Category'),
+        BehaviorGoods,
+        BehaviorKeywords,
+        BehaviorHourly,
+        BehaviorCategory,
     },
     data() {
         return {
