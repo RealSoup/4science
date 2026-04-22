@@ -1,7 +1,7 @@
 <html>
 <head>
 <script>
-    window.opener.location.href="/shop/order/done/{{$od_id}}";
+    window.opener.location.href="/shop/order/done/{{$od_id}}?func_name=payReturn";
     window.close();
 </script>
 </head>
