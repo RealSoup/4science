@@ -189,7 +189,7 @@ var render = function render() {
   }, [_vm._v("합계 " + _vm._s(_vm.sortIcon("total_cnt")))])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.sortedData, function (row, i) {
     return _c("tr", {
       key: i
-    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.target))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.view_cnt) + "(" + _vm._s(row.dwell_cnt) + "/" + _vm._s(row.revisit_cnt) + ")")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.cart_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.estimate_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.purchase_cnt))]), _vm._v(" "), _c("td", [_c("strong", [_vm._v(_vm._s(row.total_cnt))])])]);
+    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.ubl_keyword))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.view_cnt) + "(" + _vm._s(row.dwell_cnt) + "/" + _vm._s(row.revisit_cnt) + ")")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.cart_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.estimate_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.purchase_cnt))]), _vm._v(" "), _c("td", [_c("strong", [_vm._v(_vm._s(row.total_cnt))])])]);
   }), 0)])]), _vm._v(" "), _c("div", {
     staticClass: "d-md-none"
   }, [_c("div", {
@@ -227,7 +227,7 @@ var render = function render() {
         "font-size": "13px",
         "line-height": "1.4"
       }
-    }, [_vm._v(_vm._s(row.target))])]), _vm._v(" "), _c("div", {
+    }, [_vm._v(_vm._s(row.ubl_keyword))])]), _vm._v(" "), _c("div", {
       staticClass: "row g-1 text-center",
       staticStyle: {
         "font-size": "12px"

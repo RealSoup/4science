@@ -10,20 +10,19 @@ class UserBehaviorService {
     // Redis에 행동 임시 저장 (배치로 DB에 flush)
     public function log(string $uuid, ?int $userId, string $action, ?string $target = null, ?string $ip = null): void {
         $goods = null;
-        $targetType = null;
+        $gd_id = null;
+        $gm_id = null;
 
         if ($target) {
             if (in_array($action, ['view', 'revisit', 'dwell'])) {
-                $targetType = 'gd';
-
-                // [추가] view/dwell Redis + DB 중복 체크
+                // [수정] 중복 체크 컬럼명
                 $redisKey = "behavior_check:{$uuid}:{$target}:{$action}:" . date('Y-m-d');
                 if (Redis::get($redisKey)) return;
 
                 $alreadyLogged = \DB::table('user_behavior_logs')
-                    ->where('uuid', $uuid)
-                    ->where('goods_id', $target)
-                    ->where('action', $action)
+                    ->where('ubl_uuid', $uuid)
+                    ->where('ubl_gd_id', $target)
+                    ->where('ubl_action_type', $action)
                     ->whereDate('created_at', today())
                     ->exists();
                 if ($alreadyLogged) return;
@@ -34,21 +33,23 @@ class UserBehaviorService {
                     ->join('shop_goods', 'shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id')
                     ->where('gc_gd_id', $target)
                     ->where('gc_prime', 'Y')
-                    ->select('gd_id as goods_id', 'gd_name as gm_name', 'gc_ca01', 'gc_ca01_name', 'gc_ca02', 'gc_ca02_name', 'gc_ca03', 'gc_ca03_name', 'gc_ca04', 'gc_ca04_name')
+                    ->select('gd_id', 'gd_name as gm_name', 'gc_ca01', 'gc_ca01_name', 'gc_ca02', 'gc_ca02_name', 'gc_ca03', 'gc_ca03_name', 'gc_ca04', 'gc_ca04_name')
                     ->first();
 
+                $gd_id = $goods->gd_id ?? null;
+
             } elseif (in_array($action, ['cart', 'purchase', 'estimate'])) {
-                $targetType = 'gm';
                 $goods = \DB::table('shop_goods_model')
                     ->join('shop_goods_category', 'shop_goods_category.gc_gd_id', '=', 'shop_goods_model.gm_gd_id')
                     ->where('shop_goods_model.gm_id', $target)
                     ->where('gc_prime', 'Y')
-                    ->select('gm_id as goods_id', 'gm_name', 'gc_ca01', 'gc_ca01_name', 'gc_ca02', 'gc_ca02_name', 'gc_ca03', 'gc_ca03_name', 'gc_ca04', 'gc_ca04_name')
+                    ->select('gm_id', 'gm_gd_id', 'gm_name', 'gc_ca01', 'gc_ca01_name', 'gc_ca02', 'gc_ca02_name', 'gc_ca03', 'gc_ca03_name', 'gc_ca04', 'gc_ca04_name')
                     ->first();
+
+                $gd_id = $goods->gm_gd_id ?? null;
+                $gm_id = $goods->gm_id ?? null;    
+
             } elseif ($action === 'search') {
-                $targetType = 'keyword';
-                
-                // search 중복 방지: 동일 uuid + 키워드 30분 내 재검색 무시
                 $dedupKey = "behavior_dedup:search:{$uuid}:" . md5($target);
                 if (Redis::get($dedupKey)) return;
                 Redis::setex($dedupKey, 1800, 1);
@@ -58,9 +59,9 @@ class UserBehaviorService {
         // [수정] view → revisit 체크
         if ($action === 'view' && $goods) {
             $alreadyViewed = \DB::table('user_behavior_logs')
-                ->where('uuid', $uuid)
-                ->where('goods_id', $target)
-                ->whereIn('action', ['view', 'revisit'])
+                ->where('ubl_uuid', $uuid)
+                ->where('ubl_gd_id', $gd_id)
+                ->whereIn('ubl_action_type', ['view', 'revisit'])
                 ->whereDate('created_at', today())
                 ->exists();
 
@@ -68,22 +69,22 @@ class UserBehaviorService {
         }
 
         Redis::lpush('behavior_queue', json_encode([
-            'uuid'        => $uuid,
-            'created_id'  => $userId,
-            'action'      => $action,
-            'target'      => $goods->gm_name ?? $target,
-            'target_type' => $targetType,
-            'goods_id'    => $goods->goods_id ?? null,
-            'ca01'        => $goods->gc_ca01 ?? null,
-            'ca01_name'   => $goods->gc_ca01_name ?? null,
-            'ca02'        => $goods->gc_ca02 ?? null,
-            'ca02_name'   => $goods->gc_ca02_name ?? null,
-            'ca03'        => $goods->gc_ca03 ?? null,
-            'ca03_name'   => $goods->gc_ca03_name ?? null,
-            'ca04'        => $goods->gc_ca04 ?? null,
-            'ca04_name'   => $goods->gc_ca04_name ?? null,
-            'ip'          => $ip,
-            'created_at'  => now()->toDateTimeString(),
+            'uuid'            => $uuid,
+            'created_id'      => $userId,
+            'ubl_action_type' => $action,
+            'ubl_keyword'     => $goods->gm_name ?? $target,
+            'ubl_gd_id'       => $gd_id,
+            'ubl_gm_id'       => $gm_id,
+            'ubl_ca01'        => $goods->gc_ca01 ?? null,
+            'ubl_ca01_name'   => $goods->gc_ca01_name ?? null,
+            'ubl_ca02'        => $goods->gc_ca02 ?? null,
+            'ubl_ca02_name'   => $goods->gc_ca02_name ?? null,
+            'ubl_ca03'        => $goods->gc_ca03 ?? null,
+            'ubl_ca03_name'   => $goods->gc_ca03_name ?? null,
+            'ubl_ca04'        => $goods->gc_ca04 ?? null,
+            'ubl_ca04_name'   => $goods->gc_ca04_name ?? null,
+            'ip'              => $ip,
+            'created_at'      => now()->toDateTimeString(),
         ]));
 
         Redis::ltrim('behavior_queue', 0, 9999);

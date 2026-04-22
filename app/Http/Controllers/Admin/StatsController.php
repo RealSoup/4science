@@ -169,19 +169,19 @@ class StatsController extends Controller {
 
         $query = DB::table('user_behavior_logs')
             ->select(
-                'goods_id',
-                'target',
-                DB::raw("SUM(CASE WHEN action = 'view'     THEN 1 ELSE 0 END) as view_cnt"),
-                DB::raw("SUM(CASE WHEN action = 'dwell'    THEN 1 ELSE 0 END) as dwell_cnt"),
-                DB::raw("SUM(CASE WHEN action = 'revisit'  THEN 1 ELSE 0 END) as revisit_cnt"),
-                DB::raw("SUM(CASE WHEN action = 'cart'     THEN 1 ELSE 0 END) as cart_cnt"),
-                DB::raw("SUM(CASE WHEN action = 'estimate' THEN 1 ELSE 0 END) as estimate_cnt"),
-                DB::raw("SUM(CASE WHEN action = 'purchase' THEN 1 ELSE 0 END) as purchase_cnt"),
-                DB::raw("SUM(CASE WHEN action IN ('view','cart','estimate','purchase') THEN 1 ELSE 0 END) as total_cnt")
+                'ubl_gd_id',                               // [수정]
+                'ubl_keyword',                              // [수정]
+                DB::raw("SUM(CASE WHEN ubl_action_type = 'view'     THEN 1 ELSE 0 END) as view_cnt"),
+                DB::raw("SUM(CASE WHEN ubl_action_type = 'dwell'    THEN 1 ELSE 0 END) as dwell_cnt"),
+                DB::raw("SUM(CASE WHEN ubl_action_type = 'revisit'  THEN 1 ELSE 0 END) as revisit_cnt"),
+                DB::raw("SUM(CASE WHEN ubl_action_type = 'cart'     THEN 1 ELSE 0 END) as cart_cnt"),
+                DB::raw("SUM(CASE WHEN ubl_action_type = 'estimate' THEN 1 ELSE 0 END) as estimate_cnt"),
+                DB::raw("SUM(CASE WHEN ubl_action_type = 'purchase' THEN 1 ELSE 0 END) as purchase_cnt"),
+                DB::raw("SUM(CASE WHEN ubl_action_type IN ('view','cart','estimate','purchase') THEN 1 ELSE 0 END) as total_cnt")
             )
-            ->whereNotNull('goods_id')
-            ->groupBy('goods_id', 'target')
-            ->orderBy($sortKey, $sortDir)  // [수정]
+            ->whereNotNull('ubl_gd_id')                    // [수정]
+            ->groupBy('ubl_gd_id', 'ubl_keyword')          // [수정]
+            ->orderBy($sortKey, $sortDir)
             ->limit(20);
 
         if ($request->filled('start_date')) $query->whereDate('created_at', '>=', $request->start_date);
@@ -193,10 +193,10 @@ class StatsController extends Controller {
     // 검색 키워드 순위
     public function behaviorKeywords(Request $request) {
         $query = DB::table('user_behavior_logs')
-            ->select('target', DB::raw('COUNT(*) as cnt'))
-            ->where('action', 'search')
-            ->whereNotNull('target')
-            ->groupBy('target')
+            ->select('ubl_keyword', DB::raw('COUNT(*) as cnt'))  // [수정]
+            ->where('ubl_action_type', 'search')                 // [수정]
+            ->whereNotNull('ubl_keyword')                        // [수정]
+            ->groupBy('ubl_keyword')                             // [수정]
             ->orderByDesc('cnt')
             ->limit(30);
 
@@ -211,11 +211,11 @@ class StatsController extends Controller {
         $query = DB::table('user_behavior_logs')
             ->select(
                 DB::raw('HOUR(created_at) as hour'),
-                DB::raw("SUM(CASE WHEN action = 'view'     THEN 1 ELSE 0 END) as view_cnt"),
-                DB::raw("SUM(CASE WHEN action = 'cart'     THEN 1 ELSE 0 END) as cart_cnt"),
-                DB::raw("SUM(CASE WHEN action = 'estimate' THEN 1 ELSE 0 END) as estimate_cnt"),
-                DB::raw("SUM(CASE WHEN action = 'purchase' THEN 1 ELSE 0 END) as purchase_cnt"),
-                DB::raw("SUM(CASE WHEN action = 'search'   THEN 1 ELSE 0 END) as search_cnt")
+                DB::raw("SUM(CASE WHEN ubl_action_type = 'view'     THEN 1 ELSE 0 END) as view_cnt"),   // [수정]
+                DB::raw("SUM(CASE WHEN ubl_action_type = 'cart'     THEN 1 ELSE 0 END) as cart_cnt"),
+                DB::raw("SUM(CASE WHEN ubl_action_type = 'estimate' THEN 1 ELSE 0 END) as estimate_cnt"),
+                DB::raw("SUM(CASE WHEN ubl_action_type = 'purchase' THEN 1 ELSE 0 END) as purchase_cnt"),
+                DB::raw("SUM(CASE WHEN ubl_action_type = 'search'   THEN 1 ELSE 0 END) as search_cnt")
             )
             ->groupBy(DB::raw('HOUR(created_at)'))
             ->orderBy('hour');
@@ -230,17 +230,17 @@ class StatsController extends Controller {
     public function behaviorCategory(Request $request) {
         $query = DB::table('user_behavior_logs')
             ->select(
-                'ca01',
-                'ca01_name',
-                DB::raw("SUM(CASE WHEN action = 'view'     THEN 1 ELSE 0 END) as view_cnt"),
-                DB::raw("SUM(CASE WHEN action = 'cart'     THEN 1 ELSE 0 END) as cart_cnt"),
-                DB::raw("SUM(CASE WHEN action = 'estimate' THEN 1 ELSE 0 END) as estimate_cnt"),
-                DB::raw("SUM(CASE WHEN action = 'purchase' THEN 1 ELSE 0 END) as purchase_cnt"),
-                DB::raw("SUM(CASE WHEN action IN ('view','cart','estimate','purchase') THEN 1 ELSE 0 END) as total_cnt")
+                'ubl_ca01',                                          // [수정]
+                'ubl_ca01_name',                                     // [수정]
+                DB::raw("SUM(CASE WHEN ubl_action_type = 'view'     THEN 1 ELSE 0 END) as view_cnt"),
+                DB::raw("SUM(CASE WHEN ubl_action_type = 'cart'     THEN 1 ELSE 0 END) as cart_cnt"),
+                DB::raw("SUM(CASE WHEN ubl_action_type = 'estimate' THEN 1 ELSE 0 END) as estimate_cnt"),
+                DB::raw("SUM(CASE WHEN ubl_action_type = 'purchase' THEN 1 ELSE 0 END) as purchase_cnt"),
+                DB::raw("SUM(CASE WHEN ubl_action_type IN ('view','cart','estimate','purchase') THEN 1 ELSE 0 END) as total_cnt")
             )
-            ->whereNotNull('ca01')
-            ->where('ca01', '!=', 0)
-            ->groupBy('ca01', 'ca01_name')
+            ->whereNotNull('ubl_ca01')                               // [수정]
+            ->where('ubl_ca01', '!=', 0)                            // [수정]
+            ->groupBy('ubl_ca01', 'ubl_ca01_name')                  // [수정]
             ->orderByDesc('total_cnt')
             ->limit(20);
 

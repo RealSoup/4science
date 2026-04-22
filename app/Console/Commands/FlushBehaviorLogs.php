@@ -21,22 +21,22 @@ class FlushBehaviorLogs extends Command {
             $data = json_decode($item, true);
 
             $batch[] = [
-                'uuid'        => $data['uuid'],
-                'action'      => $data['action'],
-                'target'      => $data['target'] ?? null,
-                'target_type' => $data['target_type'] ?? null,
-                'goods_id'    => $data['goods_id'] ?? null,
-                'ca01'        => $data['ca01'] ?? null,
-                'ca01_name'   => $data['ca01_name'] ?? null,
-                'ca02'        => $data['ca02'] ?? null,
-                'ca02_name'   => $data['ca02_name'] ?? null,
-                'ca03'        => $data['ca03'] ?? null,
-                'ca03_name'   => $data['ca03_name'] ?? null,
-                'ca04'        => $data['ca04'] ?? null,
-                'ca04_name'   => $data['ca04_name'] ?? null,
-                'created_id'  => $data['created_id'] ?? null,
-                'ip'          => $data['ip'] ?? null,
-                'created_at'  => $data['created_at'],
+                'ubl_uuid'        => $data['uuid'],
+                'ubl_action_type' => $data['ubl_action_type'],
+                'ubl_keyword'     => $data['ubl_keyword'] ?? null,
+                'ubl_gd_id'       => $data['ubl_gd_id'] ?? null,
+                'ubl_gm_id'       => $data['ubl_gm_id'] ?? null,
+                'ubl_ca01'        => $data['ubl_ca01'] ?? null,
+                'ubl_ca01_name'   => $data['ubl_ca01_name'] ?? null,
+                'ubl_ca02'        => $data['ubl_ca02'] ?? null,
+                'ubl_ca02_name'   => $data['ubl_ca02_name'] ?? null,
+                'ubl_ca03'        => $data['ubl_ca03'] ?? null,
+                'ubl_ca03_name'   => $data['ubl_ca03_name'] ?? null,
+                'ubl_ca04'        => $data['ubl_ca04'] ?? null,
+                'ubl_ca04_name'   => $data['ubl_ca04_name'] ?? null,
+                'created_id'      => $data['created_id'] ?? null,
+                'ip'              => $data['ip'] ?? null,
+                'created_at'      => $data['created_at'],
             ];
 
             if (count($batch) >= 500) {

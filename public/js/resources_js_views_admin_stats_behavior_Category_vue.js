@@ -100,7 +100,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 _this.tableData = res.data;
                 _this.graphData = {
                   labels: res.data.map(function (i) {
-                    return i.ca01_name;
+                    return i.ubl_ca01_name;
                   }),
                   datasets: [{
                     label: '합계',
@@ -159,7 +159,7 @@ var render = function render() {
   }, [_c("thead", [_c("tr", [_c("th", [_vm._v("순위")]), _c("th", [_vm._v("카테고리")]), _c("th", [_vm._v("조회")]), _c("th", [_vm._v("장바구니")]), _c("th", [_vm._v("견적")]), _c("th", [_vm._v("구매")]), _c("th", [_vm._v("합계")])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.tableData, function (row, i) {
     return _c("tr", {
       key: i
-    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.ca01_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.view_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.cart_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.estimate_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.purchase_cnt))]), _vm._v(" "), _c("td", [_c("strong", [_vm._v(_vm._s(row.total_cnt))])])]);
+    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.ubl_ca01_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.view_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.cart_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.estimate_cnt))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.purchase_cnt))]), _vm._v(" "), _c("td", [_c("strong", [_vm._v(_vm._s(row.total_cnt))])])]);
   }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "d-md-none mt-3"
   }, _vm._l(_vm.tableData, function (row, i) {
@@ -176,7 +176,7 @@ var render = function render() {
       staticStyle: {
         "font-size": "13px"
       }
-    }, [_vm._v(_vm._s(row.ca01_name))]), _vm._v(" "), _c("span", {
+    }, [_vm._v(_vm._s(row.ubl_ca01_name))]), _vm._v(" "), _c("span", {
       staticClass: "ms-auto badge bg-primary"
     }, [_vm._v("합계 " + _vm._s(row.total_cnt))])]), _vm._v(" "), _c("div", {
       staticClass: "row g-1 text-center",

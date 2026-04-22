@@ -12,7 +12,7 @@
             <tbody>
                 <tr v-for="(row, i) in tableData" :key="i">
                     <td>{{ i + 1 }}</td>
-                    <td>{{ row.ca01_name }}</td>
+                    <td>{{ row.ubl_ca01_name  }}</td>
                     <td>{{ row.view_cnt }}</td>
                     <td>{{ row.cart_cnt }}</td>
                     <td>{{ row.estimate_cnt }}</td>
@@ -28,7 +28,7 @@
                 <div class="card-body py-2 px-3">
                     <div class="d-flex align-items-center gap-2 mb-2">
                         <span class="badge bg-secondary">{{ i + 1 }}</span>
-                        <strong style="font-size:13px;">{{ row.ca01_name }}</strong>
+                        <strong style="font-size:13px;">{{ row.ubl_ca01_name  }}</strong>
                         <span class="ms-auto badge bg-primary">합계 {{ row.total_cnt }}</span>
                     </div>
                     <div class="row g-1 text-center" style="font-size:12px;">
@@ -94,7 +94,7 @@ export default {
             if (res && res.status === 200) {
                 this.tableData = res.data;
                 this.graphData = {
-                    labels: res.data.map(i => i.ca01_name),
+                    labels: res.data.map(i => i.ubl_ca01_name ),
                     datasets: [{
                         label: '합계',
                         data: res.data.map(i => i.total_cnt),

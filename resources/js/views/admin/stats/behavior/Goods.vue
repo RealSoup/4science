@@ -20,7 +20,7 @@
                 <tbody>
                     <tr v-for="(row, i) in sortedData" :key="i">
                         <td>{{ i + 1 }}</td>
-                        <td>{{ row.target }}</td>
+                        <td>{{ row.ubl_keyword }}</td>
                         <td>{{ row.view_cnt }}({{ row.dwell_cnt }}/{{ row.revisit_cnt }})</td>
                         <td>{{ row.cart_cnt }}</td>
                         <td>{{ row.estimate_cnt }}</td>
@@ -49,7 +49,7 @@
                 <div class="card-body py-2 px-3">
                     <div class="d-flex align-items-start gap-2 mb-2">
                         <span class="badge bg-secondary rounded-circle" style="min-width:24px;height:24px;line-height:16px;flex-shrink:0;">{{ i + 1 }}</span>
-                        <span class="fw-500" style="font-size:13px;line-height:1.4;">{{ row.target }}</span>
+                        <span class="fw-500" style="font-size:13px;line-height:1.4;">{{ row.ubl_keyword }}</span>
                     </div>
                     <div class="row g-1 text-center" style="font-size:12px;">
                         <div class="col-6">

@@ -304,11 +304,30 @@ var render = function render() {
     }
   }, [_c("b-link", {
     attrs: {
+      to: "/shop/outlet"
+    }
+  }, [_c("b-carousel-slide", {
+    attrs: {
+      "img-src": "/storage/main/slide/26042101.jpg",
+      alt: "종류별로 브랜드별로 몽땅 준비 했습니다. 포사전문관!"
+    }
+  })], 1), _vm._v(" "), _c("b-link", {
+    attrs: {
+      to: "/shop/rental"
+    }
+  }, [_c("b-carousel-slide", {
+    attrs: {
+      "img-src": "/storage/main/slide/260421.jpg",
+      alt: "초기 구매비용 절감, 비용처리 가능. 포사 렌탈!"
+    }
+  })], 1), _vm._v(" "), _c("b-link", {
+    attrs: {
       to: "/board/notice/show/55"
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": "/storage/main/new/bn02.jpg?v=2"
+      "img-src": "/storage/main/new/bn02.jpg?v=2",
+      alt: "편리하고 안전한 연구비카드 간편결제. 포사페이!"
     }
   })], 1), _vm._v(" "), _vm._l(_vm.list.banner_goods, function (item, i) {
     return _c("b-link", {

@@ -104,7 +104,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 _this.tableData = res.data;
                 _this.graphData = {
                   labels: res.data.map(function (i) {
-                    return i.target;
+                    return i.ubl_keyword;
                   }),
                   datasets: [{
                     label: '검색 횟수',
@@ -163,7 +163,7 @@ var render = function render() {
   }, [_c("thead", [_c("tr", [_c("th", [_vm._v("순위")]), _c("th", [_vm._v("검색어")]), _c("th", [_vm._v("검색 횟수")])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.tableData, function (row, i) {
     return _c("tr", {
       key: i
-    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.target))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.cnt))])]);
+    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.ubl_keyword))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.cnt))])]);
   }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "d-md-none mt-3"
   }, _vm._l(_vm.tableData, function (row, i) {
@@ -182,7 +182,7 @@ var render = function render() {
         "font-size": "13px",
         flex: "1"
       }
-    }, [_vm._v(_vm._s(row.target))]), _vm._v(" "), _c("span", {
+    }, [_vm._v(_vm._s(row.ubl_keyword))]), _vm._v(" "), _c("span", {
       staticClass: "badge bg-primary"
     }, [_vm._v(_vm._s(row.cnt) + "회")])])]);
   }), 0)], 1)], 1);

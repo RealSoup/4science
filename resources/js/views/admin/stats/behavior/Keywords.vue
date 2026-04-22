@@ -10,7 +10,7 @@
             <tbody>
                 <tr v-for="(row, i) in tableData" :key="i">
                     <td>{{ i + 1 }}</td>
-                    <td>{{ row.target }}</td>
+                    <td>{{ row.ubl_keyword }}</td>
                     <td>{{ row.cnt }}</td>
                 </tr>
             </tbody>
@@ -21,7 +21,7 @@
             <div v-for="(row, i) in tableData" :key="i" class="card mb-2">
                 <div class="card-body py-2 px-3 d-flex align-items-center gap-2">
                     <span class="badge bg-secondary" style="min-width:24px;">{{ i + 1 }}</span>
-                    <span style="font-size:13px;flex:1;">{{ row.target }}</span>
+                    <span style="font-size:13px;flex:1;">{{ row.ubl_keyword }}</span>
                     <span class="badge bg-primary">{{ row.cnt }}회</span>
                 </div>
             </div>
@@ -81,7 +81,7 @@ export default {
             if (res && res.status === 200) {
                 this.tableData = res.data;
                 this.graphData = {
-                    labels: res.data.map(i => i.target),
+                    labels: res.data.map(i => i.ubl_keyword),
                     datasets: [{
                         label: '검색 횟수',
                         data: res.data.map(i => i.cnt),
