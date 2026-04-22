@@ -170,7 +170,7 @@ class StatsController extends Controller {
         $query = DB::table('user_behavior_logs')
             ->select(
                 'ubl_gd_id',                               // [수정]
-                'ubl_keyword',                              // [수정]
+                DB::raw("MAX(ubl_keyword) as ubl_keyword"),
                 DB::raw("SUM(CASE WHEN ubl_action_type = 'view'     THEN 1 ELSE 0 END) as view_cnt"),
                 DB::raw("SUM(CASE WHEN ubl_action_type = 'dwell'    THEN 1 ELSE 0 END) as dwell_cnt"),
                 DB::raw("SUM(CASE WHEN ubl_action_type = 'revisit'  THEN 1 ELSE 0 END) as revisit_cnt"),
@@ -179,8 +179,8 @@ class StatsController extends Controller {
                 DB::raw("SUM(CASE WHEN ubl_action_type = 'purchase' THEN 1 ELSE 0 END) as purchase_cnt"),
                 DB::raw("SUM(CASE WHEN ubl_action_type IN ('view','cart','estimate','purchase') THEN 1 ELSE 0 END) as total_cnt")
             )
-            ->whereNotNull('ubl_gd_id')                    // [수정]
-            ->groupBy('ubl_gd_id', 'ubl_keyword')          // [수정]
+            ->whereNotNull('ubl_gd_id')
+            ->groupBy('ubl_gd_id')
             ->orderBy($sortKey, $sortDir)
             ->limit(20);
 
