@@ -4,11 +4,10 @@
         <div class="card-header">
             <h5>행동 통계 대시보드</h5>
             <div class="d-flex gap-2 mt-2 flex-wrap">
-                <input type="date" v-model="selectedDate.start_date" class="form-control" style="min-width:130px;flex:1;" />
+                <input type="date" v-model="selectedDate.start_date" class="form-control"/>
                 <span class="align-self-center">~</span>
-                <input type="date" v-model="selectedDate.end_date" class="form-control" style="min-width:130px;flex:1;" />
-                <button class="btn btn-primary w-100 d-md-none" @click="reload">조회</button>
-                <button class="btn btn-primary d-none d-md-block" @click="reload">조회</button>
+                <input type="date" v-model="selectedDate.end_date" class="form-control" />
+                <button class="btn btn-primary btn-sm" @click="reload">조회</button>
             </div>
         </div>
         <div class="card-body">
@@ -86,4 +85,6 @@ export default {
 
 <style scoped>
 ::v-deep .badge { color: #FFF; }
+.card .card-header div input { min-width:110px; flex:1; max-width:200px; padding: 0.375rem 0.4rem; font-size: 14px; }
+.card .card-body { padding:20px 5px; }
 </style>

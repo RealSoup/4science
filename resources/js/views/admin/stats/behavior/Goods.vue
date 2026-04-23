@@ -34,7 +34,7 @@
         <!-- 모바일: 카드형 -->
         <div class="d-md-none">
             <!-- 정렬 -->
-            <div class="d-flex gap-2 mb-3 flex-wrap">
+            <div class="d-flex gap-2 mb-3 flex-wrap sort_cols">
                 <button
                     v-for="col in sortCols" :key="col.key"
                     class="btn btn-sm"
@@ -149,3 +149,8 @@ export default {
     mounted() { this.index(); },
 };
 </script>
+
+<style scoped>
+.sort_cols { justify-content: space-between; }
+.sort_cols button { padding: 0.25rem; font-size: 13px; letter-spacing: -1px; }
+</style>
