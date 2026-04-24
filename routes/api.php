@@ -289,6 +289,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
                     Route::get('category',  'Admin\StatsController@behaviorCategory');
                 });
             });
+
+            //  AI와 데이터 주고 받을 api platform 연결
+            Route::prefix('ai')->group(function () {
+                Route::post('/req_desc', 'Admin\AiController@req_desc');
+            });
         });
         
         Route::post('download', 'CommonController@download');

@@ -102,6 +102,37 @@
             </b-col>
         </b-row>
 
+
+        <b-row class="req_ai_desc">
+            <b-col class="label">AI</b-col>
+            <b-col class="type11">
+                <div style="margin-bottom:10px;">
+                    <input v-model="aiKeyword" placeholder="상품명 + 모델명 입력" style="width:300px;" />
+                    <button @click="openAi">AI 상품 설명 검색</button>
+                </div>
+
+                <!-- AI 모달 -->
+                <loading-modal v-if="isLoadingModalViewed">Loading ......</loading-modal>
+                <template else>
+                <div v-if="aiModal" class="ai-modal">
+                    <div class="ai-modal-content">
+
+                        <h3>AI 상품 설명</h3>
+
+                        
+                        <textarea v-model="aiResult" style="width:100%; height:300px;"></textarea>
+
+                        <br/>
+
+                        <button @click="applyToEditor">적용</button>
+                        <button @click="aiModal=false">닫기</button>
+
+                    </div>
+                </div>
+                </template>
+            </b-col>
+        </b-row>
+
         <b-row class="align-items-baseline">
             <b-col class="label">상품 설명</b-col>
             <b-col class="type11">
@@ -326,6 +357,7 @@ export default {
         Vue2TinymceEditor,
         'option-finder': () =>  import('@/views/admin/shop/goods/_comp/OptionFinder'),
         'relate-finder':() =>    import('@/views/admin/shop/goods/_comp/RelateFinder'),
+        'loading-modal': () => import('@/views/_common/LoadingModal.vue'),
     },
     props: ['value', 'purchaseAt'],
     computed: {
@@ -344,6 +376,7 @@ export default {
     },
     data() {
         return {
+            isLoadingModalViewed: false,
             list01: [], list02: [], list03: [], list04: [],
             ca01:{}, ca02:{}, ca03:{}, ca04:{},
             TinymceOpt: {
@@ -353,6 +386,9 @@ export default {
                 convert_urls: false,
             }, 
             rt_extra_focus: false,
+            aiKeyword: '',
+            aiModal: false,
+            aiResult: '',
         }
     },
     methods: {
@@ -513,6 +549,43 @@ export default {
             this.value.goods_relate.splice(i, 1);
         },
         frm_priceComma(v)   { return this.priceComma(v); },
+
+
+        async openAi() {
+            if (!this.aiKeyword) {
+                alert('상품명 입력');
+                return;
+            }
+
+            this.aiModal = true;
+            
+            this.isLoadingModalViewed = true;
+
+            try {
+                const res = await ax.post('/api/admin/ai/req_desc', {
+                    keyword: this.aiKeyword
+                });
+
+                this.aiResult = res.data.html;
+
+            } catch (e) {
+                console.error(e);
+                alert('AI 호출 실패');
+            }
+
+            this.isLoadingModalViewed = false;
+        },
+
+        applyToEditor() {
+            if (window.tinymce) {
+                tinymce.activeEditor.setContent(this.aiResult);
+            } else {
+                console.log('TinyMCE 없음 → 콘솔 출력');
+                console.log(this.aiResult);
+            }
+
+            this.aiModal = false;
+        }
     },
     mounted() { this.getCate(0); },
 }
@@ -529,6 +602,9 @@ export default {
 .cate .selected .col { display:flex; align-items:center; padding:.5em; }
 .cate .selected .col .btn { padding:0 3px; }
 .cate .selected .col>svg { margin:0 .5em; color:#CCC; }
+
+.req_ai_desc .ai-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); Z-INDEX: 1021; }
+.req_ai_desc .ai-modal-content { background: #fff; width: 600px; margin: 100px auto; padding: 20px; }
 
 .goods_relate .list .col { text-align:center; overflow:hidden; margin-bottom:2rem; }
 .goods_relate .list .col img { width:150px; height:150px; object-fit:cover; }
