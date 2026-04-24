@@ -579,6 +579,7 @@ export default {
         applyToEditor() {
             if (window.tinymce) {
                 tinymce.activeEditor.setContent(this.aiResult);
+                this.value.gd_desc = this.aiResult
             } else {
                 console.log('TinyMCE 없음 → 콘솔 출력');
                 console.log(this.aiResult);
