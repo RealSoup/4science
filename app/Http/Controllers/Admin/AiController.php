@@ -62,6 +62,7 @@ class AiController extends Controller {
             - ``` 금지
             - 설명 금지
             - 순수 HTML만 출력
+            - <div class='gd_desc_ai_content'></div> 이걸로 감싸서 따로 스타일 줄수 있게 하자
 
             [중요]
             - 반드시 이모지 포함

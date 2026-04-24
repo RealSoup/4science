@@ -578,18 +578,11 @@ export default {
 
         applyToEditor() {
             if (window.tinymce) {
-                tinymce.activeEditor.setContent(this.aiResult);
-                this.value.gd_desc = this.aiResult
-
                 const editor = tinymce.activeEditor;
-
-                const oldContent = editor.getContent(); // 기존 내용
+                const oldContent = editor.getContent(); // [수정] 먼저 기존 내용 저장
                 const newContent = this.aiResult;
 
-                // 상단에 추가
                 editor.setContent(newContent + '<br><br>' + oldContent);
-
-                // v-model도 같이 유지
                 this.value.gd_desc = newContent + '<br><br>' + oldContent;
             } else {
                 console.log('TinyMCE 없음 → 콘솔 출력');
