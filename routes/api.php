@@ -119,6 +119,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
                 Route::POST('synonym/reload',       'Admin\SynonymController@reload');
                 Route::RESOURCE('synonym',          'Admin\SynonymController')->only(['index', 'store', 'update', 'destroy']);
+
+                //  캐시 새로고침
+                Route::GET('refreshCache',          'Admin\SiteController@refreshCache');
             });
 
             Route::RESOURCE('user', 'Admin\UserController')->only([ 'index', 'edit', 'update', 'destroy' ]);
@@ -294,6 +297,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::prefix('ai')->group(function () {
                 Route::post('/req_desc', 'Admin\AiController@req_desc');
             });
+
         });
         
         Route::post('download', 'CommonController@download');

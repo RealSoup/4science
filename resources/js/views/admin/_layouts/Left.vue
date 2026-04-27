@@ -85,6 +85,11 @@
                         <b-icon-arrow-clockwise></b-icon-arrow-clockwise>
                     </b-button>
                     <b-button class="gray sm" v-else>검색엔진 재구성 중~~~!!!</b-button>
+
+                    <b-button class="d_blue sm" @click="refreshCache" v-b-tooltip="'최신 상품 배너 재구성'">
+                        <b-icon-arrow-clockwise></b-icon-arrow-clockwise>
+                    </b-button>
+                    
                 </template>
             </article>
 
@@ -193,7 +198,14 @@ export default {
                     Notify.modal('다른 유저가 검색어를 등록중입니다.', 'danger');
                 }
             }
-        }, 
+        },
+
+        async refreshCache(){
+            let res = await ax.get(`/api/admin/site/refreshCache`);
+            if (res && res.status === 200) {
+                Notify.toast('success', '새로고침 완료');    
+            }
+        },
     },
 
     async mounted(){

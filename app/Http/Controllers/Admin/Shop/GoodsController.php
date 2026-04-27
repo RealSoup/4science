@@ -270,6 +270,8 @@ class GoodsController extends Controller {
         }
     }
 
+    
+
     public function update(SaveGoodsRequest $req, $gd_id) {
         $goods = $this->goods->find($gd_id);
 	   	$goods = $this->goods_paramImplant($goods, $req);

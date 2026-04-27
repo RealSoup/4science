@@ -148,7 +148,7 @@
                     <template #img>
                         <div class="item_box">
                             <b-link v-for="(item, j) in chunk" :key="`${i}_${j}`" :to="{ name: 'makerShop_index', params: {mk_id: item.mk_id} }">
-                                <img :src="item.file_info[0].path" />
+                                <img :src="item.file_info?.[0]?.path" />
                                 <span>{{item.mk_name}}</span>
                             </b-link>
                         </div>

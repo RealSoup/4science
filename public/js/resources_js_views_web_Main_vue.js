@@ -561,6 +561,7 @@ var render = function render() {
           return [_c("div", {
             staticClass: "item_box"
           }, _vm._l(chunk, function (item, j) {
+            var _item$file_info;
             return _c("b-link", {
               key: "".concat(i, "_").concat(j),
               attrs: {
@@ -573,7 +574,7 @@ var render = function render() {
               }
             }, [_c("img", {
               attrs: {
-                src: item.file_info[0].path
+                src: (_item$file_info = item.file_info) === null || _item$file_info === void 0 || (_item$file_info = _item$file_info[0]) === null || _item$file_info === void 0 ? void 0 : _item$file_info.path
               }
             }), _vm._v(" "), _c("span", [_vm._v(_vm._s(item.mk_name))])]);
           }), 1)];

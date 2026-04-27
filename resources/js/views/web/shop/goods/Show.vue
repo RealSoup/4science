@@ -765,6 +765,8 @@ export default {
 .conRight .goods_desc_piece .tit { border-bottom:2px solid #000; padding-bottom:.9rem; }
 .conRight .goods_desc_piece .tit p { font-size:.9rem; color:#898989; margin-bottom:.4rem;}
 
+.conRight #goods_desc .gd_desc_ai_content { border-radius: 20px; box-shadow:0 8px 30px rgba(0,0,0,.1); padding: 3rem; margin-top: 2rem; margin-bottom: 2rem; }
+
 .conRight  #return_info { font-size:.8rem; font-weight:600; }
 .conRight  #return_info .tit { margin-bottom:1.2rem; }
 .conRight  #return_info em { color:#ce0000; font-weight:bold; }

@@ -100,5 +100,9 @@ class SiteController extends Controller {
         return response()->json("success", 200);
     }
 
-    
+    public function refreshCache(){
+        //  최신상품 캐시 새로고침
+        if ( DB::table('infos')->where('key', 'update_key_newest')->update(['val' => uniqid()]) )
+            return response()->json("success", 200);
+    }
 }
