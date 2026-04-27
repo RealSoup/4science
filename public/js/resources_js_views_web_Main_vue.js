@@ -207,7 +207,7 @@ __webpack_require__.r(__webpack_exports__);
       pop: [{
         ck_key: '4S_PopUp_01',
         cookie_view: false,
-        is_view: false
+        is_view: true
       }, {
         ck_key: '4S_PopUp_02',
         cookie_view: false,
@@ -608,11 +608,11 @@ var render = function render() {
     staticClass: "popup pop_0"
   }, [_c("a", {
     attrs: {
-      href: "/board/notice/show/65"
+      href: "/board/notice/show/66"
     }
   }, [_c("b-img", {
     attrs: {
-      src: "/storage/main/popup/260203.jpg",
+      src: "/storage/main/popup/260427.jpg",
       width: "500"
     }
   })], 1), _vm._v(" "), _c("div", {
