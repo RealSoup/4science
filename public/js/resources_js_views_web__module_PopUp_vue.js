@@ -18,7 +18,7 @@ __webpack_require__.r(__webpack_exports__);
       pop: [{
         ck_key: '4S_PopUp_01',
         cookie_view: false,
-        is_view: true
+        is_view: false
       }, {
         ck_key: '4S_PopUp_02',
         cookie_view: false,
@@ -36,6 +36,7 @@ __webpack_require__.r(__webpack_exports__);
       this.pop[i].is_view = false;
     },
     view_check: function view_check(i) {
+      console.log(this.pop[i].is_view, this.pop[i].cookie_view);
       return this.pop[i].is_view && this.pop[i].cookie_view;
     }
   },
@@ -107,7 +108,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.popup[data-v-0511783e] { position:absolute; top:162px; left:300px; z-index:16; box-shadow: 0 1px 15px 1px rgba(39,39,39,.5); background: #FFF;\n}\n.popup .ctrl[data-v-0511783e] { background-color:#FFF; text-align:right;\n}\n.pop_1[data-v-0511783e] { position:absolute; top:20%; left:20%; box-shadow: 0 1px 15px 1px rgba(39,39,39,.5); border-radius: 50px 50px 0 0; background: #FFF;\n}\n.pop_2[data-v-0511783e] { left:720px;\n}\n.popup .split_link[data-v-0511783e] { position:absolute; display:block; width:50%; height:calc(100% - 25px); top:0; transform:translateX(-50%);\n}\n.popup .split_link#app01[data-v-0511783e] { left:25%;\n}\n.popup .split_link#app02[data-v-0511783e] { left:75%;}\n.popup .split_link[data-v-0511783e]:hover { background-color:#015B7E55;\n}\n.popup .split_link .tooltiptext[data-v-0511783e] {\r\n  visibility:hidden; padding:0.25em 0.5em; background-color:black; color:#fff; text-align:center; border-radius:0.25em; white-space:nowrap;\r\n  position:absolute; z-index:1; top:50%; transition-property:visibility; transition-delay:0s;\n}\n.popup a#app01 .tooltiptext[data-v-0511783e] { right:25%;\n}\n.popup a#app02 .tooltiptext[data-v-0511783e] { left:25%;\n}\n.popup .split_link:hover .tooltiptext[data-v-0511783e] { visibility: visible; opacity:1;\n}\n@media (max-width: 992px){\n.popup[data-v-0511783e] { top:0; left:0;\n}\n.popup img[data-v-0511783e] { width:100%;\n}\n}\n@media (max-width: 576px){\n.popup[data-v-0511783e] { width:100%;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.popup[data-v-0511783e] { position:absolute; top:162px; left:300px; z-index:16; box-shadow: 0 1px 15px 1px rgba(39,39,39,.5); background: #FFF;\n}\n.popup .ctrl[data-v-0511783e] { background-color:#FFF; text-align:right;\n}\n.pop_1[data-v-0511783e] { position:absolute; top:20%; left:20%; box-shadow: 0 1px 15px 1px rgba(39,39,39,.5); border-radius: 50px 50px 0 0; background: #FFF;\n}\n.pop_2[data-v-0511783e] { left:720px;\n}\n.popup .split_link[data-v-0511783e] { position:absolute; display:block; width:50%; height:calc(100% - 25px); top:0; transform:translateX(-50%);\n}\n.popup .split_link#app01[data-v-0511783e] { left:25%;\n}\n.popup .split_link#app02[data-v-0511783e] { left:75%;}\n.popup .split_link[data-v-0511783e]:hover { background-color:#015B7E55;\n}\n.popup .split_link .tooltiptext[data-v-0511783e] { visibility:hidden; padding:0.25em 0.5em; background-color:black; color:#fff; text-align:center; border-radius:0.25em; white-space:nowrap; position:absolute; z-index:1; top:50%; transition-property:visibility; transition-delay:0s;\n}\n.popup a#app01 .tooltiptext[data-v-0511783e] { right:25%;\n}\n.popup a#app02 .tooltiptext[data-v-0511783e] { left:25%;\n}\n.popup .split_link:hover .tooltiptext[data-v-0511783e] { visibility: visible; opacity:1;\n}\n@media (max-width: 992px){\n.popup[data-v-0511783e] { top:0; left:0;\n}\n.popup img[data-v-0511783e] { width:100%;\n}\n}\n@media (max-width: 576px){\n.popup[data-v-0511783e] { width:100%;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
