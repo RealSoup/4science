@@ -164,7 +164,7 @@
 <script>
 import ax from '@/api/http';
 import { mapState } from 'vuex';
-import PopUp from './_module/PopUp';
+import PopUp from '@/views/web/_module/PopUp';
 import SubString from '@/views/_common/SubString';
 
 export default {
