@@ -28,6 +28,8 @@ export default {
             this.pop[i].is_view = false;
         }, 
         view_check(i) {
+            console.log(this.pop[i].is_view, this.pop[i].cookie_view);
+            
             return this.pop[i].is_view && this.pop[i].cookie_view;
         },
     },
