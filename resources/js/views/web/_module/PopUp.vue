@@ -28,8 +28,6 @@ export default {
             this.pop[i].is_view = false;
         }, 
         view_check(i) {
-            console.log(this.pop[i].is_view, this.pop[i].cookie_view);
-            
             return this.pop[i].is_view && this.pop[i].cookie_view;
         },
     },
@@ -52,7 +50,9 @@ export default {
 .popup .split_link#app01 { left:25%; }
 .popup .split_link#app02 { left:75%;}
 .popup .split_link:hover { background-color:#015B7E55; }
-.popup .split_link .tooltiptext { visibility:hidden; padding:0.25em 0.5em; background-color:black; color:#fff; text-align:center; border-radius:0.25em; white-space:nowrap; position:absolute; z-index:1; top:50%; transition-property:visibility; transition-delay:0s; }
+.popup .split_link .tooltiptext {
+  visibility:hidden; padding:0.25em 0.5em; background-color:black; color:#fff; text-align:center; border-radius:0.25em; white-space:nowrap;
+  position:absolute; z-index:1; top:50%; transition-property:visibility; transition-delay:0s; }
 .popup a#app01 .tooltiptext { right:25%; }
 .popup a#app02 .tooltiptext { left:25%; }
 .popup .split_link:hover .tooltiptext { visibility: visible; opacity:1; }
