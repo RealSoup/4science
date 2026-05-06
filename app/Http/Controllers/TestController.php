@@ -58,15 +58,15 @@ class TestController extends Controller {
             if (empty($ca01List)) {
                 $ca01List = DB::table('user_behavior_logs')
                     ->where('created_id', $userId)
-                    ->whereIn('action', ['purchase', 'cart', 'view'])
+                    ->whereIn('ubl_action_type', ['purchase', 'cart', 'view'])
                     ->where('created_at', '>=', now()->subDays(30))
-                    ->whereNotNull('ca01')
-                    ->where('ca01', '!=', 0)
-                    ->selectRaw('ca01, COUNT(*) as cnt')
-                    ->groupBy('ca01')
+                    ->whereNotNull('ubl_ca01')
+                    ->where('ubl_ca01', '!=', 0)
+                    ->selectRaw('ubl_ca01, COUNT(*) as cnt')
+                    ->groupBy('ubl_ca01')
                     ->orderByDesc('cnt')
                     ->limit(3)
-                    ->pluck('ca01')
+                    ->pluck('ubl_ca01')
                     ->toArray();
 
                 Redis::setex($cacheKey, 86400, json_encode($ca01List));
