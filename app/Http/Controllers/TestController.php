@@ -37,6 +37,7 @@ class TestController extends Controller {
             $req->filled('ca04') ? ['term' => ['gc_ca04' => (int)$req->ca04]] : null,
             $req->filled('mk_id') ? ['term' => ['gd_mk_id' => (int)$req->mk_id]] : null,
         ]));
+        $filters[] = ['term' => ['gd_enable' => 'Y']];
         
         // ✅ 정렬 설정
         $req->merge(['sort' => $req->sort ?? 'hot']);
