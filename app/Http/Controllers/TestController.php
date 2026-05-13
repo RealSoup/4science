@@ -28,6 +28,7 @@ class TestController extends Controller {
         $perPage = 20;
         $offset = ($page - 1) * $perPage;
         $keyword  = strtolower($req->keyword) ?? '';
+        $isCatnoPattern = (bool) preg_match('/^\d{2,}-\d+(-\d+)?$/', $keyword);
         // ✅ 카테고리 필터 (keyword 유무 무관하게 항상 적용)
         $filters = array_values(array_filter([
             $req->filled('ca01') ? ['term' => ['gc_ca01' => (int)$req->ca01]] : null,
@@ -199,9 +200,9 @@ class TestController extends Controller {
 
                             ['filter' => ['term' => ['gm_code_all.keyword'  => $keyword]], 'weight' => 9000],
                             ['filter' => ['prefix' => ['gm_code_all.keyword' => $keyword]], 'weight' => 5000], 
-                            ['filter' => ['term' => ['gm_catno_all.keyword' => $keyword]], 'weight' => 9000],
-                            
-                            [ 'field_value_factor' => [ 'field'    => 'purchase_score', 'factor'   => 1000, 'modifier' => 'none', 'missing'  => 0, ], ],
+                            ['filter' => ['term' => ['gm_catno_all.keyword' => $keyword]], 'weight' => 100000],
+
+                            [ 'field_value_factor' => [ 'field' => 'purchase_score', 'factor' => $isCatnoPattern ? 0 : 1000, 'modifier' => 'none', 'missing' => 0, ], ],
                         ], $personalizeFunctions),
                         'score_mode' => 'sum',
                         'boost_mode' => 'sum',

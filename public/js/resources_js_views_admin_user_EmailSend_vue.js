@@ -34,7 +34,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         title: '',
         body: '',
         id: 0,
-        target_test: '["dvvb38@gmail.com", "dvvb38@nate.com", "kjk@4science.net", "dvvb38@naver.com", "realsoup38@daum.net", "chakanharry@gmail.com", "chakanharry@hanmail.net", "harry82@nate.com", "chakanharry@naver.com", "lhr@4science.net", "dvvb38@kakao.com"]',
+        target_test: '[{"addr":"dvvb38@gmail.com","name":"김민준"},{"addr":"dvvb38@nate.com","name":"이서연"},{"addr":"kjk@4science.net","name":"박지훈"},{"addr":"dvvb38@naver.com","name":"최수아"},{"addr":"realsoup38@daum.net","name":"정도윤"},{"addr":"chakanharry@gmail.com","name":"강하은"},{"addr":"chakanharry@hanmail.net","name":"윤시우"},{"addr":"harry82@nate.com","name":"임채원"},{"addr":"chakanharry@naver.com","name":"한지아"},{"addr":"lhr@4science.net","name":"오준서"},{"addr":"dvvb38@kakao.com","name":"신예은"}]',
         target_add: '[{"name":"손주혁","addr":"joohiuk@uos.ac.kr"},{"name":"손주혁","addr":"joohiuk@gmail.com"}]'
         // target_add  : '[{"name":"김진국1","addr":"kjk@4science.net"},{"name":"김진국2","addr":"dvvb38@naver.com"}]',
       }

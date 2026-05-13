@@ -212,7 +212,7 @@ class UserController extends Controller {
         $target = json_decode($req->target);
 		if ( $req->target_type == 'custom' ) {
 			foreach($target as $k => $v)          
-				$list[] =  collect(['address' => $v, 'name' => 'A'.$k, 'type' => 'R']);            
+				$list[] =  collect(['address' => $v->addr, 'name' => $v->name, 'type' => 'R']);            
 		} else {
             // 한번에 보낼수 있는 최고 양이 10만통
             $list = DB::table('users')
