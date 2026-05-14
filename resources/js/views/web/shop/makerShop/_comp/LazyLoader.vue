@@ -6,6 +6,7 @@
 
 <script>
 import ax from '@/api/http';
+import List from './List';
 
 export default {
     name: 'lazy-loader',
@@ -37,7 +38,7 @@ export default {
         }
     },
     components: {
-        'list': () => import('./List.vue')
+        List
     }
 }
 </script>

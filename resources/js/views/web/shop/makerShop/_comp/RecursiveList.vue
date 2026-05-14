@@ -9,14 +9,16 @@
 </template>
 
 <script>
+
+import LazyLoader from './LazyLoader';
+
 export default {
     name: 'recursive-list',
     props: {
         node: { type: [Object, Array], required: true }
     },
     components: {
-        'lazy-loader': () => import('./LazyLoader.vue'),
-        'recursive-list': () => import('./RecursiveList.vue')
+        LazyLoader,
     }
 }
 </script>

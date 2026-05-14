@@ -24,8 +24,8 @@ import LoadingModal from '@/views/_common/LoadingModal';
 export default {
     name: "webShopMakerShopIndex",
     components: { 
-        'loading-modal': LoadingModal,
-        'recursive-list': RecursiveList
+        LoadingModal,
+        RecursiveList
     },
     data() {
         return {
@@ -59,6 +59,4 @@ export default {
 .w_fence .mk_info img { width:100%; max-width:432px; height:auto; max-height:200px; object-fit:cover; }
 .w_fence .mk_info .col:first-child { flex:0 0 30%; max-width:30%; padding:10px; }
 .w_fence .mk_info .col:last-child { padding:10px; }
-
 </style>
-
