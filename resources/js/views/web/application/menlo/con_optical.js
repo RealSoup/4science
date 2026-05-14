@@ -86,42 +86,7 @@ export default {
             <a href="https://doi.org/10.1038/s41586-021-03253-4">https://doi.org/10.1038/s41586-021-03253-4</a>
             `,
             image: '/storage/application/menlo/project.webp',
-        },
-        {
-            label: '응용 프로그램 분석',
-            type: 'analysis',
-            title: '응용 프로그램 분석',
-            subTabs: [
-                {
-                    label: '뉴스',
-                    items: [
-                        {
-                            date: '2024년 5월 17일',
-                            title: '안정성 향상을 위한 클록 페어',
-                            image: '/storage/application/menlo/news1.jpg',
-                        },
-                        {
-                            date: '2022년 12월 2일',
-                            title: '레이저 빛으로 시계의 시간을 맞춥니다.',
-                            image: '/storage/application/menlo/news2.jpg',
-                        },
-                        {
-                            date: '2021년 6월 30일',
-                            title: '광 클록 네트워크의 기록 정확도',
-                            image: '/storage/application/menlo/news3.jpg',
-                        },
-                    ],
-                },
-                {
-                    label: '출판물',
-                    items: [],
-                },
-                {
-                    label: '웹세미나',
-                    items: [],
-                },
-            ],
-        },
+        },        
         {
             label: '기초',
             type: 'basic',

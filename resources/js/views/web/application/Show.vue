@@ -100,39 +100,6 @@
                     </div>
                 </div>
 
-                <!-- 응용 프로그램 분석 -->
-                <div v-else-if="tab.type === 'analysis'" class="section-analysis">
-                    <h3 class="analysis-title">{{ tab.title }}</h3>
-                    <div class="analysis-tabs">
-                        <button
-                            v-for="(sub, si) in tab.subTabs"
-                            :key="si"
-                            class="analysis-tab-btn"
-                            :class="{ active: activeSubTab === si }"
-                            @click="activeSubTab = si"
-                        >
-                            {{ sub.label }}
-                        </button>
-                    </div>
-                    <ul class="analysis-list">
-                        <li
-                            v-for="(item, i) in tab.subTabs[activeSubTab].items"
-                            :key="i"
-                            class="analysis-item"
-                        >
-                            <span class="analysis-num">{{ String(i + 1).padStart(2, '0') }}</span>
-                            <img v-if="item.image" :src="item.image" :alt="item.title" class="analysis-thumb" />
-                            <div class="analysis-info">
-                                <span class="analysis-date">{{ item.date }}</span>
-                                <strong class="analysis-item-title">{{ item.title }}</strong>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="analysis-more">
-                        <a href="#">모든 뉴스 보러가기 ▶</a>
-                    </div>
-                </div>
-
                 <!-- 기초 -->
                 <div v-else-if="tab.type === 'basic'" class="section-basic">
                     <h3 class="section-title">{{ tab.title }}</h3>
@@ -313,23 +280,6 @@ export default {
 .project-wrap .project-right .project-img { width: 100%; height: auto; display: block; border-radius: 6px; border: 1px solid #e0e0e0; }
 .btn-more-outline { font-size: 13px; color: #444; background: none; border: 1px solid #ccc; border-radius: 4px; padding: 8px 20px; cursor: pointer; }
 .btn-more-outline:hover { border-color: #2db84b; color: #2db84b; }
-/* 응용 프로그램 분석 */
-.section-analysis { text-align: center; }
-.analysis-title { font-size: 24px; font-weight: 900; color: #2db84b; margin: 0 0 20px 0; }
-.analysis-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 32px; }
-.analysis-tab-btn { padding: 6px 20px; border: 1px solid #ddd; border-radius: 20px; background: #fff; font-size: 13px; color: #666; cursor: pointer; transition: all 0.2s; }
-.analysis-tab-btn.active,
-.analysis-tab-btn:hover { background: #2db84b; border-color: #2db84b; color: #fff; }
-.analysis-list { list-style: none; margin: 0; padding: 0; text-align: left; }
-.analysis-item { display: flex; align-items: center; gap: 20px; padding: 16px 0; border-bottom: 1px solid #eee; }
-.analysis-num { font-size: 20px; font-weight: 900; color: #ddd; min-width: 32px; }
-.analysis-thumb { width: 80px; height: 60px; object-fit: cover; border-radius: 4px; flex-shrink: 0; }
-.analysis-info { display: flex; flex-direction: column; gap: 4px; }
-.analysis-date { font-size: 12px; color: #999; }
-.analysis-item-title { font-size: 15px; font-weight: 700; color: #222; }
-.analysis-more { text-align: right; margin-top: 16px; }
-.analysis-more a { font-size: 13px; color: #666; text-decoration: none; }
-.analysis-more a:hover { color: #2db84b; }
 
 /* 기초 */
 .basic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 24px; align-items: start; }
