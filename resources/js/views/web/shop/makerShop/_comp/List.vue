@@ -13,7 +13,7 @@
         <b-link :to="{name:'goods_show', params:{gd_id:gd.gd_id}}">
             <b-img :src="gd.image_src_thumb[0]" loading="lazy"></b-img>
             <p>{{gd.gd_name}}</p>
-            <div>{{gd.goodsModelPrime ? gd.goodsModelPrime.gm_price_add_vat : '' | comma | price_zero}}</div>
+            <div>{{gd.goods_model_prime ? gd.goods_model_prime.gm_price_add_vat : '' | comma | price_zero}}</div>
         </b-link>
     </b-col>
 </b-row>

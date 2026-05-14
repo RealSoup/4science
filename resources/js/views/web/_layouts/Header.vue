@@ -29,6 +29,7 @@
                     <b-link :to="{name: 'estimate_create'}" class="m_show">견적요청</b-link>
                     <b-link :to="{name: 'cscenter'}">고객센터</b-link>
                     <b-link :to="{name: 'bo_intro'}">커뮤니티</b-link>
+                    <b-link :to="{name: 'application'}">.</b-link>
                 </div>
             
                 

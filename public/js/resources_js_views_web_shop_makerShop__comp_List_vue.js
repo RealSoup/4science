@@ -59,7 +59,7 @@ var render = function render() {
         src: gd.image_src_thumb[0],
         loading: "lazy"
       }
-    }), _vm._v(" "), _c("p", [_vm._v(_vm._s(gd.gd_name))]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm._f("price_zero")(_vm._f("comma")(gd.goodsModelPrime ? gd.goodsModelPrime.gm_price_add_vat : ""))))])], 1)], 1);
+    }), _vm._v(" "), _c("p", [_vm._v(_vm._s(gd.gd_name))]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm._f("price_zero")(_vm._f("comma")(gd.goods_model_prime ? gd.goods_model_prime.gm_price_add_vat : ""))))])], 1)], 1);
   })], 2);
 };
 var staticRenderFns = [];
