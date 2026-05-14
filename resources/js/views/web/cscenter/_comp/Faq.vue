@@ -37,7 +37,7 @@
             </b-card-body>
         </b-collapse>
     
-        <b-card-header header-tag="header" role="tab">
+        <!-- <b-card-header header-tag="header" role="tab">
             <b-button block v-b-toggle.accordion-5>회원의 종류는 어떻게 되나요?</b-button>
         </b-card-header>
         <b-collapse id="accordion-5" accordion="my-accordion" role="tabpanel">
@@ -45,18 +45,18 @@
                 개인 구매 회원과 i-shop 판매회원으로 나누어져 있습니다.<br />
                 일반 구매 고객이신 경우 개인 구매 회원으로 가입하시면 됩니다.
             </b-card-body>
-        </b-collapse>
+        </b-collapse> -->
     
-        <b-card-header header-tag="header" role="tab">
+        <!-- <b-card-header header-tag="header" role="tab">
             <b-button block v-b-toggle.accordion-6>로그인 아이디가 생각나지 않아요.</b-button>
         </b-card-header>
         <b-collapse id="accordion-6" accordion="my-accordion" role="tabpanel">
             <b-card-body>
                 로그인 창 하단의 &#39;아이디찾기&#39;를 클릭하신 후, 가입 시 고객님의 성명과 이메일을 입력하시면 등록하신 이메일로 아이디를 보내드립니다.
             </b-card-body>
-        </b-collapse>
+        </b-collapse> -->
     
-        <b-card-header header-tag="header" role="tab">
+        <!-- <b-card-header header-tag="header" role="tab">
             <b-button block v-b-toggle.accordion-7>비밀번호가 기억나지 않아요.</b-button>
         </b-card-header>
         <b-collapse id="accordion-7" accordion="my-accordion" role="tabpanel">
@@ -64,7 +64,7 @@
                 로그인 창 하단의 &#39;비밀번호찾기&#39;를 클릭하신 후, 가입 아이디와 이메일을 입력하시면 비밀번호 변경이 가능한 링크를 이메일로 보내드립니다.<br />
                 링크 클릭 후 연결되는 페이지에서 비밀번호를 변경하신 후, 변경한 비밀번호로 로그인 하시면 됩니다.
             </b-card-body>
-        </b-collapse>
+        </b-collapse> -->
     
         <b-card-header header-tag="header" role="tab">
             <b-button block v-b-toggle.accordion-8>등록한 회원정보를 변경 할 수 있나요?</b-button>
@@ -91,8 +91,8 @@
         <b-collapse id="accordion-10" accordion="my-accordion" role="tabpanel">
             <b-card-body>
                 보유하고 계시던 마일리지가 자동 삭제되며, 재가입하실 경우에도 복원되지 않습니다.<br />
-                4science 와 i-shop의 ID가 통합운영되므로, 회원탈퇴 시 i-shop의 회원에서도 탈퇴처리 됩니다.<br />
-                사용하셨던 ID와 E-mail은 재가입하실 때 사용하실 수 없습니다.
+                <!-- 4science 와 i-shop의 ID가 통합운영되므로, 회원탈퇴 시 i-shop의 회원에서도 탈퇴처리 됩니다.<br /> -->
+                사용하셨던 E-mail은 재가입하실 때 사용하실 수 없습니다.
             </b-card-body>
         </b-collapse>
     </b-tab>
@@ -303,7 +303,7 @@
         <b-collapse id="accordion-19" accordion="my-accordion" role="tabpanel">
             <b-card-body>
                 유선(전화) 상으로 주문하시는 것은 어렵습니다.<br />
-                누락, 오류, 중복 등의 위험성이 커서 온라인 주문이나 팩스, 메일로 주문해주셔야 정상적인 주문이 가능합니다.
+                누락, 오류, 중복 등의 위험성이 커서 온라인 주문으로 주문해주셔야 정상적인 주문이 가능합니다.
             </b-card-body>
         </b-collapse>
     
@@ -317,7 +317,7 @@
             </b-card-body>
         </b-collapse>
     
-        <b-card-header header-tag="header" role="tab">
+        <!-- <b-card-header header-tag="header" role="tab">
             <b-button block v-b-toggle.accordion-21>발주서를 메일이나 팩스로 보냈을 때 바로 주문접수가 되나요?</b-button>
         </b-card-header>
         <b-collapse id="accordion-21" accordion="my-accordion" role="tabpanel">
@@ -325,7 +325,7 @@
                 주문접수 됩니다. 다만 국가 연구소와 학교의 주문접수를 제외한 모든 주문접수는 선 결제를 원칙으로 하고 있습니다.<br />
                 입금확인 후 주문진행을 해드리오니 참고하시기 바랍니다.
             </b-card-body>
-        </b-collapse>
+        </b-collapse> -->
     </b-tab>
 
     <b-tab title="배송">
@@ -345,7 +345,7 @@
         </b-card-header>
         <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
             <b-card-body>
-                기본 택배의 배송비는 3,500원이며, 배송방법(ex. 택배, 퀵서비스, 용달 등등)에 따라 배송비가 달라집니다.
+                기본 택배의 배송비는 4,400원이며, 배송방법(ex. 택배, 퀵서비스, 용달 등등)에 따라 배송비가 달라집니다.
             </b-card-body>
         </b-collapse>
     
@@ -417,14 +417,13 @@
             <b-card-body>
                 포사이언스에서 판매하고 있는 제품 특성상 주문제작형 제품과 수입 제품이 많아 온라인으로 직접적인 주문 취소는 불가능 합니다.
 
-                주문취소 문의 방법은 아래 방법을 통해 접수 가능합니다.
+                주문취소 문의 방법은 아래 방법을 통해 접수 가능합니다.<br />
 
-                    1. 고객센터 – 고객상담문의 페이지의 취소/교환 접수를 통한 온라인 서비스
-                        (https://www.4science.net/cscenter/board/cancelchange.do)
+                    1. 고객센터 – 고객상담문의 페이지의 취소/교환 접수를 통한 온라인 서비스<br />
                 
-                    2. 고객만족센터(1644-4214)를 통한 오프라인 서비스
+                    2. 고객만족센터(1644-4214)를 통한 오프라인 서비스<br />
 
-                    3, E-mail(sales@4science.net)
+                    3, E-mail(sales@4science.net)<br />
 
                 주문 취소 여부를 확인한 다음 3일 이내 처리해드리겠습니다.                             
             </b-card-body>
@@ -435,12 +434,12 @@
         </b-card-header>
         <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
             <b-card-body>
-                포사이언스에서는 다음과 같은 기간 및 내용으로 상품 및 용역에 대하여 교환, 반품, 환불을 보장하고 있으며,
-                상품의 반환에 의한 추가비용을 구매자에게 부담시키지 않습니다.
-                단, 고객 변심 또는 주문 번복으로 인한 경우의 반환 비용은 구매자 부담입니다.
-                -단순 변심일 경우 : 물품수령 후 7일 이내 반품 가능 (반품 배송비 구매자 부담)
-                -표시, 광고 내용과 상이하거나 물품 하자인 경우: 물품 수령 후 3개월 이내, 또는 그 사실을 안 날, 또는 알 수 있었던 날로부터 30일 이내 반품 가능.
-                교환 및 반품으로 환불을 요청하실 경우에는, E-mail(sales@4science.net) 상담서비스나 고객만족센터(1644-4214)를 통해 요청하시면 친절하게 처리해드리겠습니다.
+                포사이언스에서는 다음과 같은 기간 및 내용으로 상품 및 용역에 대하여 교환, 반품, 환불을 보장하고 있으며,<br />
+                상품의 반환에 의한 추가비용을 구매자에게 부담시키지 않습니다.<br />
+                단, 고객 변심 또는 주문 번복으로 인한 경우의 반환 비용은 구매자 부담입니다.<br />
+                -단순 변심일 경우 : 물품수령 후 7일 이내 반품 가능 (반품 배송비 구매자 부담)<br />
+                -표시, 광고 내용과 상이하거나 물품 하자인 경우: 물품 수령 후 3개월 이내, 또는 그 사실을 안 날, 또는 알 수 있었던 날로부터 30일 이내 반품 가능.<br />
+                교환 및 반품으로 환불을 요청하실 경우에는, E-mail(sales@4science.net) 상담서비스나 고객만족센터(1644-4214)를 통해 요청하시면 친절하게 처리해드리겠습니다.<br />
                 교환 및 반품가능 여부를 확인한 다음 반품의 경우 3일 이내에 결제 금액을 환불해드리겠습니다.
             </b-card-body>
         </b-collapse>
@@ -450,17 +449,17 @@
         </b-card-header>
         <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
             <b-card-body>
-                다음과 같은 경우, 주문취소/교환/반품이 불가능합니다.
-                - 주문 당시 해외 발주상품의 경우
-                - 고객의 요청으로 주문제작이 이루어진 경우
-                - 주문해주신 제품이 배송 중인 경우
-                - 반품요청기간이 지난 경우
-                - 고객님의 책임 있는 사유로 상품 등이 멸실 또는 훼손된 경우 (단, 상품 내용 확인을 위하여 포장 훼손한 경우는 제외
-                - 포장을 개봉하였거나 포장이 훼손되어 상품의 가치가 현저하게 감소한 경우
-                - 고객님의 사용 또는 일부 소비에 의하여 상품의 가치가 현저히 감소한 경우
-                - 재판매가 곤란할 정도로 상품 등의 가치가 현저히 감소한 경우
-                - 복제가 가능한 상품 등의 포장을 훼손한 경우
-                주문취소 및 반품으로 환불을 요청하실 경우에는, E-mail(sales@4science.net) 상담서비스나 고객상담문의의 취소/교환접수,
+                다음과 같은 경우, 주문취소/교환/반품이 불가능합니다.<br />
+                - 주문 당시 해외 발주상품의 경우<br />
+                - 고객의 요청으로 주문제작이 이루어진 경우<br />
+                - 주문해주신 제품이 배송 중인 경우<br />
+                - 반품요청기간이 지난 경우<br />
+                - 고객님의 책임 있는 사유로 상품 등이 멸실 또는 훼손된 경우 (단, 상품 내용 확인을 위하여 포장 훼손한 경우는 제외<br />
+                - 포장을 개봉하였거나 포장이 훼손되어 상품의 가치가 현저하게 감소한 경우<br />
+                - 고객님의 사용 또는 일부 소비에 의하여 상품의 가치가 현저히 감소한 경우<br />
+                - 재판매가 곤란할 정도로 상품 등의 가치가 현저히 감소한 경우<br />
+                - 복제가 가능한 상품 등의 포장을 훼손한 경우<br />
+                주문취소 및 반품으로 환불을 요청하실 경우에는, E-mail(sales@4science.net) 상담서비스나 고객상담문의의 취소/교환접수,<br />
                 고객만족센터(1644-4214)를 통해 요청하시면 친절하게 처리해드리겠습니다.
             </b-card-body>
         </b-collapse>
@@ -536,8 +535,6 @@
                 신청하신 사은품은&nbsp;담당자 확인 후&nbsp;진행되며 모바일 상품권으로 문자 발송됩니다.<br /><br />
                 업무일 기준으로 5일 이내 문자를 못 받으신 분은 T.1644-4214로 연락 바랍니다.<br /><br />
                 <img :src="`${s3url}cscenter/gift.jpg`" width="100%" />
-                <br /><br />마일리지 안내 링크를 참조 바랍니다. <br />
-                <a href="https://www.4science.net/cscenter/quide_mileage.do">https://www.4science.net/cscenter/quide_mileage.do</a>
             </b-card-body>
         </b-collapse>
     </b-tab>
