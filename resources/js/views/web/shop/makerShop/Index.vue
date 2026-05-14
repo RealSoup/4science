@@ -19,11 +19,12 @@
 <script>
 import ax from '@/api/http';
 import RecursiveList from './_comp/RecursiveList';
+import LoadingModal from '@/views/_common/LoadingModal';
 
 export default {
     name: "webShopMakerShopIndex",
     components: { 
-        'loading-modal': () => import('@/views/_common/LoadingModal'),
+        'loading-modal': LoadingModal,
         'recursive-list': RecursiveList
     },
     data() {
