@@ -13,7 +13,7 @@ class BehaviorController extends Controller {
             'target' => 'nullable|string|max:100',
         ]);
 
-        // if (!if_not_my_ip($request->ip()))      return response()->json(['ok' => true]);    //  사무실 IP 차단
+        if (!if_not_my_ip($request->ip()))      return response()->json(['ok' => true]);    //  사무실 IP 차단
         if (!$this->isKoreanIp($request->ip())) return response()->json(['ok' => true]);    //  해외 IP 차단
 
         $uuid   = $request->cookie('tracking_uuid');
