@@ -7,7 +7,6 @@ use App\Models\Shop\Goods;
 use DB;
 
 class UserBehaviorService {
-    // Redis에 행동 임시 저장 (배치로 DB에 flush)
     public function log(string $uuid, ?int $userId, string $action, ?string $target = null, ?string $ip = null): void {
         $goods = null;
         $gd_id = null;
@@ -15,19 +14,12 @@ class UserBehaviorService {
 
         if ($target) {
             if (in_array($action, ['view', 'revisit', 'dwell'])) {
-                // [수정] 중복 체크 컬럼명
-                $redisKey = "behavior_check:{$uuid}:{$target}:{$action}:" . date('Y-m-d');
-                if (Redis::get($redisKey)) return;
 
-                $alreadyLogged = \DB::table('user_behavior_logs')
-                    ->where('ubl_uuid', $uuid)
-                    ->where('ubl_gd_id', $target)
-                    ->where('ubl_action_type', $action)
-                    ->whereDate('created_at', today())
-                    ->exists();
-                if ($alreadyLogged) return;
-
-                Redis::setex($redisKey, now()->secondsUntilEndOfDay(), 1);
+                if ($action === 'dwell') {
+                    $redisKey = "behavior_check:{$uuid}:{$target}:dwell:" . date('Y-m-d');
+                    if (Redis::get($redisKey)) return;
+                    Redis::setex($redisKey, now()->secondsUntilEndOfDay(), 1);
+                }
 
                 $goods = \DB::table('shop_goods_category')
                     ->join('shop_goods', 'shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id')
@@ -38,6 +30,23 @@ class UserBehaviorService {
 
                 $gd_id = $goods->gd_id ?? null;
 
+                if ($action === 'view') {
+                    $alreadyViewed = \DB::table('user_behavior_logs')
+                        ->where('ubl_uuid', $uuid)
+                        ->where('ubl_gd_id', $gd_id)
+                        ->whereIn('ubl_action_type', ['view', 'revisit'])
+                        ->whereDate('created_at', today())
+                        ->exists();
+
+                    if ($alreadyViewed) {
+                        $action = 'revisit';
+                    } else {
+                        $redisKey = "behavior_check:{$uuid}:{$target}:view:" . date('Y-m-d');
+                        if (Redis::get($redisKey)) return;
+                        Redis::setex($redisKey, now()->secondsUntilEndOfDay(), 1);
+                    }
+                }
+
             } elseif (in_array($action, ['cart', 'purchase', 'estimate'])) {
                 $goods = \DB::table('shop_goods_model')
                     ->join('shop_goods_category', 'shop_goods_category.gc_gd_id', '=', 'shop_goods_model.gm_gd_id')
@@ -47,25 +56,13 @@ class UserBehaviorService {
                     ->first();
 
                 $gd_id = $goods->gm_gd_id ?? null;
-                $gm_id = $goods->gm_id ?? null;    
+                $gm_id = $goods->gm_id ?? null;
 
             } elseif ($action === 'search') {
                 $dedupKey = "behavior_dedup:search:{$uuid}:" . md5($target);
                 if (Redis::get($dedupKey)) return;
                 Redis::setex($dedupKey, 1800, 1);
             }
-        }
-
-        // [수정] view → revisit 체크
-        if ($action === 'view' && $goods) {
-            $alreadyViewed = \DB::table('user_behavior_logs')
-                ->where('ubl_uuid', $uuid)
-                ->where('ubl_gd_id', $gd_id)
-                ->whereIn('ubl_action_type', ['view', 'revisit'])
-                ->whereDate('created_at', today())
-                ->exists();
-
-            if ($alreadyViewed) $action = 'revisit';
         }
 
         Redis::lpush('behavior_queue', json_encode([
