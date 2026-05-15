@@ -29,14 +29,20 @@
 </template>
 
 <script>
+import BoardCreate from '@/views/web/board/Create';
+import EstimateGuide from './_comp/EstimateGuide';
+import OrderGuide from './_comp/OrderGuide';
+import PayGuide from './_comp/PayGuide';
+import Faq from './_comp/Faq';
+
 export default {
     name: 'CSCenterIndex',
     components: {
-        'board-create': () =>    import('@/views/web/board/Create'),
-        'estimate-guide': () =>  import('./_comp/EstimateGuide'),
-        'order-guide': () =>     import('./_comp/OrderGuide'),
-        'pay-guide': () =>       import('./_comp/PayGuide'),
-        'faq': () =>            import('./_comp/Faq'),
+        BoardCreate,
+        EstimateGuide,
+        OrderGuide,
+        PayGuide,
+        Faq,
     },
     data() { 
         return { 

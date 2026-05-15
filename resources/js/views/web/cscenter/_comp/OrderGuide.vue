@@ -38,7 +38,3 @@ export default {
     methods: { },
 };
 </script>
-
-<style lang="css" scoped>
-
-</style>
