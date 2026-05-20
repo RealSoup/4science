@@ -80,13 +80,10 @@
                 <div class="basic-grid">
                     <div v-for="(item, i) in tab.items" :key="i" class="basic-card">
                         <h4 class="basic-card-title">{{ item.title }}</h4>
-                        <div
-                            class="tech-item-body basic-body"
-                            :class="{ expanded: expandedItems[`${idx}_${i}`] }"
-                        >
+                        <div class="basic-body" :class="{ expanded: expandedItems[`${idx}_${i}`] }">
                             <p class="basic-card-desc" v-html="item.desc"></p>
                         </div>
-                        <button class="btn-more-outline" @click="toggleItem(idx, i)">
+                        <button class="btn-more" @click="toggleItem(idx, i)">
                             {{ expandedItems[`${idx}_${i}`] ? '접기' : '더 보기' }}
                         </button>
                     </div>
@@ -217,12 +214,13 @@ export default {
 .tab-wrap .tab-list .tab-item.active { font-weight: 700; border-bottom-color: #2db84b; }
 
 /* 섹션 공통 */
-.tab-section { padding:25px 0; }
 .tab-section .section-title { font-size:33px; font-weight:900; color: #4FBA48; margin: 0 0 16px 0; }
 .tab-section .section-desc { font-size:17px; color:#000; line-height:1.54; margin:0; }
-.tab-section > div { padding:0 44px; }
+.tab-section > div { padding:44px; }
+.tab-section .btn-more { font-size: 16px; color: #000; border: 1px solid #888; padding: 2px 9px; background:inherit; }
+.tab-section .btn-more:hover { border-color: #2db84b; color: #2db84b; }
+
 /* 핵심 기술 */
-.section-tech { padding-top:25px; }
 .section-tech .tech-wrap { display:grid; grid-template-columns:320px 1fr; gap:24px; }
 .section-tech .tech-wrap .tech-left { display:flex; flex-direction:column; justify-content:center; }
 .section-tech .tech-wrap .tech-right .tech-item { background:#EBEBEB; border-radius:20px; padding:25px 24px 36px; }
@@ -234,8 +232,7 @@ export default {
 /* 기초 카드는 배경 흰색이라 페이드 색상 별도 */
 .section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc { font-size:16px; color: #000; line-height:1.55; margin: 0; }
 .section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc::v-deep h6 { margin-bottom: 3px; font-style: italic; }
-.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .btn-more { font-size: 16px; color: #000; border: 1px solid #888; padding: 2px 9px; position: absolute; right:14px; bottom: 0; }
-.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .btn-more:hover { border-color: #2db84b; color: #2db84b; }
+.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .btn-more { position: absolute; right:14px; bottom: 0; }
 
 /* 제품 솔루션 */
 .section-product { background: linear-gradient(to right, #004B82, #1A1663); padding:45px 40px 50px; }
@@ -252,19 +249,21 @@ export default {
 .section-project .project-wrap .project-left .project-body { max-height:12.4em; overflow:hidden; }
 .section-project .project-wrap .project-left .project-body.expanded { max-height: 2000px !important; }
 .section-project .project-wrap .project-left .project-body .project-desc { color: #000; line-height: 1.8; margin: 0 0 24px 0; }
-.section-project .project-wrap .project-left .btn-more { font-size:16px; color:#000; background: none; border: 1px solid #ccc; padding:2px 9px; }
-.section-project .project-wrap .project-left .btn-more:hover { border-color: #2db84b; color: #2db84b; }
 .section-project .project-wrap .project-right { padding-top: 58px; }
 .section-project .project-wrap .project-right .project-img { width: 100%; height: auto; display: block; border-radius: 6px; border: 1px solid #e0e0e0; }
 
 /* 기초 */
 .section-basic { background:#EBEBEB; }
 .section-basic .basic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 24px; align-items: start; }
-.section-basic .basic-card { border: 1px solid #e0e0e0; border-radius: 6px; padding: 24px; min-width: 0; }
-.section-basic .basic-card-title { font-size: 16px; font-weight: 700; color: #1a9e36; margin: 0 0 12px 0; padding-bottom: 12px; border-bottom: 2px solid #2db84b; display: inline-block; }
-.section-basic .basic-card-desc { font-size: 13px; color: #555; line-height: 1.8; margin: 0 0 20px 0; }
+.section-basic .basic-card { border:1px solid #e0e0e0; border-radius: 6px; padding: 24px; min-width: 0; background:#FFF; }
+.section-basic .basic-card .basic-body { overflow:hidden; max-height:4.5em; }
+.section-basic .basic-card .basic-body.expanded { max-height: 2000px !important; }
+.section-basic .basic-card .basic-card-title { font-size: 20px; font-weight:700; margin:0 0 12px 0; display:inline-block; background:#0094EA; position:relative; left:-30px; color:#FFF; font-style:italic; padding:8px 28px; border-radius:0 20px 20px 0; }
+.section-basic .basic-card .basic-body .basic-card-desc { font-size: 13px; color: #555; line-height: 1.8; margin: 0 0 20px 0; }
+.section-basic .basic-card .basic-body .basic-card-desc::v-deep img { width:100%; }
 
 .not-found { padding: 80px 0; text-align: center; color: #999; font-size: 15px; }
+
 @media (max-width: 900px) {
     .application-show { padding:32px 20px; }
     .tab-wrap { padding:0; overflow:hidden; }
