@@ -166,66 +166,6 @@ Route::get('/localization', function () {
     exit();
 });
 
-
-
-
-
-Route::get('/tmp-check', function() {
-    $od = \App\Models\Shop\Order::with('user')->with('orderCoupon')
-        ->select('shop_order.od_id', 'shop_order.od_proc_mileage', 'shop_order.created_id', 'shop_order_model.odm_id', 'shop_order_model.odm_ea', 'shop_order_model.odm_price', 'shop_order_dlvy_info.oddi_id')
-        ->join('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
-        ->join('shop_order_dlvy_info', 'shop_order_model.odm_id', '=', 'shop_order_dlvy_info.oddi_odm_id')
-        ->OdStep('50')
-        ->where('od_type', '<>', 'buy_temp')
-        ->StartDate('2022-01-01')
-        ->whereDate('shop_order.od_dlvy_date', '<=', date('Y-m-d', strtotime(date('Y-m-d')." -2 week")))
-        ->whereNull('shop_order_dlvy_info.oddi_receive_date')
-        ->groupBy('shop_order_model.odm_id')
-        ->orderBy('shop_order.od_id')
-        ->get();
-
-    $result = [];
-    $errors = [];
-
-    foreach($od as $v) {
-        try {
-            $row = [
-                'odm_id'   => $v->odm_id,
-                'oddi_id'  => $v->oddi_id,
-                'user'     => $v->user ? $v->user->id : 'NULL',
-                'level'    => $v->user ? $v->user->level : 'NULL',
-                'mileage_mul' => $v->user ? $v->user->mileage_mul : 'NULL',
-                'coupon'   => $v->orderCoupon ? count($v->orderCoupon) : 0,
-            ];
-
-            if($v->user && (intval($v->user->level) < 6 || intval($v->user->level) > 20)) {
-                $p = $v->odm_price * $v->odm_ea * $v->user->mileage_mul;
-                $row['mileage'] = $p;
-                $row['action'] = 'insert';
-            } else {
-                $row['action'] = 'skip';
-            }
-
-            $result[] = $row;
-
-        } catch(\Exception $e) {
-            $errors[] = [
-                'odm_id' => $v->odm_id ?? 'unknown',
-                'error'  => $e->getMessage(),
-            ];
-        }
-    }
-
-    return response()->json([
-        'total'  => $od->count(),
-        'errors' => $errors,
-        'sample' => array_slice($result, 0, 20), // 앞에 20개만
-    ]);
-});
-
-
-
-
 Route::get('/sitemap.xml',        'SitemapController@index');
 Route::get('/sitemap/goods/{page}', 'SitemapController@goods');
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');
