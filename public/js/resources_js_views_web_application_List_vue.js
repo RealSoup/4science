@@ -19,7 +19,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   name: 'ApplicationList',
   data: function data() {
     return {
-      selectedIdx: null,
+      selectedIdx: 0,
       current: null,
       hoveredCat: null,
       loadError: false
@@ -37,7 +37,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     loadList: function loadList(menu) {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var mod;
+        var _this$current$categor, mod;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -51,19 +51,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 7:
               mod = _context.sent;
               _this.current = mod.fields;
-              _context.next = 16;
+              // 첫 번째 카테고리 자동 선택
+              if ((_this$current$categor = _this.current.categories) !== null && _this$current$categor !== void 0 && _this$current$categor.length) {
+                _this.hoverCat(_this.current.categories[0], 0);
+              }
+              _context.next = 17;
               break;
-            case 11:
-              _context.prev = 11;
+            case 12:
+              _context.prev = 12;
               _context.t0 = _context["catch"](4);
               console.error('List.vue loadList 오류:', _context.t0);
               console.error('menu:', menu);
               _this.loadError = true;
-            case 16:
+            case 17:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[4, 11]]);
+        }, _callee, null, [[4, 12]]);
       }))();
     },
     hoverCat: function hoverCat(cat, idx) {
@@ -94,9 +98,7 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("section", {
-    staticClass: "science-application-detail"
-  }, [_vm._m(0), _vm._v(" "), _vm.current ? _c("div", {
+  return _vm.current ? _c("div", {
     staticClass: "content-wrap"
   }, [_c("div", {
     staticClass: "col-left"
@@ -134,9 +136,9 @@ var render = function render() {
           return _vm.goToShow(cat);
         }
       }
-    }, [_c("span", [_vm._v(_vm._s(cat.name))]), _vm._v(" "), _vm.selectedIdx === idx ? _c("span", {
+    }, [_c("span", [_vm._v(_vm._s(cat.name))]), _vm._v(" "), _c("span", {
       staticClass: "arrow"
-    }, [_vm._v("▶")]) : _vm._e()]);
+    }, [_vm._v("▶")])]);
   }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "col-right"
   }, [_vm.hoveredCat ? [_c("div", {
@@ -156,21 +158,9 @@ var render = function render() {
     staticClass: "guide-text"
   }, [_vm._v("메뉴를 선택하세요")])], 2)]) : _vm.loadError ? _c("div", {
     staticClass: "not-found"
-  }, [_vm._v("\n        해당 페이지를 찾을 수 없습니다.\n    ")]) : _vm._e()]);
+  }, [_vm._v("\n    해당 페이지를 찾을 수 없습니다.\n")]) : _vm._e();
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "section-header"
-  }, [_c("h2", {
-    staticClass: "title-top"
-  }, [_vm._v("Science")]), _vm._v(" "), _c("h2", {
-    staticClass: "title-bottom"
-  }, [_c("span", [_vm._v("A")]), _vm._v("pplication")]), _vm._v(" "), _c("div", {
-    staticClass: "header-line"
-  })]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -193,7 +183,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* List.vue */\n.science-application-detail[data-v-8bb1c612] {\r\n    padding: 48px 40px;\r\n    max-width: 1500px;\r\n    margin: 0 auto;\r\n    font-family: 'Noto Sans KR', sans-serif;\n}\n.section-header[data-v-8bb1c612] {\r\n    margin-bottom: 32px;\n}\n.title-top[data-v-8bb1c612] { font-size: 28px; font-weight: 300; color: #0F86DA; margin: 0; line-height: 1.2;\n}\n.title-bottom[data-v-8bb1c612] { font-size: 28px; font-weight: 700; color: #0F86DA; margin: 0 0 12px 0; line-height: 1.2;\n}\n.title-bottom span[data-v-8bb1c612] { color:#51B94A;\n}\n.header-line[data-v-8bb1c612] { width: 100%; height: 1px; background: #ddd;\n}\n.content-wrap[data-v-8bb1c612] {\r\n    display: grid;\r\n    grid-template-columns: 260px 1fr 320px;\r\n    gap: 0;\r\n    border-top: 1px solid #ddd;\r\n    border-bottom: 1px solid #ddd;\r\n    min-height: 500px;\n}\n.col-left[data-v-8bb1c612] {\r\n    padding: 32px 24px 32px 0;\r\n    border-right: 1px solid #ddd;\n}\n.field-title[data-v-8bb1c612] {\r\n    font-size: 36px;\r\n    font-weight: 900;\r\n    color: #222;\r\n    margin: 0 0 16px 0;\r\n    letter-spacing: -0.02em;\n}\n.field-desc[data-v-8bb1c612] {\r\n    font-size: 13px;\r\n    color: #555;\r\n    line-height: 1.8;\r\n    margin: 0 0 24px 0;\n}\n.field-img-wrap[data-v-8bb1c612] {\r\n    width: 100%;\r\n    max-width: 240px;\n}\n.field-img[data-v-8bb1c612] {\r\n    width: 100%;\r\n    height: auto;\r\n    display: block;\r\n    border-radius: 2px;\n}\n.col-mid[data-v-8bb1c612] {\r\n    border-right: 1px solid #ddd;\n}\n.category-list[data-v-8bb1c612] {\r\n    list-style: none;\r\n    margin: 0;\r\n    padding: 0;\n}\n.category-item[data-v-8bb1c612] {\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-end;\r\n    gap: 8px;\r\n    padding: 14px 20px;\r\n    font-size: 14px;\r\n    color: #333;\r\n    cursor: pointer;\r\n    border-bottom: 1px solid #f0f0f0;\r\n    transition: background 0.15s;\r\n    text-align: right;\n}\n.category-item[data-v-8bb1c612]:hover {\r\n    background: #f7fdf8;\n}\n.category-item.active[data-v-8bb1c612] {\r\n    background: #e8f5eb;\r\n    font-weight: 700;\r\n    color: #1a9e36;\n}\n.arrow[data-v-8bb1c612] {\r\n    color: #2db84b;\r\n    font-size: 11px;\r\n    flex-shrink: 0;\n}\n.col-right[data-v-8bb1c612] {\r\n    padding: 32px 0 32px 28px;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: flex-start;\n}\n.guide-text[data-v-8bb1c612] {\r\n    color: #bbb;\r\n    font-size: 14px;\r\n    margin: auto;\n}\n.cat-img-wrap[data-v-8bb1c612] {\r\n    width: 100%;\r\n    margin-bottom: 20px;\r\n    border: 1px solid #e0e0e0;\r\n    border-radius: 2px;\r\n    overflow: hidden;\n}\n.cat-img[data-v-8bb1c612] {\r\n    width: 100%;\r\n    height: auto;\r\n    display: block;\n}\n.cat-desc[data-v-8bb1c612] {\r\n    font-size: 13px;\r\n    color: #444;\r\n    line-height: 1.9;\r\n    text-align: center;\r\n    margin: 0;\n}\n.not-found[data-v-8bb1c612] {\r\n    padding: 80px 0;\r\n    text-align: center;\r\n    color: #999;\r\n    font-size: 15px;\n}\n@media (max-width: 900px) {\n.content-wrap[data-v-8bb1c612] {\r\n        grid-template-columns: 1fr;\n}\n.col-left[data-v-8bb1c612],\r\n    .col-mid[data-v-8bb1c612],\r\n    .col-right[data-v-8bb1c612] {\r\n        border-right: none;\r\n        border-bottom: 1px solid #ddd;\r\n        padding: 24px 0;\n}\n.category-item[data-v-8bb1c612] {\r\n        justify-content: space-between;\r\n        text-align: left;\n}\n.science-application-detail[data-v-8bb1c612] {\r\n        padding: 32px 20px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.content-wrap[data-v-8bb1c612] { display: grid; grid-template-columns:410px 1fr 540px; gap: 0; border-top: 1px solid #959595; min-height: 500px;\n}\n.col-left[data-v-8bb1c612] { padding:30px 24px 32px 0; border-right: 1px solid #959595;\n}\n.field-title[data-v-8bb1c612] { font-size:62px; font-weight:900; color:#000; margin:0 0 8px 0;\n}\n.field-desc[data-v-8bb1c612] { font-size: 16.5px; font-weight:bold; color: #000; line-height: 1.65; margin: 0 0 20px 0;\n}\n.field-img-wrap[data-v-8bb1c612] { width: 100%; max-width:300px;\n}\n.field-img[data-v-8bb1c612] { width: 100%; height: auto; display: block; border-radius: 2px;\n}\n.content-wrap .col-mid[data-v-8bb1c612] { border-right: 1px solid #ddd;\n}\n.content-wrap .col-mid .category-list[data-v-8bb1c612] { padding:26px 0;\n}\n.content-wrap .col-mid .category-list .category-item[data-v-8bb1c612] { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding:16px 20px; font-size:18px; color: #000; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: background 0.15s; text-align: right;\n}\n.content-wrap .col-mid .category-list .category-item[data-v-8bb1c612]:hover { background: #f7fdf8;\n}\n.content-wrap .col-mid .category-list .category-item.active[data-v-8bb1c612] { background: #e8f5eb; font-weight:900; font-size:20px;\n}\n.content-wrap .col-mid .category-list .category-item .arrow[data-v-8bb1c612] { color:#FFF; font-size:20px; flex-shrink: 0; margin:0 4px 0 9px;\n}\n.content-wrap .col-mid .category-list .category-item.active .arrow[data-v-8bb1c612] { color:#2db84b;\n}\n.col-right[data-v-8bb1c612] { padding:38px 0 32px 88px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;\n}\n.guide-text[data-v-8bb1c612] { color: #bbb; font-size: 14px; margin: auto;\n}\n.cat-img-wrap[data-v-8bb1c612] { width: 100%; margin-bottom:19px; border: 1px solid #e0e0e0; border-radius: 2px; overflow: hidden;\n}\n.cat-img[data-v-8bb1c612] { width: 100%; height: auto; display: block;\n}\n.cat-desc[data-v-8bb1c612] { font-size:17px; font-weight:bold; color: #000; line-height:1.7; text-align:right;\n}\n.not-found[data-v-8bb1c612] { padding: 80px 0; text-align: center; color: #999; font-size: 15px;\n}\n@media (max-width: 900px) {\n.content-wrap[data-v-8bb1c612] {\r\n        grid-template-columns: 1fr;\n}\n.col-left[data-v-8bb1c612],\r\n    .col-mid[data-v-8bb1c612],\r\n    .col-right[data-v-8bb1c612] {\r\n        border-right: none;\r\n        border-bottom: 1px solid #ddd;\r\n        padding: 24px 0;\n}\n.category-item[data-v-8bb1c612] {\r\n        justify-content: space-between;\r\n        text-align: left;\n}\n.science-application-detail[data-v-8bb1c612] {\r\n        padding: 32px 20px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

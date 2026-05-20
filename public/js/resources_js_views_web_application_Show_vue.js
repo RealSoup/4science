@@ -24,10 +24,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       pageData: null,
       loadError: false,
       observer: null,
-      expandedItems: {} // { '섹션idx_아이템idx': true/false }
+      expandedItems: {},
+      // { '섹션idx_아이템idx': true/false }
+      isSticky: false
     };
   },
-
   watch: {
     '$route.params': {
       immediate: true,
@@ -38,8 +39,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     }
   },
+  mounted: function mounted() {
+    window.addEventListener('scroll', this.onScroll);
+  },
   beforeDestroy: function beforeDestroy() {
     if (this.observer) this.observer.disconnect();
+    window.removeEventListener('scroll', this.onScroll);
   },
   methods: {
     loadData: function loadData(menu, con) {
@@ -114,6 +119,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           _this2.observer.observe(el);
         }
       });
+    },
+    onScroll: function onScroll() {
+      var tabEl = this.$el.querySelector('.tab-wrap');
+      if (!tabEl) return;
+      var rect = tabEl.getBoundingClientRect();
+      this.isSticky = rect.top <= 126; // sticky top 값과 동일하게
     }
   }
 });
@@ -135,9 +146,9 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "application-show"
-  }, [_vm._m(0), _vm._v(" "), _vm.pageData ? [_c("div", {
+  return _vm.pageData ? _c("div", {
+    staticClass: "show-wrap"
+  }, [_c("div", {
     staticClass: "hero",
     style: {
       backgroundImage: "url(".concat(_vm.pageData.hero.image, ")")
@@ -152,7 +163,10 @@ var render = function render() {
       innerHTML: _vm._s(_vm.pageData.hero.desc)
     }
   })])]), _vm._v(" "), _c("div", {
-    staticClass: "tab-wrap"
+    staticClass: "tab-wrap",
+    "class": {
+      sticky: _vm.isSticky
+    }
   }, [_c("ul", {
     staticClass: "tab-list"
   }, _vm._l(_vm.pageData.tabs, function (tab, idx) {
@@ -167,7 +181,7 @@ var render = function render() {
           return _vm.scrollToSection(idx);
         }
       }
-    }, [_vm._v("\n                    " + _vm._s(tab.label) + "\n                ")]);
+    }, [_vm._v("\n                " + _vm._s(tab.label) + "\n            ")]);
   }), 0)]), _vm._v(" "), _vm._l(_vm.pageData.tabs, function (tab, idx) {
     return _c("div", {
       key: idx,
@@ -193,18 +207,7 @@ var render = function render() {
       return _c("div", {
         key: i,
         staticClass: "tech-item"
-      }, [_c("div", {
-        staticClass: "tech-item-header"
-      }, [_c("h4", {
-        staticClass: "tech-item-title"
-      }, [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c("button", {
-        staticClass: "btn-more",
-        on: {
-          click: function click($event) {
-            return _vm.toggleItem(idx, i);
-          }
-        }
-      }, [_vm._v("\n                                    " + _vm._s(_vm.expandedItems["".concat(idx, "_").concat(i)] ? "접기" : "더 보기") + "\n                                ")])]), _vm._v(" "), _c("div", {
+      }, [_c("h4", [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c("div", {
         staticClass: "tech-item-body",
         "class": {
           expanded: _vm.expandedItems["".concat(idx, "_").concat(i)]
@@ -214,7 +217,14 @@ var render = function render() {
         domProps: {
           innerHTML: _vm._s(item.desc)
         }
-      })])]);
+      }), _vm._v(" "), _c("button", {
+        staticClass: "btn-more",
+        on: {
+          click: function click($event) {
+            return _vm.toggleItem(idx, i);
+          }
+        }
+      }, [_vm._v("\n                                " + _vm._s(_vm.expandedItems["".concat(idx, "_").concat(i)] ? "접기" : "더 보기") + "\n                            ")])])]);
     }), 0)])]) : tab.type === "product" ? _c("div", {
       staticClass: "section-product"
     }, [_c("div", {
@@ -259,13 +269,13 @@ var render = function render() {
         innerHTML: _vm._s(tab.desc)
       }
     })]), _vm._v(" "), _c("button", {
-      staticClass: "btn-more-outline",
+      staticClass: "btn-more",
       on: {
         click: function click($event) {
           return _vm.toggleItem(idx, 0);
         }
       }
-    }, [_vm._v("\n                            " + _vm._s(_vm.expandedItems["".concat(idx, "_0")] ? "접기" : "더 보기") + "\n                        ")])]), _vm._v(" "), _c("div", {
+    }, [_vm._v("\n                        " + _vm._s(_vm.expandedItems["".concat(idx, "_0")] ? "접기" : "더 보기") + "\n                    ")])]), _vm._v(" "), _c("div", {
       staticClass: "project-right"
     }, [_c("img", {
       staticClass: "project-img",
@@ -302,25 +312,13 @@ var render = function render() {
             return _vm.toggleItem(idx, i);
           }
         }
-      }, [_vm._v("\n                            " + _vm._s(_vm.expandedItems["".concat(idx, "_").concat(i)] ? "접기" : "더 보기") + "\n                        ")])]);
+      }, [_vm._v("\n                        " + _vm._s(_vm.expandedItems["".concat(idx, "_").concat(i)] ? "접기" : "더 보기") + "\n                    ")])]);
     }), 0)]) : _vm._e()]);
-  })] : _vm.loadError ? _c("div", {
+  })], 2) : _vm.loadError ? _c("div", {
     staticClass: "not-found"
-  }, [_vm._v("\n        해당 페이지를 찾을 수 없습니다.\n    ")]) : _vm._e()], 2);
+  }, [_vm._v("\n    해당 페이지를 찾을 수 없습니다.\n")]) : _vm._e();
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "section-header"
-  }, [_c("h2", {
-    staticClass: "title-top"
-  }, [_vm._v("Science")]), _vm._v(" "), _c("h2", {
-    staticClass: "title-bottom"
-  }, [_c("span", [_vm._v("A")]), _vm._v("pplication")]), _vm._v(" "), _c("div", {
-    staticClass: "header-line"
-  })]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -343,7 +341,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.application-show[data-v-55bfffd6] { font-family: 'Noto Sans KR', sans-serif; max-width: 1500px; margin: 0 auto; padding: 48px 40px;\n}\r\n/* 헤더 */\n.section-header[data-v-55bfffd6] { margin-bottom: 32px;\n}\n.title-top[data-v-55bfffd6] { font-size: 28px; font-weight: 300; color: #0F86DA; margin: 0; line-height: 1.2;\n}\n.title-bottom[data-v-55bfffd6] { font-size: 28px; font-weight: 700; color: #0F86DA; margin: 0 0 12px 0; line-height: 1.2;\n}\n.title-bottom span[data-v-55bfffd6] { color:#51B94A;\n}\n.header-line[data-v-55bfffd6] { width: 100%; height: 1px; background: #ddd; margin-bottom: 32px;\n}\r\n/* 히어로 */\n.hero[data-v-55bfffd6] { position: relative; width: 100%; height: 320px; background-size: cover; background-position: center; border-radius: 8px; overflow: hidden;\n}\n.hero-overlay[data-v-55bfffd6] { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 60%); display: flex; flex-direction: column; justify-content: flex-end; padding: 32px 36px;\n}\n.hero-title[data-v-55bfffd6] { font-size: 36px; font-weight: 900; color: #fff; margin: 0 0 10px 0; letter-spacing: -0.02em;\n}\n.hero-desc[data-v-55bfffd6] { font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.7; margin: 0; max-width: 680px;\n}\r\n\r\n/* 탭 sticky */\n.tab-wrap[data-v-55bfffd6] { position: sticky; top: 126px; z-index: 100; background: #1a2e4a; margin: 0 -40px; padding: 0 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.18);\n}\n.tab-list[data-v-55bfffd6] { list-style: none; margin: 0; padding: 0; display: flex;\n}\n.tab-item[data-v-55bfffd6] { padding: 15px 28px; font-size: 14px; color: rgba(255,255,255,0.65); cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap;\n}\n.tab-item[data-v-55bfffd6]:hover { color: #fff; background: rgba(255,255,255,0.06);\n}\n.tab-item.active[data-v-55bfffd6] { color: #fff; font-weight: 700; border-bottom-color: #2db84b;\n}\r\n\r\n/* 섹션 공통 */\n.tab-section[data-v-55bfffd6] { padding: 60px 0; border-bottom: 1px solid #eee;\n}\n.tab-section[data-v-55bfffd6]:last-child { border-bottom: none;\n}\n.section-title[data-v-55bfffd6] { font-size: 34px; font-weight: 900; color: #51B94A; margin: 0 0 16px 0;\n}\n.section-desc[data-v-55bfffd6] { font-size: 13px; color: #666; line-height: 1.8; margin: 0;\n}\r\n/* 핵심 기술 */\n.tech-wrap[data-v-55bfffd6] { display: grid; grid-template-columns: 220px 1fr; gap: 48px;\n}\n.tech-item[data-v-55bfffd6] { background: #f7f8fa; border-radius: 6px; padding: 20px 24px; margin-bottom: 16px;\n}\n.tech-item-header[data-v-55bfffd6] { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;\n}\n.tech-item-title[data-v-55bfffd6] { font-size: 20px; font-weight: 700; color: #0F86DA; margin: 0;\n}\n.btn-more[data-v-55bfffd6] { font-size: 12px; color: #888; background: none; border: 1px solid #ddd; border-radius: 3px; padding: 3px 10px; cursor: pointer; white-space: nowrap; flex-shrink: 0;\n}\n.btn-more[data-v-55bfffd6]:hover { border-color: #2db84b; color: #2db84b;\n}\r\n/* 아코디언 본문 */\n.tech-item-body[data-v-55bfffd6] { overflow: hidden; max-height: 5.4em; transition: max-height 0.35s ease; position: relative;\n}\n.tech-item-body[data-v-55bfffd6]::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 32px; background: linear-gradient(transparent, #f7f8fa); transition: opacity 0.3s;\n}\n.tech-item-body.expanded[data-v-55bfffd6] { max-height: 2000px !important;\n}\n.tech-item-body.expanded[data-v-55bfffd6]::after { opacity: 0;\n}\r\n/* 기초 카드는 배경 흰색이라 페이드 색상 별도 */\n.tech-item-body.basic-body[data-v-55bfffd6]::after { background: linear-gradient(transparent, #fff);\n}\n.tech-item-body.project-body[data-v-55bfffd6]::after { background: linear-gradient(transparent, #fff);\n}\n.tech-item-desc[data-v-55bfffd6] { font-size: 13px; color: #555; line-height: 1.7; margin: 0;\n}\r\n\r\n/* 제품 솔루션 */\n.section-product[data-v-55bfffd6] { background: #1a2e4a; border-radius: 8px; padding: 40px; margin: 0 -40px;\n}\n.product-title[data-v-55bfffd6] { font-size: 24px; font-weight: 900; color: #fff; margin: 0 0 10px 0;\n}\n.product-desc[data-v-55bfffd6] { font-size: 13px; color: rgba(255,255,255,0.7); margin: 0 0 28px 0;\n}\n.product-grid[data-v-55bfffd6] { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;\n}\n.product-card[data-v-55bfffd6] { background: rgba(255,255,255,0.08); border-radius: 6px; aspect-ratio: 3 / 4; overflow: hidden; position: relative;\n}\n.product-card img[data-v-55bfffd6] { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; display: block;\n}\n.product-card-label[data-v-55bfffd6] { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px; background: rgba(0,0,0,0.5); color: #fff; font-size: 13px; font-weight: 600;\n}\r\n\r\n/* 주요 프로젝트 */\n.project-wrap[data-v-55bfffd6] { display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: start;\n}\n.project-wrap .project-left .project-body[data-v-55bfffd6] { max-height: 12.4em;\n}\n.project-wrap .project-left .project-body.project-desc[data-v-55bfffd6] { font-size: 13px; color: #555; line-height: 1.8; margin: 0 0 24px 0;\n}\n.project-wrap .project-right[data-v-55bfffd6] { padding-top: 58px;\n}\n.project-wrap .project-right .project-img[data-v-55bfffd6] { width: 100%; height: auto; display: block; border-radius: 6px; border: 1px solid #e0e0e0;\n}\n.btn-more-outline[data-v-55bfffd6] { font-size: 13px; color: #444; background: none; border: 1px solid #ccc; border-radius: 4px; padding: 8px 20px; cursor: pointer;\n}\n.btn-more-outline[data-v-55bfffd6]:hover { border-color: #2db84b; color: #2db84b;\n}\r\n\r\n/* 기초 */\n.basic-grid[data-v-55bfffd6] { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 24px; align-items: start;\n}\n.basic-card[data-v-55bfffd6] { border: 1px solid #e0e0e0; border-radius: 6px; padding: 24px; min-width: 0;\n}\n.basic-card-title[data-v-55bfffd6] { font-size: 16px; font-weight: 700; color: #1a9e36; margin: 0 0 12px 0; padding-bottom: 12px; border-bottom: 2px solid #2db84b; display: inline-block;\n}\n.basic-card-desc[data-v-55bfffd6] { font-size: 13px; color: #555; line-height: 1.8; margin: 0 0 20px 0;\n}\n[data-v-55bfffd6] h6 { font-style: italic;\n}\n.not-found[data-v-55bfffd6] { padding: 80px 0; text-align: center; color: #999; font-size: 15px;\n}\n@media (max-width: 900px) {\n.application-show[data-v-55bfffd6] { padding: 32px 20px;\n}\n.tab-wrap[data-v-55bfffd6] { margin: 0 -20px; padding: 0 20px;\n}\n.tech-wrap[data-v-55bfffd6],\r\n    .project-wrap[data-v-55bfffd6] { grid-template-columns: 1fr;\n}\n.product-grid[data-v-55bfffd6] { grid-template-columns: repeat(2, 1fr);\n}\n.basic-grid[data-v-55bfffd6] { grid-template-columns: 1fr;\n}\n.section-product[data-v-55bfffd6] { margin: 0 -20px; padding: 28px 20px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.show-wrap[data-v-55bfffd6] { border:1px solid #959595; border-radius:40px 40px 0 0;\n}\r\n/* 히어로 */\n.hero[data-v-55bfffd6] { position:relative; width:100%; height:500px; background-size:cover; background-position:center; border-radius:40px 40px 0 0;\n}\n.hero .hero-overlay[data-v-55bfffd6] { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:24px 36px;\n}\n.hero .hero-overlay .hero-title[data-v-55bfffd6] { font-size:60px; font-weight: 900; color: #fff; margin: 0 0 15px 0;\n}\n.hero .hero-overlay .hero-desc[data-v-55bfffd6] { font-size:18px; color:#fff; line-height:1.4; max-width:1200px;\n}\r\n\r\n/* 탭 sticky */\n.tab-wrap[data-v-55bfffd6] { position:sticky; top:126px; z-index:100; padding:0 40px; border-bottom:1px solid #CCCCCC; background:#FFF;\n}\n.tab-wrap.sticky[data-v-55bfffd6] { box-shadow:0 3px 11px rgba(0,0,0,0.7);\n}\n.tab-wrap .tab-list[data-v-55bfffd6] { display:flex;\n}\n.tab-wrap .tab-list .tab-item[data-v-55bfffd6] { padding:13px 28px 11px; font-size:20px; color: #000; cursor:pointer; border-bottom:5px solid transparent; transition: all 0.2s; white-space: nowrap; position:relative; top:3px;\n}\n.tab-wrap .tab-list .tab-item.active[data-v-55bfffd6] { font-weight: 700; border-bottom-color: #2db84b;\n}\r\n\r\n/* 섹션 공통 */\n.tab-section[data-v-55bfffd6] { padding:25px 0;\n}\n.tab-section .section-title[data-v-55bfffd6] { font-size:33px; font-weight:900; color: #4FBA48; margin: 0 0 16px 0;\n}\n.tab-section .section-desc[data-v-55bfffd6] { font-size:17px; color:#000; line-height:1.54; margin:0;\n}\n.tab-section > div[data-v-55bfffd6] { padding:0 44px;\n}\r\n/* 핵심 기술 */\n.section-tech[data-v-55bfffd6] { padding-top:25px;\n}\n.section-tech .tech-wrap[data-v-55bfffd6] { display:grid; grid-template-columns:320px 1fr; gap:24px;\n}\n.section-tech .tech-wrap .tech-left[data-v-55bfffd6] { display:flex; flex-direction:column; justify-content:center;\n}\n.section-tech .tech-wrap .tech-right .tech-item[data-v-55bfffd6] { background:#EBEBEB; border-radius:20px; padding:25px 24px 36px;\n}\n.section-tech .tech-wrap .tech-right > * + *[data-v-55bfffd6] { margin-top: 16px;\n}\n.section-tech .tech-wrap .tech-right .tech-item h4[data-v-55bfffd6] { font-size:22px; font-weight: 700; color:#0F86DA; margin: 0; margin-bottom: 10px;\n}\r\n/* 아코디언 본문 */\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body[data-v-55bfffd6] { overflow:hidden; max-height:4.5em; transition:max-height 0.35s ease; position: relative; display: grid; grid-template-columns: 1fr 100px; gap: 15px;\n}\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body.expanded[data-v-55bfffd6] { max-height: 2000px !important;\n}\r\n/* 기초 카드는 배경 흰색이라 페이드 색상 별도 */\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc[data-v-55bfffd6] { font-size:16px; color: #000; line-height:1.55; margin: 0;\n}\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc[data-v-55bfffd6] h6 { margin-bottom: 3px; font-style: italic;\n}\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .btn-more[data-v-55bfffd6] { font-size: 16px; color: #000; border: 1px solid #888; padding: 2px 9px; position: absolute; right:14px; bottom: 0;\n}\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .btn-more[data-v-55bfffd6]:hover { border-color: #2db84b; color: #2db84b;\n}\r\n\r\n/* 제품 솔루션 */\n.section-product[data-v-55bfffd6] { background: linear-gradient(to right, #004B82, #1A1663); padding:45px 40px 50px;\n}\n.section-product .product-header .product-title[data-v-55bfffd6] { font-size:32px; font-weight:900; color: #fff; margin: 0 0 10px 0;\n}\n.section-product .product-header .product-desc[data-v-55bfffd6] { font-size:16px; color:#fff; margin: 0 0 28px 0;\n}\n.section-product .product-grid[data-v-55bfffd6] { display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px;\n}\n.section-product .product-grid .product-card[data-v-55bfffd6] { background:#FFF; border-radius:28px; aspect-ratio: 3 / 4; overflow: hidden; position: relative;\n}\n.section-product .product-grid .product-card img[data-v-55bfffd6] { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; display: block;\n}\n.section-product .product-grid .product-card-label[data-v-55bfffd6] { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px; background: rgba(0,0,0,0.5); color: #fff; font-size: 13px; font-weight: 600;\n}\r\n\r\n/* 주요 프로젝트 */\n.section-project .project-wrap[data-v-55bfffd6] { display: grid; grid-template-columns: 1fr 444px; gap: 48px; align-items: start;\n}\n.section-project .project-wrap .project-left h6[data-v-55bfffd6] { margin-bottom:3px; font-style:italic; color:#000; font-size:18px; font-weight:700;\n}\n.section-project .project-wrap .project-left .project-body[data-v-55bfffd6] { max-height:12.4em; overflow:hidden;\n}\n.section-project .project-wrap .project-left .project-body.expanded[data-v-55bfffd6] { max-height: 2000px !important;\n}\n.section-project .project-wrap .project-left .project-body .project-desc[data-v-55bfffd6] { color: #000; line-height: 1.8; margin: 0 0 24px 0;\n}\n.section-project .project-wrap .project-left .btn-more[data-v-55bfffd6] { font-size:16px; color:#000; background: none; border: 1px solid #ccc; padding:2px 9px;\n}\n.section-project .project-wrap .project-left .btn-more[data-v-55bfffd6]:hover { border-color: #2db84b; color: #2db84b;\n}\n.section-project .project-wrap .project-right[data-v-55bfffd6] { padding-top: 58px;\n}\n.section-project .project-wrap .project-right .project-img[data-v-55bfffd6] { width: 100%; height: auto; display: block; border-radius: 6px; border: 1px solid #e0e0e0;\n}\r\n\r\n/* 기초 */\n.section-basic[data-v-55bfffd6] { background:#EBEBEB;\n}\n.section-basic .basic-grid[data-v-55bfffd6] { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 24px; align-items: start;\n}\n.section-basic .basic-card[data-v-55bfffd6] { border: 1px solid #e0e0e0; border-radius: 6px; padding: 24px; min-width: 0;\n}\n.section-basic .basic-card-title[data-v-55bfffd6] { font-size: 16px; font-weight: 700; color: #1a9e36; margin: 0 0 12px 0; padding-bottom: 12px; border-bottom: 2px solid #2db84b; display: inline-block;\n}\n.section-basic .basic-card-desc[data-v-55bfffd6] { font-size: 13px; color: #555; line-height: 1.8; margin: 0 0 20px 0;\n}\n.not-found[data-v-55bfffd6] { padding: 80px 0; text-align: center; color: #999; font-size: 15px;\n}\n@media (max-width: 900px) {\n.application-show[data-v-55bfffd6] { padding:32px 20px;\n}\n.tab-wrap[data-v-55bfffd6] { padding:0; overflow:hidden;\n}\n.tech-wrap[data-v-55bfffd6],\r\n    .project-wrap[data-v-55bfffd6] { grid-template-columns: 1fr;\n}\n.product-grid[data-v-55bfffd6] { grid-template-columns: repeat(2, 1fr);\n}\n.basic-grid[data-v-55bfffd6] { grid-template-columns: 1fr;\n}\n.section-product[data-v-55bfffd6] { padding: 28px 20px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

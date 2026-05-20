@@ -1,58 +1,48 @@
 <template>
-    <section class="science-application-detail">
+    <div v-if="current" class="content-wrap">
 
-        <div class="section-header">
-            <h2 class="title-top">Science</h2>
-            <h2 class="title-bottom"><span>A</span>pplication</h2>
-            <div class="header-line"></div>
+        <!-- 좌: 분야 제목 + 설명 + 이미지 -->
+        <div class="col-left">
+            <h3 class="field-title">{{ current.title }}</h3>
+            <p class="field-desc" v-html="current.desc"></p>
+            <div class="field-img-wrap">
+                <img :src="current.image" :alt="current.title" class="field-img" />
+            </div>
         </div>
 
-        <div v-if="current" class="content-wrap">
+        <!-- 중: 카테고리 메뉴 -->
+        <div class="col-mid">
+            <ul class="category-list">
+                <li
+                    v-for="(cat, idx) in current.categories"
+                    :key="idx"
+                    class="category-item"
+                    :class="{ active: selectedIdx === idx }"
+                    @mouseenter="hoverCat(cat, idx)"
+                    @click="goToShow(cat)"
+                >
+                    <span>{{ cat.name }}</span>
+                    <span class="arrow">▶</span>
+                </li>
+            </ul>
+        </div>
 
-            <!-- 좌: 분야 제목 + 설명 + 이미지 -->
-            <div class="col-left">
-                <h3 class="field-title">{{ current.title }}</h3>
-                <p class="field-desc" v-html="current.desc"></p>
-                <div class="field-img-wrap">
-                    <img :src="current.image" :alt="current.title" class="field-img" />
+        <!-- 우: 호버된 카테고리 이미지 + 설명 (list.js categories에서 바로) -->
+        <div class="col-right">
+            <template v-if="hoveredCat">
+                <div class="cat-img-wrap">
+                    <img :src="hoveredCat.image" :alt="hoveredCat.name" class="cat-img" />
                 </div>
-            </div>
-
-            <!-- 중: 카테고리 메뉴 -->
-            <div class="col-mid">
-                <ul class="category-list">
-                    <li
-                        v-for="(cat, idx) in current.categories"
-                        :key="idx"
-                        class="category-item"
-                        :class="{ active: selectedIdx === idx }"
-                        @mouseenter="hoverCat(cat, idx)"
-                        @click="goToShow(cat)"
-                    >
-                        <span>{{ cat.name }}</span>
-                        <span v-if="selectedIdx === idx" class="arrow">▶</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- 우: 호버된 카테고리 이미지 + 설명 (list.js categories에서 바로) -->
-            <div class="col-right">
-                <template v-if="hoveredCat">
-                    <div class="cat-img-wrap">
-                        <img :src="hoveredCat.image" :alt="hoveredCat.name" class="cat-img" />
-                    </div>
-                    <p class="cat-desc" v-html="hoveredCat.desc"></p>
-                </template>
-                <div v-else class="guide-text">메뉴를 선택하세요</div>
-            </div>
-
+                <p class="cat-desc" v-html="hoveredCat.desc"></p>
+            </template>
+            <div v-else class="guide-text">메뉴를 선택하세요</div>
         </div>
 
-        <div v-else-if="loadError" class="not-found">
-            해당 페이지를 찾을 수 없습니다.
-        </div>
+    </div>
 
-    </section>
+    <div v-else-if="loadError" class="not-found">
+        해당 페이지를 찾을 수 없습니다.
+    </div>
 </template>
 
 <script>
@@ -61,7 +51,7 @@ export default {
 
     data() {
         return {
-            selectedIdx: null,
+            selectedIdx: 0,
             current: null,
             hoveredCat: null,
             loadError: false,
@@ -89,7 +79,11 @@ export default {
                     /* webpackChunkName: "application" */
                     `./${menu}/list.js`
                 );
-                this.current = mod.fields;                
+                this.current = mod.fields;
+                // 첫 번째 카테고리 자동 선택
+                if (this.current.categories?.length) {
+                    this.hoverCat(this.current.categories[0], 0);
+                }
             } catch (e) {
                 console.error('List.vue loadList 오류:', e);
                 console.error('menu:', menu);
@@ -111,146 +105,25 @@ export default {
 </script>
 
 <style scoped>
-/* List.vue */
-.science-application-detail {
-    padding: 48px 40px;
-    max-width: 1500px;
-    margin: 0 auto;
-    font-family: 'Noto Sans KR', sans-serif;
-}
-
-.section-header {
-    margin-bottom: 32px;
-}
-
-.title-top { font-size: 28px; font-weight: 300; color: #0F86DA; margin: 0; line-height: 1.2; }
-.title-bottom { font-size: 28px; font-weight: 700; color: #0F86DA; margin: 0 0 12px 0; line-height: 1.2; }
-.title-bottom span { color:#51B94A; }
-.header-line { width: 100%; height: 1px; background: #ddd; }
-.content-wrap {
-    display: grid;
-    grid-template-columns: 260px 1fr 320px;
-    gap: 0;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    min-height: 500px;
-}
-
-.col-left {
-    padding: 32px 24px 32px 0;
-    border-right: 1px solid #ddd;
-}
-
-.field-title {
-    font-size: 36px;
-    font-weight: 900;
-    color: #222;
-    margin: 0 0 16px 0;
-    letter-spacing: -0.02em;
-}
-
-.field-desc {
-    font-size: 13px;
-    color: #555;
-    line-height: 1.8;
-    margin: 0 0 24px 0;
-}
-
-.field-img-wrap {
-    width: 100%;
-    max-width: 240px;
-}
-
-.field-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 2px;
-}
-
-.col-mid {
-    border-right: 1px solid #ddd;
-}
-
-.category-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.category-item {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
-    padding: 14px 20px;
-    font-size: 14px;
-    color: #333;
-    cursor: pointer;
-    border-bottom: 1px solid #f0f0f0;
-    transition: background 0.15s;
-    text-align: right;
-}
-
-.category-item:hover {
-    background: #f7fdf8;
-}
-
-.category-item.active {
-    background: #e8f5eb;
-    font-weight: 700;
-    color: #1a9e36;
-}
-
-.arrow {
-    color: #2db84b;
-    font-size: 11px;
-    flex-shrink: 0;
-}
-
-.col-right {
-    padding: 32px 0 32px 28px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.guide-text {
-    color: #bbb;
-    font-size: 14px;
-    margin: auto;
-}
-
-.cat-img-wrap {
-    width: 100%;
-    margin-bottom: 20px;
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
-    overflow: hidden;
-}
-
-.cat-img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-.cat-desc {
-    font-size: 13px;
-    color: #444;
-    line-height: 1.9;
-    text-align: center;
-    margin: 0;
-}
-
-.not-found {
-    padding: 80px 0;
-    text-align: center;
-    color: #999;
-    font-size: 15px;
-}
-
+.content-wrap { display: grid; grid-template-columns:410px 1fr 540px; gap: 0; border-top: 1px solid #959595; min-height: 500px; }
+.col-left { padding:30px 24px 32px 0; border-right: 1px solid #959595; }
+.field-title { font-size:62px; font-weight:900; color:#000; margin:0 0 8px 0; }
+.field-desc { font-size: 16.5px; font-weight:bold; color: #000; line-height: 1.65; margin: 0 0 20px 0; }
+.field-img-wrap { width: 100%; max-width:300px; }
+.field-img { width: 100%; height: auto; display: block; border-radius: 2px; }
+.content-wrap .col-mid { border-right: 1px solid #ddd; }
+.content-wrap .col-mid .category-list { padding:26px 0; }
+.content-wrap .col-mid .category-list .category-item { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding:16px 20px; font-size:18px; color: #000; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: background 0.15s; text-align: right; }
+.content-wrap .col-mid .category-list .category-item:hover { background: #f7fdf8; }
+.content-wrap .col-mid .category-list .category-item.active { background: #e8f5eb; font-weight:900; font-size:20px; }
+.content-wrap .col-mid .category-list .category-item .arrow { color:#FFF; font-size:20px; flex-shrink: 0; margin:0 4px 0 9px;  }
+.content-wrap .col-mid .category-list .category-item.active .arrow { color:#2db84b; }
+.col-right { padding:38px 0 32px 88px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
+.guide-text { color: #bbb; font-size: 14px; margin: auto; }
+.cat-img-wrap { width: 100%; margin-bottom:19px; border: 1px solid #e0e0e0; border-radius: 2px; overflow: hidden; }
+.cat-img { width: 100%; height: auto; display: block; }
+.cat-desc { font-size:17px; font-weight:bold; color: #000; line-height:1.7; text-align:right; }
+.not-found { padding: 80px 0; text-align: center; color: #999; font-size: 15px; }
 @media (max-width: 900px) {
     .content-wrap {
         grid-template-columns: 1fr;

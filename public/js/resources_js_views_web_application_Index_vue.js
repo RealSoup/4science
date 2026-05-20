@@ -18,13 +18,13 @@ __webpack_require__.r(__webpack_exports__);
       // [수정] 실제 이미지 경로와 링크로 교체하세요
       items: [{
         label: 'Menlo Systems',
-        image: '/img/application/optics.jpg',
+        image: '/storage/application/menlo/main.webp',
         // 실제 이미지 경로
         active: true,
         link: '/application/menlo'
       }, {
         label: '이화학기기',
-        image: '/img/application/chemistry.jpg',
+        image: '/storage/application/chemistry/main.jpg',
         // 실제 이미지 경로
         active: true,
         link: '/application/chemistry'
@@ -75,9 +75,7 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("section", {
-    staticClass: "science-application"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  return _c("div", {
     staticClass: "card-grid"
   }, _vm._l(_vm.items, function (item, index) {
     return _c("div", {
@@ -101,26 +99,17 @@ var render = function render() {
       }
     }), _vm._v(" "), _c("div", {
       staticClass: "card-label-overlay"
-    }, [_c("span", [_vm._v(_vm._s(item.label))])])] : [_c("div", {
-      staticClass: "coming-soon-bg"
+    }, [_c("span", [_vm._v(_vm._s(item.label))])])] : [_c("img", {
+      attrs: {
+        src: "/storage/application/comming soon.jpg",
+        alt: "comming soon"
+      }
     }), _vm._v(" "), _c("span", {
       staticClass: "coming-soon-text"
     }, [_vm._v("coming soon")])]], 2);
-  }), 0)]);
+  }), 0);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "section-header"
-  }, [_c("h2", {
-    staticClass: "title-top"
-  }, [_vm._v("Science")]), _vm._v(" "), _c("h2", {
-    staticClass: "title-bottom"
-  }, [_c("span", [_vm._v("A")]), _vm._v("pplication")]), _vm._v(" "), _c("div", {
-    staticClass: "header-line"
-  })]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -142,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.science-application[data-v-b39dfc6e] {\r\n    padding: 48px 40px;\r\n    max-width: 1500px;\r\n    margin: 0 auto;\r\n    font-family: 'Noto Sans KR', sans-serif;\n}\r\n\r\n/* 헤더 */\n.section-header[data-v-b39dfc6e] {\r\n    margin-bottom: 32px;\n}\n.title-top[data-v-b39dfc6e] { font-size: 28px; font-weight: 300; color: #0F86DA; margin: 0; line-height: 1.2;\n}\n.title-bottom[data-v-b39dfc6e] { font-size: 28px; font-weight: 700; color: #0F86DA; margin: 0 0 12px 0; line-height: 1.2;\n}\n.title-bottom span[data-v-b39dfc6e] { color:#51B94A;\n}\n.header-line[data-v-b39dfc6e] {\r\n    width: 100%;\r\n    height: 1px;\r\n    background: #ddd;\n}\r\n\r\n/* 그리드 */\n.card-grid[data-v-b39dfc6e] {\r\n    display: grid;\r\n    grid-template-columns: repeat(3, 1fr);\r\n    gap: 16px;\r\n    margin-top: 24px;\n}\r\n\r\n/* 카드 공통 */\n.card[data-v-b39dfc6e] {\r\n    position: relative;\r\n    aspect-ratio: 4 / 3;\r\n    overflow: hidden;\r\n    border-radius: 2px;\r\n    background: #ccc;\n}\r\n\r\n/* 이미지형 카드 */\n.card.has-image[data-v-b39dfc6e] {\r\n    border: 1px solid #e0e0e0;\n}\n.card-img[data-v-b39dfc6e] {\r\n    width: 100%;\r\n    height: 100%;\r\n    -o-object-fit: cover;\r\n       object-fit: cover;\r\n    display: block;\r\n    transition: transform 0.35s ease;\n}\n.card.has-image:hover .card-img[data-v-b39dfc6e] {\r\n    transform: scale(1.04);\n}\n.card-label-overlay[data-v-b39dfc6e] {\r\n    position: absolute;\r\n    inset: 0;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    background: rgba(0, 0, 0, 0.28);\r\n    transition: background 0.3s;\n}\n.card.has-image:hover .card-label-overlay[data-v-b39dfc6e] {\r\n    background: rgba(0, 0, 0, 0.4);\n}\n.card-label-overlay span[data-v-b39dfc6e] {\r\n    color: #fff;\r\n    font-size: 22px;\r\n    font-weight: 700;\r\n    letter-spacing: 0.08em;\r\n    text-shadow: 0 1px 6px rgba(0,0,0,0.5);\n}\r\n\r\n/* Coming Soon 카드 */\n.card.coming-soon[data-v-b39dfc6e] {\r\n    background: linear-gradient(135deg, #7a8fa6 0%, #a0b2c4 50%, #8fa3b8 100%);\r\n    border: none;\n}\n.coming-soon-bg[data-v-b39dfc6e] {\r\n    position: absolute;\r\n    inset: 0;\r\n    /* 이미지에서 보이는 미묘한 대각선 패턴 */\r\n    background: repeating-linear-gradient(\r\n        135deg,\r\n        rgba(255,255,255,0.04) 0px,\r\n        rgba(255,255,255,0.04) 1px,\r\n        transparent 1px,\r\n        transparent 20px\r\n    );\n}\n.coming-soon-text[data-v-b39dfc6e] {\r\n    position: absolute;\r\n    inset: 0;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    color: rgba(255, 255, 255, 0.85);\r\n    font-size: 15px;\r\n    font-weight: 500;\r\n    letter-spacing: 0.05em;\n}\r\n\r\n/* 반응형 */\n@media (max-width: 768px) {\n.card-grid[data-v-b39dfc6e] {\r\n        grid-template-columns: repeat(2, 1fr);\n}\n.science-application[data-v-b39dfc6e] {\r\n        padding: 32px 20px;\n}\n}\n@media (max-width: 480px) {\n.card-grid[data-v-b39dfc6e] {\r\n        grid-template-columns: 1fr 1fr;\r\n        gap: 10px;\n}\n.card-label-overlay span[data-v-b39dfc6e] {\r\n        font-size: 16px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card-grid[data-v-b39dfc6e] { display: grid; grid-template-columns: repeat(3, 1fr); gap:65px 114px; border-top:1px solid #959595; padding:40px 60px;\n}\n.card[data-v-b39dfc6e] { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 2px; background: #ccc;\n}\n.card.has-image[data-v-b39dfc6e] { border: 1px solid #e0e0e0;\n}\n.card-img[data-v-b39dfc6e] { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; display: block; transition: transform 0.35s ease;\n}\n.card.has-image:hover .card-img[data-v-b39dfc6e] { transform: scale(1.04);\n}\n.card-label-overlay[data-v-b39dfc6e] { border:1px solid #000; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; transition: background 0.3s;\n}\n.card.has-image:hover .card-label-overlay[data-v-b39dfc6e] { background: rgba(0, 0, 0, 0.4);\n}\n.card-label-overlay span[data-v-b39dfc6e] { color: #fff; font-size: 22px; font-weight: 700; letter-spacing: 0.08em; text-shadow: 0 1px 6px rgba(0,0,0,0.5);\n}\n.card.coming-soon[data-v-b39dfc6e] { border: none;\n}\n.coming-soon-text[data-v-b39dfc6e] { position:absolute; inset: 0; display:flex; align-items:center; justify-content:center; color:#FFF; font-size:28px; font-weight:900;\n}\r\n\r\n/* 반응형 */\n@media (max-width: 768px) {\n.card-grid[data-v-b39dfc6e] { grid-template-columns: repeat(2, 1fr);\n}\n.science-application[data-v-b39dfc6e] { padding: 32px 20px;\n}\n}\n@media (max-width: 480px) {\n.card-grid[data-v-b39dfc6e] { grid-template-columns: 1fr 1fr; gap: 10px;\n}\n.card-label-overlay span[data-v-b39dfc6e] { font-size: 16px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

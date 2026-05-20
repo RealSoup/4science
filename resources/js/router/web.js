@@ -339,18 +339,25 @@ export default [
         ],
     },
 //      어플리케이션
-    {   path: '/application',
-        name: 'application',
-        component:() => import('@/views/web/application/Index'),
-    }, {
-        path: '/application/:menu',
-        name: 'application_list',
-        component:() => import('@/views/web/application/List'),
-    }, {
-        path: '/application/:menu/:con',
-        name: 'application_con',
-        component:() => import('@/views/web/application/Show'),
+    {
+        path: '/application',
+        component: () => import('@/views/web/application/ApplicationLayout'),
+        children: [
+            {   path: '',
+                name: 'application',
+                component:() => import('@/views/web/application/Index'),
+            }, {
+                path: ':menu',
+                name: 'application_list',
+                component:() => import('@/views/web/application/List'),
+            }, {
+                path: ':menu/:con',
+                name: 'application_con',
+                component:() => import('@/views/web/application/Show'),
+            },
+        ]
     },
+    
 //      이벤트 페이지
     {   path: '/mypage',
         // name: 'mypage',
