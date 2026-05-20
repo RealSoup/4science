@@ -171,7 +171,7 @@ Route::get('/localization', function () {
 
 
 Route::get('/tmp-check', function() {
-    $od = \App\Models\shop\Order::with('user')->with('orderCoupon')
+    $od = \App\Models\Shop\Order::with('user')->with('orderCoupon')
         ->select('shop_order.od_id', 'shop_order.od_proc_mileage', 'shop_order.created_id', 'shop_order_model.odm_id', 'shop_order_model.odm_ea', 'shop_order_model.odm_price', 'shop_order_dlvy_info.oddi_id')
         ->join('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
         ->join('shop_order_dlvy_info', 'shop_order_model.odm_id', '=', 'shop_order_dlvy_info.oddi_odm_id')
