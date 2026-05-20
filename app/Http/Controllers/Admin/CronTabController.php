@@ -30,7 +30,7 @@ class CronTabController extends Controller {
 			->get();
 
 		foreach( $od as $v ){
-			if(intval($v->user->level) < 6 || auth()->user()->level > 20 ) {	//	딜러회원은 제외
+			if($v->user && (intval($v->user->level) < 6 || intval($v->user->level) > 20)) {	//	딜러회원은 제외
 				$p = $v->odm_price*$v->odm_ea*$v->user->mileage_mul;
 				$content='수취확인(자동)';
 				if($v->orderCoupon && count($v->orderCoupon)) {
