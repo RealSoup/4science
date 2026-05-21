@@ -3,7 +3,7 @@
 
         <!-- 좌: 분야 제목 + 설명 + 이미지 -->
         <div class="col-left">
-            <h3 class="field-title">{{ current.title }}</h3>
+            <h3 class="field-title">{{ current.name }}</h3>
             <p class="field-desc" v-html="current.desc"></p>
             <div class="field-img-wrap">
                 <img :src="current.image" :alt="current.title" class="field-img" />
@@ -13,13 +13,9 @@
         <!-- 중: 카테고리 메뉴 -->
         <div class="col-mid">
             <ul class="category-list">
-                <li
-                    v-for="(cat, idx) in current.categories"
-                    :key="idx"
-                    class="category-item"
-                    :class="{ active: selectedIdx === idx }"
-                    @mouseenter="hoverCat(cat, idx)"
-                    @click="goToShow(cat)"
+                <li v-for="(cat, key) in current.bundles" :key="key"
+                    class="category-item" :class="{ active: selectedIdx === key }"
+                    @mouseenter="hoverCat({ key, ...cat }, key)" @click="goToShow({ key, ...cat })"
                 >
                     <span>{{ cat.name }}</span>
                     <span class="arrow">▶</span>
@@ -27,7 +23,7 @@
             </ul>
         </div>
 
-        <!-- 우: 호버된 카테고리 이미지 + 설명 (list.js categories에서 바로) -->
+        <!-- 우: 호버된 카테고리 이미지 + 설명 (list.js bundles에서 바로) -->
         <div class="col-right">
             <template v-if="hoveredCat">
                 <div class="cat-img-wrap">
@@ -59,46 +55,48 @@ export default {
     },
 
     watch: {
-        '$route.params.menu': {
+        '$route.params.part': {
             immediate: true,
-            handler(menu) {
-                this.loadList(menu);
+            handler(part) {
+                this.loadList(part);
             },
         },
     },
 
     methods: {
-        async loadList(menu) {
+        async loadList(part) {
             this.current = null;
             this.hoveredCat = null;
             this.selectedIdx = null;
             this.loadError = false;
             try {
                 const mod = await import(
-                    /* webpackInclude: /list\.js$/ */
+                    /* webpackInclude: /part_info\.js$/ */
                     /* webpackChunkName: "application" */
-                    `./${menu}/list.js`
+                    `./${part}/part_info.js`
                 );
-                this.current = mod.fields;
+                this.current = mod.info;
+                
                 // 첫 번째 카테고리 자동 선택
-                if (this.current.categories?.length) {
-                    this.hoverCat(this.current.categories[0], 0);
+                const firstKey = Object.keys(this.current.bundles)[0];
+                if (firstKey) {
+                    this.hoverCat({ key: firstKey, ...this.current.bundles[firstKey] }, firstKey);
                 }
             } catch (e) {
                 console.error('List.vue loadList 오류:', e);
-                console.error('menu:', menu);
+                console.error('part:', part);
                 this.loadError = true;
             }
         },
 
-        hoverCat(cat, idx) {
-            this.selectedIdx = idx;
-            this.hoveredCat = cat;  // list.js categories 데이터 그대로 사용
+        hoverCat(cat, key) {
+            this.selectedIdx = key;
+            this.hoveredCat = cat;
         },
 
         goToShow(cat) {
-            const { menu } = this.$route.params;
-            this.$router.push(`/application/${menu}/${cat.key}`);
+            const { part } = this.$route.params;
+            this.$router.push(`/application/${part}/${cat.key}`);
         },
     },
 };

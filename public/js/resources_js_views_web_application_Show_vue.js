@@ -19,23 +19,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   name: 'ApplicationShow',
   data: function data() {
     return {
-      activeTab: 0,
-      activeSubTab: 0,
+      activeTab: 'tech',
       pageData: null,
       loadError: false,
       observer: null,
       expandedItems: {},
-      // { '섹션idx_아이템idx': true/false }
-      isSticky: false
+      isSticky: false,
+      tabOrder: ['tech', 'product', 'project', 'basic'],
+      tabLabels: {
+        tech: '핵심 기술',
+        product: '제품 솔루션',
+        project: '주요 프로젝트',
+        basic: '기초'
+      }
     };
   },
   watch: {
     '$route.params': {
       immediate: true,
       handler: function handler(_ref) {
-        var menu = _ref.menu,
-          con = _ref.con;
-        this.loadData(menu, con);
+        var part = _ref.part,
+          bundle = _ref.bundle;
+        this.loadData(part, bundle);
       }
     }
   },
@@ -47,7 +52,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     window.removeEventListener('scroll', this.onScroll);
   },
   methods: {
-    loadData: function loadData(menu, con) {
+    loadData: function loadData(part, bundle) {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var mod;
@@ -56,39 +61,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _this.pageData = null;
               _this.loadError = false;
-              _this.activeTab = 0;
-              _this.activeSubTab = 0;
+              _this.activeTab = 'tech';
               _this.expandedItems = {};
-              _context.prev = 5;
-              _context.next = 8;
-              return __webpack_require__("./resources/js/views/web/application lazy recursive ^\\.\\/.*\\.js$ include: con_.*\\.js$")("./".concat(menu, "/con_").concat(con, ".js"));
-            case 8:
+              if (!(!part || !bundle)) {
+                _context.next = 6;
+                break;
+              }
+              return _context.abrupt("return");
+            case 6:
+              _context.prev = 6;
+              _context.next = 9;
+              return __webpack_require__("./resources/js/views/web/application lazy recursive ^\\.\\/.*\\.js$ include: bundle_.*\\.js$")("./".concat(part, "/bundle_").concat(bundle, ".js"));
+            case 9:
               mod = _context.sent;
-              _this.pageData = mod["default"];
+              _this.pageData = mod.info;
               _this.$nextTick(function () {
                 return _this.initObserver();
               });
-              _context.next = 18;
+              _context.next = 19;
               break;
-            case 13:
-              _context.prev = 13;
-              _context.t0 = _context["catch"](5);
+            case 14:
+              _context.prev = 14;
+              _context.t0 = _context["catch"](6);
               console.error('Show.vue loadData 오류:', _context.t0);
-              console.error('menu:', menu, 'con:', con);
+              console.error('part:', part, 'bundle:', bundle);
               _this.loadError = true;
-            case 18:
+            case 19:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[5, 13]]);
+        }, _callee, null, [[6, 14]]);
       }))();
     },
-    toggleItem: function toggleItem(sectionIdx, itemIdx) {
-      var key = "".concat(sectionIdx, "_").concat(itemIdx);
+    toggleItem: function toggleItem(tabKey, itemIdx) {
+      var key = "".concat(tabKey, "_").concat(itemIdx);
       this.$set(this.expandedItems, key, !this.expandedItems[key]);
     },
-    scrollToSection: function scrollToSection(idx) {
-      var ref = this.$refs["section_".concat(idx)];
+    scrollToSection: function scrollToSection(key) {
+      var ref = this.$refs["section_".concat(key)];
       var el = Array.isArray(ref) ? ref[0] : ref;
       if (!el) return;
       var tabHeight = 126 + 48;
@@ -104,18 +114,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            var idx = parseInt(entry.target.dataset.idx);
-            _this2.activeTab = idx;
+            _this2.activeTab = entry.target.dataset.key;
           }
         });
       }, {
         rootMargin: '-30% 0px -60% 0px'
       });
-      this.pageData.tabs.forEach(function (_, idx) {
-        var ref = _this2.$refs["section_".concat(idx)];
+      this.tabOrder.forEach(function (key) {
+        if (!_this2.pageData.tabs[key]) return;
+        var ref = _this2.$refs["section_".concat(key)];
         var el = Array.isArray(ref) ? ref[0] : ref;
         if (el) {
-          el.dataset.idx = idx;
+          el.dataset.key = key;
           _this2.observer.observe(el);
         }
       });
@@ -124,7 +134,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var tabEl = this.$el.querySelector('.tab-wrap');
       if (!tabEl) return;
       var rect = tabEl.getBoundingClientRect();
-      this.isSticky = rect.top <= 126; // sticky top 값과 동일하게
+      this.isSticky = rect.top <= 126;
     }
   }
 });
@@ -169,76 +179,86 @@ var render = function render() {
     }
   }, [_c("ul", {
     staticClass: "tab-list"
-  }, _vm._l(_vm.pageData.tabs, function (tab, idx) {
+  }, _vm._l(_vm.tabOrder, function (key) {
     return _c("li", {
-      key: idx,
+      key: key,
       staticClass: "tab-item",
       "class": {
-        active: _vm.activeTab === idx
+        active: _vm.activeTab === key
       },
       on: {
         click: function click($event) {
-          return _vm.scrollToSection(idx);
+          return _vm.scrollToSection(key);
         }
       }
-    }, [_vm._v("\n                " + _vm._s(tab.label) + "\n            ")]);
-  }), 0)]), _vm._v(" "), _vm._l(_vm.pageData.tabs, function (tab, idx) {
+    }, [_vm._v("\n                " + _vm._s(_vm.tabLabels[key]) + "\n            ")]);
+  }), 0)]), _vm._v(" "), _vm._l(_vm.tabOrder, function (key) {
     return _c("div", {
-      key: idx,
-      ref: "section_".concat(idx),
+      key: key,
+      ref: "section_".concat(key),
       refInFor: true,
       staticClass: "tab-section"
-    }, [tab.type === "tech" ? _c("div", {
+    }, [_vm.pageData.tabs[key] ? [key === "tech" ? _c("div", {
       staticClass: "section-tech"
-    }, [_c("div", {
-      staticClass: "tech-wrap"
-    }, [_c("div", {
-      staticClass: "tech-left"
-    }, [_c("h3", {
-      staticClass: "section-title"
-    }, [_vm._v(_vm._s(tab.title))]), _vm._v(" "), _c("p", {
-      staticClass: "section-desc",
-      domProps: {
-        innerHTML: _vm._s(tab.desc)
-      }
-    })]), _vm._v(" "), _c("div", {
-      staticClass: "tech-right"
-    }, _vm._l(tab.items, function (item, i) {
+    }, _vm._l(_vm.pageData.tabs.tech, function (item, i) {
       return _c("div", {
         key: i,
-        staticClass: "tech-item"
-      }, [_c("h4", [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c("div", {
-        staticClass: "tech-item-body",
+        staticClass: "tech-wrap",
         "class": {
-          expanded: _vm.expandedItems["".concat(idx, "_").concat(i)]
+          no_1st: i != 0
         }
-      }, [_c("p", {
-        staticClass: "tech-item-desc",
+      }, [_c("div", {
+        staticClass: "tech-left"
+      }, [_c("h3", {
+        staticClass: "section-title"
+      }, [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c("p", {
+        staticClass: "section-desc",
         domProps: {
           innerHTML: _vm._s(item.desc)
         }
-      }), _vm._v(" "), _c("button", {
-        staticClass: "btn-more",
-        on: {
-          click: function click($event) {
-            return _vm.toggleItem(idx, i);
+      })]), _vm._v(" "), _c("div", {
+        staticClass: "tech-right"
+      }, _vm._l(item.items, function (item, i) {
+        return _c("div", {
+          key: i,
+          staticClass: "tech-item"
+        }, [_c("h4", {
+          domProps: {
+            innerHTML: _vm._s(item.title)
           }
-        }
-      }, [_vm._v("\n                                " + _vm._s(_vm.expandedItems["".concat(idx, "_").concat(i)] ? "접기" : "더 보기") + "\n                            ")])])]);
-    }), 0)])]) : tab.type === "product" ? _c("div", {
+        }), _vm._v(" "), _c("div", {
+          staticClass: "tech-item-body",
+          "class": {
+            expanded: _vm.expandedItems["tech_".concat(i)]
+          }
+        }, [_c("p", {
+          staticClass: "tech-item-desc",
+          domProps: {
+            innerHTML: _vm._s(item.desc)
+          }
+        }), _vm._v(" "), _c("button", {
+          staticClass: "btn-more",
+          on: {
+            click: function click($event) {
+              return _vm.toggleItem("tech", i);
+            }
+          }
+        }, [_vm._v("\n                                    " + _vm._s(_vm.expandedItems["tech_".concat(i)] ? "접기" : "더 보기") + "\n                                ")])])]);
+      }), 0)]);
+    }), 0) : key === "product" ? _c("div", {
       staticClass: "section-product"
     }, [_c("div", {
       staticClass: "product-header"
     }, [_c("h3", {
       staticClass: "product-title"
-    }, [_vm._v(_vm._s(tab.title))]), _vm._v(" "), _c("p", {
+    }, [_vm._v(_vm._s(_vm.pageData.tabs.product.title))]), _vm._v(" "), _c("p", {
       staticClass: "product-desc",
       domProps: {
-        innerHTML: _vm._s(tab.desc)
+        innerHTML: _vm._s(_vm.pageData.tabs.product.desc)
       }
     })]), _vm._v(" "), _c("div", {
       staticClass: "product-grid"
-    }, _vm._l(tab.items, function (item, i) {
+    }, _vm._l(_vm.pageData.tabs.product.items, function (item, i) {
       return _c("div", {
         key: i,
         staticClass: "product-card"
@@ -250,7 +270,7 @@ var render = function render() {
       }) : _vm._e(), _vm._v(" "), _c("div", {
         staticClass: "product-card-label"
       }, [_vm._v(_vm._s(item.title))])]);
-    }), 0)]) : tab.type === "project" ? _c("div", {
+    }), 0)]) : key === "project" ? _c("div", {
       staticClass: "section-project"
     }, [_c("div", {
       staticClass: "project-wrap"
@@ -258,38 +278,42 @@ var render = function render() {
       staticClass: "project-left"
     }, [_c("h3", {
       staticClass: "section-title"
-    }, [_vm._v("주요 프로젝트")]), _vm._v(" "), _c("h6", [_vm._v(_vm._s(tab.title))]), _vm._v(" "), _c("div", {
-      staticClass: "tech-item-body project-body",
+    }, [_vm._v("주요 프로젝트")]), _vm._v(" "), _c("h6", [_vm._v(_vm._s(_vm.pageData.tabs.project.title))]), _vm._v(" "), _c("div", {
+      staticClass: "project-body",
       "class": {
-        expanded: _vm.expandedItems["".concat(idx, "_0")]
+        expanded: _vm.expandedItems["project_0"]
       }
     }, [_c("p", {
       staticClass: "project-desc",
       domProps: {
-        innerHTML: _vm._s(tab.desc)
+        innerHTML: _vm._s(_vm.pageData.tabs.project.desc)
       }
     })]), _vm._v(" "), _c("button", {
       staticClass: "btn-more",
       on: {
         click: function click($event) {
-          return _vm.toggleItem(idx, 0);
+          return _vm.toggleItem("project", 0);
         }
       }
-    }, [_vm._v("\n                        " + _vm._s(_vm.expandedItems["".concat(idx, "_0")] ? "접기" : "더 보기") + "\n                    ")])]), _vm._v(" "), _c("div", {
+    }, [_vm._v("\n                            " + _vm._s(_vm.expandedItems["project_0"] ? "접기" : "더 보기") + "\n                        ")])]), _vm._v(" "), _c("div", {
       staticClass: "project-right"
-    }, [_c("img", {
+    }, [_vm.pageData.tabs.project.image ? _c("img", {
       staticClass: "project-img",
       attrs: {
-        src: tab.image,
-        alt: tab.title
+        src: _vm.pageData.tabs.project.image,
+        alt: _vm.pageData.tabs.project.title
       }
-    })])])]) : tab.type === "basic" ? _c("div", {
+    }) : _vm._e(), _vm._v(" "), _vm.pageData.tabs.project.img_desc ? _c("small", {
+      domProps: {
+        innerHTML: _vm._s(_vm.pageData.tabs.project.img_desc)
+      }
+    }) : _vm._e()])])]) : key === "basic" ? _c("div", {
       staticClass: "section-basic"
     }, [_c("h3", {
       staticClass: "section-title"
-    }, [_vm._v(_vm._s(tab.title))]), _vm._v(" "), _c("div", {
+    }, [_vm._v(_vm._s(_vm.pageData.tabs.basic.title))]), _vm._v(" "), _c("div", {
       staticClass: "basic-grid"
-    }, _vm._l(tab.items, function (item, i) {
+    }, _vm._l(_vm.pageData.tabs.basic.items, function (item, i) {
       return _c("div", {
         key: i,
         staticClass: "basic-card"
@@ -298,7 +322,7 @@ var render = function render() {
       }, [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c("div", {
         staticClass: "basic-body",
         "class": {
-          expanded: _vm.expandedItems["".concat(idx, "_").concat(i)]
+          expanded: _vm.expandedItems["basic_".concat(i)]
         }
       }, [_c("p", {
         staticClass: "basic-card-desc",
@@ -309,11 +333,11 @@ var render = function render() {
         staticClass: "btn-more",
         on: {
           click: function click($event) {
-            return _vm.toggleItem(idx, i);
+            return _vm.toggleItem("basic", i);
           }
         }
-      }, [_vm._v("\n                        " + _vm._s(_vm.expandedItems["".concat(idx, "_").concat(i)] ? "접기" : "더 보기") + "\n                    ")])]);
-    }), 0)]) : _vm._e()]);
+      }, [_vm._v("\n                            " + _vm._s(_vm.expandedItems["basic_".concat(i)] ? "접기" : "더 보기") + "\n                        ")])]);
+    }), 0)]) : _vm._e()] : _vm._e()], 2);
   })], 2) : _vm.loadError ? _c("div", {
     staticClass: "not-found"
   }, [_vm._v("\n    해당 페이지를 찾을 수 없습니다.\n")]) : _vm._e();
@@ -341,7 +365,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.show-wrap[data-v-55bfffd6] { border:1px solid #959595; border-radius:40px 40px 0 0;\n}\r\n/* 히어로 */\n.hero[data-v-55bfffd6] { position:relative; width:100%; height:500px; background-size:cover; background-position:center; border-radius:40px 40px 0 0;\n}\n.hero .hero-overlay[data-v-55bfffd6] { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:24px 36px;\n}\n.hero .hero-overlay .hero-title[data-v-55bfffd6] { font-size:60px; font-weight: 900; color: #fff; margin: 0 0 15px 0;\n}\n.hero .hero-overlay .hero-desc[data-v-55bfffd6] { font-size:18px; color:#fff; line-height:1.4; max-width:1200px;\n}\r\n\r\n/* 탭 sticky */\n.tab-wrap[data-v-55bfffd6] { position:sticky; top:126px; z-index:100; padding:0 40px; border-bottom:1px solid #CCCCCC; background:#FFF;\n}\n.tab-wrap.sticky[data-v-55bfffd6] { box-shadow:0 3px 11px rgba(0,0,0,0.7);\n}\n.tab-wrap .tab-list[data-v-55bfffd6] { display:flex;\n}\n.tab-wrap .tab-list .tab-item[data-v-55bfffd6] { padding:13px 28px 11px; font-size:20px; color: #000; cursor:pointer; border-bottom:5px solid transparent; transition: all 0.2s; white-space: nowrap; position:relative; top:3px;\n}\n.tab-wrap .tab-list .tab-item.active[data-v-55bfffd6] { font-weight: 700; border-bottom-color: #2db84b;\n}\r\n\r\n/* 섹션 공통 */\n.tab-section .section-title[data-v-55bfffd6] { font-size:33px; font-weight:900; color: #4FBA48; margin: 0 0 16px 0;\n}\n.tab-section .section-desc[data-v-55bfffd6] { font-size:17px; color:#000; line-height:1.54; margin:0;\n}\n.tab-section > div[data-v-55bfffd6] { padding:44px;\n}\n.tab-section .btn-more[data-v-55bfffd6] { font-size: 16px; color: #000; border: 1px solid #888; padding: 2px 9px; background:inherit;\n}\n.tab-section .btn-more[data-v-55bfffd6]:hover { border-color: #2db84b; color: #2db84b;\n}\r\n\r\n/* 핵심 기술 */\n.section-tech .tech-wrap[data-v-55bfffd6] { display:grid; grid-template-columns:320px 1fr; gap:24px;\n}\n.section-tech .tech-wrap .tech-left[data-v-55bfffd6] { display:flex; flex-direction:column; justify-content:center;\n}\n.section-tech .tech-wrap .tech-right .tech-item[data-v-55bfffd6] { background:#EBEBEB; border-radius:20px; padding:25px 24px 36px;\n}\n.section-tech .tech-wrap .tech-right > * + *[data-v-55bfffd6] { margin-top: 16px;\n}\n.section-tech .tech-wrap .tech-right .tech-item h4[data-v-55bfffd6] { font-size:22px; font-weight: 700; color:#0F86DA; margin: 0; margin-bottom: 10px;\n}\r\n/* 아코디언 본문 */\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body[data-v-55bfffd6] { overflow:hidden; max-height:4.5em; transition:max-height 0.35s ease; position: relative; display: grid; grid-template-columns: 1fr 100px; gap: 15px;\n}\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body.expanded[data-v-55bfffd6] { max-height: 2000px !important;\n}\r\n/* 기초 카드는 배경 흰색이라 페이드 색상 별도 */\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc[data-v-55bfffd6] { font-size:16px; color: #000; line-height:1.55; margin: 0;\n}\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc[data-v-55bfffd6] h6 { margin-bottom: 3px; font-style: italic;\n}\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .btn-more[data-v-55bfffd6] { position: absolute; right:14px; bottom: 0;\n}\r\n\r\n/* 제품 솔루션 */\n.section-product[data-v-55bfffd6] { background: linear-gradient(to right, #004B82, #1A1663); padding:45px 40px 50px;\n}\n.section-product .product-header .product-title[data-v-55bfffd6] { font-size:32px; font-weight:900; color: #fff; margin: 0 0 10px 0;\n}\n.section-product .product-header .product-desc[data-v-55bfffd6] { font-size:16px; color:#fff; margin: 0 0 28px 0;\n}\n.section-product .product-grid[data-v-55bfffd6] { display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px;\n}\n.section-product .product-grid .product-card[data-v-55bfffd6] { background:#FFF; border-radius:28px; aspect-ratio: 3 / 4; overflow: hidden; position: relative;\n}\n.section-product .product-grid .product-card img[data-v-55bfffd6] { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; display: block;\n}\n.section-product .product-grid .product-card-label[data-v-55bfffd6] { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px; background: rgba(0,0,0,0.5); color: #fff; font-size: 13px; font-weight: 600;\n}\r\n\r\n/* 주요 프로젝트 */\n.section-project .project-wrap[data-v-55bfffd6] { display: grid; grid-template-columns: 1fr 444px; gap: 48px; align-items: start;\n}\n.section-project .project-wrap .project-left h6[data-v-55bfffd6] { margin-bottom:3px; font-style:italic; color:#000; font-size:18px; font-weight:700;\n}\n.section-project .project-wrap .project-left .project-body[data-v-55bfffd6] { max-height:12.4em; overflow:hidden;\n}\n.section-project .project-wrap .project-left .project-body.expanded[data-v-55bfffd6] { max-height: 2000px !important;\n}\n.section-project .project-wrap .project-left .project-body .project-desc[data-v-55bfffd6] { color: #000; line-height: 1.8; margin: 0 0 24px 0;\n}\n.section-project .project-wrap .project-right[data-v-55bfffd6] { padding-top: 58px;\n}\n.section-project .project-wrap .project-right .project-img[data-v-55bfffd6] { width: 100%; height: auto; display: block; border-radius: 6px; border: 1px solid #e0e0e0;\n}\r\n\r\n/* 기초 */\n.section-basic[data-v-55bfffd6] { background:#EBEBEB;\n}\n.section-basic .basic-grid[data-v-55bfffd6] { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 24px; align-items: start;\n}\n.section-basic .basic-card[data-v-55bfffd6] { border:1px solid #e0e0e0; border-radius: 6px; padding: 24px; min-width: 0; background:#FFF;\n}\n.section-basic .basic-card .basic-body[data-v-55bfffd6] { overflow:hidden; max-height:4.5em;\n}\n.section-basic .basic-card .basic-body.expanded[data-v-55bfffd6] { max-height: 2000px !important;\n}\n.section-basic .basic-card .basic-card-title[data-v-55bfffd6] { font-size: 20px; font-weight:700; margin:0 0 12px 0; display:inline-block; background:#0094EA; position:relative; left:-30px; color:#FFF; font-style:italic; padding:8px 28px; border-radius:0 20px 20px 0;\n}\n.section-basic .basic-card .basic-body .basic-card-desc[data-v-55bfffd6] { font-size: 13px; color: #555; line-height: 1.8; margin: 0 0 20px 0;\n}\n.section-basic .basic-card .basic-body .basic-card-desc[data-v-55bfffd6] img { width:100%;\n}\n.not-found[data-v-55bfffd6] { padding: 80px 0; text-align: center; color: #999; font-size: 15px;\n}\n@media (max-width: 900px) {\n.application-show[data-v-55bfffd6] { padding:32px 20px;\n}\n.tab-wrap[data-v-55bfffd6] { padding:0; overflow:hidden;\n}\n.tech-wrap[data-v-55bfffd6],\r\n    .project-wrap[data-v-55bfffd6] { grid-template-columns: 1fr;\n}\n.product-grid[data-v-55bfffd6] { grid-template-columns: repeat(2, 1fr);\n}\n.basic-grid[data-v-55bfffd6] { grid-template-columns: 1fr;\n}\n.section-product[data-v-55bfffd6] { padding: 28px 20px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.show-wrap[data-v-55bfffd6] { border:1px solid #959595; border-radius:40px 40px 0 0;\n}\r\n/* 히어로 */\n.hero[data-v-55bfffd6] { position:relative; width:100%; height:500px; background-size:cover; background-position:center; border-radius:40px 40px 0 0;\n}\n.hero .hero-overlay[data-v-55bfffd6] { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:24px 36px; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);\n}\n.hero .hero-overlay .hero-title[data-v-55bfffd6] { font-size:60px; font-weight: 900; color: #fff; margin: 0 0 15px 0;\n}\n.hero .hero-overlay .hero-desc[data-v-55bfffd6] { font-size:18px; color:#fff; line-height:1.4; max-width:1200px;\n}\r\n\r\n/* 탭 sticky */\n.tab-wrap[data-v-55bfffd6] { position:sticky; top:126px; z-index:100; padding:0 40px; border-bottom:1px solid #CCCCCC; background:#FFF;\n}\n.tab-wrap.sticky[data-v-55bfffd6] { box-shadow:0 3px 11px rgba(0,0,0,0.7);\n}\n.tab-wrap .tab-list[data-v-55bfffd6] { display:flex;\n}\n.tab-wrap .tab-list .tab-item[data-v-55bfffd6] { padding:13px 28px 11px; font-size:20px; color: #000; cursor:pointer; border-bottom:5px solid transparent; transition: all 0.2s; white-space: nowrap; position:relative; top:3px;\n}\n.tab-wrap .tab-list .tab-item.active[data-v-55bfffd6] { font-weight: 700; border-bottom-color: #2db84b;\n}\r\n\r\n/* 섹션 공통 */\n.tab-section .section-title[data-v-55bfffd6] { font-size:33px; font-weight:900; color: #4FBA48; margin: 0 0 16px 0;\n}\n.tab-section .section-desc[data-v-55bfffd6] { font-size:17px; color:#000; line-height:1.54; margin:0;\n}\n.tab-section > div[data-v-55bfffd6] { padding:44px;\n}\n.tab-section .btn-more[data-v-55bfffd6] { font-size: 16px; color: #000; border: 1px solid #888; padding: 2px 9px; background:inherit;\n}\n.tab-section .btn-more[data-v-55bfffd6]:hover { border-color: #2db84b; color: #2db84b;\n}\r\n\r\n/* 핵심 기술 */\n.section-tech .tech-wrap[data-v-55bfffd6] { display:grid; grid-template-columns:320px 1fr; gap:24px;\n}\n.section-tech .tech-wrap.no_1st[data-v-55bfffd6] { border-top:1px solid #959595; margin-top:15px; padding-top:15px;\n}\n.section-tech .tech-wrap .tech-left[data-v-55bfffd6] { display:flex; flex-direction:column; justify-content:center;\n}\n.section-tech .tech-wrap .tech-right .tech-item[data-v-55bfffd6] { background:#EBEBEB; border-radius:20px; padding:25px 24px 36px;\n}\n.section-tech .tech-wrap .tech-right > * + *[data-v-55bfffd6] { margin-top: 16px;\n}\n.section-tech .tech-wrap .tech-right .tech-item h4[data-v-55bfffd6] { font-size:22px; font-weight: 700; color:#0F86DA; margin: 0; margin-bottom: 10px;\n}\r\n/* 아코디언 본문 */\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body[data-v-55bfffd6] { overflow:hidden; max-height:4.5em; transition:max-height 0.35s ease; position: relative; display: grid; grid-template-columns: 1fr 100px; gap: 15px;\n}\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body.expanded[data-v-55bfffd6] { max-height: 2000px !important;\n}\r\n/* 기초 카드는 배경 흰색이라 페이드 색상 별도 */\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc[data-v-55bfffd6] { font-size:16px; color: #000; line-height:1.55; margin: 0;\n}\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc[data-v-55bfffd6] h6 { margin-bottom: 3px; font-style: italic;\n}\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc[data-v-55bfffd6] ul { list-style: disc; padding:10px 26px;\n}\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc[data-v-55bfffd6] ul li { list-style: disc; padding: 4px 0;\n}\n.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .btn-more[data-v-55bfffd6] { position: absolute; right:14px; bottom: 0;\n}\r\n\r\n/* 제품 솔루션 */\n.section-product[data-v-55bfffd6] { background: linear-gradient(to right, #004B82, #1A1663); padding:45px 40px 50px;\n}\n.section-product .product-header .product-title[data-v-55bfffd6] { font-size:32px; font-weight:900; color: #fff; margin: 0 0 10px 0;\n}\n.section-product .product-header .product-desc[data-v-55bfffd6] { font-size:16px; color:#fff; margin: 0 0 28px 0;\n}\n.section-product .product-grid[data-v-55bfffd6] { display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px;\n}\n.section-product .product-grid .product-card[data-v-55bfffd6] { background:#FFF; border-radius:28px; aspect-ratio: 3 / 4; overflow: hidden; position: relative;\n}\n.section-product .product-grid .product-card img[data-v-55bfffd6] { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; display: block;\n}\n.section-product .product-grid .product-card-label[data-v-55bfffd6] { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px; background: rgba(0,0,0,0.5); color: #fff; font-size: 13px; font-weight: 600;\n}\r\n\r\n/* 주요 프로젝트 */\n.section-project .project-wrap[data-v-55bfffd6] { display: grid; grid-template-columns: 1fr 444px; gap: 48px; align-items: start;\n}\n.section-project .project-wrap .project-left h6[data-v-55bfffd6] { margin-bottom:3px; font-style:italic; color:#000; font-size:18px; font-weight:700;\n}\n.section-project .project-wrap .project-left .project-body[data-v-55bfffd6] { max-height:12.4em; overflow:hidden;\n}\n.section-project .project-wrap .project-left .project-body.expanded[data-v-55bfffd6] { max-height: 2000px !important;\n}\n.section-project .project-wrap .project-left .project-body .project-desc[data-v-55bfffd6] { color: #000; line-height: 1.8; margin: 0 0 24px 0;\n}\n.section-project .project-wrap .project-left .project-body .project-desc[data-v-55bfffd6] h6 { margin-bottom:3px; font-style:italic; color:#000; font-size:18px; font-weight:700;\n}\n.section-project .project-wrap .project-left .project-body .project-desc[data-v-55bfffd6] img { display: block; margin:auto;\n}\n.section-project .project-wrap .project-left .project-body .project-desc[data-v-55bfffd6] small { color:#777; max-width:700px; margin:auto; text-align:center; display:block;\n}\n.section-project .project-wrap .project-right[data-v-55bfffd6] { padding-top: 58px; text-align:center;\n}\n.section-project .project-wrap .project-right .project-img[data-v-55bfffd6] { margin:auto; max-width: 100%; height: auto; display: block; border-radius: 6px; border: 1px solid #e0e0e0;\n}\r\n\r\n\r\n/* 기초 */\n.section-basic[data-v-55bfffd6] { background:#EBEBEB;\n}\n.section-basic .basic-grid[data-v-55bfffd6] { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 24px; align-items: start;\n}\n.section-basic .basic-card[data-v-55bfffd6] { border:1px solid #e0e0e0; border-radius: 6px; padding: 24px; min-width: 0; background:#FFF;\n}\n.section-basic .basic-card .basic-body[data-v-55bfffd6] { overflow:hidden; max-height:6em;\n}\n.section-basic .basic-card .basic-body.expanded[data-v-55bfffd6] { max-height: 2000px !important;\n}\n.section-basic .basic-card .basic-card-title[data-v-55bfffd6] { font-size: 20px; font-weight:700; margin:0 0 12px 0; display:inline-block; background:#0094EA; position:relative; left:-30px; color:#FFF; font-style:italic; padding:8px 28px; border-radius:0 20px 20px 0;\n}\n.section-basic .basic-card .basic-body .basic-card-desc[data-v-55bfffd6] { font-size: 17px; color: #000; line-height: 1.8; margin: 0 0 20px 0;\n}\n.section-basic .basic-card .basic-body .basic-card-desc[data-v-55bfffd6] img { width:100%;\n}\n.not-found[data-v-55bfffd6] { padding: 80px 0; text-align: center; color: #999; font-size: 15px;\n}\n@media (max-width: 900px) {\n.application-show[data-v-55bfffd6] { padding:32px 20px;\n}\n.tab-wrap[data-v-55bfffd6] { padding:0; overflow:hidden;\n}\n.tech-wrap[data-v-55bfffd6],\r\n    .project-wrap[data-v-55bfffd6] { grid-template-columns: 1fr;\n}\n.product-grid[data-v-55bfffd6] { grid-template-columns: repeat(2, 1fr);\n}\n.basic-grid[data-v-55bfffd6] { grid-template-columns: 1fr;\n}\n.section-product[data-v-55bfffd6] { padding: 28px 20px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -465,20 +489,60 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/web/application lazy recursive ^\\.\\/.*\\.js$ include: con_.*\\.js$":
-/*!****************************************************************************************************************************!*\
-  !*** ./resources/js/views/web/application/ lazy ^\.\/.*\.js$ include: con_.*\.js$ chunkName: application namespace object ***!
-  \****************************************************************************************************************************/
+/***/ "./resources/js/views/web/application lazy recursive ^\\.\\/.*\\.js$ include: bundle_.*\\.js$":
+/*!*******************************************************************************************************************************!*\
+  !*** ./resources/js/views/web/application/ lazy ^\.\/.*\.js$ include: bundle_.*\.js$ chunkName: application namespace object ***!
+  \*******************************************************************************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
-	"./menlo/con_optical.js": [
-		"./resources/js/views/web/application/menlo/con_optical.js",
+	"./menlo/bundle_additive.js": [
+		"./resources/js/views/web/application/menlo/bundle_additive.js",
 		"application0"
 	],
-	"./menlo/con_quantum.js": [
-		"./resources/js/views/web/application/menlo/con_quantum.js",
+	"./menlo/bundle_amplifier.js": [
+		"./resources/js/views/web/application/menlo/bundle_amplifier.js",
 		"application1"
+	],
+	"./menlo/bundle_astronomy.js": [
+		"./resources/js/views/web/application/menlo/bundle_astronomy.js",
+		"application2"
+	],
+	"./menlo/bundle_microscopy.js": [
+		"./resources/js/views/web/application/menlo/bundle_microscopy.js",
+		"application3"
+	],
+	"./menlo/bundle_optical.js": [
+		"./resources/js/views/web/application/menlo/bundle_optical.js",
+		"application4"
+	],
+	"./menlo/bundle_quantum.js": [
+		"./resources/js/views/web/application/menlo/bundle_quantum.js",
+		"application5"
+	],
+	"./menlo/bundle_radar.js": [
+		"./resources/js/views/web/application/menlo/bundle_radar.js",
+		"application6"
+	],
+	"./menlo/bundle_spectroscopy.js": [
+		"./resources/js/views/web/application/menlo/bundle_spectroscopy.js",
+		"application7"
+	],
+	"./menlo/bundle_test.js": [
+		"./resources/js/views/web/application/menlo/bundle_test.js",
+		"application8"
+	],
+	"./menlo/bundle_thz_asops.js": [
+		"./resources/js/views/web/application/menlo/bundle_thz_asops.js",
+		"application9"
+	],
+	"./menlo/bundle_thz_non.js": [
+		"./resources/js/views/web/application/menlo/bundle_thz_non.js",
+		"application10"
+	],
+	"./menlo/bundle_time.js": [
+		"./resources/js/views/web/application/menlo/bundle_time.js",
+		"application11"
 	]
 };
 function webpackAsyncContext(req) {
@@ -496,7 +560,7 @@ function webpackAsyncContext(req) {
 	});
 }
 webpackAsyncContext.keys = () => (Object.keys(map));
-webpackAsyncContext.id = "./resources/js/views/web/application lazy recursive ^\\.\\/.*\\.js$ include: con_.*\\.js$";
+webpackAsyncContext.id = "./resources/js/views/web/application lazy recursive ^\\.\\/.*\\.js$ include: bundle_.*\\.js$";
 module.exports = webpackAsyncContext;
 
 /***/ })

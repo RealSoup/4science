@@ -347,12 +347,12 @@ export default [
                 name: 'application',
                 component:() => import('@/views/web/application/Index'),
             }, {
-                path: ':menu',
-                name: 'application_list',
+                path: ':part',
+                name: 'application_part',
                 component:() => import('@/views/web/application/List'),
             }, {
-                path: ':menu/:con',
-                name: 'application_con',
+                path: ':part/:bundle',
+                name: 'application_part_bundle',
                 component:() => import('@/views/web/application/Show'),
             },
         ]

@@ -11,84 +11,91 @@
         <!-- 2. 탭 메뉴 (sticky) -->
         <div class="tab-wrap" :class="{ sticky: isSticky }">
             <ul class="tab-list">
-                <li v-for="(tab, idx) in pageData.tabs" :key="idx" class="tab-item" :class="{ active: activeTab === idx }" @click="scrollToSection(idx)">
-                    {{ tab.label }}
+                <li v-for="key in tabOrder" :key="key" class="tab-item" :class="{ active: activeTab === key }" @click="scrollToSection(key)">
+                    {{ tabLabels[key] }}
                 </li>
             </ul>
         </div>
 
-        <!-- 3. 섹션들 (모두 노출) -->
-        <div v-for="(tab, idx) in pageData.tabs" :key="idx" :ref="`section_${idx}`" class="tab-section">
+        <!-- 3. 섹션들 -->
+        <div v-for="key in tabOrder" :key="key"
+            :ref="`section_${key}`"
+            class="tab-section">
 
-            <!-- 핵심 기술 -->
-            <div v-if="tab.type === 'tech'" class="section-tech">
-                <div class="tech-wrap">
-                    <div class="tech-left">
-                        <h3 class="section-title">{{ tab.title }}</h3>
-                        <p class="section-desc" v-html="tab.desc"></p>
-                    </div>
-                    <div class="tech-right">
-                        <div v-for="(item, i) in tab.items" :key="i" class="tech-item">
-                            <h4>{{ item.title }}</h4>
-                            <div class="tech-item-body" :class="{ expanded: expandedItems[`${idx}_${i}`] }">
-                                <p class="tech-item-desc" v-html="item.desc"></p>
-                                <button class="btn-more" @click="toggleItem(idx, i)">
-                                    {{ expandedItems[`${idx}_${i}`] ? '접기' : '더 보기' }}
-                                </button>
+            <template v-if="pageData.tabs[key]">
+
+                <!-- 핵심 기술 -->
+                <div v-if="key === 'tech'" class="section-tech">
+                    <div class="tech-wrap" v-for="(item, i) in pageData.tabs.tech" :key="i" :class="{ no_1st: i!=0 }">
+                        <div class="tech-left">
+                            <h3 class="section-title">{{ item.title }}</h3>
+                            <p class="section-desc" v-html="item.desc"></p>
+                        </div>
+                        <div class="tech-right">
+                            <div v-for="(item, i) in item.items" :key="i" class="tech-item">
+                                <h4 v-html="item.title"></h4>
+                                <div class="tech-item-body" :class="{ expanded: expandedItems[`tech_${i}`] }">
+                                    <p class="tech-item-desc" v-html="item.desc"></p>
+                                    <button class="btn-more" @click="toggleItem('tech', i)">
+                                        {{ expandedItems[`tech_${i}`] ? '접기' : '더 보기' }}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 제품 솔루션 -->
-            <div v-else-if="tab.type === 'product'" class="section-product">
-                <div class="product-header">
-                    <h3 class="product-title">{{ tab.title }}</h3>
-                    <p class="product-desc" v-html="tab.desc"></p>
-                </div>
-                <div class="product-grid">
-                    <div v-for="(item, i) in tab.items" :key="i" class="product-card">
-                        <img v-if="item.image" :src="item.image" :alt="item.title" />
-                        <div class="product-card-label">{{ item.title }}</div>
+                <!-- 제품 솔루션 -->
+                <div v-else-if="key === 'product'" class="section-product">
+                    <div class="product-header">
+                        <h3 class="product-title">{{ pageData.tabs.product.title }}</h3>
+                        <p class="product-desc" v-html="pageData.tabs.product.desc"></p>
                     </div>
-                </div>
-            </div>
-
-            <!-- 주요 프로젝트 -->
-            <div v-else-if="tab.type === 'project'" class="section-project">
-                <div class="project-wrap">
-                    <div class="project-left">
-                        <h3 class="section-title">주요 프로젝트</h3>
-                        <h6>{{ tab.title }}</h6>
-                        <div class="tech-item-body project-body" :class="{ expanded: expandedItems[`${idx}_0`] }">
-                            <p class="project-desc" v-html="tab.desc"></p>
+                    <div class="product-grid">
+                        <div v-for="(item, i) in pageData.tabs.product.items" :key="i" class="product-card">
+                            <img v-if="item.image" :src="item.image" :alt="item.title" />
+                            <div class="product-card-label">{{ item.title }}</div>
                         </div>
-                        <button class="btn-more" @click="toggleItem(idx, 0)">
-                            {{ expandedItems[`${idx}_0`] ? '접기' : '더 보기' }}
-                        </button>
-                    </div>
-                    <div class="project-right">
-                        <img :src="tab.image" :alt="tab.title" class="project-img" />
                     </div>
                 </div>
-            </div>
 
-            <!-- 기초 -->
-            <div v-else-if="tab.type === 'basic'" class="section-basic">
-                <h3 class="section-title">{{ tab.title }}</h3>
-                <div class="basic-grid">
-                    <div v-for="(item, i) in tab.items" :key="i" class="basic-card">
-                        <h4 class="basic-card-title">{{ item.title }}</h4>
-                        <div class="basic-body" :class="{ expanded: expandedItems[`${idx}_${i}`] }">
-                            <p class="basic-card-desc" v-html="item.desc"></p>
+                <!-- 주요 프로젝트 -->
+                <div v-else-if="key === 'project'" class="section-project">
+                    <div class="project-wrap">
+                        <div class="project-left">
+                            <h3 class="section-title">주요 프로젝트</h3>
+                            <h6>{{ pageData.tabs.project.title }}</h6>
+                            <div class="project-body" :class="{ expanded: expandedItems['project_0'] }">
+                                <p class="project-desc" v-html="pageData.tabs.project.desc"></p>
+                            </div>
+                            <button class="btn-more" @click="toggleItem('project', 0)">
+                                {{ expandedItems['project_0'] ? '접기' : '더 보기' }}
+                            </button>
                         </div>
-                        <button class="btn-more" @click="toggleItem(idx, i)">
-                            {{ expandedItems[`${idx}_${i}`] ? '접기' : '더 보기' }}
-                        </button>
+                        <div class="project-right">
+                            <img v-if="pageData.tabs.project.image" :src="pageData.tabs.project.image" :alt="pageData.tabs.project.title" class="project-img" />
+                            <small v-if="pageData.tabs.project.img_desc" v-html="pageData.tabs.project.img_desc"></small>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <!-- 기초 -->
+                <div v-else-if="key === 'basic'" class="section-basic">
+                    <h3 class="section-title">{{ pageData.tabs.basic.title }}</h3>
+                    <div class="basic-grid">
+                        <div v-for="(item, i) in pageData.tabs.basic.items" :key="i" class="basic-card">
+                            <h4 class="basic-card-title">{{ item.title }}</h4>
+                            <div class="basic-body" :class="{ expanded: expandedItems[`basic_${i}`] }">
+                                <p class="basic-card-desc" v-html="item.desc"></p>
+                            </div>
+                            <button class="btn-more" @click="toggleItem('basic', i)">
+                                {{ expandedItems[`basic_${i}`] ? '접기' : '더 보기' }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </template>
         </div>
     </div>
     <div v-else-if="loadError" class="not-found">
@@ -102,21 +109,27 @@ export default {
 
     data() {
         return {
-            activeTab: 0,
-            activeSubTab: 0,
+            activeTab: 'tech',
             pageData: null,
             loadError: false,
             observer: null,
-            expandedItems: {},  // { '섹션idx_아이템idx': true/false }
+            expandedItems: {},
             isSticky: false,
+            tabOrder: ['tech', 'product', 'project', 'basic'],
+            tabLabels: {
+                tech: '핵심 기술',
+                product: '제품 솔루션',
+                project: '주요 프로젝트',
+                basic: '기초',
+            },
         };
     },
 
     watch: {
         '$route.params': {
             immediate: true,
-            handler({ menu, con }) {
-                this.loadData(menu, con);
+            handler({ part, bundle }) {
+                this.loadData(part, bundle);
             },
         },
     },
@@ -131,34 +144,34 @@ export default {
     },
 
     methods: {
-        async loadData(menu, con) {
+        async loadData(part, bundle) {
             this.pageData = null;
             this.loadError = false;
-            this.activeTab = 0;
-            this.activeSubTab = 0;
+            this.activeTab = 'tech';
             this.expandedItems = {};
+            if (!part || !bundle) return;
             try {
                 const mod = await import(
-                    /* webpackInclude: /con_.*\.js$/ */
+                    /* webpackInclude: /bundle_.*\.js$/ */
                     /* webpackChunkName: "application" */
-                    `./${menu}/con_${con}.js`
+                    `./${part}/bundle_${bundle}.js`
                 );
-                this.pageData = mod.default;
+                this.pageData = mod.info;
                 this.$nextTick(() => this.initObserver());
             } catch (e) {
                 console.error('Show.vue loadData 오류:', e);
-                console.error('menu:', menu, 'con:', con);
+                console.error('part:', part, 'bundle:', bundle);
                 this.loadError = true;
             }
         },
 
-        toggleItem(sectionIdx, itemIdx) {
-            const key = `${sectionIdx}_${itemIdx}`;
+        toggleItem(tabKey, itemIdx) {
+            const key = `${tabKey}_${itemIdx}`;
             this.$set(this.expandedItems, key, !this.expandedItems[key]);
         },
 
-        scrollToSection(idx) {
-            const ref = this.$refs[`section_${idx}`];
+        scrollToSection(key) {
+            const ref = this.$refs[`section_${key}`];
             const el = Array.isArray(ref) ? ref[0] : ref;
             if (!el) return;
             const tabHeight = 126 + 48;
@@ -172,27 +185,28 @@ export default {
                 (entries) => {
                     entries.forEach((entry) => {
                         if (entry.isIntersecting) {
-                            const idx = parseInt(entry.target.dataset.idx);
-                            this.activeTab = idx;
+                            this.activeTab = entry.target.dataset.key;
                         }
                     });
                 },
                 { rootMargin: '-30% 0px -60% 0px' }
             );
-            this.pageData.tabs.forEach((_, idx) => {
-                const ref = this.$refs[`section_${idx}`];
+            this.tabOrder.forEach(key => {
+                if (!this.pageData.tabs[key]) return;
+                const ref = this.$refs[`section_${key}`];
                 const el = Array.isArray(ref) ? ref[0] : ref;
                 if (el) {
-                    el.dataset.idx = idx;
+                    el.dataset.key = key;
                     this.observer.observe(el);
                 }
             });
         },
+
         onScroll() {
             const tabEl = this.$el.querySelector('.tab-wrap');
             if (!tabEl) return;
             const rect = tabEl.getBoundingClientRect();
-            this.isSticky = rect.top <= 126; // sticky top 값과 동일하게
+            this.isSticky = rect.top <= 126;
         },
     },
 };
@@ -202,7 +216,7 @@ export default {
 .show-wrap { border:1px solid #959595; border-radius:40px 40px 0 0; }
 /* 히어로 */
 .hero { position:relative; width:100%; height:500px; background-size:cover; background-position:center; border-radius:40px 40px 0 0; }
-.hero .hero-overlay { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:24px 36px; }
+.hero .hero-overlay { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:24px 36px; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 60%, transparent 100%); }
 .hero .hero-overlay .hero-title { font-size:60px; font-weight: 900; color: #fff; margin: 0 0 15px 0; }
 .hero .hero-overlay .hero-desc { font-size:18px; color:#fff; line-height:1.4; max-width:1200px; }
 
@@ -222,6 +236,7 @@ export default {
 
 /* 핵심 기술 */
 .section-tech .tech-wrap { display:grid; grid-template-columns:320px 1fr; gap:24px; }
+.section-tech .tech-wrap.no_1st { border-top:1px solid #959595; margin-top:15px; padding-top:15px; }
 .section-tech .tech-wrap .tech-left { display:flex; flex-direction:column; justify-content:center; }
 .section-tech .tech-wrap .tech-right .tech-item { background:#EBEBEB; border-radius:20px; padding:25px 24px 36px; }
 .section-tech .tech-wrap .tech-right > * + * { margin-top: 16px; }
@@ -232,6 +247,8 @@ export default {
 /* 기초 카드는 배경 흰색이라 페이드 색상 별도 */
 .section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc { font-size:16px; color: #000; line-height:1.55; margin: 0; }
 .section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc::v-deep h6 { margin-bottom: 3px; font-style: italic; }
+.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc::v-deep ul { list-style: disc; padding:10px 26px; }
+.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc::v-deep ul li { list-style: disc; padding: 4px 0; }
 .section-tech .tech-wrap .tech-right .tech-item .tech-item-body .btn-more { position: absolute; right:14px; bottom: 0; }
 
 /* 제품 솔루션 */
@@ -249,17 +266,21 @@ export default {
 .section-project .project-wrap .project-left .project-body { max-height:12.4em; overflow:hidden; }
 .section-project .project-wrap .project-left .project-body.expanded { max-height: 2000px !important; }
 .section-project .project-wrap .project-left .project-body .project-desc { color: #000; line-height: 1.8; margin: 0 0 24px 0; }
-.section-project .project-wrap .project-right { padding-top: 58px; }
-.section-project .project-wrap .project-right .project-img { width: 100%; height: auto; display: block; border-radius: 6px; border: 1px solid #e0e0e0; }
+.section-project .project-wrap .project-left .project-body .project-desc::v-deep h6 { margin-bottom:3px; font-style:italic; color:#000; font-size:18px; font-weight:700; }
+.section-project .project-wrap .project-left .project-body .project-desc::v-deep img { display: block; margin:auto; }
+.section-project .project-wrap .project-left .project-body .project-desc::v-deep small { color:#777; max-width:700px; margin:auto; text-align:center; display:block; }
+.section-project .project-wrap .project-right { padding-top: 58px; text-align:center; }
+.section-project .project-wrap .project-right .project-img { margin:auto; max-width: 100%; height: auto; display: block; border-radius: 6px; border: 1px solid #e0e0e0; }
+
 
 /* 기초 */
 .section-basic { background:#EBEBEB; }
 .section-basic .basic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 24px; align-items: start; }
 .section-basic .basic-card { border:1px solid #e0e0e0; border-radius: 6px; padding: 24px; min-width: 0; background:#FFF; }
-.section-basic .basic-card .basic-body { overflow:hidden; max-height:4.5em; }
+.section-basic .basic-card .basic-body { overflow:hidden; max-height:6em; }
 .section-basic .basic-card .basic-body.expanded { max-height: 2000px !important; }
 .section-basic .basic-card .basic-card-title { font-size: 20px; font-weight:700; margin:0 0 12px 0; display:inline-block; background:#0094EA; position:relative; left:-30px; color:#FFF; font-style:italic; padding:8px 28px; border-radius:0 20px 20px 0; }
-.section-basic .basic-card .basic-body .basic-card-desc { font-size: 13px; color: #555; line-height: 1.8; margin: 0 0 20px 0; }
+.section-basic .basic-card .basic-body .basic-card-desc { font-size: 17px; color: #000; line-height: 1.8; margin: 0 0 20px 0; }
 .section-basic .basic-card .basic-body .basic-card-desc::v-deep img { width:100%; }
 
 .not-found { padding: 80px 0; text-align: center; color: #999; font-size: 15px; }
