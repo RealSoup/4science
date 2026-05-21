@@ -10,7 +10,7 @@
                 </li>
                 <li v-if="part_nm">
                     <b-link :to="{name: 'application_part'}">
-                        {{part_nm}}
+                        <span v-html="part_nm"></span>
                     </b-link>
                 </li>
                 <li v-if="bundle_nm">{{bundle_nm}}</li>

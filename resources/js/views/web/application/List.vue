@@ -3,7 +3,7 @@
 
         <!-- 좌: 분야 제목 + 설명 + 이미지 -->
         <div class="col-left">
-            <h3 class="field-title">{{ current.name }}</h3>
+            <h3 class="field-title" v-html="current.name"></h3>
             <p class="field-desc" v-html="current.desc"></p>
             <div class="field-img-wrap">
                 <img :src="current.image" :alt="current.title" class="field-img" />

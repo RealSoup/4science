@@ -118,8 +118,11 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "col-left"
   }, [_c("h3", {
-    staticClass: "field-title"
-  }, [_vm._v(_vm._s(_vm.current.name))]), _vm._v(" "), _c("p", {
+    staticClass: "field-title",
+    domProps: {
+      innerHTML: _vm._s(_vm.current.name)
+    }
+  }), _vm._v(" "), _c("p", {
     staticClass: "field-desc",
     domProps: {
       innerHTML: _vm._s(_vm.current.desc)

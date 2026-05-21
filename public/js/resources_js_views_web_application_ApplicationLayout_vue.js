@@ -146,7 +146,11 @@ var render = function render() {
         name: "application_part"
       }
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.part_nm) + "\n                ")])], 1) : _vm._e(), _vm._v(" "), _vm.bundle_nm ? _c("li", [_vm._v(_vm._s(_vm.bundle_nm))]) : _vm._e()])]), _vm._v(" "), _c("router-view")], 1);
+  }, [_c("span", {
+    domProps: {
+      innerHTML: _vm._s(_vm.part_nm)
+    }
+  })])], 1) : _vm._e(), _vm._v(" "), _vm.bundle_nm ? _c("li", [_vm._v(_vm._s(_vm.bundle_nm))]) : _vm._e()])]), _vm._v(" "), _c("router-view")], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

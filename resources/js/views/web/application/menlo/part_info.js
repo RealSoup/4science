@@ -1,6 +1,6 @@
 export const info = {
-    name: 'MenloSystems',
-    desc: '글로벌 광학 브랜드 전문 공급사 포사이언스.<br>포사이언스는 광학·광전자 분야의 세계적 선도 브랜드인<br>Thorlabs, Edmund Optics, Newport의 제품을<br>전문으로 취급하는 공식 공급사입니다.',
+    name: 'Menlo<wbr />Systems',
+    desc: 'Menlo는 양자 과학 및 기술, 계측학, 분광학, 레이더, 품질 관리, 반도체 산업의 테스트 및 측정 분야에 걸쳐 획기적인 응용 프로그램을 구현할 수 있도록 지원합니다.',
     image: '/storage/application/menlo/main.webp',
     bundles: {
         optical: {
