@@ -55,6 +55,7 @@
 
     
     <script src="/localization" async defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/leetaewook/gmarket-sans-dynamic-subset/GmarketSans.css">
 </head>
 <body>
     <div id="app"></div>

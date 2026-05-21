@@ -84,19 +84,29 @@ export default {
         goToIndex() {            
             this.$router.push(`/application`);
         },
-    }, 
+    },
 }
 </script>
 
 <style scoped>
-.science-application { padding:23px 0; }
-.science-application header { margin-bottom:21px; }
-.science-application header ul { display:flex; align-items:flex-end; gap:16px; }
+.science-application { padding: 23px 0; }
+.science-application header { margin-bottom: 21px; }
+.science-application header ul { display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
 .science-application header ul li { display: flex; align-items: center; }
-.science-application header ul li + li::before { content: '>'; color:#0F86DA; margin-right:16px; font-weight:900; font-size:22px; }
+.science-application header ul li + li::before { content: '>'; color: #0F86DA; margin-right: 16px; font-weight: 900; font-size: 22px; }
 .science-application header ul li,
-.science-application header ul li a { font-weight:700; color:#0F86DA; line-height:1; font-size:22px; }
-.science-application header ul li:first-child a { font-weight:300; font-size:55px; }
-.science-application header ul li:first-child a span { font-weight:900; }
-.science-application header ul li:first-child a span b { color:#51B94A; }
+.science-application header ul li a { font-weight: 700; color: #0F86DA; line-height: 1; font-size: 22px; }
+.science-application header ul li:first-child a { font-weight: 300; font-size: 55px; font-family: 'Gmarket Sans', sans-serif; transform: translateY(8px); }
+.science-application header ul li:first-child a span { font-weight: 900; }
+.science-application header ul li:first-child a span b { color: #51B94A; }
+
+
+@media (max-width: 768px) {
+    .science-application { padding: 16px 0; }
+    .science-application header ul { gap: 4px; align-items: flex-start; flex-direction: column; }
+    .science-application header ul li:first-child a { font-size: 36px; transform: none; }
+    .science-application header ul li,
+    .science-application header ul li a { font-size: 14px; }
+    .science-application header ul li + li::before { font-size: 14px; margin-right: 6px; }
+}
 </style>

@@ -103,45 +103,32 @@ export default {
 </script>
 
 <style scoped>
-.content-wrap { display: grid; grid-template-columns:410px 1fr 540px; gap: 0; border-top: 1px solid #959595; min-height: 500px; }
-.col-left { padding:30px 24px 32px 0; border-right: 1px solid #959595; }
-.field-title { font-size:62px; font-weight:900; color:#000; margin:0 0 8px 0; }
-.field-desc { font-size: 16.5px; font-weight:bold; color: #000; line-height: 1.65; margin: 0 0 20px 0; }
-.field-img-wrap { width: 100%; max-width:300px; }
+.content-wrap { display: grid; grid-template-columns: 410px 1fr 540px; gap: 0; border-top: 1px solid #959595; min-height: 500px; }
+.col-left { padding: 30px 24px 32px 0; border-right: 1px solid #959595; }
+.field-title { font-size: 62px; font-weight: 900; color: #000; margin: 0 0 8px 0; }
+.field-desc { font-size: 16.5px; font-weight: bold; color: #000; line-height: 1.65; margin: 0 0 20px 0; }
+.field-img-wrap { width: 100%; max-width: 300px; }
 .field-img { width: 100%; height: auto; display: block; border-radius: 2px; }
 .content-wrap .col-mid { border-right: 1px solid #ddd; }
-.content-wrap .col-mid .category-list { padding:26px 0; }
-.content-wrap .col-mid .category-list .category-item { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding:16px 20px; font-size:18px; color: #000; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: background 0.15s; text-align: right; }
+.content-wrap .col-mid .category-list { padding: 26px 0; }
+.content-wrap .col-mid .category-list .category-item { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 16px 20px; font-size: 18px; color: #000; cursor: pointer; border-bottom: 1px solid #f0f0f0; transition: background 0.15s; text-align: right; }
 .content-wrap .col-mid .category-list .category-item:hover { background: #f7fdf8; }
-.content-wrap .col-mid .category-list .category-item.active { background: #e8f5eb; font-weight:900; font-size:20px; }
-.content-wrap .col-mid .category-list .category-item .arrow { color:#FFF; font-size:20px; flex-shrink: 0; margin:0 4px 0 9px;  }
-.content-wrap .col-mid .category-list .category-item.active .arrow { color:#2db84b; }
-.col-right { padding:38px 0 32px 88px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
+.content-wrap .col-mid .category-list .category-item.active { background: #e8f5eb; font-weight: 900; font-size: 20px; }
+.content-wrap .col-mid .category-list .category-item .arrow { color: #FFF; font-size: 20px; flex-shrink: 0; margin: 0 4px 0 9px; }
+.content-wrap .col-mid .category-list .category-item.active .arrow { color: #2db84b; }
+.col-right { padding: 38px 0 32px 88px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
 .guide-text { color: #bbb; font-size: 14px; margin: auto; }
-.cat-img-wrap { width: 100%; margin-bottom:19px; border: 1px solid #e0e0e0; border-radius: 2px; overflow: hidden; }
+.cat-img-wrap { width: 100%; margin-bottom: 19px; border: 1px solid #e0e0e0; border-radius: 2px; overflow: hidden; }
 .cat-img { width: 100%; height: auto; display: block; }
-.cat-desc { font-size:17px; font-weight:bold; color: #000; line-height:1.7; text-align:right; }
+.cat-desc { font-size: 17px; font-weight: bold; color: #000; line-height: 1.7; text-align: right; }
 .not-found { padding: 80px 0; text-align: center; color: #999; font-size: 15px; }
+
 @media (max-width: 900px) {
-    .content-wrap {
-        grid-template-columns: 1fr;
-    }
-
-    .col-left,
-    .col-mid,
-    .col-right {
-        border-right: none;
-        border-bottom: 1px solid #ddd;
-        padding: 24px 0;
-    }
-
-    .category-item {
-        justify-content: space-between;
-        text-align: left;
-    }
-
-    .science-application-detail {
-        padding: 32px 20px;
-    }
+    .content-wrap { grid-template-columns: 1fr; }
+    .col-left { border-right: none; border-bottom: 1px solid #ddd; padding: 24px 0; }
+    .col-mid { border-right: none; border-bottom: 1px solid #ddd; }
+    .col-right { border-right: none; border-bottom: 1px solid #ddd; padding: 24px 16px; }
+    .field-title { font-size: 36px; }
+    .content-wrap .col-mid .category-list .category-item { justify-content: space-between; text-align: left; }
 }
 </style>

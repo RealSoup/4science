@@ -18,10 +18,7 @@
         </div>
 
         <!-- 3. 섹션들 -->
-        <div v-for="key in tabOrder" :key="key"
-            :ref="`section_${key}`"
-            class="tab-section">
-
+        <div v-for="key in tabOrder" :key="key" :ref="`section_${key}`" class="tab-section">
             <template v-if="pageData.tabs[key]">
 
                 <!-- 핵심 기술 -->
@@ -36,10 +33,10 @@
                                 <h4 v-html="item.title"></h4>
                                 <div class="tech-item-body" :class="{ expanded: expandedItems[`tech_${i}`] }">
                                     <p class="tech-item-desc" v-html="item.desc"></p>
-                                    <button class="btn-more" @click="toggleItem('tech', i)">
-                                        {{ expandedItems[`tech_${i}`] ? '접기' : '더 보기' }}
-                                    </button>
                                 </div>
+                                <button class="btn-more" @click="toggleItem('tech', i)">
+                                    {{ expandedItems[`tech_${i}`] ? '접기' : '더 보기' }}
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -231,25 +228,24 @@ export default {
 .tab-section .section-title { font-size:33px; font-weight:900; color: #4FBA48; margin: 0 0 16px 0; }
 .tab-section .section-desc { font-size:17px; color:#000; line-height:1.54; margin:0; }
 .tab-section > div { padding:44px; }
-.tab-section .btn-more { font-size: 16px; color: #000; border: 1px solid #888; padding: 2px 9px; background:inherit; }
+.tab-section .btn-more { font-size: 16px; color: #000; border: 1px solid #888; padding: 2px 9px; background:inherit; position: absolute; right: 33px; bottom: 8px; border-radius: 6px; }
 .tab-section .btn-more:hover { border-color: #2db84b; color: #2db84b; }
 
 /* 핵심 기술 */
 .section-tech .tech-wrap { display:grid; grid-template-columns:320px 1fr; gap:24px; }
 .section-tech .tech-wrap.no_1st { border-top:1px solid #959595; margin-top:15px; padding-top:15px; }
 .section-tech .tech-wrap .tech-left { display:flex; flex-direction:column; justify-content:center; }
-.section-tech .tech-wrap .tech-right .tech-item { background:#EBEBEB; border-radius:20px; padding:25px 24px 36px; }
+.section-tech .tech-wrap .tech-right .tech-item { background:#EBEBEB; border-radius:20px; padding:25px 24px 36px; position:relative; }
 .section-tech .tech-wrap .tech-right > * + * { margin-top: 16px; }
 .section-tech .tech-wrap .tech-right .tech-item h4 { font-size:22px; font-weight: 700; color:#0F86DA; margin: 0; margin-bottom: 10px; }
 /* 아코디언 본문 */
-.section-tech .tech-wrap .tech-right .tech-item .tech-item-body { overflow:hidden; max-height:4.5em; transition:max-height 0.35s ease; position: relative; display: grid; grid-template-columns: 1fr 100px; gap: 15px; }
+.section-tech .tech-wrap .tech-right .tech-item .tech-item-body { overflow:hidden; max-height:4.5em; transition:max-height 0.35s ease; position: relative; }
 .section-tech .tech-wrap .tech-right .tech-item .tech-item-body.expanded { max-height: 2000px !important; }
 /* 기초 카드는 배경 흰색이라 페이드 색상 별도 */
 .section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc { font-size:16px; color: #000; line-height:1.55; margin: 0; }
 .section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc::v-deep h6 { margin-bottom: 3px; font-style: italic; }
 .section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc::v-deep ul { list-style: disc; padding:10px 26px; }
 .section-tech .tech-wrap .tech-right .tech-item .tech-item-body .tech-item-desc::v-deep ul li { list-style: disc; padding: 4px 0; }
-.section-tech .tech-wrap .tech-right .tech-item .tech-item-body .btn-more { position: absolute; right:14px; bottom: 0; }
 
 /* 제품 솔루션 */
 .section-product { background: linear-gradient(to right, #004B82, #1A1663); padding:45px 40px 50px; }
@@ -262,6 +258,7 @@ export default {
 
 /* 주요 프로젝트 */
 .section-project .project-wrap { display: grid; grid-template-columns: 1fr 444px; gap: 48px; align-items: start; }
+.section-project .project-wrap .project-left { position:relative; padding-bottom: 24px; }
 .section-project .project-wrap .project-left h6 { margin-bottom:3px; font-style:italic; color:#000; font-size:18px; font-weight:700; }
 .section-project .project-wrap .project-left .project-body { max-height:12.4em; overflow:hidden; }
 .section-project .project-wrap .project-left .project-body.expanded { max-height: 2000px !important; }
@@ -269,6 +266,7 @@ export default {
 .section-project .project-wrap .project-left .project-body .project-desc::v-deep h6 { margin-bottom:3px; font-style:italic; color:#000; font-size:18px; font-weight:700; }
 .section-project .project-wrap .project-left .project-body .project-desc::v-deep img { display: block; margin:auto; }
 .section-project .project-wrap .project-left .project-body .project-desc::v-deep small { color:#777; max-width:700px; margin:auto; text-align:center; display:block; }
+.section-project .project-wrap .project-left .btn-more { bottom: -16px; }
 .section-project .project-wrap .project-right { padding-top: 58px; text-align:center; }
 .section-project .project-wrap .project-right .project-img { margin:auto; max-width: 100%; height: auto; display: block; border-radius: 6px; border: 1px solid #e0e0e0; }
 
@@ -276,7 +274,7 @@ export default {
 /* 기초 */
 .section-basic { background:#EBEBEB; }
 .section-basic .basic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 24px; align-items: start; }
-.section-basic .basic-card { border:1px solid #e0e0e0; border-radius: 6px; padding: 24px; min-width: 0; background:#FFF; }
+.section-basic .basic-card { border:1px solid #e0e0e0; border-radius: 6px; padding:24px 24px 44px;; min-width: 0; background:#FFF; position:relative; }
 .section-basic .basic-card .basic-body { overflow:hidden; max-height:6em; }
 .section-basic .basic-card .basic-body.expanded { max-height: 2000px !important; }
 .section-basic .basic-card .basic-card-title { font-size: 20px; font-weight:700; margin:0 0 12px 0; display:inline-block; background:#0094EA; position:relative; left:-30px; color:#FFF; font-style:italic; padding:8px 28px; border-radius:0 20px 20px 0; }
@@ -286,12 +284,29 @@ export default {
 .not-found { padding: 80px 0; text-align: center; color: #999; font-size: 15px; }
 
 @media (max-width: 900px) {
-    .application-show { padding:32px 20px; }
-    .tab-wrap { padding:0; overflow:hidden; }
-    .tech-wrap,
-    .project-wrap { grid-template-columns: 1fr; }
-    .product-grid { grid-template-columns: repeat(2, 1fr); }
-    .basic-grid { grid-template-columns: 1fr; }
-    .section-product { padding: 28px 20px; }
+    .tab-wrap { padding: 0; overflow-x: auto; top: 60px; }
+    .tab-wrap .tab-list .tab-item { padding: 10px 16px; font-size: 15px; }
+
+    .tab-section > div { padding: 24px 16px; }
+    .tab-section .section-title { font-size: 24px; }
+
+    .hero { height: 280px; }
+    .hero .hero-overlay { padding: 16px 20px; }
+    .hero .hero-overlay .hero-title { font-size: 32px; margin: 0 0 8px 0; }
+    .hero .hero-overlay .hero-desc { font-size: 14px; }
+
+    .section-tech .tech-wrap { grid-template-columns: 1fr; }
+    .section-tech .tech-wrap.no_1st { margin-top: 10px; padding-top: 10px; }
+
+    .section-product { padding: 24px 16px; }
+    .section-product .product-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .section-project .project-wrap { grid-template-columns: 1fr; gap: 24px; }
+    .section-project .project-wrap .project-right { padding-top: 0; }
+
+    .section-basic .basic-grid { grid-template-columns: 1fr; }
+    .section-basic .basic-card .basic-card-title { left: -16px; }
+    .section-tech .tech-wrap .tech-right .tech-item .tech-item-body { grid-template-columns: 1fr; }
+    .section-tech .tech-wrap .tech-right .tech-item .tech-item-body .btn-more { position: static; margin-top: 8px; }
 }
 </style>
