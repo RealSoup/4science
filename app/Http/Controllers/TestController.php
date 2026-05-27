@@ -126,35 +126,35 @@ class TestController extends Controller {
 
                 $boolClause = [
                     'should' => [
-                        ['term'         => ['gd_name.keyword' => ['value' => $keyword, 'boost' => 100]]],
-                        ['match_phrase' => ['gd_name.exact'   => ['query' => $keyword, 'boost' => 80]]],
-                        ['match_phrase' => ['gd_name'         => ['query' => $keyword, 'boost' => 10]]],
-                        ['match'        => ['gd_name.exact'   => ['query' => $keyword, 'boost' => 30]]],
-                        ['match'        => ['gd_name'         => ['query' => $keyword, 'boost' => 5]]],
-                        ['match'        => ['gd_name'         => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 8]]],
-                        ['match'        => ['gd_keyword'      => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 6]]],
-                        ['match'        => ['gm_name.exact'   => ['query' => $keyword, 'boost' => 20]]],
-                        ['match'        => ['gm_name_all'     => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 15]]],
-                        ['match'        => ['mk_name.exact'   => ['query' => $keyword, 'boost' => 20]]],
+                        // ① 완전 구문 일치 (최고점)
+                        ['term'         => ['gd_name.keyword' => ['value' => $keyword, 'boost' => 500]]],
+                        ['match_phrase' => ['gd_name.exact'   => ['query' => $keyword, 'boost' => 300]]],
+                        ['match_phrase' => ['gm_name_all'     => ['query' => $keyword, 'analyzer' => 'korean_exact', 'boost' => 200]]],
 
-                        ['term'         => ['gm_catno' => $keyword]],
-                        ['prefix'       => ['gm_catno' => $keyword]],
-                        ['term'         => ['gm_code'  => $keyword]],
-                        ['prefix'       => ['gm_code'  => $keyword]],
-                        ['term'         => ['gm_code_all.keyword' => $keyword]],
-                        ['prefix'       => ['gm_code_all.keyword' => $keyword]],
-                        ['term'         => ['mk_name.keyword' => $keyword]],
-                        ['match'        => ['mk_name'         => $keyword]],
+                        // ② 모든 토큰 포함 (AND)
+                        ['match' => ['gd_name'     => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 50]]],
+                        ['match' => ['gm_name_all' => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 40]]],
+                        ['match' => ['gd_keyword'  => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 30]]],
 
+                        // ③ 개별 토큰 OR 매칭 (낮은 점수)
+                        ['match' => ['gd_name'    => ['query' => $keyword, 'boost' => 5]]],
+                        ['match' => ['gd_keyword' => ['query' => $keyword, 'boost' => 3]]],
+                        ['match' => ['mk_name'    => ['query' => $keyword, 'boost' => 3]]],
+
+                        // ④ 코드/카탈로그 (term/prefix만)
+                        ['term'   => ['gm_catno'             => $keyword]],
+                        ['prefix' => ['gm_catno'             => $keyword]],
+                        ['term'   => ['gm_code'              => $keyword]],
+                        ['prefix' => ['gm_code'              => $keyword]],
+                        ['term'   => ['gm_code_all.keyword'  => $keyword]],
+                        ['prefix' => ['gm_code_all.keyword'  => $keyword]],
+                        ['term'   => ['mk_name.keyword'      => $keyword]],
+
+                        // ⑤ 오타 허용 (낮은 boost)
                         [
                             'multi_match' => [
                                 'query'          => $keyword,
-                                'fields'         => [
-                                    'gd_name^10',
-                                    'gd_keyword^3',
-                                    'mk_name^2',
-                                    // gm_name_all 제거
-                                ],
+                                'fields'         => ['gd_name^3', 'mk_name^2'],
                                 'fuzziness'      => 'AUTO',
                                 'prefix_length'  => 2,
                                 'max_expansions' => 50,
