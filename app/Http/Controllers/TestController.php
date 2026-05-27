@@ -365,8 +365,13 @@ class TestController extends Controller {
             }
         }
 
-        $data['Elastic'] = '';
-
+        // $data['Elastic'] = '';
+        $data['Elastic'] = collect($result->asArray()['hits']['hits'])->map(fn($h) => [
+            'id'       => $h['_id'],
+            'score'    => $h['_score'],
+            'name'     => $h['_source']['gd_name'] ?? '',
+            'purchase' => $h['_source']['purchase_score'] ?? 0,
+        ]);
         
         
 		return response()->json($data);
