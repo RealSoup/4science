@@ -197,7 +197,7 @@ class TestController extends Controller {
                             ['filter' => ['prefix' => ['gm_code_all.keyword' => $keyword]], 'weight' => 5000], 
                             ['filter' => ['term' => ['gm_catno_all.keyword' => $keyword]], 'weight' => 100000],
 
-                            [ 'field_value_factor' => [ 'field' => 'purchase_score', 'factor' => $isCatnoPattern ? 0 : 1000, 'modifier' => 'none', 'missing' => 0, ], ],
+                            [ 'field_value_factor' => [ 'field' => 'purchase_score', 'factor' => $isCatnoPattern ? 0 : 100, 'modifier' => 'none', 'missing' => 0, ], ],
                         ], $personalizeFunctions),
                         'score_mode' => 'sum',
                         'boost_mode' => 'sum',
