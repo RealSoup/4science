@@ -131,43 +131,36 @@ class TestController extends Controller {
                         ['match_phrase' => ['gd_name'         => ['query' => $keyword, 'boost' => 10]]],
                         ['match'        => ['gd_name.exact'   => ['query' => $keyword, 'boost' => 30]]],
                         ['match'        => ['gd_name'         => ['query' => $keyword, 'boost' => 5]]],
-                        ['match'        => ['gd_name'         => ['query' => $keyword, 'operator' => 'and', 'boost' => 8]]],
-                        ['match'        => ['gd_keyword'      => ['query' => $keyword, 'operator' => 'and', 'boost' => 6]]],
+                        ['match'        => ['gd_name'         => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 8]]],
+                        ['match'        => ['gd_keyword'      => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 6]]],
                         ['match'        => ['gm_name.exact'   => ['query' => $keyword, 'boost' => 20]]],
-                        ['match'        => ['gm_name_all'     => ['query' => $keyword, 'operator' => 'and', 'boost' => 15]]],
+                        ['match'        => ['gm_name_all'     => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 15]]],
                         ['match'        => ['mk_name.exact'   => ['query' => $keyword, 'boost' => 20]]],
-                        
-                        
+
                         ['term'         => ['gm_catno' => $keyword]],
                         ['prefix'       => ['gm_catno' => $keyword]],
-
                         ['term'         => ['gm_code'  => $keyword]],
                         ['prefix'       => ['gm_code'  => $keyword]],
                         ['term'         => ['gm_code_all.keyword' => $keyword]],
                         ['prefix'       => ['gm_code_all.keyword' => $keyword]],
-                        // ['wildcard'     => ['gm_code' => '*' . $keyword]],      // *a2115 → STARA2115 ✅
-                        // ['wildcard'     => ['gm_code' => '*' . $keyword . '*']], // 중간 포함
-
                         ['term'         => ['mk_name.keyword' => $keyword]],
                         ['match'        => ['mk_name'         => $keyword]],
-                        // ['wildcard'     => ['mk_name.keyword' => '*' . $keyword . '*']],
 
                         [
                             'multi_match' => [
-                                'query'  => $keyword,
-                                'fields' => [
+                                'query'          => $keyword,
+                                'fields'         => [
                                     'gd_name^10',
                                     'gd_keyword^3',
                                     'mk_name^2',
-                                    'gm_name_all^2',
-                                    // gm_name, gm_name_all 제거 → 사양값 오매칭 방지
+                                    // gm_name_all 제거
                                 ],
-                                'fuzziness'      => 'AUTO',   // 3~5글자→1오타, 6글자↑→2오타
-                                'prefix_length'  => 2,        // 앞 2글자는 정확해야 함 (오검색 방지)
+                                'fuzziness'      => 'AUTO',
+                                'prefix_length'  => 2,
                                 'max_expansions' => 50,
-                                'boost'          => 0.5,      // 기존 정확 매칭보다 낮게
-                                'type' => 'best_fields',
-                            ], 
+                                'boost'          => 0.5,
+                                'type'           => 'best_fields',
+                            ],
                         ],
                     ],
                     'minimum_should_match' => 1,
