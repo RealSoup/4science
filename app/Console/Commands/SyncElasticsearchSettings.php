@@ -52,6 +52,11 @@ class SyncElasticsearchSettings extends Command
                                 'synonyms_path' => 'synonyms_final.txt',
                                 'updateable'    => true,
                             ],
+                            'meaningless_token_filter' => [
+                                'type'        => 'pattern_replace',
+                                'pattern'     => '^([a-z]|[0-9]{1,2})$',
+                                'replacement' => '',
+                            ],
                         ],
                         'tokenizer' => [
                             'nori_tokenizer' => [
@@ -64,12 +69,12 @@ class SyncElasticsearchSettings extends Command
                             'korean' => [           // 일반 텍스트용 (한글 형태소)
                                 'type'      => 'custom',
                                 'tokenizer' => 'nori_tokenizer',
-                                'filter'    => ['lowercase'],
+                                'filter'    => ['lowercase', 'meaningless_token_filter'],
                             ],
                             'korean_search' => [
                                 'type'      => 'custom',
                                 'tokenizer' => 'nori_tokenizer',
-                                'filter'    => ['lowercase', 'synonym_filter'],
+                                'filter'    => ['lowercase', 'meaningless_token_filter', 'synonym_filter'],
                             ],
                             'korean_exact' => [     // 정밀 검색용 (쪼개지 않음)
                                 'type'      => 'custom',
