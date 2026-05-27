@@ -52,9 +52,13 @@ class SyncElasticsearchSettings extends Command
                                 'synonyms_path' => 'synonyms_final.txt',
                                 'updateable'    => true,
                             ],
-                            'meaningless_token_filter' => [
+                            'single_char_stop' => [
+                                'type'      => 'stop',
+                                'stopwords' => array_merge(range('a', 'z')),
+                            ],
+                            'number_filter' => [
                                 'type'        => 'pattern_replace',
-                                'pattern'     => '^([a-z]|[0-9]{1,2})$',
+                                'pattern'     => '^[0-9]{1,3}$',
                                 'replacement' => '',
                             ],
                         ],
@@ -69,12 +73,12 @@ class SyncElasticsearchSettings extends Command
                             'korean' => [           // 일반 텍스트용 (한글 형태소)
                                 'type'      => 'custom',
                                 'tokenizer' => 'nori_tokenizer',
-                                'filter'    => ['lowercase', 'meaningless_token_filter'],
+                                'filter'    => ['lowercase', 'single_char_stop', 'number_filter'],
                             ],
                             'korean_search' => [
                                 'type'      => 'custom',
                                 'tokenizer' => 'nori_tokenizer',
-                                'filter'    => ['lowercase', 'meaningless_token_filter', 'synonym_filter'],
+                                'filter'    => ['lowercase', 'single_char_stop', 'number_filter', 'synonym_filter'],
                             ],
                             'korean_exact' => [     // 정밀 검색용 (쪼개지 않음)
                                 'type'      => 'custom',
