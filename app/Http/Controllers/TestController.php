@@ -127,13 +127,17 @@ class TestController extends Controller {
                 $boolClause = [
                     'should' => [
                         ['term'         => ['gd_name.keyword' => ['value' => $keyword, 'boost' => 100]]],
-                        ['match_phrase' => ['gd_name.exact'   => ['query' => $keyword, 'boost' => 80]]],  // ✅ 추가
+                        ['match_phrase' => ['gd_name.exact'   => ['query' => $keyword, 'boost' => 80]]],
                         ['match_phrase' => ['gd_name'         => ['query' => $keyword, 'boost' => 10]]],
                         ['match'        => ['gd_name.exact'   => ['query' => $keyword, 'boost' => 30]]],
                         ['match'        => ['gd_name'         => ['query' => $keyword, 'boost' => 5]]],
+                        ['match'        => ['gd_name'         => ['query' => $keyword, 'operator' => 'and', 'boost' => 8]]],
+                        ['match'        => ['gd_keyword'      => ['query' => $keyword, 'operator' => 'and', 'boost' => 6]]],
                         ['match'        => ['gm_name.exact'   => ['query' => $keyword, 'boost' => 20]]],
+                        ['match'        => ['gm_name_all'     => ['query' => $keyword, 'operator' => 'and', 'boost' => 15]]],
                         ['match'        => ['mk_name.exact'   => ['query' => $keyword, 'boost' => 20]]],
-
+                        
+                        
                         ['term'         => ['gm_catno' => $keyword]],
                         ['prefix'       => ['gm_catno' => $keyword]],
 
@@ -155,10 +159,7 @@ class TestController extends Controller {
                                     'gd_name^10',
                                     'gd_keyword^3',
                                     'mk_name^2',
-                                    'gm_code',
-                                    'gm_code_all',
-                                    'gm_catno',
-                                    'gm_catno_all',
+                                    'gm_name_all^2',
                                     // gm_name, gm_name_all 제거 → 사양값 오매칭 방지
                                 ],
                                 'fuzziness'      => 'AUTO',   // 3~5글자→1오타, 6글자↑→2오타
@@ -166,7 +167,7 @@ class TestController extends Controller {
                                 'max_expansions' => 50,
                                 'boost'          => 0.5,      // 기존 정확 매칭보다 낮게
                                 'type' => 'best_fields',
-                            ],
+                            ], 
                         ],
                     ],
                     'minimum_should_match' => 1,
