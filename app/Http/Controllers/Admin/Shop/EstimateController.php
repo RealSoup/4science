@@ -43,8 +43,6 @@ class EstimateController extends Controller {
     }
     public function index(Request $req) {
         $eq = $this->estimateReq;
-        $er = $this->estimateReply;
-        $em = $this->estimateModel;
 		$eq = $eq->select("shop_estimate_req.*",
 							DB::raw("(SELECT name FROM la_users
 							WHERE la_users.id = la_shop_estimate_req.eq_mng) as eq_mng_nm"),)
@@ -85,33 +83,53 @@ class EstimateController extends Controller {
 
         if ($req->filled('keyword')){
             switch ($req->keyword_type) {
-				case 'eq_name':			$eq = $eq->EqName($req->keyword); break;
-				case 'eq_company':	    $eq = $eq->EqCompany($req->keyword); break;
-                case 'eq_tel':			$eq = $eq->EqTel($req->keyword); break;
-                case 'eq_hp':			$eq = $eq->EqHp($req->keyword); break;
-                case 'eq_email':		$eq = $eq->EqEmail($req->keyword); break;
-                case 'eq_id':			$eq = $eq->EqId([$req->keyword]); break;
-                case 'er_id':			$eq = $eq->EqId($er->ErId($req->keyword)->pluck('er_eq_id')); break;
+                case 'eq_name':     $eq = $eq->EqName($req->keyword); break;
+                case 'eq_company':  $eq = $eq->EqCompany($req->keyword); break;
+                case 'eq_tel':      $eq = $eq->EqTel($req->keyword); break;
+                case 'eq_hp':       $eq = $eq->EqHp($req->keyword); break;
+                case 'eq_email':    $eq = $eq->EqEmail($req->keyword); break;
+                case 'eq_id':       $eq = $eq->EqId([$req->keyword]); break;
+
+                case 'er_id':
+                    $eq->whereIn('eq_id', function($q) use($req) {
+                        $q->select('er_eq_id')
+                        ->from('shop_estimate_reply')
+                        ->where('er_id', $req->keyword)
+                        ->whereNull('deleted_at');
+                    });
+                break;
+
                 case 'em_name':
-                    $em = $em   ->TypeReply()
-                                ->where('em_name', 'like', '%'.$req->keyword.'%')
-                                ->pluck('em_papa_id');
-                    $eq->EqId( $er->ErIdArr($em)->pluck('er_eq_id') );
+                    $eq->whereIn('eq_id', function($q) use($req) {
+                        $q->select('er.er_eq_id')
+                        ->from('shop_estimate_reply as er')
+                        ->join('shop_estimate_model as em', 'em.em_papa_id', '=', 'er.er_id')
+                        ->where('em.em_type', 'estimateReply')
+                        ->where('em.em_name', 'like', '%'.$req->keyword.'%')
+                        ->whereNull('er.deleted_at');
+                    });
                 break;
 
                 case 'em_code':
-                    $em = $em   ->TypeReply()
-                                ->where('em_code', 'like', $req->keyword.'%')
-                                ->pluck('em_papa_id');
-                    $eq->EqId( $er->ErIdArr($em)->pluck('er_eq_id') );
+                    $eq->whereIn('eq_id', function($q) use($req) {
+                        $q->select('er.er_eq_id')
+                        ->from('shop_estimate_reply as er')
+                        ->join('shop_estimate_model as em', 'em.em_papa_id', '=', 'er.er_id')
+                        ->where('em.em_type', 'estimateReply')
+                        ->where('em.em_code', 'like', $req->keyword.'%')
+                        ->whereNull('er.deleted_at');
+                    });
                 break;
 
                 case 'cat_no':
-                    $eq->EqId(
-                        $er->ErIdArr(
-                            $em->TypeReply()->where('em_catno', 'like', $req->keyword.'%')->pluck('em_papa_id')
-                        )->pluck('er_eq_id')
-                    );
+                    $eq->whereIn('eq_id', function($q) use($req) {
+                        $q->select('er.er_eq_id')
+                        ->from('shop_estimate_reply as er')
+                        ->join('shop_estimate_model as em', 'em.em_papa_id', '=', 'er.er_id')
+                        ->where('em.em_type', 'estimateReply')
+                        ->where('em.em_catno', 'like', $req->keyword.'%')
+                        ->whereNull('er.deleted_at');
+                    });
                 break;
             }
         }
