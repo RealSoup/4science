@@ -104,9 +104,12 @@ class TestController extends Controller {
                     'gm_name' => [
                         'bool' => [
                             'should' => [
-                                ['match'        => ['gm_name'       => $keyword]],
-                                ['match'        => ['gm_name.exact' => $keyword]],
-                                ['match_phrase' => ['gm_name.exact' => $keyword]],
+                                ['match'        => ['gm_name'           => $keyword]],
+                                ['match'        => ['gm_name.exact'     => ['query' => $keyword, 'boost' => 100]]],
+                                ['match_phrase' => ['gm_name.exact'     => ['query' => $keyword, 'boost' => 500]]],
+                                ['match'        => ['gm_name_all'       => $keyword]],
+                                ['match'        => ['gm_name_all.exact' => ['query' => $keyword, 'boost' => 100]]],
+                                ['match_phrase' => ['gm_name_all.exact' => ['query' => $keyword, 'boost' => 500]]],
                             ],
                             'minimum_should_match' => 1,
                         ]
