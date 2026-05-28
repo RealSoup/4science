@@ -121,7 +121,13 @@ class TestController extends Controller {
                         ]
                     ],
                 ];
-                $searchQuery = $fieldMap[$req->mode] ?? [];
+                $modeQuery = $fieldMap[$req->mode] ?? ['match_all' => (object)[]];
+                $searchQuery = [
+                    'bool' => [
+                        'must'   => [$modeQuery],
+                        'filter' => $filters,
+                    ],
+                ];
 
             } elseif ($isCatnoPattern) {
                 // 카탈로그 번호 패턴: korean analyzer 완전 배제, term/prefix만 사용
