@@ -91,9 +91,28 @@ class TestController extends Controller {
             if ($req->filled('mode')) {
                 // 특정 필드만 검색
                 $fieldMap = [
-                    'gd_name' => ['match' => ['gd_name' => $keyword]],
-                    'gm_name' => ['match' => ['gm_name' => $keyword]],
+                    'gd_name' => [
+                        'bool' => [
+                            'should' => [
+                                ['match'        => ['gd_name'       => $keyword]],
+                                ['match'        => ['gd_name.exact' => $keyword]],
+                                ['match_phrase' => ['gd_name.exact' => $keyword]],
+                            ],
+                            'minimum_should_match' => 1,
+                        ]
+                    ],
+                    'gm_name' => [
+                        'bool' => [
+                            'should' => [
+                                ['match'        => ['gm_name'       => $keyword]],
+                                ['match'        => ['gm_name.exact' => $keyword]],
+                                ['match_phrase' => ['gm_name.exact' => $keyword]],
+                            ],
+                            'minimum_should_match' => 1,
+                        ]
+                    ],
                     'gm_code' => [
+                        // ... 나머지 그대로
                         'bool' => [
                             'should' => [
                                 ['term'  => ['gm_code'             => $keyword]],
