@@ -134,6 +134,7 @@ class TestController extends Controller {
                         // ② 모든 토큰 포함 (AND)
                         ['match' => ['gd_name'     => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 50]]],
                         ['match' => ['gm_name_all' => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 40]]],
+                        ['match' => ['gm_name_all.exact' => ['query' => $keyword, 'operator' => 'and', 'boost' => 60]]],
                         ['match' => ['gd_keyword'  => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 30]]],
 
                         // ③ 개별 토큰 OR 매칭 (낮은 점수)
@@ -154,7 +155,12 @@ class TestController extends Controller {
                         [
                             'multi_match' => [
                                 'query'          => $keyword,
-                                'fields'         => ['gd_name^3', 'mk_name^2'],
+                                'fields'         => [
+                                    'gd_name^3', 
+                                    'gm_name_all', 
+                                    'gm_name_all.exact^2', 
+                                    'mk_name^2'
+                                ],
                                 'fuzziness'      => 'AUTO',
                                 'prefix_length'  => 2,
                                 'max_expansions' => 50,
