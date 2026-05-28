@@ -122,6 +122,39 @@ class TestController extends Controller {
                     ],
                 ];
                 $searchQuery = $fieldMap[$req->mode] ?? [];
+
+            } elseif ($isCatnoPattern) {
+                // 카탈로그 번호 패턴: korean analyzer 완전 배제, term/prefix만 사용
+                $catnoClause = [
+                    'should' => [
+                        ['term'   => ['gm_catno'             => $keyword]],
+                        ['term'   => ['gm_catno_all.keyword' => $keyword]],
+                        ['prefix' => ['gm_catno'             => $keyword]],
+                        ['prefix' => ['gm_catno_all.keyword' => $keyword]],
+                        ['term'   => ['gm_code'              => $keyword]],
+                        ['term'   => ['gm_code_all.keyword'  => $keyword]],
+                        ['prefix' => ['gm_code'              => $keyword]],
+                        ['prefix' => ['gm_code_all.keyword'  => $keyword]],
+                    ],
+                    'minimum_should_match' => 1,
+                    'filter' => $filters,
+                ];
+
+                $searchQuery = [
+                    'function_score' => [
+                        'query' => ['bool' => $catnoClause],
+                        'functions' => array_merge([
+                            ['filter' => ['term'   => ['gm_catno_all.keyword' => $keyword]], 'weight' => 100000],
+                            ['filter' => ['term'   => ['gm_catno'             => $keyword]], 'weight' => 50000],
+                            ['filter' => ['term'   => ['gm_code_all.keyword'  => $keyword]], 'weight' => 9000],
+                            ['filter' => ['term'   => ['gm_code'              => $keyword]], 'weight' => 10000],
+                            ['filter' => ['prefix' => ['gm_catno_all.keyword' => $keyword]], 'weight' => 10000],
+                            ['filter' => ['prefix' => ['gm_code_all.keyword'  => $keyword]], 'weight' => 5000],
+                        ], $personalizeFunctions),
+                        'score_mode' => 'sum',
+                        'boost_mode' => 'sum',
+                    ],
+                ];
             } else {    // 전체 검색
 
                 $boolClause = [
