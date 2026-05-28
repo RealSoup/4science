@@ -49,6 +49,7 @@ class EstimateController extends Controller {
 							DB::raw("(SELECT name FROM la_users
 							WHERE la_users.id = la_shop_estimate_req.eq_mng) as eq_mng_nm"),)
                 ->with('user')
+                ->with('estimateReply')
                 ->latest('eq_id');
         if ($req->date_type == 'reque') {
                 $eq->when($req->startDate, fn ($q, $v) => $q->StartDate($v.' 00:00:00'));
@@ -122,10 +123,6 @@ class EstimateController extends Controller {
             $data['list'] = $eq->paginate($list_size);
             $data['list']->appends($req->all())->links();
         }
-
-        foreach ($data['list'] as $eq)
-            $eq->estimateReply;
-
             
 		$data['mng_on'] = json_decode(Redis::get('UserMngOn'));
 		$data['mng_off'] = json_decode(Redis::get('UserMngOff'));
