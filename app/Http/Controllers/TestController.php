@@ -218,8 +218,7 @@ class TestController extends Controller {
                                 'query'          => $keyword,
                                 'fields'         => [
                                     'gd_name^3', 
-                                    'gm_name_all', 
-                                    'gm_name_all.exact^2', 
+                                    'gm_name_all',
                                     'mk_name^2'
                                 ],
                                 'fuzziness'      => 'AUTO',
