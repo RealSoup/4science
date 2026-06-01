@@ -304,6 +304,15 @@ var render = function render() {
     }
   }, [_c("b-link", {
     attrs: {
+      to: "/shop/makerShop/39"
+    }
+  }, [_c("b-carousel-slide", {
+    attrs: {
+      "img-src": "/storage/main/slide/260601.jpg",
+      alt: "초당 22,000번의 완벽한 빛 제어, 산업과 양지(Quantum) 혁신하다. vialux"
+    }
+  })], 1), _vm._v(" "), _c("b-link", {
+    attrs: {
       to: "/shop/outlet"
     }
   }, [_c("b-carousel-slide", {

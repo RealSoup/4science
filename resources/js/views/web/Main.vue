@@ -8,6 +8,9 @@
         </b-link>
 
         <b-carousel controls indicators :interval='0' class="area_tc">
+            <b-link to="/shop/makerShop/39">
+                <b-carousel-slide img-src="/storage/main/slide/260601.jpg" alt="초당 22,000번의 완벽한 빛 제어, 산업과 양지(Quantum) 혁신하다. vialux"></b-carousel-slide>
+            </b-link>
             <b-link to="/shop/outlet">
                 <b-carousel-slide img-src="/storage/main/slide/26042101.jpg" alt="종류별로 브랜드별로 몽땅 준비 했습니다. 포사전문관!"></b-carousel-slide>
             </b-link>
