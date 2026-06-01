@@ -700,6 +700,7 @@ export default {
 .conRight .pick_info .btn-group { margin-top:1.5rem; }
 .conRight .pick_info .btn-group .btn { border-color:#CCC; color:#333; background:#fff; font-weight:bold; padding:.375rem 1.8rem; }
 .conRight .pick_info .btn-group .btn:nth-of-type(1) { background:#1A90D6; color:#fff; }
+.conRight .pick_info .btn-group .btn:last-of-type { background:#FFEB00; }
 
 .conRight .goods_option .opt>li { position:relative; margin:1rem 0; padding:.5rem 0; cursor:pointer; border:1px solid #898989; text-indent:1rem; }
 .conRight .goods_option .opt>li:after { content:''; position:absolute; right:13px; top:16px; width:0; height:0; border-top:6px solid #3A3B3D; border-left:7px solid transparent; border-right:7px solid transparent; }
