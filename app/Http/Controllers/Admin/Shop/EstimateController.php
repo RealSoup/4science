@@ -124,8 +124,8 @@ class EstimateController extends Controller {
                 case 'cat_no':
                     $eq->whereIn('eq_id', function($q) use($req) {
                         $q->select('er.er_eq_id')
-                        ->from('shop_estimate_reply as er')
-                        ->join('shop_estimate_model as em', 'em.em_papa_id', '=', 'er.er_id')
+                        ->from('shop_estimate_model as em')
+                        ->join('shop_estimate_reply as er', 'er.er_id', '=', 'em.em_papa_id')
                         ->where('em.em_type', 'estimateReply')
                         ->where('em.em_catno', 'like', $req->keyword.'%')
                         ->whereNull('er.deleted_at');
