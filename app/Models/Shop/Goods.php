@@ -156,7 +156,7 @@ class Goods extends Model {
         return [
             'gd_id'      => $this->gd_id,
             'gd_name'    => $this->gd_name,
-            'gd_keyword' => $this->gd_keyword ?? '',
+            'gd_keyword' => str_replace(',', ' ', $this->gd_keyword ?? ''),
             'mk_name'    => $this->maker->mk_name ?? '',
 
             // 대표 모델 (목록 표시용)
