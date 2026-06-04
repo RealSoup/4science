@@ -196,11 +196,11 @@ class TestController extends Controller {
                         ['match' => ['gd_name'     => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 50]]],
                         ['match' => ['gm_name_all' => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 40]]],
                         ['match' => ['gm_name_all.exact' => ['query' => $keyword, 'operator' => 'and', 'boost' => 60]]],
-                        ['match' => ['gd_keyword.exact' => ['query' => $keyword, 'operator' => 'and', 'boost' => 30]]],
+                        ['match' => ['gd_keyword' => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 30]]],
 
                         // ③ 개별 토큰 OR 매칭 (낮은 점수)
                         ['match' => ['gd_name'    => ['query' => $keyword, 'analyzer' => 'korean_exact', 'boost' => 5]]],
-                        ['match' => ['gd_keyword.exact' => ['query' => $keyword, 'boost' => 3]]],
+                        ['match' => ['gd_keyword' => ['query' => $keyword, 'analyzer' => 'korean_exact', 'boost' => 3]]],
                         ['match' => ['mk_name'    => ['query' => $keyword, 'analyzer' => 'korean_exact', 'boost' => 3]]],
 
                         // ④ 코드/카탈로그 (term/prefix만)
@@ -332,7 +332,6 @@ class TestController extends Controller {
 
 
         $client = app(\Elastic\Elasticsearch\Client::class);
-        \Log::info('ES Query: ' . json_encode($searchQuery));
         $result = $client->search([
             'index' => 'shop_goods',
             'body'  => [
