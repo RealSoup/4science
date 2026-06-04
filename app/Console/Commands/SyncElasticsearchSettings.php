@@ -93,7 +93,7 @@ class SyncElasticsearchSettings extends Command
                         'gd_name'      => ['type' => 'text', 'analyzer' => 'korean', 'search_analyzer' => 'korean_search', 'similarity' => 'no_idf', 'fields'   => [ 'keyword' => ['type' => 'keyword', 'normalizer' => 'lowercase_normalizer'], 'exact'   => ['type' => 'text', 'analyzer' => 'korean_exact'], ], ],
                         'gm_name'      => ['type' => 'text', 'analyzer' => 'korean', 'similarity' => 'no_idf', 'fields'   => [ 'keyword' => ['type' => 'keyword', 'normalizer' => 'lowercase_normalizer'], 'exact'   => ['type' => 'text', 'analyzer' => 'korean_exact'], ], ],
                         'mk_name'      => ['type' => 'text', 'analyzer' => 'korean_exact', 'similarity' => 'no_idf', 'fields' => [ 'keyword' => ['type' => 'keyword', 'normalizer' => 'lowercase_normalizer'], 'exact' => ['type' => 'text', 'analyzer' => 'korean_exact'], ], ],
-                        'gd_keyword'   => ['type' => 'text', 'analyzer' => 'korean', 'similarity' => 'no_idf'],
+                        'gd_keyword'   => ['type' => 'text', 'analyzer' => 'korean_exact', 'similarity' => 'no_idf'],
                         'gm_name_all'  => ['type' => 'text', 'analyzer' => 'korean', 'similarity' => 'no_idf', 'fields' => [ 'exact' => [ 'type'     => 'text', 'analyzer' => 'korean_exact', ], ],],
                         'gm_code'      => ['type' => 'keyword', 'normalizer' => 'lowercase_normalizer'],
                         'gm_catno'     => ['type' => 'keyword'],
