@@ -332,6 +332,7 @@ class TestController extends Controller {
 
 
         $client = app(\Elastic\Elasticsearch\Client::class);
+        \Log::info('ES Query: ' . json_encode($searchQuery));
         $result = $client->search([
             'index' => 'shop_goods',
             'body'  => [
