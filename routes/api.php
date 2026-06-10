@@ -359,7 +359,4 @@ Route::post('behavior/log', 'BehaviorController@log');
 
 Route::prefix('test')->group(function () {
     Route::GET('search_test',       'TestController@search_test');
-});
-
-
-            
+});            

@@ -23,9 +23,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
-            if (_this.$route.query.is_adult == 'true') window.opener.postMessage('adult_true');else if (_this.$route.query.is_adult == 'false') window.opener.postMessage('adult_false');
+            if (window.opener) {
+              if (_this.$route.query.is_adult == 'true') window.opener.postMessage('adult_true');else if (_this.$route.query.is_adult == 'false') window.opener.postMessage('adult_false');
+            }
+            console.log(_this.$route.query);
             self.close();
-          case 2:
+          case 3:
           case "end":
             return _context.stop();
         }

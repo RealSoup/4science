@@ -4,201 +4,155 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Storage;
 use DB;
+use App\Services\KcpCrypto;
 
 
 class KcpController extends Controller {
-    
-    protected $key_data;        // privatekey 파일 read
-    protected $pri_key;     // privatekey 추출,  'changeit' 은 테스트용 개인키비밀번호
         
-    public function __construct() {
-        $this->key_data = Storage::disk('public')->get('kcp/KCP_AUTH_AKZZO_PRIKEY.pem');
-        $this->pri_key = openssl_pkey_get_private($this->key_data, "4science20@%");
-    }
-
     public function person_verification(Request $req) {
-        $hash_data = env('g_conf_site_cd')."^".$req->ct_type."^".$req->make_req_dt; //up_hash 생성 서명 데이터
-        
-        //서명 데이터(무결성 검증)
-        openssl_sign($hash_data, $signature, $this->pri_key, "sha256WithRSAEncryption");
-        $kcp_sign_data = base64_encode($signature);
+        $site_cd  = env('KCP_SITE_CD');
+        $enc_key  = env('KCP_ENC_KEY');
+        $ret_url  = env('KCP_RET_URL');
+        $cert_url = env('KCP_CERT_URL');
 
-        $data = array(
-            "site_cd"       => env('g_conf_site_cd'),
-            "kcp_cert_info" => env('g_conf_cert_info'),
-            "ct_type"       => $req->ct_type,
-            "ordr_idxx"     => $req->ordr_idxx,
-            "web_siteid"    => env('g_conf_web_siteid'),
-            "make_req_dt"   => $req->make_req_dt,
-            "kcp_sign_data" => $kcp_sign_data
-        );
+        $ordr_idxx = $req->ordr_idxx ?? '';
 
-        $req_data = json_encode($data);
-        $header_data = ["Content-Type: application/json", "charset=utf-8"];
+        $req_json = json_encode([
+            "site_cd"     => $site_cd,
+            "ordr_idxx"   => $ordr_idxx,
+            "Ret_URL"     => $ret_url,
+            "web_siteid"  => "",
+            "param_opt_1" => "",
+            "param_opt_2" => "",
+            "param_opt_3" => "",
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-        // up_hash 생성 REQ DATA
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, env('g_conf_cert_url'));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $header_data);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $req_data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $encrypted = KcpCrypto::encryptJson($req_json, $enc_key, $site_cd);
 
-        // API RES
-        $res_data = curl_exec($ch);
+        $result = $this->curlPost($cert_url, [
+            "Content-Type: application/json",
+            "site_cd: {$site_cd}",
+            "rv: {$encrypted['rv']}",
+        ], $encrypted['encData']);
 
-        // RES JSON DATA Parsing
-        $json_res = json_decode($res_data, true);
-        
-        curl_close($ch);
-
-        $json_res['site_cd'] = env('g_conf_site_cd');
-        $json_res['web_siteid_hashYN'] = env('g_conf_web_siteid_hashYN');
-        $json_res['web_siteid'] = env('g_conf_web_siteid');
-        $json_res['return_url'] = config('app.url')."shop/order/adult_popup";
-        return response()->json($json_res, 200);
-    }
-
-    public function ReqPopUp(Request $req) {
-        // dd($req->all());
-        // $req->res_msg = 123;
-
-        if( $req->res_cd =="0000" ) {
-            $ct_type = "CHK";
-            $hash_data = env('g_conf_site_cd')."^".$ct_type."^".$req->cert_no."^".$req->dn_hash; // dn_hash 검증  서명 데이터
-
-            //서명 데이터(무결성 검증)
-            openssl_sign($hash_data, $signature, $this->pri_key, "sha256WithRSAEncryption");
-            $kcp_sign_data = base64_encode($signature);
-
-            $data = [
-                "site_cd" => $req->site_cd,
-                "kcp_cert_info" => env('g_conf_cert_info'),
-                "ct_type" => $ct_type,
-                "ordr_idxx" => $req->ordr_idxx, // dn_hash 검증 요청 전 가맹점 DB상의 주문번호와 동일한지 검증 후 요청 바랍니다.
-                "cert_no" => $req->cert_no,
-                "dn_hash" => $req->dn_hash,
-                "kcp_sign_data" => $kcp_sign_data,
-            ];
-
-            $req_data = json_encode($data);
-            $header_data = ["Content-Type: application/json", "charset=UTF-8"];
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, env('g_conf_cert_url'));
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $header_data);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $req_data);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-            // API RES
-            $res_data = curl_exec($ch);
-
-            // RES JSON DATA Parsing
-            $json_res = json_decode($res_data, true);
-            $dn_res_cd = $json_res["res_cd"];            
-            curl_close($ch); 
-
-            if($dn_res_cd == "0000"){ //dn_hash 검증이 완료 일 때
-                $ct_type = "DEC";
-                $hash_data = env('g_conf_site_cd')."^".$ct_type."^".$req->cert_no; // dn_hash 검증  서명 데이터
-
-                //서명 데이터(무결성 검증)
-                openssl_sign($hash_data, $signature, $this->pri_key, "sha256WithRSAEncryption");
-                $kcp_sign_data = base64_encode($signature);
-        
-                $data = [
-                    "site_cd" => $req->site_cd,
-                    "kcp_cert_info" => env('g_conf_cert_info'),
-                    "ct_type" => $ct_type,
-                    "ordr_idxx" => $req->ordr_idxx,
-                    "cert_no" => $req->cert_no,
-                    "enc_cert_Data" => $req->enc_cert_data2,
-                    "kcp_sign_data" => $kcp_sign_data,
-                ];
-        
-                $req_data = json_encode($data);
-                $header_data = ["Content-Type: application/json", "charset=UTF-8"];
-        
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, env('g_conf_cert_url'));
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $header_data);
-                curl_setopt($ch, CURLOPT_POST, 1);
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $req_data);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        
-                // API RES
-                $res_data = curl_exec($ch);
-        
-                // RES JSON DATA Parsing
-                $json_res = json_decode($res_data, true);
-
-                $res_cd = $json_res["res_cd"];
-                $res_msg = $json_res["res_msg"];
-                $comm_id = $json_res["comm_id"];
-                $phone_no = $json_res["phone_no"];
-                $user_name = $json_res["user_name"];
-                $birth_day = $json_res["birth_day"];
-                $sex_code = $json_res["sex_code"];
-                $local_code = $json_res["local_code"];
-
-                $ci = $json_res["ci"];
-                $di = $json_res["di"];
-                $ci_url = $json_res["ci_url"];
-                $di_url = $json_res["di_url"];
-                $web_siteid = $json_res["web_siteid"];
-                curl_close($ch); 
-
-                // echo "결과코드 : ".$res_cd."<br>";
-                // echo "결과메세지 : ".$res_msg."<br>";
-                // echo "이동통신사 코드 : ".$comm_id."<br>";
-                // echo "전화번호 : ".$phone_no."<br>";
-                // echo "이름 : ".$user_name."<br>";
-                // echo "생년월일 : ".$birth_day."<br>";
-                // echo "성별코드 : ".$sex_code."<br>";
-                // echo "내/외국인 정보 : ".$local_code."<br>";
-                // echo "CI : ".$ci."<br>";
-                // echo "DI : ".$di."<br>";
-                // echo "CI_URL : ".$ci_url."<br>";
-                // echo "DI_URL : ".$di_url."<br>";
-
-         
-
- 
-                $year = substr($birth_day,0,4);
-                $month = substr($birth_day,2,2);
-                $day = substr($birth_day,4,2);  
-
-
-                $a_year  = intval(date("Y"))-intval($year);
-                $a_month = date("m");
-                $a_day  = date("d");
-
-                if( ($month <= $a_month) && ($day <= $a_day)) // 만 나이를 가져온다.
-                    $age = $a_year;
-                else
-                    $age = ($a_year-1);
-
-                if($age < 20)
-                    $json_res["is_adult"] = 'false';
-                else {
-                    DB::table('users')->where('id', auth()->user()->id)->update(['adult_verified_at'=> \Carbon\Carbon::now()]);
-                    $json_res["is_adult"] = 'true';
-                }
-            } else { 
-                dd($json_res); 
-            }
-        } else/*if( res_cd.equals( "0000" ) != true )*/ { // 인증실패
-            echo "인증 실패<br>";
-            if (isset($res_cd)) echo "결과코드 : ".$res_cd."<br>";
-            if (isset($res_msg)) echo "결과메세지 : ".$res_msg."<br>";
-            $json_res["rst"] = 'fail';
+        if (($result['res_cd'] ?? '') !== '0000') {
+            return response()->json([
+                'res_cd'  => $result['res_cd'] ?? 'ERR',
+                'res_msg' => $result['res_msg'] ?? '거래등록 실패',
+            ]);
         }
 
-        // return response()->json($json_res, 200);
-        return redirect()->route('shop.order.adult_popup', $json_res);
+        session([
+            'kcp_reg_cert_key' => $result['reg_cert_key'],
+            'kcp_ordr_idxx'    => $ordr_idxx,
+        ]);
+
+        return response()->json([
+            'res_cd'       => '0000',
+            'call_url'     => $result['call_url'],
+            'reg_cert_key' => $result['reg_cert_key'],
+        ]);
+    }
+
+    public function ReqPopUp(Request $req)
+    {
+        $res_cd          = $req->input('res_cd', '');
+        $res_msg         = $req->input('res_msg', '');
+        $cb_reg_cert_key = $req->input('reg_cert_key', '');
+
+        $fail_params = ['is_adult' => 'false', 'res_cd' => $res_cd, 'res_msg' => $res_msg];
+
+        // reg_cert_key 검증
+        $sess_reg_cert_key = session('kcp_reg_cert_key', '');
+        $ordr_idxx         = session('kcp_ordr_idxx', '');
+
+        if ($cb_reg_cert_key !== $sess_reg_cert_key) {
+            session()->forget(['kcp_reg_cert_key', 'kcp_ordr_idxx']);
+            return redirect()->route('shop.order.adult_popup', array_merge($fail_params, ['res_msg' => '거래등록키 불일치']));
+        }
+
+        if ($res_cd !== '0000') {
+            session()->forget(['kcp_reg_cert_key', 'kcp_ordr_idxx']);
+            return redirect()->route('shop.order.adult_popup', $fail_params);
+        }
+
+        // 결과조회
+        $site_cd = env('KCP_SITE_CD');
+        $enc_key = env('KCP_ENC_KEY');
+        $dec_url = env('KCP_DEC_URL');
+
+        $query_result = $this->curlPost($dec_url, [
+            "Content-Type: application/json",
+            "site_cd: {$site_cd}",
+        ], json_encode([
+            "reg_cert_key" => $sess_reg_cert_key,
+            "ordr_idxx"    => $ordr_idxx,
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+
+        session()->forget(['kcp_reg_cert_key', 'kcp_ordr_idxx']);
+
+        if (($query_result['res_cd'] ?? '') !== '0000') {
+            return redirect()->route('shop.order.adult_popup', array_merge($fail_params, [
+                'res_msg' => $query_result['res_msg'] ?? '결과조회 실패'
+            ]));
+        }
+
+        // 복호화
+        $cert_data = json_decode(
+            KcpCrypto::decryptJson(
+                $query_result['enc_cert_data'] ?? '',
+                $query_result['rv'] ?? '',
+                $enc_key,
+                $site_cd
+            ),
+            true
+        );
+
+        if (!$cert_data) {
+            return redirect()->route('shop.order.adult_popup', array_merge($fail_params, ['res_msg' => '복호화 실패']));
+        }
+
+        // 성인 여부
+        $birth_day = $cert_data['birth_day'] ?? '';
+        $is_adult  = $this->checkAdult($birth_day);
+        
+        // $is_adult  = empty($birth_day) ? true : $this->checkAdult($birth_day);
+
+        if ($is_adult && auth()->check()) {
+            DB::table('users')
+                ->where('id', auth()->id())
+                ->update(['adult_verified_at' => now()]);
+        }
+
+        return redirect()->route('shop.order.adult_popup', [
+            'is_adult'  => $is_adult ? 'true' : 'false',
+            'user_name' => $cert_data['user_name'] ?? '',
+            'phone_no'  => $cert_data['phone_no']  ?? '',
+            'birth_day' => $birth_day,
+        ]);
+    }
+
+    private function curlPost(string $url, array $headers, string $body): array
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST,           true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER,     $headers);
+        curl_setopt($ch, CURLOPT_POSTFIELDS,     $body);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        return json_decode($res, true) ?? [];
+    }
+
+    private function checkAdult(string $birth_day): bool
+    {
+        if (strlen($birth_day) !== 8) return false;
+        $year  = (int) substr($birth_day, 0, 4);
+        $month = (int) substr($birth_day, 4, 2);
+        $day   = (int) substr($birth_day, 6, 2);
+        $today = now();
+        $age   = $today->year - $year;
+        if ($today->month < $month || ($today->month === $month && $today->day < $day)) $age--;
+        return $age >= 20;
     }
 }

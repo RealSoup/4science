@@ -27,9 +27,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       frm: {
-        make_req_dt: '',
-        ordr_idxx: '',
-        ct_type: 'HAS'
+        ordr_idxx: ''
       }
     };
   },
@@ -37,131 +35,56 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     verification_req: function verification_req() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var res, url, width, height, leftpos, toppos, option, form, objs01, objs02, objs03, objs04, objs05, objs06, objs07, objs08, objs09, objs10, objs11, objs12, objs13, objs14, objs15, objs16, objs17, objs18;
+        var res, _res$data, call_url, reg_cert_key, width, height, left, top, opts, form, addField;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/kcp/person_verification", _this.frm);
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/kcp/person_verification", {
+                ordr_idxx: _this.frm.ordr_idxx
+              });
             case 2:
               res = _context.sent;
-              if (res && res.status === 200) {
-                if (res.data.res_cd == "0000") {
-                  url = "/shop/order/adult_popup";
-                  width = 410;
-                  height = 500;
-                  leftpos = screen.width / 2 - width / 2;
-                  toppos = screen.height / 2 - height / 2;
-                  option = "width=".concat(width, ", height=").concat(height, ", top=").concat(toppos, ", left=").concat(leftpos, ", location = no"); // 1. 윈도우 팝업 띄우기 
-                  _this.windowRef = window.open(url, "kcp_popup", option);
-                  if (_this.windowRef != null) _this.windowRef.addEventListener('beforeunload', _this.evtClose);else alert("window.open fail!!!");
-
-                  // 2.  새로 띄운 윈도우 팝업창으로 부터 수신 메세지 이벤트 처리 
-                  window.addEventListener("message", _this.recvEvtFromChild, false);
-                  form = document.createElement('form');
-                  objs01 = document.createElement('input');
-                  objs02 = document.createElement('input');
-                  objs03 = document.createElement('input');
-                  objs04 = document.createElement('input');
-                  objs05 = document.createElement('input');
-                  objs06 = document.createElement('input');
-                  objs07 = document.createElement('input');
-                  objs08 = document.createElement('input');
-                  objs09 = document.createElement('input');
-                  objs10 = document.createElement('input');
-                  objs11 = document.createElement('input');
-                  objs12 = document.createElement('input');
-                  objs13 = document.createElement('input');
-                  objs14 = document.createElement('input');
-                  objs15 = document.createElement('input');
-                  objs16 = document.createElement('input');
-                  objs17 = document.createElement('input');
-                  objs18 = document.createElement('input');
-                  objs01.setAttribute('type', 'hidden');
-                  objs01.setAttribute('name', 'site_cd');
-                  objs01.setAttribute('value', res.data.site_cd);
-                  form.appendChild(objs01);
-                  objs02.setAttribute('type', 'hidden');
-                  objs02.setAttribute('name', 'ordr_idxx');
-                  objs02.setAttribute('value', _this.frm.ordr_idxx);
-                  form.appendChild(objs02);
-                  objs03.setAttribute('type', 'hidden');
-                  objs03.setAttribute('name', 'req_tx');
-                  objs03.setAttribute('value', "cert");
-                  form.appendChild(objs03);
-                  objs04.setAttribute('type', 'hidden');
-                  objs04.setAttribute('name', 'cert_method');
-                  objs04.setAttribute('value', "01");
-                  form.appendChild(objs04);
-                  objs05.setAttribute('type', 'hidden');
-                  objs05.setAttribute('name', 'up_hash');
-                  objs05.setAttribute('value', res.data.up_hash);
-                  form.appendChild(objs05);
-                  objs06.setAttribute('type', 'hidden');
-                  objs06.setAttribute('name', 'cert_otp_use');
-                  objs06.setAttribute('value', "Y");
-                  form.appendChild(objs06);
-                  objs07.setAttribute('type', 'hidden');
-                  objs07.setAttribute('name', 'web_siteid_hashYN');
-                  objs07.setAttribute('value', res.data.web_siteid_hashYN);
-                  form.appendChild(objs07);
-                  objs08.setAttribute('type', 'hidden');
-                  objs08.setAttribute('name', 'web_siteid');
-                  objs08.setAttribute('value', res.data.web_siteid);
-                  form.appendChild(objs08);
-                  objs09.setAttribute('type', 'hidden');
-                  objs09.setAttribute('name', 'param_opt_1');
-                  objs09.setAttribute('value', '');
-                  form.appendChild(objs09);
-                  objs10.setAttribute('type', 'hidden');
-                  objs10.setAttribute('name', 'param_opt_2');
-                  objs10.setAttribute('value', '');
-                  form.appendChild(objs10);
-                  objs11.setAttribute('type', 'hidden');
-                  objs11.setAttribute('name', 'param_opt_3');
-                  objs11.setAttribute('value', '');
-                  form.appendChild(objs11);
-                  objs12.setAttribute('type', 'hidden');
-                  objs12.setAttribute('name', 'Ret_URL');
-                  objs12.setAttribute('value', res.data.return_url);
-                  form.appendChild(objs12);
-                  objs13.setAttribute('type', 'hidden');
-                  objs13.setAttribute('name', 'cert_enc_use_ext');
-                  objs13.setAttribute('value', "Y");
-                  form.appendChild(objs13);
-                  objs14.setAttribute('type', 'hidden');
-                  objs14.setAttribute('name', 'kcp_merchant_time');
-                  objs14.setAttribute('value', res.data.kcp_merchant_time);
-                  form.appendChild(objs14);
-                  objs15.setAttribute('type', 'hidden');
-                  objs15.setAttribute('name', 'kcp_cert_lib_ver');
-                  objs15.setAttribute('value', res.data.kcp_cert_lib_ver);
-                  form.appendChild(objs15);
-                  objs16.setAttribute('type', 'hidden');
-                  objs16.setAttribute('name', 'kcp_page_submit_yn');
-                  objs16.setAttribute('value', 'Y');
-                  form.appendChild(objs16);
-                  objs17.setAttribute('type', 'hidden');
-                  objs17.setAttribute('name', 'res_cd');
-                  objs17.setAttribute('value', '');
-                  form.appendChild(objs17);
-                  objs18.setAttribute('type', 'hidden');
-                  objs18.setAttribute('name', 'res_msg');
-                  objs18.setAttribute('value', '');
-                  form.appendChild(objs18);
-                  form.setAttribute('method', 'post');
-                  // form.setAttribute('action', "https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp");
-                  form.setAttribute('action', "https://cert.kcp.co.kr/kcp_cert/cert_view.jsp");
-                  form.setAttribute('target', "kcp_popup");
-                  document.body.appendChild(form);
-                  form.submit();
-                } else {
-                  Notify.modal('up_hash 생성 에러', 'warning');
-                  console.log("에러 코드", res.data.res_cd);
-                  console.log("에러 메세지", res.data.res_msg);
-                }
+              if (!(!res || res.status !== 200)) {
+                _context.next = 5;
+                break;
               }
-            case 4:
+              return _context.abrupt("return");
+            case 5:
+              if (!(res.data.res_cd !== '0000')) {
+                _context.next = 8;
+                break;
+              }
+              alert('거래등록 실패: ' + res.data.res_msg);
+              return _context.abrupt("return");
+            case 8:
+              _res$data = res.data, call_url = _res$data.call_url, reg_cert_key = _res$data.reg_cert_key; // 팝업 열기
+              width = 410, height = 500;
+              left = screen.width / 2 - width / 2;
+              top = screen.height / 2 - height / 2;
+              opts = "width=".concat(width, ",height=").concat(height, ",left=").concat(left, ",top=").concat(top, ",toolbar=no,scrollbars=no");
+              window.open('', 'kcp_popup', opts);
+              window.addEventListener('message', _this.recvEvtFromChild, false);
+
+              // V2는 form 파라미터 2개만
+              form = document.createElement('form');
+              form.method = 'post';
+              form.action = call_url;
+              form.target = 'kcp_popup';
+              addField = function addField(name, value) {
+                var el = document.createElement('input');
+                el.type = 'hidden';
+                el.name = name;
+                el.value = value;
+                form.appendChild(el);
+              };
+              addField('reg_cert_key', reg_cert_key);
+              addField('kcp_page_submit_yn', 'N'); // N = 팝업방식
+
+              document.body.appendChild(form);
+              form.submit();
+              document.body.removeChild(form);
+            case 25:
             case "end":
               return _context.stop();
           }
@@ -183,7 +106,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mounted: function mounted() {
     var _this2 = this;
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-      var today, year, month, date, time, hour, minites, seconds;
+      var today, year, month, date, time;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
           case 0:
@@ -194,18 +117,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             time = today.getTime().toString();
             if (parseInt(month) < 10) month = "0" + month;
             _this2.frm.ordr_idxx = year + month + date + time;
-
-            // getCurrentDate()        
-            year = year.toString().slice(2, 4);
-            date = date < 10 ? '0' + date : date;
-            hour = today.getHours().toString();
-            hour = hour < 10 ? '0' + hour : hour;
-            minites = today.getMinutes().toString();
-            minites = minites < 10 ? '0' + minites : minites;
-            seconds = today.getSeconds().toString();
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-            _this2.frm.make_req_dt = year + month + date + hour + minites + seconds;
-          case 16:
+          case 7:
           case "end":
             return _context2.stop();
         }

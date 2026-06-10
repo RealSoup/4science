@@ -24,84 +24,55 @@ export default {
     data() {
         return {
             frm: {
-                make_req_dt: '',
                 ordr_idxx: '',
-                ct_type: 'HAS',
             },
         }
     },
     methods: {
         async verification_req () {
-            const res = await ax.post(`/api/kcp/person_verification`, this.frm);
-            if (res && res.status === 200) {      
-                if (res.data.res_cd == "0000") {
-                    let url = `/shop/order/adult_popup`;
-                    let width  = 410;
-		            let height = 500;
-                    let leftpos = screen.width  / 2 - ( width  / 2 );
-		            let toppos  = screen.height / 2 - ( height / 2 );                    
-                    let option = `width=${width}, height=${height}, top=${toppos}, left=${leftpos}, location = no`;
+            // ordr_idxx는 mounted에서 생성된 값 사용
+            const res = await ax.post(`/api/kcp/person_verification`, {
+                ordr_idxx: this.frm.ordr_idxx
+            });
 
-                    // 1. 윈도우 팝업 띄우기 
-                    this.windowRef = window.open(url, "kcp_popup", option);
-                    if( this.windowRef != null ) 
-                        this.windowRef.addEventListener('beforeunload', this.evtClose);
-                    else
-                        alert( "window.open fail!!!" );
+            if (!res || res.status !== 200) return;
 
-                    // 2.  새로 띄운 윈도우 팝업창으로 부터 수신 메세지 이벤트 처리 
-                    window.addEventListener("message", this.recvEvtFromChild, false);
-
-                    var form = document.createElement('form');
-                    var objs01 = document.createElement('input');
-                    var objs02 = document.createElement('input');
-                    var objs03 = document.createElement('input');
-                    var objs04 = document.createElement('input');
-                    var objs05 = document.createElement('input');
-                    var objs06 = document.createElement('input');
-                    var objs07 = document.createElement('input');
-                    var objs08 = document.createElement('input');
-                    var objs09 = document.createElement('input');
-                    var objs10 = document.createElement('input');
-                    var objs11 = document.createElement('input');
-                    var objs12 = document.createElement('input');
-                    var objs13 = document.createElement('input');
-                    var objs14 = document.createElement('input');
-                    var objs15 = document.createElement('input');
-                    var objs16 = document.createElement('input');
-                    var objs17 = document.createElement('input');
-                    var objs18 = document.createElement('input');
-                    objs01.setAttribute('type', 'hidden'); objs01.setAttribute('name', 'site_cd');              objs01.setAttribute('value', res.data.site_cd);                     form.appendChild(objs01);
-                    objs02.setAttribute('type', 'hidden'); objs02.setAttribute('name', 'ordr_idxx');            objs02.setAttribute('value', this.frm.ordr_idxx);                   form.appendChild(objs02);
-                    objs03.setAttribute('type', 'hidden'); objs03.setAttribute('name', 'req_tx');               objs03.setAttribute('value', "cert");                               form.appendChild(objs03);
-                    objs04.setAttribute('type', 'hidden'); objs04.setAttribute('name', 'cert_method');          objs04.setAttribute('value', "01");                                 form.appendChild(objs04);
-                    objs05.setAttribute('type', 'hidden'); objs05.setAttribute('name', 'up_hash');              objs05.setAttribute('value', res.data.up_hash);                     form.appendChild(objs05);
-                    objs06.setAttribute('type', 'hidden'); objs06.setAttribute('name', 'cert_otp_use');         objs06.setAttribute('value', "Y");                                  form.appendChild(objs06);
-                    objs07.setAttribute('type', 'hidden'); objs07.setAttribute('name', 'web_siteid_hashYN');    objs07.setAttribute('value', res.data.web_siteid_hashYN);           form.appendChild(objs07);
-                    objs08.setAttribute('type', 'hidden'); objs08.setAttribute('name', 'web_siteid');           objs08.setAttribute('value', res.data.web_siteid);                  form.appendChild(objs08);
-                    objs09.setAttribute('type', 'hidden'); objs09.setAttribute('name', 'param_opt_1');          objs09.setAttribute('value', '');                                   form.appendChild(objs09);
-                    objs10.setAttribute('type', 'hidden'); objs10.setAttribute('name', 'param_opt_2');          objs10.setAttribute('value', '');                                   form.appendChild(objs10);
-                    objs11.setAttribute('type', 'hidden'); objs11.setAttribute('name', 'param_opt_3');          objs11.setAttribute('value', '');                                   form.appendChild(objs11);
-                    objs12.setAttribute('type', 'hidden'); objs12.setAttribute('name', 'Ret_URL');              objs12.setAttribute('value', res.data.return_url);                   form.appendChild(objs12);
-                    objs13.setAttribute('type', 'hidden'); objs13.setAttribute('name', 'cert_enc_use_ext');     objs13.setAttribute('value', "Y");                                  form.appendChild(objs13);
-                    objs14.setAttribute('type', 'hidden'); objs14.setAttribute('name', 'kcp_merchant_time');    objs14.setAttribute('value', res.data.kcp_merchant_time);                form.appendChild(objs14);
-                    objs15.setAttribute('type', 'hidden'); objs15.setAttribute('name', 'kcp_cert_lib_ver');     objs15.setAttribute('value', res.data.kcp_cert_lib_ver);                 form.appendChild(objs15);
-                    objs16.setAttribute('type', 'hidden'); objs16.setAttribute('name', 'kcp_page_submit_yn');   objs16.setAttribute('value', 'Y');                                   form.appendChild(objs16);
-                    objs17.setAttribute('type', 'hidden'); objs17.setAttribute('name', 'res_cd');               objs17.setAttribute('value', '');                                   form.appendChild(objs17);
-                    objs18.setAttribute('type', 'hidden'); objs18.setAttribute('name', 'res_msg');              objs18.setAttribute('value', '');                                   form.appendChild(objs18);
-                    
-                    form.setAttribute('method', 'post');
-                    // form.setAttribute('action', "https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp");
-                    form.setAttribute('action', "https://cert.kcp.co.kr/kcp_cert/cert_view.jsp");
-                    form.setAttribute('target', "kcp_popup");
-                    document.body.appendChild(form);
-                    form.submit();
-                } else {
-                    Notify.modal('up_hash 생성 에러', 'warning');
-                    console.log("에러 코드", res.data.res_cd);
-                    console.log("에러 메세지", res.data.res_msg);
-                }
+            if (res.data.res_cd !== '0000') {
+                alert('거래등록 실패: ' + res.data.res_msg);
+                return;
             }
+
+            const { call_url, reg_cert_key } = res.data;
+
+            // 팝업 열기
+            const width  = 410, height = 500;
+            const left   = screen.width  / 2 - width  / 2;
+            const top    = screen.height / 2 - height / 2;
+            const opts   = `width=${width},height=${height},left=${left},top=${top},toolbar=no,scrollbars=no`;
+
+            window.open('', 'kcp_popup', opts);
+            window.addEventListener('message', this.recvEvtFromChild, false);
+
+            // V2는 form 파라미터 2개만
+            const form = document.createElement('form');
+            form.method = 'post';
+            form.action = call_url;
+            form.target = 'kcp_popup';
+
+            const addField = (name, value) => {
+                const el = document.createElement('input');
+                el.type  = 'hidden';
+                el.name  = name;
+                el.value = value;
+                form.appendChild(el);
+            };
+
+            addField('reg_cert_key',       reg_cert_key);
+            addField('kcp_page_submit_yn', 'N');  // N = 팝업방식
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
         },
         evtClose() {
             if(this.windowRef) {
@@ -114,6 +85,7 @@ export default {
             this.$emit('are_you_adult', evt.data);
         },
     },
+
     async mounted() {
         var today = new Date();
         var year  = today.getFullYear().toString();
@@ -123,18 +95,8 @@ export default {
         if(parseInt(month) < 10)
             month = "0" + month;
         this.frm.ordr_idxx = year+month+date+time;
-        
-        // getCurrentDate()        
-        year = year.toString().slice(2,4);
-        date     = date  < 10 ? '0' + date    : date    ;
-        let hour = today.getHours().toString();
-        hour = hour < 10 ? '0' + hour : hour;
-        let minites = today.getMinutes().toString();
-        minites = minites < 10 ? '0' + minites : minites;
-        let seconds = today.getSeconds().toString();
-        seconds = seconds < 10 ? '0' + seconds : seconds;
-        this.frm.make_req_dt = year + month + date   + hour + minites + seconds;
     },
+    
     beforeDestroy: function () {
         window.removeEventListener('message', this.recvEvtFromChild);
         this.windowRef.removeEventListener('beforeunload', this.evtClose);
