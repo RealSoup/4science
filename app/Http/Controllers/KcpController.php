@@ -34,7 +34,7 @@ class KcpController extends Controller {
             "site_cd: {$site_cd}",
             "rv: {$encrypted['rv']}",
         ], $encrypted['encData']);
-
+\Log::info('KCP_CERT_RESULT', $result);
         if (($result['res_cd'] ?? '') !== '0000') {
             return response()->json([
                 'res_cd'  => $result['res_cd'] ?? 'ERR',
