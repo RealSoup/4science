@@ -71,7 +71,7 @@ class AiController extends Controller {
             $prompt = "
                 상품명: {$keyword}
 
-                위의 상품을 검색해서 200자 이내로 요약해줘
+                위의 상품을 검색해서 200 ~ 250자 사이로 요약해줘
                 상단에 <h4>태그를 감사고 'chat GPT 로고'를 앞에 두고 'AI 상품 요약'이라는 제목을 먼저 쓰자
                 테두리를 주고 그림자를 넣어 3D 효과를 주자
                 전체 글은 <div class='gd_desc_ai_content'></div> 이걸로 감싸서 내가 개별로 스타일 줄수 있게 하자
@@ -79,6 +79,10 @@ class AiController extends Controller {
                 [출력 규칙]
                 - ```html 금지
                 - ``` 금지
+                - 로고는 아래 이미지를 쓰시오
+                    <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADVElEQVRYhbWXTUhVQRTHf7xILSOprLRFgdoXQUEkSSsXRZFlSWUZSC93LlzqQkyzD7PMTbRqEdjCWqQhZK2KFiZtkgrMvsjKLHORFH1ieVvMTPfcefMuV8UDw7z3P//5nzNz586ZC5OzauAB8B3wgFGgCyiepM6kLa4DhrWPQPZMBG8SQV4CZcBSIBVYCxy3EikHaoE64BCQPp3gRUK4NoS3jPDVuQdkTSWBcS1wNoRz0Qo2ALTp1m/5SqIGTgFO60E/knAqLPG7wBIHbyHQK3iFYYFnAZ2W8DmLsxEYEv5PQEH4fABoF2OclmMF/qv7/YJz2eJUOnTyUbN22YgeV2870oXoByATf9l2CZ7hXHKILwJ6BOeMg1Omfe9thwk2KLA+je22Emh2CF8Qge+L33+AUsFLxfEYcgWYESEBuSfiYmyrwLcCX4TvBbBaaARiNWqg05pVsgQagJXAsBB7qzHbqgXHA67gWIFuDcQjJDABjGl8DNis22eN3Sbx5IsBV61ERiXBPP8dERPwgCrHbKtEgNMOfw6qXnjAb2COcdzU4NEkCewUmAecdIgbO0FwpvscnDf4m5UY8FA79lrEmO7XWXhaSAJmVvOAJ8B14BmwQnA26H4LalUCB9ACQVyuB3vAY/yzoiUkgRaCG6xG/39k8W5ovDEGvEbtAyziO2AN6iRcD3zT+M+QBH5Z/5/qfsLCu3S/yQBpqI1hzvY8h/gp/JUK24Qy2B6N9Vnc7RrvleAowQ10DVWcpM0FbpH4GspXM0oCRzTeLUETuM1KpMYx2zzU4WM4w6iDqIHgHkiWQIfGGw2QIcQAVgHPBfYV2CYEWoUvLvBzERKYL8bmyqwMmCKwA/i3IrvQXCDRmiMkMIjj+YMqkR5w0CEsL6Y9qNJr2yWCqwjqum6CZaJKveEkXFbrtWPEIQ7qjMh34JVC1ENdWoyVErzcmJaTJMZ/QnsygrAC1CtrxgyhrmvSzluBO0h8swJWKMi9uJd6MXDHEq5IovcLvzjNDp+PbyWWeD/+NXvA8l0M0TGzH48aWFoW6mPCC2nLQsYfE7yiqSRgLB31eVWH+jIqt5JoQNWLVJ30YeCV8DdNJ3gyy8a/WIS1+EwEl1aMqmqmhnxHfbpXT0bkH/endLeUmJEsAAAAAElFTkSuQmCC' />
+                - 로고 이미지를 26px 크기로 배치하세요.
+                - 제목과 로고 사이 간격은 8px
             ";
         }
         
