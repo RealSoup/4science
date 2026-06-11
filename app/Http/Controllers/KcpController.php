@@ -34,6 +34,12 @@ class KcpController extends Controller {
             "site_cd: {$site_cd}",
             "rv: {$encrypted['rv']}",
         ], $encrypted['encData']);
+// person_verification() 상단에 임시 추가
+\Log::info('KCP_DEBUG', [
+    'site_cd' => $site_cd,
+    'enc_key' => $enc_key,
+    'cert_url' => $cert_url,
+]);        
 \Log::info('KCP_CERT_RESULT', $result);
         if (($result['res_cd'] ?? '') !== '0000') {
             return response()->json([
