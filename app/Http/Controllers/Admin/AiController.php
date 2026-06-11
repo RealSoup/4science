@@ -72,14 +72,14 @@ class AiController extends Controller {
                 상품명: {$keyword}
 
                 위의 상품을 검색해서 200 ~ 250자 사이로 요약해줘
-                상단에 <h4>태그를 감사고 'chat GPT 로고'를 앞에 두고 'AI 상품 요약'이라는 제목을 먼저 쓰자
+                상단에 <h4 style='margin: 0;'><img src='/storage/common/logo_chatgpt.png' style='width:22px; margin-right:10px' />AI 상품 요약</h4>이라는 제목을 먼저 쓰자
                 테두리를 주고 그림자를 넣어 3D 효과를 주자
                 전체 글은 <div class='gd_desc_ai_content' style='border: 1px solid #ccc; padding: 21px; box-shadow: 0 3px 11px rgba(0, 0, 0, .7); background: #8fc1ff2e; border-radius: 20px; '></div> 이걸로 감싸서 내가 개별로 스타일 줄수 있게 하자
 
                 [출력 규칙]
                 - ```html 금지
                 - ``` 금지
-                - 로고는 <img src='/storage/common/logo_chatgpt.png' style='width:22px; margin-right:16px' /> 이 이미지를 쓰시오              
+                - 로고는  이 이미지를 쓰시오              
             ";
         }
         
