@@ -72,10 +72,13 @@ class AiController extends Controller {
                 상품명: {$keyword}
 
                 위의 상품을 검색해서 200자 이내로 요약해줘
-                상단에 <h4>태그를 감사고 chat GPT 아이콘은 앞에 두고 'AI 상품 요약'이라는 제목을 먼저 쓰자
+                상단에 <h4>태그를 감사고 'chat GPT 로고'를 앞에 두고 'AI 상품 요약'이라는 제목을 먼저 쓰자
                 테두리를 주고 그림자를 넣어 3D 효과를 주자
                 전체 글은 <div class='gd_desc_ai_content'></div> 이걸로 감싸서 내가 개별로 스타일 줄수 있게 하자
 
+                [출력 규칙]
+                - ```html 금지
+                - ``` 금지
             ";
         }
         
