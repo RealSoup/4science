@@ -34,13 +34,7 @@ class KcpController extends Controller {
             "site_cd: {$site_cd}",
             "rv: {$encrypted['rv']}",
         ], $encrypted['encData']);
-// person_verification() 상단에 임시 추가
-\Log::info('KCP_DEBUG', [
-    'site_cd' => $site_cd,
-    'enc_key' => $enc_key,
-    'cert_url' => $cert_url,
-]);        
-\Log::info('KCP_CERT_RESULT', $result);
+
         if (($result['res_cd'] ?? '') !== '0000') {
             return response()->json([
                 'res_cd'  => $result['res_cd'] ?? 'ERR',
@@ -146,7 +140,6 @@ class KcpController extends Controller {
         curl_setopt($ch, CURLOPT_POSTFIELDS,     $body);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $res = curl_exec($ch);
-\Log::info('KCP_RAW', ['url' => $url, 'raw' => $res, 'curl_error' => curl_error($ch)]);        
         curl_close($ch);
         return json_decode($res, true) ?? [];
     }
