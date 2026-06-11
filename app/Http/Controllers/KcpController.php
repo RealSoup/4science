@@ -146,6 +146,7 @@ class KcpController extends Controller {
         curl_setopt($ch, CURLOPT_POSTFIELDS,     $body);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $res = curl_exec($ch);
+\Log::info('KCP_RAW', ['url' => $url, 'raw' => $res, 'curl_error' => curl_error($ch)]);        
         curl_close($ch);
         return json_decode($res, true) ?? [];
     }
