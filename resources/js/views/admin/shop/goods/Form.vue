@@ -105,28 +105,28 @@
 
         <b-row class="req_ai_desc">
             <b-col class="label">AI</b-col>
-            <b-col class="type11">
-                <div style="margin-bottom:10px;">
-                    <input v-model="aiKeyword" placeholder="상품명 + 모델명 입력" style="width:300px;" />
-                    <button @click="openAi">AI 상품 설명 검색</button>
-                </div>
+            <b-col class="type06">
+                <b-input-group size="sm">
+                    <b-form-input v-model="aiKeyword" placeholder="상품명 (띄고) 모델명 입력" style="font-size: .855rem;"></b-form-input>
+                    <b-form-select class="custom-select" v-model="ai_sch_type" style="max-width: 120px;">
+                        <option value="pitch">핵심만 콕</option>
+                        <option value="detail">상세히 설명</option>
+                    </b-form-select>
+                    <template #append>
+                    <b-button variant="info" @click="openAi">AI 상품 설명 검색</b-button>
+                    </template>
+                </b-input-group>
 
                 <!-- AI 모달 -->
                 <loading-modal v-if="isLoadingModalViewed">Loading ......</loading-modal>
                 <template else>
                 <div v-if="aiModal" class="ai-modal">
                     <div class="ai-modal-content">
-
-                        <h3>AI 상품 설명</h3>
-
-                        
+                        <h3>AI 상품 설명</h3>                        
                         <textarea v-model="aiResult" style="width:100%; height:300px;"></textarea>
-
                         <br/>
-
-                        <button @click="applyToEditor">적용</button>
-                        <button @click="aiModal=false">닫기</button>
-
+                        <b-button variant="info"  @click="applyToEditor">적용</b-button>
+                        <b-button variant="info"  @click="aiModal=false">닫기</b-button>
                     </div>
                 </div>
                 </template>
@@ -387,6 +387,7 @@ export default {
             }, 
             rt_extra_focus: false,
             aiKeyword: '',
+            ai_sch_type: 'pitch',
             aiModal: false,
             aiResult: '',
         }
@@ -550,29 +551,17 @@ export default {
         },
         frm_priceComma(v)   { return this.priceComma(v); },
 
-
         async openAi() {
-            if (!this.aiKeyword) {
-                alert('상품명 입력');
-                return;
-            }
-
+            if (!this.aiKeyword) { alert('상품명 입력'); return; }
             this.aiModal = true;
-            
             this.isLoadingModalViewed = true;
-
             try {
-                const res = await ax.post('/api/admin/ai/req_desc', {
-                    keyword: this.aiKeyword
-                });
-
+                const res = await ax.post('/api/admin/ai/req_desc', { keyword: this.aiKeyword, ai_sch_type: this.ai_sch_type });
                 this.aiResult = res.data.html;
-
             } catch (e) {
                 console.error(e);
                 alert('AI 호출 실패');
             }
-
             this.isLoadingModalViewed = false;
         },
 
