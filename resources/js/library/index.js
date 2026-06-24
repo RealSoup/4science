@@ -38,7 +38,7 @@ export default {
             // }
         };
 
-        window.Notify.modal = function (msg, type, title='Confirmation') {
+        window.Notify.modal = function (msg, type='danger', title='Confirmation') {
             vm.$bvModal.msgBoxOk(msg, {
                 title: title,
                 size: 'sm',
