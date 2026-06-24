@@ -3,40 +3,42 @@
     <aside class="lefter">
         <header><router-link :to="{name: 'adm_main'}"><i><b>A</b><b-img src="/storage/common/logo/admin.png"></b-img></i></router-link></header>
 
-        <section>
-            <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_site')}"><i><b>S</b>Site관리</i></p>
-            <b-link :class="{focus:$route.name.startsWith('adm_site_info')}"            :to="{name: 'adm_site_info'}"><i>정보설정</i></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_site_main_cate_goods')}" :to="{name: 'adm_site_main_cate_goods'}"><i>메인 카테고리별 추천 상품</i></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_site_main_best')}"       :to="{name: 'adm_site_main_best'}"><i>메인 Best 상품</i></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_site_banner_goods')}"    :to="{name: 'adm_site_banner_goods'}"><i>메인 슬라이드 상품</i></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_site_synonym')}"         :to="{name: 'adm_site_synonym'}"><i>검색 동의어 관리</i></b-link>
-        </section>
+        <template v-if="!isRestricted">
+            <section>
+                <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_site')}"><i><b>S</b>Site관리</i></p>
+                <b-link :class="{focus:$route.name.startsWith('adm_site_info')}"            :to="{name: 'adm_site_info'}"><i>정보설정</i></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_site_main_cate_goods')}" :to="{name: 'adm_site_main_cate_goods'}"><i>메인 카테고리별 추천 상품</i></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_site_main_best')}"       :to="{name: 'adm_site_main_best'}"><i>메인 Best 상품</i></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_site_banner_goods')}"    :to="{name: 'adm_site_banner_goods'}"><i>메인 슬라이드 상품</i></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_site_synonym')}"         :to="{name: 'adm_site_synonym'}"><i>검색 동의어 관리</i></b-link>
+            </section>
 
-        <section>
-            <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_user')}"><i><b>회</b>회원관리</i></p>
-            <b-link :class="{focus:$route.name=='adm_user'||$route.name=='adm_user_edit'}" @click="strongReload('/admin/user')"><i>회원목록</i></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_user_email')}" :to="{name: 'adm_user_email'}"><i>회원메일발송</i></b-link>
-        </section>
+            <section>
+                <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_user')}"><i><b>회</b>회원관리</i></p>
+                <b-link :class="{focus:$route.name=='adm_user'||$route.name=='adm_user_edit'}" @click="strongReload('/admin/user')"><i>회원목록</i></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_user_email')}" :to="{name: 'adm_user_email'}"><i>회원메일발송</i></b-link>
+            </section>
 
-        <section>
-            <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_goods_') || $route.name.startsWith('adm_category') || $route.name.startsWith('adm_maker') || $route.name.startsWith('adm_purchaseAt')}">
-                <i>상품관리</i>
-            </p>
-            <b-link :class="{focus:$route.name.startsWith('adm_goods_index') && isEmpty($route.query.gd_type) }"  @click="strongReload('/admin/shop/goods')"><i>상품목록</i></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_goods_index') && $route.query.gd_type == 'REN' }"  @click="strongReload('/admin/shop/goods', 'gd_type=REN')"><i>렌탈목록</i></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_category')}"     :to="{name: 'adm_category'}"><i>카테고리</i></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_maker')}"        :to="{name: 'adm_maker'}"><i>제조사</i></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_purchaseAt')}"   :to="{name: 'adm_purchaseAt'}"><i>직배송/항공운임</i></b-link>
-        </section>
+            <section>
+                <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_goods_') || $route.name.startsWith('adm_category') || $route.name.startsWith('adm_maker') || $route.name.startsWith('adm_purchaseAt')}">
+                    <i>상품관리</i>
+                </p>
+                <b-link :class="{focus:$route.name.startsWith('adm_goods_index') && isEmpty($route.query.gd_type) }"  @click="strongReload('/admin/shop/goods')"><i>상품목록</i></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_goods_index') && $route.query.gd_type == 'REN' }"  @click="strongReload('/admin/shop/goods', 'gd_type=REN')"><i>렌탈목록</i></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_category')}"     :to="{name: 'adm_category'}"><i>카테고리</i></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_maker')}"        :to="{name: 'adm_maker'}"><i>제조사</i></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_purchaseAt')}"   :to="{name: 'adm_purchaseAt'}"><i>직배송/항공운임</i></b-link>
+            </section>
 
-        <section>
-            <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_estimate') || $route.name.startsWith('adm_eng_reform')}">
-                <i>견적관리</i>
-            </p>
-            <b-link :class="{focus:$route.name.startsWith('adm_estimate')}" @click="strongReload('/admin/shop/estimate')"><i>견적목록</i></b-link>
-            <b-link @click="openWinPop(`/admin/shop/estimate/create`, 1300, 900)"><i>임의견적</i></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_eng_reform')}" :to="{name: 'adm_eng_reform_index'}"><i>영문교정</i></b-link>
-        </section>
+            <section>
+                <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_estimate') || $route.name.startsWith('adm_eng_reform')}">
+                    <i>견적관리</i>
+                </p>
+                <b-link :class="{focus:$route.name.startsWith('adm_estimate')}" @click="strongReload('/admin/shop/estimate')"><i>견적목록</i></b-link>
+                <b-link @click="openWinPop(`/admin/shop/estimate/create`, 1300, 900)"><i>임의견적</i></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_eng_reform')}" :to="{name: 'adm_eng_reform_index'}"><i>영문교정</i></b-link>
+            </section>
+        </template>
 
         <section>
             <p @click="strongReload('/admin/shop/order')" class="solo" :class="{focus:$route.name.startsWith('adm_order_')}">
@@ -44,56 +46,54 @@
             </p>
         </section>
 
-        <section>
-            <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_stats')}"><i>통계</i></p>
-            <b-link :class="{focus:$route.params.stats_type == 'join'}" :to="{name: 'adm_stats', params: {stats_type: 'join'}}"><i>가입자</i></b-link>
-            <b-link :class="{focus:$route.params.stats_type == 'sales'}" :to="{name: 'adm_stats', params: {stats_type: 'sales'}}"><i>매출</i></b-link>
-            <b-link :class="{focus:$route.params.stats_type == 'sales_goods'}" :to="{name: 'adm_stats', params: {stats_type: 'sales_goods'}}"><i>매출-상품</i></b-link>
-            <b-link :class="{focus:$route.params.stats_type == 'sales_user'}" :to="{name: 'adm_stats', params: {stats_type: 'sales_user'}}"><i>매출-유저</i></b-link>
-            <!-- <b-link :class="{focus:$route.params.stats_type == 'sch_keyword'}" :to="{name: 'adm_stats', params: {stats_type: 'sch_keyword'}}"><i>검색어</i></b-link> -->
-            <b-link :class="{focus:$route.name.startsWith('adm_stats_behavio')}" :to="{name: 'adm_stats_behavio'}"><i>유저 패턴 통계</i></b-link>
-        </section>
-   
-        <section>
-            <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_board_')}"><i>게시판</i></p>
-            <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'notice'}"     @click="strongReload('/admin/board/notice')"><i>공지사항</i></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'event'}"      @click="strongReload('/admin/board/event')"><i>이벤트</i></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'review'}"     @click="strongReload('/admin/board/review')"><i>상품평</i></b-link>
-            <b-link><hr /></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'gd_inquiry'}" @click="strongReload('/admin/board/gd_inquiry')"><i>상품문의</i></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'inquiry'}"    @click="strongReload('/admin/board/inquiry')"><i>1:1문의</i></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'as'}"         @click="strongReload('/admin/board/as')"><i>A/S신청</i></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'cancel'}"     @click="strongReload('/admin/board/cancel')"><i>취소/교환신청</i></b-link>
-        </section>
+        <template v-if="!isRestricted">
+            <section>
+                <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_stats')}"><i>통계</i></p>
+                <b-link :class="{focus:$route.params.stats_type == 'join'}" :to="{name: 'adm_stats', params: {stats_type: 'join'}}"><i>가입자</i></b-link>
+                <b-link :class="{focus:$route.params.stats_type == 'sales'}" :to="{name: 'adm_stats', params: {stats_type: 'sales'}}"><i>매출</i></b-link>
+                <b-link :class="{focus:$route.params.stats_type == 'sales_goods'}" :to="{name: 'adm_stats', params: {stats_type: 'sales_goods'}}"><i>매출-상품</i></b-link>
+                <b-link :class="{focus:$route.params.stats_type == 'sales_user'}" :to="{name: 'adm_stats', params: {stats_type: 'sales_user'}}"><i>매출-유저</i></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_stats_behavio')}" :to="{name: 'adm_stats_behavio'}"><i>유저 패턴 통계</i></b-link>
+            </section>
+       
+            <section>
+                <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_board_')}"><i>게시판</i></p>
+                <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'notice'}"     @click="strongReload('/admin/board/notice')"><i>공지사항</i></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'event'}"      @click="strongReload('/admin/board/event')"><i>이벤트</i></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'review'}"     @click="strongReload('/admin/board/review')"><i>상품평</i></b-link>
+                <b-link><hr /></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'gd_inquiry'}" @click="strongReload('/admin/board/gd_inquiry')"><i>상품문의</i></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'inquiry'}"    @click="strongReload('/admin/board/inquiry')"><i>1:1문의</i></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'as'}"         @click="strongReload('/admin/board/as')"><i>A/S신청</i></b-link>
+                <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'cancel'}"     @click="strongReload('/admin/board/cancel')"><i>취소/교환신청</i></b-link>
+            </section>
 
-        <section class="menu_last">
-            <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_b2b_merck')}"><i>Merck 발주</i></p>
-            <b-link :class="{focus:$route.name=='adm_b2b_merck_order'}"        :to="{name: 'adm_b2b_merck_order'}"><i>주문 목록</i></b-link>
-            <b-link :class="{focus:$route.name=='adm_b2b_merck_order_result'}" :to="{name: 'adm_b2b_merck_order_result'}"><i>발주 내역</i></b-link>
-            <b-link :class="{focus:$route.name=='adm_b2b_merck_stock_result'}" :to="{name: 'adm_b2b_merck_stock_result'}"><i>재고 확인 결과</i></b-link>
-            <b-link :class="{focus:$route.name=='adm_b2b_merck_asn'}"          :to="{name: 'adm_b2b_merck_asn'}"><i>ASN</i></b-link>
-            <b-link :class="{focus:$route.name=='adm_b2b_merck_invoice'}"      :to="{name: 'adm_b2b_merck_invoice'}"><i>e-Invoice</i></b-link>
-        </section>
+            <section class="menu_last">
+                <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_b2b_merck')}"><i>Merck 발주</i></p>
+                <b-link :class="{focus:$route.name=='adm_b2b_merck_order'}"        :to="{name: 'adm_b2b_merck_order'}"><i>주문 목록</i></b-link>
+                <b-link :class="{focus:$route.name=='adm_b2b_merck_order_result'}" :to="{name: 'adm_b2b_merck_order_result'}"><i>발주 내역</i></b-link>
+                <b-link :class="{focus:$route.name=='adm_b2b_merck_stock_result'}" :to="{name: 'adm_b2b_merck_stock_result'}"><i>재고 확인 결과</i></b-link>
+                <b-link :class="{focus:$route.name=='adm_b2b_merck_asn'}"          :to="{name: 'adm_b2b_merck_asn'}"><i>ASN</i></b-link>
+                <b-link :class="{focus:$route.name=='adm_b2b_merck_invoice'}"      :to="{name: 'adm_b2b_merck_invoice'}"><i>e-Invoice</i></b-link>
+            </section>
+        </template>
 
         
         
         
         <section class="bottom">
-            <article class="super">
-                <template v-if="user.level == 29">
-                    <b-button class="plum sm" @click="exeIndex" v-b-tooltip="'검색엔진 재구성'" v-if="!is_indexing">
-                        <b-icon-arrow-clockwise></b-icon-arrow-clockwise>
-                    </b-button>
-                    <b-button class="gray sm" v-else>검색엔진 재구성 중~~~!!!</b-button>
+            <article class="super" v-if="user.level == 29">
+                <b-button class="plum sm" @click="exeIndex" v-b-tooltip="'검색엔진 재구성'" v-if="!is_indexing">
+                    <b-icon-arrow-clockwise></b-icon-arrow-clockwise>
+                </b-button>
+                <b-button class="gray sm" v-else>검색엔진 재구성 중~~~!!!</b-button>
 
-                    <b-button class="d_blue sm" @click="refreshCache" v-b-tooltip="'최신 상품 배너 재구성'">
-                        <b-icon-arrow-clockwise></b-icon-arrow-clockwise>
-                    </b-button>
-                    
-                </template>
+                <b-button class="d_blue sm" @click="refreshCache" v-b-tooltip="'최신 상품 배너 재구성'">
+                    <b-icon-arrow-clockwise></b-icon-arrow-clockwise>
+                </b-button>
             </article>
 
-            <article class="alarm">
+            <article class="alarm" v-if="!isRestricted">
                 <b-button class="blink white sm" @click="strongReload('/admin/shop/order', `startDate=${to_day}&endDate=${to_day}&od_mng=no`)" v-if="reqOrder"> 
                     주문 ({{reqOrder}})
                 </b-button>
@@ -141,6 +141,7 @@ export default {
     computed: { 
         ...mapGetters({ user: 'auth/user', siteInfo: 'common/siteInfo', }),
         to_day(){ return new Date().format("yyyy-MM-dd"); },
+        isRestricted(){ return parseInt(this.user.level) === 21; },
     },
     data() {
         return {

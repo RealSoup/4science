@@ -1,21 +1,6 @@
-import store from '@/store/index';
-const isAdmin = () => (to, from, next) => {
-    if (store.state.auth.isLoggedin) {
-        if (store.state.auth.user.is_admin) {
-            return next();
-        }
-        Notify.modal("관리자만 접근 할 수 있습니다.");
-        next('/');
-    } else {
-        next({name:'login', query:{redirect:to.path}});
-        Notify.modal('로그인이 필요한 서비스입니다.', 'danger');
-    }
-};
-
 export default [
     {   path: '/admin',
         component:() => import('@/views/admin/AdmRouterView'),
-        beforeEnter: isAdmin(),
         children: [
             {   path: '',
                 name: 'adm_main',
