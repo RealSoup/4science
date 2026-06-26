@@ -44,10 +44,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     'list': _views_admin_shop_estimate_comp_List__WEBPACK_IMPORTED_MODULE_1__["default"],
     'win-pop-up': function winPopUp() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_WinPopUp_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/WinPopUp */ "./resources/js/views/_common/WinPopUp.vue"));
+    },
+    'loading-modal': function loadingModal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
     }
   },
   data: function data() {
     return {
+      isLoadingModalViewed: false,
       list: {},
       mng_on: {},
       mng_off: {},
@@ -94,18 +98,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
+              _this.isLoadingModalViewed = true;
               if (!(_this.sch_frm.startDate && _this.sch_frm.endDate && _this.sch_frm.startDate > _this.sch_frm.endDate)) {
-                _context.next = 4;
+                _context.next = 5;
                 break;
               }
               Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
               return _context.abrupt("return", false);
-            case 4:
-              _context.next = 6;
+            case 5:
+              _context.next = 7;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin/shop/estimate", {
                 params: _this.sch_frm
               });
-            case 6:
+            case 7:
               res = _context.sent;
               if (res && res.status === 200) {
                 _this.list = res.data.list;
@@ -113,18 +118,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.mng_off = res.data.mng_off;
                 _this.mng_info = res.data.mng_info;
               }
-              _context.next = 14;
+              _context.next = 15;
               break;
-            case 10:
-              _context.prev = 10;
+            case 11:
+              _context.prev = 11;
               _context.t0 = _context["catch"](0);
               Notify.consolePrint(_context.t0);
               Notify.toast('warning', _context.t0.response.data.message);
-            case 14:
+            case 15:
+              _context.prev = 15;
+              _this.isLoadingModalViewed = false;
+              return _context.finish(15);
+            case 18:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 10]]);
+        }, _callee, null, [[0, 11, 15, 18]]);
       }))();
     },
     price_comma: function price_comma(e) {
@@ -580,7 +589,11 @@ var render = function render() {
         return _vm.exeWinPop("/admin/shop/estimate/create");
       }
     }
-  }, [_vm._v("임의견적")])], 1)], 1), _vm._v(" "), _vm.list.data && _vm.list.data.length ? _c("list", {
+  }, [_vm._v("임의견적")])], 1)], 1), _vm._v(" "), _vm.isLoadingModalViewed ? _c("loading-modal", {
+    attrs: {
+      position: "absolute"
+    }
+  }, [_vm._v("Loading ......")]) : [_vm.list.data && _vm.list.data.length ? _c("list", {
     attrs: {
       list: _vm.list.data,
       mng_off: _vm.mng_off
@@ -588,7 +601,16 @@ var render = function render() {
     on: {
       "exe-win-pop": _vm.exeWinPop
     }
-  }) : _vm._e(), _vm._v(" "), _c("pagination", {
+  }) : _c("b-row", {
+    staticClass: "mt-3"
+  }, [_c("b-col", {
+    staticClass: "no_item",
+    style: {
+      padding: "10px",
+      fontSize: "20px",
+      background: "#f4f4f4"
+    }
+  }, [_vm._v("결과가 없습니다.")])], 1)], _vm._v(" "), _c("pagination", {
     staticClass: "mt-5",
     attrs: {
       data: _vm.list,
@@ -609,7 +631,7 @@ var render = function render() {
       slot: "next-nav"
     },
     slot: "next-nav"
-  }, [_c("b-icon-chevron-right")], 1)])], 1), _vm._v(" "), _c("win-pop-up", {
+  }, [_c("b-icon-chevron-right")], 1)])], 2), _vm._v(" "), _c("win-pop-up", {
     ref: "winPopup",
     on: {
       onClose: function onClose(val) {

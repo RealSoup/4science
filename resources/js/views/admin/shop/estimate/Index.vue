@@ -104,8 +104,15 @@
             </b-col>
         </b-row>
 
-        <list v-if="list.data && list.data.length" @exe-win-pop="exeWinPop" :list="list.data" :mng_off="mng_off"></list>
+        <loading-modal v-if="isLoadingModalViewed" :position="'absolute'">Loading ......</loading-modal>
         
+        <template v-else>
+            <list v-if="list.data && list.data.length" @exe-win-pop="exeWinPop" :list="list.data" :mng_off="mng_off"></list>            
+            <b-row v-else class="mt-3">
+                <b-col class="no_item" :style="{ padding: '10px', fontSize: '20px', background: '#f4f4f4' }">결과가 없습니다.</b-col>     
+            </b-row>
+        </template>
+
         <pagination :data="list" @pagination-change-page="routerPush" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left></b-icon-chevron-left></span>
 	        <span slot="next-nav"><b-icon-chevron-right></b-icon-chevron-right></span>
@@ -127,9 +134,11 @@ export default {
         'sch-date': () =>   import('@/views/_common/SchDate'),
         'list': List,
         'win-pop-up': () => import('@/views/_common/WinPopUp'),
+        'loading-modal': () =>  import('@/views/_common/LoadingModal.vue'),
     },
     data() {
         return {
+            isLoadingModalViewed: false,
             list: {},
             mng_on:{},
             mng_off:{},
@@ -166,6 +175,7 @@ export default {
         },
         async index() {
             try {
+                this.isLoadingModalViewed=true;
                 if (this.sch_frm.startDate && this.sch_frm.endDate && this.sch_frm.startDate > this.sch_frm.endDate) {
                     Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
                     return false;
@@ -180,6 +190,8 @@ export default {
             } catch (e) {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.response.data.message);
+            } finally {
+                this.isLoadingModalViewed = false;
             }
         },
         price_comma(e) { return this.priceComma(e); },
