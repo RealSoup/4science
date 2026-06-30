@@ -264,7 +264,8 @@ export default {
 .section-product .product-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .section-product .product-grid .product-card { background:#FFF; border-radius:28px; aspect-ratio: 3 / 4; overflow: hidden; position: relative; }
 .section-product .product-grid .product-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.section-product .product-grid .product-card-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px; background: rgba(0,0,0,0.5); color: #fff; font-size: 13px; font-weight: 600; }
+.section-product .product-grid .product-card-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px; background: rgba(0,0,0,0.5); 
+    color: #fff; font-size: 13px; font-weight: 600; min-height: 60px; display: flex; align-items: center; }
 
 /* 주요 프로젝트 */
 .section-project .project-wrap { display: grid; grid-template-columns: 1fr 444px; gap: 48px; align-items: start; }
