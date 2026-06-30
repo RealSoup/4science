@@ -276,4 +276,15 @@ class GoodsController extends Controller {
     public function getThermo_desc (Request $req) {
         return $this->crawl($req->url);
     }
+
+    public function goodsList (Request $req) {
+        $rst = $this->goods->select("shop_goods.gd_id", "shop_goods.gd_name")
+            ->SchGd_id($req->gd_ids)
+            // ->with('goodsModelPrime')
+            // ->where("shop_goods.gd_dc", "<>", 0)
+            ->where("shop_goods.gd_enable", "Y")
+            ->get();
+  
+        return response()->json($rst, 200);
+    }
 }

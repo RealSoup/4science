@@ -318,8 +318,9 @@ Route::get('category/indexAll', 'Shop\CategoryController@indexAll')->name('categ
 Route::get('category/{ca_id}', 'Shop\CategoryController@index')->name('category.index');
 Route::prefix('shop')->group(function () {
     Route::GET('goods/recentGoods', 'Shop\GoodsController@recentGoods')->name('goods.recentGoods');
-    Route::GET('goods/getDef', 'Shop\GoodsController@getDef');
-    Route::GET('goods/getThermo_desc', 'Shop\GoodsController@getThermo_desc');
+    Route::GET('goods/getDef',          'Shop\GoodsController@getDef');
+    Route::GET('goods/getThermo_desc',  'Shop\GoodsController@getThermo_desc');
+    Route::POST('goods/goodsList',      'Shop\GoodsController@goodsList');
     Route::resource('goods', 'Shop\GoodsController', [
         'except' => [ 'create', 'store', 'destroy', 'edit', 'update'],
         'names' => [

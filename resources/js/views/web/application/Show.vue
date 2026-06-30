@@ -50,8 +50,11 @@
                     </div>
                     <div class="product-grid">
                         <div v-for="(item, i) in pageData.tabs.product.items" :key="i" class="product-card">
-                            <img v-if="item.image" :src="item.image" :alt="item.title" />
-                            <div class="product-card-label">{{ item.title }}</div>
+                            <b-link :to="{ name: 'goods_show', params: {gd_id: item.gd_id} }">
+                                <img :src="item.image_src_thumb[0]" :alt="item.gd_name" />
+                            </b-link>
+                            
+                            <div class="product-card-label">{{ item.gd_name }}</div>
                         </div>
                     </div>
                 </div>
@@ -101,6 +104,8 @@
 </template>
 
 <script>
+import ax from '@/api/http';
+
 export default {
     name: 'ApplicationShow',
 
@@ -154,6 +159,11 @@ export default {
                     `./${part}/bundle_${bundle}.js`
                 );
                 this.pageData = mod.info;
+
+                await ax.post(`/api/shop/goods/goodsList`, {gd_ids:this.pageData.tabs.product.gd_ids})
+                .then(response => { this.pageData.tabs.product.items = response.data; })
+                .catch(error => { console.error('불러오기 실패:', error); });
+
                 this.$nextTick(() => this.initObserver());
             } catch (e) {
                 console.error('Show.vue loadData 오류:', e);

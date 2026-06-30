@@ -54,12 +54,8 @@ export const info = {
         product: {
             title: '제품 솔루션',
             desc: '광학 시계, 초정밀 계측, 시간 측정 및 광학 주파수 분야에 사용되는 당사의 제품과 기술을 살펴보십시오.',
-            items: [
-                { title: '제품 1', image: '/storage/application/menlo/product1.jpg' },
-                { title: '제품 2', image: '/storage/application/menlo/product2.jpg' },
-                { title: '제품 3', image: '/storage/application/menlo/product3.jpg' },
-                { title: '제품 4', image: '/storage/application/menlo/product4.jpg' },
-            ],
+            gd_ids: [801011, 245162, 817968, 616751],
+            items: [],
         },
 
         project: {
