@@ -1,82 +1,81 @@
 <template>
-<div>
+<div style="display:flex;">
     <aside class="lefter">
         <header><router-link :to="{name: 'adm_main'}"><i><b>A</b><b-img src="/storage/common/logo/admin.png"></b-img></i></router-link></header>
+        
+        <section v-if="can('site')">
+            <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_site')}"><i><b>S</b>Site관리</i></p>
+            <b-link :class="{focus:$route.name.startsWith('adm_site_info')}"            :to="{name: 'adm_site_info'}"><i>정보설정</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_site_main_cate_goods')}" :to="{name: 'adm_site_main_cate_goods'}"><i>메인 카테고리별 추천 상품</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_site_main_best')}"       :to="{name: 'adm_site_main_best'}"><i>메인 Best 상품</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_site_banner_goods')}"    :to="{name: 'adm_site_banner_goods'}"><i>메인 슬라이드 상품</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_site_synonym')}"         :to="{name: 'adm_site_synonym'}"><i>검색 동의어 관리</i></b-link>
+        </section>
 
-        <template v-if="!isRestricted">
-            <section>
-                <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_site')}"><i><b>S</b>Site관리</i></p>
-                <b-link :class="{focus:$route.name.startsWith('adm_site_info')}"            :to="{name: 'adm_site_info'}"><i>정보설정</i></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_site_main_cate_goods')}" :to="{name: 'adm_site_main_cate_goods'}"><i>메인 카테고리별 추천 상품</i></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_site_main_best')}"       :to="{name: 'adm_site_main_best'}"><i>메인 Best 상품</i></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_site_banner_goods')}"    :to="{name: 'adm_site_banner_goods'}"><i>메인 슬라이드 상품</i></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_site_synonym')}"         :to="{name: 'adm_site_synonym'}"><i>검색 동의어 관리</i></b-link>
-            </section>
+        <section v-if="can('user')">
+            <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_user')}"><i><b>회</b>회원관리</i></p>
+            <b-link :class="{focus:$route.name=='adm_user'||$route.name=='adm_user_edit'}" @click="strongReload('/admin/user')"><i>회원목록</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_user_email')}" :to="{name: 'adm_user_email'}"><i>회원메일발송</i></b-link>
+        </section>
 
-            <section>
-                <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_user')}"><i><b>회</b>회원관리</i></p>
-                <b-link :class="{focus:$route.name=='adm_user'||$route.name=='adm_user_edit'}" @click="strongReload('/admin/user')"><i>회원목록</i></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_user_email')}" :to="{name: 'adm_user_email'}"><i>회원메일발송</i></b-link>
-            </section>
+        <section v-if="can('goods')">
+            <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_goods_') || $route.name.startsWith('adm_category') || $route.name.startsWith('adm_maker') || $route.name.startsWith('adm_purchaseAt')}">
+                <i>상품관리</i>
+            </p>
+            <b-link :class="{focus:$route.name.startsWith('adm_goods_index') && isEmpty($route.query.gd_type) }"  @click="strongReload('/admin/shop/goods')"><i>상품목록</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_goods_index') && $route.query.gd_type == 'REN' }"  @click="strongReload('/admin/shop/goods', 'gd_type=REN')"><i>렌탈목록</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_category')}"     :to="{name: 'adm_category'}"><i>카테고리</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_maker')}"        :to="{name: 'adm_maker'}"><i>제조사</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_purchaseAt')}"   :to="{name: 'adm_purchaseAt'}"><i>직배송/항공운임</i></b-link>
+        </section>
 
-            <section>
-                <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_goods_') || $route.name.startsWith('adm_category') || $route.name.startsWith('adm_maker') || $route.name.startsWith('adm_purchaseAt')}">
-                    <i>상품관리</i>
-                </p>
-                <b-link :class="{focus:$route.name.startsWith('adm_goods_index') && isEmpty($route.query.gd_type) }"  @click="strongReload('/admin/shop/goods')"><i>상품목록</i></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_goods_index') && $route.query.gd_type == 'REN' }"  @click="strongReload('/admin/shop/goods', 'gd_type=REN')"><i>렌탈목록</i></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_category')}"     :to="{name: 'adm_category'}"><i>카테고리</i></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_maker')}"        :to="{name: 'adm_maker'}"><i>제조사</i></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_purchaseAt')}"   :to="{name: 'adm_purchaseAt'}"><i>직배송/항공운임</i></b-link>
-            </section>
+        <section v-if="can('estimate')">
+            <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_estimate') || $route.name.startsWith('adm_eng_reform')}">
+                <i>견적관리</i>
+            </p>
+            <b-link :class="{focus:$route.name.startsWith('adm_estimate')}" @click="strongReload('/admin/shop/estimate')"><i>견적목록</i></b-link>
+            <b-link @click="openWinPop(`/admin/shop/estimate/create`, 1300, 900)"><i>임의견적</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_eng_reform')}" :to="{name: 'adm_eng_reform_index'}"><i>영문교정</i></b-link>
+        </section>
+        
 
-            <section>
-                <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_estimate') || $route.name.startsWith('adm_eng_reform')}">
-                    <i>견적관리</i>
-                </p>
-                <b-link :class="{focus:$route.name.startsWith('adm_estimate')}" @click="strongReload('/admin/shop/estimate')"><i>견적목록</i></b-link>
-                <b-link @click="openWinPop(`/admin/shop/estimate/create`, 1300, 900)"><i>임의견적</i></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_eng_reform')}" :to="{name: 'adm_eng_reform_index'}"><i>영문교정</i></b-link>
-            </section>
-        </template>
-
-        <section>
+        <section v-if="can('order')">
             <p @click="strongReload('/admin/shop/order')" class="solo" :class="{focus:$route.name.startsWith('adm_order_')}">
                 <i>주문목록</i>
             </p>
         </section>
 
-        <template v-if="!isRestricted">
-            <section>
-                <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_stats')}"><i>통계</i></p>
-                <b-link :class="{focus:$route.params.stats_type == 'join'}" :to="{name: 'adm_stats', params: {stats_type: 'join'}}"><i>가입자</i></b-link>
-                <b-link :class="{focus:$route.params.stats_type == 'sales'}" :to="{name: 'adm_stats', params: {stats_type: 'sales'}}"><i>매출</i></b-link>
-                <b-link :class="{focus:$route.params.stats_type == 'sales_goods'}" :to="{name: 'adm_stats', params: {stats_type: 'sales_goods'}}"><i>매출-상품</i></b-link>
-                <b-link :class="{focus:$route.params.stats_type == 'sales_user'}" :to="{name: 'adm_stats', params: {stats_type: 'sales_user'}}"><i>매출-유저</i></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_stats_behavio')}" :to="{name: 'adm_stats_behavio'}"><i>유저 패턴 통계</i></b-link>
-            </section>
-       
-            <section>
-                <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_board_')}"><i>게시판</i></p>
-                <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'notice'}"     @click="strongReload('/admin/board/notice')"><i>공지사항</i></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'event'}"      @click="strongReload('/admin/board/event')"><i>이벤트</i></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'review'}"     @click="strongReload('/admin/board/review')"><i>상품평</i></b-link>
-                <b-link><hr /></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'gd_inquiry'}" @click="strongReload('/admin/board/gd_inquiry')"><i>상품문의</i></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'inquiry'}"    @click="strongReload('/admin/board/inquiry')"><i>1:1문의</i></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'as'}"         @click="strongReload('/admin/board/as')"><i>A/S신청</i></b-link>
-                <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'cancel'}"     @click="strongReload('/admin/board/cancel')"><i>취소/교환신청</i></b-link>
-            </section>
+        
+        <section v-if="can('stats') || can('stats_behavio')">
+            <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_stats')}"><i>통계</i></p>
+            <b-link :class="{focus:$route.params.stats_type == 'join'}" :to="{name: 'adm_stats', params: {stats_type: 'join'}}"><i>가입자</i></b-link>
+            <b-link :class="{focus:$route.params.stats_type == 'sales'}" :to="{name: 'adm_stats', params: {stats_type: 'sales'}}"><i>매출</i></b-link>
+            <b-link :class="{focus:$route.params.stats_type == 'sales_goods'}" :to="{name: 'adm_stats', params: {stats_type: 'sales_goods'}}"><i>매출-상품</i></b-link>
+            <b-link :class="{focus:$route.params.stats_type == 'sales_user'}" :to="{name: 'adm_stats', params: {stats_type: 'sales_user'}}"><i>매출-유저</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_stats_behavio')}" :to="{name: 'adm_stats_behavio'}"><i>유저 패턴 통계</i></b-link>
+        </section>
+    
+        <section v-if="can('board')">
+            <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_board_')}"><i>게시판</i></p>
+            <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'notice'}"     @click="strongReload('/admin/board/notice')"><i>공지사항</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'event'}"      @click="strongReload('/admin/board/event')"><i>이벤트</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'review'}"     @click="strongReload('/admin/board/review')"><i>상품평</i></b-link>
+            <b-link><hr /></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'gd_inquiry'}" @click="strongReload('/admin/board/gd_inquiry')"><i>상품문의</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'inquiry'}"    @click="strongReload('/admin/board/inquiry')"><i>1:1문의</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'as'}"         @click="strongReload('/admin/board/as')"><i>A/S신청</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'cancel'}"     @click="strongReload('/admin/board/cancel')"><i>취소/교환신청</i></b-link>
+        </section>
 
-            <section class="menu_last">
-                <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_b2b_merck')}"><i>Merck 발주</i></p>
-                <b-link :class="{focus:$route.name=='adm_b2b_merck_order'}"        :to="{name: 'adm_b2b_merck_order'}"><i>주문 목록</i></b-link>
-                <b-link :class="{focus:$route.name=='adm_b2b_merck_order_result'}" :to="{name: 'adm_b2b_merck_order_result'}"><i>발주 내역</i></b-link>
-                <b-link :class="{focus:$route.name=='adm_b2b_merck_stock_result'}" :to="{name: 'adm_b2b_merck_stock_result'}"><i>재고 확인 결과</i></b-link>
-                <b-link :class="{focus:$route.name=='adm_b2b_merck_asn'}"          :to="{name: 'adm_b2b_merck_asn'}"><i>ASN</i></b-link>
-                <b-link :class="{focus:$route.name=='adm_b2b_merck_invoice'}"      :to="{name: 'adm_b2b_merck_invoice'}"><i>e-Invoice</i></b-link>
-            </section>
-        </template>
+        <section class="menu_last" v-if="can('merck')">
+            <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_b2b_merck')}"><i>Merck 발주</i></p>
+            <b-link :class="{focus:$route.name=='adm_b2b_merck_order'}"        :to="{name: 'adm_b2b_merck_order'}"><i>주문 목록</i></b-link>
+            <b-link :class="{focus:$route.name=='adm_b2b_merck_order_result'}" :to="{name: 'adm_b2b_merck_order_result'}"><i>발주 내역</i></b-link>
+            <b-link :class="{focus:$route.name=='adm_b2b_merck_stock_result'}" :to="{name: 'adm_b2b_merck_stock_result'}"><i>재고 확인 결과</i></b-link>
+            <b-link :class="{focus:$route.name=='adm_b2b_merck_asn'}"          :to="{name: 'adm_b2b_merck_asn'}"><i>ASN</i></b-link>
+            <b-link :class="{focus:$route.name=='adm_b2b_merck_invoice'}"      :to="{name: 'adm_b2b_merck_invoice'}"><i>e-Invoice</i></b-link>
+        </section>
+        
 
         
         
@@ -129,7 +128,12 @@
 <script>
 import ax from '@/api/http';
 import { mapActions, mapState, mapGetters } from 'vuex';
-
+const SECTION_PERMISSIONS = {
+    21: ['order', 'stats_behavio'],
+    22: ['goods', 'stats_behavio'],
+    // 기본(일반 관리자)은 전체 허용 -> 아래 default 처리
+};
+const ALL_SECTIONS = ['site', 'user', 'goods', 'estimate', 'order', 'stats', 'stats_behavio', 'board', 'merck'];
 
 export default {
     name: 'Header',
@@ -141,7 +145,11 @@ export default {
     computed: { 
         ...mapGetters({ user: 'auth/user', siteInfo: 'common/siteInfo', }),
         to_day(){ return new Date().format("yyyy-MM-dd"); },
-        isRestricted(){ return parseInt(this.user.level) === 21; },
+        userLevel(){ return parseInt(this.user.level); },
+
+        allowedSections(){ return SECTION_PERMISSIONS[this.userLevel] || ALL_SECTIONS; },
+        isRestricted(){ return Object.keys(SECTION_PERMISSIONS).map(Number).includes(this.userLevel); },
+        can(){ return (key) => this.allowedSections.includes(key); },
     },
     data() {
         return {

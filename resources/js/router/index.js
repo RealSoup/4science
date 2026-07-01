@@ -24,8 +24,20 @@ const router = new Router({
 })
 
 // 관리자 접근 제한 (등급별 권한 관리)
-const RESTRICTED_LEVEL = 21;
-const RESTRICTED_ALLOWED = ['adm_order_index', 'adm_order_edit'];
+const LEVEL_PERMISSIONS = {
+    21: {
+        home: 'adm_order_index',
+        allowed: ['adm_order_index', 'adm_order_edit'],
+    },
+    22: {
+        home: 'adm_stats_behavio',
+        allowed: [
+            'adm_goods_index', 'adm_goods_edit', 'adm_goods_create',
+            'adm_category', 'adm_maker', 'adm_maker_edit', 'adm_purchaseAt',
+            'adm_stats_behavio', 'adm_stats',
+        ],
+    },
+};
 
 router.beforeEach((to, from, next) => {
     if (!to.path.startsWith('/admin')) return next();
@@ -42,11 +54,12 @@ router.beforeEach((to, from, next) => {
         return next('/');
     }
 
-    if (parseInt(user.level) === RESTRICTED_LEVEL) {
-        if (to.name === 'adm_main') return next({ name: 'adm_order_index' });
-        if (!RESTRICTED_ALLOWED.includes(to.name)) {
+    const perm = LEVEL_PERMISSIONS[parseInt(user.level)];
+    if (perm) {
+        if (to.name === 'adm_main') return next({ name: perm.home });
+        if (!perm.allowed.includes(to.name)) {
             Notify.modal('접근 권한이 없습니다.');
-            return next({ name: 'adm_order_index' });
+            return next({ name: perm.home });
         }
     }
 

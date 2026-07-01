@@ -33,6 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail {
                         '11' => '딜러 신입',
                         // '12' => '딜러',
                         '21' => '관리자(알바)',
+                        '22' => '관리자(통계)',
                         '25' => '관리자',
                         '29' => '최고관리자', ],
                         
