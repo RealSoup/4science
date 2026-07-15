@@ -77,6 +77,12 @@
             </b-row>
         </div>
 
+        <div id="ad_belt" class="layout">
+            <b-link to="/board/notice/show/55">
+                <img src="/storage/main/new/middle_banner.jpg" />
+            </b-link>
+        </div>
+
         <div class="layout">
             <b-container>
                 <b-row class="list">
@@ -88,6 +94,15 @@
                             <li :class="{active : frm.sort == 'lowPri'}" @click="sort('lowPri')">낮은가격순</li>
                             <li :class="{active : frm.sort == 'highPri'}" @click="sort('highPri')">높은가격순</li>
                         </ul>
+
+                        <div id="ad_sidebar">
+                            <b-link to="/shop/goods/817906">
+                                <img src="/storage/main/new/bn03.jpg" />
+                            </b-link>
+                            <b-link to="/shop/goods?ca01=26&ca02=1067">
+                                <img src="/storage/main/new/bn07.jpg" />
+                            </b-link>
+                        </div>
                     </b-col>
                     
                     <b-col>
@@ -222,9 +237,9 @@ export default {
 .pick .row .col ul li div img { width:90%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 .pick .row .col ul li .tit { margin:auto; font-weight:bold; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; max-width:150px; }
 .pick .row .col ul li .pri { font-size:.7rem; margin: 0.3rem 0 0; }
-
-
-
+#ad_belt { margin-top:25px; }
+#ad_belt a { display:block; }
+#ad_belt a img { width:100%; }
 
 
 
@@ -233,6 +248,10 @@ export default {
 .list .sort { flex:0 0 9%; max-width:9%; margin-right:15px; } 
 .list .sort ul li { text-align:center; padding:6px 0; font-size:.85rem; font-weight:600; cursor:pointer; border:1px solid #D7D7D7; border-radius:25px; margin-bottom:10px; }
 .list .sort ul li.active { background:#DFEAF0; } 
+.list .sort #ad_sidebar { margin-top:20px; }
+.list .sort #ad_sidebar a { display:block; }
+.list .sort #ad_sidebar a img { width:100%; }
+
 
 .list .col .row div:nth-child(2),
 .list .col .row div:nth-child(3) { flex:0 0 17%; max-width:17%; display:flex; align-items:center; justify-content:center; }
