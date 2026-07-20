@@ -8,6 +8,43 @@
         </b-link>
 
         <b-carousel controls indicators :interval='0' class="area_tc">
+            <!-- <b-carousel-slide>                
+                <template #img>
+                    <div class="d-flex justify-content-between w-100 px-5">
+                                            
+                        <a href="/shop/goods?ca01=41&ca02=8289">
+                        <b-img src="/storage/event/2026/0720/slide01.jpg" fluid alt="Image 1"></b-img>
+                        </a>
+                        
+                        <a href="/shop/goods?ca01=26&ca02=1041">
+                        <b-img src="/storage/event/2026/0720/slide02.jpg" fluid alt="Image 2"></b-img>
+                        </a>
+
+                    </div>
+                </template>
+            </b-carousel-slide> 
+            
+            <b-carousel-slide :img-src="`/storage/event/2025/0407/slide_bg.jpg`" class="evt01">
+                <router-link to="/shop/goods?ca01=27&ca02=1232&ca03=1233" id="app01" class="split_link">
+                    <b-img src="/storage/event/2025/0407/slide01.png" class="product pd01" />
+                    <span class="tooltiptext">멤브레인필터 바로가기</span>
+                </router-link>
+                <router-link to="/shop/goods?ca01=27&ca02=1232&ca03=1242" id="app02" class="split_link">
+                    <b-img src="/storage/event/2025/0407/slide02.png" class="product pd02" />
+                    <span class="tooltiptext">실린지필터 바로가기</span>
+                </router-link>
+            </b-carousel-slide>
+            
+            -->
+            <b-carousel-slide img-src="/storage/event/2026/0720/slide.jpg" class="evt01">
+                <router-link to="/shop/goods?ca01=41&ca02=8289" id="app01" class="split_link">
+                    <span class="tooltiptext">바로가기</span>
+                </router-link>
+                <router-link to="/shop/goods?ca01=26&ca02=1041" id="app02" class="split_link">
+                    <span class="tooltiptext">바로가기</span>
+                </router-link>
+            </b-carousel-slide>
+
             <b-link to="/shop/makerShop/39">
                 <b-carousel-slide img-src="/storage/main/slide/260601.jpg" alt="초당 22,000번의 완벽한 빛 제어, 산업과 양지(Quantum) 혁신하다. vialux"></b-carousel-slide>
             </b-link>
@@ -343,17 +380,18 @@ export default {
 #banner_box .slide::v-deep .carousel-control-prev:hover,
 #banner_box .slide::v-deep .carousel-control-next:hover { background-color:#55888888; }
 
-#banner_box .slide::v-deep .evt01 .split_link { position:absolute; display:block; height:100%; bottom:0; } 
-#banner_box .slide::v-deep .evt01 .split_link#app01 { width: 100%; }
-#banner_box .slide::v-deep .evt01 .split_link#app02 { left:66%; bottom:8%; width:301px; height:91px;}
+#banner_box .slide::v-deep .evt01 .split_link { position:absolute; display:block; width:50%; height:100%; bottom:0; } 
+#banner_box .slide::v-deep .evt01 .split_link#app01 { left:0; }
+#banner_box .slide::v-deep .evt01 .split_link#app02 { right:0; }
 #banner_box .slide::v-deep .evt01 .carousel-caption { position:static; padding:0; }
-#banner_box .slide::v-deep .evt01 .split_link#app02:hover { background-color:#015B7E55; }
+#banner_box .slide::v-deep .evt01 .split_link:hover { background-color:#35e17b55; }
 #banner_box .slide::v-deep .evt01 .split_link .tooltiptext {
   visibility:hidden; padding:0.25em 0.5em; background-color:black; color:#fff; text-align:center; border-radius:0.25em; white-space:nowrap;
   /* Position the tooltip */
   position:absolute; z-index:1; top:50%; transition-property:visibility; transition-delay:0s; }
-#banner_box .slide::v-deep .evt01 a#app01 .tooltiptext { right:25%; }
-#banner_box .slide::v-deep .evt01 a#app02 .tooltiptext { right:25%; }
+#banner_box .slide::v-deep .evt01 a#app01 .tooltiptext { left:50%; }
+#banner_box .slide::v-deep .evt01 a#app02 .tooltiptext { right:50%; }
+#banner_box .slide::v-deep .evt01 .split_link#app01:hover .tooltiptext,
 #banner_box .slide::v-deep .evt01 .split_link#app02:hover .tooltiptext { visibility: visible; opacity:1; }
 
 .container .tit .col { font-size:23px; font-weight:900; }
