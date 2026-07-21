@@ -384,7 +384,7 @@ export default {
 #banner_box .slide::v-deep .evt01 .split_link#app01 { left:0; }
 #banner_box .slide::v-deep .evt01 .split_link#app02 { right:0; }
 #banner_box .slide::v-deep .evt01 .carousel-caption { position:static; padding:0; }
-#banner_box .slide::v-deep .evt01 .split_link:hover { background-color:#35e17b55; }
+#banner_box .slide::v-deep .evt01 .split_link:hover { border:15px solid #015b7e4d; }
 #banner_box .slide::v-deep .evt01 .split_link .tooltiptext {
   visibility:hidden; padding:0.25em 0.5em; background-color:black; color:#fff; text-align:center; border-radius:0.25em; white-space:nowrap;
   /* Position the tooltip */
