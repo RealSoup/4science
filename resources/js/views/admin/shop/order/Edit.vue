@@ -567,7 +567,6 @@ import ax from '@/api/http';
 import { VueDaumPostcode } from "vue-daum-postcode";
 import { mapActions, mapState, mapGetters } from 'vuex';
 
-var dt = new Date();
 export default {
     name: 'edit',
     components: {
@@ -585,11 +584,14 @@ export default {
                 adm_memo:false,
             },
             od: {
-                order_extra_info:{},
-                mng: {},
-                user: {},
-                order_purchase_at:[],
-                order_pg:{},
+                order_extra_info    : {},
+                mng                 : {},
+                user                : {},
+                order_purchase_at   : [],
+                order_pg            : {},
+                trans_date          : '',
+                trans_receive       : '',
+                trans_email         : '',
             },
             dlvy_info: {
                 company: '한진택배',
@@ -691,6 +693,11 @@ export default {
                     this.od = res.data.od;
                     this.order_config = res.data.order_config;
                     this.mng_on = res.data.mng_on;
+                    if (this.od) {
+                        this.od.trans_date      = new Date().format("yyyy-MM-dd");
+                        this.od.trans_receive   = this.od.od_orderer || '';
+                        this.od.trans_email     = this.od.od_orderer_email || '';
+                    }
                 }
             } catch (e) {
                 Notify.consolePrint(e);

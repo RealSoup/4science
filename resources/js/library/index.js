@@ -368,7 +368,7 @@ export default {
         
 
         window.date_calc = function (t, v){
-            var now = new Date();	// 현재 날짜 및 시간
+            var now = new Date();
             switch (t) {
                 case 'y': return new Date(now.setFullYear(now.getFullYear() + v)); break;
                 case 'm': return new Date(now.setMonth(now.getMonth() + v)); break;

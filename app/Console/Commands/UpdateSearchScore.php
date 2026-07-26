@@ -23,7 +23,8 @@ class UpdateSearchScore extends Command {
             SELECT
                 g.gd_id,
                 g.gd_view_cnt,
-                COALESCE(o.purchase_cnt, 0) AS purchase_cnt
+                COALESCE(o.purchase_cnt, 0) AS purchase_cnt,
+                COALESCE(e.estimate_cnt, 0) AS estimate_cnt
             FROM la_shop_goods g
             LEFT JOIN (
                 SELECT m.odm_gd_id, COUNT(*) AS purchase_cnt
@@ -32,6 +33,12 @@ class UpdateSearchScore extends Command {
                 WHERE od.od_step BETWEEN '20' AND '59'
                 GROUP BY m.odm_gd_id
             ) o ON o.odm_gd_id = g.gd_id
+            LEFT JOIN (
+                SELECT em_gd_id, COUNT(*) AS estimate_cnt
+                FROM la_shop_estimate_model
+                WHERE em_type = 'estimateReply'
+                GROUP BY em_gd_id
+            ) e ON e.em_gd_id = g.gd_id
             WHERE g.gd_id IS NOT NULL
         ");
 
@@ -41,18 +48,20 @@ class UpdateSearchScore extends Command {
         $clickCounts = array_map(fn($r) => abs($r->gd_view_cnt ?? 0), (array)$rows);
         $maxClick    = max($clickCounts ?: [1]);
         $maxPurchase = max(array_column((array)$rows, 'purchase_cnt') ?: [1]);
+        $maxEstimate = max(array_column((array)$rows, 'estimate_cnt') ?: [1]);
 
         // 1000건씩 bulk update
         $chunks = array_chunk($rows, 1000);
         foreach ($chunks as $ci => $chunk) {
             $body = '';
             foreach ($chunk as $i => $row) {
-                $clickScore    = round(($clickCounts[($ci * 1000) + $i] / $maxClick) * 10, 4);
-                $purchaseScore = round(($row->purchase_cnt / $maxPurchase) * 10, 4);
+                $clickScore    = round((log($clickCounts[($ci * 1000) + $i] + 1) / log($maxClick + 1)) * 10, 4);
+                $purchaseScore = round((log($row->purchase_cnt + 1) / log($maxPurchase + 1)) * 10, 4);
+                $estimateScore = round((log($row->estimate_cnt + 1) / log($maxEstimate + 1)) * 10, 4);
 
                 $body .= json_encode(['update' => ['_index' => 'shop_goods', '_id' => $row->gd_id]]) . "\n";
                 $body .= json_encode(['doc' => [
-                    'purchase_score' => round($clickScore + $purchaseScore, 4),
+                    'purchase_score' => round($clickScore + $purchaseScore + $estimateScore, 4),
                 ]]) . "\n";
             }
             $client->bulk(['body' => $body]);

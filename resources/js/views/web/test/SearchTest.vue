@@ -114,6 +114,7 @@
                                     </span>
                                 </b-col>
                                 <b-col class="m_hide">{{row.maker.mk_name}}</b-col>
+                                <b-col>{{ scoreMap[row.gd_id] }}</b-col>
                             </b-row>
 
                             <pagination :data="list" @pagination-change-page="setPage" :limit="5" :showDisabled="true" align="center" class="mt-5">
@@ -143,7 +144,7 @@ export default {
         return {  }
     },
     computed: {
-        ...mapState('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys', 'category_picks']),
+        ...mapState('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys', 'category_picks', 'Elastic']),
 
         categoryMap() {
             return Object.fromEntries(
@@ -155,6 +156,12 @@ export default {
 
         thisCaName() {
             return this.categoryMap[Number(this.$route.query.ca01)] || '';
+        },
+
+        scoreMap() {
+            const map = {};
+            (this.Elastic || []).forEach(e => { map[e.id] = e.score; });
+            return map;
         }
     },
     methods: {

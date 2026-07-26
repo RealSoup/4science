@@ -34,7 +34,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   data: function data() {
     return {};
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys', 'category_picks'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys', 'category_picks', 'Elastic'])), {}, {
     categoryMap: function categoryMap() {
       return Object.fromEntries(Object.values(this.categorys || {}).flat().map(function (v) {
         return [v.ca_id, v.ca_name];
@@ -42,6 +42,13 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     },
     thisCaName: function thisCaName() {
       return this.categoryMap[Number(this.$route.query.ca01)] || '';
+    },
+    scoreMap: function scoreMap() {
+      var map = {};
+      (this.Elastic || []).forEach(function (e) {
+        map[e.id] = e.score;
+      });
+      return map;
     }
   }),
   methods: {
@@ -280,7 +287,7 @@ var render = function render() {
       staticClass: "discount"
     }, [_vm._v("\r\n                                        " + _vm._s(row.gd_dc)), row.gd_dc < 100 ? [_vm._v("%")] : [_vm._v("원")], _vm._v(" "), _c("b-icon-arrow-down"), _vm._v("\r\n                                        " + _vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(row.goods_model_prime.gm_price_dc_add_vat)))) + "\r\n                                    ")], 2)]), _vm._v(" "), _c("b-col", {
       staticClass: "m_hide"
-    }, [_vm._v(_vm._s(row.maker.mk_name))])], 1);
+    }, [_vm._v(_vm._s(row.maker.mk_name))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.scoreMap[row.gd_id]))])], 1);
   }), _vm._v(" "), _c("pagination", {
     staticClass: "mt-5",
     attrs: {

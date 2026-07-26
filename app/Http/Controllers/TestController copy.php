@@ -187,32 +187,19 @@ class TestController extends Controller {
 
                 $boolClause = [
                     'should' => [
-                        [
-                            'dis_max' => [
-                                'tie_breaker' => 0.3,   // gd_name/gm_name_all 둘 다 매칭돼도 최고점+나머지30%만 인정 (중복가중 방지)
-                                'queries' => [
-                                    // ① 완전 구문 일치 (최고점)
-                                    ['term'           => ['gd_name.keyword' => ['value' => $keyword, 'boost' => 500]]],
-                                    ['constant_score' => ['filter' => ['match_phrase' => ['gd_name.exact' => ['query' => $keyword]]], 'boost' => 300]],
-                                    ['constant_score' => ['filter' => ['match_phrase' => ['gm_name_all'   => ['query' => $keyword, 'analyzer' => 'korean_exact']]], 'boost' => 200]],
+                        // ① 완전 구문 일치 (최고점)
+                        ['term'         => ['gd_name.keyword' => ['value' => $keyword, 'boost' => 500]]],
+                        ['match_phrase' => ['gd_name.exact'   => ['query' => $keyword, 'boost' => 300]]],
+                        ['match_phrase' => ['gm_name_all'     => ['query' => $keyword, 'analyzer' => 'korean_exact', 'boost' => 200]]],
 
-                                    // ② 모든 토큰 포함 (AND)
-                                    ['match'          => ['gd_name' => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 50]]],
-                                    ['match'          => ['gd_name' => ['query' => $keyword, 'analyzer' => 'korean_search', 'operator' => 'and', 'boost' => 50]]],   // 동의어 매칭
-                                    ['constant_score' => ['filter' => ['match' => ['gm_name_all' => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and']]], 'boost' => 40]],
-                                    ['constant_score' => ['filter' => ['match' => ['gm_name_all' => ['query' => $keyword, 'analyzer' => 'korean_search', 'operator' => 'and']]], 'boost' => 40]],  // 동의어 매칭
-                                    ['constant_score' => ['filter' => ['match' => ['gm_name_all.exact' => ['query' => $keyword, 'operator' => 'and']]], 'boost' => 60]],
-
-                                    // ③ 개별 토큰 OR 매칭 (낮은 점수)
-                                    ['match'          => ['gd_name' => ['query' => $keyword, 'analyzer' => 'korean_exact', 'boost' => 5]]],
-                                    ['match'          => ['gd_name' => ['query' => $keyword, 'analyzer' => 'korean_search', 'boost' => 4]]],  //  동의어 매칭 (operator 없음 = OR)
-                                ],
-                            ],
-                        ],
-
-                        // gd_keyword (이름 매칭과 별개로 유지)
+                        // ② 모든 토큰 포함 (AND)
+                        ['match' => ['gd_name'     => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 50]]],
+                        ['match' => ['gm_name_all' => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 40]]],
+                        ['match' => ['gm_name_all.exact' => ['query' => $keyword, 'operator' => 'and', 'boost' => 60]]],
                         ['match' => ['gd_keyword' => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and', 'boost' => 30]]],
-                        ['match' => ['gd_keyword' => ['query' => $keyword, 'analyzer' => 'korean_search', 'operator' => 'and', 'boost' => 30]]],    // 동의어 매칭
+
+                        // ③ 개별 토큰 OR 매칭 (낮은 점수)
+                        ['match' => ['gd_name'    => ['query' => $keyword, 'analyzer' => 'korean_exact', 'boost' => 5]]],
                         ['match' => ['gd_keyword' => ['query' => $keyword, 'analyzer' => 'korean_exact', 'boost' => 3]]],
                         ['match' => ['mk_name'    => ['query' => $keyword, 'analyzer' => 'korean_exact', 'boost' => 3]]],
 
@@ -253,45 +240,30 @@ class TestController extends Controller {
                     'function_score' => [
                         'query' => ['bool' => $boolClause],
                         'functions' => array_merge([
+                                
+                            // [ 'filter' => ['term' => ['gd_name.keyword' => $keyword]], 'weight' => 10000, ],            // ✅ 완전일치 (줄자)
+                            // [ 'filter' => ['prefix' => ['gd_name.keyword' => $keyword]], 'weight' => 5000, ],           // ✅ 키워드로 시작 (줄자10M, 줄자걸이X → 줄자루는 해당없음)
+                            // [ 'filter' => ['wildcard' => ['gd_name.keyword' => '*' . $keyword]], 'weight' => 5000, ],   // ✅ 키워드로 끝남 (삼성줄자)
+                            // [ 'filter' => ['wildcard' => ['gd_name.keyword' => '* ' . $keyword . ' *']], 'weight' => 5000, ],   // ✅ 키워드 앞뒤로 공백/경계가 있는 경우 (삼성줄자10M → "줄자" 앞뒤에 경계)
+                            // [ 'filter' => ['match_phrase' => ['gd_name.exact' => $keyword]], 'weight' => 8000, ],
 
-                            // 1순위 카탈로그 정확일치
-                            [ 'filter' => ['term'       => ['gm_catno_all.keyword' => $keyword]],   'weight' => 100000],
-                            [ 'filter' => ['term'       => ['gm_catno' => $keyword]],               'weight' => 10000, ],
-                            [ 'filter' => ['prefix'     => ['gm_catno' => $keyword]],               'weight' => 5000, ],
+                            [ 'filter' => ['term' => ['gm_catno' => $keyword]], 'weight' => 10000, ],   //  켓넘버 완전일치 가산점
+                            [ 'filter' => ['prefix' => ['gm_catno' => $keyword]], 'weight' => 5000, ],  //  켓넘버 앞부분일치 가산점
 
-                            // 2순위 모델코드 정확일치
-                            [ 'filter' => ['term'       => ['gm_code' => $keyword]],                'weight' => 10000, ],
-                            [ 'filter' => ['prefix'     => ['gm_code' => $keyword]],                'weight' => 5000, ],
-                            [ 'filter' => ['wildcard'   => ['gm_code' => '*' . $keyword]],          'weight' => 8000, ],
-                            [ 'filter' => ['term'       => ['gm_code_all.keyword'  => $keyword]],   'weight' => 9000],
-                            [ 'filter' => ['prefix'     => ['gm_code_all.keyword' => $keyword]],    'weight' => 5000],
-
-                            // 3순위 제조사명 완전일치
-                            [ 'filter' => ['term'       => ['mk_name.keyword' => $keyword]],        'weight' => 10000, ],
-                            [ 'filter' => ['match'      => ['mk_name' => $keyword]],                'weight' => 3000, ],
-
-                            // 4순위 - 키워드 태그 매칭 (gd_name/gm_name_all로 이미 안 잡힐 때만 보완용으로 적용)
-                            [
-                                'filter' => [
-                                    'bool' => [
-                                        'must' => [
-                                            ['match' => ['gd_keyword' => $keyword]],
-                                        ],
-                                        'must_not' => [
-                                            ['match' => ['gd_name'     => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and']]],
-                                            ['match' => ['gm_name_all' => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and']]],
-                                        ],
-                                    ],
-                                ],
-                                'weight' => 5000,
-                            ],
-
-                            // 5순위 - 구문일치 전용 weight
-                            [ 'filter' => ['match_phrase' => ['gm_name_all' => ['query' => $keyword, 'analyzer' => 'korean_exact']]],  'weight' => 3000, ],
-
-                            // 6순위 - 인기도 (factor 100 그대로, 최대 +2000)
-                            [ 'field_value_factor' => [ 'field' => 'purchase_score', 'factor' => $isCatnoPattern ? 0 : 100, 'modifier' => 'none', 'missing' => 0, ], ],
+                            [ 'filter' => ['term' => ['gm_code' => $keyword]], 'weight' => 10000, ],    //  모델명 완전일치 가산점
+                            [ 'filter' => ['prefix' => ['gm_code' => $keyword]], 'weight' => 5000, ],   //  모델명 앞부분일치 가산점
+                            [ 'filter' => ['wildcard' => ['gm_code' => '*' . $keyword]], 'weight' => 8000, ],
                             
+                            [ 'filter' => ['term' => ['mk_name.keyword' => $keyword]], 'weight' => 10000, ],    //  제조사 완전일치 가산점
+                            [ 'filter' => ['match' => ['mk_name' => $keyword]], 'weight' => 3000, ],  // research 매칭 상위
+                            [ 'filter' => ['match' => ['gd_keyword' => $keyword]], 'weight' => 1000, ],
+                            // 구매수 boost (최대 +5000, 클릭보다 가중치 높게)
+
+                            ['filter' => ['term' => ['gm_code_all.keyword'  => $keyword]], 'weight' => 9000],
+                            ['filter' => ['prefix' => ['gm_code_all.keyword' => $keyword]], 'weight' => 5000], 
+                            ['filter' => ['term' => ['gm_catno_all.keyword' => $keyword]], 'weight' => 100000],
+
+                            [ 'field_value_factor' => [ 'field' => 'purchase_score', 'factor' => $isCatnoPattern ? 0 : 100, 'modifier' => 'none', 'missing' => 0, ], ],
                         ], $personalizeFunctions),
                         'score_mode' => 'sum',
                         'boost_mode' => 'sum',
@@ -461,14 +433,75 @@ class TestController extends Controller {
 
         // $data['Elastic'] = '';
         $data['Elastic'] = collect($result->asArray()['hits']['hits'])->map(fn($h) => [
-            'id'       => $h['_source']['gd_id'],
+            'id'       => $h['_id'],
             'score'    => $h['_score'],
             'name'     => $h['_source']['gd_name'] ?? '',
             'purchase' => $h['_source']['purchase_score'] ?? 0,
-            'explanation' => $h['_explanation'],
         ]);
         
         
 		return response()->json($data);
-    }  
+    }
+
+
+
+    public function index() {
+        
+        
+        exit;
+
+
+
+        $gm = DB::table('shop_goods_model')->where('gm_catno01', '47')->orderBy('gm_gd_id')->orderBy('gm_catno03')->get();
+
+        $cnt = 1;
+        foreach ($gm->groupBy('gm_gd_id') as $group) {
+            foreach ($group as $k => $v) {
+                $cat02 = substr("00000{$cnt}", -6);
+                DB::table('shop_goods_model')->where('gm_id', $v->gm_id)->update(['gm_catno' => "47-{$cat02}-{$v->gm_catno03}", 'gm_catno02'=> $cat02]);
+            }
+            // $rst = DB::table('nc_addr_relation')->where([
+            //     ['receive_nm', '=', $v->ua_name],
+            //     ['doro_zip', 'like', $v->ua_zip.'%'],
+            //     ['doro_address', '=', $v->ua_addr1],
+            //     ['doro_address_detail', '=', $v->ua_addr2],
+            //     ['receive_hp_no', '=', $v->ua_hp],
+            // ])->first();
+
+            // if ( $rst && $rst->doro_zip )
+            //     DB::table('user_addr')->where('ua_id', $v->ua_id)->update(['ua_zip'=> $rst->doro_zip]);
+            $cnt++;
+            // if ($cnt == 4) break;
+        }
+    }
+    
+    
+    function mail_display () {
+        $data['con'] = EngReform::find(416);
+        $data['con']->fileInfo;
+        //  배열값을 넘겨줘야 하는데 values 함수 안쓰면 Object가 넘어온다.
+        $data['con']->file_info_cplt = $data['con']->fileInfo->where('fi_kind', 'cplt')->values();
+        $data['con']->mng;
+        $data['option'] = EngReform::$option;
+        dump($data);
+        return view('admin.eng_reform.response', $data);
+    }
+
+    function post($url, $fields) {
+        $post_field_string = http_build_query($fields, '', '&');
+        $ch = curl_init();                                         // curl 초기화
+        curl_setopt($ch, CURLOPT_URL, $url);                       // url 지정하기
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);            // 요청결과를 문자열로 반환
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);              // connection timeout : 10초
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);           // 원격 서버의 인증서가 유효한지 검사 여부
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_field_string);  // POST DATA
+        curl_setopt($ch, CURLOPT_POST, true);                      // POST 전송 여부
+        $response = curl_exec($ch);
+        curl_close ($ch);
+        return $response;
+    }
+
+    function download() {
+        return response()->download(public_path('img/estimate_logo.png'));
+    }
 }

@@ -30,7 +30,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 
 
 
-var dt = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'edit',
   components: {
@@ -56,7 +55,10 @@ var dt = new Date();
         mng: {},
         user: {},
         order_purchase_at: [],
-        order_pg: {}
+        order_pg: {},
+        trans_date: '',
+        trans_receive: '',
+        trans_email: ''
       },
       dlvy_info: {
         company: '한진택배',
@@ -178,6 +180,11 @@ var dt = new Date();
                 _this.od = res.data.od;
                 _this.order_config = res.data.order_config;
                 _this.mng_on = res.data.mng_on;
+                if (_this.od) {
+                  _this.od.trans_date = new Date().format("yyyy-MM-dd");
+                  _this.od.trans_receive = _this.od.od_orderer || '';
+                  _this.od.trans_email = _this.od.od_orderer_email || '';
+                }
               }
               _context.next = 11;
               break;

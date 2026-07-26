@@ -24,6 +24,7 @@ export default {
         category_picks: [],
         isLoadingModalViewed:false,
         default: {},
+        Elastic: {},
     },
     getters:{
     },
@@ -47,6 +48,7 @@ export default {
             state.pick = param.pick;
             state.category_picks = param.category_picks;
             state.isLoadingModalViewed= false;
+            state.Elastic = param.Elastic;
         },
     },
     actions: {
