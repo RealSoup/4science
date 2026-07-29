@@ -18,7 +18,9 @@
         </td>
     </tr>
     <tr>
-        <td style="border-top:2px solid #0E9C16; padding-bottom:6px;"><img src="{{ asset('storage/common/email_top_statement.jpg') }}" /></td>
+        <td width="700" height="203" style="border-top:2px solid #0E9C16; padding:0px 185px 6px 80px; background:url('{{ asset("storage/common/email_top_statement_no_tit.jpg") }}') no-repeat top left; font-size:18px; font-weight:bold;">
+            {{ $trans_email_tit }}
+        </td>
     </tr>
 
     <tr>

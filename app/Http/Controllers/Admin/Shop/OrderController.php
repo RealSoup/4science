@@ -326,17 +326,31 @@ class OrderController extends Controller {
 	}
 
 	public function exportTransactionPdf(Request $req) {
-		if ($req->filled('trans_date')) {
+		if ($req->trans_email_type == 'sendTrans') {
 			$subject = '거래명세서 메일입니다.';
 			$params['name'] = $req->filled('od_orderer') ? $req->od_orderer : auth()->user()->name;
 			$params['file_nm'] = $req->od_no;
-			$to_email = [$req->trans_email, $req->trans_mng_email];
+			$params['trans_email_tit'] = $req->trans_email_tit;
+			$to_email = [$req->trans_email, $req->trans_email_mng];
+
+			$attachFiles = [];
 			$pdf = $this->pdf->loadView('admin.order.pdf.order_transaction', $req->all());
-			// $pdf->setOptions(['dpi' => 96 ]);
 			$filename = uniqid();
 			Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
-			return Mail::to($to_email)->queue(new SendTransaction(config('mail.mailers.smtp.username'), $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
-		} else if ($req->filled('email_msg')) {
+			$attachFiles[] = public_path('storage/estimatePdf/'.$filename.'.pdf');
+
+			if ($req->trans_email_file_bank == 'Y') 
+				$attachFiles[] = public_path('storage/mypage/print/bankbook_w.jpg');			
+			if ($req->trans_email_file_biz == 'Y')
+				$attachFiles[] = public_path('storage/mypage/print/license200921.jpg');
+			
+			return Mail::to($to_email)->queue(new SendTransaction(
+				config('mail.mailers.smtp.username'),
+				$subject,
+				$params,
+				$attachFiles
+			));
+		} else if ($req->trans_email_type == 'payReqMail') {
 			$subject = '[4science] 납품완료 후 미결제 안내 드립니다. (거래명세서 첨부)';
 			$to_email = [$req->od_orderer_email, $req->mng['email'], auth()->user()->email];
         	$req->merge(array('main_tel' => "ADM"));

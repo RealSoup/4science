@@ -58,8 +58,26 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         order_pg: {},
         trans_date: '',
         trans_receive: '',
-        trans_email: ''
+        trans_email: '',
+        trans_email_mng: '',
+        trans_email_type: null,
+        trans_email_tit: '',
+        trans_email_tit_etc: '',
+        email_msg: '',
+        trans_email_file_bank: 'N',
+        trans_email_file_biz: 'N'
       },
+      trans_email_selected_tit: 'a',
+      trans_email_tit_arr: [{
+        value: 'a',
+        text: '요청하신 서류를 보내드립니다.'
+      }, {
+        value: 'b',
+        text: '주문하신 상품의 결제를 부탁드립니다.'
+      }, {
+        value: 'c',
+        text: '50자 이내의 제목 작성.'
+      }],
       dlvy_info: {
         company: '한진택배',
         number: ''
@@ -481,27 +499,30 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       var _arguments2 = arguments,
         _this7 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        var type, query, res;
+        var type, _this7$trans_email_ti, res;
         return _regeneratorRuntime().wrap(function _callee7$(_context7) {
           while (1) switch (_context7.prev = _context7.next) {
             case 0:
               type = _arguments2.length > 0 && _arguments2[0] !== undefined ? _arguments2[0] : null;
-              query = '';
-              if (type == 'send') {
-                query = "trans_date=".concat(_this7.od.trans_date, "&trans_receive=").concat(_this7.od.trans_receive, "&trans_email=").concat(_this7.od.trans_email, "&trans_mng_email=").concat(_this7.od.mng.email);
-                _this7.isModalViewed = false;
-              } else if (type == 'mail') {
-                query = "email_msg=".concat(_this7.od.email_msg);
+              if (type == 'sendTrans') {
+                _this7.od.trans_email_mng = _this7.od.mng.email;
+                _this7.od.trans_email_tit = (_this7$trans_email_ti = _this7.trans_email_tit_arr.find(function (v) {
+                  return v.value == _this7.trans_email_selected_tit;
+                })) === null || _this7$trans_email_ti === void 0 ? void 0 : _this7$trans_email_ti.text;
+                if (_this7.trans_email_selected_tit == 'c') _this7.od.trans_email_tit = _this7.od.trans_email_tit_etc;
+              }
+              if (['sendTrans', 'payReqMail'].indexOf(type) !== -1) {
+                _this7.od.trans_email_type = type;
                 _this7.isModalViewed = false;
               }
               _context7.next = 5;
-              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/shop/order/exportTransactionPdf?".concat(query), _this7.od, {
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/shop/order/exportTransactionPdf", _this7.od, {
                 responseType: 'blob'
               });
             case 5:
               res = _context7.sent;
               if (res && res.status === 200) {
-                if (['send', 'mail'].indexOf(type) !== -1) Notify.toast('success', '발송 완료');else {
+                if (['sendTrans', 'payReqMail'].indexOf(type) !== -1) Notify.toast('success', '발송 완료');else {
                   _this7.orderDocumentDown(res, "".concat(_this7.od.od_no, "_Statement.pdf"));
                   Notify.toast('success', '다운 완료');
                 }
@@ -2095,12 +2116,6 @@ var render = function render() {
   })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
     staticClass: "label"
   }, [_vm._v("받을 Email")]), _vm._v(" "), _c("b-col", [_c("b-form-input", {
-    on: {
-      keyup: function keyup($event) {
-        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
-        return _vm.transactionPdf("send");
-      }
-    },
     model: {
       value: _vm.od.trans_email,
       callback: function callback($$v) {
@@ -2109,11 +2124,66 @@ var render = function render() {
       expression: "od.trans_email"
     }
   })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label"
+  }, [_vm._v("파일 추가")]), _vm._v(" "), _c("b-col", [_c("b-form-checkbox", {
+    attrs: {
+      value: "Y",
+      "unchecked-value": "N"
+    },
+    model: {
+      value: _vm.od.trans_email_file_bank,
+      callback: function callback($$v) {
+        _vm.$set(_vm.od, "trans_email_file_bank", $$v);
+      },
+      expression: "od.trans_email_file_bank"
+    }
+  }, [_vm._v("통장사본")]), _vm._v(" "), _c("b-form-checkbox", {
+    attrs: {
+      value: "Y",
+      "unchecked-value": "N"
+    },
+    model: {
+      value: _vm.od.trans_email_file_biz,
+      callback: function callback($$v) {
+        _vm.$set(_vm.od, "trans_email_file_biz", $$v);
+      },
+      expression: "od.trans_email_file_biz"
+    }
+  }, [_vm._v("사업자등록증")])], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label"
+  }, [_vm._v("본문 타이틀")]), _vm._v(" "), _c("b-col", [_c("b-form-radio-group", {
+    attrs: {
+      options: _vm.trans_email_tit_arr,
+      stacked: ""
+    },
+    model: {
+      value: _vm.trans_email_selected_tit,
+      callback: function callback($$v) {
+        _vm.trans_email_selected_tit = $$v;
+      },
+      expression: "trans_email_selected_tit "
+    }
+  }), _vm._v(" "), _vm.trans_email_selected_tit == "c" ? _c("b-form-textarea", {
+    staticStyle: {
+      "margin-top": "10px"
+    },
+    attrs: {
+      rows: "2",
+      maxlength: "50"
+    },
+    model: {
+      value: _vm.od.trans_email_tit_etc,
+      callback: function callback($$v) {
+        _vm.$set(_vm.od, "trans_email_tit_etc", $$v);
+      },
+      expression: "od.trans_email_tit_etc"
+    }
+  }) : _vm._e()], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
     staticClass: "ctrl"
   }, [_c("b-button", {
     on: {
       click: function click($event) {
-        return _vm.transactionPdf("send");
+        return _vm.transactionPdf("sendTrans");
       }
     }
   }, [_vm._v("발송")])], 1)], 1)], 1)] : _vm.modalType == "payReqSendMail" ? [_c("template", {
@@ -2139,7 +2209,7 @@ var render = function render() {
   }, [_c("b-button", {
     on: {
       click: function click($event) {
-        return _vm.transactionPdf("mail");
+        return _vm.transactionPdf("payReqMail");
       }
     }
   }, [_vm._v("발송")])], 1)], 1)], 1)] : _vm.modalType == "changeMng" ? [_c("template", {

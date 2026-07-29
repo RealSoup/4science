@@ -508,11 +508,29 @@
                         </b-row>
                         <b-row>
                             <b-col class="label">받을 Email</b-col>
-                            <b-col><b-form-input v-model="od.trans_email" @keyup.enter="transactionPdf('send')" /></b-col>
+                            <b-col><b-form-input v-model="od.trans_email" /></b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col class="label">파일 추가</b-col>
+                            <b-col>
+                                <b-form-checkbox v-model="od.trans_email_file_bank" value='Y' unchecked-value="N">통장사본</b-form-checkbox>
+                                <b-form-checkbox v-model="od.trans_email_file_biz" value='Y' unchecked-value="N">사업자등록증</b-form-checkbox>
+                            </b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col class="label">본문 타이틀</b-col>
+                            <b-col>
+                                <b-form-radio-group
+                                    v-model="trans_email_selected_tit "
+                                    :options="trans_email_tit_arr"
+                                    stacked
+                                ></b-form-radio-group>
+                                <b-form-textarea v-if="trans_email_selected_tit == 'c'" v-model="od.trans_email_tit_etc" rows="2" style="margin-top:10px;" maxlength="50" />
+                            </b-col>
                         </b-row>
                         
                         <b-row>
-                            <b-col class="ctrl"><b-button @click="transactionPdf('send')">발송</b-button></b-col>
+                            <b-col class="ctrl"><b-button @click="transactionPdf('sendTrans')">발송</b-button></b-col>
                         </b-row>
                     </b-container>
                 </template>
@@ -528,7 +546,7 @@
                         </b-row>
                         
                         <b-row>
-                            <b-col class="ctrl"><b-button @click="transactionPdf('mail')">발송</b-button></b-col>
+                            <b-col class="ctrl"><b-button @click="transactionPdf('payReqMail')">발송</b-button></b-col>
                         </b-row>
                     </b-container>
                 </template>
@@ -592,7 +610,22 @@ export default {
                 trans_date          : '',
                 trans_receive       : '',
                 trans_email         : '',
+                trans_email_mng     : '',
+                trans_email_type    : null,
+                trans_email_tit     : '',
+                trans_email_tit_etc : '',
+                email_msg           : '',
+                trans_email_file_bank   : 'N',
+                trans_email_file_biz    : 'N',
             },
+            
+            trans_email_selected_tit : 'a',
+            trans_email_tit_arr     :  [
+                { value: 'a', text: '요청하신 서류를 보내드립니다.' },
+                { value: 'b', text: '주문하신 상품의 결제를 부탁드립니다.' },
+                { value: 'c', text: '50자 이내의 제목 작성.' },
+            ],
+            
             dlvy_info: {
                 company: '한진택배',
                 number: ''
@@ -847,17 +880,24 @@ export default {
             this.orderDocumentDown(res, `${this.od.od_no}_Statement.xlsx`);
         },
         async transactionPdf(type=null){
-            let query = '';
-            if ( type == 'send' ) {
-                query = `trans_date=${this.od.trans_date}&trans_receive=${this.od.trans_receive}&trans_email=${this.od.trans_email}&trans_mng_email=${this.od.mng.email}`;
-                this.isModalViewed = false;
-            } else if ( type == 'mail' ) {
-                query = `email_msg=${this.od.email_msg}`;
+            if ( type == 'sendTrans' ) {
+                this.od.trans_email_mng = this.od.mng.email;
+                this.od.trans_email_tit = this.trans_email_tit_arr.find(
+                    v => v.value == this.trans_email_selected_tit
+                )?.text;
+                
+                if (this.trans_email_selected_tit == 'c')
+                    this.od.trans_email_tit = this.od.trans_email_tit_etc;
+            }
+
+            if ( ['sendTrans', 'payReqMail'].indexOf(type) !== -1 ) {
+                this.od.trans_email_type = type;
                 this.isModalViewed = false;
             } 
-            const res = await ax.post(`/api/admin/shop/order/exportTransactionPdf?${query}`, this.od, { responseType: 'blob' });
+            const res = await ax.post(`/api/admin/shop/order/exportTransactionPdf`, this.od, { responseType: 'blob' });
+
             if (res && res.status === 200) {
-                if ( ['send', 'mail'].indexOf(type) !== -1 ) Notify.toast('success', '발송 완료');
+                if ( ['sendTrans', 'payReqMail'].indexOf(type) !== -1 ) Notify.toast('success', '발송 완료');
                 else {
                     this.orderDocumentDown(res, `${this.od.od_no}_Statement.pdf`);
                     Notify.toast('success', '다운 완료');
