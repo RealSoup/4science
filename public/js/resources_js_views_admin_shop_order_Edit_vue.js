@@ -199,9 +199,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 _this.order_config = res.data.order_config;
                 _this.mng_on = res.data.mng_on;
                 if (_this.od) {
-                  _this.od.trans_date = new Date().format("yyyy-MM-dd");
-                  _this.od.trans_receive = _this.od.od_orderer || '';
-                  _this.od.trans_email = _this.od.od_orderer_email || '';
+                  _this.$set(_this.od, 'trans_date', new Date().format("yyyy-MM-dd"));
+                  _this.$set(_this.od, 'trans_receive', _this.od.od_orderer || '');
+                  _this.$set(_this.od, 'trans_email', _this.od.od_orderer_email || '');
                 }
               }
               _context.next = 11;

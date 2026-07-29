@@ -17,12 +17,24 @@
             </table>
         </td>
     </tr>
+   
     <tr>
-        <td width="700" height="203" style="border-top:2px solid #0E9C16; padding:0px 185px 6px 80px; background:url('{{ asset("storage/common/email_top_statement_no_tit.jpg") }}') no-repeat top left; font-size:18px; font-weight:bold;">
-            {{ $trans_email_tit }}
+        <td width="700" height="203" style="border-top:2px solid #0E9C16; padding-bottom:6px;">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;">
+                <tr>
+                    <td width="700" height="67" colspan="3"><img src="{{ asset('storage/common/email_top_statement_no_tit01.jpg') }}" /></td>
+                </tr>
+                <tr>
+                    <td width="80" height="69" style="width:80px;"><img src="{{ asset('storage/common/email_top_statement_no_tit02.jpg') }}" /></td>
+                    <td width="420" height="69" style="width:420px; font-size:18px; font-weight:bold; word-wrap:break-word; word-break:break-all; white-space:normal;">{{ $trans_email_tit }}</td>
+                    <td width="80" height="69" style="width:80px;"><img src="{{ asset('storage/common/email_top_statement_no_tit03.jpg') }}" /></td>
+                </tr>
+                <tr>
+                    <td width="700" height="67" colspan="3"><img src="{{ asset('storage/common/email_top_statement_no_tit04.jpg') }}" /></td>
+                </tr>
+            </table>
         </td>
-    </tr>
-
+    </tr> 
     <tr>
         <td style="border-top:2px solid #0E9C16; padding:30px">
            

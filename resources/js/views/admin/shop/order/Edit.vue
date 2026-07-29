@@ -727,9 +727,9 @@ export default {
                     this.order_config = res.data.order_config;
                     this.mng_on = res.data.mng_on;
                     if (this.od) {
-                        this.od.trans_date      = new Date().format("yyyy-MM-dd");
-                        this.od.trans_receive   = this.od.od_orderer || '';
-                        this.od.trans_email     = this.od.od_orderer_email || '';
+                        this.$set(this.od, 'trans_date', new Date().format("yyyy-MM-dd"));
+                        this.$set(this.od, 'trans_receive', this.od.od_orderer || '');
+                        this.$set(this.od, 'trans_email', this.od.od_orderer_email || '');
                     }
                 }
             } catch (e) {
