@@ -1,9 +1,6 @@
 <template>
 <header :class="{headerFix:headerFix}">
     <div id="afterimage"></div>
-<div  class="hidden_menu">
-    <b-link :to="{name: 'search_test'}">.</b-link>    
-</div>    
 
     <div id="fixWrap">
         <div id="core" class="layout">
@@ -12,7 +9,8 @@
                 <router-link v-else :to="{name: 'adm_main'}" target="_blank">{{ trans().admin.btn_title }}</router-link>
                 <router-link v-if="this.$route.name === 'goods_show'" target="_blank"
                     :to="{name: 'adm_goods_edit', params: { gd_id:this.$route.params.gd_id }}"
-                >상품관리</router-link>     
+                >상품관리</router-link>
+                <b-link :to="{name: 'search_test'}">뉴검색</b-link>     
             </div>
             
             <b-link class="logo" :to="{name: 'main'}">
@@ -193,7 +191,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.hidden_menu { position:absolute; left:0; top:0; }
 header .admin { position:absolute; top:0; left:50%; transform:translateX(-50%); z-index: 1; }
 header .admin a { display:inline-block; background-color:#ff4d00; padding:3px 10px; border-radius:0 0 10px 10px; color:#fff; font-weight:bold; text-align:center; }
 

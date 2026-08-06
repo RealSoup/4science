@@ -1,1 +1,142 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[1744],{86717:(e,n,a)=>{a.r(n),a.d(n,{info:()=>i});var i={hero:{title:"적층 제조",image:"/storage/application/menlo/additive/hero.webp",desc:"적층 제조에서 레이저는 마이크로 및 나노 스케일의 복잡한 부품을 고정밀로 층별로 제작하는 데 핵심적인 역할을 합니다. 이광자 중합 및 3D 나노프린팅과 같은 초고속 레이저 기술은 서브마이크론 해상도로 복잡한 3D 구조를 직접 제작할 수 있도록 합니다. 이러한 접근 방식은 형상 및 재료 특성에 대한 탁월한 제어력을 제공하여 높은 정확도, 재현성 및 설계 유연성을 갖춘 정밀한 마이크로 장치, 맞춤형 광학 요소 및 생체 공학적 지지체를 제작하는 데 이상적입니다."},tabs:{tech:[{title:"핵심 기술",desc:"모든 혁신의 이면에는 이를 가능하게 하는 일련의 기술들이 자리 잡고 있습니다. \n            이러한 혁신은 중요한 과제를 해결하고 야심찬 아이디어를 고객을 위한 고성능 솔루션으로 구현합니다.",items:[{title:"분산 보정 및 AOM 최적화",desc:"<h6>분산 및 펄스 폭 확장을 해결하는 방법:</h6>\n                        펨토초 펄스는 현미경 대물렌즈, 유리층, 특히 고속 광 변조에 사용되는 AOM과 같은 광학 부품을 통과하면서 폭이 넓어집니다. 이러한 펄스 늘어짐은 피크 강도를 낮추어 이광자 여기 효율을 감소시키고 결과적으로 2PP에서의 쓰기 속도를 저하시킵니다.\n                        <br />\n                        결과적으로 인쇄 시간이 길어지고 평균 전력 소모량이 증가하여 열 발생량이 늘어납니다.\n                        <br /><br />\n                        <h6>당사의 솔루션: 사전 보상 및 AOM 최적화</h6>\n                        최적화된 압축기와 보정된 AOM을 포함한 내부 분산 사전 보정 기능을 통합하여 가장 짧은 펄스를 샘플에 직접 전달합니다. 이를 통해 고속 3D 나노프린팅 시 쓰기 속도 향상, 효율적인 광 변조 및 열 부하 감소가 가능합니다.\n                    "},{title:"이상적인 TEM<sub>00</sub> 빔 품질",desc:" \n                        <h6>빔 품질 개선 방법 (클린 TEM<sub>00</sub> 모드):</h6>\n                        고해상도 3D 나노프린팅에는 회절 한계에 도달하고 완벽하게 원형인 거의 이상적인 빔 프로파일(M² ≈ 1)이 필요합니다. 모드 품질이 좋지 않으면 빔을 정밀하게 집속할 수 없어 해상도와 복셀 크기가 제한됩니다.\n                        <br /><br />\n                        <h6>당사의 솔루션: 최적의 모드 품질을 위한 광섬유 기반 레이저</h6>\n                        멘로 시스템즈의 펨토초 파이버 레이저는 최소한의 자유 공간 광학 장치로 탁월한 빔 품질을 제공합니다. 이를 통해 정밀한 초점 조절과 200nm 미만의 복셀 크기를 위한 깨끗한 TEM<sub>00</sub> 모드를 보장하며, 이는 서브마이크론 수준의 정밀 인쇄에 필수적입니다.\n                    "},{title:"초안정 레이저 구조",desc:"\n                        <h6>안정성과 신뢰성을 확보하는 방법:</h6>\n                        2PP 작업은 종종 몇 시간 동안 연속적인 레이저 노출이 필요합니다. 이 시간 동안 빔 위치, 출력 또는 펄스 타이밍에 변화가 생기면 인쇄물이 손상되거나 완전히 망가질 수 있습니다.\n                        <br /><br />\n                        <h6>당사의 솔루션: 초안정 광섬유 레이저 아키텍처</h6>\n                        최소한의 자유 공간만을 갖는 컴팩트한 광섬유 기반 설계 덕분에 당사의 펨토초 레이저는 탁월한 포인팅 안정성, 저소음 및 장기적인 성능을 제공합니다. 이는 중단 없는 고정밀 2PP 인쇄에 필수적인 모든 요소입니다.\n                    "},{title:"유지보수가 필요 없는 소형 파이버 레이저",desc:"\n                        <h6>비용, 규모 및 유지 관리 문제를 해결하는 방법:</h6>\n                        Ti:Sapphire 시스템과 같은 기존 펨토초 레이저는 복잡한 펌핑 방식을 사용하는데, 이러한 방식은 성능 저하에 취약하고, 수냉식 냉각이 필요하며, 정기적인 정렬이 요구됩니다. 또한, 이러한 시스템은 크기가 크고 비용이 많이 들며 기계적 드리프트에 민감하여 24시간 내내 가동하기에는 적합하지 않고, 재교정이나 수리를 위한 가동 중지 시간이 길어집니다.\n                        <br /><br />\n                        <h6>당사의 솔루션: 소형화 및 유지보수가 필요 없는 파이버 레이저</h6>\n                        당사의 펨토초 파이버 레이저는 움직이는 부품이 없으며, 장기적인 안정성, 높은 효율성 및 탁월한 수명으로 유명한 통신 등급 적외선 펌프 다이오드를 사용합니다. 그 결과, 소형의 공랭식 시스템으로 완벽한 유지보수가 필요 없으며, 첨단 현미경, 적층 제조, 산업 및 임상 연구와 같은 까다로운 환경에서 지속적인 작동에 이상적입니다.\n                    "}]}],product:{title:"제품 솔루션",desc:"광학 시계, 초정밀 계측, 시간 측정 및 광학 주파수 분야에 사용되는 당사의 제품과 기술을 살펴보십시오.",gd_ids:[801011,245162,817968,616751],items:[]},project:{title:"세포의 둥근 모양",desc:'\n                2020년 헝가리 세게드 생물학 연구 센터의 로란드 켈레멘 박사 연구팀은 고해상도 형광 현미경 관찰을 위해 단일 세포의 방향을 정밀하게 조절할 수 있는 마이크로툴을 개발했습니다. 멘로 시스템즈의 C-Fiber 780 펨토초 레이저를 이용한 2광자 중합법으로 제작된 이 마이크로툴은 세 개의 구형 받침대로 지지되는 오목한 플랫폼으로 구성되어 있으며, 홀로그래픽 광학 집게를 사용하여 세포를 정밀하게 회전시킬 수 있습니다.\n                <br />\n                이 간접적인 접근 방식은 세포 손상을 방지하고 6자유도의 안정적인 조작을 제공하여 직접적인 광학 포획과 관련된 문제점을 극복합니다. 이 방법은 다중 관점 뷰를 가능하게 하여 3D 이미징을 향상시키고, 이를 컴퓨터 연산을 통해 고해상도 세포 이미지로 재구성할 수 있도록 합니다.\n                <br />\n                이러한 발전은 단일 세포 연구에 새로운 가능성을 열어주며, 상세한 3D 세포 모형 제작을 가속화할 수 있을 것입니다.\n                <br /><br />\n                <h6>원문 출판물:</h6>\n                G. 비즈니차이 외:\n                <br />\n                미세구조 기반 간접 광학 조작을 통한 단일 세포의 다중 시점 현미경 관찰\n                <br />\n                Biomedical Optics Express 제11권 , 945쪽(2020)\n                <br />\n                <a href="https://doi.org/10.1364/BOE.379233" targer="_blank">https://doi.org/10.1364/BOE.379233</a>\n                <br />\n                <br />\n                G. 비즈니차이 외:\n                <br />\n                실시간으로 계산된 홀로그램을 이용한 홀로그래픽 다중 초점 3D 2광자 중합\n                <br />\n                Optics Express 제22권 , 24217쪽(2014)\n                <br />\n                <a href="https://doi.org/10.1364/OE.22.024217" targer="_blank">https://doi.org/10.1364/OE.22.024217</a>\n            ',image:"/storage/application/menlo/additive/project.webp",img_desc:"미세 도구에 부착된 세포의 현미경 이미지로, 노란색 표시는 위치 변화를 나타냅니다."},basic:{title:"기초",items:[{title:"2광자 중합 및 3D 프린팅",desc:'\n                        이광자 중합(TPP 또는 2PP)과 3D 나노프린팅은 펨토초 레이저 직접 쓰기 방식을 이용하여 매우 정밀한 마이크로 및 나노 규모 구조를 제작하는 첨단 기술입니다. 이 기술들은 두 개의 저에너지 광자가 동시에 흡수되어 중합을 유도하는 이광자 흡수(TPA) 원리를 기반으로 하며, 이를 통해 회절 한계 이하의 해상도를 구현할 수 있습니다. 즉, 빛의 회절 한계보다 작은 크기의 구조를 제작할 수 있다는 의미입니다.\n                        <br />\n                        이는 TPA가 비선형 과정이기 때문에 가능하며, 중합 반응을 레이저의 초점에 국한시키고 주변 물질의 노출을 방지합니다. 또한, 레이저 펄스 폭이 전자-포논 결합 시간(여기된 전자가 원자 격자에 에너지를 전달하는 시간 척도)보다 작을 경우, 레이저 작용 영역 주변의 열 확산은 무시할 수 있게 됩니다.\n                        <br />\n                        그 결과, 열 축적이 최소화되어 재료 손상을 방지하고 정밀하고 고해상도의 구조화를 가능하게 합니다. 초고속 레이저 펄스, 국소 중합, 그리고 최소한의 열 효과의 조합은 2PP 및 3D 나노프린팅을 생의학 공학, 광학, 미세유체공학 등의 응용 분야에서 복잡한 3D 구조를 제작하는 강력한 도구로 만들어 줍니다.\n                        <img src="/storage/application/menlo/additive/basic.webp" alt="기존 중합법과 2광자 중합법의 비교" />\n                        <small>기존 중합법과 2광자 중합법의 비교. 2광자 중합법은 개시 영역을 초점에 한정시켜 고정밀 3D 마이크로 및 나노 가공을 가능하게 합니다.</small>\n                    '}]}}}},40758:(e,n,a)=>{a.r(n),a.d(n,{info:()=>i});var i={name:"Menlo<wbr />Systems",desc:"Menlo는 양자 과학 및 기술, 계측학, 분광학, 레이더, 품질 관리, 반도체 산업의 테스트 및 측정 분야에 걸쳐 획기적인 응용 프로그램을 구현할 수 있도록 지원합니다.",image:"/storage/application/menlo/main.webp",bundles:{optical:{name:"광학시계 및 계측학",image:"/storage/application/menlo/optical/list.webp",desc:"렌즈, 미러, 광학 마운트, 레이저 장비, 정밀 스테이지 등<br>연구·산업 현장에서 요구되는 다양한 제품을<br>신속하고 정확하게 공급합니다. 제품 선정부터<br>납기, 기술 지원까지 포사이언스가 함께합니다."},quantum:{name:"양자 기술",image:"/storage/application/menlo/quantum/list.webp",desc:"양자 기술은 양자 역학의 비할 데 없는 정밀도와 계산 능력을 활용하여 산업 전반에 혁명을 일으키고 있습니다."},spectroscopy:{name:"고정밀 분광학",image:"/storage/application/menlo/spectroscopy/list.webp",desc:"고정밀 분광학은 빛과 물질의 상호작용을 측정하여 분자 구조, 에너지 준위 및 동적 과정을 탁월한 정확도와 해상도로 규명합니다."},radar:{name:"레이더",image:"/storage/application/menlo/radar/list.webp",desc:"코히런트 레이더 시스템을 포함한 레이더 기술은 물체 탐지 및 분석에 필수적인 도구입니다. 저위상 잡음 마이크로파 신호는 레이더 성능을 향상시켜 혼잡하고 복잡한 환경에서 정밀한 감지를 가능하게 합니다."},test:{name:"시험 및 측정",image:"/storage/application/menlo/test/list.webp",desc:"시험 및 측정은 전자 부품 및 시스템의 성능과 정확도를 평가하는 데 중점을 둔 엔지니어링의 핵심 분야입니다."},additive:{name:"적층 제조",image:"/storage/application/menlo/additive/list.webp",desc:"적층 제조에서 레이저는 마이크로 및 나노 스케일의 복잡한 부품을 고정밀로 층별로 제작하는 데 핵심적인 역할을 합니다. 이광자 중합 및 3D 나노프린팅과 같은 초고속 레이저 기술은 서브마이크론 해상도로 복잡한 3D 구조를 직접 제작할 수 있도록 합니다."},microscopy:{name:"생명과학 및 현미경",image:"/storage/application/menlo/microscopy/list.webp",desc:"생명과학은 개별 세포에서부터 전체 생태계에 이르기까지 생명체를 지배하는 구조와 과정을 이해하는 데 중점을 둡니다. 레이저는 특히 현미경 분야에서 다광자 현미경과 같은 고해상도 이미징 기술을 가능하게 함으로써 이 분야에서 중요한 역할을 합니다."},thz_non:{name:"테라헤르츠 비파괴 검사",image:"/storage/application/menlo/thz_non/list.webp",desc:"테라헤르츠 광원은 비접촉식 고해상도 검사를 통해 비금속 재료를 분석할 수 있게 해줌으로써 비파괴 검사(NDT)를 가능하게 합니다. 이를 통해 층 두께, 숨겨진 구조적 또는 화학적 특징을 파악하여 다양한 산업 분야에서 실시간 품질 관리, 안전 보장 및 공정 최적화를 실현할 수 있습니다."},thz_asops:{name:"학계를 위한 THz 및 ASOPS",image:"/storage/application/menlo/thz_asops/list.webp",desc:"테라헤르츠파와 비동기 광학 샘플링(ASOPS)은 광범위한 학술 연구를 발전시키는 강력한 기술입니다. 테라헤르츠파는 저에너지 여기 및 초고속 동역학에 대한 비침습적 탐색을 가능하게 하며, ASOPS는 기계적 지연선 없이 빠르고 고해상도의 측정을 제공합니다."},time:{name:"시간 및 빈도 분포",image:"/storage/application/menlo/time/list.webp",desc:"과학 연구, 통신 네트워크, 내비게이션 시스템, 대규모 센서 어레이 등 오늘날 가장 발전된 시스템의 상당수는 완벽하게 동기화된 시계와 안정적인 주파수 기준에 의존합니다."},amplifier:{name:"증폭기 시딩",image:"/storage/application/menlo/amplifier/list.webp",desc:"고출력 레이저 시스템은 재료 가공, 첨단 이미징, 아토초 세대, 초고속 레이저 연구와 같은 분야의 고성능 응용 분야에 필수적입니다."},astronomy:{name:"천문학",image:"/storage/application/menlo/astronomy/list.webp",desc:"천문학은 지구 대기권 밖에서 발생하는 모든 천체와 현상을 연구하는 분야입니다. 이러한 연구 분야 중에서도 외계 행성 탐색은 특히 인기가 높습니다."}}}}}]);
+"use strict";
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["application0"],{
+
+/***/ "./resources/js/views/web/application/menlo/bundle_additive.js":
+/*!*********************************************************************!*\
+  !*** ./resources/js/views/web/application/menlo/bundle_additive.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   info: () => (/* binding */ info)
+/* harmony export */ });
+var info = {
+  hero: {
+    title: '적층 제조',
+    image: '/storage/application/menlo/additive/hero.webp',
+    desc: "\uC801\uCE35 \uC81C\uC870\uC5D0\uC11C \uB808\uC774\uC800\uB294 \uB9C8\uC774\uD06C\uB85C \uBC0F \uB098\uB178 \uC2A4\uCF00\uC77C\uC758 \uBCF5\uC7A1\uD55C \uBD80\uD488\uC744 \uACE0\uC815\uBC00\uB85C \uCE35\uBCC4\uB85C \uC81C\uC791\uD558\uB294 \uB370 \uD575\uC2EC\uC801\uC778 \uC5ED\uD560\uC744 \uD569\uB2C8\uB2E4. \uC774\uAD11\uC790 \uC911\uD569 \uBC0F 3D \uB098\uB178\uD504\uB9B0\uD305\uACFC \uAC19\uC740 \uCD08\uACE0\uC18D \uB808\uC774\uC800 \uAE30\uC220\uC740 \uC11C\uBE0C\uB9C8\uC774\uD06C\uB860 \uD574\uC0C1\uB3C4\uB85C \uBCF5\uC7A1\uD55C 3D \uAD6C\uC870\uB97C \uC9C1\uC811 \uC81C\uC791\uD560 \uC218 \uC788\uB3C4\uB85D \uD569\uB2C8\uB2E4. \uC774\uB7EC\uD55C \uC811\uADFC \uBC29\uC2DD\uC740 \uD615\uC0C1 \uBC0F \uC7AC\uB8CC \uD2B9\uC131\uC5D0 \uB300\uD55C \uD0C1\uC6D4\uD55C \uC81C\uC5B4\uB825\uC744 \uC81C\uACF5\uD558\uC5EC \uB192\uC740 \uC815\uD655\uB3C4, \uC7AC\uD604\uC131 \uBC0F \uC124\uACC4 \uC720\uC5F0\uC131\uC744 \uAC16\uCD98 \uC815\uBC00\uD55C \uB9C8\uC774\uD06C\uB85C \uC7A5\uCE58, \uB9DE\uCDA4\uD615 \uAD11\uD559 \uC694\uC18C \uBC0F \uC0DD\uCCB4 \uACF5\uD559\uC801 \uC9C0\uC9C0\uCCB4\uB97C \uC81C\uC791\uD558\uB294 \uB370 \uC774\uC0C1\uC801\uC785\uB2C8\uB2E4."
+  },
+  tabs: {
+    tech: [{
+      title: '핵심 기술',
+      desc: "\uBAA8\uB4E0 \uD601\uC2E0\uC758 \uC774\uBA74\uC5D0\uB294 \uC774\uB97C \uAC00\uB2A5\uD558\uAC8C \uD558\uB294 \uC77C\uB828\uC758 \uAE30\uC220\uB4E4\uC774 \uC790\uB9AC \uC7A1\uACE0 \uC788\uC2B5\uB2C8\uB2E4. \n            \uC774\uB7EC\uD55C \uD601\uC2E0\uC740 \uC911\uC694\uD55C \uACFC\uC81C\uB97C \uD574\uACB0\uD558\uACE0 \uC57C\uC2EC\uCC2C \uC544\uC774\uB514\uC5B4\uB97C \uACE0\uAC1D\uC744 \uC704\uD55C \uACE0\uC131\uB2A5 \uC194\uB8E8\uC158\uC73C\uB85C \uAD6C\uD604\uD569\uB2C8\uB2E4.",
+      items: [{
+        title: '분산 보정 및 AOM 최적화',
+        desc: "<h6>\uBD84\uC0B0 \uBC0F \uD384\uC2A4 \uD3ED \uD655\uC7A5\uC744 \uD574\uACB0\uD558\uB294 \uBC29\uBC95:</h6>\n                        \uD3A8\uD1A0\uCD08 \uD384\uC2A4\uB294 \uD604\uBBF8\uACBD \uB300\uBB3C\uB80C\uC988, \uC720\uB9AC\uCE35, \uD2B9\uD788 \uACE0\uC18D \uAD11 \uBCC0\uC870\uC5D0 \uC0AC\uC6A9\uB418\uB294 AOM\uACFC \uAC19\uC740 \uAD11\uD559 \uBD80\uD488\uC744 \uD1B5\uACFC\uD558\uBA74\uC11C \uD3ED\uC774 \uB113\uC5B4\uC9D1\uB2C8\uB2E4. \uC774\uB7EC\uD55C \uD384\uC2A4 \uB298\uC5B4\uC9D0\uC740 \uD53C\uD06C \uAC15\uB3C4\uB97C \uB0AE\uCD94\uC5B4 \uC774\uAD11\uC790 \uC5EC\uAE30 \uD6A8\uC728\uC744 \uAC10\uC18C\uC2DC\uD0A4\uACE0 \uACB0\uACFC\uC801\uC73C\uB85C 2PP\uC5D0\uC11C\uC758 \uC4F0\uAE30 \uC18D\uB3C4\uB97C \uC800\uD558\uC2DC\uD0B5\uB2C8\uB2E4.\n                        <br />\n                        \uACB0\uACFC\uC801\uC73C\uB85C \uC778\uC1C4 \uC2DC\uAC04\uC774 \uAE38\uC5B4\uC9C0\uACE0 \uD3C9\uADE0 \uC804\uB825 \uC18C\uBAA8\uB7C9\uC774 \uC99D\uAC00\uD558\uC5EC \uC5F4 \uBC1C\uC0DD\uB7C9\uC774 \uB298\uC5B4\uB0A9\uB2C8\uB2E4.\n                        <br /><br />\n                        <h6>\uB2F9\uC0AC\uC758 \uC194\uB8E8\uC158: \uC0AC\uC804 \uBCF4\uC0C1 \uBC0F AOM \uCD5C\uC801\uD654</h6>\n                        \uCD5C\uC801\uD654\uB41C \uC555\uCD95\uAE30\uC640 \uBCF4\uC815\uB41C AOM\uC744 \uD3EC\uD568\uD55C \uB0B4\uBD80 \uBD84\uC0B0 \uC0AC\uC804 \uBCF4\uC815 \uAE30\uB2A5\uC744 \uD1B5\uD569\uD558\uC5EC \uAC00\uC7A5 \uC9E7\uC740 \uD384\uC2A4\uB97C \uC0D8\uD50C\uC5D0 \uC9C1\uC811 \uC804\uB2EC\uD569\uB2C8\uB2E4. \uC774\uB97C \uD1B5\uD574 \uACE0\uC18D 3D \uB098\uB178\uD504\uB9B0\uD305 \uC2DC \uC4F0\uAE30 \uC18D\uB3C4 \uD5A5\uC0C1, \uD6A8\uC728\uC801\uC778 \uAD11 \uBCC0\uC870 \uBC0F \uC5F4 \uBD80\uD558 \uAC10\uC18C\uAC00 \uAC00\uB2A5\uD569\uB2C8\uB2E4.\n                    "
+      }, {
+        title: '이상적인 TEM<sub>00</sub> 빔 품질',
+        desc: " \n                        <h6>\uBE54 \uD488\uC9C8 \uAC1C\uC120 \uBC29\uBC95 (\uD074\uB9B0 TEM<sub>00</sub> \uBAA8\uB4DC):</h6>\n                        \uACE0\uD574\uC0C1\uB3C4 3D \uB098\uB178\uD504\uB9B0\uD305\uC5D0\uB294 \uD68C\uC808 \uD55C\uACC4\uC5D0 \uB3C4\uB2EC\uD558\uACE0 \uC644\uBCBD\uD558\uAC8C \uC6D0\uD615\uC778 \uAC70\uC758 \uC774\uC0C1\uC801\uC778 \uBE54 \uD504\uB85C\uD30C\uC77C(M\xB2 \u2248 1)\uC774 \uD544\uC694\uD569\uB2C8\uB2E4. \uBAA8\uB4DC \uD488\uC9C8\uC774 \uC88B\uC9C0 \uC54A\uC73C\uBA74 \uBE54\uC744 \uC815\uBC00\uD558\uAC8C \uC9D1\uC18D\uD560 \uC218 \uC5C6\uC5B4 \uD574\uC0C1\uB3C4\uC640 \uBCF5\uC140 \uD06C\uAE30\uAC00 \uC81C\uD55C\uB429\uB2C8\uB2E4.\n                        <br /><br />\n                        <h6>\uB2F9\uC0AC\uC758 \uC194\uB8E8\uC158: \uCD5C\uC801\uC758 \uBAA8\uB4DC \uD488\uC9C8\uC744 \uC704\uD55C \uAD11\uC12C\uC720 \uAE30\uBC18 \uB808\uC774\uC800</h6>\n                        \uBA58\uB85C \uC2DC\uC2A4\uD15C\uC988\uC758 \uD3A8\uD1A0\uCD08 \uD30C\uC774\uBC84 \uB808\uC774\uC800\uB294 \uCD5C\uC18C\uD55C\uC758 \uC790\uC720 \uACF5\uAC04 \uAD11\uD559 \uC7A5\uCE58\uB85C \uD0C1\uC6D4\uD55C \uBE54 \uD488\uC9C8\uC744 \uC81C\uACF5\uD569\uB2C8\uB2E4. \uC774\uB97C \uD1B5\uD574 \uC815\uBC00\uD55C \uCD08\uC810 \uC870\uC808\uACFC 200nm \uBBF8\uB9CC\uC758 \uBCF5\uC140 \uD06C\uAE30\uB97C \uC704\uD55C \uAE68\uB057\uD55C TEM<sub>00</sub> \uBAA8\uB4DC\uB97C \uBCF4\uC7A5\uD558\uBA70, \uC774\uB294 \uC11C\uBE0C\uB9C8\uC774\uD06C\uB860 \uC218\uC900\uC758 \uC815\uBC00 \uC778\uC1C4\uC5D0 \uD544\uC218\uC801\uC785\uB2C8\uB2E4.\n                    "
+      }, {
+        title: '초안정 레이저 구조',
+        desc: "\n                        <h6>\uC548\uC815\uC131\uACFC \uC2E0\uB8B0\uC131\uC744 \uD655\uBCF4\uD558\uB294 \uBC29\uBC95:</h6>\n                        2PP \uC791\uC5C5\uC740 \uC885\uC885 \uBA87 \uC2DC\uAC04 \uB3D9\uC548 \uC5F0\uC18D\uC801\uC778 \uB808\uC774\uC800 \uB178\uCD9C\uC774 \uD544\uC694\uD569\uB2C8\uB2E4. \uC774 \uC2DC\uAC04 \uB3D9\uC548 \uBE54 \uC704\uCE58, \uCD9C\uB825 \uB610\uB294 \uD384\uC2A4 \uD0C0\uC774\uBC0D\uC5D0 \uBCC0\uD654\uAC00 \uC0DD\uAE30\uBA74 \uC778\uC1C4\uBB3C\uC774 \uC190\uC0C1\uB418\uAC70\uB098 \uC644\uC804\uD788 \uB9DD\uAC00\uC9C8 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n                        <br /><br />\n                        <h6>\uB2F9\uC0AC\uC758 \uC194\uB8E8\uC158: \uCD08\uC548\uC815 \uAD11\uC12C\uC720 \uB808\uC774\uC800 \uC544\uD0A4\uD14D\uCC98</h6>\n                        \uCD5C\uC18C\uD55C\uC758 \uC790\uC720 \uACF5\uAC04\uB9CC\uC744 \uAC16\uB294 \uCEF4\uD329\uD2B8\uD55C \uAD11\uC12C\uC720 \uAE30\uBC18 \uC124\uACC4 \uB355\uBD84\uC5D0 \uB2F9\uC0AC\uC758 \uD3A8\uD1A0\uCD08 \uB808\uC774\uC800\uB294 \uD0C1\uC6D4\uD55C \uD3EC\uC778\uD305 \uC548\uC815\uC131, \uC800\uC18C\uC74C \uBC0F \uC7A5\uAE30\uC801\uC778 \uC131\uB2A5\uC744 \uC81C\uACF5\uD569\uB2C8\uB2E4. \uC774\uB294 \uC911\uB2E8 \uC5C6\uB294 \uACE0\uC815\uBC00 2PP \uC778\uC1C4\uC5D0 \uD544\uC218\uC801\uC778 \uBAA8\uB4E0 \uC694\uC18C\uC785\uB2C8\uB2E4.\n                    "
+      }, {
+        title: '유지보수가 필요 없는 소형 파이버 레이저',
+        desc: "\n                        <h6>\uBE44\uC6A9, \uADDC\uBAA8 \uBC0F \uC720\uC9C0 \uAD00\uB9AC \uBB38\uC81C\uB97C \uD574\uACB0\uD558\uB294 \uBC29\uBC95:</h6>\n                        Ti:Sapphire \uC2DC\uC2A4\uD15C\uACFC \uAC19\uC740 \uAE30\uC874 \uD3A8\uD1A0\uCD08 \uB808\uC774\uC800\uB294 \uBCF5\uC7A1\uD55C \uD38C\uD551 \uBC29\uC2DD\uC744 \uC0AC\uC6A9\uD558\uB294\uB370, \uC774\uB7EC\uD55C \uBC29\uC2DD\uC740 \uC131\uB2A5 \uC800\uD558\uC5D0 \uCDE8\uC57D\uD558\uACE0, \uC218\uB0C9\uC2DD \uB0C9\uAC01\uC774 \uD544\uC694\uD558\uBA70, \uC815\uAE30\uC801\uC778 \uC815\uB82C\uC774 \uC694\uAD6C\uB429\uB2C8\uB2E4. \uB610\uD55C, \uC774\uB7EC\uD55C \uC2DC\uC2A4\uD15C\uC740 \uD06C\uAE30\uAC00 \uD06C\uACE0 \uBE44\uC6A9\uC774 \uB9CE\uC774 \uB4E4\uBA70 \uAE30\uACC4\uC801 \uB4DC\uB9AC\uD504\uD2B8\uC5D0 \uBBFC\uAC10\uD558\uC5EC 24\uC2DC\uAC04 \uB0B4\uB0B4 \uAC00\uB3D9\uD558\uAE30\uC5D0\uB294 \uC801\uD569\uD558\uC9C0 \uC54A\uACE0, \uC7AC\uAD50\uC815\uC774\uB098 \uC218\uB9AC\uB97C \uC704\uD55C \uAC00\uB3D9 \uC911\uC9C0 \uC2DC\uAC04\uC774 \uAE38\uC5B4\uC9D1\uB2C8\uB2E4.\n                        <br /><br />\n                        <h6>\uB2F9\uC0AC\uC758 \uC194\uB8E8\uC158: \uC18C\uD615\uD654 \uBC0F \uC720\uC9C0\uBCF4\uC218\uAC00 \uD544\uC694 \uC5C6\uB294 \uD30C\uC774\uBC84 \uB808\uC774\uC800</h6>\n                        \uB2F9\uC0AC\uC758 \uD3A8\uD1A0\uCD08 \uD30C\uC774\uBC84 \uB808\uC774\uC800\uB294 \uC6C0\uC9C1\uC774\uB294 \uBD80\uD488\uC774 \uC5C6\uC73C\uBA70, \uC7A5\uAE30\uC801\uC778 \uC548\uC815\uC131, \uB192\uC740 \uD6A8\uC728\uC131 \uBC0F \uD0C1\uC6D4\uD55C \uC218\uBA85\uC73C\uB85C \uC720\uBA85\uD55C \uD1B5\uC2E0 \uB4F1\uAE09 \uC801\uC678\uC120 \uD38C\uD504 \uB2E4\uC774\uC624\uB4DC\uB97C \uC0AC\uC6A9\uD569\uB2C8\uB2E4. \uADF8 \uACB0\uACFC, \uC18C\uD615\uC758 \uACF5\uB7AD\uC2DD \uC2DC\uC2A4\uD15C\uC73C\uB85C \uC644\uBCBD\uD55C \uC720\uC9C0\uBCF4\uC218\uAC00 \uD544\uC694 \uC5C6\uC73C\uBA70, \uCCA8\uB2E8 \uD604\uBBF8\uACBD, \uC801\uCE35 \uC81C\uC870, \uC0B0\uC5C5 \uBC0F \uC784\uC0C1 \uC5F0\uAD6C\uC640 \uAC19\uC740 \uAE4C\uB2E4\uB85C\uC6B4 \uD658\uACBD\uC5D0\uC11C \uC9C0\uC18D\uC801\uC778 \uC791\uB3D9\uC5D0 \uC774\uC0C1\uC801\uC785\uB2C8\uB2E4.\n                    "
+      }]
+    }],
+    product: {
+      title: '제품 솔루션',
+      desc: '광학 시계, 초정밀 계측, 시간 측정 및 광학 주파수 분야에 사용되는 당사의 제품과 기술을 살펴보십시오.',
+      gd_ids: [801011, 245162, 817968, 616751],
+      items: []
+    },
+    project: {
+      title: '세포의 둥근 모양',
+      desc: "\n                2020\uB144 \uD5DD\uAC00\uB9AC \uC138\uAC8C\uB4DC \uC0DD\uBB3C\uD559 \uC5F0\uAD6C \uC13C\uD130\uC758 \uB85C\uB780\uB4DC \uCF08\uB808\uBA58 \uBC15\uC0AC \uC5F0\uAD6C\uD300\uC740 \uACE0\uD574\uC0C1\uB3C4 \uD615\uAD11 \uD604\uBBF8\uACBD \uAD00\uCC30\uC744 \uC704\uD574 \uB2E8\uC77C \uC138\uD3EC\uC758 \uBC29\uD5A5\uC744 \uC815\uBC00\uD558\uAC8C \uC870\uC808\uD560 \uC218 \uC788\uB294 \uB9C8\uC774\uD06C\uB85C\uD234\uC744 \uAC1C\uBC1C\uD588\uC2B5\uB2C8\uB2E4. \uBA58\uB85C \uC2DC\uC2A4\uD15C\uC988\uC758 C-Fiber 780 \uD3A8\uD1A0\uCD08 \uB808\uC774\uC800\uB97C \uC774\uC6A9\uD55C 2\uAD11\uC790 \uC911\uD569\uBC95\uC73C\uB85C \uC81C\uC791\uB41C \uC774 \uB9C8\uC774\uD06C\uB85C\uD234\uC740 \uC138 \uAC1C\uC758 \uAD6C\uD615 \uBC1B\uCE68\uB300\uB85C \uC9C0\uC9C0\uB418\uB294 \uC624\uBAA9\uD55C \uD50C\uB7AB\uD3FC\uC73C\uB85C \uAD6C\uC131\uB418\uC5B4 \uC788\uC73C\uBA70, \uD640\uB85C\uADF8\uB798\uD53D \uAD11\uD559 \uC9D1\uAC8C\uB97C \uC0AC\uC6A9\uD558\uC5EC \uC138\uD3EC\uB97C \uC815\uBC00\uD558\uAC8C \uD68C\uC804\uC2DC\uD0AC \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n                <br />\n                \uC774 \uAC04\uC811\uC801\uC778 \uC811\uADFC \uBC29\uC2DD\uC740 \uC138\uD3EC \uC190\uC0C1\uC744 \uBC29\uC9C0\uD558\uACE0 6\uC790\uC720\uB3C4\uC758 \uC548\uC815\uC801\uC778 \uC870\uC791\uC744 \uC81C\uACF5\uD558\uC5EC \uC9C1\uC811\uC801\uC778 \uAD11\uD559 \uD3EC\uD68D\uACFC \uAD00\uB828\uB41C \uBB38\uC81C\uC810\uC744 \uADF9\uBCF5\uD569\uB2C8\uB2E4. \uC774 \uBC29\uBC95\uC740 \uB2E4\uC911 \uAD00\uC810 \uBDF0\uB97C \uAC00\uB2A5\uD558\uAC8C \uD558\uC5EC 3D \uC774\uBBF8\uC9D5\uC744 \uD5A5\uC0C1\uC2DC\uD0A4\uACE0, \uC774\uB97C \uCEF4\uD4E8\uD130 \uC5F0\uC0B0\uC744 \uD1B5\uD574 \uACE0\uD574\uC0C1\uB3C4 \uC138\uD3EC \uC774\uBBF8\uC9C0\uB85C \uC7AC\uAD6C\uC131\uD560 \uC218 \uC788\uB3C4\uB85D \uD569\uB2C8\uB2E4.\n                <br />\n                \uC774\uB7EC\uD55C \uBC1C\uC804\uC740 \uB2E8\uC77C \uC138\uD3EC \uC5F0\uAD6C\uC5D0 \uC0C8\uB85C\uC6B4 \uAC00\uB2A5\uC131\uC744 \uC5F4\uC5B4\uC8FC\uBA70, \uC0C1\uC138\uD55C 3D \uC138\uD3EC \uBAA8\uD615 \uC81C\uC791\uC744 \uAC00\uC18D\uD654\uD560 \uC218 \uC788\uC744 \uAC83\uC785\uB2C8\uB2E4.\n                <br /><br />\n                <h6>\uC6D0\uBB38 \uCD9C\uD310\uBB3C:</h6>\n                G. \uBE44\uC988\uB2C8\uCC28\uC774 \uC678:\n                <br />\n                \uBBF8\uC138\uAD6C\uC870 \uAE30\uBC18 \uAC04\uC811 \uAD11\uD559 \uC870\uC791\uC744 \uD1B5\uD55C \uB2E8\uC77C \uC138\uD3EC\uC758 \uB2E4\uC911 \uC2DC\uC810 \uD604\uBBF8\uACBD \uAD00\uCC30\n                <br />\n                Biomedical Optics Express \uC81C11\uAD8C , 945\uCABD(2020)\n                <br />\n                <a href=\"https://doi.org/10.1364/BOE.379233\" targer=\"_blank\">https://doi.org/10.1364/BOE.379233</a>\n                <br />\n                <br />\n                G. \uBE44\uC988\uB2C8\uCC28\uC774 \uC678:\n                <br />\n                \uC2E4\uC2DC\uAC04\uC73C\uB85C \uACC4\uC0B0\uB41C \uD640\uB85C\uADF8\uB7A8\uC744 \uC774\uC6A9\uD55C \uD640\uB85C\uADF8\uB798\uD53D \uB2E4\uC911 \uCD08\uC810 3D 2\uAD11\uC790 \uC911\uD569\n                <br />\n                Optics Express \uC81C22\uAD8C , 24217\uCABD(2014)\n                <br />\n                <a href=\"https://doi.org/10.1364/OE.22.024217\" targer=\"_blank\">https://doi.org/10.1364/OE.22.024217</a>\n            ",
+      image: '/storage/application/menlo/additive/project.webp',
+      img_desc: '미세 도구에 부착된 세포의 현미경 이미지로, 노란색 표시는 위치 변화를 나타냅니다.'
+    },
+    basic: {
+      title: '기초',
+      items: [{
+        title: '2광자 중합 및 3D 프린팅',
+        desc: "\n                        \uC774\uAD11\uC790 \uC911\uD569(TPP \uB610\uB294 2PP)\uACFC 3D \uB098\uB178\uD504\uB9B0\uD305\uC740 \uD3A8\uD1A0\uCD08 \uB808\uC774\uC800 \uC9C1\uC811 \uC4F0\uAE30 \uBC29\uC2DD\uC744 \uC774\uC6A9\uD558\uC5EC \uB9E4\uC6B0 \uC815\uBC00\uD55C \uB9C8\uC774\uD06C\uB85C \uBC0F \uB098\uB178 \uADDC\uBAA8 \uAD6C\uC870\uB97C \uC81C\uC791\uD558\uB294 \uCCA8\uB2E8 \uAE30\uC220\uC785\uB2C8\uB2E4. \uC774 \uAE30\uC220\uB4E4\uC740 \uB450 \uAC1C\uC758 \uC800\uC5D0\uB108\uC9C0 \uAD11\uC790\uAC00 \uB3D9\uC2DC\uC5D0 \uD761\uC218\uB418\uC5B4 \uC911\uD569\uC744 \uC720\uB3C4\uD558\uB294 \uC774\uAD11\uC790 \uD761\uC218(TPA) \uC6D0\uB9AC\uB97C \uAE30\uBC18\uC73C\uB85C \uD558\uBA70, \uC774\uB97C \uD1B5\uD574 \uD68C\uC808 \uD55C\uACC4 \uC774\uD558\uC758 \uD574\uC0C1\uB3C4\uB97C \uAD6C\uD604\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uC989, \uBE5B\uC758 \uD68C\uC808 \uD55C\uACC4\uBCF4\uB2E4 \uC791\uC740 \uD06C\uAE30\uC758 \uAD6C\uC870\uB97C \uC81C\uC791\uD560 \uC218 \uC788\uB2E4\uB294 \uC758\uBBF8\uC785\uB2C8\uB2E4.\n                        <br />\n                        \uC774\uB294 TPA\uAC00 \uBE44\uC120\uD615 \uACFC\uC815\uC774\uAE30 \uB54C\uBB38\uC5D0 \uAC00\uB2A5\uD558\uBA70, \uC911\uD569 \uBC18\uC751\uC744 \uB808\uC774\uC800\uC758 \uCD08\uC810\uC5D0 \uAD6D\uD55C\uC2DC\uD0A4\uACE0 \uC8FC\uBCC0 \uBB3C\uC9C8\uC758 \uB178\uCD9C\uC744 \uBC29\uC9C0\uD569\uB2C8\uB2E4. \uB610\uD55C, \uB808\uC774\uC800 \uD384\uC2A4 \uD3ED\uC774 \uC804\uC790-\uD3EC\uB17C \uACB0\uD569 \uC2DC\uAC04(\uC5EC\uAE30\uB41C \uC804\uC790\uAC00 \uC6D0\uC790 \uACA9\uC790\uC5D0 \uC5D0\uB108\uC9C0\uB97C \uC804\uB2EC\uD558\uB294 \uC2DC\uAC04 \uCC99\uB3C4)\uBCF4\uB2E4 \uC791\uC744 \uACBD\uC6B0, \uB808\uC774\uC800 \uC791\uC6A9 \uC601\uC5ED \uC8FC\uBCC0\uC758 \uC5F4 \uD655\uC0B0\uC740 \uBB34\uC2DC\uD560 \uC218 \uC788\uAC8C \uB429\uB2C8\uB2E4.\n                        <br />\n                        \uADF8 \uACB0\uACFC, \uC5F4 \uCD95\uC801\uC774 \uCD5C\uC18C\uD654\uB418\uC5B4 \uC7AC\uB8CC \uC190\uC0C1\uC744 \uBC29\uC9C0\uD558\uACE0 \uC815\uBC00\uD558\uACE0 \uACE0\uD574\uC0C1\uB3C4\uC758 \uAD6C\uC870\uD654\uB97C \uAC00\uB2A5\uD558\uAC8C \uD569\uB2C8\uB2E4. \uCD08\uACE0\uC18D \uB808\uC774\uC800 \uD384\uC2A4, \uAD6D\uC18C \uC911\uD569, \uADF8\uB9AC\uACE0 \uCD5C\uC18C\uD55C\uC758 \uC5F4 \uD6A8\uACFC\uC758 \uC870\uD569\uC740 2PP \uBC0F 3D \uB098\uB178\uD504\uB9B0\uD305\uC744 \uC0DD\uC758\uD559 \uACF5\uD559, \uAD11\uD559, \uBBF8\uC138\uC720\uCCB4\uACF5\uD559 \uB4F1\uC758 \uC751\uC6A9 \uBD84\uC57C\uC5D0\uC11C \uBCF5\uC7A1\uD55C 3D \uAD6C\uC870\uB97C \uC81C\uC791\uD558\uB294 \uAC15\uB825\uD55C \uB3C4\uAD6C\uB85C \uB9CC\uB4E4\uC5B4 \uC90D\uB2C8\uB2E4.\n                        <img src=\"/storage/application/menlo/additive/basic.webp\" alt=\"\uAE30\uC874 \uC911\uD569\uBC95\uACFC 2\uAD11\uC790 \uC911\uD569\uBC95\uC758 \uBE44\uAD50\" />\n                        <small>\uAE30\uC874 \uC911\uD569\uBC95\uACFC 2\uAD11\uC790 \uC911\uD569\uBC95\uC758 \uBE44\uAD50. 2\uAD11\uC790 \uC911\uD569\uBC95\uC740 \uAC1C\uC2DC \uC601\uC5ED\uC744 \uCD08\uC810\uC5D0 \uD55C\uC815\uC2DC\uCF1C \uACE0\uC815\uBC00 3D \uB9C8\uC774\uD06C\uB85C \uBC0F \uB098\uB178 \uAC00\uACF5\uC744 \uAC00\uB2A5\uD558\uAC8C \uD569\uB2C8\uB2E4.</small>\n                    "
+      }]
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/views/web/application/menlo/part_info.js":
+/*!***************************************************************!*\
+  !*** ./resources/js/views/web/application/menlo/part_info.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   info: () => (/* binding */ info)
+/* harmony export */ });
+var info = {
+  name: 'Menlo<wbr />Systems',
+  desc: 'Menlo는 양자 과학 및 기술, 계측학, 분광학, 레이더, 품질 관리, 반도체 산업의 테스트 및 측정 분야에 걸쳐 획기적인 응용 프로그램을 구현할 수 있도록 지원합니다.',
+  image: '/storage/application/menlo/main.webp',
+  bundles: {
+    optical: {
+      name: '광학시계 및 계측학',
+      image: '/storage/application/menlo/optical/list.webp',
+      desc: '렌즈, 미러, 광학 마운트, 레이저 장비, 정밀 스테이지 등<br>연구·산업 현장에서 요구되는 다양한 제품을<br>신속하고 정확하게 공급합니다. 제품 선정부터<br>납기, 기술 지원까지 포사이언스가 함께합니다.'
+    },
+    quantum: {
+      name: '양자 기술',
+      image: '/storage/application/menlo/quantum/list.webp',
+      desc: '양자 기술은 양자 역학의 비할 데 없는 정밀도와 계산 능력을 활용하여 산업 전반에 혁명을 일으키고 있습니다.'
+    },
+    spectroscopy: {
+      name: '고정밀 분광학',
+      image: '/storage/application/menlo/spectroscopy/list.webp',
+      desc: '고정밀 분광학은 빛과 물질의 상호작용을 측정하여 분자 구조, 에너지 준위 및 동적 과정을 탁월한 정확도와 해상도로 규명합니다.'
+    },
+    radar: {
+      name: '레이더',
+      image: '/storage/application/menlo/radar/list.webp',
+      desc: '코히런트 레이더 시스템을 포함한 레이더 기술은 물체 탐지 및 분석에 필수적인 도구입니다. 저위상 잡음 마이크로파 신호는 레이더 성능을 향상시켜 혼잡하고 복잡한 환경에서 정밀한 감지를 가능하게 합니다.'
+    },
+    test: {
+      name: '시험 및 측정',
+      image: '/storage/application/menlo/test/list.webp',
+      desc: '시험 및 측정은 전자 부품 및 시스템의 성능과 정확도를 평가하는 데 중점을 둔 엔지니어링의 핵심 분야입니다.'
+    },
+    additive: {
+      name: '적층 제조',
+      image: '/storage/application/menlo/additive/list.webp',
+      desc: '적층 제조에서 레이저는 마이크로 및 나노 스케일의 복잡한 부품을 고정밀로 층별로 제작하는 데 핵심적인 역할을 합니다. 이광자 중합 및 3D 나노프린팅과 같은 초고속 레이저 기술은 서브마이크론 해상도로 복잡한 3D 구조를 직접 제작할 수 있도록 합니다.'
+    },
+    microscopy: {
+      name: '생명과학 및 현미경',
+      image: '/storage/application/menlo/microscopy/list.webp',
+      desc: '생명과학은 개별 세포에서부터 전체 생태계에 이르기까지 생명체를 지배하는 구조와 과정을 이해하는 데 중점을 둡니다. 레이저는 특히 현미경 분야에서 다광자 현미경과 같은 고해상도 이미징 기술을 가능하게 함으로써 이 분야에서 중요한 역할을 합니다.'
+    },
+    thz_non: {
+      name: '테라헤르츠 비파괴 검사',
+      image: '/storage/application/menlo/thz_non/list.webp',
+      desc: '테라헤르츠 광원은 비접촉식 고해상도 검사를 통해 비금속 재료를 분석할 수 있게 해줌으로써 비파괴 검사(NDT)를 가능하게 합니다. 이를 통해 층 두께, 숨겨진 구조적 또는 화학적 특징을 파악하여 다양한 산업 분야에서 실시간 품질 관리, 안전 보장 및 공정 최적화를 실현할 수 있습니다.'
+    },
+    thz_asops: {
+      name: '학계를 위한 THz 및 ASOPS',
+      image: '/storage/application/menlo/thz_asops/list.webp',
+      desc: '테라헤르츠파와 비동기 광학 샘플링(ASOPS)은 광범위한 학술 연구를 발전시키는 강력한 기술입니다. 테라헤르츠파는 저에너지 여기 및 초고속 동역학에 대한 비침습적 탐색을 가능하게 하며, ASOPS는 기계적 지연선 없이 빠르고 고해상도의 측정을 제공합니다.'
+    },
+    time: {
+      name: '시간 및 빈도 분포',
+      image: '/storage/application/menlo/time/list.webp',
+      desc: '과학 연구, 통신 네트워크, 내비게이션 시스템, 대규모 센서 어레이 등 오늘날 가장 발전된 시스템의 상당수는 완벽하게 동기화된 시계와 안정적인 주파수 기준에 의존합니다.'
+    },
+    amplifier: {
+      name: '증폭기 시딩',
+      image: '/storage/application/menlo/amplifier/list.webp',
+      desc: '고출력 레이저 시스템은 재료 가공, 첨단 이미징, 아토초 세대, 초고속 레이저 연구와 같은 분야의 고성능 응용 분야에 필수적입니다.'
+    },
+    astronomy: {
+      name: '천문학',
+      image: '/storage/application/menlo/astronomy/list.webp',
+      desc: '천문학은 지구 대기권 밖에서 발생하는 모든 천체와 현상을 연구하는 분야입니다. 이러한 연구 분야 중에서도 외계 행성 탐색은 특히 인기가 높습니다.'
+    }
+  }
+};
+
+/***/ })
+
+}]);

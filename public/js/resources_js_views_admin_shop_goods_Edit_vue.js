@@ -738,7 +738,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         gm_enable: 'Y',
         gm_prime: 'N',
         gm_limit_ea: 999999,
-        gm_price: '',
+        gm_dc: 0,
+        gm_price: 0,
         bundle_dc: [],
         bd_open: false
       };
@@ -782,7 +783,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         goods_option_child: [{
           goc_id: 0,
           goc_name: '',
-          goc_price: ''
+          goc_dc: 0,
+          goc_price: 0
         }]
       });
     },
@@ -797,7 +799,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       goc.push({
         goc_id: 0,
         goc_name: '',
-        goc_price: ''
+        goc_dc: 0,
+        goc_price: 0
       });
     },
     removeAtOptItem: function removeAtOptItem(goc, i) {
