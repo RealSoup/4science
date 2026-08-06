@@ -714,6 +714,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         goods_option_child: [{
           goc_id: 0,
           goc_name: '',
+          goc_dc: 0,
           goc_price: ''
         }]
       });
@@ -729,6 +730,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       goc.push({
         goc_id: 0,
         goc_name: '',
+        goc_dc: 0,
         goc_price: ''
       });
     },

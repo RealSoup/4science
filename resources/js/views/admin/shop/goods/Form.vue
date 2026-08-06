@@ -494,7 +494,7 @@ export default {
             bd.splice(i, 1); 
         },
 
-        insertAtOpt() { this.value.goods_option.push({ go_id:0, go_name:'', goods_option_child:[{ goc_id:0, goc_name:'', goc_price:'' }] }); },
+        insertAtOpt() { this.value.goods_option.push({ go_id:0, go_name:'', goods_option_child:[{ goc_id:0, goc_name:'', goc_dc:0, goc_price:'' }] }); },
         removeAtOpt(i) { 
             if (this.$route.name == 'adm_goods_edit' && this.value.goods_option[i].go_id) {
                 if (!this.value.hasOwnProperty("delete_option"))
@@ -504,7 +504,7 @@ export default {
             this.value.goods_option.splice(i, 1); 
         },
 
-        insertAtOptItem(goc) { goc.push({ goc_id:0, goc_name:'', goc_price:'' }); },
+        insertAtOptItem(goc) { goc.push({ goc_id:0, goc_name:'', goc_dc:0, goc_price:'' }); },
         removeAtOptItem(goc, i) {
             if (this.$route.name == 'adm_goods_edit' && goc[i].goc_id) {
                 if (!this.value.hasOwnProperty("delete_option_child"))
