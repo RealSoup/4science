@@ -310,10 +310,10 @@
         </h5>
 
         <b-row class="head">
-            <b-col cols="3">옵션명</b-col>
+            <b-col>옵션명</b-col>
             <b-col>항목</b-col>
-            <b-col cols="1">개별 할인</b-col>
-            <b-col cols="1">가격</b-col>
+            <b-col>개별 할인</b-col>
+            <b-col>가격</b-col>
         </b-row>
         <b-row v-for="(go, idx) in value.goods_option" :key="idx" class="body">
             <b-col>
@@ -642,10 +642,14 @@ export default {
 .option.adform .row .col .btn-xm { padding:.1em .2em; font-size: 0.7em; }
 
 .option .head>div { text-align:center; }
+.option .head .col:first-child { flex:0 0 25%; max-width:25%; }
+.option .head .col:nth-child(2) { flex:0 0 54%; max-width:54%; }
+.option .head .col:last-child { flex:0 0 11.5%; max-width:11.5%; }
+
 .option .body { align-items: flex-start !important; }
 .option .body>.col:first-child { flex:0 0 25%; max-width: 25%; }
-.option .body>.col .row .col:first-child { flex:0 0 78%; max-width:78%; }
-.option .body>.col .row .col:last-child { flex: 0 0 11%; max-width:11%; }
+.option .body>.col .row .col:first-child { flex:0 0 72%; max-width:72%; }
+.option .body>.col .row .col:last-child { flex: 0 0 15%; max-width:15%; }
 .option .body>.col:first-child span { color:#dc3545; cursor:pointer; }
 .option .body>.col:first-child input { width:calc(100% - 22px); display:inline-block; }
 .option .body>.col .row .col { padding-top:0; }
@@ -670,6 +674,10 @@ export default {
     .mb_st .row .label + div { max-width:100%; margin-bottom:.7em; }
 
     #goods_model, .option { overflow-x:scroll; }
-    #goods_model>.row, .option>.row { width:1600px; }
+    .option { margin-bottom:1rem; }
+    #goods_model>.row { width:1600px; }
+    .option>.row { width:800px; }
+    .option .body>.col .row .col:first-child { flex:0 0 61%; max-width:61%; }
+    .option .body>.col .row .col:last-child { flex: 0 0 22%; max-width:22%; }
 }
 </style>
