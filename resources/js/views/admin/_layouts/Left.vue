@@ -144,7 +144,13 @@ export default {
     },
     computed: { 
         ...mapGetters({ user: 'auth/user', siteInfo: 'common/siteInfo', }),
-        to_day(){ return new Date().format("yyyy-MM-dd"); },
+        to_day(){
+            const d = new Date();
+            const yyyy = d.getFullYear();
+            const MM = String(d.getMonth() + 1).padStart(2, '0');
+            const dd = String(d.getDate()).padStart(2, '0');
+            return `${yyyy}-${MM}-${dd}`;
+        },
         userLevel(){ return parseInt(this.user.level); },
 
         allowedSections(){ return SECTION_PERMISSIONS[this.userLevel] || ALL_SECTIONS; },

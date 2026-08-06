@@ -40,6 +40,17 @@ const LEVEL_PERMISSIONS = {
 };
 
 router.beforeEach((to, from, next) => {
+    //  경로가 바뀔 때마다 화면 모드(web/adm/simple/nothing) 갱신
+    if (to.path.startsWith('/admin')) {
+        store.state.mode = 'adm';
+    } else if (['/login', '/register', '/email_verify', '/password', '/auth'].some(p => to.path.startsWith(p))) {
+        store.state.mode = 'simple';
+    } else if (to.path.split('/')[3] === 'settle_psys') {
+        store.state.mode = 'nothing';
+    } else {
+        store.state.mode = 'web';
+    }
+    
     if (!to.path.startsWith('/admin')) return next();
 
     if (!store.state.auth.isLoggedin) {

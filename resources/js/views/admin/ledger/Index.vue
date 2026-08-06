@@ -66,14 +66,14 @@
 <script>
 import ax from '@/api/http';
 
-let init_dt = new Date();
-let endDate = init_dt.format("yyyy-MM-dd");
-// init_dt.setMonth(0); 
-init_dt.setDate(1);
-let startDate = init_dt.format("yyyy-MM-dd");
+const pad2 = (n) => String(n).padStart(2, '0');
+const fmt = (d) => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
 
-// endDate = '';
-// startDate = '';
+let init_dt = new Date();
+let endDate = fmt(init_dt);
+// init_dt.setMonth(0);
+init_dt.setDate(1);
+let startDate = fmt(init_dt);
 
 export default {
     name: 'admLedger',

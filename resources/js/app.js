@@ -18,6 +18,9 @@ Vue.$cookies.config("7d");  //쿠키의 만료일은 7일이다. (글로벌 세�
 import VueSession from 'vue-session'
 Vue.use(VueSession, { persist: true });
 
+import Plugin from './library/index';
+Vue.use(Plugin);
+
 import App from './App.vue';
 import router from './router/index';
 import store from './store/index';
@@ -80,8 +83,7 @@ Vue.config.devtools = true;
 
 import './library/filters';
 // import './library/index';
-import Plugin from './library/index';
-Vue.use(Plugin);
+
 
 
 
