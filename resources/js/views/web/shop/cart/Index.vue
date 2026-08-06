@@ -53,11 +53,21 @@
                 <b-col class="img">추가옵션</b-col>
                 <b-col>{{ct.go_name}}:{{ct.goc_name}} <b-badge v-if="ct.go_required=='Y'" variant="danger">필수</b-badge></b-col>
                 <b-col></b-col>
-                <b-col class="price">{{ct.price_add_vat | comma | price_zero | won}}</b-col>
+                <b-col class="price">
+                    <span class="price_box" :class="{price_discount:ct.price_dc_add_vat}">
+                        <span class="normal">{{ct.price_add_vat | comma | price_zero | won}}</span>
+                        <span class="discount">{{ct.price_dc_add_vat | comma | price_zero | won}}</span>
+                    </span>
+                </b-col>
                 <b-col>
                     <div class="box"><input-no v-model="cartList[i]" /></div>
                 </b-col>
-                <b-col class="price sum">{{ct.price_add_vat*ct.ea | comma | price_zero | won}}</b-col>
+                <b-col class="price sum">
+                    <span class="price_box" :class="{price_discount:ct.price_dc_add_vat}">
+                        <span class="normal">{{ct.price_add_vat*ct.ea | comma | price_zero | won}}</span>
+                        <span class="discount">{{ct.price_dc_add_vat*ct.ea | comma | price_zero | won}}</span>
+                    </span>
+                </b-col>
                 <b-col class="ctrl"><b-button pill variant="outline-dark" @click="outCart(i)">삭제</b-button></b-col>
             </template>
         </b-row>

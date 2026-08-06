@@ -152,7 +152,7 @@ class GoodsController extends Controller {
             $data['list'] = new LengthAwarePaginator($data_rst, $total, $limit, $page, ['path' => $req->url(), 'query' => $req->query()]);
 
             foreach ($data['list'] as $v) {
-                $v->goodsModelPrime = $this->goods->goods_discount_checker ($v->goodsModelPrime, $v->gd_dc);
+                $this->goods->goods_discount_checker($v->goodsModelPrime, $v->gd_dc);
                 // if( auth()->check() && auth()->user()->level == 12 ) {
                 //     $v->goodsModelPrime->dc_type = "dealer";
                 //     $v->goodsModelPrime->gm_price_dc = $v->goodsModelPrime->gm_price*auth()->user()->dc_mul;
@@ -216,8 +216,22 @@ class GoodsController extends Controller {
         }
 
         foreach ($data['goods']->goodsOption as $go) {
-            foreach ($go->goodsOptionChild as $goc)
+            foreach ($go->goodsOptionChild as $goc) {
                 $goc->ea = 0;
+                if( auth()->check() && auth()->user()->level == 12 ) {
+                    $goc->dc_type = "dealer";
+                    $goc->goc_price_dc = $goc->goc_price*auth()->user()->dc_mul;
+                    $goc->goc_price_dc_add_vat = rrp($goc->goc_price_dc);
+                } else if ($goc->goc_dc) {                         // ★옵션 개별 할인 우선
+                    $goc->dc_type = "goods_dc";
+                    $goc->goc_price_dc = cal_dc($goc->goc_price, $goc->goc_dc);
+                    $goc->goc_price_dc_add_vat = rrp($goc->goc_price_dc);
+                } else if ($data['goods']->gd_opt_dc) {            // 없으면 옵션 전체 할인
+                    $goc->dc_type = "goods_dc";
+                    $goc->goc_price_dc = cal_dc($goc->goc_price, $data['goods']->gd_opt_dc);
+                    $goc->goc_price_dc_add_vat = rrp($goc->goc_price_dc);
+                }
+            }
         }
 
         foreach ($data['goods']->goodsRelate as $v)

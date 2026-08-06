@@ -14,7 +14,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
 /* harmony import */ var vue_daum_postcode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-daum-postcode */ "./node_modules/vue-daum-postcode/dist/index.js");
 /* harmony import */ var vue_daum_postcode__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_daum_postcode__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -27,6 +29,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
 
 
 
@@ -129,7 +132,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         }, 0);
       }, 0);
     }
-  }, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
+  }, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)({
     user: 'auth/user'
   })), {}, {
     auth_check: function auth_check() {
@@ -200,7 +203,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 _this.mng_on = res.data.mng_on;
                 if (_this.od) {
                   _this.$set(_this.od, 'trans_date', new Date().format("yyyy-MM-dd"));
-                  _this.$set(_this.od, 'trans_receive', _this.od.od_orderer || '');
+                  _this.$set(_this.od, 'trans_receive', _this.od.od_company || '');
                   _this.$set(_this.od, 'trans_email', _this.od.od_orderer_email || '');
                 }
               }
@@ -487,7 +490,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               });
             case 2:
               res = _context6.sent;
-              _this6.orderDocumentDown(res, "".concat(_this6.od.od_no, "_Statement.xlsx"));
+              _this6.orderDocumentDown(res, "".concat(_this6.transFileBaseName(), ".xlsx"));
             case 4:
             case "end":
               return _context6.stop();
@@ -510,6 +513,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   return v.value == _this7.trans_email_selected_tit;
                 })) === null || _this7$trans_email_ti === void 0 ? void 0 : _this7$trans_email_ti.text;
                 if (_this7.trans_email_selected_tit == 'c') _this7.od.trans_email_tit = _this7.od.trans_email_tit_etc;
+                _this7.$set(_this7.od, 'file_nm', _this7.transFileBaseName());
               }
               if (['sendTrans', 'payReqMail'].indexOf(type) !== -1) {
                 _this7.od.trans_email_type = type;
@@ -523,7 +527,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               res = _context7.sent;
               if (res && res.status === 200) {
                 if (['sendTrans', 'payReqMail'].indexOf(type) !== -1) Notify.toast('success', '발송 완료');else {
-                  _this7.orderDocumentDown(res, "".concat(_this7.od.od_no, "_Statement.pdf"));
+                  _this7.orderDocumentDown(res, "".concat(_this7.transFileBaseName(), ".pdf"));
                   Notify.toast('success', '다운 완료');
                 }
               } else Notify.toast('warning', '실패');
@@ -558,6 +562,15 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
           }
         }, _callee8);
       }))();
+    },
+    transFileBaseName: function transFileBaseName() {
+      var company = this.od.od_company || '소속';
+      var orderer = this.od.od_orderer || '이름';
+      var goods = this.od.od_name || '';
+      var date = this.od.created_at ? moment__WEBPACK_IMPORTED_MODULE_2___default()(String(this.od.created_at)).format('YY.MM.DD') : '';
+      var raw = "".concat(company, "-").concat(orderer, "-").concat(goods, "-").concat(date, "-").concat(this.od.od_id);
+      // return raw.replace(/[\\/:*?"<>|]/g, '_');   // 파일명에 못 쓰는 문자 방어
+      return raw;
     },
     sendTran: function sendTran() {
       this.isModalViewed = !this.isModalViewed;

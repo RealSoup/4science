@@ -130,7 +130,7 @@
                                 <b-col class="price_box m_hide" :class="{'price_discount align-items-end pr-3':row.goods_model_prime.gm_price_dc_add_vat}">
                                     <span class="normal">{{row.goods_model_prime.gm_price_add_vat | comma | price_zero | won}}</span>
                                     <span class="discount">
-                                        {{row.gd_dc}}<template v-if="row.gd_dc<100">%</template><template v-else>원</template>
+                                        {{row.goods_model_prime.gm_dc || row.gd_dc}}<template v-if="(row.goods_model_prime.gm_dc || row.gd_dc)<100">%</template><template v-else>원</template>
                                         <b-icon-arrow-down />
                                         {{row.goods_model_prime.gm_price_dc_add_vat | comma | price_zero | won}}
                                     </span>

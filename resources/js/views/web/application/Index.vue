@@ -33,37 +33,31 @@ export default {
         return {
             // [수정] 실제 이미지 경로와 링크로 교체하세요
             items: [
-                {
-                    label: 'Menlo Systems',
+                {   label: 'Menlo Systems',
                     image: '/storage/application/menlo/main.webp',  // 실제 이미지 경로
                     active: true,
                     link: '/application/menlo',
-                },
-                {
-                    label: '이화학기기',
-                    image: '/storage/application/chemistry/main.jpg', // 실제 이미지 경로
-                    active: true,
-                    link: '/application/chemistry',
-                },
-                {
+                }, {
                     label: '',
                     image: null,
                     active: false,
                     link: null,
-                },
-                {
+                }, {
                     label: '',
                     image: null,
                     active: false,
                     link: null,
-                },
-                {
+                }, {
                     label: '',
                     image: null,
                     active: false,
                     link: null,
-                },
-                {
+                }, {
+                    label: '',
+                    image: null,
+                    active: false,
+                    link: null,
+                }, {
                     label: '',
                     image: null,
                     active: false,

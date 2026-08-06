@@ -329,7 +329,7 @@ class OrderController extends Controller {
 		if ($req->trans_email_type == 'sendTrans') {
 			$subject = '거래명세서 메일입니다.';
 			$params['name'] = $req->filled('od_orderer') ? $req->od_orderer : auth()->user()->name;
-			$params['file_nm'] = $req->od_no;
+			$params['file_nm'] = $req->file_nm;
 			$params['trans_email_tit'] = $req->trans_email_tit;
 			$to_email = [$req->trans_email, $req->trans_email_mng];
 
@@ -354,7 +354,6 @@ class OrderController extends Controller {
 			$subject = '[4science] 납품완료 후 미결제 안내 드립니다. (거래명세서 첨부)';
 			$to_email = [$req->od_orderer_email, $req->mng['email'], auth()->user()->email];
         	$req->merge(array('main_tel' => "ADM"));
-			$req->merge(array('file_nm' => $req->od_no));
 			$pdf = $this->pdf->loadView('admin.order.pdf.order_transaction', $req->all());
 			// $pdf->setOptions(['dpi' => 96 ]);
 			$filename = uniqid();

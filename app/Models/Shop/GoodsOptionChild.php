@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class GoodsOptionChild extends Model {
     protected $table = 'shop_goods_option_child';
     protected $primaryKey = 'goc_id';
-    protected $fillable = ['goc_go_id', 'goc_name', 'goc_price']; // 수정가능 필드 입력
+    protected $fillable = ['goc_go_id', 'goc_name', 'goc_dc', 'goc_price']; // 수정가능 필드 입력
     public $timestamps = false;
     protected $appends = ['show', 'goc_price_add_vat'];
 

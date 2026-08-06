@@ -105,9 +105,13 @@
                         >
                             {{go.go_name}} <b-badge variant="danger" v-if="go.go_required == 'Y'">필수</b-badge>
                             <ul :class="{focus:go.show}">
-                                <li v-for="goc in go.goods_option_child" :key="goc.goc_id" @click="goc.show=true, goc.ea++">
+                                <li v-for="goc in go.goods_option_child" :key="goc.goc_id" @click="goc.show=true, goc.ea++"
+                                    :class="{price_discount: goc.goc_price_dc_add_vat}">
                                     <span>{{goc.goc_name}}</span>
-                                    <span>{{goc.goc_price_add_vat | comma}} 원</span>
+                                    <span class="price_box">
+                                        <span class="normal">{{goc.goc_price_add_vat | comma}}</span>
+                                        <span class="discount" v-if="goc.goc_price_dc_add_vat">{{goc.goc_price_dc_add_vat | comma | won}}</span>
+                                    </span>
                                 </li>
                             </ul>
                         </li>
@@ -119,11 +123,11 @@
                                 <li v-if="goc.show" :key="goc.goc_id">
                                     <span class="cellName">{{goc.goc_name}} <b-badge variant="danger" v-if="go.go_required == 'Y'">필수</b-badge></span>
                                     <span class="cellCalc">
-                                        <span class="opt_p">{{goc.goc_price_add_vat | comma}}</span>
+                                        <span class="opt_p">{{goc.goc_price_dc_add_vat ?? goc.goc_price_add_vat | comma}}</span>
                                         <font-awesome-icon icon="times" />
                                         <vue-numeric-input align="center" :min="1" width="85px" v-model="goc.ea" @blur="checkValue(goc)"></vue-numeric-input>
                                         <font-awesome-icon icon="equals" />
-                                        <span class="sum_p">{{goc.goc_price_add_vat*goc.ea | comma}} 원</span>
+                                        <span class="sum_p">{{(goc.goc_price_dc_add_vat ?? goc.goc_price_add_vat)*goc.ea | comma}} 원</span>
                                         <span @click="goc.show=false, goc.ea=0" class="delOpt">X</span>
                                     </span>
                                 </li>
@@ -360,7 +364,8 @@ export default {
             }, 0);
             let option =  this.content.goods_option.reduce((acc, el) => {
                 return acc + el.goods_option_child.reduce((acc02, el02) => {
-                    return acc02 + parseInt(el02.goc_price_add_vat * el02.ea);
+                    let p = el02.goc_price_dc_add_vat ?? el02.goc_price_add_vat;
+                    return acc02 + parseInt(p * el02.ea);
                 }, 0);
             }, 0);
             return model+option;
@@ -707,11 +712,11 @@ export default {
 .conRight .goods_option .opt>li>span { text-indent:0; }
 .conRight .goods_option .opt li ul { position:absolute; z-index:2; width:100%; overflow:hidden; max-height:0; transition:all .3s; background:#fff; }
 .conRight .goods_option .opt li ul.focus { max-height:1000px; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); border:1px solid #CDCDCD; }
-.conRight .goods_option .opt li ul li { padding:.5rem; }
+.conRight .goods_option .opt li ul li { padding:.5rem; display:block; }
 .conRight .goods_option .opt li ul li:after { content:"&nbsp;"; display:block; clear:both; visibility:hidden; line-height:0; height:0; }
 .conRight .goods_option .opt li ul li:hover { background:#FFFBCC; }
-.conRight .goods_option .opt li ul li span:nth-of-type(1) { float:left; }
-.conRight .goods_option .opt li ul li span:nth-of-type(2) { float:right; }
+.conRight .goods_option .opt li ul li>span:nth-of-type(1) { float:left; }
+.conRight .goods_option .opt li ul li>span:nth-of-type(2) { float:right; }
 
 .conRight .goods_option .selOpt { padding-bottom:.4rem; border-bottom:1px solid #D8D8D8; }
 .conRight .goods_option .selOpt li { padding:.4rem 1rem; background:#EBEBEB; }

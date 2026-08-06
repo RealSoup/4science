@@ -2,7 +2,6 @@
 <header :class="{headerFix:headerFix}">
     <div id="afterimage"></div>
 <div  class="hidden_menu">
-    <b-link :to="{name: 'application'}">.</b-link>
     <b-link :to="{name: 'search_test'}">.</b-link>    
 </div>    
 
@@ -33,6 +32,7 @@
                     <b-link :to="{name: 'estimate_create'}" class="m_show">견적요청</b-link>
                     <b-link :to="{name: 'cscenter'}">고객센터</b-link>
                     <b-link :to="{name: 'bo_intro'}">커뮤니티</b-link>
+                    <b-link :to="{name: 'application'}">어플리케이션</b-link>
                 </div>
             
                 

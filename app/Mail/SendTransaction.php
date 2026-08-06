@@ -50,7 +50,7 @@ class SendTransaction extends Mailable {
         if (str_contains($path, 'license')) {
             return '사업자등록증사본.jpg';
         }
-        return "{$this->params['file_nm']}_Statement.pdf"; // PDF는 기존 이름 유지
+        return "{$this->params['file_nm']}.pdf"; // PDF는 기존 이름 유지
     }
 
     // 확장자 기준 mime 자동 판별

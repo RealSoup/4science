@@ -368,7 +368,16 @@ var render = function render() {
       }
     }, [_vm._v("필수")]) : _vm._e()], 1), _vm._v(" "), _c("b-col"), _vm._v(" "), _c("b-col", {
       staticClass: "price"
-    }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(ct.price_add_vat)))))]), _vm._v(" "), _c("b-col", [_c("div", {
+    }, [_c("span", {
+      staticClass: "price_box",
+      "class": {
+        price_discount: ct.price_dc_add_vat
+      }
+    }, [_c("span", {
+      staticClass: "normal"
+    }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(ct.price_add_vat)))))]), _vm._v(" "), _c("span", {
+      staticClass: "discount"
+    }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(ct.price_dc_add_vat)))))])])]), _vm._v(" "), _c("b-col", [_c("div", {
       staticClass: "box"
     }, [_c("input-no", {
       model: {
@@ -380,7 +389,16 @@ var render = function render() {
       }
     })], 1)]), _vm._v(" "), _c("b-col", {
       staticClass: "price sum"
-    }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(ct.price_add_vat * ct.ea)))))]), _vm._v(" "), _c("b-col", {
+    }, [_c("span", {
+      staticClass: "price_box",
+      "class": {
+        price_discount: ct.price_dc_add_vat
+      }
+    }, [_c("span", {
+      staticClass: "normal"
+    }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(ct.price_add_vat * ct.ea)))))]), _vm._v(" "), _c("span", {
+      staticClass: "discount"
+    }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(ct.price_dc_add_vat * ct.ea)))))])])]), _vm._v(" "), _c("b-col", {
       staticClass: "ctrl"
     }, [_c("b-button", {
       attrs: {

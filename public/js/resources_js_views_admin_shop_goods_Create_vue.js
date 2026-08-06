@@ -540,7 +540,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         images_upload_handler: this.gd_desc_images_upload,
         convert_urls: false
       },
-      rt_extra_focus: false,
       aiKeyword: '',
       ai_sch_type: 'pitch',
       aiModal: false,
@@ -1708,13 +1707,8 @@ var render = function render() {
   }, [_c("b-col", [_vm._v("Model")]), _vm._v(" "), _c("b-col", [_c("b-row", {
     staticClass: "justify-content-end"
   }, [_c("b-col", {
-    staticClass: "point text-right",
-    attrs: {
-      tag: "small"
-    }
-  }, [_vm._v("0~99% 할인")]), _vm._v(" "), _c("b-col", {
     staticClass: "label"
-  }, [_vm._v("할인률(액)")]), _vm._v(" "), _c("b-col", {
+  }, [_vm._v("할인률")]), _vm._v(" "), _c("b-col", {
     staticClass: "type02"
   }, [_c("b-form-input", {
     staticClass: "text-right",
@@ -1730,19 +1724,15 @@ var render = function render() {
     }
   })], 1)], 1)], 1)], 1), _vm._v(" "), _c("b-row", {
     staticClass: "list head"
-  }, [_c("b-col", [_vm.value.gd_type == "NON" ? [_vm._v("활성화 / 제품명")] : [_vm._v("계약기간")]], 2), _vm._v(" "), _vm.value.gd_type == "NON" ? _c("b-col", [_vm._v("CAT.No")]) : _vm._e(), _vm._v(" "), _c("b-col", [_vm._v("모델명")]), _vm._v(" "), _c("b-col", [_vm.value.gd_type == "NON" ? [_vm._v("스펙")] : [_vm._v("배송비")]], 2), _vm._v(" "), _c("b-col", [_vm.value.gd_type == "NON" ? [_vm._v("판매단위")] : [_vm._v("보증금")]], 2), _vm._v(" "), _c("b-col", {
+  }, [_c("b-col", [_vm.value.gd_type == "NON" ? [_vm._v("활성화 / 제품명")] : [_vm._v("계약기간")]], 2), _vm._v(" "), _vm.value.gd_type == "NON" ? _c("b-col", [_vm._v("CAT.No"), _c("p", [_vm._v("모델명")])]) : _vm._e(), _vm._v(" "), _c("b-col", [_vm.value.gd_type == "NON" ? [_vm._v("스펙")] : [_vm._v("배송비")]], 2), _vm._v(" "), _c("b-col", [_vm.value.gd_type == "NON" ? [_vm._v("판매단위"), _c("p", [_vm._v("재고수량")])] : [_vm._v("보증금")]], 2), _vm._v(" "), _c("b-col", {
     staticClass: "gm_price"
-  }, [_vm.value.gd_type == "NON" ? [_vm._v("가격 / 대표 가격")] : [_vm._v("월사용료(VAT별도)")]], 2), _vm._v(" "), _c("b-col", {
+  }, [_vm.value.gd_type == "NON" ? [_vm._v("가격 / 대표 가격"), _c("p", [_vm._v("할인(%)")])] : [_vm._v("월사용료(VAT별도)")]], 2), _vm._v(" "), _c("b-col", {
     staticClass: "ctrlBox"
   }, [_vm._v("Ctrl")])], 1), _vm._v(" "), _vm._l(_vm.value.goods_model, function (model, i) {
     return _c("b-row", {
       key: i,
       staticClass: "list body"
-    }, [_c("b-col", [_c("b-input-group", {
-      attrs: {
-        size: "sm"
-      }
-    }, [_c("b-input-group-prepend", {
+    }, [_c("b-col", [_c("b-input-group", [_c("b-input-group-prepend", {
       directives: [{
         name: "b-tooltip",
         rawName: "v-b-tooltip",
@@ -1766,9 +1756,11 @@ var render = function render() {
         },
         expression: "model.gm_enable"
       }
-    })], 1), _vm._v(" "), _c("b-form-input", {
+    })], 1), _vm._v(" "), _c("b-form-textarea", {
       attrs: {
-        id: "goods_model.".concat(i, ".gm_name")
+        id: "goods_model.".concat(i, ".gm_name"),
+        rows: "2",
+        "max-rows": "2"
       },
       model: {
         value: model.gm_name,
@@ -1792,7 +1784,7 @@ var render = function render() {
         },
         expression: "model.gm_catno"
       }
-    })], 1) : _vm._e(), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+    }), _vm._v(" "), _c("div", [_c("b-form-input", {
       attrs: {
         id: "goods_model.".concat(i, ".gm_code")
       },
@@ -1807,9 +1799,11 @@ var render = function render() {
       attrs: {
         error: _vm.$store.state.error.validations["goods_model.".concat(i, ".gm_code")]
       }
-    })], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+    })], 1)], 1) : _vm._e(), _vm._v(" "), _c("b-col", [_c("b-form-textarea", {
       attrs: {
-        id: "goods_model.".concat(i, ".gm_spec")
+        id: "goods_model.".concat(i, ".gm_spec"),
+        rows: "3",
+        "max-rows": "3"
       },
       model: {
         value: model.gm_spec,
@@ -1836,6 +1830,15 @@ var render = function render() {
     }), _vm._v(" "), _c("validation", {
       attrs: {
         error: _vm.$store.state.error.validations["goods_model.".concat(i, ".gm_unit")]
+      }
+    }), _vm._v(" "), _c("b-form-input", {
+      staticClass: "sm text-right",
+      model: {
+        value: model.gm_limit_ea,
+        callback: function callback($$v) {
+          _vm.$set(model, "gm_limit_ea", $$v);
+        },
+        expression: "model.gm_limit_ea"
       }
     })], 1), _vm._v(" "), _c("b-col", {
       staticClass: "gm_price"
@@ -1887,6 +1890,15 @@ var render = function render() {
     })], 1)], 1), _vm._v(" "), _c("validation", {
       attrs: {
         error: _vm.$store.state.error.validations["goods_model.".concat(i, ".gm_price")]
+      }
+    }), _vm._v(" "), _c("b-form-input", {
+      staticClass: "sm text-right",
+      model: {
+        value: model.gm_dc,
+        callback: function callback($$v) {
+          _vm.$set(model, "gm_dc", $$v);
+        },
+        expression: "model.gm_dc"
       }
     })], 1), _vm._v(" "), _c("b-col", {
       staticClass: "ctrlBox"
@@ -2016,33 +2028,7 @@ var render = function render() {
           icon: "dash-circle-fill"
         }
       })], 1)], 1)], 1);
-    })], 2)], 1)], 1), _vm._v(" "), _c("b-col", {
-      staticClass: "rt_extra",
-      "class": {
-        focus: _vm.rt_extra_focus
-      }
-    }, [_c("b-container", {
-      staticClass: "adform"
-    }, [_c("b-row", [_c("b-col", {
-      staticClass: "label"
-    }, [_vm._v("재고수량")]), _vm._v(" "), _c("b-col", [_c("b-form-input", {
-      staticClass: "sm text-right",
-      on: {
-        focus: function focus($event) {
-          _vm.rt_extra_focus = true;
-        },
-        blur: function blur($event) {
-          _vm.rt_extra_focus = false;
-        }
-      },
-      model: {
-        value: model.gm_limit_ea,
-        callback: function callback($$v) {
-          _vm.$set(model, "gm_limit_ea", $$v);
-        },
-        expression: "model.gm_limit_ea"
-      }
-    })], 1)], 1)], 1)], 1)], 1);
+    })], 2)], 1)], 1)], 1);
   }), _vm._v(" "), _c("validation", {
     attrs: {
       error: _vm.$store.state.error.validations.goods_model
@@ -2063,21 +2049,47 @@ var render = function render() {
     staticClass: "box adform option"
   }, [_c("h5", {
     staticClass: "row"
-  }, [_c("b-col", [_vm._v("Option")]), _vm._v(" "), _c("b-col", [_c("option-finder", {
+  }, [_c("b-col", [_vm._v("Option")]), _vm._v(" "), _c("b-col", [_c("b-row", {
+    staticClass: "justify-content-end"
+  }, [_c("b-col", {
+    staticClass: "label"
+  }, [_vm._v("검색")]), _vm._v(" "), _c("b-col", {
+    staticClass: "type02"
+  }, [_c("option-finder", {
     attrs: {
       opt: _vm.value.goods_option
     }
-  })], 1)], 1), _vm._v(" "), _c("b-row", {
+  })], 1), _vm._v(" "), _c("b-col", {
+    staticClass: "label"
+  }, [_vm._v("할인률")]), _vm._v(" "), _c("b-col", {
+    staticClass: "type02"
+  }, [_c("b-form-input", {
+    staticClass: "text-right",
+    attrs: {
+      size: "sm"
+    },
+    model: {
+      value: _vm.value.gd_opt_dc,
+      callback: function callback($$v) {
+        _vm.$set(_vm.value, "gd_opt_dc", $$v);
+      },
+      expression: "value.gd_opt_dc"
+    }
+  })], 1)], 1)], 1)], 1), _vm._v(" "), _c("b-row", {
     staticClass: "head"
   }, [_c("b-col", {
     attrs: {
-      cols: "6"
-    }
-  }, [_vm._v("옵션명")]), _vm._v(" "), _c("b-col", {
-    attrs: {
       cols: "3"
     }
-  }, [_vm._v("항목")]), _vm._v(" "), _c("b-col", [_vm._v("가격")])], 1), _vm._v(" "), _vm._l(_vm.value.goods_option, function (go, idx) {
+  }, [_vm._v("옵션명")]), _vm._v(" "), _c("b-col", [_vm._v("항목")]), _vm._v(" "), _c("b-col", {
+    attrs: {
+      cols: "1"
+    }
+  }, [_vm._v("개별 할인")]), _vm._v(" "), _c("b-col", {
+    attrs: {
+      cols: "1"
+    }
+  }, [_vm._v("가격")])], 1), _vm._v(" "), _vm._l(_vm.value.goods_option, function (go, idx) {
     return _c("b-row", {
       key: idx,
       staticClass: "body"
@@ -2125,6 +2137,17 @@ var render = function render() {
             _vm.$set(goc, "goc_name", $$v);
           },
           expression: "goc.goc_name"
+        }
+      })], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+        attrs: {
+          size: "sm"
+        },
+        model: {
+          value: goc.goc_dc,
+          callback: function callback($$v) {
+            _vm.$set(goc, "goc_dc", $$v);
+          },
+          expression: "goc.goc_dc"
         }
       })], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
         attrs: {
@@ -2429,7 +2452,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap .box[data-v-311c4b87] { padding:1em 2em;\n}\n.p_wrap .goods_form[data-v-311c4b87] { overflow: hidden;\n}\n.cate .selecter[data-v-311c4b87] { border-bottom:2px solid #000; padding-bottom:1em; margin-bottom:1em;\n}\n.cate .selecter>div[data-v-311c4b87]:first-child { display:flex; flex-wrap:wrap; padding:0;\n}\n.cate .selected[data-v-311c4b87]:not(:last-child) { border-bottom: 1px solid #ccc;\n}\n.cate .selected .col[data-v-311c4b87] { display:flex; align-items:center; padding:.5em;\n}\n.cate .selected .col .btn[data-v-311c4b87] { padding:0 3px;\n}\n.cate .selected .col>svg[data-v-311c4b87] { margin:0 .5em; color:#CCC;\n}\n.req_ai_desc .ai-modal[data-v-311c4b87] { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); Z-INDEX: 1021;\n}\n.req_ai_desc .ai-modal-content[data-v-311c4b87] { background: #fff; width: 600px; margin: 100px auto; padding: 20px;\n}\n.goods_relate .list .col[data-v-311c4b87] { text-align:center; overflow:hidden; margin-bottom:2rem;\n}\n.goods_relate .list .col img[data-v-311c4b87] { width:150px; height:150px; -o-object-fit:cover; object-fit:cover;\n}\n.goods_relate .list .col button[data-v-311c4b87] { position:absolute; top:0; transform:translateY(-120%); transition:transform 0.5s ease;\n}\n.goods_relate .list .col span[data-v-311c4b87] { margin-top:.5rem; display:block;\n}\n.goods_relate .list .col .handle[data-v-311c4b87] { left:50%; transform:translateX(-50%) translateY(-120%);\n}\n.goods_relate .list .col .btn_del[data-v-311c4b87] { right:15px;\n}\n.goods_relate .list .col:hover .handle[data-v-311c4b87] { transform:translateX(-50%) translateY(0);\n}\n.goods_relate .list .col:hover .btn_del[data-v-311c4b87] { transform:translateY(0);\n}\n.model .head .col[data-v-311c4b87] { text-align:center; font-size:.85em;\n}\n.model .row .col .bundle_box[data-v-311c4b87] { position:absolute; top:2em; right:0; width:300px; margin-top:.5em; z-index:2;\n}\n.model .row .col .bundle_box .card[data-v-311c4b87] { margin-top:0;\n}\n.model .row .col .bundle_box .card header[data-v-311c4b87] { text-align:left;\n}\n.model .row .col .bundle_box .card header button[data-v-311c4b87] { padding-top:.2em; padding-bottom:.35em; float:right; line-height:1;\n}\n.model .body .ctrlBox[data-v-311c4b87] { text-align:right;\n}\n.model.md_non>.list>.col[data-v-311c4b87]:nth-child(4) { flex: 0 0 25%; max-width:25%;\n}\n.model.md_non>.list>.col[data-v-311c4b87]:nth-child(2),\r\n.model.md_non>.list>.col[data-v-311c4b87]:nth-child(3),\r\n.model.md_non>.list>.col[data-v-311c4b87]:nth-child(5) { flex: 0 0 8.5%; max-width:8.5%;\n}\n.model>.row>.ctrlBox[data-v-311c4b87] { flex:0 0 8%; max-width:69px; padding-left:0; padding-right:0;\n}\n.model>.row>.ctrlBox button[data-v-311c4b87] { padding-left:.4em; padding-right:.4em;\n}\n.model.md_non>.list>.gm_price[data-v-311c4b87] { flex:0 0 10%; max-width:10%;\n}\n.model .body[data-v-311c4b87] { position:relative;\n}\n.model .body .rt_extra[data-v-311c4b87] { border-left:1px solid #BBB; border-radius:10px; position:absolute; background:#FFF; right:0px; max-width:200px; transform:translateX(101%); padding:0; z-index:1; transition:all 0.5s ease;\n}\n.model .body .rt_extra[data-v-311c4b87]:before { content:'◀'; position:absolute; display:block; line-height:2; padding-top:8px;\n}\n.model .body .rt_extra[data-v-311c4b87]:hover,\r\n.model .body .rt_extra.focus[data-v-311c4b87] { transform:translateX(0%);\n}\n.option.adform .row .label[data-v-311c4b87] { flex:0 0 12%; max-width:12%;\n}\n.option.adform .row .label + .type04[data-v-311c4b87] { flex: 0 0 29.666667%; max-width:29.666667%;\n}\n.option.adform .row .label + .type05[data-v-311c4b87] { flex: 0 0 38%; max-width:38%;\n}\n.option.adform .row .col .btn-xm[data-v-311c4b87] { padding:.1em .2em; font-size: 0.7em;\n}\n.option .head>div[data-v-311c4b87] { text-align:center;\n}\n.option .body[data-v-311c4b87] { align-items: flex-start !important;\n}\n.option .body>.col:first-child span[data-v-311c4b87] { color:#dc3545; cursor:pointer;\n}\n.option .body>.col:first-child input[data-v-311c4b87] { width:calc(100% - 22px); display:inline-block;\n}\n.option .body>.col .row .col[data-v-311c4b87] { padding-top:0;\n}\n.option .body>.col .row .col:last-child span[data-v-311c4b87] { cursor:pointer;\n}\n.option .body>.col .row .col:last-child span.add[data-v-311c4b87] { color:#17a2b8;\n}\n.option .body>.col .row .col:last-child span.del[data-v-311c4b87] { color:#dc3545;\n}\n.option .body>.col .row .col:last-child input[data-v-311c4b87] { width:calc(100% - 22px); display:inline-block;\n}\n@media (max-width: 992px){\n.p_wrap .box[data-v-311c4b87] { padding:0;\n}\n.cate .selecter[data-v-311c4b87] { padding-bottom:.5em; margin-bottom:0;\n}\n.cate .selecter>div[data-v-311c4b87],\r\n    .cate .selecter>div>div[data-v-311c4b87] { padding:0;\n}\n.cate .selecter>div[data-v-311c4b87]:last-child { text-align:right; margin-top:.5em;\n}\n.cate .selected .col[data-v-311c4b87] { display:block;\n}\n.cate .selected .col>div[data-v-311c4b87] { display:inline-block;\n}\n.mb_st .row[data-v-311c4b87] { align-items:flex-start; flex-direction:column;\n}\n.mb_st .row > div[data-v-311c4b87]:not(.tit) { padding:0;\n}\n.mb_st .row .label[data-v-311c4b87] { max-width:100%; text-align:left;\n}\n.mb_st .row .label + div[data-v-311c4b87] { max-width:100%; margin-bottom:.7em;\n}\n#goods_model[data-v-311c4b87], .option[data-v-311c4b87] { overflow-x:scroll;\n}\n#goods_model>.row[data-v-311c4b87], .option>.row[data-v-311c4b87] { width:1600px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap .box[data-v-311c4b87] { padding:1em 2em;\n}\n.p_wrap .goods_form[data-v-311c4b87] { overflow: hidden;\n}\n.cate .selecter[data-v-311c4b87] { border-bottom:2px solid #000; padding-bottom:1em; margin-bottom:1em;\n}\n.cate .selecter>div[data-v-311c4b87]:first-child { display:flex; flex-wrap:wrap; padding:0;\n}\n.cate .selected[data-v-311c4b87]:not(:last-child) { border-bottom: 1px solid #ccc;\n}\n.cate .selected .col[data-v-311c4b87] { display:flex; align-items:center; padding:.5em;\n}\n.cate .selected .col .btn[data-v-311c4b87] { padding:0 3px;\n}\n.cate .selected .col>svg[data-v-311c4b87] { margin:0 .5em; color:#CCC;\n}\n.req_ai_desc .ai-modal[data-v-311c4b87] { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); Z-INDEX: 1021;\n}\n.req_ai_desc .ai-modal-content[data-v-311c4b87] { background: #fff; width: 600px; margin: 100px auto; padding: 20px;\n}\n.goods_relate .list .col[data-v-311c4b87] { text-align:center; overflow:hidden; margin-bottom:2rem;\n}\n.goods_relate .list .col img[data-v-311c4b87] { width:150px; height:150px; -o-object-fit:cover; object-fit:cover;\n}\n.goods_relate .list .col button[data-v-311c4b87] { position:absolute; top:0; transform:translateY(-120%); transition:transform 0.5s ease;\n}\n.goods_relate .list .col span[data-v-311c4b87] { margin-top:.5rem; display:block;\n}\n.goods_relate .list .col .handle[data-v-311c4b87] { left:50%; transform:translateX(-50%) translateY(-120%);\n}\n.goods_relate .list .col .btn_del[data-v-311c4b87] { right:15px;\n}\n.goods_relate .list .col:hover .handle[data-v-311c4b87] { transform:translateX(-50%) translateY(0);\n}\n.goods_relate .list .col:hover .btn_del[data-v-311c4b87] { transform:translateY(0);\n}\n.model .head .col[data-v-311c4b87] { text-align:center; font-size:.85em; display:flex; align-items:center; justify-content:center; flex-direction:column; height:58px;\n}\n.model .head .col p[data-v-311c4b87] { margin:0; border-top:1px solid #CCC; width:100%;\n}\n.model .row .col .bundle_box[data-v-311c4b87] { position:absolute; top:2em; right:0; width:300px; margin-top:.5em; z-index:2;\n}\n.model .row .col .bundle_box .card[data-v-311c4b87] { margin-top:0;\n}\n.model .row .col .bundle_box .card header[data-v-311c4b87] { text-align:left;\n}\n.model .row .col .bundle_box .card header button[data-v-311c4b87] { padding-top:.2em; padding-bottom:.35em; float:right; line-height:1;\n}\n.model .body .ctrlBox[data-v-311c4b87] { text-align:right;\n}\n.model.md_non>.list>.col[data-v-311c4b87]:nth-child(3) { flex: 0 0 30%; max-width:30%;\n}\n.model.md_non>.list>.col[data-v-311c4b87]:nth-child(2),\r\n.model.md_non>.list>.col[data-v-311c4b87]:nth-child(4) { flex: 0 0 9.5%; max-width:9.5%;\n}\n.model.md_non>.list>.gm_price[data-v-311c4b87] { flex:0 0 10%; max-width:10%;\n}\n.model>.row>.ctrlBox[data-v-311c4b87] { flex:0 0 35px; padding-left:0; padding-right:0;\n}\n.model>.row>.ctrlBox button[data-v-311c4b87] { padding-left:.4em; padding-right:.4em;\n}\n.option.adform .row .label[data-v-311c4b87] { flex:0 0 12%; max-width:12%;\n}\n.option.adform .row .label + .type04[data-v-311c4b87] { flex: 0 0 29.666667%; max-width:29.666667%;\n}\n.option.adform .row .label + .type05[data-v-311c4b87] { flex: 0 0 38%; max-width:38%;\n}\n.option.adform .row .col .btn-xm[data-v-311c4b87] { padding:.1em .2em; font-size: 0.7em;\n}\n.option .head>div[data-v-311c4b87] { text-align:center;\n}\n.option .body[data-v-311c4b87] { align-items: flex-start !important;\n}\n.option .body>.col[data-v-311c4b87]:first-child { flex:0 0 25%; max-width: 25%;\n}\n.option .body>.col .row .col[data-v-311c4b87]:first-child { flex:0 0 78%; max-width:78%;\n}\n.option .body>.col .row .col[data-v-311c4b87]:last-child { flex: 0 0 11%; max-width:11%;\n}\n.option .body>.col:first-child span[data-v-311c4b87] { color:#dc3545; cursor:pointer;\n}\n.option .body>.col:first-child input[data-v-311c4b87] { width:calc(100% - 22px); display:inline-block;\n}\n.option .body>.col .row .col[data-v-311c4b87] { padding-top:0;\n}\n.option .body>.col .row .col:nth-child(2) input[data-v-311c4b87] { text-align:right;\n}\n.option .body>.col .row .col:last-child span[data-v-311c4b87] { cursor:pointer;\n}\n.option .body>.col .row .col:last-child span.add[data-v-311c4b87] { color:#17a2b8;\n}\n.option .body>.col .row .col:last-child span.del[data-v-311c4b87] { color:#dc3545;\n}\n.option .body>.col .row .col:last-child input[data-v-311c4b87] { width:calc(100% - 22px); display:inline-block; text-align:right;\n}\n@media (max-width: 992px){\n.p_wrap .box[data-v-311c4b87] { padding:0;\n}\n.cate .selecter[data-v-311c4b87] { padding-bottom:.5em; margin-bottom:0;\n}\n.cate .selecter>div[data-v-311c4b87],\r\n    .cate .selecter>div>div[data-v-311c4b87] { padding:0;\n}\n.cate .selecter>div[data-v-311c4b87]:last-child { text-align:right; margin-top:.5em;\n}\n.cate .selected .col[data-v-311c4b87] { display:block;\n}\n.cate .selected .col>div[data-v-311c4b87] { display:inline-block;\n}\n.mb_st .row[data-v-311c4b87] { align-items:flex-start; flex-direction:column;\n}\n.mb_st .row > div[data-v-311c4b87]:not(.tit) { padding:0;\n}\n.mb_st .row .label[data-v-311c4b87] { max-width:100%; text-align:left;\n}\n.mb_st .row .label + div[data-v-311c4b87] { max-width:100%; margin-bottom:.7em;\n}\n#goods_model[data-v-311c4b87], .option[data-v-311c4b87] { overflow-x:scroll;\n}\n#goods_model>.row[data-v-311c4b87], .option>.row[data-v-311c4b87] { width:1600px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -584,6 +584,7 @@
 import ax from '@/api/http';
 import { VueDaumPostcode } from "vue-daum-postcode";
 import { mapActions, mapState, mapGetters } from 'vuex';
+import moment from 'moment';
 
 export default {
     name: 'edit',
@@ -728,7 +729,7 @@ export default {
                     this.mng_on = res.data.mng_on;
                     if (this.od) {
                         this.$set(this.od, 'trans_date', new Date().format("yyyy-MM-dd"));
-                        this.$set(this.od, 'trans_receive', this.od.od_orderer || '');
+                        this.$set(this.od, 'trans_receive', this.od.od_company || '');
                         this.$set(this.od, 'trans_email', this.od.od_orderer_email || '');
                     }
                 }
@@ -877,7 +878,7 @@ export default {
         },
         async transactionExcel(){
             const res = await ax.post(`/api/admin/shop/order/exportTransactionExcel`, this.od, { responseType: 'blob' });
-            this.orderDocumentDown(res, `${this.od.od_no}_Statement.xlsx`);
+            this.orderDocumentDown(res, `${this.transFileBaseName()}.xlsx`);
         },
         async transactionPdf(type=null){
             if ( type == 'sendTrans' ) {
@@ -888,6 +889,8 @@ export default {
                 
                 if (this.trans_email_selected_tit == 'c')
                     this.od.trans_email_tit = this.od.trans_email_tit_etc;
+
+                this.$set(this.od, 'file_nm', this.transFileBaseName());
             }
 
             if ( ['sendTrans', 'payReqMail'].indexOf(type) !== -1 ) {
@@ -899,7 +902,7 @@ export default {
             if (res && res.status === 200) {
                 if ( ['sendTrans', 'payReqMail'].indexOf(type) !== -1 ) Notify.toast('success', '발송 완료');
                 else {
-                    this.orderDocumentDown(res, `${this.od.od_no}_Statement.pdf`);
+                    this.orderDocumentDown(res, `${this.transFileBaseName()}.pdf`);
                     Notify.toast('success', '다운 완료');
                 }
             } else Notify.toast('warning', '실패');
@@ -910,6 +913,16 @@ export default {
                 const res = await ax.post(`/api/admin/shop/order/exportShippingListExcel`, this.od, { responseType: 'blob' });
                 this.orderDocumentDown(res, `${this.od.od_no}_ShippingList.xlsx`);
             }
+        },
+
+        transFileBaseName() {
+            const company = this.od.od_company || '소속';
+            const orderer = this.od.od_orderer || '이름';
+            const goods   = this.od.od_name || '';
+            const date    = this.od.created_at ? moment(String(this.od.created_at)).format('YY.MM.DD') : '';
+            const raw     = `${company}-${orderer}-${goods}-${date}-${this.od.od_id}`;
+            // return raw.replace(/[\\/:*?"<>|]/g, '_');   // 파일명에 못 쓰는 문자 방어
+            return raw;
         },
 
         sendTran(){

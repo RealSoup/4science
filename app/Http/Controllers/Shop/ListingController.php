@@ -30,9 +30,10 @@ class ListingController extends Controller {
             ->where("shop_goods.gd_enable", "Y")
             ->orderBy('gd_dc', 'desc')
             ->paginate(250);
-        foreach ($rst as $v) {
-            $v->goodsModelPrime = $this->goods->goods_discount_checker ($v->goodsModelPrime, $v->gd_dc);
-        }
+            
+        foreach ($rst as $v) 
+            $this->goods->goods_discount_checker($v->goodsModelPrime, $v->gd_dc);
+        
         $rst->appends($req->all())->links();
         return response()->json($rst, 200);
     }

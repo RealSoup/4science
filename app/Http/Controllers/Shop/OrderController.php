@@ -279,45 +279,29 @@ class OrderController extends Controller {
                                                                     'odpa_dlvy_p'  => isset($item['pa_dlvy_p']) ? $item['pa_dlvy_p'] : 0 ], 'odpa_id');
                     }
 
-                    if ($item['type'] == 'model') {
-                        $insert_tmp[] = array(
-                            'odm_od_id'    => $this->order->od_id,
-                            'odm_odpa_id'  => $odpa_id,
-                            'odm_type'     => 'MODEL',
-                            'odm_gd_id'    => $item['gd_id'],
-                            'odm_gm_id'    => $item['gm_id'],
-                            'odm_gm_catno' => $item['gm_catno'],
-                            'odm_gd_name'  => $item['gd_name'],
-                            'odm_gm_name'  => $item['gm_name'],
-                            'odm_gm_code'  => $item['gm_code'],
-                            'odm_gm_spec'  => $item['gm_spec'],
-                            'odm_gm_unit'  => $item['gm_unit'],
-                            'odm_mk_name'  => $item['mk_name'],
-                            'odm_ea'       => $item['ea'],
-                            'odm_price'    => $item['price_dc'] ?? $item['price'],
-                            'odm_price_coupon_dc' => $item['price_coupon_dc'] ?? 0,
-                        );
-                        Cart::Target(auth()->user()->id, $item['gd_id'], $item['gm_id'], 'MODEL')->delete();
-                    } else if ($item['type'] == 'option') {
-                        $insert_tmp[] = array(
-                            'odm_od_id'    => $this->order->od_id,
-                            'odm_odpa_id'  => $odpa_id,
-                            'odm_type'     => 'OPTION',
-                            'odm_gd_id'    => $item['gd_id'],
-                            'odm_gm_id'    => $item['goc_id'],
-                            'odm_gm_catno' => '',
-                            'odm_gd_name'  => '',
-                            'odm_gm_name'  => $item['go_name'],
-                            'odm_gm_code'  => '',
-                            'odm_gm_spec'  => $item['goc_name'],
-                            'odm_gm_unit'  => '',
-                            'odm_mk_name'  => '',
-                            'odm_ea'       => $item['ea'],
-                            'odm_price'    => $item['price'],
-                            'odm_price_coupon_dc' => $item['price_coupon_dc'] ?? 0,
-                        );
-                        Cart::Target(auth()->user()->id, $item['gd_id'], $item['goc_id'], 'OPTION')->delete();
-                    }
+                    $is_model = $item['type'] == 'model';
+
+                    $insert_tmp[] = array(
+                        'odm_od_id'    => $this->order->od_id,
+                        'odm_odpa_id'  => $odpa_id,
+                        'odm_type'     => $is_model ? 'MODEL' : 'OPTION',
+                        'odm_gd_id'    => $item['gd_id'],
+                        'odm_gm_id'    => $is_model ? $item['gm_id'] : $item['goc_id'],
+                        'odm_gm_catno' => $is_model ? $item['gm_catno'] : '',
+                        'odm_gd_name'  => $is_model ? $item['gd_name'] : '',
+                        'odm_gm_name'  => $is_model ? $item['gm_name'] : $item['go_name'],
+                        'odm_gm_code'  => $is_model ? $item['gm_code'] : '',
+                        'odm_gm_spec'  => $is_model ? $item['gm_spec'] : $item['goc_name'],
+                        'odm_gm_unit'  => $is_model ? $item['gm_unit'] : '',
+                        'odm_mk_name'  => $is_model ? $item['mk_name'] : '',
+                        'odm_ea'       => $item['ea'],
+                        'odm_price'    => $item['price_dc'] ?? $item['price'],
+                        'odm_price_coupon_dc' => $item['price_coupon_dc'] ?? 0,
+                    );
+
+                    Cart::Target(auth()->user()->id, $item['gd_id'], $is_model ? $item['gm_id'] : $item['goc_id'], $is_model ? 'MODEL' : 'OPTION')->delete();
+                    
+                    
                 }                    
                 DB::table('shop_order_model')->insert($insert_tmp);
             }

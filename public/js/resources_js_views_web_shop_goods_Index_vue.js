@@ -360,7 +360,7 @@ var render = function render() {
       staticClass: "normal"
     }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(row.goods_model_prime.gm_price_add_vat)))))]), _vm._v(" "), _c("span", {
       staticClass: "discount"
-    }, [_vm._v("\r\n                                        " + _vm._s(row.gd_dc)), row.gd_dc < 100 ? [_vm._v("%")] : [_vm._v("원")], _vm._v(" "), _c("b-icon-arrow-down"), _vm._v("\r\n                                        " + _vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(row.goods_model_prime.gm_price_dc_add_vat)))) + "\r\n                                    ")], 2)]), _vm._v(" "), _c("b-col", {
+    }, [_vm._v("\r\n                                        " + _vm._s(row.goods_model_prime.gm_dc || row.gd_dc)), (row.goods_model_prime.gm_dc || row.gd_dc) < 100 ? [_vm._v("%")] : [_vm._v("원")], _vm._v(" "), _c("b-icon-arrow-down"), _vm._v("\r\n                                        " + _vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(row.goods_model_prime.gm_price_dc_add_vat)))) + "\r\n                                    ")], 2)]), _vm._v(" "), _c("b-col", {
       staticClass: "m_hide"
     }, [_vm._v(_vm._s(row.mk_name))])], 1);
   }), _vm._v(" "), _c("pagination", {

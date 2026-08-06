@@ -194,7 +194,7 @@ class Goods extends Model {
    
 
     //  요청한 상품 정보를 직배송 형태로 변환, 리턴
-    public function getGoodsDataCollection($some, $type='buy_cart', $mode=null) {
+    public function getGoodsDataCollection ($some, $type='buy_cart', $mode=null) {
         $rst = [ 'lists'=>array(), 'price'=>array() ];
         $d_arrange = Array();
         switch ($type) {
@@ -333,6 +333,7 @@ class Goods extends Model {
                                         'gm_unit'           => $gm->gm_unit,
                                         'gm_limit_ea'       => $gm->gm_limit_ea,
                                         'mk_name'           => $gd->maker->mk_name,
+                                        'gm_dc'             => $gm->gm_dc,
                                         'price'             => $gm->gm_price,
                                         'price_add_vat'     => $gm->gm_price_add_vat,];
                         // dd($mode);
@@ -347,6 +348,10 @@ class Goods extends Model {
                                     $tmpModel['price_dc'] = $gm->gm_price*auth()->user()->dc_mul;
                                     $tmpModel['price_dc_add_vat']= rrp($tmpModel['price_dc']);
                                 }
+                            } else if ($gm->gm_dc) {               // ★추가: 모델 개별 할인(individual discount)이 우선
+                                $tmpModel['dc_type'] = "goods_dc";
+                                $tmpModel['price_dc'] = cal_dc($gm->gm_price, $gm->gm_dc);
+                                $tmpModel['price_dc_add_vat'] = rrp($tmpModel['price_dc']);
                             } else if ($gd->gd_dc) {
                                 $tmpModel['dc_type'] = "goods_dc";
                                 $tmpModel['price_dc'] = cal_dc($gm->gm_price, $gd->gd_dc);
@@ -393,13 +398,31 @@ class Goods extends Model {
                                 'price_add_vat' => $goc->goc_price_add_vat,
                             ];
                             
-                            if ($type == 'cart') {
-                                $tmpOption['ct_id'] = $v['option'][$goc->goc_id]['ct_id'];
-                                $tmpOption['ct_check_opt'] = 'Y';
-                                $tmpOption['go_required'] = $go->go_required;
-                            } else if ($type == 'order') {
+                            if ($type == 'order') {
                                 $tmpOption['price'] = $d_arrange[$gd_id]['option'][$goc->goc_id]['odo_price'];
                                 $tmpOption['price_add_vat'] = rrp($d_arrange[$gd_id]['option'][$goc->goc_id]['odo_price']);
+                            } else {
+                                if( auth()->check() && auth()->user()->level == 12 ) {
+                                    if (in_array($type, ['buy_inst', 'buy_cart'])) {
+                                        $tmpOption['dc_type'] = "dealer";
+                                        $tmpOption['price_dc'] = $goc->goc_price*auth()->user()->dc_mul;
+                                        $tmpOption['price_dc_add_vat']= rrp($tmpOption['price_dc']);
+                                    }
+                                } else if ($goc->goc_dc) {
+                                    $tmpOption['dc_type'] = "goods_dc";
+                                    $tmpOption['price_dc'] = cal_dc($goc->goc_price, $goc->goc_dc);
+                                    $tmpOption['price_dc_add_vat'] = rrp($tmpOption['price_dc']);
+                                } else if ($gd->gd_opt_dc) {
+                                    $tmpOption['dc_type'] = "goods_dc";
+                                    $tmpOption['price_dc'] = cal_dc($goc->goc_price, $gd->gd_opt_dc);
+                                    $tmpOption['price_dc_add_vat'] = rrp($tmpOption['price_dc']);
+                                }
+
+                                if ($type == 'cart') {
+                                    $tmpOption['ct_id'] = $v['option'][$goc->goc_id]['ct_id'];
+                                    $tmpOption['ct_check_opt'] = 'Y';
+                                    $tmpOption['go_required'] = $go->go_required;
+                                }
                             }
                             $rst['lists'][$gd->gd_pa_id??0][] = $tmpOption;
                         }
@@ -555,6 +578,10 @@ class Goods extends Model {
             $gm->dc_type = "dealer";
             $gm->gm_price_dc = $gm->gm_price*auth()->user()->dc_mul;
             $gm->gm_price_dc_add_vat = rrp($gm->gm_price_dc);
+        } else if ($gm->gm_dc ?? null) {
+            $gm->dc_type = "goods_dc";
+            $gm->gm_price_dc = cal_dc($gm->gm_price, $gm->gm_dc);
+            $gm->gm_price_dc_add_vat = rrp($gm->gm_price_dc);            
         } else if ($dc) {
             $gm->dc_type = "goods_dc";
             $gm->gm_price_dc = cal_dc($gm->gm_price, $dc);

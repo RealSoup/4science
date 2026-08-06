@@ -193,8 +193,7 @@
             <b-col>Model</b-col>
             <b-col>
                 <b-row class="justify-content-end">
-                    <b-col class="point text-right" tag="small">0~99% 할인</b-col>
-                    <b-col class="label">할인률(액)</b-col>
+                    <b-col class="label">할인률</b-col>
                     <b-col class="type02">
                         <b-form-input v-model="value.gd_dc" size="sm" class="text-right"></b-form-input>
                     </b-col>
@@ -206,46 +205,47 @@
                 <template v-if="value.gd_type == 'NON'">활성화 / 제품명</template>
                 <template v-else>계약기간</template>
             </b-col>
-            <b-col v-if="value.gd_type == 'NON'">CAT.No</b-col>                
-            <b-col>모델명</b-col>
+            <b-col v-if="value.gd_type == 'NON'">CAT.No<p>모델명</p></b-col>                
+            
             <b-col>
                 <template v-if="value.gd_type == 'NON'">스펙</template>
                 <template v-else>배송비</template>
             </b-col>
             <b-col>
-                <template v-if="value.gd_type == 'NON'">판매단위</template>
+                <template v-if="value.gd_type == 'NON'">판매단위<p>재고수량</p></template>
                 <template v-else>보증금</template>
             </b-col>
             <b-col class="gm_price">
-                <template v-if="value.gd_type == 'NON'">가격 / 대표 가격</template>
+                <template v-if="value.gd_type == 'NON'">가격 / 대표 가격<p>할인(%)</p></template>
                 <template v-else>월사용료(VAT별도)</template>
             </b-col>
             <b-col class="ctrlBox">Ctrl</b-col>
         </b-row>
         <b-row v-for="(model, i) in value.goods_model" :key="i" class="list body">
             <b-col>
-                <b-input-group size="sm">
+                <b-input-group >
                     <b-input-group-prepend is-text v-b-tooltip="'제품 활성화'">
                         <b-form-checkbox switch class="mr-n2 mb-n1" v-model='model.gm_enable' value="Y" unchecked-value="N"></b-form-checkbox>
                     </b-input-group-prepend>
-                    <b-form-input :id="`goods_model.${i}.gm_name`" v-model='model.gm_name'></b-form-input>
+                    <b-form-textarea :id="`goods_model.${i}.gm_name`" v-model='model.gm_name' rows="2" max-rows="2"></b-form-textarea>
                 </b-input-group>
                 <validation :error="$store.state.error.validations[`goods_model.${i}.gm_name`]"></validation>
             </b-col>
             <b-col v-if="value.gd_type == 'NON'">
                 <b-form-input v-model='model.gm_catno' readonly></b-form-input>
+                <div>
+                    <b-form-input :id="`goods_model.${i}.gm_code`" v-model='model.gm_code'></b-form-input>
+                    <validation :error="$store.state.error.validations[`goods_model.${i}.gm_code`]"></validation>
+                </div>
             </b-col>
             <b-col>
-                <b-form-input :id="`goods_model.${i}.gm_code`" v-model='model.gm_code'></b-form-input>
-                <validation :error="$store.state.error.validations[`goods_model.${i}.gm_code`]"></validation>
-            </b-col>
-            <b-col>
-                <b-form-input :id="`goods_model.${i}.gm_spec`" v-model='model.gm_spec'></b-form-input>
+                <b-form-textarea :id="`goods_model.${i}.gm_spec`" v-model='model.gm_spec' rows="3" max-rows="3"></b-form-textarea>
                 <validation :error="$store.state.error.validations[`goods_model.${i}.gm_spec`]"></validation>
             </b-col>
             <b-col>
                 <b-form-input :id="`goods_model.${i}.gm_unit`" v-model='model.gm_unit'></b-form-input>
                 <validation :error="$store.state.error.validations[`goods_model.${i}.gm_unit`]"></validation>
+                <b-form-input class="sm text-right" v-model="model.gm_limit_ea"></b-form-input>
             </b-col>
             <b-col class="gm_price">
                 <b-input-group size="sm">
@@ -255,6 +255,10 @@
                     </b-input-group-append>
                 </b-input-group>
                 <validation :error="$store.state.error.validations[`goods_model.${i}.gm_price`]"></validation>
+            
+                    <b-form-input class="sm text-right" v-model="model.gm_dc"></b-form-input>
+                   
+           
             </b-col>
             <b-col class="ctrlBox">
                 <b-button class="sm green" v-b-toggle="`bundleDc_box${i}`" v-b-tooltip="'묶음 할인'"><b-icon icon="tags-fill"></b-icon></b-button>
@@ -278,16 +282,7 @@
                 </b-collapse>
             </b-col>
 
-            <b-col class="rt_extra" :class="{focus:rt_extra_focus}">
-                <b-container class="adform">
-                    <b-row>
-                        <b-col class="label">재고수량</b-col>
-                        <b-col>
-                            <b-form-input class="sm text-right" v-model="model.gm_limit_ea" @focus="rt_extra_focus=true" @blur="rt_extra_focus=false"></b-form-input>
-                        </b-col>
-                    </b-row>
-                </b-container>
-            </b-col>
+            
         </b-row>
         <validation :error="$store.state.error.validations.goods_model"></validation>
         <b-row>
@@ -300,13 +295,25 @@
     <b-container class="box adform option" v-if="value.gd_type == 'NON'">
         <h5 class="row">
             <b-col>Option</b-col>
-            <b-col><option-finder :opt="value.goods_option"></option-finder></b-col>
+            <b-col>
+                <b-row class="justify-content-end">
+                    <b-col class="label">검색</b-col>
+                    <b-col class="type02">
+                        <option-finder :opt="value.goods_option"></option-finder>
+                    </b-col>
+                    <b-col class="label">할인률</b-col>
+                    <b-col class="type02">
+                        <b-form-input v-model="value.gd_opt_dc" size="sm" class="text-right"></b-form-input>
+                    </b-col>
+                </b-row>
+            </b-col>
         </h5>
 
         <b-row class="head">
-            <b-col cols="6">옵션명</b-col>
-            <b-col cols="3">항목</b-col>
-            <b-col>가격</b-col>
+            <b-col cols="3">옵션명</b-col>
+            <b-col>항목</b-col>
+            <b-col cols="1">개별 할인</b-col>
+            <b-col cols="1">가격</b-col>
         </b-row>
         <b-row v-for="(go, idx) in value.goods_option" :key="idx" class="body">
             <b-col>
@@ -319,6 +326,7 @@
             <b-col>
                 <b-row v-for="(goc, goc_idx) in go.goods_option_child" :key="goc_idx">
                     <b-col><b-form-input size="sm" v-model="goc.goc_name"></b-form-input></b-col>
+                    <b-col><b-form-input size="sm" v-model="goc.goc_dc"></b-form-input></b-col>
                     <b-col>
                         <b-form-input size="sm" v-model="goc.goc_price"></b-form-input>
                         <span v-if="goc_idx == 0" @click="insertAtOptItem(go.goods_option_child)" class="add"><b-icon-plus-circle-fill></b-icon-plus-circle-fill></span>
@@ -384,8 +392,7 @@ export default {
                 automatic_uploads: false,
                 images_upload_handler: this.gd_desc_images_upload,
                 convert_urls: false,
-            }, 
-            rt_extra_focus: false,
+            },
             aiKeyword: '',
             ai_sch_type: 'pitch',
             aiModal: false,
@@ -609,25 +616,19 @@ export default {
 .goods_relate .list .col:hover .handle { transform:translateX(-50%) translateY(0); }
 .goods_relate .list .col:hover .btn_del { transform:translateY(0); }
 
-.model .head .col { text-align:center; font-size:.85em; }
+.model .head .col { text-align:center; font-size:.85em; display:flex; align-items:center; justify-content:center; flex-direction:column; height:58px; }
+.model .head .col p { margin:0; border-top:1px solid #CCC; width:100%; }
 .model .row .col .bundle_box { position:absolute; top:2em; right:0; width:300px; margin-top:.5em; z-index:2; }
 .model .row .col .bundle_box .card { margin-top:0; }
 .model .row .col .bundle_box .card header { text-align:left; }
 .model .row .col .bundle_box .card header button { padding-top:.2em; padding-bottom:.35em; float:right; line-height:1; }
 .model .body .ctrlBox { text-align:right; }
-.model.md_non>.list>.col:nth-child(4) { flex: 0 0 25%; max-width:25%; }
+.model.md_non>.list>.col:nth-child(3) { flex: 0 0 30%; max-width:30%; }
 .model.md_non>.list>.col:nth-child(2),
-.model.md_non>.list>.col:nth-child(3),
-.model.md_non>.list>.col:nth-child(5) { flex: 0 0 8.5%; max-width:8.5%; }
-.model>.row>.ctrlBox { flex:0 0 8%; max-width:69px; padding-left:0; padding-right:0; }
-.model>.row>.ctrlBox button { padding-left:.4em; padding-right:.4em; }
+.model.md_non>.list>.col:nth-child(4) { flex: 0 0 9.5%; max-width:9.5%; }
 .model.md_non>.list>.gm_price { flex:0 0 10%; max-width:10%; }
-
-.model .body { position:relative; }
-.model .body .rt_extra { border-left:1px solid #BBB; border-radius:10px; position:absolute; background:#FFF; right:0px; max-width:200px; transform:translateX(101%); padding:0; z-index:1; transition:all 0.5s ease; }
-.model .body .rt_extra:before { content:'◀'; position:absolute; display:block; line-height:2; padding-top:8px; }
-.model .body .rt_extra:hover,
-.model .body .rt_extra.focus { transform:translateX(0%); }
+.model>.row>.ctrlBox { flex:0 0 35px; padding-left:0; padding-right:0; }
+.model>.row>.ctrlBox button { padding-left:.4em; padding-right:.4em; }
 
 .option.adform .row .label { flex:0 0 12%; max-width:12%; }
 .option.adform .row .label + .type04 { flex: 0 0 29.666667%; max-width:29.666667%; }
@@ -636,13 +637,17 @@ export default {
 
 .option .head>div { text-align:center; }
 .option .body { align-items: flex-start !important; }
+.option .body>.col:first-child { flex:0 0 25%; max-width: 25%; }
+.option .body>.col .row .col:first-child { flex:0 0 78%; max-width:78%; }
+.option .body>.col .row .col:last-child { flex: 0 0 11%; max-width:11%; }
 .option .body>.col:first-child span { color:#dc3545; cursor:pointer; }
 .option .body>.col:first-child input { width:calc(100% - 22px); display:inline-block; }
 .option .body>.col .row .col { padding-top:0; }
+.option .body>.col .row .col:nth-child(2) input { text-align:right; }
 .option .body>.col .row .col:last-child span { cursor:pointer; }
 .option .body>.col .row .col:last-child span.add { color:#17a2b8; }
 .option .body>.col .row .col:last-child span.del { color:#dc3545; }
-.option .body>.col .row .col:last-child input { width:calc(100% - 22px); display:inline-block; }
+.option .body>.col .row .col:last-child input { width:calc(100% - 22px); display:inline-block; text-align:right; }
 
 @media (max-width: 992px){
     .p_wrap .box { padding:0; }
