@@ -13,10 +13,14 @@ class SpaController extends Controller {
 
     public function index(Request $request) {
         $meta = $this->getMeta($request);  // [추가]
-        return view("spa", [
-            'auth_user' => auth()->user(),
-            'meta'      => $meta,           // [추가]
-        ]);
+        return response()
+            ->view("spa", [
+                'auth_user' => auth()->user(),
+                'meta'      => $meta,           // [추가]
+            ])
+            ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', '0');
     }
 
     private function getMeta(Request $request) {
