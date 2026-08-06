@@ -459,7 +459,7 @@ export default {
         },
 
         insertAtModel() {
-            let tmp = { gm_name:'', gm_catno:'', gm_code:'', gm_spec:'', gm_unit:'', gm_enable:'Y', gm_prime:'N', gm_limit_ea:999999, gm_price:'', bundle_dc:[], bd_open:false };
+            let tmp = { gm_name:'', gm_catno:'', gm_code:'', gm_spec:'', gm_unit:'', gm_enable:'Y', gm_prime:'N', gm_limit_ea:999999, gm_dc:0, gm_price:'', bundle_dc:[], bd_open:false };
             if(this.value.goods_model.length==0) tmp.gm_prime = 'Y';
             this.value.goods_model.push(tmp); 
         },

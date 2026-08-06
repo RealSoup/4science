@@ -738,6 +738,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         gm_enable: 'Y',
         gm_prime: 'N',
         gm_limit_ea: 999999,
+        gm_dc: 0,
         gm_price: '',
         bundle_dc: [],
         bd_open: false
