@@ -392,8 +392,6 @@ export default {
                 automatic_uploads: false,
                 images_upload_handler: this.gd_desc_images_upload,
                 convert_urls: false,
-                skin_url: '/tinymce/skins/ui/oxide',
-                content_css: '/tinymce/skins/content/default/content.css',
             },
             aiKeyword: '',
             ai_sch_type: 'pitch',
@@ -424,7 +422,7 @@ export default {
                         case 3: this.list04 = res.data; break;
                     }
                 }
-            } 
+            }
         },
         add_cate() {
             if (isEmpty(this.ca01)) {
