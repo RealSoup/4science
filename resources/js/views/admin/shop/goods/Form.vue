@@ -392,6 +392,8 @@ export default {
                 automatic_uploads: false,
                 images_upload_handler: this.gd_desc_images_upload,
                 convert_urls: false,
+                skin_url: '/tinymce/skins/ui/oxide',
+                content_css: '/tinymce/skins/content/default/content.css',
             },
             aiKeyword: '',
             ai_sch_type: 'pitch',
@@ -459,7 +461,7 @@ export default {
         },
 
         insertAtModel() {
-            let tmp = { gm_name:'', gm_catno:'', gm_code:'', gm_spec:'', gm_unit:'', gm_enable:'Y', gm_prime:'N', gm_limit_ea:999999, gm_price:'', bundle_dc:[], bd_open:false };
+            let tmp = { gm_name:'', gm_catno:'', gm_code:'', gm_spec:'', gm_unit:'', gm_enable:'Y', gm_prime:'N', gm_limit_ea:999999, gm_dc:'', gm_price:'', bundle_dc:[], bd_open:false };
             if(this.value.goods_model.length==0) tmp.gm_prime = 'Y';
             this.value.goods_model.push(tmp); 
         },
@@ -494,7 +496,7 @@ export default {
             bd.splice(i, 1); 
         },
 
-        insertAtOpt() { this.value.goods_option.push({ go_id:0, go_name:'', goods_option_child:[{ goc_id:0, goc_name:'', goc_price:'' }] }); },
+        insertAtOpt() { this.value.goods_option.push({ go_id:0, go_name:'', goods_option_child:[{ goc_id:0, goc_name:'', goc_dc:'', goc_price:'' }] }); },
         removeAtOpt(i) { 
             if (this.$route.name == 'adm_goods_edit' && this.value.goods_option[i].go_id) {
                 if (!this.value.hasOwnProperty("delete_option"))
@@ -504,7 +506,7 @@ export default {
             this.value.goods_option.splice(i, 1); 
         },
 
-        insertAtOptItem(goc) { goc.push({ goc_id:0, goc_name:'', goc_price:'' }); },
+        insertAtOptItem(goc) { goc.push({ goc_id:0, goc_name:'', goc_dc:'', goc_price:'' }); },
         removeAtOptItem(goc, i) {
             if (this.$route.name == 'adm_goods_edit' && goc[i].goc_id) {
                 if (!this.value.hasOwnProperty("delete_option_child"))
