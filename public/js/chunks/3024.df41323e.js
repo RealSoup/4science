@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[3024],{33024:(n,e,s)=>{s.r(e),s.d(e,{default:()=>u});const t={name:"MyBoardShow",components:{show:function(){return s.e(5963).then(s.bind(s,45963))}}};const u=(0,s(51900).Z)(t,(function(){return(0,this._self._c)("show")}),[],!1,null,null,null).exports}}]);

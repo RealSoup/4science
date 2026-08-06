@@ -14,6 +14,10 @@
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
+    # 정적 자산(js/css/img/fonts)이 없으면 Laravel로 넘기지 말고 바로 404
+    RewriteCond %{REQUEST_URI} ^/(js|css|img|fonts)/ [NC]
+    RewriteRule ^ - [L,R=404]
+
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[776],{10776:(e,u,n)=>{n.r(u),n.d(u,{default:()=>l});const t={name:"admRouterView"};const l=(0,n(51900).Z)(t,(function(){var e=this._self._c;return e("div",[e("router-view")],1)}),[],!1,null,null,null).exports}}]);
