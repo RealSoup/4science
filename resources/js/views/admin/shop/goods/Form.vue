@@ -424,7 +424,7 @@ export default {
                         case 3: this.list04 = res.data; break;
                     }
                 }
-            }
+            } 
         },
         add_cate() {
             if (isEmpty(this.ca01)) {
