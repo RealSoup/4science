@@ -1,262 +1,206 @@
-import AdmRouterView from '@/views/admin/AdmRouterView';
-import AdmMain from '@/views/admin/Main';
-
-import AdmSiteInfo from '@/views/admin/site/Info';
-import AdmSiteMainCateGoods from '@/views/admin/site/MainCateGoods';
-import AdmSiteMainBest from '@/views/admin/site/MainBest';
-import AdmSiteBannerGoods from '@/views/admin/site/BannerGoods';
-import AdmSiteSynonym from '@/views/admin/site/SynonymManager';
-
-import AdmUserIndex from '@/views/admin/user/Index';
-import AdmUserEdit from '@/views/admin/user/Edit';
-import AdmUserEmailIndex from '@/views/admin/user/EmailIndex';
-import AdmUserEmailCreat from '@/views/admin/user/EmailCreat';
-import AdmUserEmailEdit from '@/views/admin/user/EmailEdit';
-import AdmUserEmailSend from '@/views/admin/user/EmailSend';
-
-import AdmGoodsIndex from '@/views/admin/shop/goods/Index';
-import AdmGoodsEdit from '@/views/admin/shop/goods/Edit';
-import AdmGoodsCreate from '@/views/admin/shop/goods/Create';
-import AdmCategoryIndex from '@/views/admin/shop/category/Index';
-import AdmMakerIndex from '@/views/admin/shop/maker/Index';
-import AdmMakerEdit from '@/views/admin/shop/maker/Edit';
-import AdmPurchaseAtIndex from '@/views/admin/shop/purchaseAt/Index';
-
-import AdmOrderIndex from '@/views/admin/shop/order/Index';
-import AdmOrderEdit from '@/views/admin/shop/order/Edit';
-
-import AdmEstimateIndex from '@/views/admin/shop/estimate/Index';
-import AdmEstimateCreate from '@/views/admin/shop/estimate/Create';
-import AdmEstimateEdit from '@/views/admin/shop/estimate/Edit';
-import AdmEstimateShowReq from '@/views/admin/shop/estimate/ShowReq';
-import AdmEstimateShowReply from '@/views/admin/shop/estimate/ShowReply';
-import AdmEngReformIndex from '@/views/admin/engReform/Index';
-import AdmEngReformEdit from '@/views/admin/engReform/Edit';
-
-import AdmBoardIndex from '@/views/admin/board/Index';
-import AdmBoardShow from '@/views/admin/board/Show';
-import AdmBoardCreate from '@/views/admin/board/Create';
-import AdmBoardEdit from '@/views/admin/board/Edit';
-import AdmBoardAnswer from '@/views/admin/board/Answer';
-
-import AdmStatsBehaviorIndex from '@/views/admin/stats/behavior/Index';
-import AdmStatsIndex from '@/views/admin/stats/Index';
-
-import AdmLedgerIndex from '@/views/admin/ledger/Index';
-import AdmLedgerAcctWait from '@/views/admin/ledger/AcctWait';
-import AdmLedgerAcctSoon from '@/views/admin/ledger/AcctSoon';
-import AdmLedgerAcctPayOd from '@/views/admin/ledger/AcctPayOd';
-import AdmLedgerAcctPayTx from '@/views/admin/ledger/AcctPayTx';
-
-import AdmB2bMerckOrder from '@/views/admin/shop/b2b_merck/Order';
-import AdmB2bMerckOrderResult from '@/views/admin/shop/b2b_merck/OrderResult';
-import AdmB2bMerckStockResult from '@/views/admin/shop/b2b_merck/StockResult';
-import AdmB2bMerckInvoice from '@/views/admin/shop/b2b_merck/Invoice';
-import AdmB2bMerckAsn from '@/views/admin/shop/b2b_merck/Asn';
-
 export default [
     {   path: '/admin',
-        component: AdmRouterView,
+        component:() => import('@/views/admin/AdmRouterView'),
         children: [
             {   path: '',
                 name: 'adm_main',
-                component: AdmMain,
+                component:() => import('@/views/admin/Main'),
             },
 
             //  Site관리
             {   path: 'site/info',
                 name: 'adm_site_info',
-                component: AdmSiteInfo,
+                component:() => import('@/views/admin/site/Info'),
             }, {
                 path: 'site/mainCateGoods',
                 name: 'adm_site_main_cate_goods',
-                component: AdmSiteMainCateGoods,
+                component:() => import('@/views/admin/site/MainCateGoods'),
             }, {
                 path: 'site/mainBest',
                 name: 'adm_site_main_best',
-                component: AdmSiteMainBest,
+                component:() => import('@/views/admin/site/MainBest'),
             }, {
                 path: 'site/bannerGoods',
                 name: 'adm_site_banner_goods',
-                component: AdmSiteBannerGoods,
+                component:() => import('@/views/admin/site/BannerGoods'),
             }, {
                 path: 'site/synonym',
                 name: 'adm_site_synonym',
-                component: AdmSiteSynonym,
+                component:() => import('@/views/admin/site/SynonymManager'),
             },
 
             //  유저
             {   path: 'user',
                 name: 'adm_user',
-                component: AdmUserIndex,
+                component:() => import('@/views/admin/user/Index'),
             }, {
                 path: 'user/:id/edit',
                 name: 'adm_user_edit',
-                component: AdmUserEdit,
+                component:() => import('@/views/admin/user/Edit'),
             }, {
                 path: 'user/email',
                 name: 'adm_user_email',
-                component: AdmUserEmailIndex,
+                component:() => import('@/views/admin/user/EmailIndex'),
             }, {
                 path: 'user/email/creat',
                 name: 'adm_user_email_creat',
-                component: AdmUserEmailCreat,
+                component:() => import('@/views/admin/user/EmailCreat'),
             }, {
                 path: 'user/email/:id/edit',
                 name: 'adm_user_email_edit',
-                component: AdmUserEmailEdit,
+                component:() => import('@/views/admin/user/EmailEdit'),
             },  {
                 path: 'user/email/:id/send',
                 name: 'adm_user_email_send',
-                component: AdmUserEmailSend,
+                component:() => import('@/views/admin/user/EmailSend'),
             }, 
             
             
             //   상품
             {   path: 'shop/goods',
                 name: 'adm_goods_index',
-                component: AdmGoodsIndex,
+                component:() => import('@/views/admin/shop/goods/Index'),
             }, {
                 path: 'shop/goods/:gd_id/edit',
                 name: 'adm_goods_edit',
-                component: AdmGoodsEdit,
+                component:() => import('@/views/admin/shop/goods/Edit'),
             }, {
                 path: 'shop/goods/create/:gd_type?',
                 name: 'adm_goods_create',
-                component: AdmGoodsCreate,
+                component:() => import('@/views/admin/shop/goods/Create'),
             }, {
                 path: 'shop/category',
                 name: 'adm_category',
-                component: AdmCategoryIndex,
+                component:() => import('@/views/admin/shop/category/Index'),
             }, {
                 path: 'shop/maker',
                 name: 'adm_maker',
-                component: AdmMakerIndex,
+                component:() => import('@/views/admin/shop/maker/Index'),
             }, {
                 path: 'shop/maker/:mk_id/edit',
                 name: 'adm_maker_edit',
-                component: AdmMakerEdit,
+                component:() => import('@/views/admin/shop/maker/Edit'),
             }, {
                 path: 'shop/purchaseAt',
                 name: 'adm_purchaseAt',
-                component: AdmPurchaseAtIndex,
+                component:() => import('@/views/admin/shop/purchaseAt/Index'),
             },
 
             //   주문
             {   path: 'shop/order',
                 name: 'adm_order_index',
-                component: AdmOrderIndex,
+                component:() => import('@/views/admin/shop/order/Index'),
             }, {
                 path: 'shop/order/:od_id',
                 name: 'adm_order_edit',
-                component: AdmOrderEdit,
+                component:() => import('@/views/admin/shop/order/Edit'),
             },
            
             //   견적
             {   path: 'shop/estimate',
                 name: 'adm_estimate_index',
-                component: AdmEstimateIndex,
+                component:() => import('@/views/admin/shop/estimate/Index'),
             }, {
                 path: 'shop/estimate/create',
                 name: 'adm_estimate_create',
-                component: AdmEstimateCreate,
+                component:() => import('@/views/admin/shop/estimate/Create'),
             }, {
                 path: 'shop/estimate/:er_id/edit',
                 name: 'adm_estimate_edit',
-                component: AdmEstimateEdit,
+                component:() => import('@/views/admin/shop/estimate/Edit'),
             }, {
                 path: 'shop/estimate/req/:eq_id',
                 name: 'adm_estimate_show_req',
-                component: AdmEstimateShowReq,
+                component:() => import('@/views/admin/shop/estimate/ShowReq'),
             }, {
                 path: 'shop/estimate/reply/:er_id',
                 name: 'adm_estimate_show_reply',
-                component: AdmEstimateShowReply,
+                component:() => import('@/views/admin/shop/estimate/ShowReply'),
             }, {
                 path: 'eng_reform',
                 name: 'adm_eng_reform_index',
-                component: AdmEngReformIndex,
+                component:() => import('@/views/admin/engReform/Index'),
             }, {
                 path: 'eng_reform/:er_id/edit',
                 name: 'adm_eng_reform_edit',
-                component: AdmEngReformEdit,
+                component:() => import('@/views/admin/engReform/Edit'),
             },
 
             //  게시판
             {   path: 'board/:bo_cd',
                 name: 'adm_board_index',
-                component: AdmBoardIndex,
+                component:() => import('@/views/admin/board/Index'),
             }, {   
                 path: 'board/:bo_cd/show/:bo_id',
                 name: 'adm_board_show',
-                component: AdmBoardShow,
+                component:() => import('@/views/admin/board/Show'),
             }, {   
                 path: 'board/:bo_cd/create',
                 name: 'adm_board_create',
-                component: AdmBoardCreate,
+                component:() => import('@/views/admin/board/Create'),
             }, {   
                 path: 'board/:bo_cd/edit/:bo_id',
                 name: 'adm_board_edit',
-                component: AdmBoardEdit,
+                component:() => import('@/views/admin/board/Edit'),
             }, {   
                 path: 'board/:bo_cd/answer/:bo_id',
                 name: 'adm_board_answer',
-                component: AdmBoardAnswer,
+                component:() => import('@/views/admin/board/Answer'),
             },
             
 
             //  통계
             {   path: 'stats/behavior',
                 name: 'adm_stats_behavio',
-                component: AdmStatsBehaviorIndex,
+                component: () => import('@/views/admin/stats/behavior/Index'),
             }, {   
                 path: 'stats/:stats_type',
                 name: 'adm_stats',
-                component: AdmStatsIndex,
+                component:() => import('@/views/admin/stats/Index'),
             },
 
             //  영업장부
             {   path: 'ledger',
                 name: 'adm_ledger',
-                component: AdmLedgerIndex,
+                component:() => import('@/views/admin/ledger/Index'),
             }, {    
                 path: 'ledger_acct_wait',
                 name: 'adm_ledger_acct_wait',
-                component: AdmLedgerAcctWait,
+                component:() => import('@/views/admin/ledger/AcctWait'),
             }, {    
                 path: 'ledger_acct_soon',
                 name: 'adm_ledger_acct_soon',
-                component: AdmLedgerAcctSoon,
+                component:() => import('@/views/admin/ledger/AcctSoon'),
             }, {    
                 path: 'ledger_acct_pay_od',
                 name: 'adm_ledger_acct_pay_od',
-                component: AdmLedgerAcctPayOd,
+                component:() => import('@/views/admin/ledger/AcctPayOd'),
             }, {    
                 path: 'ledger_acct_pay_tx',
                 name: 'adm_ledger_acct_pay_tx',
-                component: AdmLedgerAcctPayTx,
+                component:() => import('@/views/admin/ledger/AcctPayTx'),
             },
             
              //  Merck 발주
             {   path: 'shop/b2b_merck/order',
                 name: 'adm_b2b_merck_order',
-                component: AdmB2bMerckOrder,
+                component:() => import('@/views/admin/shop/b2b_merck/Order'),
             }, { 
                 path: 'shop/b2b_merck/order_result',
                 name: 'adm_b2b_merck_order_result',
-                component: AdmB2bMerckOrderResult,
+                component:() => import('@/views/admin/shop/b2b_merck/OrderResult'),
             }, { 
                 path: 'shop/b2b_merck/stock_result',
                 name: 'adm_b2b_merck_stock_result',
-                component: AdmB2bMerckStockResult,
+                component:() => import('@/views/admin/shop/b2b_merck/StockResult'),
             },  { 
                 path: 'shop/b2b_merck/invoiceIndex',
                 name: 'adm_b2b_merck_invoice',
-                component: AdmB2bMerckInvoice,
+                component:() => import('@/views/admin/shop/b2b_merck/Invoice'),
             },  { 
                 path: 'shop/b2b_merck/asnIndex',
                 name: 'adm_b2b_merck_asn',
-                component: AdmB2bMerckAsn,
+                component:() => import('@/views/admin/shop/b2b_merck/Asn'),
             },
         ],
     },
