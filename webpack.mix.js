@@ -23,7 +23,8 @@ mix.js('resources/js/app.js', 'public/js')
             chunkIds: 'deterministic',
         },
     })
-    .version();
+    .version()
+    .sourceMaps();
 
 
 mix.browserSync ('https://4science.net/');
