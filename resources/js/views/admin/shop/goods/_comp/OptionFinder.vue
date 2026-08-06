@@ -64,9 +64,3 @@ export default {
     },
 }
 </script>
-<style lang="css" scoped>
-/* div >>> .input-group { width:30%; margin-left:auto;  }
-@media (max-width: 992px) {
-    div >>> .input-group { width:100%; }
-} */
-</style>
