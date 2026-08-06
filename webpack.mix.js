@@ -22,10 +22,6 @@ mix.js('resources/js/app.js', 'public/js')
             moduleIds: 'deterministic',
             chunkIds: 'deterministic',
         },
-        output: {
-            publicPath: '/js/',
-            chunkFilename: 'chunks/[name].[contenthash:8].js',
-        },
     })
     .version();
 

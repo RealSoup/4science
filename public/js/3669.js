@@ -1,1 +1,334 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[3669],{9954:(e,t,a)=>{a.d(t,{Z:()=>o});var r=a(3645),i=a.n(r)()((function(e){return e[1]}));i.push([e.id,'.container h2[data-v-060ff1d1]{font-weight:700;margin:2rem 1rem}#mypage .top[data-v-060ff1d1]{border:1px solid #9ea7b0}#mypage .top .col[data-v-060ff1d1]{background:#b9c9d8;color:#fff;height:142px;padding:1.5rem 0 0 2rem;position:relative}#mypage .top .col p[data-v-060ff1d1]{font-size:.98rem;font-weight:700;margin-bottom:1.3rem}#mypage .top .col b[data-v-060ff1d1]{color:#186cb4;font-size:1.6rem;font-weight:700;line-height:1}#mypage .top .col b small[data-v-060ff1d1]{font-size:1.1rem}#mypage .top .col a[data-v-060ff1d1]{color:#fff;display:block;font-size:.9rem;margin-top:.25rem}#mypage .top .col[data-v-060ff1d1]:nth-child(2):after,#mypage .top .col[data-v-060ff1d1]:nth-child(3):after,#mypage .top .col[data-v-060ff1d1]:nth-child(4):after{background:url(/img/mypage/divider.png) no-repeat 0 0;content:"";display:inline-block;height:163px;position:absolute;right:-4px;top:3px;width:8px}#mypage .top .name[data-v-060ff1d1]{background:#1a90d6;color:#fff;flex-basis:200px;max-width:200px;padding:2.3rem 0 0;text-align:center}#mypage .top .name b[data-v-060ff1d1]{color:#fff;display:inline-block;font-size:1.7rem;font-weight:700;letter-spacing:.4rem;margin-bottom:1.1rem}#mypage .top .od_step[data-v-060ff1d1]{align-items:center;flex-basis:650px;max-width:650px;padding-right:2rem}#mypage .top .od_step p[data-v-060ff1d1]{margin-bottom:.1rem}#mypage .top .od_step ul[data-v-060ff1d1]{display:flex}#mypage .top .od_step ul li[data-v-060ff1d1]{color:#fff;flex-grow:1;font-size:.79rem;position:relative;text-align:center}#mypage .top .od_step ul li[data-v-060ff1d1]:not(:last-child){margin-right:2rem}#mypage .top .od_step ul li[data-v-060ff1d1]:not(:last-child):after{color:#fff;content:">";font-size:1.6rem;position:absolute;right:-23px;top:10px}#mypage .top .od_step ul li a[data-v-060ff1d1]{align-items:center;background:#f5951a;border-radius:50%;color:#fff;display:flex;font-size:1.2rem;height:27px;justify-content:center;position:absolute;right:0;top:-14px;width:27px}#mypage .top .od_step ul li img[data-v-060ff1d1]{display:block;margin:0 auto -.05rem}#mypage .middle .left[data-v-060ff1d1]{flex-basis:200px;max-width:200px;padding:0}#mypage .middle .left #menu_btn[data-v-060ff1d1]{margin:1rem}#mypage .middle .left .nav li[data-v-060ff1d1]{border:1px solid #ddd;border-top:0 solid #ddd;padding:1.1rem 0;width:100%}#mypage .middle .left .nav li h5[data-v-060ff1d1]{cursor:pointer;font-size:1.1rem;font-weight:700;padding:.8rem 0 0 1rem}#mypage .middle .left .nav li div a[data-v-060ff1d1]{display:block;padding:.5rem 1rem}#mypage .middle .left .nav li div a[data-v-060ff1d1]:hover{background-color:#00adbb;color:#fff;font-weight:700}#mypage .middle .left .b-sidebar-outer[data-v-060ff1d1]{z-index:16}@media (min-width:992px){#menu_btn[data-v-060ff1d1]{display:none}.b-sidebar-outer[data-v-060ff1d1]{height:100%;position:relative}.b-sidebar-outer[data-v-060ff1d1] .b-sidebar-backdrop{display:none}.b-sidebar-outer[data-v-060ff1d1] .b-sidebar{background:none!important;box-shadow:none!important;display:flex!important;height:100%;position:relative}.b-sidebar-outer[data-v-060ff1d1] .b-sidebar .b-sidebar-header{display:none}}',""]);const o=i},9184:(e,t,a)=>{a.d(t,{Z:()=>o});var r=a(3645),i=a.n(r)()((function(e){return e[1]}));i.push([e.id,"#mypage .middle .mypage{padding:0 0 0 3rem}#mypage .middle .mypage h5{font-size:1.5rem;font-weight:700;margin-bottom:1.2rem;margin-top:2.6rem}#mypage .middle .mypage h5 small{color:#777;font-size:.8rem;margin-left:.3rem}#mypage .middle .list01 .data .col{padding:.7rem 0}#mypage .middle .list01 .data .product a{flex:0 0 100px;margin:0 .6rem;max-width:100px}#mypage .middle .list01 .data .product a div{font-size:.7rem;margin-top:.4rem}#mypage .middle .list01 .data .product a .over_flow{align-items:flex-end;display:flex}.list01 .header{background-color:#ececec;border-bottom:1px solid #acacac;border-top:2px solid #363636}.list01 .header .col{font-size:.9rem;font-weight:700;padding:.68rem 0}.list01 .data:not(:last-child){border-bottom:1px solid #ddd}.list01 .row{align-items:center}.list01 .row .col{text-align:center}.list01 .row .chk{flex:0 0 7%;max-width:7%}.list01 .row .date{flex:0 0 10%;max-width:10%}.list01 .row .num{flex:0 0 12%;max-width:12%}.list01 .row .num .btn{font-size:.8rem;font-weight:700;margin:.3rem auto;padding:.13rem .6rem}.list01 .row .price{flex:0 0 12%;max-width:12%}.list01 .row .step{flex:0 0 10%;max-width:10%}.list01 .data .product{text-align:left}.list01 .data .product a{display:inline-block;width:100px}.list01 .data .product a img{border:1px solid #b1b1b1;height:100px;-o-object-fit:cover;object-fit:cover;transition:all .1s;width:100px}.list01 .data .product a img:hover{border:4px solid #000;border-radius:5px}@media (max-width:768px){.mypage .order .header{display:none}.mypage .order .row .col{max-width:none!important;width:auto!important}.mypage .order .row .col:first-child{flex-basis:100%;text-align:left}.mypage .order .row .col:nth-child(2){flex-basis:auto}.mypage .order .row .col:nth-child(3){flex-basis:60%;flex-grow:1}.mypage .order .row .col:nth-child(4){flex-basis:50%;flex-grow:0;text-align:left}.mypage .order .row .col:nth-child(5){flex-basis:50%;flex-grow:0;text-align:right}.mypage .estimate .header{display:none}.mypage .estimate .row .col{max-width:none!important;width:auto!important}.mypage .estimate .row .col:first-child{flex-basis:100%;text-align:left}.mypage .estimate .row .col:nth-child(2){flex-basis:auto}.mypage .estimate .row .col:nth-child(3){flex-basis:60%;flex-grow:1}.mypage .estimate .row .col:nth-child(4){flex-basis:50%;flex-grow:0;text-align:left}.mypage .estimate .row .col:nth-child(5){flex-basis:50%;flex-grow:0;text-align:right}}",""]);const o=i},3669:(e,t,a)=>{a.r(t),a.d(t,{default:()=>u});var r=a(7757),i=a.n(r),o=a(4670);function n(e,t,a,r,i,o,n){try{var s=e[o](n),l=s.value}catch(e){return void a(e)}s.done?t(l):Promise.resolve(l).then(r,i)}function s(e){return function(){var t=this,a=arguments;return new Promise((function(r,i){var o=e.apply(t,a);function s(e){n(o,r,i,s,l,"next",e)}function l(e){n(o,r,i,s,l,"throw",e)}s(void 0)}))}}function l(e,t){var a=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),a.push.apply(a,r)}return a}function d(e){for(var t=1;t<arguments.length;t++){var a=null!=arguments[t]?arguments[t]:{};t%2?l(Object(a),!0).forEach((function(t){m(e,t,a[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(a)):l(Object(a)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(a,t))}))}return e}function m(e,t,a){return t in e?Object.defineProperty(e,t,{value:a,enumerable:!0,configurable:!0,writable:!0}):e[t]=a,e}const p={name:"Mypage",computed:d(d({},(0,a(629).Se)({user:"auth/user",enableMileage:"auth/enableMileage"})),{},{od_step1019:function(){var e,t,a;return Number(null!==(e=this.cnt_od_step[10])&&void 0!==e?e:0)+Number(null!==(t=this.cnt_od_step[11])&&void 0!==t?t:0)+Number(null!==(a=this.cnt_od_step[12])&&void 0!==a?a:0)}}),data:function(){return{cnt_wish:0,cnt_od_step:[]}},methods:{getEnableMileage:function(){var e=this;return s(i().mark((function t(){var a;return i().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.prev=0,t.next=3,o.Z.get("/api/mileage/enable");case 3:(a=t.sent)&&200===a.status&&e.$store.commit("auth/setEnableMileage",a.data),t.next=11;break;case 7:t.prev=7,t.t0=t.catch(0),Notify.consolePrint(t.t0),Notify.toast("warning",t.t0.response.data.message);case 11:case"end":return t.stop()}}),t,null,[[0,7]])})))()}},mounted:function(){var e=this;return s(i().mark((function t(){var a,r,n;return i().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.next=2,o.Z.get("/api/mileage/enable");case 2:return(a=t.sent)&&200===a.status&&e.$store.commit("auth/setEnableMileage",a.data),t.next=6,o.Z.get("/api/shop/wish",{params:{type:"cnt"}});case 6:return(r=t.sent)&&200===r.status&&(e.cnt_wish=r.data),t.next=10,o.Z.get("/api/shop/order/cnt_od_step");case 10:(n=t.sent)&&200===n.status&&(e.cnt_od_step=n.data);case 12:case"end":return t.stop()}}),t)})))()}};var g=a(3379),c=a.n(g),f=a(9954),_={insert:"head",singleton:!1};c()(f.Z,_);f.Z.locals;var b=a(9184),v={insert:"head",singleton:!1};c()(b.Z,v);b.Z.locals;const u=(0,a(1900).Z)(p,(function(){var e=this,t=e.$createElement,a=e._self._c||t;return a("b-container",{attrs:{id:"mypage"}},[a("h2",[e._v("마이페이지")]),e._v(" "),a("b-row",{staticClass:"top"},[a("b-col",{staticClass:"name"},[a("b",[e._v(e._s(e.user.name))]),e._v(" 님\n            "),a("p",[e._v(e._s(e.user.email))])]),e._v(" "),a("b-col",{staticClass:"rank"},[a("p",[e._v("나의 등급")]),e._v(" "),a("b",[1==e.user.level?[a("img",{attrs:{src:"/img/mypage/mb_mark_normal.png"}}),e._v("일반")]:2==e.user.level?[a("img",{attrs:{src:"/img/mypage/mb_mark_bronze.png"}}),e._v("브론즈")]:3==e.user.level?[a("img",{attrs:{src:"/img/mypage/mb_mark_silver.png"}}),e._v("실버")]:4==e.user.level?[a("img",{attrs:{src:"/img/mypage/mb_mark_gold.png"}}),e._v("골드")]:5==e.user.level?[a("img",{attrs:{src:"/img/mypage/mb_mark_diamond.png"}}),e._v("다이아")]:11==e.user.level?[a("img",{attrs:{src:"/img/mypage/mb_mark_normal_d.png"}}),e._v("딜러")]:13==e.user.level?[a("img",{attrs:{src:"/img/mypage/mb_mark_silver_d.png"}}),e._v("실버딜러")]:14==e.user.level?[a("img",{attrs:{src:"/img/mypage/mb_mark_gold_d.png"}}),e._v("골드딜러")]:e.user.level>14?[e._v("                                               킹왕짱")]:e._e()],2),e._v(" "),a("b-link",{attrs:{to:"/foo"}},[e._v("혜택 보러가기 >")])],1),e._v(" "),a("b-col",[a("p",[e._v("나의 마일리지")]),e._v(" "),a("b",[e._v(e._s(e.enableMileage)+" "),a("small",[e._v("P")])]),e._v(" "),a("b-link",{attrs:{to:"/mypage/mileage"}},[e._v("어떻게 사용하시나요? >")])],1),e._v(" "),a("b-col",[a("p",[e._v("내가 찜한 상품")]),e._v(" "),a("b-link",{attrs:{to:{name:"my_wish"}}},[a("b",[e._v(e._s(e.cnt_wish)+" "),a("small",[e._v("개")])])])],1),e._v(" "),a("b-col",{staticClass:"od_step"},[a("p",[e._v("나의 주문 건")]),e._v(" "),a("ul",[a("li",[e.od_step1019?a("b-link",{attrs:{to:{name:"my_order"}}},[e._v(e._s(e.od_step1019))]):e._e(),a("img",{attrs:{src:e.s3url+"mypage/step01.png"}}),e._v("주문접수")],1),e._v(" "),a("li",[e.cnt_od_step[20]?a("b-link",{attrs:{to:{name:"my_order"}}},[e._v(e._s(e.cnt_od_step[20]))]):e._e(),a("img",{attrs:{src:e.s3url+"mypage/step02.png"}}),e._v("결제완료")],1),e._v(" "),a("li",[e.cnt_od_step[30]?a("b-link",{attrs:{to:{name:"my_order"}}},[e._v(e._s(e.cnt_od_step[30]))]):e._e(),a("img",{attrs:{src:e.s3url+"mypage/step03.png"}}),e._v("상품준비중")],1),e._v(" "),a("li",[e.cnt_od_step[40]?a("b-link",{attrs:{to:{name:"my_order"}}},[e._v(e._s(e.cnt_od_step[40]))]):e._e(),a("img",{attrs:{src:e.s3url+"mypage/step04.png"}}),e._v("배송중")],1),e._v(" "),a("li",[e.cnt_od_step[50]?a("b-link",{attrs:{to:{name:"my_order"}}},[e._v(e._s(e.cnt_od_step[50]))]):e._e(),a("img",{attrs:{src:e.s3url+"mypage/step05.png"}}),e._v("배송완료")],1)])])],1),e._v(" "),a("b-row",{staticClass:"middle"},[a("b-col",{staticClass:"left"},[a("b-button",{directives:[{name:"b-toggle",rawName:"v-b-toggle.mymenu",modifiers:{mymenu:!0}}],attrs:{id:"menu_btn",size:"sm"}},[e._v("Menu")]),e._v(" "),a("b-sidebar",{attrs:{id:"mymenu",title:"My Page","backdrop-variant":"info",backdrop:"",shadow:""}},[a("ul",{staticClass:"nav"},[a("li",[a("h5",{directives:[{name:"b-toggle",rawName:"v-b-toggle.shop_list",modifiers:{shop_list:!0}}]},[e._v("나의 구매내역")]),e._v(" "),a("b-collapse",{attrs:{visible:"",id:"shop_list"}},[a("b-link",{attrs:{to:{name:"my_order"}}},[e._v("주문/배송 조회")]),e._v(" "),a("b-link",{attrs:{to:{name:"my_estimate"}}},[e._v("견적서 조회")]),e._v(" "),a("b-link",{attrs:{to:{name:"my_bought"}}},[e._v("구매상품 목록")])],1)],1),e._v(" "),a("li",[a("h5",{directives:[{name:"b-toggle",rawName:"v-b-toggle.bo_list",modifiers:{bo_list:!0}}]},[e._v("나의 게시물")]),e._v(" "),a("b-collapse",{attrs:{visible:"",id:"bo_list"}},[a("b-link",{attrs:{to:{name:"my_bo_index",params:{bo_cd:"inquiry"}}}},[e._v("1:1 문의")]),e._v(" "),a("b-link",{attrs:{to:{name:"my_bo_index",params:{bo_cd:"as"}}}},[e._v("A/S 신청")]),e._v(" "),a("b-link",{attrs:{to:{name:"my_bo_index",params:{bo_cd:"cancel"}}}},[e._v("취소/교환")]),e._v(" "),a("b-link",{attrs:{to:{name:"my_bo_index",params:{bo_cd:"goods"}}}},[e._v("상품문의")]),e._v(" "),a("b-link",{attrs:{to:{name:"my_eng_reform_index"}}},[e._v("영문교정")])],1)],1),e._v(" "),a("li",[a("b-link",{attrs:{to:"/mypage/print","router-tag":"h5"}},[e._v("서류 출력")])],1),e._v(" "),a("li",[a("h5",{directives:[{name:"b-toggle",rawName:"v-b-toggle.info_list",modifiers:{info_list:!0}}]},[e._v("나의 정보관리")]),e._v(" "),a("b-collapse",{attrs:{visible:"",id:"info_list"}},[a("b-link",{attrs:{to:"/mypage/user/edit"}},[e._v("회원정보 수정")]),e._v(" "),a("b-link",{attrs:{to:"/mypage/user/destroy"}},[e._v("회원 탈퇴")])],1)],1)])])],1),e._v(" "),a("b-col",{staticClass:"mypage"},[a("router-view")],1)],1)],1)}),[],!1,null,"060ff1d1",null).exports}}]);
+"use strict";
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[3669],{
+
+/***/ 25378:
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/board/Intro.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/api/http */ 79481);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'BoardIntro',
+  components: {
+    'intro-list': function introList() {
+      return __webpack_require__.e(/*! import() */ 8358).then(__webpack_require__.bind(__webpack_require__, /*! ./IntroList.vue */ 18358));
+    },
+    'intro-listPhoto': function introListPhoto() {
+      return __webpack_require__.e(/*! import() */ 5946).then(__webpack_require__.bind(__webpack_require__, /*! ./IntroListPhoto.vue */ 26025));
+    }
+  },
+  data: function data() {
+    return {
+      open: [],
+      notice: [],
+      gd_inquiry: [],
+      event: [],
+      blog: [{
+        bo_id: 1,
+        bo_subject: "DURRIDGE사 라돈측정기",
+        bo_content: "공기 중의 Radon Gas 농도 측정 <br> 건축물, 토목 자재 및 가구의 Radon 방출량 측정<br> 지하수 및 하천수의 Radon Gas 농도 측정(옵션 추가 필요)......",
+        goods: {
+          'image_src_thumb': ["".concat(this.s3url, "board/blog220122.jpg")]
+        },
+        href: 'https://blog.naver.com/4science/221778968634'
+      }, {
+        bo_id: 2,
+        bo_subject: "GRIMM사 미세먼지 측정기",
+        bo_content: "요즘 미세먼지가 매우매우 큰 이슈입니다. 그래서 준비했다!!!<br> 환경부에서 공기질을 측정하는 기기 중 신뢰성이 가장 높다고 발표한 그림(Grimm)사의 제품. 본제품은 국내외 미세먼지 측정기 및 공기청......",
+        goods: {
+          'image_src_thumb': ["".concat(this.s3url, "board/blog191113.jpg")]
+        },
+        href: 'https://blog.naver.com/4science/221658684815'
+      }, {
+        bo_id: 3,
+        bo_subject: "GRIMM Aerosol Generators",
+        bo_content: "미세먼지 측정기의 대가 GRIMM 사의 Aerosol Generators입니다. 우선 모델 7811의 경우 다목적 분무기는 입자를 분무할 수 있는 공기와 에어로졸 원료를 선택적으로 희석 및 건조를 위한 2개의 통합 펌프를 갖춘 .......",
+        goods: {
+          'image_src_thumb': ["".concat(this.s3url, "board/blog190911.jpg")]
+        },
+        href: 'https://blog.naver.com/4science/221645634590'
+      }]
+    };
+  },
+  mounted: function mounted() {
+    this.index();
+    // console.log(`${this.s3url}/img/board/blog190911.jpg`);
+  },
+
+  methods: {
+    index: function index() {
+      var _this = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var res;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/board/notice", {
+                params: {
+                  'limit': 5
+                }
+              });
+            case 3:
+              res = _context.sent;
+              if (res && res.status === 200) _this.notice = res.data.list.data;
+              _context.next = 7;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/board/gd_inquiry", {
+                params: {
+                  'limit': 3
+                }
+              });
+            case 7:
+              res = _context.sent;
+              if (res && res.status === 200) _this.gd_inquiry = res.data.list.data;
+              _context.next = 11;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/board/event", {
+                params: {
+                  'limit': 5
+                }
+              });
+            case 11:
+              res = _context.sent;
+              if (res && res.status === 200) _this.event = res.data.list.data;
+              _context.next = 19;
+              break;
+            case 15:
+              _context.prev = 15;
+              _context.t0 = _context["catch"](0);
+              Notify.consolePrint(_context.t0);
+              Notify.toast('warning', _context.t0.response.data.message);
+            case 19:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[0, 15]]);
+      }))();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ 99565:
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/board/Intro.vue?vue&type=template&id=f8d8820e&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("b-container", {
+    staticClass: "w_fence"
+  }, [_c("h3", [_vm._v("커뮤니티")]), _vm._v(" "), _c("b-row", [_c("b-col", [_c("b-link", {
+    attrs: {
+      to: {
+        name: "bo_index",
+        params: {
+          bo_cd: "notice"
+        }
+      }
+    }
+  }), _vm._v(" "), _c("intro-list", {
+    attrs: {
+      list: _vm.notice
+    }
+  })], 1), _vm._v(" "), _c("b-col", {
+    attrs: {
+      col: "",
+      lg: "6"
+    }
+  }, [_c("b-link", {
+    attrs: {
+      to: {
+        name: "bo_index",
+        params: {
+          bo_cd: "event"
+        }
+      }
+    }
+  }), _vm._v(" "), _c("intro-list", {
+    attrs: {
+      list: _vm.event
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_c("b-link", {
+    attrs: {
+      to: {
+        name: "bo_index",
+        params: {
+          bo_cd: "gd_inquiry"
+        }
+      }
+    }
+  }), _vm._v(" "), _c("intro-listPhoto", {
+    attrs: {
+      list: _vm.gd_inquiry
+    }
+  })], 1), _vm._v(" "), _c("b-col", [_c("b-link", {
+    attrs: {
+      href: "https://blog.naver.com/4science"
+    }
+  }), _vm._v(" "), _c("intro-listPhoto", {
+    attrs: {
+      list: _vm.blog
+    }
+  })], 1)], 1)], 1);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ 67854:
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/board/Intro.vue?vue&type=style&index=0&id=f8d8820e&lang=css&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js */ 1519);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence h3[data-v-f8d8820e] { border-bottom:2px solid #000; padding:0 25px 15px 25px; margin:0 -15px 30px;\n}\n.w_fence .row .col[data-v-f8d8820e] { padding:30px;\n}\n.w_fence .row .col a[data-v-f8d8820e] { position:absolute; top:14px; left:50px; width:260px; height:80px; display:inline-block; background-repeat:no-repeat; background-position:center center; z-index:1;\n}\n.w_fence .row .col[data-v-f8d8820e] ul { border:3px solid #000; border-radius:20px; padding:50px 40px 30px; position:relative;\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(1) a[data-v-f8d8820e] { background-image:url('/storage/community/notice.png');\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(2) a[data-v-f8d8820e] { background-image:url('/storage/community/event.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(1) a[data-v-f8d8820e] { background-image:url('/storage/community/gd_inquiry.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(2) a[data-v-f8d8820e] { background-image:url('/storage/community/blog.png');\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(1) a[data-v-f8d8820e]:hover { background-image:url('/storage/community/notice_h.png');\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(2) a[data-v-f8d8820e]:hover { background-image:url('/storage/community/event_h.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(1) a[data-v-f8d8820e]:hover { background-image:url('/storage/community/gd_inquiry_h.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(2) a[data-v-f8d8820e]:hover { background-image:url('/storage/community/blog_h.png');\n}\n@media (max-width: 992px){\n.w_fence .row .col[data-v-f8d8820e] { flex: 0 0 100%; max-width: 100%; padding:15px 0;\n}\n.w_fence .row .col a[data-v-f8d8820e] { top:0px;\n}\n}\r\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 26598:
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/board/Intro.vue?vue&type=style&index=0&id=f8d8820e&lang=css&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ 93379);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Intro_vue_vue_type_style_index_0_id_f8d8820e_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Intro.vue?vue&type=style&index=0&id=f8d8820e&lang=css&scoped=true& */ 67854);
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Intro_vue_vue_type_style_index_0_id_f8d8820e_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Intro_vue_vue_type_style_index_0_id_f8d8820e_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ 65828:
+/*!************************************************!*\
+  !*** ./resources/js/views/web/board/Intro.vue ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Intro_vue_vue_type_template_id_f8d8820e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Intro.vue?vue&type=template&id=f8d8820e&scoped=true& */ 62317);
+/* harmony import */ var _Intro_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Intro.vue?vue&type=script&lang=js& */ 71047);
+/* harmony import */ var _Intro_vue_vue_type_style_index_0_id_f8d8820e_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Intro.vue?vue&type=style&index=0&id=f8d8820e&lang=css&scoped=true& */ 87036);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ 51900);
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Intro_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Intro_vue_vue_type_template_id_f8d8820e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Intro_vue_vue_type_template_id_f8d8820e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "f8d8820e",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/web/board/Intro.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ 71047:
+/*!*************************************************************************!*\
+  !*** ./resources/js/views/web/board/Intro.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Intro_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Intro.vue?vue&type=script&lang=js& */ 25378);
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Intro_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ 62317:
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/views/web/board/Intro.vue?vue&type=template&id=f8d8820e&scoped=true& ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Intro_vue_vue_type_template_id_f8d8820e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Intro_vue_vue_type_template_id_f8d8820e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Intro_vue_vue_type_template_id_f8d8820e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Intro.vue?vue&type=template&id=f8d8820e&scoped=true& */ 99565);
+
+
+/***/ }),
+
+/***/ 87036:
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/views/web/board/Intro.vue?vue&type=style&index=0&id=f8d8820e&lang=css&scoped=true& ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Intro_vue_vue_type_style_index_0_id_f8d8820e_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Intro.vue?vue&type=style&index=0&id=f8d8820e&lang=css&scoped=true& */ 26598);
+
+
+/***/ })
+
+}]);

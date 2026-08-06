@@ -1,1 +1,890 @@
-(self.webpackChunk=self.webpackChunk||[]).push([[7993],{39189:(e,t,r)=>{"use strict";r.d(t,{Z:()=>d});var o=r(23645),a=r.n(o)()((function(e){return e[1]}));a.push([e.id,"#settle[data-v-3c39ef40]{margin-top:2rem}#settle h2[data-v-3c39ef40]{font-size:1.8rem;font-weight:700;padding-left:1.8rem}#settle h4[data-v-3c39ef40]{border-bottom:2px solid #000;font-size:1.3rem;font-weight:600;margin:2.3rem 0 0;padding:.7em 1.8rem}#settle .st_bottom[data-v-3c39ef40]{padding:0}#settle .st_bottom .row[data-v-3c39ef40]{margin:0}#settle .st_bottom .row .col[data-v-3c39ef40]{padding:0}#settle .st_bottom .row .col.inputs[data-v-3c39ef40]{padding-right:.875rem}#settle .st_bottom .inputs .agreement[data-v-3c39ef40]{align-items:flex-start}#settle .st_bottom .inputs .agreement .col[data-v-3c39ef40]{background:#4f708f;border-radius:.5rem;padding:1.5rem}#settle .st_bottom .inputs .agreement .col[data-v-3c39ef40]:first-of-type{margin-right:.25rem}#settle .st_bottom .inputs .agreement .col[data-v-3c39ef40]:nth-of-type(2){margin-left:.25rem}#settle .st_bottom .inputs .agreement .col .head[data-v-3c39ef40]{align-items:center;color:#fff;display:flex;font-size:.8rem;justify-content:space-between}#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-3c39ef40]{align-items:center;display:flex}#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-3c39ef40] label:after,#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-3c39ef40] label:before{left:-1.4rem;top:.15rem}#settle .st_bottom .inputs .agreement .col .collapse .card[data-v-3c39ef40]{color:#000;font-size:.8rem;margin-top:1rem;text-align:justify}#settle .st_bottom .inputs div h4[data-v-3c39ef40]{margin-bottom:2.55rem;margin-top:3.5rem}#settle .st_bottom .inputs div .row[data-v-3c39ef40]{align-items:baseline}#settle .st_bottom .inputs div .row label[data-v-3c39ef40]{flex-basis:15.8%;flex-grow:1;font-weight:700;max-width:15.8%;text-indent:56px}#settle .st_bottom .inputs div .row label i[data-v-3c39ef40]{background:red;border-radius:4px;display:inline-block;height:4px;position:relative;right:-3px;top:-9px;width:4px}#settle .st_bottom .inputs div .row .col[data-v-3c39ef40]{align-items:center;display:flex}#settle .st_bottom .inputs div .row .col .btn[data-v-3c39ef40],#settle .st_bottom .inputs div .row .col input[data-v-3c39ef40],#settle .st_bottom .inputs div .row .col select[data-v-3c39ef40]{border-color:#ccc;border-radius:0;color:#898989;height:calc(1.5em + .75rem);margin:.57rem 0}#settle .st_bottom .inputs div .row .col svg[data-v-3c39ef40]{margin:0 .5rem}#settle .st_bottom .inputs .address h4[data-v-3c39ef40]{align-items:center;display:flex;justify-content:space-between}#settle .st_bottom .inputs .address h4 div[data-v-3c39ef40]{align-items:center;display:flex;justify-content:flex-end}#settle .st_bottom .inputs .address h4 div[data-v-3c39ef40] label{font-size:1rem;margin-right:1rem}#settle .st_bottom .inputs .address h4 div[data-v-3c39ef40] label:after,#settle .st_bottom .inputs .address h4 div[data-v-3c39ef40] label:before{left:-1.2rem;top:.15rem}#settle .st_bottom .inputs .address .row:first-of-type .col[data-v-3c39ef40],#settle .st_bottom .inputs .address .row:nth-of-type(2) .col[data-v-3c39ef40],#settle .st_bottom .inputs .orderer .row:first-of-type .col[data-v-3c39ef40],#settle .st_bottom .inputs .orderer .row:nth-of-type(4) .col[data-v-3c39ef40]{flex-basis:36%;max-width:36%}#settle .st_bottom .inputs .address .row:nth-of-type(3) .col input[data-v-3c39ef40],#settle .st_bottom .inputs .orderer .row:nth-of-type(2) .col input[data-v-3c39ef40]{max-width:122px}#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col input[data-v-3c39ef40]{max-width:180px}#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col select[data-v-3c39ef40]{margin:0 .5rem;max-width:122px}#settle .st_bottom .inputs .address .row:nth-of-type(4) .col[data-v-3c39ef40]{display:block;flex-basis:46%;max-width:46%}#settle .st_bottom .inputs .address .row:nth-of-type(4) .col div input[data-v-3c39ef40]{display:inline-block;max-width:180px}#settle .st_bottom .inputs .address .row:nth-of-type(4) .col div .btn[data-v-3c39ef40]{font-size:.9rem;height:36px;position:relative;top:-2px}#settle .st_bottom .inputs .address .row:nth-of-type(5) .col[data-v-3c39ef40]{display:block;flex-basis:53%;max-width:53%}#settle .st_bottom .inputs .address .row:nth-of-type(5) .col select[data-v-3c39ef40]{max-width:446px}#settle .st_bottom .inputs .address .sch_zip[data-v-3c39ef40]{border:2px solid #000;margin-top:1rem;position:absolute;z-index:1}#settle .st_bottom .inputs>button[data-v-3c39ef40]{background:#1a90d6;border-radius:.9rem;font-size:1.6rem;font-weight:700;margin-top:2rem;padding:.8em 0;width:100%}#settle .st_bottom .row .col.payment[data-v-3c39ef40]{flex-basis:31%;max-width:31%;padding-left:.875rem}#settle .st_bottom .payment .top[data-v-3c39ef40]{align-items:center;background:#1a90d6;border-radius:2rem 2rem 0 0;padding:1.4rem 1.3rem}#settle .st_bottom .payment .top .col[data-v-3c39ef40]{color:#fff;font-weight:700}#settle .st_bottom .payment .top .col b[data-v-3c39ef40]{font-size:2.1rem}#settle .st_bottom .payment .top .col span[data-v-3c39ef40]{display:block;font-size:.7rem}#settle .st_bottom .payment .top .col[data-v-3c39ef40]:nth-of-type(2){text-align:right}#settle .st_bottom .payment .body[data-v-3c39ef40]{border:2px solid #d7d7d7;border-radius:3px;padding:1rem}#settle .st_bottom .payment .body h5[data-v-3c39ef40]{font-size:1.1rem;font-weight:700;margin-bottom:.6rem;padding-left:.5rem}#settle .st_bottom .payment .body>div[data-v-3c39ef40]{border-top:1px solid #d7d7d7;padding:.94rem 0}#settle .st_bottom .payment .body div[data-v-3c39ef40] h6{background:#626262;border-radius:1.5rem;color:#fff;display:inline-block;font-size:.85rem;margin-bottom:1rem;padding:.5rem 1rem}#settle .st_bottom .payment .body .method>div[data-v-3c39ef40]{margin:1rem 0}#settle .st_bottom .payment .body .method div .custom-radio[data-v-3c39ef40]{display:inline-block;width:28%}#settle .st_bottom .payment .body .method div .custom-radio[data-v-3c39ef40] label{color:#616161;cursor:pointer;font-size:.95rem;font-weight:700}#settle .st_bottom .payment .body .method div span[data-v-3c39ef40]{color:#acacac;font-size:.8rem}#settle .st_bottom .payment .body .method div span b[data-v-3c39ef40]{cursor:pointer;position:relative}#settle .st_bottom .payment .body .method div span img[data-v-3c39ef40]{border:2px solid #616161;border-radius:.5rem;display:none;position:absolute;right:0;top:0;z-index:2}#settle .st_bottom .payment .body .method div span b:hover img[data-v-3c39ef40]{display:block}#settle .st_bottom .payment .body .pay_info .row[data-v-3c39ef40]{margin:1rem 0}#settle .st_bottom .payment .body .pay_info .row[data-v-3c39ef40]:first-of-type{align-items:baseline}#settle .st_bottom .payment .body .pay_info .row div[data-v-3c39ef40]{color:#616161;font-size:.85rem;font-weight:600}#settle .st_bottom .payment .body .pay_info .row .point[data-v-3c39ef40]{color:#1a90da;font-size:1.3rem}#settle .st_bottom .payment .body .pay_info .row .col .custom-radio[data-v-3c39ef40]:first-of-type{margin-bottom:.5rem}#settle .st_bottom .payment .body .pay_info p[data-v-3c39ef40]{font-size:.75rem}#settle .st_bottom .payment .body .pay_info p span[data-v-3c39ef40]{color:red}#settle .st_bottom .payment .body .pay_info .pay_r_tel .col[data-v-3c39ef40]{align-items:center;display:flex;justify-content:space-between}#settle .st_bottom .payment .body .pay_info .pay_r_tel .col svg[data-v-3c39ef40]{margin:0 .5rem}#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-to[data-v-3c39ef40],#settle .st_bottom .payment .body .pay_info.slideUpDown-leave[data-v-3c39ef40]{max-height:400px}#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-active[data-v-3c39ef40],#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-active[data-v-3c39ef40]{transition:max-height .3s ease-out}#settle .st_bottom .payment .body .pay_info.slideUpDown-enter[data-v-3c39ef40],#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-to[data-v-3c39ef40]{max-height:0}#settle .st_bottom .payment .body .order_paper>div[data-v-3c39ef40]{display:flex;justify-content:space-between}#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-3c39ef40] label{color:#616161;cursor:pointer;font-size:.8rem}#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-3c39ef40] label:after,#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-3c39ef40] label:before{left:-1.2rem;top:2px}#settle .st_bottom .payment .body .tax_paper>div[data-v-3c39ef40]{display:flex;justify-content:space-between}#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-3c39ef40] label{color:#616161;cursor:pointer;font-size:.8rem;vertical-align:baseline}#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-3c39ef40] label:after,#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-3c39ef40] label:before{left:-1.2rem;top:2px}#settle[data-v-3c39ef40] .custom-control-input:checked~.custom-control-label:before{background-color:#17a2b8;border-color:#17a2b8;color:#fff}#settle .inicis_form[data-v-3c39ef40]{height:0;overflow:hidden;visibility:hidden;width:0}",""]);const d=a},62609:e=>{window,e.exports=function(e){var t={};function r(o){if(t[o])return t[o].exports;var a=t[o]={i:o,l:!1,exports:{}};return e[o].call(a.exports,a,a.exports,r),a.l=!0,a.exports}return r.m=e,r.c=t,r.d=function(e,t,o){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},r.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(r.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var a in e)r.d(o,a,function(t){return e[t]}.bind(null,a));return o},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p="",r(r.s=0)}([function(e,t,r){"use strict";function o(e){let t=null;return()=>t||(t=Promise.resolve(e()))}r.r(t),r.d(t,"install",(function(){return _})),r.d(t,"VueDaumPostcode",(function(){return i}));var a="undefined"==typeof document?Promise.reject(new Error("not supported")):(e,t={})=>new Promise(((r,o)=>{(document.head||document.body).appendChild(Object.assign(document.createElement("script"),t,{src:e,async:!0,onload:r,onerror:o}))}));function d(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=o((function(){return a(e.scriptUrl||"//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js").then((function(){return new Promise((function(e){return window.daum.postcode.load(e)}))}))}));return{props:{q:{type:String,default:""},animation:{type:Boolean,default:!1},noAutoMapping:{type:Boolean,default:!1},noShorthand:{type:Boolean,default:!1},noSubmitMode:{type:Boolean,default:!1},pleaseReadGuide:{type:Number,default:0},pleaseReadGuideTimer:{type:Number,default:1.5},maxSuggestItems:{type:Number,default:10},showMoreHName:{type:Boolean,default:!1},hideMapBtn:{type:Boolean,default:!1},hideEngBtn:{type:Boolean,default:!1},alwaysShowEngAddr:{type:Boolean,default:!1},zonecodeOnly:{type:Boolean,default:!1},theme:{type:Object,default:function(){return{}}}},data:function(){return{styleHeight:0,isLoaded:!1}},mounted:function(){var e=this;t().then((function(){e.isLoaded=!0,e.$nextTick((function(){new window.daum.Postcode({width:"100%",height:"100%",animation:e.animation,autoMapping:!e.noAutoMapping,shorthand:!e.noShorthand,pleaseReadGuide:e.pleaseReadGuide,pleaseReadGuideTimer:e.pleaseReadGuideTimer,maxSuggestItems:e.maxSuggestItems,showMoreHName:e.showMoreHName,hideMapBtn:e.hideMapBtn,hideEngBtn:e.hideEngBtn,alwaysShowEngAddr:e.alwaysShowEngAddr,zonecodeOnly:e.zonecodeOnly,theme:e.theme,submitMode:!e.noSubmitMode,onsearch:function(t){e.$emit("search",t)},oncomplete:function(t){e.$emit("complete",t)},onresize:function(t){e.styleHeight="".concat(t.height,"px")}}).embed(e.$refs.container,{q:e.q,autoClose:!1}),e.$emit("load")}))}))},computed:{styles:function(){var e={};return e.height=this.styleHeight,e}},render:function(e){return e("div",{class:["vue-daum-postcode"]},this.isLoaded||!this.$slots.loading?[e("div",{class:["vue-daum-postcode-container"],ref:"container",style:this.styles})]:[e("div",{class:["vue-daum-postcode-loading"]},this.$slots.loading)])}}}var i=d(),s=["name"];function n(e,t){if(null==e)return{};var r,o,a=function(e,t){if(null==e)return{};var r,o,a={},d=Object.keys(e);for(o=0;o<d.length;o++)r=d[o],t.indexOf(r)>=0||(a[r]=e[r]);return a}(e,t);if(Object.getOwnPropertySymbols){var d=Object.getOwnPropertySymbols(e);for(o=0;o<d.length;o++)r=d[o],t.indexOf(r)>=0||Object.prototype.propertyIsEnumerable.call(e,r)&&(a[r]=e[r])}return a}function _(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=t.name,o=n(t,s);e.component(r||"vue-daum-postcode",Object.keys(o).length>0?d(o):i)}"undefined"!=typeof window&&window.Vue&&_(window.Vue),t.default={install:_}}])},77993:(e,t,r)=>{"use strict";r.r(t),r.d(t,{default:()=>f});var o=r(87757),a=r.n(o),d=r(44670),i=r(62609),s=r(99087);function n(e,t,r,o,a,d,i){try{var s=e[d](i),n=s.value}catch(e){return void r(e)}s.done?t(n):Promise.resolve(n).then(o,a)}function _(e){return function(){var t=this,r=arguments;return new Promise((function(o,a){var d=e.apply(t,r);function i(e){n(d,o,a,i,s,"next",e)}function s(e){n(d,o,a,i,s,"throw",e)}i(void 0)}))}}const l={components:{VueDaumPostcode:i.VueDaumPostcode,Modal:function(){return r.e(7242).then(r.bind(r,47242))},PayPlan:function(){return r.e(3734).then(r.bind(r,23734))},TaxInvoice:function(){return r.e(3150).then(r.bind(r,23150))},PaList:function(){return r.e(3937).then(r.bind(r,63937))},AddrIndex:function(){return r.e(5).then(r.bind(r,5))},AddrCreate:function(){return r.e(9825).then(r.bind(r,49825))},AddrEdit:function(){return r.e(8464).then(r.bind(r,38464))}},watch:{"order.od_pay_method":{handler:function(e,t){if("R"==e){var r=this.$store.state.auth.user.hp.split("-");this.order.extra.oex_mng=this.$store.state.auth.user.name,this.order.extra.oex_num_tel1=r[0],this.order.extra.oex_num_tel2=r[1],this.order.extra.oex_num_tel3=r[2],this.order.extra.oex_email=this.$store.state.auth.user.email}else this.order.extra.oex_mng="",this.order.extra.oex_num_tel1="",this.order.extra.oex_num_tel2="",this.order.extra.oex_num_tel3="",this.order.extra.oex_email="";this.order.extra.oex_type="NO"},deep:!0},"order.extra.oex_type_fir":{handler:function(e,t){console.log(e),"TX"==e?this.order.extra.oex_type="IV":"CA"==e?this.order.extra.oex_type="HP":"NO"==e&&(this.order.extra.oex_type="NO")}}},data:function(){return{isModalViewed:!1,modal_type:"index",postcode_open:!1,order:{od_id:0,goods:this.$route.params.od_goods,lists:{},price:{},od_no:"",od_name:"",od_er_id:this.$route.params.od_er_id,od_type:this.$route.params.od_type,od_pay_method:"",od_orderer:"",od_orderer_hp:"",od_orderer_hp1:"",od_orderer_hp2:"",od_orderer_hp3:"",od_orderer_email:"",od_orderer_email_id:"",od_orderer_email_domain:"",od_orderer_email_domain_slt:"",od_department:"",od_ua_title:"",od_zip:"",od_addr1:"",od_addr2:"",od_receiver:"",od_receiver_hp:"",od_receiver_hp1:"",od_receiver_hp2:"",od_receiver_hp3:"",od_memo:"",od_memo_slt:"",addr_type:"D",extra:{oex_hasBizLicense:!0,oex_file:null,oex_depositor:"",oex_email:"",oex_mng:"",oex_num_tel:"",oex_pay_plan:"soon",oex_pay_plan_etc:"",oex_bank:"K",oex_type_fir:"NO",oex_type:"",oex_req_est:"N",oex_req_tran:"N",oex_req_biz:"N",oex_req_bank:"N",oex_num:""},tCode:"",privacy:"Y",check_terms:"Y",dlvy_air:"N"},addr:[],addr_edit_index:0,config:{},inicis:{}}},computed:{validationCounter:function(){var e=0;return isEmpty(this.order.od_orderer)&&e++,isEmpty(this.order.od_orderer_hp)&&e++,isEmpty(this.order.od_orderer_email)&&e++,isEmpty(this.order.od_zip)&&e++,isEmpty(this.order.od_addr1)&&e++,isEmpty(this.order.od_addr2)&&e++,isEmpty(this.order.od_receiver)&&e++,isEmpty(this.order.od_receiver_hp)&&e++,{max:8,cur:8-e}},isDlvyAir:function(){return void 0!==Object.values(this.order.lists).find((function(e){return"AIR"===e[0].pa_type}))}},methods:{onPostcodeSlt:function(e){this.$set(this.order,"od_zip",e.zonecode);var t=e.roadAddress;t+=e.buildingName?"("+e.buildingName+")":"",this.$set(this.order,"od_addr1",t),this.$refs.od_addr2.focus(),document.getElementById("address").scrollIntoView(),this.postcode_open=!1},exePayment:function(){var e=this;return _(a().mark((function t(){var r,o,i,n,_,l,c,m,p,u,f,v;return a().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:if(e.order.od_orderer_hp="".concat(e.order.od_orderer_hp1,"-").concat(e.order.od_orderer_hp2,"-").concat(e.order.od_orderer_hp3),e.order.od_receiver_hp="".concat(e.order.od_receiver_hp1,"-").concat(e.order.od_receiver_hp2,"-").concat(e.order.od_receiver_hp3),e.order.od_orderer_email="".concat(e.order.od_orderer_email_id,"@").concat(e.order.od_orderer_email_domain),!e.validationChecker(e.order)){t.next=36;break}t.t0=e.order.extra.oex_type,t.next="HP"===t.t0?7:"IN"===t.t0?9:"CN"===t.t0?11:"BN"===t.t0?13:15;break;case 7:return e.order.extra.oex_num="".concat(e.order.extra.oex_num_hp1,"-").concat(e.order.extra.oex_num_hp2,"-").concat(e.order.extra.oex_num_hp3),t.abrupt("break",15);case 9:return e.order.extra.oex_num="".concat(e.order.extra.oex_num_in1,"-").concat(e.order.extra.oex_num_in2),t.abrupt("break",15);case 11:return e.order.extra.oex_num="".concat(e.order.extra.oex_num_cn1,"-").concat(e.order.extra.oex_num_cn2,"-").concat(e.order.extra.oex_num_cn3,"-").concat(e.order.extra.oex_num_cn4),t.abrupt("break",15);case 13:return e.order.extra.oex_num="".concat(e.order.extra.oex_num_bn1,"-").concat(e.order.extra.oex_num_bn2,"-").concat(e.order.extra.oex_num_bn3),t.abrupt("break",15);case 15:return"R"==e.order.od_pay_method&&(e.order.extra.oex_num_tel="".concat(e.order.extra.oex_num_tel1,"-").concat(e.order.extra.oex_num_tel2,"-").concat(e.order.extra.oex_num_tel3),"etc"==e.order.extra.oex_pay_plan&&(e.order.extra.oex_pay_plan=e.order.extra.oex_pay_plan_etc)),t.next=18,d.Z.post("/api/shop/order/pay",e.order);case 18:if(!(r=t.sent)||200!==r.status){t.next=36;break}if(!e.order.extra.oex_hasBizLicense||isEmpty(e.order.extra.oex_file)){t.next=29;break}return(o=new FormData).append("fi_group","order"),o.append("fi_key",r.data.od_id),o.append("fi_kind","biz"),o.append("fi_room",(new Date).getFullYear()),o.append("file[]",e.order.extra.oex_file),t.next=29,d.Z.post("/api/upload",o);case 29:if("C"!=e.order.od_pay_method){t.next=34;break}e.order.od_id=r.data.od_id,"P"==e.inicis.sale_env?INIStdPay.pay("SendPayForm"):"M"==e.inicis.sale_env&&(i=document.createElement("form"),n=document.createElement("input"),_=document.createElement("input"),l=document.createElement("input"),c=document.createElement("input"),m=document.createElement("input"),p=document.createElement("input"),u=document.createElement("input"),f=document.createElement("input"),v=document.createElement("input"),n.setAttribute("name","P_INI_PAYMENT"),n.setAttribute("value","CARD"),i.appendChild(n),_.setAttribute("name","P_MID"),_.setAttribute("value",e.inicis.mid),i.appendChild(_),l.setAttribute("name","P_OID"),l.setAttribute("value",e.order.od_no),i.appendChild(l),c.setAttribute("name","P_GOODS"),c.setAttribute("value",e.order.od_name),i.appendChild(c),m.setAttribute("name","P_AMT"),m.setAttribute("value",e.order.price.total),i.appendChild(m),p.setAttribute("name","P_UNAME"),p.setAttribute("value",e.$store.state.auth.user.name),i.appendChild(p),u.setAttribute("name","P_NEXT_URL"),u.setAttribute("value",e.inicis.returnUrlMobaile),i.appendChild(u),f.setAttribute("name","P_CHARSET"),f.setAttribute("value","utf8"),i.appendChild(f),v.setAttribute("name","P_NOTI"),v.setAttribute("value",e.order.od_id),i.appendChild(v),i.setAttribute("method","post"),i.setAttribute("action","https://mobile.inicis.com/smart/payment/"),document.body.appendChild(i),i.submit()),t.next=36;break;case 34:return t.next=36,s.Z.push({name:"order_done",params:{od_id:r.data.od_id}});case 36:case"end":return t.stop()}}),t)})))()},email_domain_slt:function(){this.order.od_orderer_email_domain=this.config.email_domain[this.order.od_orderer_email_domain_slt]},memo_slt:function(){this.order.od_memo=this.config.dlvy_msg[this.order.od_memo_slt]},set_orderer:function(){var e=Auth.user().hp.split("-"),t=Auth.user().email.split("@");this.order.od_orderer=Auth.user().name,this.order.od_orderer_hp1=e[0],this.order.od_orderer_hp2=e[1],this.order.od_orderer_hp3=e[2],this.order.od_orderer_email_id=t[0],this.order.od_orderer_email_domain=t[1],this.order.od_department=Auth.user().department},addr_choose:function(e){var t=e.ua_hp.split("-");this.order.od_ua_title=e.ua_title,this.order.od_zip=e.ua_zip,this.order.od_addr1=e.ua_addr1,this.order.od_addr2=e.ua_addr2,this.order.od_receiver=e.ua_name,this.order.od_receiver_hp=e.ua_hp,this.order.od_receiver_hp1=t[0],this.order.od_receiver_hp2=t[1],this.order.od_receiver_hp3=t[2],this.order.od_memo=e.ua_memo,this.isModalViewed=!1},change_addr_type:function(e){"D"==e?this.addr_choose(this.addr[0]):"N"==e&&(this.order.od_ua_title="",this.order.od_zip="",this.order.od_addr1="",this.order.od_addr2="",this.order.od_receiver="",this.order.od_receiver_hp="",this.order.od_receiver_hp1="",this.order.od_receiver_hp2="",this.order.od_receiver_hp3="",this.order.od_memo="")},config_addr:function(){this.isModalViewed=!0,this.modal_type="index"},addr_create:function(){this.modal_type="create"},addr_index:function(){this.modal_type="index"},addr_store:function(){this.modal_type="index"},addr_edit:function(e){this.modal_type="edit",this.addr_edit_index=e},focusNext:function(e,t,r){this.$focusNext(e,t,r)},maxlength_3:function(e){return String(e).substring(0,3)},maxlength_4:function(e){return String(e).substring(0,4)},tax_invoice:function(){this.isModalViewed=!0,this.modal_type="tax"},modal_close:function(){this.isModalViewed=!1},validationChecker:function(e){if("Y"!==this.order.privacy)return Notify.toast("danger","개인정보 수집 및 이용에 동의 해주세요."),document.getElementById("total_sub").scrollIntoView(),!1;if(!this.isDlvyAir&&"Y"!==this.order.check_terms)return Notify.toast("danger","구매자 및 사용자 확인사항에 동의 해주세요."),document.getElementById("total_sub").scrollIntoView(),!1;if(this.isDlvyAir&&"Y"!==this.order.dlvy_air)return Notify.toast("danger","단순 제품 교환 및 반품 불가에 동의 해주세요"),document.getElementById("total_sub").scrollIntoView(),!1;if(""==this.order.od_pay_method)return Notify.toast("danger","결제 수단을 선택하세요."),document.getElementById("payment").scrollIntoView(),!1;switch(e.od_pay_method){case"B":if(isEmpty(e.extra.oex_depositor))return Notify.toast("danger","입금자명을 입력해주세요"),this.$refs.oex_depositor.focus(),!1;case"E":if("IV"==e.extra.oex_type){if(e.extra.oex_hasBizLicense){if(isEmpty(e.extra.oex_file))return Notify.toast("danger","사업자 등록증 사본을 첨부해주세요"),this.tax_invoice(),this.$refs.tax_invoice.$refs.oex_file.$refs.input.focus(),!1}else{if(isEmpty(e.extra.oex_biz_name))return Notify.toast("danger","법인명을 입력해주세요"),this.tax_invoice(),this.$refs.tax_invoice.$refs.oex_biz_name.focus(),!1;if(isEmpty(e.extra.oex_biz_num))return Notify.toast("danger","사업자 등록번호를 입력해주세요"),this.tax_invoice(),this.$refs.tax_invoice.$refs.oex_biz_num.focus(),!1;if(isEmpty(e.extra.oex_biz_type))return Notify.toast("danger","업태를 입력해주세요"),this.tax_invoice(),this.$refs.tax_invoice.$refs.oex_biz_type.focus(),!1;if(isEmpty(e.extra.oex_biz_item))return Notify.toast("danger","종목를 입력해주세요"),this.tax_invoice(),this.$refs.tax_invoice.$refs.oex_biz_item.focus(),!1;if(isEmpty(e.extra.oex_ceo))return Notify.toast("danger","대표자명을 입력해주세요"),this.tax_invoice(),this.$refs.tax_invoice.$refs.oex_ceo.focus(),!1;if(isEmpty(e.extra.oex_addr))return Notify.toast("danger","사업장 소재지를 입력해주세요"),this.tax_invoice(),this.$refs.tax_invoice.$refs.oex_addr.focus(),!1}if(isEmpty(e.extra.oex_mng))return Notify.toast("danger","담당자를 입력해주세요"),this.tax_invoice(),this.$refs.tax_invoice.$refs.oex_mng.focus(),!1;if(isEmpty(e.extra.oex_email))return Notify.toast("danger","이메일을 입력해주세요"),this.tax_invoice(),this.$refs.tax_invoice.$refs.oex_email.focus(),!1;if(isEmpty(e.extra.oex_num_tel))return Notify.toast("danger","핸드폰 번호를 입력해주세요"),this.tax_invoice(),this.$refs.tax_invoice.$refs.oex_num_tel.focus(),!1}}return isEmpty(e.od_orderer)?(Notify.toast("danger","주문자 이름을 입력하세요."),this.$refs.od_orderer.focus(),!1):isEmpty(e.od_orderer_hp1)?(Notify.toast("danger","주문자 전화번호 1를 입력하세요."),this.$refs.od_orderer_hp1.focus(),!1):isEmpty(e.od_orderer_hp2)?(Notify.toast("danger","주문자 전화번호 2를 입력하세요."),this.$refs.od_orderer_hp2.focus(),!1):isEmpty(e.od_orderer_hp3)?(Notify.toast("danger","주문자 전화번호 3를 입력하세요."),this.$refs.od_orderer_hp3.focus(),!1):isEmpty(e.od_orderer_email_id)?(Notify.toast("danger","주문자 이메일 ID을 입력하세요."),this.$refs.od_orderer_email_id.focus(),!1):isEmpty(e.od_orderer_email_domain)?(Notify.toast("danger","주문자 이메일 도메인을 입력하세요."),this.$refs.od_orderer_email_domain.focus(),!1):isEmpty(e.od_receiver)?(Notify.toast("danger","수령인을 입력하세요."),this.$refs.od_receiver.focus(),!1):isEmpty(e.od_receiver_hp1)?(Notify.toast("danger","수령인 연락처 1를 입력하세요."),this.$refs.od_receiver_hp1.focus(),!1):isEmpty(e.od_receiver_hp2)?(Notify.toast("danger","수령인 연락처 2를 입력하세요."),this.$refs.od_receiver_hp2.focus(),!1):isEmpty(e.od_receiver_hp3)?(Notify.toast("danger","수령인 연락처 3를 입력하세요."),this.$refs.od_receiver_hp3.focus(),!1):isEmpty(e.od_zip)?(Notify.toast("danger","배송지 우편번호를 입력하세요."),this.$refs.od_zip.focus(),!1):isEmpty(e.od_addr1)?(Notify.toast("danger","배송지 주소를 입력하세요."),this.$refs.od_addr1.focus(),!1):!isEmpty(e.od_addr2)||(Notify.toast("danger","배송지 상세주소를 입력하세요."),this.$refs.od_addr2.focus(),!1)}},created:function(){var e=this;return _(a().mark((function t(){var r,o;return a().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:if(r=(new Date).format("yyMMddHHmm"),!e.$route.params.od_goods){t.next=10;break}e.order.goods=e.$route.params.od_goods,e.order.od_type=e.$route.params.od_type,e.order.tCode=r,sessionStorage.setItem("goods",JSON.stringify(e.order.goods)),sessionStorage.setItem("od_type",e.order.od_type),sessionStorage.setItem("od_time",r),t.next=25;break;case 10:if(!sessionStorage.getItem("od_time")){t.next=22;break}if(!(r-sessionStorage.getItem("od_time")<=20)){t.next=17;break}e.order.goods=JSON.parse(sessionStorage.getItem("goods")),e.order.od_type=sessionStorage.getItem("od_type"),e.order.tCode=r,t.next=20;break;case 17:return Notify.toast("danger","오랜시간 주문이 이루어 지지 않았습니다."),e.$router.go(-1),t.abrupt("return",!1);case 20:t.next=25;break;case 22:return Notify.toast("danger","잘못된 접근 경로입니다."),e.$router.go(-1),t.abrupt("return",!1);case 25:return t.prev=25,t.next=28,d.Z.post("/api/shop/order/settle",{type:e.order.od_type,goods:e.order.goods});case 28:(o=t.sent)&&200===o.status&&(e.order.lists=o.data.lists,e.order.price=o.data.price,e.order.od_no=o.data.od_no,e.order.od_name=o.data.od_name,e.config=o.data.config,e.addr=o.data.addr,e.inicis=o.data.inicis,e.set_orderer(),e.addr_choose(e.addr[0])),t.next=36;break;case 32:t.prev=32,t.t0=t.catch(25),Notify.consolePrint(t.t0),Notify.toast("warning",t.t0.responsee);case 36:case"end":return t.stop()}}),t,null,[[25,32]])})))()},mounted:function(){var e=document.createElement("script");e.setAttribute("src","https://stdpay.inicis.com/stdjs/INIStdPay.js"),e.async=!0,document.head.appendChild(e)}};var c=r(93379),m=r.n(c),p=r(39189),u={insert:"head",singleton:!1};m()(p.Z,u);p.Z.locals;const f=(0,r(51900).Z)(l,(function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{attrs:{id:"settle"}},[r("h2",[e._v("결제하기")]),e._v(" "),r("h4",[e._v("01. 주문 상품 확인")]),e._v(" "),r("PaList",{attrs:{price:e.order.price},model:{value:e.order.lists,callback:function(t){e.$set(e.order,"lists",t)},expression:"order.lists"}}),e._v(" "),r("b-container",{staticClass:"st_bottom"},[r("b-row",[r("b-col",{staticClass:"inputs"},[r("b-row",{staticClass:"agreement"},[r("b-col",[r("div",{staticClass:"head"},[r("span",[e._v("개인정보 수집 및 이용 동의 "),r("span",{directives:[{name:"b-toggle",rawName:"v-b-toggle.privacy",modifiers:{privacy:!0}}]},[e._v("[자세히 보기]")])]),e._v(" "),r("b-form-radio",{attrs:{value:"Y"},model:{value:e.order.privacy,callback:function(t){e.$set(e.order,"privacy",t)},expression:"order.privacy"}},[e._v("동의함")]),e._v(" "),r("b-form-radio",{attrs:{value:"N"},model:{value:e.order.privacy,callback:function(t){e.$set(e.order,"privacy",t)},expression:"order.privacy"}},[e._v("동의하지 않음")])],1),e._v(" "),r("b-collapse",{attrs:{id:"privacy"}},[r("b-card",[r("p",[e._v("회사는 이용자에 대하여 보다 더 질 높은 서비스 제공등을 위해 아래와 같이 이용자의 개인정보를 제공하고 있습니다.")]),e._v(" "),r("p",[e._v("제공대상: 포사이언스")]),e._v(" "),r("p",[e._v("\r\n                                    제공정보의 이용 목적: 콘텐츠 제공, 물품배송 또는 청구지 등으로의 발송, 회원제 서비스 이용에 따른 본인확인, \r\n                                    인식별, 불량회원의 부정이용방지와 비인가 사용방지, 불만처리 등 민원처리, 공지사항 전달, 신규 서비스(제품) 개발 및 특화, \r\n                                    이벤트 등 광고성 정보전달, 접속빈도 파악 또는 회원의 서비스 이용에 대한 통계제공하는 개인정보 항목: 이름, 주민번호, \r\n                                    로그인ID, 비밀번호, 자택 전화번호, 주소, 휴대전화번호, 이메일주소, 접속 로그, 쿠키, 접속 IP정보, 그외 선택항목제공 정보의 \r\n                                    보유 및 이용기간: 3개월\r\n                                ")]),e._v(" "),r("p",[e._v("다만, 아래의 경우에는 예외로 합니다.")]),e._v(" "),r("p",[e._v("- 이용자들이 사전에 동의한 경우")]),e._v(" "),r("p",[e._v("- 법령의 규정에 의거하거나, 수사목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는경우")])])],1)],1),e._v(" "),e.isDlvyAir?r("b-col",[r("div",{staticClass:"head"},[r("span",[e._v("단순 제품 교환 및 반품 불가 안내 "),r("span",{directives:[{name:"b-toggle",rawName:"v-b-toggle.dlvy_air",modifiers:{dlvy_air:!0}}]},[e._v("[자세히 보기]")])]),e._v(" "),r("b-form-radio",{attrs:{value:"Y"},model:{value:e.order.dlvy_air,callback:function(t){e.$set(e.order,"dlvy_air",t)},expression:"order.dlvy_air"}},[e._v("동의함")]),e._v(" "),r("b-form-radio",{attrs:{value:"N"},model:{value:e.order.dlvy_air,callback:function(t){e.$set(e.order,"dlvy_air",t)},expression:"order.dlvy_air"}},[e._v("동의하지 않음")])],1),e._v(" "),r("b-collapse",{attrs:{id:"dlvy_air"}},[r("b-card",[e._v("해외수입상품은 주문 후에는 단순 제품 교환 및 반품이 안되오니 제품사양 확인 부탁드립니다.")])],1)],1):r("b-col",[r("div",{staticClass:"head"},[r("span",[e._v("구매자 및 사용자 확인사항 "),r("span",{directives:[{name:"b-toggle",rawName:"v-b-toggle.check_terms",modifiers:{check_terms:!0}}]},[e._v("[자세히 보기]")])]),e._v(" "),r("b-form-radio",{attrs:{value:"Y"},model:{value:e.order.check_terms,callback:function(t){e.$set(e.order,"check_terms",t)},expression:"order.check_terms"}},[e._v("동의함")]),e._v(" "),r("b-form-radio",{attrs:{value:"N"},model:{value:e.order.check_terms,callback:function(t){e.$set(e.order,"check_terms",t)},expression:"order.check_terms"}},[e._v("동의하지 않음")])],1),e._v(" "),r("b-collapse",{attrs:{id:"check_terms"}},[r("b-card",[e._v("\r\n                                구매자 및 사용자는 ㈜아이넥서스의 이용약관 및 전자상거래 약관을 확인하였으며 이에 동의합니다. 수입제품의 경우 반품이 불가할 수 있으며, 시약의 경우 연구의 목적으로만 사용이 가능함을 확인합니다.\r\n                                이를 어길 경우에 발생하는 모든 책임은 구매자 및 사용자에 있음을 확인합니다.\r\n                            ")])],1)],1)],1),e._v(" "),r("div",{staticClass:"orderer"},[r("h4",[e._v("02. 주문자 정보")]),e._v(" "),r("b-row",[r("label",{attrs:{for:"od_orderer"}},[e._v("주문자명"),r("i",{staticClass:"require"})]),e._v(" "),r("b-col",[r("b-form-input",{ref:"od_orderer",attrs:{id:"od_orderer"},model:{value:e.order.od_orderer,callback:function(t){e.$set(e.order,"od_orderer",t)},expression:"order.od_orderer"}})],1)],1),e._v(" "),r("b-row",[r("label",{attrs:{for:"od_orderer_hp"}},[e._v("연락처"),r("i",{staticClass:"require"})]),e._v(" "),r("b-col",[r("b-form-input",{ref:"od_orderer_hp1",attrs:{formatter:e.maxlength_3,id:"od_orderer_hp"},nativeOn:{input:function(t){return e.focusNext(t,3,"od_orderer_hp2")}},model:{value:e.order.od_orderer_hp1,callback:function(t){e.$set(e.order,"od_orderer_hp1",t)},expression:"order.od_orderer_hp1"}}),r("b-icon-dash"),e._v(" "),r("b-form-input",{ref:"od_orderer_hp2",attrs:{formatter:e.maxlength_4},nativeOn:{input:function(t){return e.focusNext(t,4,"od_orderer_hp3")}},model:{value:e.order.od_orderer_hp2,callback:function(t){e.$set(e.order,"od_orderer_hp2",t)},expression:"order.od_orderer_hp2"}}),r("b-icon-dash"),e._v(" "),r("b-form-input",{ref:"od_orderer_hp3",attrs:{formatter:e.maxlength_4},nativeOn:{input:function(t){return e.focusNext(t,4,"od_orderer_email_id")}},model:{value:e.order.od_orderer_hp3,callback:function(t){e.$set(e.order,"od_orderer_hp3",t)},expression:"order.od_orderer_hp3"}})],1)],1),e._v(" "),r("b-row",[r("label",{attrs:{for:"od_orderer_email"}},[e._v("이메일"),r("i",{staticClass:"require"})]),e._v(" "),r("b-col",[r("b-form-input",{ref:"od_orderer_email_id",attrs:{id:"od_orderer_email"},model:{value:e.order.od_orderer_email_id,callback:function(t){e.$set(e.order,"od_orderer_email_id",t)},expression:"order.od_orderer_email_id"}}),r("b-icon-at"),e._v(" "),r("b-form-input",{model:{value:e.order.od_orderer_email_domain,callback:function(t){e.$set(e.order,"od_orderer_email_domain",t)},expression:"order.od_orderer_email_domain"}}),e._v(" "),r("b-form-select",{on:{change:e.email_domain_slt},model:{value:e.order.od_orderer_email_domain_slt,callback:function(t){e.$set(e.order,"od_orderer_email_domain_slt",t)},expression:"order.od_orderer_email_domain_slt"}},[r("b-form-select-option",{attrs:{value:""}},[e._v("직접입력")]),e._v(" "),e._l(e.config.email_domain,(function(t,o){return r("b-form-select-option",{key:o,attrs:{value:o}},[e._v(e._s(t))])}))],2)],1)],1),e._v(" "),r("b-row",[r("label",{attrs:{for:"od_department"}},[e._v("소속")]),e._v(" "),r("b-col",[r("b-form-input",{attrs:{id:"od_department"},model:{value:e.order.od_department,callback:function(t){e.$set(e.order,"od_department",t)},expression:"order.od_department"}})],1)],1)],1),e._v(" "),r("div",{staticClass:"address",attrs:{id:"address"}},[r("h4",[r("span",[e._v("03. 배송지 정보")]),e._v(" "),r("div",[r("b-form-radio",{attrs:{value:"D"},on:{change:e.change_addr_type},model:{value:e.order.addr_type,callback:function(t){e.$set(e.order,"addr_type",t)},expression:"order.addr_type"}},[e._v("기본 배송지")]),e._v(" "),r("b-form-radio",{attrs:{value:"N"},on:{change:e.change_addr_type},model:{value:e.order.addr_type,callback:function(t){e.$set(e.order,"addr_type",t)},expression:"order.addr_type"}},[e._v("신규 배송지")]),e._v(" "),r("b-button",{attrs:{variant:"light"},on:{click:e.config_addr}},[e._v("배송지 관리")])],1)]),e._v(" "),r("b-row",[r("label",{attrs:{for:"od_orderer"}},[e._v("배송지명")]),e._v(" "),r("b-col",[e._v(e._s(e.order.od_ua_title))])],1),e._v(" "),r("b-row",[r("label",{attrs:{for:"od_receiver"}},[e._v("수령인"),r("i",{staticClass:"require"})]),e._v(" "),r("b-col",[r("b-form-input",{ref:"od_receiver",attrs:{id:"od_receiver"},model:{value:e.order.od_receiver,callback:function(t){e.$set(e.order,"od_receiver",t)},expression:"order.od_receiver"}})],1)],1),e._v(" "),r("b-row",[r("label",{attrs:{for:"od_receiver_hp"}},[e._v("연락처"),r("i",{staticClass:"require"})]),e._v(" "),r("b-col",[r("b-form-input",{ref:"od_receiver_hp1",attrs:{formatter:e.maxlength_3,id:"od_receiver_hp"},nativeOn:{input:function(t){return e.focusNext(t,3,"od_receiver_hp2")}},model:{value:e.order.od_receiver_hp1,callback:function(t){e.$set(e.order,"od_receiver_hp1",t)},expression:"order.od_receiver_hp1"}}),r("b-icon-dash"),e._v(" "),r("b-form-input",{ref:"od_receiver_hp2",attrs:{formatter:e.maxlength_4},nativeOn:{input:function(t){return e.focusNext(t,4,"od_receiver_hp3")}},model:{value:e.order.od_receiver_hp2,callback:function(t){e.$set(e.order,"od_receiver_hp2",t)},expression:"order.od_receiver_hp2"}}),r("b-icon-dash"),e._v(" "),r("b-form-input",{ref:"od_receiver_hp3",attrs:{formatter:e.maxlength_4},nativeOn:{input:function(t){return e.focusNext(t,4,"btn_postcode")}},model:{value:e.order.od_receiver_hp3,callback:function(t){e.$set(e.order,"od_receiver_hp3",t)},expression:"order.od_receiver_hp3"}})],1)],1),e._v(" "),r("b-row",[r("label",{attrs:{for:"od_department"}},[e._v("주소"),r("i",{staticClass:"require"})]),e._v(" "),r("b-col",[r("div",[r("b-form-input",{attrs:{readonly:""},model:{value:e.order.od_zip,callback:function(t){e.$set(e.order,"od_zip",t)},expression:"order.od_zip"}}),e._v(" "),r("span",{ref:"btn_postcode",staticClass:"btn",on:{click:function(t){e.postcode_open=!e.postcode_open}}},[e.postcode_open?[r("b-icon-x-square-fill")]:[e._v("우편번호 찾기")]],2),e._v(" "),e.postcode_open?[r("VueDaumPostcode",{staticClass:"sch_zip shadow",attrs:{animation:!0},on:{complete:e.onPostcodeSlt},scopedSlots:e._u([{key:"loading",fn:function(){return[r("b-spinner",{attrs:{variant:"success",label:"Spinning"}})]},proxy:!0}],null,!1,422977406)})]:e._e()],2),e._v(" "),r("b-form-input",{attrs:{readonly:""},model:{value:e.order.od_addr1,callback:function(t){e.$set(e.order,"od_addr1",t)},expression:"order.od_addr1"}}),e._v(" "),r("b-form-input",{ref:"od_addr2",model:{value:e.order.od_addr2,callback:function(t){e.$set(e.order,"od_addr2",t)},expression:"order.od_addr2"}})],1)],1),e._v(" "),r("b-row",[r("label",{attrs:{for:"od_memo"}},[e._v("배송 요청사항")]),e._v(" "),r("b-col",[r("b-form-select",{on:{change:e.memo_slt},model:{value:e.order.od_memo_slt,callback:function(t){e.$set(e.order,"od_memo_slt",t)},expression:"order.od_memo_slt"}},[r("b-form-select-option",{attrs:{value:""}},[e._v("선택")]),e._v(" "),e._l(e.config.dlvy_msg,(function(t,o){return r("b-form-select-option",{key:o,attrs:{value:o}},[e._v(e._s(t))])}))],2),e._v(" "),r("b-form-input",{attrs:{id:"od_memo"},model:{value:e.order.od_memo,callback:function(t){e.$set(e.order,"od_memo",t)},expression:"order.od_memo"}})],1)],1)],1),e._v(" "),r("b-button",{attrs:{variant:"primary",size:"lg"},on:{click:e.exePayment}},[e._v("주문하기")])],1),e._v(" "),r("b-col",{staticClass:"payment",attrs:{id:"payment"}},[r("b-row",{staticClass:"top"},[r("b-col",[e._v("최종 결제 금액")]),e._v(" "),r("b-col",[r("b",[e._v(e._s(e._f("comma")(e.order.price.total)))]),e._v(" 원\r\n                        "),r("span",[e._v("부가세 포함")])])],1),e._v(" "),r("div",{staticClass:"body"},[r("h5",[e._v("결제 수단")]),e._v(" "),r("div",{staticClass:"method"},e._l(e.config.pay_method,(function(t,o){return r("div",{key:o},[r("b-form-radio",{attrs:{value:o},model:{value:e.order.od_pay_method,callback:function(t){e.$set(e.order,"od_pay_method",t)},expression:"order.od_pay_method"}},[e._v(e._s(t))]),e._v(" "),"C"==o?r("span",[e._v("이니시스 온라인 신용카드 결제"),r("b",[e._v("[자세히]"),r("img",{attrs:{src:e.s3url+"order/pay_card.png"}})])]):"B"==o?r("span",[e._v("무통장입금, 온라인계좌이체"),r("b",[e._v("[자세히]"),r("img",{attrs:{src:e.s3url+"order/pay_cache.png"}})])]):"P"==o?r("span",[e._v("원격지 연구비 직접결제"),r("b",[e._v("[자세히]"),r("img",{attrs:{src:e.s3url+"order/pay_psys.png"}})])]):"R"==o?r("span",[e._v("원격지 카드 결제"),r("b",[e._v("[자세히]"),r("img",{attrs:{src:e.s3url+"order/pay_remote.png"}})])]):"E"==o?r("span",[e._v("결제대금예치"),r("b",[e._v("[자세히]"),r("img",{attrs:{src:e.s3url+"order/pay_escrow.png"}})])]):e._e()],1)})),0),e._v(" "),r("transition",{attrs:{name:"slideUpDown"}},["B"==e.order.od_pay_method?r("div",{staticClass:"pay_info"},[r("h6",[e._v("무통장 입금")]),e._v(" "),r("b-row",[r("b-col",{attrs:{cols:"3"}},[e._v("결제금액")]),e._v(" "),r("b-col",[r("b",{staticClass:"point"},[e._v(e._s(e._f("comma")(e.order.price.total)))]),e._v(" 원")])],1),e._v(" "),r("b-row",[r("b-col",{attrs:{cols:"3"}},[e._v("은행선택")]),e._v(" "),r("b-col",[r("b-form-radio",{attrs:{value:"K"},model:{value:e.order.extra.oex_bank,callback:function(t){e.$set(e.order.extra,"oex_bank",t)},expression:"order.extra.oex_bank"}},[e._v("\r\n                                        국민은행 010-01-0944-960\r\n                                    ")]),e._v(" "),r("b-form-radio",{attrs:{value:"W"},model:{value:e.order.extra.oex_bank,callback:function(t){e.$set(e.order.extra,"oex_bank",t)},expression:"order.extra.oex_bank"}},[e._v("\r\n                                        우리은행 849-103249-13-002\r\n                                    ")])],1)],1),e._v(" "),r("b-row",[r("b-col",{attrs:{cols:"3"}},[e._v("예금주")]),e._v(" "),r("b-col",[e._v("(주) 아이넥서스")])],1),e._v(" "),r("b-row",[r("b-col",{attrs:{cols:"3"}},[e._v("입금자")]),e._v(" "),r("b-col",[r("b-form-input",{ref:"oex_depositor",attrs:{placeholder:"입금자",size:"sm"},model:{value:e.order.extra.oex_depositor,callback:function(t){e.$set(e.order.extra,"oex_depositor",t)},expression:"order.extra.oex_depositor"}})],1)],1)],1):e._e(),e._v(" "),"P"==e.order.od_pay_method?r("div",{staticClass:"pay_info"},[r("h6",[e._v("PSYS 결제")]),e._v(" "),r("b-row",[r("b-col",{attrs:{cols:"3"}},[e._v("결제금액")]),e._v(" "),r("b-col",[r("b",{staticClass:"point"},[e._v(e._s(e._f("comma")(e.order.price.total)))]),e._v(" 원")])],1),e._v(" "),r("b-row",[r("b-col",{attrs:{cols:"3"}},[e._v("결제자")]),e._v(" "),r("b-col",[r("b-form-input",{ref:"oex_depositor",attrs:{placeholder:"결제자",size:"sm"},model:{value:e.order.extra.oex_depositor,callback:function(t){e.$set(e.order.extra,"oex_depositor",t)},expression:"order.extra.oex_depositor"}})],1)],1)],1):e._e(),e._v(" "),"R"==e.order.od_pay_method?r("div",{staticClass:"pay_info"},[r("h6",[e._v("원격 결제")]),e._v(" "),r("p",[e._v("(학교, 국가기관, 연구소만 해당/"),r("span",[e._v("업체 및 개인은 선결제로 선택")]),e._v(")")]),e._v(" "),r("b-row",[r("b-col",{attrs:{cols:"3"}},[e._v("결제 요청일")]),e._v(" "),r("b-col",[r("b-form-radio",{staticClass:"m-0",attrs:{value:"soon"},model:{value:e.order.extra.oex_pay_plan,callback:function(t){e.$set(e.order.extra,"oex_pay_plan",t)},expression:"order.extra.oex_pay_plan"}},[e._v("주문시 결제")]),e._v(" "),r("b-form-radio",{attrs:{value:"dlvy"},model:{value:e.order.extra.oex_pay_plan,callback:function(t){e.$set(e.order.extra,"oex_pay_plan",t)},expression:"order.extra.oex_pay_plan"}},[e._v("납품시 결제")]),e._v(" "),r("b-form-radio",{attrs:{value:"etc"},model:{value:e.order.extra.oex_pay_plan,callback:function(t){e.$set(e.order.extra,"oex_pay_plan",t)},expression:"order.extra.oex_pay_plan"}},[e._v("기타")]),e._v(" "),r("transition",{attrs:{name:"slideUpDown"}},["etc"==e.order.extra.oex_pay_plan?r("b-form-input",{attrs:{placeholder:"30자 이내 작성",size:"sm"},model:{value:e.order.extra.oex_pay_plan_etc,callback:function(t){e.$set(e.order.extra,"oex_pay_plan_etc",t)},expression:"order.extra.oex_pay_plan_etc"}}):e._e()],1)],1)],1),e._v(" "),r("b-row",[r("b-col",{attrs:{cols:"3"}},[e._v("담당자")]),e._v(" "),r("b-col",[r("b-form-input",{attrs:{size:"sm"},model:{value:e.order.extra.oex_mng,callback:function(t){e.$set(e.order.extra,"oex_mng",t)},expression:"order.extra.oex_mng"}})],1)],1),e._v(" "),r("b-row",{staticClass:"pay_r_tel"},[r("b-col",{attrs:{cols:"3"}},[e._v("연락처")]),e._v(" "),r("b-col",[r("b-form-input",{ref:"oex_num_tel1",attrs:{formatter:e.maxlength_3,size:"sm"},nativeOn:{input:function(t){return e.focusNext(t,3,"oex_num_tel2")}},model:{value:e.order.extra.oex_num_tel1,callback:function(t){e.$set(e.order.extra,"oex_num_tel1",t)},expression:"order.extra.oex_num_tel1"}}),r("b-icon-dash"),e._v(" "),r("b-form-input",{ref:"oex_num_tel2",attrs:{formatter:e.maxlength_4,size:"sm"},nativeOn:{input:function(t){return e.focusNext(t,4,"oex_num_tel3")}},model:{value:e.order.extra.oex_num_tel2,callback:function(t){e.$set(e.order.extra,"oex_num_tel2",t)},expression:"order.extra.oex_num_tel2"}}),r("b-icon-dash"),e._v(" "),r("b-form-input",{ref:"oex_num_tel3",attrs:{formatter:e.maxlength_4,size:"sm"},model:{value:e.order.extra.oex_num_tel3,callback:function(t){e.$set(e.order.extra,"oex_num_tel3",t)},expression:"order.extra.oex_num_tel3"}})],1)],1),e._v(" "),r("b-row",{staticClass:"pay_r_tel"},[r("b-col",{attrs:{cols:"3"}},[e._v("이메일")]),e._v(" "),r("b-col",[r("b-form-input",{ref:"oex_email",attrs:{id:"oex_email",size:"sm"},model:{value:e.order.extra.oex_email,callback:function(t){e.$set(e.order.extra,"oex_email",t)},expression:"order.extra.oex_email"}})],1)],1)],1):e._e()]),e._v(" "),"B"==e.order.od_pay_method||"P"==e.order.od_pay_method?r("PayPlan",{model:{value:e.order.extra,callback:function(t){e.$set(e.order,"extra",t)},expression:"order.extra"}}):e._e(),e._v(" "),r("transition",{attrs:{name:"slideUpDown"}},["B"==e.order.od_pay_method||"E"==e.order.od_pay_method?r("div",{staticClass:"tax_paper"},[r("h6",[e._v("지출 증빙 서류")]),e._v(" "),r("div",[r("b-form-radio",{attrs:{value:"TX"},nativeOn:{click:function(t){return e.tax_invoice()}},model:{value:e.order.extra.oex_type_fir,callback:function(t){e.$set(e.order.extra,"oex_type_fir",t)},expression:"order.extra.oex_type_fir"}},[e._v("세금계산서")]),e._v(" "),r("b-form-radio",{attrs:{value:"CA"},nativeOn:{click:function(t){return e.tax_invoice()}},model:{value:e.order.extra.oex_type_fir,callback:function(t){e.$set(e.order.extra,"oex_type_fir",t)},expression:"order.extra.oex_type_fir"}},[e._v("현금영수증")]),e._v(" "),r("b-form-radio",{attrs:{value:"NO"},model:{value:e.order.extra.oex_type_fir,callback:function(t){e.$set(e.order.extra,"oex_type_fir",t)},expression:"order.extra.oex_type_fir"}},[e._v("미발급")])],1)]):e._e()]),e._v(" "),r("div",{staticClass:"order_paper"},[r("h6",[e._v("첨부 서류")]),e._v(" "),r("div",[r("b-form-checkbox",{attrs:{value:"Y","unchecked-value":"N"},model:{value:e.order.extra.oex_req_est,callback:function(t){e.$set(e.order.extra,"oex_req_est",t)},expression:"order.extra.oex_req_est"}},[e._v("견적서")]),e._v(" "),r("b-form-checkbox",{attrs:{value:"Y","unchecked-value":"N"},model:{value:e.order.extra.oex_req_tran,callback:function(t){e.$set(e.order.extra,"oex_req_tran",t)},expression:"order.extra.oex_req_tran"}},[e._v("거래명세서")]),e._v(" "),r("b-form-checkbox",{attrs:{value:"Y","unchecked-value":"N"},model:{value:e.order.extra.oex_req_biz,callback:function(t){e.$set(e.order.extra,"oex_req_biz",t)},expression:"order.extra.oex_req_biz"}},[e._v("사업자 등록증 사본")]),e._v(" "),r("b-form-checkbox",{attrs:{value:"Y","unchecked-value":"N"},model:{value:e.order.extra.oex_req_bank,callback:function(t){e.$set(e.order.extra,"oex_req_bank",t)},expression:"order.extra.oex_req_bank"}},[e._v("통장 사본")])],1),e._v(" "),r("b-form-textarea",{attrs:{size:"sm",placeholder:"추가 사항 메모"},model:{value:e.order.extra.oex_memo,callback:function(t){e.$set(e.order.extra,"oex_memo",t)},expression:"order.extra.oex_memo"}})],1)],1)],1)],1)],1),e._v(" "),r("transition",{attrs:{name:"modal"}},[e.isModalViewed?r("Modal",{attrs:{max_width:500,min_height:0,padding:"20px 0 0"},on:{"close-modal":function(t){e.isModalViewed=!1}}},[r("template",{slot:"header"},[["index","create","edit"].includes(e.modal_type)?[e._v("배송지")]:[e._v("지출 증빙")]],2),e._v(" "),"index"==e.modal_type?r("AddrIndex",{attrs:{address:e.addr},on:{choose:e.addr_choose,create:e.addr_create,edit:e.addr_edit}}):"create"==e.modal_type?r("AddrCreate",{attrs:{address:e.addr},on:{index:e.addr_index}}):"edit"==e.modal_type?r("AddrEdit",{attrs:{address:e.addr,addr:e.addr[e.addr_edit_index]},on:{index:e.addr_index}}):"tax"==e.modal_type?r("TaxInvoice",{ref:"tax_invoice",on:{close:e.modal_close},model:{value:e.order.extra,callback:function(t){e.$set(e.order,"extra",t)},expression:"order.extra"}}):e._e()],2):e._e()],1),e._v(" "),"P"==e.inicis.sale_env?r("form",{staticClass:"inicis_form",attrs:{id:"SendPayForm",method:"POST"}},[r("b-form-input",{attrs:{name:"buyername",value:e.$store.state.auth.user.name}}),e._v(" "),r("b-form-input",{attrs:{name:"buyertel",value:e.$store.state.auth.user.hp}}),e._v(" "),r("b-form-input",{attrs:{name:"buyeremail",value:e.$store.state.auth.user.email}}),e._v(" "),r("b-form-input",{attrs:{name:"version",value:"1.0"}}),e._v(" "),r("b-form-input",{attrs:{name:"mid",value:e.inicis.mid}}),e._v(" "),r("b-form-input",{attrs:{name:"goodname",value:e.order.od_name}}),e._v(" "),r("b-form-input",{attrs:{name:"oid",value:e.order.od_no}}),e._v(" "),r("b-form-input",{attrs:{name:"price",value:e.order.price.total}}),e._v(" "),r("b-form-input",{attrs:{name:"currency",value:"WON"}}),e._v(" "),r("b-form-input",{attrs:{name:"timestamp",value:e.inicis.timestamp}}),e._v(" "),r("b-form-input",{attrs:{name:"signature",value:e.inicis.sign}}),e._v(" "),r("b-form-input",{attrs:{name:"returnUrl",value:e.inicis.returnUrl}}),e._v(" "),r("b-form-input",{attrs:{name:"closeUrl",value:e.inicis.closeUrl}}),e._v(" "),r("b-form-input",{attrs:{name:"mKey",value:e.inicis.mKey}}),e._v(" "),r("b-form-input",{attrs:{name:"gopaymethod",value:"Card"}}),e._v(" "),r("b-form-input",{attrs:{name:"merchantData",value:e.order.od_id}})],1):"M"==e.inicis.sale_env?r("form",{staticClass:"inicis_form",attrs:{id:"MobilePayForm",action:"https://mobile.inicis.com/smart/payment/",method:"post","accept-charset":"EUC-KR"}},[r("b-form-input",{attrs:{name:"P_INI_PAYMENT",value:"CARD"}}),e._v(" "),r("b-form-input",{attrs:{name:"P_MID",value:e.inicis.mid}}),e._v(" "),r("b-form-input",{attrs:{name:"P_OID",value:e.order.od_no}}),e._v(" "),r("b-form-input",{attrs:{name:"P_GOODS",value:e.order.od_name}}),e._v(" "),r("b-form-input",{attrs:{name:"P_AMT",value:e.order.price.total}}),e._v(" "),r("b-form-input",{attrs:{name:"P_UNAME",value:e.$store.state.auth.user.name}}),e._v(" "),r("b-form-input",{attrs:{name:"P_NEXT_URL",value:e.inicis.returnUrlMobaile}}),e._v(" "),r("b-form-input",{attrs:{name:"P_CHARSET",value:"utf8"}}),e._v(" "),r("b-form-input",{attrs:{name:"P_NOTI",value:e.order.od_id}})],1):e._e()],1)}),[],!1,null,"3c39ef40",null).exports}}]);
+"use strict";
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[7993],{
+
+/***/ 19777:
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/board/Show.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/api/http */ 79481);
+/* harmony import */ var _components_Comment_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Comment.vue */ 45955);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'BoardShow',
+  components: {
+    'comment': _components_Comment_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      board: {
+        config: {}
+      },
+      bo_cd: this.$route.params.bo_cd,
+      bo_id: this.$route.params.bo_id
+    };
+  },
+  computed: {
+    getLink: function getLink() {
+      return this.$route.name == 'my_bo_show' ? 'my_' : '';
+    }
+  },
+  methods: {
+    show: function show() {
+      var _this = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var res;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/board/".concat(_this.bo_cd, "/show/").concat(_this.bo_id));
+            case 3:
+              res = _context.sent;
+              if (res && res.status === 200) {
+                _this.board = res.data;
+              }
+              _context.next = 11;
+              break;
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](0);
+              Notify.consolePrint(_context.t0);
+              Notify.toast('warning', _context.t0.response.data.message);
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[0, 7]]);
+      }))();
+    },
+    destroy: function destroy() {
+      var _this2 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var isok, frm, res;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _context2.next = 3;
+              return Notify.confirm('삭제', 'danger');
+            case 3:
+              isok = _context2.sent;
+              if (!isok) {
+                _context2.next = 11;
+                break;
+              }
+              frm = new FormData();
+              frm.append("_method", 'DELETE');
+              _context2.next = 9;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/board/".concat(_this2.bo_cd, "/destroy/").concat(_this2.bo_id), frm);
+            case 9:
+              res = _context2.sent;
+              if (res && res.status === 200) _this2.$router.push({
+                name: 'bo_index',
+                params: {
+                  bo_cd: _this2.bo_cd
+                }
+              });
+            case 11:
+              _context2.next = 17;
+              break;
+            case 13:
+              _context2.prev = 13;
+              _context2.t0 = _context2["catch"](0);
+              Notify.consolePrint(_context2.t0);
+              Notify.toast('warning', _context2.t0.response.data.message);
+            case 17:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, null, [[0, 13]]);
+      }))();
+    }
+  },
+  beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
+    // console.log(to, from);
+    this.bo_id = to.params.bo_id;
+    this.bo_cd = to.params.bo_cd;
+    this.show();
+    next();
+  },
+  mounted: function mounted() {
+    this.show();
+  }
+});
+
+/***/ }),
+
+/***/ 63707:
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/board/components/Comment.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/api/http */ 79481);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'Comment',
+  components: {
+    'CommentFormGroup': function CommentFormGroup() {
+      return __webpack_require__.e(/*! import() */ 5384).then(__webpack_require__.bind(__webpack_require__, /*! ./CommentFormGroup.vue */ 75384));
+    }
+  },
+  props: ['bo_cd', 'bo_id'],
+  data: function data() {
+    return {
+      sltIndex: -1,
+      bo_co_list: [],
+      comment_mode: 'create'
+    };
+  },
+  methods: {
+    index: function index(targetId) {
+      var _this = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var res;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/board/".concat(_this.bo_cd, "/indexComment/").concat(_this.bo_id));
+            case 3:
+              res = _context.sent;
+              if (res.status === 200) {
+                _this.bo_co_list = res.data;
+                // if (!!targetId)
+                //     this.$nextTick(function () {
+                //         document.getElementById(targetId).scrollIntoView({ behavior: 'smooth'});
+                //     });
+              }
+              _context.next = 10;
+              break;
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](0);
+              console.log(_context.t0.response);
+            case 10:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[0, 7]]);
+      }))();
+    },
+    coWrite: function coWrite(idx) {
+      this.sltIndex = idx;
+      this.comment_mode = 'reCreate';
+      this.$nextTick(function () {
+        this.$refs.commentFormGroup[0].textAreaFocus();
+      });
+      // this.$refs.commentFormGroup[idx].setBoContent('create');
+    },
+    coUadate: function coUadate(idx) {
+      this.sltIndex = idx;
+      this.comment_mode = 'reEdit';
+      this.$nextTick(function () {
+        this.$refs.commentFormGroup[0].textAreaFocus();
+      });
+    },
+    isDestroy: function isDestroy(bo_id) {
+      var _this2 = this;
+      this.$bvModal.msgBoxConfirm("삭제 하시겠습니까?", Object.assign({
+        title: '삭제 확인 안내'
+      }, this.ConfirmModal)).then(function (value) {
+        if (value) _this2.coDestroy(bo_id);
+      })["catch"](function (err) {/* An error occurred */});
+    },
+    coDestroy: function coDestroy(bo_id) {
+      var _this3 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var frm, res;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              frm = new FormData();
+              frm.append("_method", 'DELETE');
+              _context2.next = 5;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/board/".concat(_this3.bo_cd, "/destroy/").concat(bo_id), frm);
+            case 5:
+              res = _context2.sent;
+              if (res && res.status === 200) {
+                Notify.toast('success', '댓글 삭제');
+                _this3.index();
+              }
+              _context2.next = 12;
+              break;
+            case 9:
+              _context2.prev = 9;
+              _context2.t0 = _context2["catch"](0);
+              if (_context2.t0.response.status === 500) {
+                _this3.makeAlert(_context2.t0.response.data);
+              } else {
+                console.error('Failure!');
+                console.error(_context2.t0.response.status);
+              }
+            case 12:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, null, [[0, 9]]);
+      }))();
+    },
+    hideCommentForm: function hideCommentForm() {
+      this.sltIndex = -1;
+      this.comment_mode = 'create';
+    },
+    goodBad: function goodBad(bo_id, type, idx) {
+      var _this4 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var msg, warning, rst, rstMsg;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              msg = '';
+              warning = '';
+              _context3.next = 5;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/board/".concat(_this4.bo_cd, "/goodBad/").concat(bo_id, "/").concat(type));
+            case 5:
+              rst = _context3.sent;
+              rstMsg = rst.data;
+              if (rst !== false) {
+                if (rstMsg === 'success') {
+                  if (type == 'GOOD') msg = "추천 적용";else msg = "비추천 적용";
+                  Notify.toast('success', msg);
+                  _this4.goodBadArrUpdate(type, idx, 'up');
+                } else {
+                  if (rstMsg == "already") {
+                    warning = "취소시 지급된 포인트도 함께 취소됩니다. ";
+                  } else if (rstMsg == "reverse") {
+                    if (type == 'GOOD') warning = "비추천을 추천으로 ";else warning = "추천을 비추천으로 ";
+                  }
+                  _this4.$bvModal.msgBoxConfirm(warning + "수정하겠습니까?", Object.assign({
+                    title: '추천/비추천 안내'
+                  }, _this4.ConfirmModal)).then(function (value) {
+                    if (value) _this4.reGoodBad(bo_id, rstMsg, type, idx);
+                  })["catch"](function (err) {/* An error occurred */});
+                }
+              }
+              _context3.next = 13;
+              break;
+            case 10:
+              _context3.prev = 10;
+              _context3.t0 = _context3["catch"](0);
+              Notify.consolePrint(_context3.t0);
+            case 13:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, null, [[0, 10]]);
+      }))();
+    },
+    reGoodBad: function reGoodBad(bo_id, rstMsg, type, idx) {
+      var _this5 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var rst;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/board/".concat(_this5.bo_cd, "/goodBad/").concat(bo_id, "/").concat(rstMsg));
+            case 2:
+              rst = _context4.sent;
+              if (rst.status === 200) {
+                if (rstMsg == "already") {
+                  _this5.goodBadArrUpdate(type, idx, 'down');
+                } else if (rstMsg == "reverse") {
+                  if (type == 'GOOD') {
+                    _this5.goodBadArrUpdate(type, idx, 'up');
+                    _this5.goodBadArrUpdate('BAD', idx, 'down');
+                  } else {
+                    _this5.goodBadArrUpdate(type, idx, 'up');
+                    _this5.goodBadArrUpdate('GOOD', idx, 'down');
+                  }
+                }
+              }
+            case 4:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4);
+      }))();
+    },
+    goodBadArrUpdate: function goodBadArrUpdate(type, idx, updown) {
+      if (type == 'GOOD') {
+        if (updown == 'up') this.bo_co_list[idx].bo_good++;else this.bo_co_list[idx].bo_good--;
+      } else {
+        if (updown == 'up') this.bo_co_list[idx].bo_bad++;else this.bo_co_list[idx].bo_bad--;
+      }
+    },
+    calcPl: function calcPl(dp) {
+      return (dp.length - 1) * 30;
+    }
+  },
+  mounted: function mounted() {
+    this.index();
+  }
+});
+
+/***/ }),
+
+/***/ 2029:
+/*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/board/Show.vue?vue&type=template&id=d90f8f00& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    attrs: {
+      id: "bo_show"
+    }
+  }, [_c("h3", [_vm._v(_vm._s(_vm.board.bo_subject))]), _vm._v(" "), _c("ul", {
+    staticClass: "list-inline bd_info"
+  }, [_c("li", {
+    staticClass: "list-inline-item"
+  }, [_c("b-icon", {
+    attrs: {
+      icon: "person-fill"
+    }
+  }), _vm._v(" " + _vm._s(_vm.board.bo_writer))], 1), _vm._v(" "), _c("li", {
+    staticClass: "list-inline-item"
+  }, [_c("b-icon", {
+    attrs: {
+      icon: "calendar-date-fill"
+    }
+  }), _vm._v(" " + _vm._s(_vm.board.created_at))], 1), _vm._v(" "), _c("li", {
+    staticClass: "list-inline-item"
+  }, [_c("b-icon", {
+    attrs: {
+      icon: "eye-fill"
+    }
+  }), _vm._v(" " + _vm._s(_vm.board.bo_click))], 1), _vm._v(" "), _vm.board.add_file && _vm.board.add_file.length ? _c("li", {
+    staticClass: "list-inline-item add_file"
+  }, [_c("b-icon", {
+    attrs: {
+      icon: "file-earmark-arrow-down-fill"
+    }
+  }), _vm._v(" "), _vm._l(_vm.board.add_file, function (file) {
+    return [_c("span", {
+      key: file.fi_id,
+      staticClass: "piece",
+      on: {
+        click: function click($event) {
+          return _vm.fileDown(file.down_path, file.fi_original);
+        }
+      }
+    }, [_vm._v(_vm._s(file.fi_original))])];
+  })], 2) : _vm._e()]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
+    staticClass: "con"
+  }, [_vm.board.goods ? _c("img", {
+    staticClass: "me-auto ms-auto d-block",
+    attrs: {
+      src: _vm.board.goods.image_src[0]
+    }
+  }) : _vm._e(), _vm._v(" "), _vm.board.img_file && _vm.board.img_file.length ? [_vm._l(_vm.board.img_file, function (image, i) {
+    return _c("img", {
+      key: i,
+      staticClass: "me-auto ms-auto d-block",
+      attrs: {
+        src: image.path
+      }
+    });
+  }), _vm._v(" "), _c("hr")] : _vm._e(), _vm._v(" "), _c("div", {
+    domProps: {
+      innerHTML: _vm._s(_vm.nl2br(_vm.board.bo_content))
+    }
+  }), _vm._v(" "), _c("hr"), _vm._v(" "), _vm.board.answer ? _c("div", {
+    staticClass: "answer"
+  }, [_c("h6", [_vm._v("A")]), _vm._v(" "), _c("div", {
+    domProps: {
+      innerHTML: _vm._s(_vm.nl2br(_vm.board.answer.bo_content))
+    }
+  }), _vm._v(" "), _c("p", {
+    staticClass: "date"
+  }, [_vm._v(_vm._s(_vm._f("formatDate")(_vm.board.answer.created_at)))])]) : _vm._e()], 2), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-6"
+  }, [_c("router-link", {
+    staticClass: "btn btn-sm btn-light",
+    attrs: {
+      to: {
+        name: "".concat(_vm.getLink, "bo_index"),
+        params: {
+          bo_cd: _vm.bo_cd
+        }
+      }
+    }
+  }, [_vm._v("목록")])], 1)]), _vm._v(" "), _vm.board.config.is_comment ? _c("comment", {
+    attrs: {
+      bo_cd: _vm.bo_cd,
+      bo_id: _vm.bo_id
+    }
+  }) : _vm._e()], 1);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ 60098:
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/board/components/Comment.vue?vue&type=template&id=c9df442e&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("article", {
+    attrs: {
+      id: "comment"
+    }
+  }, [_c("h5", [_vm._v("댓글 "), _c("small", [_vm._v(_vm._s(_vm.bo_co_list.length) + "개")])]), _vm._v(" "), _vm.bo_co_list && _vm.bo_co_list.length ? _c("ul", {
+    staticClass: "container"
+  }, [_vm._l(_vm.bo_co_list, function (co, idx) {
+    return [_c("li", {
+      key: co.bo_id,
+      staticClass: "row pillar",
+      style: {
+        paddingLeft: _vm.calcPl(co.bo_co_seq_cd) + "px"
+      },
+      attrs: {
+        id: "comment_" + co.bo_id
+      }
+    }, [_c("div", {
+      staticClass: "col-md-6 col-12"
+    }, [_c("span", [_c("b-icon", {
+      attrs: {
+        icon: "person-fill"
+      }
+    }), _vm._v(" " + _vm._s(co.bo_writer))], 1), _vm._v(" "), _c("span", [_c("b-icon", {
+      attrs: {
+        icon: "calendar-date-fill"
+      }
+    }), _vm._v(" " + _vm._s(co.created_at))], 1)]), _vm._v(" "), _c("div", {
+      staticClass: "col-md-6 col-12 text-right"
+    }, [!_vm.$parent.isMine(co.created_id) ? _c("b-button", {
+      attrs: {
+        variant: "success",
+        size: "sm"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.goodBad(co.bo_id, "GOOD", idx);
+        }
+      }
+    }, [_c("b-icon", {
+      attrs: {
+        icon: "hand-thumbs-up"
+      }
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(co.bo_good))])], 1) : _vm._e(), _vm._v(" "), !_vm.$parent.isMine(co.created_id) ? _c("b-button", {
+      attrs: {
+        variant: "danger",
+        size: "sm"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.goodBad(co.bo_id, "BAD", idx);
+        }
+      }
+    }, [_c("b-icon", {
+      attrs: {
+        icon: "hand-thumbs-down"
+      }
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(co.bo_bad))])], 1) : _vm._e(), _vm._v(" "), _c("b-button", {
+      attrs: {
+        variant: "secondary",
+        size: "sm"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.coWrite(idx);
+        }
+      }
+    }, [_c("b-icon", {
+      attrs: {
+        icon: "chat-left-dots-fill"
+      }
+    })], 1), _vm._v(" "), _vm.$parent.isMine(co.created_id) ? [_c("b-button", {
+      attrs: {
+        variant: "warning",
+        size: "sm"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.coUadate(idx);
+        }
+      }
+    }, [_c("b-icon", {
+      attrs: {
+        icon: "scissors"
+      }
+    })], 1), _vm._v(" "), _c("b-button", {
+      attrs: {
+        variant: "danger",
+        size: "sm"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.isDestroy(co.bo_id);
+        }
+      }
+    }, [_c("b-icon", {
+      attrs: {
+        icon: "trash-fill"
+      }
+    })], 1)] : _vm._e()], 2), _vm._v(" "), _c("div", {
+      staticClass: "col-12 bo_content"
+    }, [co.file_info_bo.length ? _c("p", [_c("img", {
+      staticClass: "me-auto ms-auto d-block",
+      attrs: {
+        src: co.file_info_bo[0].src
+      }
+    })]) : _vm._e(), _vm._v(" "), _c("div", {
+      domProps: {
+        innerHTML: _vm._s(co.bo_content)
+      }
+    })]), _vm._v(" "), _c("div", {
+      staticClass: "col-12 box_co"
+    }, [idx == _vm.sltIndex ? _c("CommentFormGroup", {
+      ref: "commentFormGroup",
+      refInFor: true,
+      attrs: {
+        sltIndex: _vm.sltIndex,
+        bo_cd: _vm.bo_cd,
+        bo_id: co.bo_id,
+        prevBo_content: co.bo_content,
+        comment_mode: _vm.comment_mode,
+        fi_id: co.file_info_bo.length ? co.file_info_bo[0].fi_id : ""
+      },
+      on: {
+        callIndex: _vm.index,
+        callHideCommentForm: function callHideCommentForm($event) {
+          return _vm.hideCommentForm();
+        }
+      }
+    }) : _vm._e()], 1)])];
+  })], 2) : _vm._e(), _vm._v(" "), -1 == _vm.sltIndex ? _c("CommentFormGroup", {
+    attrs: {
+      sltIndex: _vm.sltIndex,
+      bo_cd: _vm.bo_cd,
+      bo_id: _vm.bo_id,
+      comment_mode: _vm.comment_mode
+    },
+    on: {
+      callIndex: _vm.index
+    }
+  }) : _vm._e()], 1);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ 5598:
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/board/Show.vue?vue&type=style&index=0&id=d90f8f00&media=screen&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js */ 1519);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n#bo_show h3 { margin:2rem 0 1rem 0;\n}\n#bo_show .bd_info { line-height:1.4rem;\n}\n#bo_show .bd_info li { margin-right:1.5rem;\n}\n#bo_show .bd_info .add_file { margin-left:24px;\n}\n#bo_show .bd_info .add_file i { margin:0 3px 0 -24px;\n}\n#bo_show .bd_info .add_file .piece { color:#FFF; background-color:#888; margin-right:1rem; letter-spacing:-1px; border:1px dashed #CCC; border-radius:0.3rem; padding:0.1rem 0.3rem; cursor:pointer;\n}\n#bo_show .con { margin-bottom:3rem; line-height:1.5rem;\n}\n#bo_show .con img { max-width: 100%;\n}\n#bo_show .con .answer { background:#eceaeb; border-radius:10px; margin-top:1rem; padding:1rem 2.5rem;\n}\n#bo_show .con .answer h6{ color:#fa931d; font-size:1.2rem; font-weight:700; margin:1.5rem 0;\n}\n#bo_show .con .answer .date { margin-top:4rem;\n}\n#bo_show .con table {padding:0; border-spacing:0px; border:0; border-collapse:collapse;}\n#bo_show .con table tr,\r\n#bo_show .con table th, \r\n#bo_show .con table td {padding:0px;}\n@media (max-width: 992px){\n#bo_show h3 { margin:1rem 0;\n}\n}\r\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 36359:
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/board/components/Comment.vue?vue&type=style&index=0&id=c9df442e&lang=css&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js */ 1519);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n#bo_show #comment h5[data-v-c9df442e] { margin:2rem 0;\n}\n#bo_show #comment>ul>li[data-v-c9df442e] { border-bottom:1px solid #CCC; margin-bottom:1rem; padding-bottom:1rem;\n}\n#bo_show #comment>ul>li .bo_content[data-v-c9df442e] { margin:1rem auto;\n}\n#bo_show #comment>ul>li .bo_content p img[data-v-c9df442e] { max-width: 100%;\n}\r\n/*#bo_show #comment .box_co { display:none; }\r\n#bo_show #comment .box_co.active { display:block; }*/\r\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 51597:
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/board/Show.vue?vue&type=style&index=0&id=d90f8f00&media=screen&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ 93379);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Show_vue_vue_type_style_index_0_id_d90f8f00_media_screen_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Show.vue?vue&type=style&index=0&id=d90f8f00&media=screen&lang=css& */ 5598);
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Show_vue_vue_type_style_index_0_id_d90f8f00_media_screen_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Show_vue_vue_type_style_index_0_id_d90f8f00_media_screen_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ 38013:
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/board/components/Comment.vue?vue&type=style&index=0&id=c9df442e&lang=css&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ 93379);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Comment_vue_vue_type_style_index_0_id_c9df442e_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Comment.vue?vue&type=style&index=0&id=c9df442e&lang=css&scoped=true& */ 36359);
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Comment_vue_vue_type_style_index_0_id_c9df442e_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Comment_vue_vue_type_style_index_0_id_c9df442e_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ 37993:
+/*!***********************************************!*\
+  !*** ./resources/js/views/web/board/Show.vue ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Show_vue_vue_type_template_id_d90f8f00___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Show.vue?vue&type=template&id=d90f8f00& */ 44433);
+/* harmony import */ var _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Show.vue?vue&type=script&lang=js& */ 47665);
+/* harmony import */ var _Show_vue_vue_type_style_index_0_id_d90f8f00_media_screen_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Show.vue?vue&type=style&index=0&id=d90f8f00&media=screen&lang=css& */ 69461);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ 51900);
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Show_vue_vue_type_template_id_d90f8f00___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Show_vue_vue_type_template_id_d90f8f00___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/web/board/Show.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ 45955:
+/*!*************************************************************!*\
+  !*** ./resources/js/views/web/board/components/Comment.vue ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Comment_vue_vue_type_template_id_c9df442e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Comment.vue?vue&type=template&id=c9df442e&scoped=true& */ 31701);
+/* harmony import */ var _Comment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Comment.vue?vue&type=script&lang=js& */ 96763);
+/* harmony import */ var _Comment_vue_vue_type_style_index_0_id_c9df442e_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Comment.vue?vue&type=style&index=0&id=c9df442e&lang=css&scoped=true& */ 27010);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ 51900);
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Comment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Comment_vue_vue_type_template_id_c9df442e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Comment_vue_vue_type_template_id_c9df442e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "c9df442e",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/web/board/components/Comment.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ 47665:
+/*!************************************************************************!*\
+  !*** ./resources/js/views/web/board/Show.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Show.vue?vue&type=script&lang=js& */ 19777);
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Show_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ 96763:
+/*!**************************************************************************************!*\
+  !*** ./resources/js/views/web/board/components/Comment.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Comment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Comment.vue?vue&type=script&lang=js& */ 63707);
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Comment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ 44433:
+/*!******************************************************************************!*\
+  !*** ./resources/js/views/web/board/Show.vue?vue&type=template&id=d90f8f00& ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Show_vue_vue_type_template_id_d90f8f00___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Show_vue_vue_type_template_id_d90f8f00___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Show_vue_vue_type_template_id_d90f8f00___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Show.vue?vue&type=template&id=d90f8f00& */ 2029);
+
+
+/***/ }),
+
+/***/ 31701:
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/views/web/board/components/Comment.vue?vue&type=template&id=c9df442e&scoped=true& ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Comment_vue_vue_type_template_id_c9df442e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Comment_vue_vue_type_template_id_c9df442e_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Comment_vue_vue_type_template_id_c9df442e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Comment.vue?vue&type=template&id=c9df442e&scoped=true& */ 60098);
+
+
+/***/ }),
+
+/***/ 69461:
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/views/web/board/Show.vue?vue&type=style&index=0&id=d90f8f00&media=screen&lang=css& ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Show_vue_vue_type_style_index_0_id_d90f8f00_media_screen_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Show.vue?vue&type=style&index=0&id=d90f8f00&media=screen&lang=css& */ 51597);
+
+
+/***/ }),
+
+/***/ 27010:
+/*!**********************************************************************************************************************!*\
+  !*** ./resources/js/views/web/board/components/Comment.vue?vue&type=style&index=0&id=c9df442e&lang=css&scoped=true& ***!
+  \**********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Comment_vue_vue_type_style_index_0_id_c9df442e_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader/dist/cjs.js!../../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Comment.vue?vue&type=style&index=0&id=c9df442e&lang=css&scoped=true& */ 38013);
+
+
+/***/ })
+
+}]);
