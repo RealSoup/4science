@@ -492,7 +492,7 @@ class GoodsController extends Controller {
                     'gm_unit'     => $gm['gm_unit'],
                     'gm_enable'   => $gm['gm_enable'] ?? 'N',
                     'gm_limit_ea' => $gm['gm_limit_ea'],
-                    'gm_dc'       => $gm['gm_dc'],
+                    'gm_dc'       => $gm['gm_dc'] ?? 0,
                     'gm_price'    => $gm['gm_price'],
                     'gm_prime'    => $gm['gm_prime']];
     }
@@ -505,7 +505,7 @@ class GoodsController extends Controller {
     public function optionChild_paramImplant($go_id, $goc){
         return [    'goc_go_id'     => $go_id,
                     'goc_name'      => $goc['goc_name'],
-                    'goc_dc'        => $goc['goc_dc'],
+                    'goc_dc'        => $goc['goc_dc'] ?? 0,
                     'goc_price'     => $goc['goc_price'], ];
     }
     public function bundleDc_paramImplant($gm_id, $bd){
