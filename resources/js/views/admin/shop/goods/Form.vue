@@ -352,20 +352,26 @@ import draggable from 'vuedraggable';
 import Ckeditor from '@/views/_common/ckeditor5/Ckeditor.vue'
 import FileUpload from '@/views/_common/FileUpload.vue'
 import { Vue2TinymceEditor } from "vue2-tinymce-editor";
+import Validation from '@/views/_common/Validation.vue';
+import Categorys from '@/views/admin/shop/goods/_comp/Categorys.vue';
+import MakerInput from '@/views/admin/shop/goods/_comp/MakerInput.vue';
+import OptionFinder from '@/views/admin/shop/goods/_comp/OptionFinder.vue';
+import RelateFinder from '@/views/admin/shop/goods/_comp/RelateFinder.vue';
+import LoadingModal from '@/views/_common/LoadingModal.vue';
 
 export default {
     name: 'admShopGoodsForm',
     components: {
         draggable,
         'file-upload': FileUpload,
-        'validation': () =>     import('@/views/_common/Validation'),
-        'categorys': () =>      import('@/views/admin/shop/goods/_comp/Categorys'),
+        'validation': Validation,
+        'categorys': Categorys,
         'ckeditor': Ckeditor,
-        'maker-input': () =>    import('@/views/admin/shop/goods/_comp/MakerInput'),
+        'maker-input': MakerInput,
         Vue2TinymceEditor,
-        'option-finder': () =>  import('@/views/admin/shop/goods/_comp/OptionFinder'),
-        'relate-finder':() =>    import('@/views/admin/shop/goods/_comp/RelateFinder'),
-        'loading-modal': () => import('@/views/_common/LoadingModal.vue'),
+        'option-finder': OptionFinder,
+        'relate-finder': RelateFinder,
+        'loading-modal': LoadingModal,
     },
     props: ['value', 'purchaseAt'],
     computed: {
