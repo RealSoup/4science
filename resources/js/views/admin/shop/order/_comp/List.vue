@@ -54,11 +54,12 @@
 </template>
 
 <script>
+import SubString from '@/views/_common/SubString.vue';
 export default {
     name: 'AdmOrderIndexList',
     props:['list', 'sch_frm', 'config', 'mng_off'],
     components: { 
-        'sub-string': () => import('@/views/_common/SubString.vue'),
+        'sub-string': SubString,
     },
 };
 </script>
