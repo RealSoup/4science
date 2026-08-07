@@ -106,7 +106,7 @@ export default {
 .row .col:nth-child(7) { flex:0 0 20%; max-width:20%; }
 .row .col:nth-child(5) .badge { width:3.8rem; padding:.4rem 0; }
 .row .col b { font-weight:400; }
-.body .col:nth-child(2) { text-align:left; cursor:pointer; padding-left:2%; }
+.body .col:nth-child(2) { text-align:left !important; cursor:pointer !important; padding-left:1% !important; }
 .body .col .eq_name { line-height:1rem; }
 .body .col .eq_name .badgetag { line-height: 1.5; }
 .er_box { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;}
