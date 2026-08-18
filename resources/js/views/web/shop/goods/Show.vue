@@ -34,7 +34,7 @@
                             <template v-else>{{content.dlvy_fee_add_vat | comma}}원</template>
                         </div>
                     </li>             
-                    <li v-if="![262, 283, 809].includes(Number(gd_mk_id))"><div>배송정보</div><div>10만원 이상 구매시 기본택배 배송료 무료</div></li>
+                    <li v-if="![262, 283, 809].includes(Number(content.gd_mk_id))"><div>배송정보</div><div>10만원 이상 구매시 기본택배 배송료 무료</div></li>
                     <li><div>납기일</div>  <div>{{content.gd_dlvy_at}}</div></li>
                     <li><div>담당자</div>  <div>{{content.gd_mng_info}}</div></li>
                 </ul>
