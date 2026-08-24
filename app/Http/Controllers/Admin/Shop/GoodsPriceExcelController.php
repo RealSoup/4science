@@ -25,9 +25,9 @@ class GoodsPriceExcelController extends Controller {
     // 제조사별 가격 정보 CSV 다운로드 (50만 건 넘으면 여러 파일로 나눠 zip)
     public function export(Request $req) {
         $this->checkPermission();
-        $req->validate(['mk_id' => 'required|integer']);
+        $req->validate(['gd_mk_id' => 'required|integer']);
 
-        $maker = Maker::findOrFail($req->mk_id);
+        $maker = Maker::findOrFail($req->gd_mk_id);
         $fileName = preg_replace('/[^A-Za-z0-9가-힣_-]/u', '_', $maker->mk_name) . '_price_' . date('Ymd');
 
         $tmpDir = storage_path('app/tmp_price_excel_' . uniqid());
@@ -42,19 +42,60 @@ class GoodsPriceExcelController extends Controller {
             if ($fp) fclose($fp);
             $path = "{$tmpDir}/{$fileName}_{$partNo}.csv";
             $fp = fopen($path, 'w');
-            fwrite($fp, "\xEF\xBB\xBF"); // 엑셀 한글 깨짐 방지 BOM
+            fwrite($fp, "\xEF\xBB\xBF");
             fputcsv($fp, ['gd_id', 'gm_id', '상품명', '제품명', 'CATNO', '모델명', '판매가', '원가']);
             $filePaths[] = $path;
             $partNo++;
         };
         $openNewPart();
 
-        DB::table('shop_goods_model as gm')
+        $query = DB::table('shop_goods_model as gm')
             ->join('shop_goods as g', 'g.gd_id', '=', 'gm.gm_gd_id')
-            ->where('g.gd_mk_id', $req->mk_id)
-            ->where('g.gd_enable', 'Y')
-            ->whereNull('g.deleted_at')
-            ->select('g.gd_id', 'gm.gm_id', 'g.gd_name', 'gm.gm_name', 'gm.gm_catno', 'gm.gm_code', 'gm.gm_price', 'gm.gm_price_origin')
+            ->where('g.gd_mk_id', $req->gd_mk_id)
+            ->where('g.gd_type', $req->filled('gd_type') ? $req->gd_type : 'NON');
+
+        // 화면 검색과 동일한 조건들 (스핑크스 대신 순수 SQL로 재구현 - 대량 처리 안정성 확보)
+        if ($req->filled('gd_enable')) $query->where('g.gd_enable', $req->gd_enable);
+        else $query->where('g.gd_enable', 'Y');
+
+        if ($req->filled('deleted_at')) {
+            if ($req->deleted_at == 'Y') $query->whereNotNull('g.deleted_at');
+            else $query->whereNull('g.deleted_at');
+        } else {
+            $query->whereNull('g.deleted_at');
+        }
+
+        if ($req->filled('updated_id')) $query->where('g.updated_id', $req->updated_id);
+
+        if ($req->filled('startDate') || $req->filled('endDate')) {
+            $dateCol = ($req->filled('sort') && $req->sort == 'edit') ? 'g.updated_at' : 'g.created_at';
+            if ($req->filled('startDate')) $query->where($dateCol, '>=', $req->startDate);
+            if ($req->filled('endDate'))   $query->where($dateCol, '<=', $req->endDate . ' 23:59:59');
+        }
+
+        if ($req->filled('ca01') || $req->filled('ca02') || $req->filled('ca03') || $req->filled('ca04')) {
+            $query->whereExists(function($q) use ($req) {
+                $q->select(DB::raw(1))
+                    ->from('shop_goods_category as gc')
+                    ->whereColumn('gc.gc_gd_id', 'g.gd_id');
+                if ($req->filled('ca01')) $q->where('gc.gc_ca01', $req->ca01);
+                if ($req->filled('ca02')) $q->where('gc.gc_ca02', $req->ca02);
+                if ($req->filled('ca03')) $q->where('gc.gc_ca03', $req->ca03);
+                if ($req->filled('ca04')) $q->where('gc.gc_ca04', $req->ca04);
+            });
+        }
+
+        if ($req->filled('keyword')) {
+            $kw = '%' . trim($req->keyword) . '%';
+            switch ($req->mode) {
+                case 'gm_name': $query->where('gm.gm_name', 'like', $kw); break;
+                case 'gm_code': $query->where('gm.gm_code', 'like', $kw); break;
+                case 'cat_no':  $query->where('gm.gm_catno', 'like', $kw); break;
+                default:        $query->where('g.gd_name', 'like', $kw); break;
+            }
+        }
+
+        $query->select('g.gd_id', 'gm.gm_id', 'g.gd_name', 'gm.gm_name', 'gm.gm_catno', 'gm.gm_code', 'gm.gm_price', 'gm.gm_price_origin')
             ->orderBy('gm.gm_id')
             ->chunkById(self::CHUNK_SIZE, function($rows) use (&$fp, &$rowInPart, $openNewPart) {
                 foreach ($rows as $row) {
@@ -78,7 +119,7 @@ class GoodsPriceExcelController extends Controller {
         foreach ($filePaths as $path) $zip->addFile($path, basename($path));
         $zip->close();
 
-        foreach ($filePaths as $path) @unlink($path);   // 추가 — zip에 이미 담겼으니 원본 조각은 바로 삭제
+        foreach ($filePaths as $path) @unlink($path);
 
         return response()->download($zipPath, basename($zipPath))->deleteFileAfterSend(true);
     }

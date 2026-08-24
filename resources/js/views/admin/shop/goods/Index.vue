@@ -22,13 +22,7 @@
         <b-row>
             <b-col class="label">제조사</b-col>
             <b-col class="type01 col_maker">
-                <autocomplete :search="search" :get-result-value="getResultValue" @submit="handleSubmit" auto-select :submitOnEnter="true" placeholder="키보드로 입력" @focus="field_switch='maker'" @blur="field_chk"></autocomplete>
-                <!--
-                <b-form-select v-model="sch_frm.gd_mk_id">
-                    <b-form-select-option value=""></b-form-select-option>
-                    <b-form-select-option v-for="opt in makers" :value="opt.mk_id" :key="opt.mk_id">{{ opt.mk_name }}</b-form-select-option>
-                </b-form-select>
-                -->
+                <autocomplete ref="mkAutocomplete" :search="search" :get-result-value="getResultValue" @submit="handleSubmit" auto-select :submitOnEnter="true" placeholder="키보드로 입력" @focus="field_switch='maker'" @blur="field_chk"></autocomplete>
             </b-col>
 
             <b-col class="label">활성</b-col>
@@ -49,13 +43,7 @@
 
             <b-col class="label">관리자</b-col>
             <b-col class="type01">
-                <autocomplete :search="search" :get-result-value="getResultValue" @submit="handleSubmit" auto-select :submitOnEnter="true" placeholder="키보드로 입력" @focus="field_switch='adm'" @blur="field_chk"></autocomplete>
-                <!--
-                <b-form-select v-model="sch_frm.updated_id">
-                    <b-form-select-option value=""></b-form-select-option>
-                    <b-form-select-option v-for="opt in mng_off" :value="opt.id" :key="opt.id">{{ opt.name }}</b-form-select-option>
-                </b-form-select>
-                -->
+                <autocomplete ref="admAutocomplete" :search="search" :get-result-value="getResultValue" @submit="handleSubmit" auto-select :submitOnEnter="true" placeholder="키보드로 입력" @focus="field_switch='adm'" @blur="field_chk"></autocomplete>
             </b-col>
         </b-row>
 
@@ -282,7 +270,7 @@ export default {
             }
             try {
                 const res = await ax.get(`/api/admin/shop/goods/price-excel`, {
-                    params: { mk_id },
+                    params: this.$route.query,   // 화면에 적용된 검색조건 그대로 전달
                     responseType: 'blob',
                 });
 
@@ -337,14 +325,33 @@ export default {
                 this.$refs.priceExcelFile.value = '';
             }
         },
+
+        syncSearchDisplay() {
+            if (this.sch_frm.gd_mk_id) {
+                const mk = this.makers.find(m => m.mk_id == this.sch_frm.gd_mk_id);
+                if (mk && this.$refs.mkAutocomplete) {
+                    const input = this.$refs.mkAutocomplete.$el.querySelector('input');
+                    if (input) input.value = mk.mk_name;
+                }
+            }
+            if (this.sch_frm.updated_id) {
+                const adm = this.mng_off[this.sch_frm.updated_id];
+                if (adm && this.$refs.admAutocomplete) {
+                    const input = this.$refs.admAutocomplete.$el.querySelector('input');
+                    if (input) input.value = adm.name;
+                }
+            }
+        },
     },
     async mounted() {
         this.sch_frm = Object.assign( {}, this.sch_frm, this.$route.query );
-        this.index(true);
+        await this.index(true);
+        this.syncSearchDisplay();
     },
     beforeRouteUpdate (to, from, next) {
         this.sch_frm = Object.assign( {}, this.sch_frm, to.query );
         this.index();
+        this.syncSearchDisplay();
         next();
     },
 }
