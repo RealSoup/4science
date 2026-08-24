@@ -60,7 +60,7 @@ export default {
             }
         },
         async update(){
-            
+            if (!(await this.$refs.form.checkExchangeRateFresh())) return;
             this.frm = Object.assign(
                 {},
                 this.frm,

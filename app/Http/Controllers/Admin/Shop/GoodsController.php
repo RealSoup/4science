@@ -59,6 +59,7 @@ class GoodsController extends Controller {
         if($req->filled('is_first') && $req->is_first) {
             $data['mng_off'] = json_decode(Redis::get('UserMngOff'));
             $data['makers'] = $this->maker->orderBy('mk_name')->get();
+            $data['user'] = auth()->user()->load('userMng');
         }
 		return response()->json($data);
     }
@@ -87,13 +88,24 @@ class GoodsController extends Controller {
     }
 
     public function edit($gd_id) {
-        $data['goods'] = $this->goods->select("shop_goods.*",
-							DB::raw("(SELECT mk_name FROM la_shop_makers WHERE la_shop_goods.gd_mk_id = mk_id) as gd_mk_name"),)
-                        ->with('goodsModel')
-                        ->with('goodsOption')
-                        ->with('goodsCategory')
-                        ->with('goodsRelate')
-                        ->find($gd_id);
+        /*
+        제조사 정보(mk_currency 등)는 select 컬럼에 별칭으로 바로 얹어써야 해서
+        ->with('maker')(쿼리 2번) 대신 leftJoin(쿼리 1번)으로 처리함
+        leftJoin, with 둘다 사용가능하지만 간단하게 수정하고 속도도 더 빠르다기에 
+        그냥 leftJoin 하기로함.
+        */
+        $data['goods'] = $this->goods
+            ->select("shop_goods.*", 
+                    "mk.mk_name as gd_mk_name", 
+                    "mk.mk_currency as gd_mk_currency", 
+                    "mk.mk_customs_rate as gd_mk_customs_rate", 
+                    "mk.mk_margin_rate as gd_mk_margin_rate")
+            ->leftJoin('shop_makers as mk', 'mk.mk_id', '=', 'shop_goods.gd_mk_id')
+            ->with('goodsModel')
+            ->with('goodsOption')
+            ->with('goodsCategory')
+            ->with('goodsRelate')
+            ->find($gd_id);
         if(!$data['goods'])
             return response()->json(["message"=>"상품이 없습니다."], 500);
         foreach($data['goods']->goodsModel as $md) $md->bundleDc;
@@ -115,6 +127,7 @@ class GoodsController extends Controller {
 	   	$goods = $this->goods_paramImplant($this->goods, $req);
 		$goods->created_id = $goods->updated_id = auth()->user()->id;
 	   	$rst = $goods->save();
+        $maker = $this->maker->find($goods->gd_mk_id);
         $cate_ist_info = [];
         $cat01 = $cat02 = '';
 
@@ -194,7 +207,7 @@ class GoodsController extends Controller {
 
         foreach ($req->goods_model as $gm) {
             $cat[2] += 1;
-            $gm_impl = $this->goodsModel_paramImplant($goods->gd_id, $gm);
+            $gm_impl = $this->goodsModel_paramImplant($goods->gd_id, $gm, $maker);
             $gm_catno = $cat01.$cat[0].'-'.$cat[1].'-'.substr("0".$cat[2], -2);
             $gm_impl = Arr::collapse([$gm_impl, ['created_id'=>auth()->user()->id, 'gm_catno'=>$gm_catno, 'gm_catno01'=>$cat01.$cat[0], 'gm_catno02'=>$cat[1], 'gm_catno03'=>substr("0".$cat[2], -2)]]);
             $ist_gm_id = GoodsModel::insertGetId($gm_impl, 'gm_id');
@@ -278,6 +291,7 @@ class GoodsController extends Controller {
 		$goods->updated_id = auth()->user()->id;
         $goods->updated_at = \Carbon\Carbon::now();
 	   	$gd_rst = $goods->save();
+        $maker = $this->maker->find($goods->gd_mk_id);
 
         //  카테고리 추가
         $cate_ist_info = [];
@@ -338,7 +352,7 @@ class GoodsController extends Controller {
 
         //  검색 테이블 삭제했다가 다시 밀어넣기
         foreach ($req->goods_model as $gm) {
-            $gm_impl = $this->goodsModel_paramImplant($gd_id, $gm);
+            $gm_impl = $this->goodsModel_paramImplant($gd_id, $gm, $maker);
             $gm_impl_add = array();
             $gm_id = $gm['gm_id'] ?? 0;
             if ($gm_id) {   $gm_impl_add = ['updated_id' => auth()->user()->id];
@@ -484,18 +498,31 @@ class GoodsController extends Controller {
         $goods->ip          = $req->ip();
         return $goods;
     }
-    public function goodsModel_paramImplant($gd_id, $gm){
-        return [    'gm_gd_id'    => $gd_id,
-                    'gm_name'     => $gm['gm_name'],
-                    'gm_code'     => $gm['gm_code'],
-                    'gm_spec'     => $gm['gm_spec'],
-                    'gm_unit'     => $gm['gm_unit'],
-                    'gm_enable'   => $gm['gm_enable'] ?? 'N',
-                    'gm_limit_ea' => $gm['gm_limit_ea'],
-                    'gm_dc'       => $gm['gm_dc'] ?? 0,
-                    'gm_price'    => $gm['gm_price'],
-                    'gm_prime'    => $gm['gm_prime']];
+
+    public function goodsModel_paramImplant($gd_id, $gm, $maker = null){
+        $gm_price_origin = $gm['gm_price_origin'] ?? 0;
+        $gm_price = $gm['gm_price'] ?? 0;
+
+        // 외화 제조사 + 원가 입력됐으면 판매가 자동 계산 (관리자가 입력한 gm_price는 무시)
+        if ($maker && $maker->mk_currency != 'KRW' && $gm_price_origin > 0) {
+            $calc = $maker->calcSalePrice($gm_price_origin);
+            if (!is_null($calc)) $gm_price = $calc;
+        }
+
+        return [    'gm_gd_id'         => $gd_id,
+                    'gm_name'          => $gm['gm_name'],
+                    'gm_code'          => $gm['gm_code'],
+                    'gm_spec'          => $gm['gm_spec'],
+                    'gm_unit'          => $gm['gm_unit'],
+                    'gm_enable'        => $gm['gm_enable'] ?? 'N',
+                    'gm_limit_ea'      => $gm['gm_limit_ea'],
+                    'gm_dc'            => $gm['gm_dc'] ?? 0,
+                    'gm_price_origin'  => $gm_price_origin,
+                    'gm_price'         => $gm_price,
+                    'gm_prime'         => $gm['gm_prime']];
     }
+
+
     public function option_paramImplant($gd_id, $go){
         return [    'go_gd_id'      => $gd_id,
                     'go_required'   => $go['go_required'] ?? 'N',

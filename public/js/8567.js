@@ -18,7 +18,7 @@ __webpack_require__.r(__webpack_exports__);
       pop: [{
         ck_key: '4S_PopUp_01',
         cookie_view: false,
-        is_view: true
+        is_view: false
       }, {
         ck_key: '4S_PopUp_02',
         cookie_view: false,

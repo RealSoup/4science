@@ -87,6 +87,15 @@
             <b-col>Total : <b-badge variant="info">{{this.list.total}}</b-badge></b-col>
             <b-col class="text-right ctrl">
                 <span class="m_hide">상품정보를 클릭하면 수정이 가능합니다.</span>
+                <template v-if="can_price_excel">
+                    <b-button size="sm" variant="success" @click="downloadPriceExcel"><b-icon-download /> 가격 다운로드</b-button>
+                    <b-button size="sm" variant="warning"
+                        v-b-tooltip="{ title: 'CSV 파일만 업로드 가능합니다', customClass: 'tt-danger' }"
+                        @click="$refs.priceExcelFile.click()">
+                        <b-icon-upload /> 가격 업로드
+                    </b-button>
+                    <input type="file" ref="priceExcelFile" accept=".csv" class="d-none" @change="uploadPriceExcel">
+                </template>
                 <b-button :to="{name: 'adm_goods_create'}" class="blue"><b-icon-plus-lg /> 추가</b-button>
             </b-col>
         </b-row>
@@ -176,7 +185,14 @@ export default {
             deleted_at: { 0:{value:'Y', name:'삭제'}, 1:{value:'N', name:'존재'} },
             mng_off: [],
             field_switch: 'maker',
+            user: {},
         }
+    },
+    computed: {
+        can_price_excel() {
+            if (!this.user || !this.user.user_mng) return false;
+            return this.user.is_super || !!this.user.user_mng.um_responsibility || parseInt(this.user.user_mng.um_position) >= 4;
+        },
     },
     methods: {
         numCalc(i) {
@@ -200,6 +216,7 @@ export default {
                         this.list = res.data.list;
                         if(res.data.mng_off) this.mng_off = res.data.mng_off;
                         if(res.data.makers) this.makers = res.data.makers;
+                        if(res.data.user) this.user = res.data.user;
                     }
                     this.isLoadingModalViewed=false;
                 }
@@ -255,7 +272,71 @@ export default {
                 if (this.field_switch == 'maker') this.sch_frm.gd_mk_id = '';
                 else if(this.field_switch == 'adm') this.sch_frm.updated_id = '';
             }
-        }
+        },
+
+        async downloadPriceExcel() {
+            const mk_id = this.$route.query.gd_mk_id;
+            if (!mk_id) {
+                Notify.toast('warning', '제조사를 선택하고 검색을 먼저 실행해주세요.');
+                return;
+            }
+            try {
+                const res = await ax.get(`/api/admin/shop/goods/price-excel`, {
+                    params: { mk_id },
+                    responseType: 'blob',
+                });
+
+                // ↓↓↓ 이 부분을 방금 그 코드로 교체 ↓↓↓
+                const disposition = res.headers['content-disposition'] || '';
+                let fileName = 'price.csv';
+
+                const utf8Match = disposition.match(/filename\*=UTF-8''([^;]+)/i);
+                if (utf8Match) {
+                    fileName = decodeURIComponent(utf8Match[1]);
+                } else {
+                    const plainMatch = disposition.match(/filename="?([^;"]+)"?/i);
+                    if (plainMatch) fileName = plainMatch[1];
+                }
+
+                let fileUrl = window.URL.createObjectURL(new Blob([res.data]));
+                let fileLink = document.createElement('a');
+                fileLink.href = fileUrl;
+                fileLink.setAttribute('download', fileName);
+                document.body.appendChild(fileLink);
+                fileLink.click();
+                // ↑↑↑ 여기까지 ↑↑↑
+
+            } catch (e) {
+                Notify.consolePrint(e);
+                Notify.toast('danger', '다운로드 실패 (권한을 확인해주세요)');
+            }
+        },
+        async uploadPriceExcel(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (!file.name.toLowerCase().endsWith('.csv')) {
+                Notify.toast('warning', 'CSV 파일만 업로드 가능합니다.');
+                this.$refs.priceExcelFile.value = '';
+                return;
+            }
+
+            let frm = new FormData();
+            frm.append('file', file);
+
+            try {
+                const res = await ax.post(`/api/admin/shop/goods/price-excel/upload`, frm);
+                if (res && res.status === 200) {
+                    Notify.toast('success', `${res.data.updated}건 반영 완료`);
+                    this.index();
+                }
+            } catch (e) {
+                Notify.consolePrint(e);
+                Notify.toast('danger', e.response?.data?.message || '업로드 실패');
+            } finally {
+                this.$refs.priceExcelFile.value = '';
+            }
+        },
     },
     async mounted() {
         this.sch_frm = Object.assign( {}, this.sch_frm, this.$route.query );
@@ -277,7 +358,7 @@ export default {
 .p_wrap .frm_sch .sch_input select { width:6.579em; }
 .cmain { position:relative; min-height:30rem; }
 .cmain .row .ctrl { color:#0171BB; font-size:.9rem; font-weight:600; }
-.cmain .row .ctrl .btn { background-color:#0171BB; padding:.2rem .5rem; font-size:.9rem; }
+.cmain .row .ctrl .btn { padding:.2rem .5rem; font-size:.9rem; }
 .cmain .list .col:nth-child(1) { flex:0 0 9%; max-width:9%; }
 .cmain .list .col:nth-child(2) { flex:0 0 13%; max-width:13%; justify-content:flex-start; }
 .cmain .list .col:nth-child(3) { flex:0 0 8%; max-width:8%; }
@@ -330,4 +411,8 @@ export default {
 .gd_list .row>div>span:nth-of-type(2) { float:right; }
 .gd_list .row>div img { max-width:80px; width:100%; height:80px; object-fit:cover; }
 */
+</style>
+<style>
+.tt-danger .tooltip-inner { background-color: #dc3545; color: #fff; }
+.tt-danger .arrow::before { border-top-color: #dc3545 !important; }
 </style>

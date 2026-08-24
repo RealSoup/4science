@@ -63,7 +63,9 @@ export default {
             if (this.maker[i] && this.maker[i].mk_name != "정보없음") {
                 this.$set(this.frm, 'gd_mk_id'  , this.maker[i].mk_id);
                 this.$set(this.frm, 'gd_mk_name', this.maker[i].mk_name);
-                // this.$set(this.frm, 'gd_mk_name', this.maker[i].mk_name);
+                this.$set(this.frm, 'gd_mk_currency', this.maker[i].mk_currency);
+                this.$set(this.frm, 'gd_mk_customs_rate' , this.maker[i].mk_customs_rate);
+                this.$set(this.frm, 'gd_mk_margin_rate'  , this.maker[i].mk_margin_rate);
             }
             this.maker = [];
         },

@@ -167,10 +167,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 ]);
 
                 Route::prefix('goods')->group(function () {
-                    Route::GET('getModel',      'Admin\Shop\GoodsController@getModel');
-                    Route::POST('fileUpload',   'Admin\Shop\GoodsController@fileUpload');
-                    Route::GET('getGoodsList',  'Admin\Shop\GoodsController@getGoodsList');
+                    Route::GET('getModel',              'Admin\Shop\GoodsController@getModel');
+                    Route::POST('fileUpload',           'Admin\Shop\GoodsController@fileUpload');
+                    Route::GET('getGoodsList',          'Admin\Shop\GoodsController@getGoodsList');
                     Route::GET('getOption/{catno}',     'Admin\Shop\GoodsController@getOption');
+                    Route::GET('price-excel',           'Admin\Shop\GoodsPriceExcelController@export');
+                    Route::POST('price-excel/upload',   'Admin\Shop\GoodsPriceExcelController@import');
                     
                 });
                 Route::resource('goods', 'Admin\Shop\GoodsController');
@@ -182,6 +184,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::GET('goods_option', 'Admin\Shop\GoodsOptionController@index');
                 Route::GET('goods_option_child', 'Admin\Shop\GoodsOptionChildController@index');
 
+                Route::GET('exchange-rate/latest/{currency}', 'Admin\Shop\ExchangeRateController@latest');
                 Route::resource('maker', 'Admin\Shop\MakerController', [
                     'except' => [ 'show', 'create' ],
                     'names' => [

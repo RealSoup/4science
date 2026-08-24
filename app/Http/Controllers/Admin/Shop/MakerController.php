@@ -32,11 +32,10 @@ class MakerController extends Controller {
     }
 
     public function store(SaveMakerRequest $req) {
-        $this->maker->mk_name = trim($req->mk_name);
+        $this->maker = $this->maker_paramImplant($this->maker, $req);
         $this->maker->created_id = auth()->user()->id;
-        $this->maker->ip = $req->ip();
         if ($this->maker->save())
-            return response()->json($this->maker->toArray(), 200);         
+            return response()->json($this->maker->toArray(), 200);
     }
 
     public function edit(Request $req, $mk_id) {
@@ -46,15 +45,27 @@ class MakerController extends Controller {
         return response()->json($data);   
     }
 
-	public function update(Request $req, $mk_id) {
-        DB::table('shop_makers')->where('mk_id', $mk_id)->update([
-            'mk_name'       => $req->filled('mk_name') ? $req->mk_name : '',
-            'mk_desc'       => $req->filled('mk_desc') ? $req->mk_desc : '',
-            'updated_id'    => auth()->user()->id,
-            'ip'            => $req->ip() 
-        ]);
+    public function update(Request $req, $mk_id) {
+        $maker = $this->maker->find($mk_id);
+        $maker = $this->maker_paramImplant($maker, $req);
+        $maker->updated_id = auth()->user()->id;
+        $rst = $maker->save();
+
         DB::table('infos')->where('key', 'update_key_maker_shop')->update(['val' => uniqid()]);
-		return response()->json('success', 200);
+
+        if ($rst) return response()->json('success', 200);
+        else return response()->json(["message"=>"Fail"], 500);
+    }
+
+    // 제조사 저장/수정 공통 필드 매핑 (store, update 공용)
+    public function maker_paramImplant($maker, $req) {
+        $maker->mk_name         = $req->filled('mk_name') ? trim($req->mk_name) : $maker->mk_name;
+        $maker->mk_desc         = $req->filled('mk_desc') ? $req->mk_desc : '';
+        $maker->mk_currency     = $req->filled('mk_currency') ? $req->mk_currency : 'KRW';
+        $maker->mk_customs_rate = $req->filled('mk_customs_rate') ? $req->mk_customs_rate : 0;
+        $maker->mk_margin_rate  = $req->filled('mk_margin_rate') ? $req->mk_margin_rate : 0;
+        $maker->ip              = $req->ip();
+        return $maker;
     }
     
     public function destroy($mk_id) {

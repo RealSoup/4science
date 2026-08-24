@@ -66,6 +66,7 @@ export default {
             }
         },
         async write() {
+            if (!(await this.$refs.form.checkExchangeRateFresh())) return;
             await this.$refs.form.$refs.tinymce_editor.editor.uploadImages();
             this.isLoadingModalViewed=true;
             let res = await ax.post(`/api/admin/shop/goods`, this.frm);

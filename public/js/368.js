@@ -58,7 +58,9 @@ var render = function render() {
       },
       expression: "mk.mk_name"
     }
-  }), _vm._v(" "), _c("b-input-group-append", [_vm.mk.mk_desc ? _c("b-button", {
+  }), _vm._v(" "), _c("b-input-group-append", [_vm.mk.mk_currency && _vm.mk.mk_currency !== "KRW" ? _c("b-input-group-text", {
+    staticClass: "text-nowrap"
+  }, [_vm._v("\n                " + _vm._s(_vm.mk.mk_currency) + " · 관세 " + _vm._s(_vm.mk.mk_customs_rate) + "% · 마진 " + _vm._s(_vm.mk.mk_margin_rate) + "%\n            ")]) : _vm._e(), _vm._v(" "), _vm.mk.mk_desc ? _c("b-button", {
     attrs: {
       variant: "info",
       to: {

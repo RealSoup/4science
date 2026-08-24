@@ -19,6 +19,26 @@
             <file-upload ref="fileupload" v-model="mk.file_info" :fi_group="'maker'" :fi_kind="'logo'" :is_thumb="true"></file-upload>
         </b-col>
     </b-row>
+
+    <b-row>
+        <b-col>통화단위</b-col>
+        <b-col>
+            <b-form-select v-model="mk.mk_currency" :options="currencyOptions"></b-form-select>
+        </b-col>
+    </b-row>
+    <b-row>
+        <b-col>관세율(%)</b-col>
+        <b-col>
+            <b-form-input type="number" step="0.01" v-model="mk.mk_customs_rate"></b-form-input>
+        </b-col>
+    </b-row>
+    <b-row>
+        <b-col>마진율(%)</b-col>
+        <b-col>
+            <b-form-input type="number" step="0.01" v-model="mk.mk_margin_rate"></b-form-input>
+        </b-col>
+    </b-row>
+
     <b-row>
         <b-col></b-col>
         <b-col class="text-right">
@@ -42,6 +62,18 @@ export default {
         return {
             mk:{},
             isLoadingModalViewed: false,
+            currencyOptions: [
+                { value: 'KRW',      text: 'KRW (한국 원화)' },
+                { value: 'USD',      text: 'USD (미국 달러)' },
+                { value: 'JPY(100)', text: 'JPY(100) (일본 엔화, 100엔 단위)' },
+                { value: 'EUR',      text: 'EUR (유럽 유로)' },
+                { value: 'CNH',      text: 'CNH (중국 위안화)' },
+                { value: 'AUD',      text: 'AUD (호주 달러)' },
+                { value: 'GBP',      text: 'GBP (영국 파운드)' },
+                { value: 'CAD',      text: 'CAD (캐나다 달러)' },
+                { value: 'HKD',      text: 'HKD (홍콩 달러)' },
+                { value: 'SGD',      text: 'SGD (싱가포르 달러)' },
+            ],
         };
     },
     methods: {

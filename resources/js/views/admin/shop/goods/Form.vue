@@ -196,7 +196,16 @@
                     <b-col class="label">할인률</b-col>
                     <b-col class="type02">
                         <b-form-input v-model="value.gd_dc" size="sm" class="text-right"></b-form-input>
-                    </b-col>
+                    </b-col>            
+           
+                    <template v-if="value.gd_mk_currency && value.gd_mk_currency !== 'KRW'">
+                        <b-col class="type04 orange">
+                            통화종류:<flag-icon :code="value.gd_mk_currency"></flag-icon> <span>{{value.gd_mk_currency}}</span> /
+                            관세:<span>{{value.gd_mk_customs_rate}}%</span> /
+                            마진:<span>{{value.gd_mk_margin_rate}}%</span>
+                        </b-col>
+                    </template>
+            
                 </b-row>
             </b-col>
         </h5>      
@@ -249,16 +258,20 @@
             </b-col>
             <b-col class="gm_price">
                 <b-input-group size="sm">
-                    <b-form-input :id="`goods_model.${i}.gm_price`" v-model='model.gm_price' class="text-right"></b-form-input>
+                    <b-form-input v-if="value.gd_mk_currency && value.gd_mk_currency !== 'KRW'" 
+                        :id="`goods_model.${i}.gm_price_origin`"
+                        v-model='model.gm_price_origin' class="text-right" v-b-tooltip="'현지통화 원가. 저장 시 환율/관세/마진 반영해 판매가 자동 계산'"></b-form-input>
+                    <b-form-input v-else
+                        :id="`goods_model.${i}.gm_price`" v-model='model.gm_price' class="text-right"></b-form-input>
                     <b-input-group-append is-text>
                         <b-form-checkbox switch class="mr-n2 mb-n1" v-model='model.gm_prime' value="Y" unchecked-value="N" @input="uniqueCheck(i)" v-b-tooltip="'대표 가격'"></b-form-checkbox>
                     </b-input-group-append>
                 </b-input-group>
-                <validation :error="$store.state.error.validations[`goods_model.${i}.gm_price`]"></validation>
-            
-                    <b-form-input class="sm text-right" v-model="model.gm_dc"></b-form-input>
-                   
-           
+
+                <validation v-if="value.gd_mk_currency && value.gd_mk_currency !== 'KRW'" :error="$store.state.error.validations[`goods_model.${i}.gm_price_origin`]"></validation>
+                <validation v-else :error="$store.state.error.validations[`goods_model.${i}.gm_price`]"></validation>
+
+                <b-form-input class="sm text-right" v-model="model.gm_dc"></b-form-input>
             </b-col>
             <b-col class="ctrlBox">
                 <b-button class="sm green" v-b-toggle="`bundleDc_box${i}`" v-b-tooltip="'묶음 할인'"><b-icon icon="tags-fill"></b-icon></b-button>
@@ -358,6 +371,7 @@ import MakerInput from '@/views/admin/shop/goods/_comp/MakerInput.vue';
 import OptionFinder from '@/views/admin/shop/goods/_comp/OptionFinder.vue';
 import RelateFinder from '@/views/admin/shop/goods/_comp/RelateFinder.vue';
 import LoadingModal from '@/views/_common/LoadingModal.vue';
+import FlagIcon from '@/views/admin/shop/goods/_comp/FlagIcon.vue';
 
 export default {
     name: 'admShopGoodsForm',
@@ -372,6 +386,7 @@ export default {
         'option-finder': OptionFinder,
         'relate-finder': RelateFinder,
         'loading-modal': LoadingModal,
+        'flag-icon': FlagIcon,
     },
     props: ['value', 'purchaseAt'],
     computed: {
@@ -465,7 +480,7 @@ export default {
         },
 
         insertAtModel() {
-            let tmp = { gm_name:'', gm_catno:'', gm_code:'', gm_spec:'', gm_unit:'', gm_enable:'Y', gm_prime:'N', gm_limit_ea:999999, gm_dc:0, gm_price:0, bundle_dc:[], bd_open:false };
+            let tmp = { gm_name:'', gm_catno:'', gm_code:'', gm_spec:'', gm_unit:'', gm_enable:'Y', gm_prime:'N', gm_limit_ea:999999, gm_dc:0, gm_price:0, gm_price_origin:0, bundle_dc:[], bd_open:false };
             if(this.value.goods_model.length==0) tmp.gm_prime = 'Y';
             this.value.goods_model.push(tmp); 
         },
@@ -592,7 +607,35 @@ export default {
             }
 
             this.aiModal = false;
-        }
+        },
+
+        currencyFlag(code) {
+            const flags = {
+                USD: '🇺🇸', 'JPY(100)': '🇯🇵', EUR: '🇪🇺', CNH: '🇨🇳',
+                AUD: '🇦🇺', GBP: '🇬🇧', CAD: '🇨🇦', HKD: '🇭🇰', SGD: '🇸🇬',
+            };
+            return flags[code] || '🏳️';
+        },
+
+        async checkExchangeRateFresh() {
+            if (!this.value.gd_mk_currency || this.value.gd_mk_currency === 'KRW') return true;
+
+            try {
+                const res = await ax.get(`/api/admin/shop/exchange-rate/latest/${encodeURIComponent(this.value.gd_mk_currency)}`);
+                const rate = res.data;
+
+                if (!rate || !rate.er_rate_date) {
+                    return await Notify.confirm(`[${this.value.gd_mk_currency}] 환율 정보가 아직 없습니다. 판매가가 0원으로 저장될 수 있는데 계속하시겠습니까?`, 'danger');
+                }
+                if (!rate.is_today) {
+                    return await Notify.confirm(`[${this.value.gd_mk_currency}] 환율이 오늘자가 아니라 ${rate.er_rate_date} 기준입니다. 이 환율로 저장하시겠습니까?`, 'warning');
+                }
+                return true;
+            } catch (e) {
+                Notify.consolePrint(e);
+                return await Notify.confirm('환율 정보 확인에 실패했습니다. 그래도 저장하시겠습니까?', 'danger');
+            }
+        },
     },
     mounted() { this.getCate(0); },
 }
@@ -621,6 +664,9 @@ export default {
 .goods_relate .list .col .btn_del { right:15px; }
 .goods_relate .list .col:hover .handle { transform:translateX(-50%) translateY(0); }
 .goods_relate .list .col:hover .btn_del { transform:translateY(0); }
+
+.model h5 .type04 { flex: 0 0 44%; max-width:44%; text-align:right; font-weight:300; font-size:.85rem; }
+.model h5 .type04 span { font-weight:300; }
 
 .model .head .col { text-align:center; font-size:.85em; display:flex; align-items:center; justify-content:center; flex-direction:column; height:58px; }
 .model .head .col p { margin:0; border-top:1px solid #CCC; width:100%; }
