@@ -889,11 +889,10 @@ export default {
                 
                 if (this.trans_email_selected_tit == 'c')
                     this.od.trans_email_tit = this.od.trans_email_tit_etc;
-
-                this.$set(this.od, 'file_nm', this.transFileBaseName());
             }
 
             if ( ['sendTrans', 'payReqMail'].indexOf(type) !== -1 ) {
+                this.$set(this.od, 'file_nm', this.transFileBaseName());
                 this.od.trans_email_type = type;
                 this.isModalViewed = false;
             } 

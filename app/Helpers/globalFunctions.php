@@ -228,7 +228,8 @@ if(! function_exists('saleEnv')) {
 
 if(! function_exists('cal_dc')) {
     function cal_dc ($p, $dc) {
-        return ($dc<=99) ? ($p*(100-intval($dc)))/100 : $p-$dc;
+        $result = ($dc<=99) ? ($p*(100-intval($dc)))/100 : $p-$dc;
+        return ceil($result / 10) * 10;   // 10원단위 올림
     }
 }
 

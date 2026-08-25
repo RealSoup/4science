@@ -51,7 +51,7 @@ class FetchExchangeRate extends Command {
                     'er_rate_date' => $searchDate->format('Y-m-d'), // 실제 고시일
                 ],
                 [
-                    'er_rate' => str_replace(',', '', $item['deal_bas_r']),
+                    'er_rate' => str_replace(',', '', $item['tts']),
                 ]
             );
             $saved++;
