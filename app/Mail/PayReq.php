@@ -23,10 +23,12 @@ class PayReq extends Mailable {
     }
 
     public function build() {
+        $fileNm = $this->params['file_nm'] ?? 'estimate';
+
         return $this->from($this->email, '4science')
             ->subject($this->subject)
             ->view("admin.order.email.payReq")
             ->with($this->params)
-            ->attach($this->file, [ 'as' => "{$this->params['file_nm'] ?? 'estimate'}.pdf", 'mime' => 'application/pdf' ]);
+            ->attach($this->file, [ 'as' => "{$fileNm}.pdf", 'mime' => 'application/pdf' ]);
     }
 }
