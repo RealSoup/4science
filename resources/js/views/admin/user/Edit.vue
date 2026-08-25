@@ -45,7 +45,7 @@
             <b-col>
                 <label>회원등급</label>
                 <div>
-                    <b-form-select v-model="frm.level" id="level" size="sm">
+                    <b-form-select v-model="frm.level" id="level" size="sm" :disabled="!user.is_super">
                         <b-form-select-option value="0"></b-form-select-option>
                         <b-form-select-option v-for="(level, k) in frm.option.level" :key="k" :value="k">{{level}}</b-form-select-option>
                     </b-form-select>
@@ -227,28 +227,28 @@
         <h5>관리자 정보</h5>
         <b-row>
             <b-col>
-                <b-form-checkbox switch size="lg" v-model="frm.user_mng.um_status" value="Y" unchecked-value="N">
+                <b-form-checkbox switch size="lg" v-model="frm.user_mng.um_status" value="Y" unchecked-value="N" :disabled="!user.is_super">
                     <b v-if="frm.user_mng.um_status=='N'">비</b>활성
                 </b-form-checkbox>
             </b-col>
 
             <b-col class="label">직위</b-col>
             <b-col class="type02">
-                <b-form-select v-model="frm.user_mng.um_position" id="um_position">
+                <b-form-select v-model="frm.user_mng.um_position" id="um_position" :disabled="!user.is_super">
                     <b-form-select-option v-for="(p, k) in frm.mng_info.position" :key="k" :value="k">{{p}}</b-form-select-option>
                 </b-form-select>
             </b-col>
 
             <b-col class="label">소속팀</b-col>
             <b-col class="type02">
-                <b-form-select v-model="frm.user_mng.um_group" id="um_group">
+                <b-form-select v-model="frm.user_mng.um_group" id="um_group" :disabled="!user.is_super">
                     <b-form-select-option v-for="(g, k) in frm.mng_info.group" :key="k" :value="k">{{g}}</b-form-select-option>
                 </b-form-select>
             </b-col>
 
             <b-col class="label">직책</b-col>
             <b-col class="type02">
-                <b-form-select v-model="frm.user_mng.um_responsibility" id="um_responsibility">
+                <b-form-select v-model="frm.user_mng.um_responsibility" id="um_responsibility" :disabled="!user.is_super">
                     <b-form-select-option :value="null">◖없음◗</b-form-select-option>
                     <b-form-select-option v-for="(p, k) in frm.mng_info.responsibility" :key="k" :value="k">{{p}}</b-form-select-option>
                 </b-form-select>

@@ -414,6 +414,8 @@ export default {
                 automatic_uploads: false,
                 images_upload_handler: this.gd_desc_images_upload,
                 convert_urls: false,
+                content_css: false,
+                skin: false,
             },
             aiKeyword: '',
             ai_sch_type: 'pitch',

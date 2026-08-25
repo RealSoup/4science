@@ -71,6 +71,13 @@ class UserController extends Controller {
     }
 
     public function update(Request $req, $id) {
+        $editor = auth()->user();
+
+        // 임시 관리자(레벨 21~24)는 회원정보 수정 권한 자체가 없음
+        if ($editor->level >= 21 && $editor->level <= 24) {
+            abort(403, '임시 관리자는 회원정보를 수정할 수 없습니다.');
+        }
+
         $user_biz = null;
         $update = [
             'email' => $req->filled('email') ? $req->email : '',
@@ -79,7 +86,6 @@ class UserController extends Controller {
             'hp' => $req->filled('hp') ? $req->hp : '',
             'tel' => $req->filled('tel') ? $req->tel : '',
             'fax' => $req->filled('fax') ? $req->fax : '',
-            'level' => $req->filled('level') ? $req->level : 1,
             'group' => $req->filled('group') ? $req->group : '일반',
             'birth' => $req->filled('birth') ? $req->birth : '',
             'job' => $req->filled('job') ? $req->job : '',
@@ -89,18 +95,21 @@ class UserController extends Controller {
             'tutor' => $req->filled('tutor') ? $req->tutor : '',
             'offer' => $req->filled('offer') ? $req->offer : '',
             'offer_lab' => $req->filled('offer_lab') ? $req->offer_lab : '',
-            
             'interest_etc' => $req->filled('interest_etc') ? $req->interest_etc : '',
             'join_route' => $req->filled('join_route') ? $req->join_route : '',
             'receive_sms' => $req->filled('receive_sms') ? $req->receive_sms : 'Y',
             'receive_mail' => $req->filled('receive_mail') ? $req->receive_mail : 'Y',
             'mng' => $req->filled('mng') ? $req->mng : 0,
         ];
-        
+
+        // 등급(level)은 최고관리자만 변경 가능 - 아니면 기존 값 그대로 둠(안 건드림)
+        if ($editor->is_super) {
+            $update['level'] = $req->filled('level') ? $req->level : 1;
+        }
+
         if ( $req->filled('password_confirmation') ) $update['password'] = bcrypt($req->password);
         DB::table('users')->where('id', $id)->update($update);
-        
-        // 'interest' => $req->filled('interest') ? implode(", ", $req->interest) : '',
+
         if ( in_array($req->level, [11, 12]) ) {
             $user_biz = UserBiz::updateOrCreate(
                 [   'ub_papa_id' => $id ],
@@ -115,14 +124,14 @@ class UserController extends Controller {
                     'ub_cond'      => array_key_exists('ub_cond',      $req->user_biz) ? $req->user_biz['ub_cond']      : '',
                     'updated_id'   => auth()->check()                                  ? auth()->user()->id             : 0, ]
             );
-        } else if ( $req->level > 20 ) {
+        // 직위/소속팀/직책/관리자활성화는 최고관리자만 변경 가능
+        } else if ( $editor->is_super && $req->filled('level') && $req->level > 20 ) {
             DB::table('user_mng')->updateOrInsert(
             [   'um_user_id' => $id ],
             [   'um_status'         => array_key_exists('um_status', $req->user_mng) ? $req->user_mng['um_status'] : 'Y',
                 'um_position'       => array_key_exists('um_position', $req->user_mng) ? $req->user_mng['um_position'] : 1,
                 'um_group'          => array_key_exists('um_group', $req->user_mng) ? $req->user_mng['um_group'] : 'etc',
                 'um_responsibility' => array_key_exists('um_responsibility', $req->user_mng) ? $req->user_mng['um_responsibility'] : NULL, ]);
-            // Cache::forget("UserMng");
             DB::table('infos')->where('key', 'update_key_user_mng')->update(['val' => uniqid()]);
         }
         $rst = [ 'message' => 'success' ];
