@@ -22,8 +22,9 @@ class CleanupTmpPriceExcel extends Command {
                 $deleted++;
             }
         }
-
+        
         $this->info("임시 폴더 정리 완료: {$deleted}건 삭제");
+        \Log::channel('cleanup-tmp-price-excel')->info("cleanup:tmp-price-excel - {$deleted}건 삭제");
     }
 
     private function deleteDir($dir) {

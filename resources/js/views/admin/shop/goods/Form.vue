@@ -200,7 +200,8 @@
            
                     <template v-if="value.gd_mk_currency && value.gd_mk_currency !== 'KRW'">
                         <b-col class="type04 orange">
-                            통화종류:<flag-icon :code="value.gd_mk_currency"></flag-icon> <span>{{value.gd_mk_currency}}</span> /
+                            환율:<flag-icon :code="value.gd_mk_currency"></flag-icon><span>{{value.gd_mk_currency}}</span>
+                                [<span style="color:red;">{{value.gd_mk_rate}}</span>] /
                             관세:<span>{{value.gd_mk_customs_rate}}%</span> /
                             마진:<span>{{value.gd_mk_margin_rate}}%</span>
                         </b-col>
@@ -665,7 +666,7 @@ export default {
 .goods_relate .list .col:hover .handle { transform:translateX(-50%) translateY(0); }
 .goods_relate .list .col:hover .btn_del { transform:translateY(0); }
 
-.model h5 .type04 { flex: 0 0 44%; max-width:44%; text-align:right; font-weight:300; font-size:.85rem; }
+.model h5 .type04 { flex: 0 0 50%; max-width:50%; text-align:right; font-weight:300; font-size:.85rem; }
 .model h5 .type04 span { font-weight:300; }
 
 .model .head .col { text-align:center; font-size:.85em; display:flex; align-items:center; justify-content:center; flex-direction:column; height:58px; }

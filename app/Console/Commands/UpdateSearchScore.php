@@ -68,6 +68,7 @@ class UpdateSearchScore extends Command {
             $this->info('청크 ' . ($ci + 1) . '/' . count($chunks) . ' 완료');
         }
 
+        \Log::channel('search-score')->info('search:update-score - ES 문서 ' . count($rows) . '건, ' . count($chunks) . '개 청크로 score 갱신 완료 (max click=' . $maxClick . ', max purchase=' . $maxPurchase . ', max estimate=' . $maxEstimate . ')');
         $this->info('✅ ES 업데이트 완료!');
     }
 }

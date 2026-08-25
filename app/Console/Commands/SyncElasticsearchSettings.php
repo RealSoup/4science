@@ -19,6 +19,7 @@ class SyncElasticsearchSettings extends Command
         if ($client->indices()->exists(['index' => 'shop_goods'])->asBool()) {
             $client->indices()->delete(['index' => 'shop_goods']);
             $this->info('기존 인덱스 삭제 완료');
+            \Log::channel('sync-es-settings')->info('scout:sync-settings - 기존 shop_goods 인덱스 삭제됨');
         }
 
         $client->indices()->create([
@@ -117,10 +118,12 @@ class SyncElasticsearchSettings extends Command
         ]);
 
         $this->info('✅ 인덱스 설정 완료!');
+        \Log::channel('sync-es-settings')->info('scout:sync-settings - 인덱스 재생성 및 설정 적용 완료');
         $this->info('재인덱싱 시작...');
 
         $this->call('scout:import', ['model' => 'App\Models\Shop\Goods']);
 
         $this->info('✅ 모든 작업 완료!');
+        \Log::channel('sync-es-settings')->info('scout:sync-settings - 재인덱싱 포함 전체 작업 완료');
     }
 }

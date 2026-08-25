@@ -100,6 +100,12 @@ class GoodsController extends Controller {
                     "mk.mk_currency as gd_mk_currency", 
                     "mk.mk_customs_rate as gd_mk_customs_rate", 
                     "mk.mk_margin_rate as gd_mk_margin_rate")
+            ->addSelect(['gd_mk_rate' => DB::table('shop_exchange_rate')
+                ->select('er_rate')
+                ->whereColumn('er_cur_unit', 'mk.mk_currency')
+                ->orderByDesc('er_rate_date')
+                ->limit(1)
+            ])
             ->leftJoin('shop_makers as mk', 'mk.mk_id', '=', 'shop_goods.gd_mk_id')
             ->with('goodsModel')
             ->with('goodsOption')

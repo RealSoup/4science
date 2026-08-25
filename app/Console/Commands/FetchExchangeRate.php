@@ -26,7 +26,7 @@ class FetchExchangeRate extends Command {
             ]);
 
             if (!$response->successful()) {
-                Log::error('[ExchangeRate] API 호출 실패', ['status' => $response->status()]);
+                Log::channel('exchange-rate')->error('[ExchangeRate] API 호출 실패', ['status' => $response->status()]);
                 return;
             }
 
@@ -37,7 +37,7 @@ class FetchExchangeRate extends Command {
         }
 
         if (empty($rates)) {
-            Log::warning('[ExchangeRate] 최근 7일 내 고시된 환율을 찾지 못함. 기존 값 유지.');
+            Log::channel('exchange-rate')->warning('[ExchangeRate] 최근 7일 내 고시된 환율을 찾지 못함. 기존 값 유지.');
             return;
         }
 
@@ -58,5 +58,6 @@ class FetchExchangeRate extends Command {
         }
 
         $this->info("환율 저장 완료: {$saved}건 (고시일 " . $searchDate->format('Y-m-d') . ')');
+        Log::channel('exchange-rate')->info("exchange-rate:fetch - {$saved}건 저장 (고시일 " . $searchDate->format('Y-m-d') . ')');
     }
 }

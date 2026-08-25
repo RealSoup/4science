@@ -114,10 +114,52 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
         
+        'top-selling-cache' => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/scheduler/top-selling-cache/top-selling-cache.log'),
+            'days'   => 14,
+        ],
+
+        'search-score' => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/scheduler/search-score/search-score.log'),
+            'days'   => 14,
+        ],
+
         'behavior' => [
             'driver' => 'daily',
-            'path'   => storage_path('logs/behavior.log'),
+            'path'   => storage_path('logs/scheduler/behavior/behavior.log'),
             'days'   => 30,
+        ],
+
+        'exchange-rate' => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/scheduler/exchange-rate/exchange-rate.log'),
+            'days'   => 30,
+        ],
+
+        'goods-recalc-foreign-price' => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/scheduler/goods-recalc-foreign-price/goods-recalc-foreign-price.log'),
+            'days'   => 14,
+        ],
+
+        'cleanup-estimate-pdf' => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/scheduler/cleanup-estimate-pdf/cleanup-estimate-pdf.log'),
+            'days'   => 14,
+        ],
+
+        'cleanup-tmp-price-excel' => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/scheduler/cleanup-tmp-price-excel/cleanup-tmp-price-excel.log'),
+            'days'   => 14,
+        ],
+
+        'sync-es-settings' => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/scheduler/sync-es-settings/sync-es-settings.log'),
+            'days'   => 14,
         ],
     ],
 

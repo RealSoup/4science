@@ -25,6 +25,7 @@ class CleanupEstimatePdf extends Command {
         }
 
         $this->info("견적서 PDF 정리 완료: {$deleted}건 삭제 (전체 {$this->countFiles($files)}건 중)");
+        \Log::channel('cleanup-estimate-pdf')->info("cleanup:estimate-pdf - {$deleted}건 삭제 (전체 " . $this->countFiles($files) . "건 중)");
     }
 
     private function countFiles($files) {

@@ -14,7 +14,6 @@ class RecalcForeignGoodsPrice extends Command {
     const CHUNK_SIZE = 5000;
 
     public function handle() {
-        $prefix = DB::getTablePrefix(); // 'la_' — 별칭에도 프리픽스가 붙으므로 raw SQL에서 맞춰줘야 함
         $currencies = Maker::where('mk_currency', '!=', 'KRW')->distinct()->pluck('mk_currency');
         $total = 0;
 
@@ -22,6 +21,7 @@ class RecalcForeignGoodsPrice extends Command {
             $rate = ExchangeRate::current($currency);
             if (!$rate) {
                 $this->warn("[{$currency}] 환율 정보 없음, 건너뜀");
+                \Log::channel('goods-recalc-foreign-price')->warning("goods:recalc-foreign-price - [{$currency}] 환율 정보 없음, 건너뜀");
                 continue;
             }
 
@@ -49,7 +49,7 @@ class RecalcForeignGoodsPrice extends Command {
                     ->whereIn('gm.gm_id', $ids)
                     ->update([
                         'gm.gm_price' => DB::raw(
-                            "CEIL(({$prefix}gm.gm_price_origin * " . floatval($unitRate) . " * (1 + {$prefix}mk.mk_customs_rate/100) * (1 + {$prefix}mk.mk_margin_rate/100)) / 100) * 100"
+                            'CEIL((gm.gm_price_origin * ' . floatval($unitRate) . ' * (1 + mk.mk_customs_rate/100) * (1 + mk.mk_margin_rate/100)) / 100) * 100'
                         ),
                     ]);
 
@@ -61,5 +61,6 @@ class RecalcForeignGoodsPrice extends Command {
         }
 
         $this->info("판매가 재계산 완료: {$total}건");
+        \Log::channel('goods-recalc-foreign-price')->info("goods:recalc-foreign-price - {$total}건 갱신 완료");
     }
 }

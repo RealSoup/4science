@@ -16,7 +16,8 @@ class Kernel extends ConsoleKernel {
     protected function schedule(Schedule $schedule) {
         // 많이 팔린 상품 탑20 캐시 새로고침
         $schedule->call(function () {
-            \DB::table('infos')->where('key', 'update_key_top_selling')->update(['val' => uniqid()]);
+            $affected = \DB::table('infos')->where('key', 'update_key_top_selling')->update(['val' => uniqid()]);
+            \Log::channel('top-selling-cache')->info("top-selling-cache - infos.update_key_top_selling 갱신 완료 (영향받은 행: {$affected}건)");
         })->dailyAt('04:00');
 
         // 검색 score 업데이트
