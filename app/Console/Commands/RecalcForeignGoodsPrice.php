@@ -14,6 +14,7 @@ class RecalcForeignGoodsPrice extends Command {
     const CHUNK_SIZE = 5000;
 
     public function handle() {
+        $prefix = DB::getTablePrefix(); // 'la_' — 별칭에도 프리픽스가 붙으므로 raw SQL에서 맞춰줘야 함
         $currencies = Maker::where('mk_currency', '!=', 'KRW')->distinct()->pluck('mk_currency');
         $total = 0;
 
@@ -49,7 +50,7 @@ class RecalcForeignGoodsPrice extends Command {
                     ->whereIn('gm.gm_id', $ids)
                     ->update([
                         'gm.gm_price' => DB::raw(
-                            'CEIL((gm.gm_price_origin * ' . floatval($unitRate) . ' * (1 + mk.mk_customs_rate/100) * (1 + mk.mk_margin_rate/100)) / 100) * 100'
+                            "CEIL(({$prefix}gm.gm_price_origin * " . floatval($unitRate) . " * (1 + {$prefix}mk.mk_customs_rate/100) * (1 + {$prefix}mk.mk_margin_rate/100)) / 100) * 100"
                         ),
                     ]);
 
