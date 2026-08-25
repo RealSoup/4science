@@ -666,7 +666,7 @@ export default {
 .goods_relate .list .col:hover .handle { transform:translateX(-50%) translateY(0); }
 .goods_relate .list .col:hover .btn_del { transform:translateY(0); }
 
-.model h5 .type04 { flex: 0 0 50%; max-width:50%; text-align:right; font-weight:300; font-size:.85rem; background-color:#ff7800; border-radius:10px; }
+.model h5 .type04 { flex: 0 0 50%; max-width:50%; text-align:right; font-weight:300; font-size:.85rem; background-color:#ff7800; color:#fff; border-radius:10px; }
 .model h5 .type04 span { font-weight:300; }
 
 .model .head .col { text-align:center; font-size:.85em; display:flex; align-items:center; justify-content:center; flex-direction:column; height:58px; }
