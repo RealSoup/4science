@@ -17,7 +17,7 @@ class FetchExchangeRate extends Command {
         $rates = [];
 
         // 최대 7일 전까지 거슬러 올라가며 가장 최근 고시된 환율을 찾음
-        //  매매기준율 (은행 간 도매가) 가격을 가져온다
+        //  송금 보낼때 가격을 가져온다
         for ($i = 0; $i < 7; $i++) {
 
             try {
@@ -44,7 +44,24 @@ class FetchExchangeRate extends Command {
             }
 
             $rates = $response->json();
-            if (!empty($rates)) break;
+            if (!empty($rates)) {
+                $badResult = collect($rates)->first(fn($item) => ($item['result'] ?? null) != 1);
+                if ($badResult) {
+                    $reason = match ((int) ($badResult['result'] ?? 0)) {
+                        2 => 'DATA 코드 오류',
+                        3 => '인증코드 오류',
+                        4 => '일일제한횟수 마감',
+                        default => '알 수 없는 오류',
+                    };
+                    Log::channel('exchange-rate')->error('[ExchangeRate] API 결과 코드 오류', [
+                        'result' => $badResult['result'] ?? null,
+                        'reason' => $reason,
+                        'date'   => $searchDate->format('Ymd'),
+                    ]);
+                    return; // 인증/한도 문제는 날짜 바꿔도 해결 안 되므로 재시도 무의미
+                }
+                break;
+            }
 
             $searchDate->subDay();
         }
