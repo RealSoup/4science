@@ -53,6 +53,7 @@
                 <b-link v-if="frm.created_id" @click="openWinPop(`/admin/user/${frm.created_id}/edit`, 1700, 900)">
                     {{frm.eq_name}}
                 </b-link>
+                <span v-else>{{frm.eq_name}}</span>
             </b-col>
             <b-col>연락처</b-col><b-col>{{ frm.eq_hp }}<span v-if="frm.eq_tel"> / {{ frm.eq_tel }}</span></b-col>
         </b-row>
