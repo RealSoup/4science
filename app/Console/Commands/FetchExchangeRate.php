@@ -19,13 +19,25 @@ class FetchExchangeRate extends Command {
         // 최대 7일 전까지 거슬러 올라가며 가장 최근 고시된 환율을 찾음
         //  매매기준율 (은행 간 도매가) 가격을 가져온다
         for ($i = 0; $i < 7; $i++) {
-            $response = Http::withOptions([ 'curl' => [ CURLOPT_SSLVERSION => 6, ], ])
-            ->get('https://oapi.koreaexim.go.kr/site/program/financial/exchangeJSON', [
-                'authkey'    => env('EXCHANGE_RATE_API_KEY'),
-                'searchdate' => $searchDate->format('Ymd'),
-                'data'       => 'AP01',
-            ]);
 
+            try {
+                $response = Http::retry(3, 2000)
+                    ->timeout(10)
+                    ->get('https://oapi.koreaexim.go.kr/site/program/financial/exchangeJSON', [
+                        'authkey'    => env('EXCHANGE_RATE_API_KEY'),
+                        'searchdate' => $searchDate->format('Ymd'),
+                        'data'       => 'AP01',
+                    ]);
+            } catch (\Illuminate\Http\Client\ConnectionException $e) {
+                // 연결 자체가 실패한 경우 (TCP reset, timeout 등) - 그날 고시 없음과 구분해서 다음날로 폴백
+                Log::channel('exchange-rate')->error('[ExchangeRate] 연결 실패, 하루 전 날짜로 재시도', [
+                    'date'    => $searchDate->format('Ymd'),
+                    'message' => $e->getMessage(),
+                ]);
+                $searchDate->subDay();
+                continue;
+            }
+            
             if (!$response->successful()) {
                 Log::channel('exchange-rate')->error('[ExchangeRate] API 호출 실패', ['status' => $response->status()]);
                 return;

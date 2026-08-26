@@ -277,8 +277,15 @@ class GoodsController extends Controller {
         // DB::enableQueryLog();
         $data = null;
         $gd_id_str = \Cookie::get('RecentGoods');
-        if ($gd_id_str)
-            $data = $this->goods->whereIn('gd_id', explode(',', $gd_id_str))->orderByRaw('FIELD(gd_id, '.$gd_id_str.')')->get();
+        if ($gd_id_str) {
+            // 숫자와 콤마만 남기고 나머지는 제거 → 잘못된/악의적 값 원천 차단
+            $ids = array_filter(array_map('intval', explode(',', $gd_id_str)));
+            if ($ids) {
+                $data = $this->goods->whereIn('gd_id', $ids)
+                    ->orderByRaw('FIELD(gd_id, ' . implode(',', $ids) . ')') // 이제 순수 정수만 들어가므로 안전
+                    ->get();
+            }
+        }
         return response()->json($data);
     }
 
