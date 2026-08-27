@@ -28,10 +28,10 @@ class FetchExchangeRate extends Command {
                         'searchdate' => $searchDate->format('Ymd'),
                         'data'       => 'AP01',
                     ]);
-            } catch (\Illuminate\Http\Client\ConnectionException $e) {
-                // 연결 자체가 실패한 경우 (TCP reset, timeout 등) - 그날 고시 없음과 구분해서 다음날로 폴백
+            } catch (\Illuminate\Http\Client\ConnectionException | \GuzzleHttp\Exception\GuzzleException $e) {
                 Log::channel('exchange-rate')->error('[ExchangeRate] 연결 실패, 하루 전 날짜로 재시도', [
                     'date'    => $searchDate->format('Ymd'),
+                    'type'    => get_class($e),
                     'message' => $e->getMessage(),
                 ]);
                 $searchDate->subDay();

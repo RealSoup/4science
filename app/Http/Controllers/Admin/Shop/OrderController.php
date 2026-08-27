@@ -105,15 +105,15 @@ class OrderController extends Controller {
 					$orders = $orders->whereIn('od_id', (count($ids) ? $ids : ['']));
 				break;
 				case 'gm_name':
-					$ids = OrderModel::where('odm_gm_name', 'like', "%{$txt}%")->pluck('odm_od_id');
-					$orders = $orders->whereIn('od_id', (count($ids) ? $ids : ['']));
+					$ids = OrderModel::where('odm_gm_name', 'like', "%{$txt}%")->pluck('odm_od_id')->unique();
+ 					$orders = $orders->whereIn('od_id', (count($ids) ? $ids : ['']));
 				break;
 				case 'gm_code':
-					$ids = OrderModel::where('odm_gm_code', 'like', "%{$txt}%")->pluck('odm_od_id');
+					$ids = OrderModel::where('odm_gm_code', 'like', "%{$txt}%")->pluck('odm_od_id')->unique();
 					$orders = $orders->whereIn('od_id', (count($ids) ? $ids : ['']));
 				break;
 				case 'catno':
-					$ids = OrderModel::where('odm_gm_catno', 'like', "{$txt}%")->pluck('odm_od_id');
+					$ids = OrderModel::where('odm_gm_catno', 'like', "{$txt}%")->pluck('odm_od_id')->unique();
 					$orders = $orders->whereIn('od_id', (count($ids) ? $ids : ['']));
 				break;
 				case 'u_id':			$orders = $orders->where('created_id', $txt); break;
