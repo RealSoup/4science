@@ -140,29 +140,31 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             angle = 0;
             paused = false; // ✅ animate와 같은 스코프에 있어야 함
             scene = document.querySelector('#banner_box .area_bl .scene');
-            scene.addEventListener('mouseenter', function () {
-              paused = true;
-              var spreadAngle = 360 / total;
-              items.forEach(function (item, i) {
-                var targetTheta = i * spreadAngle + 90;
-                var targetRad = targetTheta * Math.PI / 180;
-                var x = Math.sin(targetRad) * radius;
-                var y = Math.cos(targetRad) * 60;
-                var scale = 0.6 + (Math.cos(targetRad) + 1) / 2 * 0.4;
-                item.style.transition = 'transform 0.5s ease';
-                item.style.transform = "translateX(".concat(x, "px) translateY(").concat(y, "px) scale(").concat(scale, ")");
-                item.style.zIndex = Math.round(scale * 10);
+            if (scene) {
+              scene.addEventListener('mouseenter', function () {
+                paused = true;
+                var spreadAngle = 360 / total;
+                items.forEach(function (item, i) {
+                  var targetTheta = i * spreadAngle + 90;
+                  var targetRad = targetTheta * Math.PI / 180;
+                  var x = Math.sin(targetRad) * radius;
+                  var y = Math.cos(targetRad) * 60;
+                  var scale = 0.6 + (Math.cos(targetRad) + 1) / 2 * 0.4;
+                  item.style.transition = 'transform 0.5s ease';
+                  item.style.transform = "translateX(".concat(x, "px) translateY(").concat(y, "px) scale(").concat(scale, ")");
+                  item.style.zIndex = Math.round(scale * 10);
+                });
               });
-            });
-            scene.addEventListener('mouseleave', function () {
-              paused = false;
-              items.forEach(function (item) {
-                return item.style.transition = '';
+              scene.addEventListener('mouseleave', function () {
+                paused = false;
+                items.forEach(function (item) {
+                  return item.style.transition = '';
+                });
               });
-            });
+            }
             animate();
             /////////////////////    회전 베너  끝   //////////////////////////
-          case 26:
+          case 25:
           case "end":
             return _context.stop();
         }

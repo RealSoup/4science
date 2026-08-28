@@ -277,27 +277,29 @@ export default {
         let paused = false;  // ✅ animate와 같은 스코프에 있어야 함
 
         const scene = document.querySelector('#banner_box .area_bl .scene');
+        
+        if (scene) {
+            scene.addEventListener('mouseenter', () => {
+                paused = true;
+                const spreadAngle = 360 / total;
+                items.forEach((item, i) => {
+                    const targetTheta = i * spreadAngle + 90;
+                    const targetRad = targetTheta * Math.PI / 180;
+                    const x = Math.sin(targetRad) * radius;
+                    const y = Math.cos(targetRad) * 60;
+                    const scale = 0.6 + (Math.cos(targetRad) + 1) / 2 * 0.4;
 
-        scene.addEventListener('mouseenter', () => {
-            paused = true;
-            const spreadAngle = 360 / total;
-            items.forEach((item, i) => {
-                const targetTheta = i * spreadAngle + 90;
-                const targetRad = targetTheta * Math.PI / 180;
-                const x = Math.sin(targetRad) * radius;
-                const y = Math.cos(targetRad) * 60;
-                const scale = 0.6 + (Math.cos(targetRad) + 1) / 2 * 0.4;
-
-                item.style.transition = 'transform 0.5s ease';
-                item.style.transform = `translateX(${x}px) translateY(${y}px) scale(${scale})`;
-                item.style.zIndex = Math.round(scale * 10);
+                    item.style.transition = 'transform 0.5s ease';
+                    item.style.transform = `translateX(${x}px) translateY(${y}px) scale(${scale})`;
+                    item.style.zIndex = Math.round(scale * 10);
+                });
             });
-        });
 
-        scene.addEventListener('mouseleave', () => {
-            paused = false;
-            items.forEach(item => item.style.transition = '');
-        });
+            scene.addEventListener('mouseleave', () => {
+                paused = false;
+                items.forEach(item => item.style.transition = '');
+            });
+        }
 
         function animate() {
             if (!paused) {

@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel {
         //  15분마다 유저 패턴 입력
         $schedule->command('behavior:flush')->everyFifteenMinutes();
         // 일일 환율 갱신 (수출입은행)
-        $schedule->command('exchange-rate:fetch')->dailyAt('13:15')->withoutOverlapping();
+        $schedule->command('exchange-rate:fetch')->dailyAt('12:00')->withoutOverlapping();
         // 5분후 해외가격 한화로 계산 등록
         $schedule->command('goods:recalc-foreign-price')->dailyAt('12:05')->withoutOverlapping();
         // 견적서 PDF 임시파일 정리 (큐 발송 여유 24시간 확보 후 삭제)
