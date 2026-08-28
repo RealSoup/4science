@@ -114,13 +114,27 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
         
+        'scheduler-summary' => [
+            'driver' => 'custom',
+            'via'    => \App\Logging\ScheduleSummaryLoggerFactory::class,
+            'level'  => 'debug',
+        ],
+
         'top-selling-cache' => [
+            'driver'   => 'stack',
+            'channels' => ['top-selling-cache-detail', 'scheduler-summary'],
+        ],
+        'top-selling-cache-detail' => [
             'driver' => 'daily',
             'path'   => storage_path('logs/scheduler/top-selling-cache/top-selling-cache.log'),
             'days'   => 14,
         ],
 
         'search-score' => [
+            'driver'   => 'stack',
+            'channels' => ['search-score-detail', 'scheduler-summary'],
+        ],
+        'search-score-detail' => [
             'driver' => 'daily',
             'path'   => storage_path('logs/scheduler/search-score/search-score.log'),
             'days'   => 14,
@@ -133,24 +147,40 @@ return [
         ],
 
         'exchange-rate' => [
+            'driver'   => 'stack',
+            'channels' => ['exchange-rate-detail', 'scheduler-summary'],
+        ],
+        'exchange-rate-detail' => [
             'driver' => 'daily',
             'path'   => storage_path('logs/scheduler/exchange-rate/exchange-rate.log'),
             'days'   => 30,
         ],
 
         'goods-recalc-foreign-price' => [
+            'driver'   => 'stack',
+            'channels' => ['goods-recalc-foreign-price-detail', 'scheduler-summary'],
+        ],
+        'goods-recalc-foreign-price-detail' => [
             'driver' => 'daily',
             'path'   => storage_path('logs/scheduler/goods-recalc-foreign-price/goods-recalc-foreign-price.log'),
             'days'   => 14,
         ],
 
         'cleanup-estimate-pdf' => [
+            'driver'   => 'stack',
+            'channels' => ['cleanup-estimate-pdf-detail', 'scheduler-summary'],
+        ],
+        'cleanup-estimate-pdf-detail' => [
             'driver' => 'daily',
             'path'   => storage_path('logs/scheduler/cleanup-estimate-pdf/cleanup-estimate-pdf.log'),
             'days'   => 14,
         ],
 
         'cleanup-tmp-price-excel' => [
+            'driver'   => 'stack',
+            'channels' => ['cleanup-tmp-price-excel-detail', 'scheduler-summary'],
+        ],
+        'cleanup-tmp-price-excel-detail' => [
             'driver' => 'daily',
             'path'   => storage_path('logs/scheduler/cleanup-tmp-price-excel/cleanup-tmp-price-excel.log'),
             'days'   => 14,

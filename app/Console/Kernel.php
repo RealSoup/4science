@@ -22,7 +22,7 @@ class Kernel extends ConsoleKernel {
 
         // 검색 score 업데이트
         $schedule->command('search:update-score')->dailyAt('03:00');
-        //  15분마다 유정 패정 입력
+        //  15분마다 유저 패턴 입력
         $schedule->command('behavior:flush')->everyFifteenMinutes();
         // 일일 환율 갱신 (수출입은행)
         $schedule->command('exchange-rate:fetch')->dailyAt('11:30')->withoutOverlapping();

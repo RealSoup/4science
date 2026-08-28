@@ -77,6 +77,31 @@
             </div>
         </b-col>
     </b-row>
+
+    <b-row class="mt-4">
+        <b-col cols="12" class="schedule">
+            <h4>스케줄 작업 로그 (최근 7일)</h4>
+            <div class="box">
+                <div v-if="!scheduleLog.length" class="empty">기록된 로그가 없습니다.</div>
+                <div v-for="(day, i) in scheduleLog" :key="day.date" class="day">
+                    <b-button block v-b-toggle="'sched-' + day.date"
+                        :variant="day.hasIssue ? 'outline-danger' : 'outline-secondary'">
+                        {{ day.date }}
+                        <b-badge :variant="day.hasIssue ? 'danger' : 'success'" class="ml-2">
+                            {{ day.hasIssue ? '확인 필요' : '정상' }}
+                        </b-badge>
+                    </b-button>
+                    <b-collapse :id="'sched-' + day.date" :visible="i === 0">
+                        <div v-for="(job, idx) in day.jobs" :key="idx" :class="['log-line', job.level.toLowerCase()]">
+                            <span class="time">{{ job.time }}</span>
+                            <span class="label">{{ job.label }}</span>
+                            <span class="msg">{{ job.message }}</span>
+                        </div>
+                    </b-collapse>
+                </div>
+            </div>
+        </b-col>
+    </b-row>
 </b-container>
 </template>
 
@@ -85,7 +110,7 @@ import ax from '@/api/http';
 export default {
     name: 'admMain',
 
-    data() { return { con:{ order:{ 10:0, 11:0, 12:0, 20:0, 30:0, 40:0, 50:0, 60:0, }, estimateReq:[] } }; },
+    data() { return { con:{ order:{ 10:0, 11:0, 12:0, 20:0, 30:0, 40:0, 50:0, 60:0, }, estimateReq:[] }, scheduleLog:[] }; },
     computed: {
         order_7() { return Object.values(this.con.order).reduce((acc, el) => acc + el , 0); },
         // estimate_7() { return Object.values(this.con.estimateReq).reduce((acc, el) => acc + el , 0); },
@@ -93,9 +118,14 @@ export default {
     async mounted() {
         try {
             const res = await ax.get(`/api/admin`);
-            if (res && res.status === 200) {
+            if (res && res.status === 200)
                 this.con = res.data;
-            }
+
+            const logRes = await ax.get(`/api/admin/scheduleLog`);
+            if (logRes && logRes.status === 200)
+                this.scheduleLog = logRes.data;
+            
+            
         } catch (e) {
             Notify.consolePrint(e);
             Notify.toast('warning', e.response.data.message);
@@ -151,4 +181,17 @@ export default {
     .p_wrap .row .left { margin-bottom:9%; }
 
 }
+
+.p_wrap .schedule .box { border-color:#8368D6; }
+.p_wrap .schedule .day { margin-bottom:.5rem; }
+.p_wrap .schedule .day:last-child { margin-bottom:0; }
+.p_wrap .schedule .log-line { padding:.35rem .5rem; font-size:.85rem; border-bottom:1px solid #eee; }
+.p_wrap .schedule .log-line .time { color:#888; margin-right:.75rem; }
+.p_wrap .schedule .log-line .level { font-weight:700; margin-right:.75rem; }
+.p_wrap .schedule .log-line .label { font-weight:700; margin-right:.75rem; }
+.p_wrap .schedule .log-line.warning { background:#FFF8E1; }
+.p_wrap .schedule .log-line.warning .level { color:#B8860B; }
+.p_wrap .schedule .log-line.error { background:#FDECEA; }
+.p_wrap .schedule .log-line.error .level { color:#C0392B; }
+.p_wrap .schedule .empty { padding:1rem; color:#999; text-align:center; }
 </style>

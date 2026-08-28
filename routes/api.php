@@ -103,6 +103,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         /*  <<<<<<<<<<<<<<<<<<<<<<      관리자        >>>>>>>>>>>>>>>>>>>>>>>*/
         Route::prefix('admin')->group(function () {
             Route::Get('/', 'Admin\MainController@index');
+            Route::Get('scheduleLog', 'Admin\MainController@scheduleLog');
             Route::prefix('common')->group(function () {
                 Route::GET('/', 'Admin\CommonController@index');
             });
