@@ -78,7 +78,7 @@
         </b-col>
     </b-row>
 
-    <b-row class="mt-4">
+    <!-- <b-row class="mt-4">
         <b-col cols="12" class="schedule">
             <h4>스케줄 작업 로그 (최근 7일)</h4>
             <div class="box">
@@ -101,7 +101,7 @@
                 </div>
             </div>
         </b-col>
-    </b-row>
+    </b-row> -->
 </b-container>
 </template>
 
