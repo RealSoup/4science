@@ -36,14 +36,14 @@
             </b-carousel-slide>
             
             -->
-            <b-carousel-slide img-src="/storage/event/2026/0720/slide.jpg" class="evt01">
+            <!-- <b-carousel-slide img-src="/storage/event/2026/0720/slide.jpg" class="evt01">
                 <router-link to="/shop/goods?ca01=41&ca02=8289" id="app01" class="split_link">
                     <span class="tooltiptext">바로가기</span>
                 </router-link>
                 <router-link to="/shop/goods?ca01=26&ca02=1041" id="app02" class="split_link">
                     <span class="tooltiptext">바로가기</span>
                 </router-link>
-            </b-carousel-slide>
+            </b-carousel-slide> -->
 
             <b-link to="/shop/makerShop/39">
                 <b-carousel-slide img-src="/storage/main/slide/260601.jpg" alt="초당 22,000번의 완벽한 빛 제어, 산업과 양지(Quantum) 혁신하다. vialux"></b-carousel-slide>
