@@ -57,17 +57,17 @@ class EstimateReq extends Model {
         // if ($id_arr->count() == 0) $id_arr = [0];
         return $query->whereIn('eq_id', $id_arr);
     }
-    public function scopeEqName($query, $keyword) { return $query->where('eq_name', 'like', "%" . $keyword . "%"); }
+    public function scopeEqName($query, $keyword)   { return $query->where('eq_name', 'like', "%" . $keyword . "%"); }
     public function scopeEqCompany($query, $keyword) { return $query->where('eq_company', 'like', "%" . $keyword . "%"); }
-    public function scopeEqTel($query, $keyword) { return $query->where('eq_tel', 'like', "%" . $keyword . "%"); }
-    public function scopeEqEmail($query, $keyword) { return $query->where('eq_email', 'like', "%" . $keyword . "%"); }
+    public function scopeEqTel($query, $keyword)    { return $query->where('eq_tel', 'like', "%" . $keyword . "%"); }
+    public function scopeEqEmail($query, $keyword)  { return $query->where('eq_email', 'like', "%" . $keyword . "%"); }
 
-    public function scopeEqHp($query, $keyword) { return $query->where('eq_hp', 'like', "%" . $keyword . "%"); }
-    public function scopeStartDate($q, $d)          { return $q->whereDate('shop_estimate_req.created_at', '>=', $d); }
+    public function scopeEqHp($query, $keyword)     { return $query->where('eq_hp', 'like', "%" . $keyword . "%"); }
+    public function scopeStartDate($q, $d)          { return $q->where('shop_estimate_req.created_at', '>=', $d); }
     public function scopeEndDate($q, $d)            { return $q->whereDate('shop_estimate_req.created_at', '<=', $d); }
-    public function scopeEqStep($query, $step) { return $query->where('eq_step', $step); }
-    public function scopeEqMng($query, $mng) { return $query->where('eq_mng', $mng); }
-    public function scopeCreatedId($query, $id) { return $query->where('shop_estimate_req.created_id', $id); }
+    public function scopeEqStep($query, $step)      { return $query->where('eq_step', $step); }
+    public function scopeEqMng($query, $mng)        { return $query->where('eq_mng', $mng); }
+    public function scopeCreatedId($query, $id)     { return $query->where('shop_estimate_req.created_id', $id); }
     public function scopeCreatedIdArr($query, $id_arr) { return $query->whereIn('shop_estimate_req.created_id', $id_arr); }
 
     public function scopeErStartDate( $q, $v) { return $q->where('shop_estimate_reply.created_at', '>=', $v); }

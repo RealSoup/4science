@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{UserMileage};
 use App\Models\Shop\{Order, EstimateReq};
+use Illuminate\Support\Facades\Cache;
 use DB;
 
 class CommonController extends Controller {
@@ -18,15 +19,19 @@ class CommonController extends Controller {
     }
 
     public function index(Request $req) {
-        $rst['reqOrder'] = $this->order->StartDate(date('Y-m-d'))->whereNull('od_mng')->count();
+        $rst['reqOrder']    = $this->order->StartDate(date('Y-m-d'))->whereNull('od_mng')->count();
         $rst['reqEstimate'] = $this->estimateReq->EqStep('DONOT')->StartDate(date('Y-m-d'))->count();
-        
-        $rst['reqAsk']['inquiry']    = DB::table('board_inquiry')   ->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->whereNull('deleted_at')->groupBy('bo_seq')->having('cnt', 1)->get();
-        $rst['reqAsk']['as']         = DB::table('board_as')        ->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->whereNull('deleted_at')->groupBy('bo_seq')->having('cnt', 1)->get();
-        $rst['reqAsk']['cancel']     = DB::table('board_cancel')    ->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->whereNull('deleted_at')->groupBy('bo_seq')->having('cnt', 1)->get();
-        $rst['reqAsk']['gd_inquiry'] = DB::table('board_gd_inquiry')->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->whereNull('deleted_at')->groupBy('bo_seq')->having('cnt', 1)->get();
-        
-        //  ml_key=0 => 상품권 요청
+
+        // 미답변 게시글 집계 - 60초 캐시 (대시보드는 실시간 초단위 정확도 불필요)
+        $rst['reqAsk'] = Cache::remember('admin_common_reqAsk', 60, function () {
+            return [
+                'inquiry'    => DB::table('board_inquiry')   ->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->whereNull('deleted_at')->groupBy('bo_seq')->having('cnt', 1)->get(),
+                'as'         => DB::table('board_as')        ->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->whereNull('deleted_at')->groupBy('bo_seq')->having('cnt', 1)->get(),
+                'cancel'     => DB::table('board_cancel')    ->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->whereNull('deleted_at')->groupBy('bo_seq')->having('cnt', 1)->get(),
+                'gd_inquiry' => DB::table('board_gd_inquiry')->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->whereNull('deleted_at')->groupBy('bo_seq')->having('cnt', 1)->get(),
+            ];
+        });
+
         $rst['reqVoucher'] = UserMileage::with('user')->Type('REQ')->Tbl('voucher')->Key(0)->latest()->get();
 
         return response()->json($rst, 200);

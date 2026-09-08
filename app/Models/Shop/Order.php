@@ -107,7 +107,7 @@ class Order extends Model {
     public function orderPg() { return $this->hasOne(OrderPg::class, 'pg_od_id', 'od_id')->withDefault(); }
     public function orderCoupon() { return $this->hasMany(OrderCoupon::class, 'odc_od_id'); }
 
-    public function scopeStartDate($q, $d)  { return $q->whereDate('shop_order.created_at', '>=', $d); }
+    public function scopeStartDate($q, $d)  { return $q->where('shop_order.created_at', '>=', $d); }
     public function scopeEndDate($q, $d)    { return $q->whereDate('shop_order.created_at', '<=', $d); }
     public function scopeSchWriter($q, $id) { return $q->where('created_id', $id); }
     // public function scopeToday($query) { return $query->whereRaw('created_at > CURDATE()'); }

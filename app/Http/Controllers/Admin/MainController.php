@@ -17,10 +17,16 @@ class MainController extends Controller {
     }
 
     public function index(Request $req) {
-		$rst['today_order'] = $this->order->StartDate(date('Y-m-d'))->count();
-		$rst['today_estimate'] = $this->estimateReq->StartDate(date('Y-m-d'))->count();
-        $od = $this->order->StartDate(date('Y-m-d', strtotime(date('Y-m-d')." -1 week")))->get();
-        $rst['order'] = $od->countBy(function ($item) { return $item['od_step']; });   
+        $today   = date('Y-m-d');
+        $weekAgo = date('Y-m-d', strtotime($today . ' -1 week'));
+
+        $rst['today_order']    = $this->order->StartDate($today)->count();
+        $rst['today_estimate'] = $this->estimateReq->StartDate($today)->count();
+
+        $od = $this->order->StartDate($weekAgo)
+            ->select('od_id', 'od_step')      // 화면에서 step 카운트만 씀
+            ->get();
+        $rst['order'] = $od->countBy(function ($item) { return $item['od_step']; });
         if (!array_key_exists(10, $rst['order']->toArray())) $rst['order'][10] = 0;
         if (!array_key_exists(11, $rst['order']->toArray())) $rst['order'][11] = 0;
         if (!array_key_exists(12, $rst['order']->toArray())) $rst['order'][12] = 0;
@@ -29,7 +35,11 @@ class MainController extends Controller {
         if (!array_key_exists(40, $rst['order']->toArray())) $rst['order'][40] = 0;
         if (!array_key_exists(50, $rst['order']->toArray())) $rst['order'][50] = 0;
         if (!array_key_exists(60, $rst['order']->toArray())) $rst['order'][60] = 0;
-        $rst['estimateReq'] = $this->estimateReq->StartDate(date('Y-m-d', strtotime(date('Y-m-d')." -1 week")))->latest()->get();
+
+        $rst['estimateReq'] = $this->estimateReq->StartDate($weekAgo)
+            ->select('eq_id', 'created_at', 'eq_email', 'eq_name', 'eq_title', 'eq_content', 'eq_type')  // Main.vue에서 쓰는 필드만
+            ->latest()->get();
+
         return response()->json($rst, 200);
     }
 
