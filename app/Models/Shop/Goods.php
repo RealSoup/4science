@@ -738,6 +738,8 @@ class Goods extends Model {
     }
 
     public static function recommend_goods ($limit = 4) {
+        //  개인 최근 주문?개 + 개인 최근 견적?개 + 사이트 인기상품?개 
+        //  최종 10개
         $order = new class{};
         $estimate = new class{};
         $top10 = new class{};

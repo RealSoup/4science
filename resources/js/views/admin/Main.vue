@@ -121,9 +121,9 @@ export default {
             if (res && res.status === 200)
                 this.con = res.data;
 
-            const logRes = await ax.get(`/api/admin/scheduleLog`);
-            if (logRes && logRes.status === 200)
-                this.scheduleLog = logRes.data;
+            // const logRes = await ax.get(`/api/admin/scheduleLog`);
+            // if (logRes && logRes.status === 200)
+            //     this.scheduleLog = logRes.data;
             
             
         } catch (e) {
