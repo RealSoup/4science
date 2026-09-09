@@ -185,6 +185,21 @@
                     <a class="scrollactive-item" href="#gd_inquiry">Q & A <b>{{bo_cnt.inquiry}}</b></a>
                 </scrollactive>
 
+                <div id="goods_desc">
+                    <div v-html="content.gd_desc"></div>
+                    <div v-if="content.gd_video" v-html="content.gd_video"></div>
+
+                    <!-- 써모 크롤링된 상세 설명 -->
+                    <div id="thermo_desc" v-if="thermo_desc" class="row" v-html="thermo_desc"></div>
+                </div>
+
+                <p class="go_for_seo" v-if="content.gd_keyword">연관 검색어:{{content.gd_keyword}}</p>
+
+                <div class="desc_pdf" v-for="(file, i) in content.file_goods_add" :key="i">
+                    <br /> <hr /> <br />
+                    <object v-if="file.fi_ext == 'pdf'" :data="`/storage/${file.down_path}`" type="application/pdf" style="width:100%; height:700px;" />
+                </div>
+                
                 <div class="prev_alarm"> <!-- 카테고리별 사전 안내 -->           
                     <p v-if="content.goods_category_first.gc_ca01==28 && content.goods_category_first.gc_ca02==3481" class="warning">
                         ※제품 특성상 주문 접수 후 교환, 취소, 환불이 불가하오니 신중한 구매 부탁드리겠습니다.
@@ -200,7 +215,7 @@
                             ※ 이 안내는 「화학물질관리법」 제29조의 2 및 같은 법 시행규칙 제31조의 2에 따라 유해화학물질 시약을 해당 용도로만 사용하며, 유해화학물질 취급기준을 준수하여야 함을 구매자에게 서면 또는 전자 문서로 알려주는 것을 목적으로 하고 있습니다.
                         </p>
                         <br>
-                        <a href="https://kreach.me.go.kr/repwrt/index.do" target="_blank" style="display:block; text-align:center;">
+                        <a href="https://kreach.mcee.go.kr/repwrt/index.do" target="_blank" style="display:block; text-align:center;">
                             <img src="/storage/goods/hazmat_info.jpg" title="유해화학물질 시약 관련 안내" style="max-width:100%;">
                         </a>
                     </div>
@@ -217,22 +232,6 @@
                     >
                         - 개인 고객 및 미성년자 판매금지입니다.(온라인판매금지)
                     </p>
-                </div>
-                <div id="goods_desc">
-                    <div v-html="content.gd_desc"></div>
-                    <div v-if="content.gd_video" v-html="content.gd_video"></div>
-
-                    <!-- 써모 크롤링된 상세 설명 -->
-                    <div id="thermo_desc" v-if="thermo_desc" class="row" v-html="thermo_desc"></div>
-                </div>
-
-                <p class="go_for_seo" v-if="content.gd_keyword">연관 검색어:{{content.gd_keyword}}</p>
-
-                <div class="desc_pdf">
-                    <br /> <hr /> <br />
-                    <template v-for="(file, i) in content.file_goods_add" >
-                        <object v-if="file.fi_ext == 'pdf'" :key="i" :data="`/storage/${file.down_path}`" type="application/pdf" style="width:100%; height:700px;" />
-                    </template>
                 </div>
 
                 <!-- 반품/교환 안내 -->

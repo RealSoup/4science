@@ -48,7 +48,7 @@
             <div class="box">
                 <b-row class="top">
                     <b-col>오늘 견적 <span>{{con.today_estimate}}</span></b-col>
-                    <b-col>최근 7일 견적 <span>{{con.estimateReq.length}}</span></b-col>
+                    <b-col>최근 7일 견적 <span>{{con.estimateReqCount}}</span></b-col>
                 </b-row>
                 <div class="body">
                     <b-row class="head">
@@ -110,7 +110,16 @@ import ax from '@/api/http';
 export default {
     name: 'admMain',
 
-    data() { return { con:{ order:{ 10:0, 11:0, 12:0, 20:0, 30:0, 40:0, 50:0, 60:0, }, estimateReq:[] }, scheduleLog:[] }; },
+    data() { 
+        return { 
+            con:{ 
+                order:{ 10:0, 11:0, 12:0, 20:0, 30:0, 40:0, 50:0, 60:0, }, 
+                estimateReq:[], 
+                estimateReqCount:0 
+            }, 
+            scheduleLog:[] 
+        }; 
+    },
     computed: {
         order_7() { return Object.values(this.con.order).reduce((acc, el) => acc + el , 0); },
         // estimate_7() { return Object.values(this.con.estimateReq).reduce((acc, el) => acc + el , 0); },

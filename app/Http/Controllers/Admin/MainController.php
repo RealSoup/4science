@@ -17,14 +17,15 @@ class MainController extends Controller {
     }
 
     public function index(Request $req) {
-        $today   = date('Y-m-d');
-        $weekAgo = date('Y-m-d', strtotime($today . ' -1 week'));
+        $today       = date('Y-m-d');
+        $weekAgo     = date('Y-m-d', strtotime($today . ' -1 week'));
+        $twelveHrAgo = date('Y-m-d H:i:s', strtotime('-12 hours'));
 
         $rst['today_order']    = $this->order->StartDate($today)->count();
         $rst['today_estimate'] = $this->estimateReq->StartDate($today)->count();
 
         $od = $this->order->StartDate($weekAgo)
-            ->select('od_id', 'od_step')      // 화면에서 step 카운트만 씀
+            ->select('od_id', 'od_step')
             ->get();
         $rst['order'] = $od->countBy(function ($item) { return $item['od_step']; });
         if (!array_key_exists(10, $rst['order']->toArray())) $rst['order'][10] = 0;
@@ -36,8 +37,12 @@ class MainController extends Controller {
         if (!array_key_exists(50, $rst['order']->toArray())) $rst['order'][50] = 0;
         if (!array_key_exists(60, $rst['order']->toArray())) $rst['order'][60] = 0;
 
-        $rst['estimateReq'] = $this->estimateReq->StartDate($weekAgo)
-            ->select('eq_id', 'created_at', 'eq_email', 'eq_name', 'eq_title', 'eq_content', 'eq_type')  // Main.vue에서 쓰는 필드만
+        // 상단 "최근 7일 견적" 숫자 - count()만 하면 되니까 row 자체를 안 끌고 옴 (가볍다)
+        $rst['estimateReqCount'] = $this->estimateReq->StartDate($weekAgo)->count();
+
+        // 아래 리스트는 최근 12시간치만
+        $rst['estimateReq'] = $this->estimateReq->StartDate($twelveHrAgo)
+            ->select('eq_id', 'created_at', 'eq_email', 'eq_name', 'eq_title', 'eq_content', 'eq_type')
             ->latest()->get();
 
         return response()->json($rst, 200);

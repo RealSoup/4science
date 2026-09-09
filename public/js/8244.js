@@ -258,28 +258,7 @@ var render = function render() {
       indicators: "",
       interval: 0
     }
-  }, [_c("b-carousel-slide", {
-    staticClass: "evt01",
-    attrs: {
-      "img-src": "/storage/event/2026/0720/slide.jpg"
-    }
-  }, [_c("router-link", {
-    staticClass: "split_link",
-    attrs: {
-      to: "/shop/goods?ca01=41&ca02=8289",
-      id: "app01"
-    }
-  }, [_c("span", {
-    staticClass: "tooltiptext"
-  }, [_vm._v("바로가기")])]), _vm._v(" "), _c("router-link", {
-    staticClass: "split_link",
-    attrs: {
-      to: "/shop/goods?ca01=26&ca02=1041",
-      id: "app02"
-    }
-  }, [_c("span", {
-    staticClass: "tooltiptext"
-  }, [_vm._v("바로가기")])])], 1), _vm._v(" "), _c("b-link", {
+  }, [_c("b-link", {
     attrs: {
       to: "/shop/makerShop/39"
     }

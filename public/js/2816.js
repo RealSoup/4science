@@ -1038,33 +1038,6 @@ var render = function render() {
       href: "#gd_inquiry"
     }
   }, [_vm._v("Q & A "), _c("b", [_vm._v(_vm._s(_vm.bo_cnt.inquiry))])])]), _vm._v(" "), _c("div", {
-    staticClass: "prev_alarm"
-  }, [_vm.content.goods_category_first.gc_ca01 == 28 && _vm.content.goods_category_first.gc_ca02 == 3481 ? _c("p", {
-    staticClass: "warning"
-  }, [_vm._v("\n                    ※제품 특성상 주문 접수 후 교환, 취소, 환불이 불가하오니 신중한 구매 부탁드리겠습니다.\n                ")]) : _vm._e(), _vm._v(" "), _vm.content.hazard_matl ? _c("div", [_c("br"), _vm._v(" "), _c("p", {
-    staticClass: "warning"
-  }, [_vm._v("\n                        ※ 해당 제품은 개인 및 미성년자의 구매를 금합니다."), _c("br"), _vm._v("\n                        ※ 연구목적 외(식품 첨가, 의료용 등) 사용 불가합니다."), _c("br"), _vm._v("\n                        ※ 제품 이미지 참고용이며, 실제와 다를 수 있습니다."), _c("br"), _vm._v(" "), _c("br"), _vm._v("\n                        ※ 이 안내는 「화학물질관리법」 제29조의 2 및 같은 법 시행규칙 제31조의 2에 따라 유해화학물질 시약을 해당 용도로만 사용하며, 유해화학물질 취급기준을 준수하여야 함을 구매자에게 서면 또는 전자 문서로 알려주는 것을 목적으로 하고 있습니다.\n                    ")]), _vm._v(" "), _c("br"), _vm._v(" "), _c("a", {
-    staticStyle: {
-      display: "block",
-      "text-align": "center"
-    },
-    attrs: {
-      href: "https://kreach.me.go.kr/repwrt/index.do",
-      target: "_blank"
-    }
-  }, [_c("img", {
-    staticStyle: {
-      "max-width": "100%"
-    },
-    attrs: {
-      src: "/storage/goods/hazmat_info.jpg",
-      title: "유해화학물질 시약 관련 안내"
-    }
-  })])]) : _vm._e(), _vm._v(" "), _vm.content.goods_category_first.gc_ca01 == 38 ? _c("p", {
-    staticClass: "warning"
-  }, [_vm._v("\n                    EO 제품군이 전기안전법과 제조사 사정에 의해 단가 변동 사항이 있습니다. "), _c("br"), _vm._v("\n                    해당 제품 주문 전 견적문의를 통해 '단가'와 '납품기한'을 꼭 확인하시기를 부탁드리겠습니다.\n                ")]) : _vm._e(), _vm._v(" "), _vm.content.goods_category_first.gc_ca01 == 31 && _vm.content.goods_category_first.gc_ca02 == 5114 && (_vm.content.goods_category_first.gc_ca03 == 5122 || _vm.content.goods_category_first.gc_ca03 == 5136 || _vm.content.goods_category_first.gc_ca03 == 5137) ? _c("p", {
-    staticClass: "warning"
-  }, [_vm._v("\n                    - 개인 고객 및 미성년자 판매금지입니다.(온라인판매금지)\n                ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     attrs: {
       id: "goods_desc"
     }
@@ -1086,11 +1059,11 @@ var render = function render() {
     }
   }) : _vm._e()]), _vm._v(" "), _vm.content.gd_keyword ? _c("p", {
     staticClass: "go_for_seo"
-  }, [_vm._v("연관 검색어:" + _vm._s(_vm.content.gd_keyword))]) : _vm._e(), _vm._v(" "), _c("div", {
-    staticClass: "desc_pdf"
-  }, [_c("br"), _vm._v(" "), _c("hr"), _vm._v(" "), _c("br"), _vm._v(" "), _vm._l(_vm.content.file_goods_add, function (file, i) {
-    return [file.fi_ext == "pdf" ? _c("object", {
+  }, [_vm._v("연관 검색어:" + _vm._s(_vm.content.gd_keyword))]) : _vm._e(), _vm._v(" "), _vm._l(_vm.content.file_goods_add, function (file, i) {
+    return _c("div", {
       key: i,
+      staticClass: "desc_pdf"
+    }, [_c("br"), _vm._v(" "), _c("hr"), _vm._v(" "), _c("br"), _vm._v(" "), file.fi_ext == "pdf" ? _c("object", {
       staticStyle: {
         width: "100%",
         height: "700px"
@@ -1099,8 +1072,35 @@ var render = function render() {
         data: "/storage/".concat(file.down_path),
         type: "application/pdf"
       }
-    }) : _vm._e()];
-  })], 2), _vm._v(" "), _c("div", {
+    }) : _vm._e()]);
+  }), _vm._v(" "), _c("div", {
+    staticClass: "prev_alarm"
+  }, [_vm.content.goods_category_first.gc_ca01 == 28 && _vm.content.goods_category_first.gc_ca02 == 3481 ? _c("p", {
+    staticClass: "warning"
+  }, [_vm._v("\n                    ※제품 특성상 주문 접수 후 교환, 취소, 환불이 불가하오니 신중한 구매 부탁드리겠습니다.\n                ")]) : _vm._e(), _vm._v(" "), _vm.content.hazard_matl ? _c("div", [_c("br"), _vm._v(" "), _c("p", {
+    staticClass: "warning"
+  }, [_vm._v("\n                        ※ 해당 제품은 개인 및 미성년자의 구매를 금합니다."), _c("br"), _vm._v("\n                        ※ 연구목적 외(식품 첨가, 의료용 등) 사용 불가합니다."), _c("br"), _vm._v("\n                        ※ 제품 이미지 참고용이며, 실제와 다를 수 있습니다."), _c("br"), _vm._v(" "), _c("br"), _vm._v("\n                        ※ 이 안내는 「화학물질관리법」 제29조의 2 및 같은 법 시행규칙 제31조의 2에 따라 유해화학물질 시약을 해당 용도로만 사용하며, 유해화학물질 취급기준을 준수하여야 함을 구매자에게 서면 또는 전자 문서로 알려주는 것을 목적으로 하고 있습니다.\n                    ")]), _vm._v(" "), _c("br"), _vm._v(" "), _c("a", {
+    staticStyle: {
+      display: "block",
+      "text-align": "center"
+    },
+    attrs: {
+      href: "https://kreach.mcee.go.kr/repwrt/index.do",
+      target: "_blank"
+    }
+  }, [_c("img", {
+    staticStyle: {
+      "max-width": "100%"
+    },
+    attrs: {
+      src: "/storage/goods/hazmat_info.jpg",
+      title: "유해화학물질 시약 관련 안내"
+    }
+  })])]) : _vm._e(), _vm._v(" "), _vm.content.goods_category_first.gc_ca01 == 38 ? _c("p", {
+    staticClass: "warning"
+  }, [_vm._v("\n                    EO 제품군이 전기안전법과 제조사 사정에 의해 단가 변동 사항이 있습니다. "), _c("br"), _vm._v("\n                    해당 제품 주문 전 견적문의를 통해 '단가'와 '납품기한'을 꼭 확인하시기를 부탁드리겠습니다.\n                ")]) : _vm._e(), _vm._v(" "), _vm.content.goods_category_first.gc_ca01 == 31 && _vm.content.goods_category_first.gc_ca02 == 5114 && (_vm.content.goods_category_first.gc_ca03 == 5122 || _vm.content.goods_category_first.gc_ca03 == 5136 || _vm.content.goods_category_first.gc_ca03 == 5137) ? _c("p", {
+    staticClass: "warning"
+  }, [_vm._v("\n                    - 개인 고객 및 미성년자 판매금지입니다.(온라인판매금지)\n                ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "goods_desc_piece",
     attrs: {
       id: "return_info"
@@ -1140,7 +1140,7 @@ var render = function render() {
       bo_cnt: _vm.bo_cnt,
       bo_subject: _vm.content.gd_name + "의 문의"
     }
-  })], 1)], 1)], 1)], 1);
+  })], 1)], 2)], 1)], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
