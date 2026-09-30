@@ -61,6 +61,36 @@ class GoodsElasticSearch {
         ];
     }
 
+    //  관리자 검색 조건 (상품 목록 화면·가격 다운로드 공용 - 화면에 보이는 상품 = 다운로드 대상)
+    public static function adminFilters($req): array {
+        $filters = [
+            ['term' => ['gd_type' => $req->filled('gd_type') ? $req->gd_type : 'NON']],
+            $req->deleted_at == 'Y'     //  기본·N: 존재 상품만 / Y: 삭제 상품만
+                ? ['term' => ['is_deleted' => true]]
+                : ['bool' => ['must_not' => [['term' => ['is_deleted' => true]]]]],
+        ];
+        if ($req->filled('gd_enable'))  $filters[] = ['term' => ['gd_enable'  => $req->gd_enable]];
+        if ($req->filled('updated_id')) $filters[] = ['term' => ['updated_id' => (int) $req->updated_id]];
+        if ($req->filled('gd_mk_id'))   $filters[] = ['term' => ['gd_mk_id'   => (int) $req->gd_mk_id]];
+        if ($cateFilter = self::catePathFilter(self::catePath($req)))
+            $filters[] = $cateFilter;
+
+        //  기간 - 수정순이면 수정일, 그 외 등록일 기준
+        if ($req->filled('startDate') || $req->filled('endDate')) {
+            $dateField = $req->sort == 'edit' ? 'updated_at' : 'created_at';
+            $filters[] = ['range' => [$dateField => [
+                'gte' => $req->filled('startDate') ? strtotime($req->startDate) : 0,
+                'lte' => $req->filled('endDate')   ? strtotime($req->endDate . ' 23:59:59') : time(),
+            ]]];
+        }
+
+        //  우선순위상품 - 순서 지정된 상품만
+        if ($req->filled('gd_seq'))
+            $filters[] = ['bool' => ['must_not' => [['term' => ['gd_seq' => 999999]]]]];
+
+        return $filters;
+    }
+
     //  정렬 - hot(기본): 검색어 있으면 점수순, 없으면 관리자 지정 순서
     public static function sort($sort, bool $hasKeyword): array {
         return match($sort) {
@@ -362,5 +392,30 @@ class GoodsElasticSearch {
             ->whereIn('gd_id', $ids)
             ->orderByRaw('FIELD(gd_id, ' . $ids->implode(',') . ')')
             ->get();
+    }
+
+    //  조건에 맞는 전체 상품 ID - 1만 건 한도 없이 번호순으로 이어서 끝까지 조회 (대량 작업용)
+    public function allIds(array $query, int $batch = 5000) {
+        $ids   = [];
+        $after = null;
+        do {
+            $body = [
+                'query'   => $query,
+                'size'    => $batch,
+                'sort'    => [['gd_id' => 'asc']],
+                '_source' => false,
+                'track_total_hits' => false,
+            ];
+            if ($after) $body['search_after'] = $after;
+
+            $hits = $this->client->search(['index' => self::INDEX, 'body' => $body])->asArray()['hits']['hits'];
+            foreach ($hits as $h)
+                $ids[] = (int) $h['sort'][0];
+
+            $last  = end($hits);
+            $after = $last ? $last['sort'] : null;
+        } while (count($hits) == $batch);
+
+        return collect($ids);
     }
 }

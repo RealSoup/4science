@@ -136,7 +136,7 @@
                                     </span>
                                 </b-col>
                                 <!-- <b-col class="m_hide">{{row.maker.mk_name}}</b-col> -->
-                                <b-col class="m_hide">{{row.maker.mk_name}}</b-col>
+                                <b-col class="m_hide">{{ row.maker ? row.maker.mk_name : row.mk_name }}</b-col>
                             </b-row>
 
                             <pagination :data="list" @pagination-change-page="setPage" :limit="5" :showDisabled="true" align="center" class="mt-5">

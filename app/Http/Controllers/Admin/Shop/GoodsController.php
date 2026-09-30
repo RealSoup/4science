@@ -38,7 +38,7 @@ class GoodsController extends Controller {
         $this->bd = $bd;
     }
 
-        //  관리자 상품 검색 입구 - ES 검색, ES 장애 시 기존 Sphinx(index_260928)로 자동 전환
+    //  관리자 상품 검색 입구 - ES 검색, ES 장애 시 기존 Sphinx(index_260928)로 자동 전환
     public function index (Request $req) {
         return GoodsElasticSearch::withFallback(
             fn() => $this->index_es($req),

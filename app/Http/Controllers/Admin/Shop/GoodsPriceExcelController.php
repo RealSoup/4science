@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Shop\Maker;
 use App\Models\Shop\ExchangeRate;
 use App\Models\Shop\Goods;
+use App\Services\GoodsElasticSearch;
 use Illuminate\Support\Facades\DB;
 use ZipArchive;
 
@@ -23,7 +24,7 @@ class GoodsPriceExcelController extends Controller {
         if (!$can) abort(403, '팀장 이상 또는 최고관리자만 사용할 수 있습니다.');
     }
 
-    // 제조사별 가격 정보 CSV 다운로드 (50만 건 넘으면 여러 파일로 나눠 zip)
+    // 가격 정보 CSV 다운로드 - 대상 상품은 상품 목록 화면 검색 결과와 동일 (50만 건 넘으면 여러 파일로 나눠 zip)
     public function export(Request $req) {
         $this->checkPermission();
         $req->validate(['gd_mk_id' => 'required|integer']);
@@ -50,26 +51,72 @@ class GoodsPriceExcelController extends Controller {
         };
         $openNewPart();
 
-        $query = DB::table('shop_goods_model as gm')
+        //  모델 가격 행을 CSV에 기록 (FILE_SPLIT_SIZE마다 파일 분할)
+        $writeRows = function ($query) use (&$fp, &$rowInPart, $openNewPart) {
+            $query->orderBy('gm.gm_id')
+                ->chunkById(self::CHUNK_SIZE, function ($rows) use (&$fp, &$rowInPart, $openNewPart) {
+                    foreach ($rows as $row) {
+                        if ($rowInPart >= self::FILE_SPLIT_SIZE) {
+                            $openNewPart();
+                            $rowInPart = 0;
+                        }
+                        fputcsv($fp, [$row->gd_id, $row->gm_id, $row->gd_name, $row->gm_name, $row->gm_catno, $row->gm_code, $row->gm_price, $row->gm_price_origin]);
+                        $rowInPart++;
+                    }
+                }, 'gm.gm_id', 'gm_id');
+        };
+
+        try {
+            //  대상 상품 = 상품 목록 화면과 같은 ES 검색 (검색어·카테고리 등 모든 조건 동일)
+            //  상품번호를 먼저 전부 받은 뒤 기록 - ES 오류 시 CSV에 중복 기록되지 않도록
+            $es  = new GoodsElasticSearch;
+            $ids = $es->allIds($es->buildQuery(
+                GoodsElasticSearch::keyword($req->keyword), $req->mode, GoodsElasticSearch::adminFilters($req)
+            ));
+            foreach ($ids->chunk(self::CHUNK_SIZE) as $chunk)
+                $writeRows($this->priceQuery()->whereIn('g.gd_id', $chunk->values()));
+        } catch (\Elastic\Elasticsearch\Exception\ElasticsearchException | \Elastic\Transport\Exception\TransportException $e) {
+            \Log::error('가격 다운로드 ES 조회 실패 → SQL 조건 검색으로 전환: ' . $e->getMessage());
+            $writeRows($this->priceQuerySql($req));
+        }
+
+        if ($fp) fclose($fp);
+
+        if (count($filePaths) == 1)
+            return response()->download($filePaths[0], basename($filePaths[0]))->deleteFileAfterSend(true);
+
+        $zipPath = "{$tmpDir}/{$fileName}.zip";
+        $zip = new ZipArchive();
+        $zip->open($zipPath, ZipArchive::CREATE);
+        foreach ($filePaths as $path) $zip->addFile($path, basename($path));
+        $zip->close();
+
+        foreach ($filePaths as $path) @unlink($path);
+
+        return response()->download($zipPath, basename($zipPath))->deleteFileAfterSend(true);
+    }
+
+    //  모델 가격 조회 기본 쿼리
+    private function priceQuery() {
+        return DB::table('shop_goods_model as gm')
             ->join('shop_goods as g', 'g.gd_id', '=', 'gm.gm_gd_id')
+            ->select('g.gd_id', 'gm.gm_id', 'g.gd_name', 'gm.gm_name', 'gm.gm_catno', 'gm.gm_code', 'gm.gm_price', 'gm.gm_price_origin');
+    }
+
+    //  ES 장애 시 대체 - 화면 조건을 SQL로 근사 (검색어는 부분일치라 화면 결과와 다를 수 있음)
+    private function priceQuerySql(Request $req) {
+        $query = $this->priceQuery()
             ->where('g.gd_mk_id', $req->gd_mk_id)
             ->where('g.gd_type', $req->filled('gd_type') ? $req->gd_type : 'NON');
 
-        // 화면 검색과 동일한 조건들 (스핑크스 대신 순수 SQL로 재구현 - 대량 처리 안정성 확보)
-        if ($req->filled('gd_enable')) $query->where('g.gd_enable', $req->gd_enable);
-        else $query->where('g.gd_enable', 'Y');
-
-        if ($req->filled('deleted_at')) {
-            if ($req->deleted_at == 'Y') $query->whereNotNull('g.deleted_at');
-            else $query->whereNull('g.deleted_at');
-        } else {
-            $query->whereNull('g.deleted_at');
-        }
-
+        if ($req->filled('gd_enable'))  $query->where('g.gd_enable', $req->gd_enable);
+        if ($req->deleted_at == 'Y')    $query->whereNotNull('g.deleted_at');
+        else                            $query->whereNull('g.deleted_at');
         if ($req->filled('updated_id')) $query->where('g.updated_id', $req->updated_id);
+        if ($req->filled('gd_seq'))     $query->where('g.gd_seq', '<>', 999999);
 
         if ($req->filled('startDate') || $req->filled('endDate')) {
-            $dateCol = ($req->filled('sort') && $req->sort == 'edit') ? 'g.updated_at' : 'g.created_at';
+            $dateCol = $req->sort == 'edit' ? 'g.updated_at' : 'g.created_at';
             if ($req->filled('startDate')) $query->where($dateCol, '>=', $req->startDate);
             if ($req->filled('endDate'))   $query->where($dateCol, '<=', $req->endDate . ' 23:59:59');
         }
@@ -95,34 +142,7 @@ class GoodsPriceExcelController extends Controller {
                 default:        $query->where('g.gd_name', 'like', $kw); break;
             }
         }
-
-        $query->select('g.gd_id', 'gm.gm_id', 'g.gd_name', 'gm.gm_name', 'gm.gm_catno', 'gm.gm_code', 'gm.gm_price', 'gm.gm_price_origin')
-            ->orderBy('gm.gm_id')
-            ->chunkById(self::CHUNK_SIZE, function($rows) use (&$fp, &$rowInPart, $openNewPart) {
-                foreach ($rows as $row) {
-                    if ($rowInPart >= self::FILE_SPLIT_SIZE) {
-                        $openNewPart();
-                        $rowInPart = 0;
-                    }
-                    fputcsv($fp, [$row->gd_id, $row->gm_id, $row->gd_name, $row->gm_name, $row->gm_catno, $row->gm_code, $row->gm_price, $row->gm_price_origin]);
-                    $rowInPart++;
-                }
-            }, 'gm.gm_id', 'gm_id');
-
-        if ($fp) fclose($fp);
-
-        if (count($filePaths) == 1)
-            return response()->download($filePaths[0], basename($filePaths[0]))->deleteFileAfterSend(true);
-
-        $zipPath = "{$tmpDir}/{$fileName}.zip";
-        $zip = new ZipArchive();
-        $zip->open($zipPath, ZipArchive::CREATE);
-        foreach ($filePaths as $path) $zip->addFile($path, basename($path));
-        $zip->close();
-
-        foreach ($filePaths as $path) @unlink($path);
-
-        return response()->download($zipPath, basename($zipPath))->deleteFileAfterSend(true);
+        return $query;
     }
 
     // 수정된 CSV 업로드 -> gm_price_origin 반영, 외화 상품은 최신 환율로 자동 재계산
