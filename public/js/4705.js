@@ -163,39 +163,7 @@ var render = function render() {
         }
       }
     }, [_vm._v("\r\n                        " + _vm._s(mk.name) + " "), _c("span", [_vm._v(_vm._s(mk.cnt))])]);
-  })], 2)], 1), _vm._v(" "), _c("div", {
-    staticClass: "extra_sch"
-  }, [_c("b", [_vm._v("결과 내 검색")]), _vm._v(" "), _c("b-input-group", [_c("b-form-input", {
-    attrs: {
-      placeholder: "검색어를 입력하세요"
-    },
-    on: {
-      keyup: function keyup($event) {
-        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
-        return _vm.routerPush();
-      }
-    },
-    model: {
-      value: _vm.frm.keyword_extra,
-      callback: function callback($$v) {
-        _vm.$set(_vm.frm, "keyword_extra", $$v);
-      },
-      expression: "frm.keyword_extra"
-    }
-  }), _vm._v(" "), _c("b-input-group-append", [_c("b-button", {
-    attrs: {
-      variant: "info"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.routerPush();
-      }
-    }
-  }, [_c("font-awesome-icon", {
-    attrs: {
-      icon: "search"
-    }
-  })], 1)], 1)], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _vm.pick ? _c("div", {
+  })], 2)], 1)], 1) : _vm._e(), _vm._v(" "), _vm.pick ? _c("div", {
     staticClass: "pick m_hide"
   }, [_c("b-row", {
     staticClass: "layout"
@@ -362,7 +330,7 @@ var render = function render() {
       staticClass: "discount"
     }, [_vm._v("\r\n                                        " + _vm._s(row.goods_model_prime.gm_dc || row.gd_dc)), (row.goods_model_prime.gm_dc || row.gd_dc) < 100 ? [_vm._v("%")] : [_vm._v("원")], _vm._v(" "), _c("b-icon-arrow-down"), _vm._v("\r\n                                        " + _vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(row.goods_model_prime.gm_price_dc_add_vat)))) + "\r\n                                    ")], 2)]), _vm._v(" "), _c("b-col", {
       staticClass: "m_hide"
-    }, [_vm._v(_vm._s(row.mk_name))])], 1);
+    }, [_vm._v(_vm._s(row.maker.mk_name))])], 1);
   }), _vm._v(" "), _c("pagination", {
     staticClass: "mt-5",
     attrs: {

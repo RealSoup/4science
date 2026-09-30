@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Shop\Maker;
 use App\Models\Shop\ExchangeRate;
+use App\Models\Shop\Goods;
 use Illuminate\Support\Facades\DB;
 use ZipArchive;
 
@@ -168,6 +169,10 @@ class GoodsPriceExcelController extends Controller {
 
         // 외화 제조사 상품은 방금 반영한 gm_price를 무시하고 gm_price_origin 기준으로 다시 계산
         $this->recalcTouched($touchedIds);
+
+        //  ES 검색 인덱스 가격 동기화 (외화 재계산까지 끝난 최종 가격으로)
+        foreach (array_chunk(array_unique($touchedIds), self::CHUNK_SIZE) as $idChunk)
+            Goods::syncSearchPrice(DB::table('shop_goods_model')->whereIn('gm_id', $idChunk)->pluck('gm_gd_id'));
 
         return response()->json(['updated' => $updated], 200);
     }

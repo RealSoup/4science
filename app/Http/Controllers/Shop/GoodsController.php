@@ -5,9 +5,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Shop\{Goods, Category, GoodsCategory, Order};
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Lib\SphinxClient;
 use App\Traits\Crawling;
+use App\Services\GoodsElasticSearch;
 
 class GoodsController extends Controller {
     use Crawling;    //  trait
@@ -16,7 +18,152 @@ class GoodsController extends Controller {
 
 	public function __construct( Goods $gd ) { $this->goods = $gd; }
     
+    //  상품 검색 입구 - ES 검색, ES 장애 시 기존 Sphinx(index_260928)로 자동 전환
+    //  되돌리기: return $this->index_260928($req); 한 줄로
     public function index (Request $req) {
+        return GoodsElasticSearch::withFallback(
+            fn() => $this->index_es($req),
+            fn() => $this->index_260928($req),
+            '웹'
+        );
+    }
+
+    //  상품 검색 (Elasticsearch)
+    public function index_es (Request $req) {
+        abort_if((!$req->filled('ca01') && !$req->filled('keyword')), 501, '검색값이 없습니다.');
+        abort_if((
+            ($req->filled('ca01') && Category::where('ca_id', $req->ca01)->doesntExist()) ||
+            ($req->filled('ca02') && Category::where('ca_id', $req->ca02)->doesntExist()) ||
+            ($req->filled('ca03') && Category::where('ca_id', $req->ca03)->doesntExist()) ||
+            ($req->filled('ca04') && Category::where('ca_id', $req->ca04)->doesntExist()) 
+        ), 501, '존재 하지 않는 카테고리 입니다.');
+
+        $data['categorys'] = Category::getSelectedCate( $req->filled('ca01') ? $req->ca01 : 0, 
+                                                        $req->filled('ca02') ? $req->ca02 : 0, 
+                                                        $req->filled('ca03') ? $req->ca03 : 0 );
+
+        $es      = new GoodsElasticSearch;
+        $keyword = GoodsElasticSearch::keyword($req->keyword);
+        $perPage = $req->filled('limit') ? (int) $req->limit : 15;     //  limit: 메인 베스트 개수 지정
+
+        if (GoodsElasticSearch::invalidCatno($keyword, $req->mode))
+            return response()->json('no-catno');
+
+        if ($keyword !== '' && if_not_my_ip($req->ip()))
+            event(new \App\Events\GoodsSearch($req->keyword, auth()->check() ? auth()->user()->id : 0, $req->ip(), $req->filled('referer')?$req->referer:''));  //  검색어 데이터화
+
+        if ($keyword === '' && $req->filled('ca01'))
+            $data['category_picks'] = json_decode(Redis::get('best_cate'), true)[$req->ca01] ?? [];
+
+        //  카테고리·제조사 → post_filter (목록·총개수에만 적용, 사이드바 카테고리 개수에는 미적용)
+        $catePath    = GoodsElasticSearch::catePath($req);
+        $postFilters = array_values(array_filter([
+            GoodsElasticSearch::catePathFilter($catePath),
+            $req->filled('mk_id') ? ['term' => ['gd_mk_id' => (int) $req->mk_id]] : null,
+        ]));
+
+        $query = $es->buildQuery($keyword, $req->mode, GoodsElasticSearch::customerFilters(), $es->personalizeFunctions());
+
+        [$result, $total, $page] = $es->searchPage([
+            'query'       => $query,
+            'post_filter' => ['bool' => ['filter' => $postFilters]],
+            'sort'        => GoodsElasticSearch::sort($req->sort ?? 'hot', $keyword !== ''),
+            'aggs'        => $this->sideAggs($catePath),
+        ], (int) ($req->page ?? 1), $perPage);
+
+        $items = $es->goods($result);
+
+        if ($req->filled('limit')) {    //  메인 베스트 - 페이징 없이 목록만
+            $data['list'] = $items;
+        } else {
+            $data['list'] = new LengthAwarePaginator($items, $total, $perPage, $page, ['path' => $req->url(), 'query' => $req->query()]);
+
+            //  할인가 적용 (딜러가 / 상품할인)
+            foreach ($data['list'] as $v)
+                $v->goods_discount_checker($v->goodsModelPrime, $v->gd_dc);
+
+            //  포사의 PICK - 같은 검색조건 중 관리자 지정 순서(gd_seq)가 있는 상품 12개
+            $pick_data = $es->goods($es->search([
+                'size'  => 12,
+                'query' => ['bool' => [
+                    'must'     => [$query],
+                    'filter'   => $postFilters,
+                    'must_not' => [['term' => ['gd_seq' => 999999]]],
+                ]],
+                'sort'  => GoodsElasticSearch::sort('hot', false),
+            ]));
+            if (count($pick_data)) {
+                $data['pick'][0] = $pick_data->take(6);
+                if (count($pick_data) > 6)
+                    $data['pick'][1] = $pick_data->skip(6)->take(6);
+            }
+        }
+
+        if ($keyword !== '')
+            $data['sch_cate_info'] = $this->sideCateInfo($result);
+
+        $data['engine'] = 'elastic';
+		return response()->json($data);
+    }
+
+    //  사이드바 카테고리 개수 집계 - 선택한 경로 아래 단계를 경로 단위로
+    private function sideAggs(array $catePath): array {
+        $p1 = implode('_', array_slice($catePath, 0, 1));
+        $p2 = implode('_', array_slice($catePath, 0, 2));
+        $p3 = implode('_', array_slice($catePath, 0, 3));
+
+        $aggs = ['ca01_list' => ['terms' => ['field' => 'cate_path1', 'size' => 200]]];
+        if (count($catePath) >= 1)
+            $aggs['ca02_list'] = [
+                'filter' => ['term' => ['cate_path1' => $p1]],
+                'aggs'   => ['by_ca02' => ['terms' => ['field' => 'cate_path2', 'include' => "{$p1}_.*", 'size' => 200]]],
+            ];
+        if (count($catePath) >= 2)
+            $aggs['ca03_list'] = [
+                'filter' => ['term' => ['cate_path2' => $p2]],
+                'aggs'   => ['by_ca03' => ['terms' => ['field' => 'cate_path3', 'include' => "{$p2}_.*", 'size' => 200]]],
+            ];
+        if (count($catePath) >= 3)
+            $aggs['maker_list'] = [
+                'filter' => ['term' => ['cate_path3' => $p3]],
+                'aggs'   => ['by_maker' => ['terms' => ['field' => 'gd_mk_id', 'size' => 200]]],
+            ];
+        return $aggs;
+    }
+
+    //  사이드바 카테고리 개수 결과 → [key, name, cnt] (응답 형식은 기존 Sphinx와 동일)
+    private function sideCateInfo($result): array {
+        $agg  = $result->asArray()['aggregations'] ?? [];
+        $info = [];
+
+        //  경로 버킷("21_305") → 마지막 번호가 카테고리 ID
+        $cateList = function ($buckets) {
+            $ids   = collect($buckets)->map(fn($b) => (int) last(explode('_', $b['key'])));
+            $names = Category::whereIn('ca_id', $ids)->pluck('ca_name', 'ca_id');
+            return collect($buckets)->map(function ($b) use ($names) {
+                $id = (int) last(explode('_', $b['key']));
+                return ['key' => $id, 'name' => $names[$id] ?? '', 'cnt' => $b['doc_count']];
+            })->values()->toArray();
+        };
+
+        if ($buckets = $agg['ca01_list']['buckets'] ?? []) {
+            $info['all']  = collect($buckets)->sum('doc_count');
+            $info['ca01'] = $cateList($buckets);
+        }
+        if ($buckets = $agg['ca02_list']['by_ca02']['buckets'] ?? [])
+            $info['ca02'] = $cateList($buckets);
+        if ($buckets = $agg['ca03_list']['by_ca03']['buckets'] ?? [])
+            $info['ca03'] = $cateList($buckets);
+        if ($buckets = $agg['maker_list']['by_maker']['buckets'] ?? []) {
+            $names = \App\Models\Shop\Maker::whereIn('mk_id', collect($buckets)->pluck('key'))->pluck('mk_name', 'mk_id');
+            $info['maker'] = collect($buckets)->map(fn($b) => [
+                'key' => $b['key'], 'name' => $names[$b['key']] ?? '', 'cnt' => $b['doc_count'],
+            ])->values()->toArray();
+        }
+        return $info;
+    }
+
+    public function index_260928 (Request $req) {
         abort_if((!$req->filled('ca01') && !$req->filled('keyword')), 501, '검색값이 없습니다.');
         abort_if((
             ($req->filled('ca01') && Category::where('ca_id', $req->ca01)->doesntExist()) ||

@@ -112,6 +112,16 @@ class SyncElasticsearchSettings extends Command
                         'gc_ca02'      => ['type' => 'integer'],
                         'gc_ca03'      => ['type' => 'integer'],
                         'gc_ca04'      => ['type' => 'integer'],
+                        //  관리자 검색용
+                        'created_at'   => ['type' => 'long'],
+                        'updated_at'   => ['type' => 'long'],
+                        'updated_id'   => ['type' => 'integer'],
+                        'is_deleted'   => ['type' => 'boolean'],
+                        //  전체 카테고리 경로 (다중 카테고리)
+                        'cate_path1'   => ['type' => 'keyword'],
+                        'cate_path2'   => ['type' => 'keyword'],
+                        'cate_path3'   => ['type' => 'keyword'],
+                        'cate_path4'   => ['type' => 'keyword'],
                     ],
                 ],
             ],
@@ -121,9 +131,17 @@ class SyncElasticsearchSettings extends Command
         \Log::channel('sync-es-settings')->info('scout:sync-settings - 인덱스 재생성 및 설정 적용 완료');
         $this->info('재인덱싱 시작...');
 
-        $this->call('scout:import', ['model' => 'App\Models\Shop\Goods']);
+        if ($this->call('scout:import', ['model' => 'App\Models\Shop\Goods']) !== 0) {
+            $this->error('재인덱싱 실패 - 인기도 점수 갱신을 건너뜁니다.');
+            \Log::channel('sync-es-settings')->error('scout:sync-settings - 재인덱싱 실패, search:update-score 미실행');
+            return 1;
+        }
+
+        // 재색인으로 사라진 purchase_score 즉시 복구
+        $this->info('인기도 점수 갱신 시작...');
+        $this->call('search:update-score');
 
         $this->info('✅ 모든 작업 완료!');
-        \Log::channel('sync-es-settings')->info('scout:sync-settings - 재인덱싱 포함 전체 작업 완료');
+        \Log::channel('sync-es-settings')->info('scout:sync-settings - 재인덱싱 + 인기도 점수 갱신 포함 전체 작업 완료');
     }
 }

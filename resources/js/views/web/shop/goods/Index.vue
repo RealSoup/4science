@@ -43,7 +43,7 @@
                     </p>
                 </b-col>
             </b-row>
-            <div class="extra_sch">
+            <!-- <div class="extra_sch">
                 <b>결과 내 검색</b>
                 <b-input-group>
                     <b-form-input v-model="frm.keyword_extra" placeholder="검색어를 입력하세요" @keyup.enter="routerPush()" />
@@ -51,7 +51,7 @@
                         <b-button variant="info" @click="routerPush()"><font-awesome-icon icon="search" /></b-button>
                     </b-input-group-append>
                 </b-input-group>
-            </div>
+            </div> -->
         </b-container>
 
         <div v-if="pick" class="pick m_hide">
@@ -136,7 +136,7 @@
                                     </span>
                                 </b-col>
                                 <!-- <b-col class="m_hide">{{row.maker.mk_name}}</b-col> -->
-                                <b-col class="m_hide">{{row.mk_name}}</b-col>
+                                <b-col class="m_hide">{{row.maker.mk_name}}</b-col>
                             </b-row>
 
                             <pagination :data="list" @pagination-change-page="setPage" :limit="5" :showDisabled="true" align="center" class="mt-5">

@@ -139,7 +139,7 @@ class Goods extends Model {
 
     //  Elastic Search
     public function toSearchableArray() {
-        $this->loadMissing(['maker', 'goodsModel', 'goodsCategoryFirst']);
+        $this->loadMissing(['maker', 'goodsModel', 'goodsCategoryFirst', 'goodsCategory']);
         // php artisan scout:sync-settings
 
         // ✅ 카테고리 이름 미리 로드
@@ -152,6 +152,18 @@ class Goods extends Model {
 
         // Prime 모델 찾기
         $prime = $this->goodsModel->firstWhere('gm_prime', 'Y') ?? $this->goodsModel->first();
+
+        //  전체 카테고리 경로 - 다중 카테고리 상품이 등록된 모든 카테고리에서 검색되도록 ("21", "21_305", "21_305_999" ...)
+        $catePath = [1 => [], 2 => [], 3 => [], 4 => []];
+        foreach ($this->goodsCategory as $gc) {
+            $path = [];
+            foreach ([1, 2, 3, 4] as $lv) {
+                $id = (int) $gc->{"gc_ca0{$lv}"};
+                if (!$id) break;
+                $path[] = $id;
+                $catePath[$lv][] = implode('_', $path);
+            }
+        }
 
         return [
             'gd_id'      => $this->gd_id,
@@ -179,6 +191,12 @@ class Goods extends Model {
             'gc_ca03'     => $ca03,
             'gc_ca04'     => $this->goodsCategoryFirst->gc_ca04 ?? 0,
 
+            //  필터·사이드바 집계용 (전체 카테고리)
+            'cate_path1'  => array_values(array_unique($catePath[1])),
+            'cate_path2'  => array_values(array_unique($catePath[2])),
+            'cate_path3'  => array_values(array_unique($catePath[3])),
+            'cate_path4'  => array_values(array_unique($catePath[4])),
+
             // ✅ 이름
             'gc_ca01_name' => $caNames[$ca01] ?? '',
             'gc_ca02_name' => $caNames[$ca02] ?? '',
@@ -188,7 +206,61 @@ class Goods extends Model {
             'gd_seq'      => (int) $this->gd_seq,
             'gd_rank'     => $this->gd_rank,
             'gd_view_cnt' => $this->gd_view_cnt,
+
+            // 관리자 검색용
+            'created_at'  => optional($this->created_at)->timestamp,
+            'updated_at'  => optional($this->updated_at)->timestamp,
+            'updated_id'  => (int) $this->updated_id,
+            'is_deleted'  => $this->trashed(),
+
+            // 인기도 - 문서 교체 시 사라지지 않게 기존 값 유지 (갱신은 search:update-score)
+            'purchase_score' => $this->currentPurchaseScore(),
         ];
+    }
+
+    //  ES에 저장된 현재 purchase_score 조회 (문서 없음·ES 오류 시 0)
+    protected function currentPurchaseScore(): float {
+        try {
+            $res = app(\Elastic\Elasticsearch\Client::class)->get([
+                'index'            => $this->searchableAs(),
+                'id'               => $this->getScoutKey(),
+                '_source_includes' => 'purchase_score',
+            ]);
+            return (float) ($res->asArray()['_source']['purchase_score'] ?? 0);
+        } catch (\Throwable $e) {
+            return 0;
+        }
+    }
+
+    //  DB 직접 수정으로 가격이 바뀐 상품의 ES 가격(gm_price)만 부분 갱신 (가격 배치·엑셀 업로드용)
+    //  대표 모델 선정은 toSearchableArray()와 동일 - gm_prime='Y' 우선, 없으면 첫 모델
+    public static function syncSearchPrice($gdIds) {
+        $gdIds = collect($gdIds)->filter()->unique()->values();
+        if ($gdIds->isEmpty()) return;
+
+        try {
+            $client = app(\Elastic\Elasticsearch\Client::class);
+            $index  = (new static)->searchableAs();
+
+            foreach ($gdIds->chunk(1000) as $chunk) {
+                $primes = DB::table('shop_goods_model')
+                    ->whereIn('gm_gd_id', $chunk)
+                    ->orderByRaw("gm_prime = 'Y' DESC")
+                    ->orderBy('gm_id')
+                    ->get(['gm_gd_id', 'gm_price'])
+                    ->unique('gm_gd_id');       //  상품별 대표 모델 1개
+
+                $body = '';
+                foreach ($primes as $p) {
+                    $body .= json_encode(['update' => ['_index' => $index, '_id' => $p->gm_gd_id]]) . "\n";
+                    $body .= json_encode(['doc' => ['gm_price' => (int) $p->gm_price]]) . "\n";
+                }
+                if ($body) $client->bulk(['body' => $body]);
+            }
+        } catch (\Throwable $e) {
+            //  ES 장애가 가격 배치·업로드를 막지 않도록 로그만 남김
+            \Log::warning('Goods::syncSearchPrice 실패 - ' . $e->getMessage());
+        }
     }
 
    
@@ -674,7 +746,7 @@ class Goods extends Model {
                 ->join( 'z_sph_goods AS sph_gs', 'shop_goods.gd_id', '=', 'sph_gs.gd_id' )
                 ->with('goodsModelPrime')
                 ->withTrashed()
-                ->whereRaw("`query` = '{$q_str}'");
+                ->whereRaw("`query` = ?", [$q_str]);
         return $rst;
     }
 

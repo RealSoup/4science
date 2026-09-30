@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Shop\Maker;
 use App\Models\Shop\ExchangeRate;
+use App\Models\Shop\Goods;
 use Illuminate\Support\Facades\DB;
 
 class RecalcForeignGoodsPrice extends Command {
@@ -55,6 +56,11 @@ class RecalcForeignGoodsPrice extends Command {
                     ]);
 
                 $total += $affected;
+
+                //  ES 검색 인덱스 가격 동기화 (실제로 가격이 바뀐 경우만)
+                if ($affected)
+                    Goods::syncSearchPrice(DB::table('shop_goods_model')->whereIn('gm_id', $ids)->pluck('gm_gd_id'));
+
                 $lastId = $ids->max();
                 usleep(50000);
 

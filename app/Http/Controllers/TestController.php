@@ -24,20 +24,31 @@ class TestController extends Controller {
                                                         $req->filled('ca02') ? $req->ca02 : 0, 
                                                         $req->filled('ca03') ? $req->ca03 : 0 );
         
-        $page   = $req->page ?? 1;
-        $perPage = 20;
-        $offset = ($page - 1) * $perPage;
-        $keyword  = strtolower($req->keyword) ?? '';
+        $page    = max(1, (int) ($req->page ?? 1));
+        $perPage = $req->filled('limit') ? (int) $req->limit : 15;     //  limit: 메인 베스트 개수 지정
+        $offset  = ($page - 1) * $perPage;
+        $keyword = strtolower(trim($req->keyword ?? ''));
+
+        //  캣넘버 검색인데 캣넘버 형식이 아니면 (기존 Sphinx와 같은 응답)
+        if ($req->filled('keyword') && $req->mode == 'cat_no' && !preg_match("/\d{2}-([\d-]{5,10})/", $keyword))
+            return response()->json('no-catno');
+
         $isCatnoPattern = (bool) preg_match('/^\d{2,}-\d+(-\d+)?$/', $keyword);
-        // ✅ 카테고리 필터 (keyword 유무 무관하게 항상 적용)
-        $filters = array_values(array_filter([
+        //  카테고리·제조사 → post_filter
+        //  목록·총개수에만 적용, 사이드바 카테고리 개수(aggs)에는 미적용 (기존 Sphinx와 동일)
+        $postFilters = array_values(array_filter([
             $req->filled('ca01') ? ['term' => ['gc_ca01' => (int)$req->ca01]] : null,
             $req->filled('ca02') ? ['term' => ['gc_ca02' => (int)$req->ca02]] : null,
             $req->filled('ca03') ? ['term' => ['gc_ca03' => (int)$req->ca03]] : null,
             $req->filled('ca04') ? ['term' => ['gc_ca04' => (int)$req->ca04]] : null,
             $req->filled('mk_id') ? ['term' => ['gd_mk_id' => (int)$req->mk_id]] : null,
-        ]));
-        $filters[] = ['term' => ['gd_enable' => 'Y']];
+        ]));        
+
+        //  기본 필터 → query (검색·집계 모두 적용)
+        $filters = [
+            ['term' => ['gd_enable' => 'Y']],
+            ['term' => ['gd_type' => 'NON']],      //  렌탈 제외
+        ];
         
         // ✅ 정렬 설정
         $req->merge(['sort' => $req->sort ?? 'hot']);
@@ -45,7 +56,14 @@ class TestController extends Controller {
             'new'     => [['gd_id'      => ['order' => 'desc']], '_score'],
             'lowPri'  => [['gm_price'   => ['order' => 'asc']],  '_score'],
             'highPri' => [['gm_price'   => ['order' => 'desc']], '_score'],
-            default   => ['_score'],
+            default   => $req->filled('keyword')
+                ? ['_score']
+                //  키워드 없이 카테고리만 볼 때는 점수가 모두 같으므로 기존(Sphinx)과 같은 순서
+                : [
+                    ['gd_seq'      => ['order' => 'asc']],
+                    ['gd_rank'     => ['order' => 'asc']],
+                    ['gd_view_cnt' => ['order' => 'asc']],
+                ],
         };
 
         // 개인화 boost 함수 생성
@@ -359,41 +377,71 @@ class TestController extends Controller {
         }
 
 
+        //  ES는 from+size 10000까지만 조회 가능 → 넘으면 조회 가능한 마지막 페이지로
+        $maxWindow = 10000;
+        if ($offset + $perPage > $maxWindow) {
+            $page   = max(1, intdiv($maxWindow, $perPage));
+            $offset = ($page - 1) * $perPage;
+        }
+
+        $body = [
+            'from'        => $offset,
+            'size'        => $perPage,
+            'query'       => $searchQuery,
+            'post_filter' => ['bool' => ['filter' => $postFilters]],
+            'sort'        => $sort,
+            'track_total_hits' => true,
+            'aggs'        => $aggs,
+        ];
         $client = app(\Elastic\Elasticsearch\Client::class);
-        $result = $client->search([
-            'index' => 'shop_goods',
-            'body'  => [
-                'from'  => $offset,
-                'size'  => $perPage,
-                'query' => $searchQuery,
-                'sort'  => $sort,
-                'track_total_hits' => true,
-                'aggs'  => $aggs,
-                'explain' => true,  // 추가
-            ],
-        ]);
+        $result = $client->search(['index' => 'shop_goods', 'body' => $body]);
 
+        //  요청 페이지가 결과 범위를 넘으면 마지막 페이지로 다시 조회
         $total = $result->asArray()['hits']['total']['value'];
-        $ids   = collect($result->asArray()['hits']['hits'])->pluck('_source.gd_id');
+        if ($total > 0 && $offset >= $total) {
+            $page   = (int) min(ceil($total / $perPage), intdiv($maxWindow, $perPage));
+            $offset = ($page - 1) * $perPage;
+            $body['from'] = $offset;
+            $result = $client->search(['index' => 'shop_goods', 'body' => $body]);
+        }
 
-        if ($ids->isEmpty()) {
-            $data['list'] = new \Illuminate\Pagination\LengthAwarePaginator(
-                [], 0, $perPage, $page,
-                ['path' => $req->url(), 'query' => $req->query()]
-            );
+        $items = $this->goodsByEsHits($result);
+
+        if ($req->filled('limit')) {    //  메인 베스트 - 페이징 없이 목록만
+            $data['list'] = $items;
         } else {
-            $items = Goods::with(['maker', 'goodsModelPrime', 'goodsCategoryFirst'])
-                ->whereIn('gd_id', $ids)
-                ->orderByRaw('FIELD(gd_id, ' . $ids->implode(',') . ')')
-                ->get();
-
             $data['list'] = new \Illuminate\Pagination\LengthAwarePaginator(
-                $items,
-                $total,
-                $perPage,
-                $page,
+                $items, $total, $perPage, $page,
                 ['path' => $req->url(), 'query' => $req->query()]
             );
+
+            //  할인가 적용 (딜러가 / 상품할인)
+            foreach ($data['list'] as $v)
+                $v->goods_discount_checker($v->goodsModelPrime, $v->gd_dc);
+
+            //  포사의 PICK - 같은 검색조건 중 관리자 지정 순서(gd_seq)가 있는 상품 12개
+            $pickResult = $client->search([
+                'index' => 'shop_goods',
+                'body'  => [
+                    'size'  => 12,
+                    'query' => ['bool' => [
+                        'must'     => [$searchQuery],
+                        'filter'   => $postFilters,
+                        'must_not' => [['term' => ['gd_seq' => 999999]]],
+                    ]],
+                    'sort'  => [
+                        ['gd_seq'      => ['order' => 'asc']],
+                        ['gd_rank'     => ['order' => 'asc']],
+                        ['gd_view_cnt' => ['order' => 'asc']],
+                    ],
+                ],
+            ]);
+            $pick_data = $this->goodsByEsHits($pickResult);
+            if (count($pick_data)) {
+                $data['pick'][0] = $pick_data->take(6);
+                if (count($pick_data) > 6)
+                    $data['pick'][1] = $pick_data->skip(6)->take(6);
+            }
         }
 
 
@@ -458,17 +506,19 @@ class TestController extends Controller {
                     ])->toArray();
             }
         }
-
-        // $data['Elastic'] = '';
-        $data['Elastic'] = collect($result->asArray()['hits']['hits'])->map(fn($h) => [
-            'id'       => $h['_source']['gd_id'],
-            'score'    => $h['_score'],
-            'name'     => $h['_source']['gd_name'] ?? '',
-            'purchase' => $h['_source']['purchase_score'] ?? 0,
-            'explanation' => $h['_explanation'],
-        ]);
-        
         
 		return response()->json($data);
-    }  
+    }
+    
+    //  ES 검색결과 순서대로 상품 조회
+    private function goodsByEsHits($result) {
+        $ids = collect($result->asArray()['hits']['hits'])->pluck('_source.gd_id')->map(fn($v) => (int) $v);
+        if ($ids->isEmpty())
+            return collect();
+
+        return Goods::with(['maker', 'goodsModelPrime', 'goodsCategoryFirst'])
+            ->whereIn('gd_id', $ids)
+            ->orderByRaw('FIELD(gd_id, ' . $ids->implode(',') . ')')
+            ->get();
+    }
 }

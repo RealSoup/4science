@@ -15,6 +15,7 @@ use Illuminate\Support\Arr;
 use Storage;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Lib\SphinxClient;
+use App\Services\GoodsElasticSearch;
 
 class GoodsController extends Controller {
     use FileControl;
@@ -37,7 +38,73 @@ class GoodsController extends Controller {
         $this->bd = $bd;
     }
 
+        //  관리자 상품 검색 입구 - ES 검색, ES 장애 시 기존 Sphinx(index_260928)로 자동 전환
     public function index (Request $req) {
+        return GoodsElasticSearch::withFallback(
+            fn() => $this->index_es($req),
+            fn() => $this->index_260928($req),
+            '관리자'
+        );
+    }
+
+    //  관리자 상품 검색 (ES)
+    //  검색어 매칭은 고객 검색과 같은 규칙(buildQuery 공유) + 관리자 전용 필터, 정렬은 수정순(기본)/등록순
+    public function index_es (Request $req) {
+        $es      = new GoodsElasticSearch;
+        $keyword = GoodsElasticSearch::keyword($req->keyword);
+
+        if (GoodsElasticSearch::invalidCatno($keyword, $req->mode))
+            return response()->json('no-catno');
+
+        //  관리자 필터
+        $filters = [
+            ['term' => ['gd_type' => $req->filled('gd_type') ? $req->gd_type : 'NON']],
+            $req->deleted_at == 'Y'     //  기본·N: 존재 상품만 / Y: 삭제 상품만
+                ? ['term' => ['is_deleted' => true]]
+                : ['bool' => ['must_not' => [['term' => ['is_deleted' => true]]]]],
+        ];
+        if ($req->filled('gd_enable'))  $filters[] = ['term' => ['gd_enable'  => $req->gd_enable]];
+        if ($req->filled('updated_id')) $filters[] = ['term' => ['updated_id' => (int) $req->updated_id]];
+        if ($req->filled('gd_mk_id'))   $filters[] = ['term' => ['gd_mk_id'   => (int) $req->gd_mk_id]];
+        if ($cateFilter = GoodsElasticSearch::catePathFilter(GoodsElasticSearch::catePath($req)))
+            $filters[] = $cateFilter;
+
+        //  기간 - 수정순이면 수정일, 그 외 등록일 기준 (기존과 동일)
+        if ($req->filled('startDate') || $req->filled('endDate')) {
+            $dateField = $req->sort == 'edit' ? 'updated_at' : 'created_at';
+            $filters[] = ['range' => [$dateField => [
+                'gte' => $req->filled('startDate') ? strtotime($req->startDate) : 0,
+                'lte' => $req->filled('endDate')   ? strtotime($req->endDate . ' 23:59:59') : time(),
+            ]]];
+        }
+
+        //  우선순위상품 - 순서 지정된 상품만, 우선순위 순서로
+        if ($req->filled('gd_seq')) {
+            $filters[] = ['bool' => ['must_not' => [['term' => ['gd_seq' => 999999]]]]];
+            $sort = GoodsElasticSearch::sort('hot', false);
+        } else {
+            $sort = GoodsElasticSearch::sort($req->sort == 'new' ? 'new' : 'edit', $keyword !== '');   //  수정순(기본) / 등록순
+        }
+
+        [$result, $total, $page] = $es->searchPage([
+            'query' => $es->buildQuery($keyword, $req->mode, $filters),
+            'sort'  => $sort,
+        ], (int) ($req->page ?? 1), 15);
+
+        $items = $es->goods($result, true)
+            ->each(fn($g) => $g->mk_name = $g->maker->mk_name ?? '');     //  목록 화면은 mk_name 사용
+
+        $data['list'] = new LengthAwarePaginator($items, $total, 15, $page, ['path' => $req->url(), 'query' => $req->query()]);
+        if ($req->filled('is_first') && $req->is_first) {
+            $data['mng_off'] = json_decode(Redis::get('UserMngOff'));
+            $data['makers'] = $this->maker->orderBy('mk_name')->get();
+            $data['user'] = auth()->user()->load('userMng');
+        }
+        $data['engine'] = 'elastic';
+        return response()->json($data);
+    }
+
+    public function index_260928 (Request $req) {
         $req->merge(array('v_type' => "ADM"));
         /*  스핑크스(Sphinx) 검색 엔진은 기본적으로 limit 20이 설정되어있고 뺄수 없다
             페이지를 위해 검색된 count 재설정 */
@@ -264,6 +331,9 @@ class GoodsController extends Controller {
         if ($req->gd_type != 'REN')
             self::exeIndex();
 
+        //  ES 검색 인덱스 갱신 - 모델·카테고리 등록이 끝난 뒤 1회
+        $goods->unsetRelations()->searchable();
+
         if ($rst)
             return response()->json($goods->gd_id, 200);
         else
@@ -424,6 +494,9 @@ class GoodsController extends Controller {
                 DB::table('shop_goods_relate')->where('gr_id', $id)->delete();
         }
 
+        //  ES 검색 인덱스 갱신 - 모델·카테고리 저장이 끝난 뒤 최신 데이터로 1회
+        $goods->unsetRelations()->searchable();
+
         if ($gd_rst)
             return response()->json($gd_id, 200);
         else
@@ -484,6 +557,9 @@ class GoodsController extends Controller {
         // }
         // DB::table('shop_goods_category')->where('gc_gd_id', $id)->delete();
         DB::table('shop_goods')->where('gd_id', $id)->update(['updated_id'=>auth()->user()->id, 'deleted_at' => \Carbon\Carbon::now()]);
+
+        //  ES 검색 인덱스에 삭제 상태 반영 (is_deleted=true, 관리자 삭제상품 조회용)
+        optional(Goods::withTrashed()->find($id))->searchable();
     }
 
     public function goods_paramImplant($goods, $req){
