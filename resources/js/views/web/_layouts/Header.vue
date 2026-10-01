@@ -14,9 +14,10 @@
             </div>
             
             <b-link class="logo" :to="{name: 'main'}">
-                <b-img :src="`/storage/common/logo/logo.png`" />
+                <b-img :src="`/storage/common/logo/261001.gif`" class="season" />
+                <b-img :src="`/storage/common/logo/logo.png`" class="default" />
             </b-link>
-            
+                
             <nav>
                 <div class="nav_left">
                     <b-link id="cate_btn" @click="view_cate = !view_cate">
@@ -195,10 +196,16 @@ header .admin { position:absolute; top:0; left:50%; transform:translateX(-50%); 
 header .admin a { display:inline-block; background-color:#ff4d00; padding:3px 10px; border-radius:0 0 10px 10px; color:#fff; font-weight:bold; text-align:center; }
 
 header #fixWrap { border-bottom:1px solid #CCCCCC; padding-bottom:10px; background-color:#FFF; }
-header.headerFix #afterimage { height:126px; }
+header.headerFix #afterimage { height:159px; }
 header.headerFix #fixWrap { position:fixed; z-index:17; top:0; width:100%; }
-header #fixWrap #core .logo { display:inline-block; width:220px; padding:7px 0 0 27px; transform:translateY(20px); }
+
+/* header.headerFix #afterimage { height:126px; } */
+/* header #fixWrap #core .logo { display:inline-block; width:220px; padding:7px 0 0 27px; transform:translateY(20px); } */
+
+header #fixWrap #core .logo { display:inline-block; width:441px; padding:0 0 0 27px; transform:translateY(20px); }
 header #fixWrap #core .logo img { width:100%; }
+header #fixWrap #core .logo .default { display:none; }
+
 header #fixWrap #core nav { display:flex; align-items:flex-end; }
 header #fixWrap #core nav>div { flex-basis:0; flex-grow:1; max-width:100%; width:100%; }
 header #fixWrap #core nav div a { color:#727273; }
@@ -238,6 +245,9 @@ header .bottom_menu { display:none; }
     header #fixWrap #core { text-align:center; }
     header #fixWrap #core .logo { width:200px; margin-top:1em; padding:0; transform:none; }
     header #fixWrap #core .logo img {  max-width:170px; width:auto; height:auto; }
+    header #fixWrap #core .logo .season { display:none; }
+    header #fixWrap #core .logo .default { display:block; }
+
     header #fixWrap #core nav { align-items:center; margin:12px 0; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); }
     header #fixWrap #core nav>div { display:flex; align-items: center; }
     header #fixWrap #core nav .nav_left #cate_btn { display:inline-block; background-image:none; background-color:#666; padding:0; }
