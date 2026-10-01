@@ -134,22 +134,25 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             case 22:
               res = _context2.sent;
               if (res && res.status === 200) {
-                _this2.clickable = true;
                 _this2.$store.state.auth.enable_mileage = res.data;
                 Notify.modal("신청 되었습니다.", 'info');
+                _this2.index();
               }
-              _context2.next = 30;
+              _context2.next = 29;
               break;
             case 26:
               _context2.prev = 26;
               _context2.t0 = _context2["catch"](18);
               Notify.consolePrint(_context2.t0);
-              Notify.toast('warning', _context2.t0.response.data.message);
-            case 30:
+            case 29:
+              _context2.prev = 29;
+              _this2.clickable = true;
+              return _context2.finish(29);
+            case 32:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[18, 26]]);
+        }, _callee2, null, [[18, 26, 29, 32]]);
       }))();
     },
     frm_formatHp: function frm_formatHp(v) {

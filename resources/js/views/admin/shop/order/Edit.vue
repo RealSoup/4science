@@ -94,7 +94,7 @@
                         </b-input-group>
                     </div>
                     
-                    <b-button @click="toEstimate" class="sm green" v-if="od.created_id">모든상품 임의견적 복사</b-button>
+                    <b-button @click="toEstimate" class="sm green" v-if="od.created_id">선택상품 임의견적 복사</b-button>
                     <b-button @click="update('odm_ea')" class="sm teal">상품정보 수정</b-button>
                 </b-col>
             </b-row>
@@ -1050,13 +1050,37 @@ export default {
         },
 
         async toEstimate(){
-            let rst = await ax.post(`/api/admin/shop/estimate/storeFromOrder`, this.od);
+            if (!this.didCheck()) return;   //  체크된 모델이 없으면 '모델을 먼저 체크하세요.' 경고 후 중단
+
+            let gd_price = 0;
+            let order_purchase_at = [];
+            for (let opa of this.od.order_purchase_at) {
+                let models = [];
+                let parentChecked = false;  //  OPTION 행은 바로 위 MODEL의 체크 여부를 따름
+                for (let odm of opa.order_model) {
+                    if (odm.odm_type == 'MODEL') parentChecked = (odm.dlvy_chk == 'Y');
+                    if (parentChecked) {
+                        models.push(odm);
+                        gd_price += Number(odm.odm_price) * Number(odm.odm_ea);
+                    }
+                }
+                if (models.length) order_purchase_at.push({ ...opa, order_model: models });
+            }
+
+            const surtax = Math.floor(gd_price * 0.1);
+            const payload = {
+                ...this.od,
+                order_purchase_at,
+                od_gd_price : gd_price,
+                od_surtax   : surtax,
+                od_all_price: gd_price + surtax + Number(this.od.od_dlvy_price || 0) + Number(this.od.od_air_price || 0),
+            };
+
+            let rst = await ax.post(`/api/admin/shop/estimate/storeFromOrder`, payload);
             if (rst && rst.status === 200) {
                 Notify.toast('success', '복사 완료');
                 this.openWinPop(`/admin/shop/estimate/reply/${rst.data}`, 1300, 900);
-                // this.$router.push({ name: 'adm_estimate_show_reply', params:{er_id:rst.data} });
             }
-            
         },
 
         insert_dlvy(order_dlvy_info, odm_id) {

@@ -71,8 +71,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.index();
     },
     setVoucher: function setVoucher(v, id) {
+      var _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var rst, res;
+        var rst, res, _e$response$data$mess, _e$response, ml;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
@@ -80,49 +81,64 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return Notify.confirm('변경', 'warning');
             case 2:
               rst = _context2.sent;
+              _context2.prev = 3;
               if (!rst) {
-                _context2.next = 8;
+                _context2.next = 9;
                 break;
               }
-              _context2.next = 6;
+              _context2.next = 7;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/mileage/".concat(id), {
                 _method: 'PATCH',
                 ml_type: v
               });
-            case 6:
+            case 7:
               res = _context2.sent;
               if (res && res.status === 200) Notify.toast('success', '변경 완료');
-            case 8:
+            case 9:
+              _context2.next = 14;
+              break;
+            case 11:
+              _context2.prev = 11;
+              _context2.t0 = _context2["catch"](3);
+              Notify.toast('warning', (_e$response$data$mess = (_e$response = _context2.t0.response) === null || _e$response === void 0 || (_e$response = _e$response.data) === null || _e$response === void 0 ? void 0 : _e$response.message) !== null && _e$response$data$mess !== void 0 ? _e$response$data$mess : '변경 실패');
+            case 14:
+              _this2.index(); // 취소/실패 시 원래 값으로 복구
+              _context2.next = 17;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin/mileage/enable/".concat(_this2.$route.params.id));
+            case 17:
+              ml = _context2.sent;
+              _this2.enableMileage = ml.data; // 상단 가용 마일리지 갱신
+            case 19:
             case "end":
               return _context2.stop();
           }
-        }, _callee2);
+        }, _callee2, null, [[3, 11]]);
       }))();
     },
     numCalc: function numCalc(i) {
       return this.list.total - (this.list.current_page - 1) * this.list.per_page - i;
     },
     action: function action() {
-      var _this2 = this;
+      var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         var rst, res;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              if (!isEmpty(_this2.act.mileage)) {
+              if (!isEmpty(_this3.act.mileage)) {
                 _context3.next = 4;
                 break;
               }
               Notify.toast('danger', "마일리지를 입력하세요");
-              _this2.$refs.mileage.focus();
+              _this3.$refs.mileage.focus();
               return _context3.abrupt("return", false);
             case 4:
-              if (!isEmpty(_this2.act.msg)) {
+              if (!isEmpty(_this3.act.msg)) {
                 _context3.next = 8;
                 break;
               }
               Notify.toast('danger', "메시지를 입력하세요");
-              _this2.$refs.msg.focus();
+              _this3.$refs.msg.focus();
               return _context3.abrupt("return", false);
             case 8:
               _context3.next = 10;
@@ -134,15 +150,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 break;
               }
               _context3.next = 14;
-              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/mileage/".concat(_this2.$route.params.id), _this2.act);
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/mileage/".concat(_this3.$route.params.id), _this3.act);
             case 14:
               res = _context3.sent;
               if (res && res.status === 200) {
-                _this2.list = res.data.list;
-                _this2.enableMileage = res.data.mileage;
-                _this2.act.type = 'plus';
-                _this2.act.mileage = '';
-                _this2.act.msg = '';
+                _this3.list = res.data.list;
+                _this3.enableMileage = res.data.mileage;
+                _this3.act.type = 'plus';
+                _this3.act.mileage = '';
+                _this3.act.msg = '';
                 Notify.toast('success', '변경 완료');
               }
             case 16:
@@ -157,18 +173,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   mounted: function mounted() {
-    var _this3 = this;
+    var _this4 = this;
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
       var ml;
       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
         while (1) switch (_context4.prev = _context4.next) {
           case 0:
-            _this3.index();
+            _this4.index();
             _context4.next = 3;
-            return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin/mileage/enable/".concat(_this3.$route.params.id));
+            return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin/mileage/enable/".concat(_this4.$route.params.id));
           case 3:
             ml = _context4.sent;
-            _this3.enableMileage = ml.data;
+            _this4.enableMileage = ml.data;
           case 5:
           case "end":
             return _context4.stop();
