@@ -137,14 +137,14 @@ export default {
                 this.clickable = false;
                 const res = await ax.post(`/api/mileage`, this.frm);
                 if (res && res.status === 200) {
-                    this.clickable = true;
                     this.$store.state.auth.enable_mileage = res.data;
                     Notify.modal("신청 되었습니다.", 'info');
+                    this.index();
                 }
             } catch (e) {
-                this.clickable = true;
                 Notify.consolePrint(e);
-                Notify.toast('warning', e.response.data.message);
+            } finally {
+                this.clickable = true;
             }
            
         },
