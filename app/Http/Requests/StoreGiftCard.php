@@ -11,8 +11,8 @@ class StoreGiftCard extends FormRequest {
 
     public function rules() {
         return [
-            'type'  => 'required',
-            'ea'    => 'required|integer',
+            'type'  => 'required|in:1,2',
+            'ea'    => 'required|integer|min:1|max:100',
             'name'  => 'required',
             'hp'    => 'required',
         ];

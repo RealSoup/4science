@@ -25,18 +25,28 @@ class MileageController extends Controller {
     public function enable() { return $this->mileage->enableMileage(auth()->user()->id); }
     
     public function store(StoreGiftCard $req) {
-        $p = intval(-UserMileage::$config['voucher'][$req->type]['point'] * $req->ea);
-        UserMileage::insert([
-            "ml_uid"     => auth()->check() ? auth()->user()->id : 0,
-            "ml_tbl"     => 'voucher',
-            "ml_key"     => 0,
-            "ml_type"    => 'REQ',
-            "ml_content" => "{$req->type}||{$req->ea}||{$req->name}||{$req->hp}",
-            "ml_mileage" => $p,
-            "ml_enable_m" => $p,
-            'created_id' => auth()->check() ? auth()->user()->id : 0
-        ]);
-        return response()->json($this->enable(), 200);
+        $uid = auth()->user()->id;
+        $p   = intval(-UserMileage::$config['voucher'][$req->type]['point'] * $req->ea);
+        if ($p >= 0) return response()->json(['message' => '잘못된 요청입니다.'], 422);
+
+        return DB::transaction(function () use ($req, $uid, $p) {
+            User::where('id', $uid)->lockForUpdate()->first();   // 동시 신청 방지
+
+            if ($this->mileage->enableMileage($uid) < -$p)
+                return response()->json(['message' => '마일리지가 모자릅니다.'], 422);
+
+            UserMileage::insert([
+                "ml_uid"      => $uid,
+                "ml_tbl"      => 'voucher',
+                "ml_key"      => 0,
+                "ml_type"     => 'REQ',
+                "ml_content"  => "{$req->type}||{$req->ea}||{$req->name}||{$req->hp}",
+                "ml_mileage"  => $p,
+                "ml_enable_m" => $p,
+                'created_id'  => $uid,
+            ]);
+            return response()->json($this->enable(), 200);
+        });
     }
 
     // public function update(Request $req, $id) {

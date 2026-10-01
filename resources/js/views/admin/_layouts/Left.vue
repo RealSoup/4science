@@ -176,12 +176,12 @@ export default {
 
     methods: {
         strongReload(url, param){
-            if (this.siteInfo.APP_ENV == 'production' ) {
-                url = `${url}?t=${Math.random()}`;
-                if(!isEmpty(param)) url = `${url}&${param}`;
-                window.location.href = url;
-            } else if (this.siteInfo.APP_ENV == 'local' )
-                this.$router.push(url);
+            //  로컬 개발만 라우터 이동, 그 외(운영·siteInfo 미로딩 포함)는 강제 이동
+            if (this.siteInfo.APP_ENV == 'local')
+                return this.$router.push(isEmpty(param) ? url : `${url}?${param}`);
+            url = `${url}?t=${Math.random()}`;
+            if(!isEmpty(param)) url = `${url}&${param}`;
+            window.location.href = url;
         },
 
         toggleClass(e){

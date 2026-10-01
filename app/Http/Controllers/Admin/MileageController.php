@@ -47,28 +47,39 @@ class MileageController extends Controller {
     }
 
     public function update(Request $req, $id) {
-        $ml =  $this->mileage->find($id);
-        $config = UserMileage::$config['voucher'];
-        $req_price = $config[$ml->refine_content[0]]['point'] * $ml->refine_content[1];
-        $enable_price = (int) $this->enable($ml->ml_uid);
-        
-        if ( $req->ml_type == 'OK') {
-            foreach ($this->mileage->Uid($ml->ml_uid)->whereRaw("created_at > SUBDATE(NOW(), INTERVAL 1 YEAR)")->where('ml_enable_m', '>', 0)->get() as $v) {
-                $req_price -= $v->ml_enable_m;
-                $tmp = 0;
-                if ($req_price >= 0) 	$tmp = 0;
-                else 					$tmp = abs($req_price);
-                DB::table('user_mileage')->where('ml_id', $v->ml_id)->update(["ml_type" => 'SP', "ml_enable_m" => $tmp]);        
-                if ($req_price <= 0) break;
-            }
-        }
-        
-        $ml->ml_type = $req->ml_type;
-        $ml->ml_enable_m = 0;
-        $ml->updated_id = auth()->user()->id;
-        $ml->save();   
+        return DB::transaction(function () use ($req, $id) {
+            $ml = $this->mileage->lockForUpdate()->findOrFail($id);
+            if ($ml->ml_type !== 'REQ' || !in_array($req->ml_type, ['OK', 'NO']))
+                return response()->json(['message' => '대기 상태만 승인/반려할 수 있습니다.'], 422);
 
-        return response()->json("success", 200);
+            $need = -$ml->ml_mileage;
+
+            if ($req->ml_type == 'OK') {
+                if ($this->enable($ml->ml_uid) < 0)
+                    return response()->json(['message' => '가용 마일리지가 마이너스입니다. 다른 대기 건을 먼저 확인하세요.'], 422);
+                $rows = $this->mileage->Uid($ml->ml_uid)->Enable()
+                            ->where('ml_enable_m', '>', 0)
+                            ->orderBy('created_at')->orderBy('ml_id')
+                            ->lockForUpdate()->get();
+
+                if ($rows->sum('ml_enable_m') < $need)
+                    return response()->json(['message' => '유효 마일리지가 부족합니다. (만료 등)'], 422);
+
+                $remain = $need;
+                foreach ($rows as $v) {
+                    $use = min($v->ml_enable_m, $remain);
+                    DB::table('user_mileage')->where('ml_id', $v->ml_id)
+                        ->update(['ml_type' => 'SP', 'ml_enable_m' => $v->ml_enable_m - $use]);
+                    if (($remain -= $use) <= 0) break;
+                }
+            }
+
+            $ml->ml_type = $req->ml_type;
+            $ml->ml_enable_m = 0;
+            $ml->updated_id = auth()->user()->id;
+            $ml->save();
+            return response()->json('success', 200);
+        });
     }
 
     public function enable($id) {

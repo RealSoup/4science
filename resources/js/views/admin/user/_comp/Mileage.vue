@@ -106,12 +106,18 @@ export default {
         },
         
         async setVoucher(v, id) {
-            var rst = await Notify.confirm('변경', 'warning');
-            if (rst) {
-                const res = await ax.post(`/api/admin/mileage/${id}`, {_method : 'PATCH', ml_type: v});
-                if (res && res.status === 200)
-                    Notify.toast('success', '변경 완료')
+            const rst = await Notify.confirm('변경', 'warning');
+            try {
+                if (rst) {
+                    const res = await ax.post(`/api/admin/mileage/${id}`, {_method: 'PATCH', ml_type: v});
+                    if (res && res.status === 200) Notify.toast('success', '변경 완료');
+                }
+            } catch (e) {
+                Notify.toast('warning', e.response?.data?.message ?? '변경 실패');
             }
+            this.index();                                          // 취소/실패 시 원래 값으로 복구
+            const ml = await ax.get(`/api/admin/mileage/enable/${this.$route.params.id}`);
+            this.enableMileage = ml.data;                          // 상단 가용 마일리지 갱신
         },
 
         numCalc(i) {

@@ -142,6 +142,7 @@ export default {
                     Notify.modal("신청 되었습니다.", 'info');
                 }
             } catch (e) {
+                this.clickable = true;
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.response.data.message);
             }
