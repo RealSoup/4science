@@ -48,7 +48,7 @@ class GoodsController extends Controller {
     }
 
     //  관리자 상품 검색 (ES)
-    //  검색어 매칭은 고객 검색과 같은 규칙(buildQuery 공유) + 관리자 전용 필터, 정렬은 수정순(기본)/등록순
+    //  검색어 매칭은 고객 검색과 같은 규칙(buildQuery 공유) + 관리자 전용 필터(adminFilters, 가격 다운로드와 공용), 정렬은 수정순(기본)/등록순
     public function index_es (Request $req) {
         $es      = new GoodsElasticSearch;
         $keyword = GoodsElasticSearch::keyword($req->keyword);
@@ -56,38 +56,12 @@ class GoodsController extends Controller {
         if (GoodsElasticSearch::invalidCatno($keyword, $req->mode))
             return response()->json('no-catno');
 
-        //  관리자 필터
-        $filters = [
-            ['term' => ['gd_type' => $req->filled('gd_type') ? $req->gd_type : 'NON']],
-            $req->deleted_at == 'Y'     //  기본·N: 존재 상품만 / Y: 삭제 상품만
-                ? ['term' => ['is_deleted' => true]]
-                : ['bool' => ['must_not' => [['term' => ['is_deleted' => true]]]]],
-        ];
-        if ($req->filled('gd_enable'))  $filters[] = ['term' => ['gd_enable'  => $req->gd_enable]];
-        if ($req->filled('updated_id')) $filters[] = ['term' => ['updated_id' => (int) $req->updated_id]];
-        if ($req->filled('gd_mk_id'))   $filters[] = ['term' => ['gd_mk_id'   => (int) $req->gd_mk_id]];
-        if ($cateFilter = GoodsElasticSearch::catePathFilter(GoodsElasticSearch::catePath($req)))
-            $filters[] = $cateFilter;
-
-        //  기간 - 수정순이면 수정일, 그 외 등록일 기준 (기존과 동일)
-        if ($req->filled('startDate') || $req->filled('endDate')) {
-            $dateField = $req->sort == 'edit' ? 'updated_at' : 'created_at';
-            $filters[] = ['range' => [$dateField => [
-                'gte' => $req->filled('startDate') ? strtotime($req->startDate) : 0,
-                'lte' => $req->filled('endDate')   ? strtotime($req->endDate . ' 23:59:59') : time(),
-            ]]];
-        }
-
-        //  우선순위상품 - 순서 지정된 상품만, 우선순위 순서로
-        if ($req->filled('gd_seq')) {
-            $filters[] = ['bool' => ['must_not' => [['term' => ['gd_seq' => 999999]]]]];
-            $sort = GoodsElasticSearch::sort('hot', false);
-        } else {
-            $sort = GoodsElasticSearch::sort($req->sort == 'new' ? 'new' : 'edit', $keyword !== '');   //  수정순(기본) / 등록순
-        }
+        $sort = $req->filled('gd_seq')
+            ? GoodsElasticSearch::sort('hot', false)                                               //  우선순위상품: 우선순위 순서
+            : GoodsElasticSearch::sort($req->sort == 'new' ? 'new' : 'edit', $keyword !== '');   //  수정순(기본) / 등록순
 
         [$result, $total, $page] = $es->searchPage([
-            'query' => $es->buildQuery($keyword, $req->mode, $filters),
+            'query' => $es->buildQuery($keyword, $req->mode, GoodsElasticSearch::adminFilters($req)),
             'sort'  => $sort,
         ], (int) ($req->page ?? 1), 15);
 
