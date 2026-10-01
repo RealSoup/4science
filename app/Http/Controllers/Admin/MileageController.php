@@ -50,20 +50,20 @@ class MileageController extends Controller {
         return DB::transaction(function () use ($req, $id) {
             $ml = $this->mileage->lockForUpdate()->findOrFail($id);
             if ($ml->ml_type !== 'REQ' || !in_array($req->ml_type, ['OK', 'NO']))
-                return response()->json(['message' => '대기 상태만 승인/반려할 수 있습니다.'], 422);
+                return response()->json(['message' => '대기 상태만 승인/반려할 수 있습니다.'], 403);
 
             $need = -$ml->ml_mileage;
 
             if ($req->ml_type == 'OK') {
                 if ($this->enable($ml->ml_uid) < 0)
-                    return response()->json(['message' => '가용 마일리지가 마이너스입니다. 다른 대기 건을 먼저 확인하세요.'], 422);
+                    return response()->json(['message' => '가용 마일리지가 마이너스입니다. 다른 대기 건을 먼저 확인하세요.'], 403);
                 $rows = $this->mileage->Uid($ml->ml_uid)->Enable()
                             ->where('ml_enable_m', '>', 0)
                             ->orderBy('created_at')->orderBy('ml_id')
                             ->lockForUpdate()->get();
 
                 if ($rows->sum('ml_enable_m') < $need)
-                    return response()->json(['message' => '유효 마일리지가 부족합니다. (만료 등)'], 422);
+                    return response()->json(['message' => '유효 마일리지가 부족합니다. (만료 등)'], 403);
 
                 $remain = $need;
                 foreach ($rows as $v) {

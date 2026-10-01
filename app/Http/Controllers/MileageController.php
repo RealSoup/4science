@@ -27,13 +27,13 @@ class MileageController extends Controller {
     public function store(StoreGiftCard $req) {
         $uid = auth()->user()->id;
         $p   = intval(-UserMileage::$config['voucher'][$req->type]['point'] * $req->ea);
-        if ($p >= 0) return response()->json(['message' => '잘못된 요청입니다.'], 422);
+        if ($p >= 0) return response()->json(['message' => '잘못된 요청입니다.'], 403);
 
         return DB::transaction(function () use ($req, $uid, $p) {
             User::where('id', $uid)->lockForUpdate()->first();   // 동시 신청 방지
 
             if ($this->mileage->enableMileage($uid) < -$p)
-                return response()->json(['message' => '마일리지가 모자릅니다.'], 422);
+                return response()->json(['message' => '마일리지가 모자릅니다.'], 403);
 
             UserMileage::insert([
                 "ml_uid"      => $uid,
