@@ -73,6 +73,13 @@ class GoodsController extends Controller {
 
         $items = $es->goods($result);
 
+        //  검색 로그 - 검색어 검색만 (메인 베스트 limit 호출 제외)
+        if ($keyword !== '' && !$req->filled('limit'))
+            $data['search_id'] = \App\Services\SearchLogService::store(
+                $req, $keyword, $catePath, $total, $page, $items,
+                $result->asArray()['took'] ?? 0, GoodsElasticSearch::INDEX
+            );
+
         if ($req->filled('limit')) {    //  메인 베스트 - 페이징 없이 목록만
             $data['list'] = $items;
         } else {

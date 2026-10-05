@@ -112,8 +112,9 @@
                             <b-col class="m_hide">제조사</b-col>
                         </b-row>
                         <template v-if="list.data && list.data.length">
-                            <b-row v-for="row in list.data" :key="row.gd_id" class="lbody">
-                                <b-link :to="{name: 'goods_show', params:{gd_id:row.gd_id} }" class="col link">
+                            <b-row v-for="(row, i) in list.data" :key="row.gd_id" class="lbody">
+                                <b-link :to="{name: 'goods_show', params:{gd_id:row.gd_id} }" class="col link"
+                                    @click.native="searchClick(row.gd_id, i)" @auxclick.native="searchClick(row.gd_id, i)">
                                     <img :src="row.image_src_thumb[0]" />
                                     <p>
                                         <b>{{row.gd_name}}</b>
@@ -155,6 +156,7 @@
 
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex'
+import ax from '@/api/http';
 
 export default {
     components: {
@@ -166,8 +168,7 @@ export default {
         return { pick_hover:0, }
     },
     computed: {
-        ...mapState('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys', 'category_picks']),
-
+        ...mapState('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys', 'category_picks', 'search_id']),
         categoryMap() {
             return Object.fromEntries(
                 Object.values(this.categorys || {})
@@ -198,6 +199,16 @@ export default {
         },
 
         actHover:function(i){ this.pick_hover = i; },
+
+        //  검색 결과 클릭 기록 (AI 검색 1단계) - 실패해도 화면 이동에 영향 없음
+        searchClick(gd_id, i) {
+            if (!this.search_id) return;
+            ax.post('/api/search/click', {
+                search_id: this.search_id,
+                gd_id,
+                position: (this.list.current_page - 1) * this.list.per_page + i + 1,
+            }).catch(() => {});
+        },
     },
     // mounted() { this.$store.dispatch('goods/index'); },
 }

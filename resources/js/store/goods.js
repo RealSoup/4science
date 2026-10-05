@@ -25,6 +25,7 @@ export default {
         isLoadingModalViewed:false,
         default: {},
         Elastic: {},
+        search_id: null,
     },
     getters:{
     },
@@ -49,6 +50,7 @@ export default {
             state.category_picks = param.category_picks;
             state.isLoadingModalViewed= false;
             state.Elastic = param.Elastic;
+            state.search_id = param.search_id || null;
         },
     },
     actions: {

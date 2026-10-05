@@ -362,6 +362,15 @@ class OrderController extends Controller {
                 DB::table('shop_order_coupon')->insert(['odc_od_id' => $this->order->od_id, 'odc_uc_id' => $req->chosen_uc_id]);
             }
             // DB::commit();
+
+            //  검색 이벤트 - 검색 결과 클릭 후 7일 안에 주문한 모델
+            \App\Services\SearchLogService::track($req, 'purchase',
+                collect($req->lists)->flatten(1)->where('type', 'model')
+                    ->map(fn($v) => ['gd_id' => $v['gd_id'], 'gm_id' => $v['gm_id']])->values()->all(),
+                $this->order->od_id);
+
+
+
             return response()->json($params, 200);
         // } catch (Exception $e) {
         //     Log::debug("구매 트랜젝션 에러");

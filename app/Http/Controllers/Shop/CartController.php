@@ -96,6 +96,17 @@ class CartController extends Controller {
                 }
             }          
         }
+
+        //  검색 이벤트 - 검색 결과 클릭 후 24시간 안에 담은 모델
+        if ($rst) {
+            $cartItems = ($req->filled('type') && $req->type == 'add')
+                ? collect($req->list)
+                : collect($req->all())->filter(fn($r) => is_array($r) && array_key_exists('gm_id', $r));
+            \App\Services\SearchLogService::track($req, 'cart',
+                $cartItems->map(fn($r) => ['gd_id' => $r['gd_id'], 'gm_id' => $r['gm_id']])->values()->all());
+        }
+
+
         if ($rst)   return response()->json($rst, 200);
         else        return response()->json("장바구니 에러", 400);
     }

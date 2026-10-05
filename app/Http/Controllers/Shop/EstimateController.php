@@ -136,6 +136,14 @@ class EstimateController extends Controller {
             }
         }
 
+        //  검색 이벤트 - 검색 결과 클릭 후 24시간 안에 견적 요청한 모델
+        if ($req->filled('lists'))
+            \App\Services\SearchLogService::track($req, 'estimate',
+                collect($req->lists)->flatten(1)->where('type', 'model')
+                    ->map(fn($v) => ['gd_id' => $v['gd_id'], 'gm_id' => $v['gm_id']])->values()->all(),
+                $eq_id);
+
+
         $eq_name = $req->filled('eq_name') ? $req->eq_name : auth()->user()->name;
         $eq_email = $req->filled('eq_email') ? $req->eq_email : auth()->user()->email;
         $subject = "[4science] 견적 접수 안내 메일";

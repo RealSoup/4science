@@ -11,13 +11,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ 20629);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ 20629);
+/* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/api/http */ 79481);
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -36,7 +38,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       pick_hover: 0
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys', 'category_picks'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys', 'category_picks', 'search_id'])), {}, {
     categoryMap: function categoryMap() {
       return Object.fromEntries(Object.values(this.categorys || {}).flat().map(function (v) {
         return [v.ca_id, v.ca_name];
@@ -64,6 +66,15 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     },
     actHover: function actHover(i) {
       this.pick_hover = i;
+    },
+    //  검색 결과 클릭 기록 (AI 검색 1단계) - 실패해도 화면 이동에 영향 없음
+    searchClick: function searchClick(gd_id, i) {
+      if (!this.search_id) return;
+      _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/search/click', {
+        search_id: this.search_id,
+        gd_id: gd_id,
+        position: (this.list.current_page - 1) * this.list.per_page + i + 1
+      })["catch"](function () {});
     }
   }
   // mounted() { this.$store.dispatch('goods/index'); },
@@ -290,7 +301,7 @@ var render = function render() {
     staticClass: "m_hide"
   }, [_vm._v("가격")]), _vm._v(" "), _c("b-col", {
     staticClass: "m_hide"
-  }, [_vm._v("제조사")])], 1), _vm._v(" "), _vm.list.data && _vm.list.data.length ? [_vm._l(_vm.list.data, function (row) {
+  }, [_vm._v("제조사")])], 1), _vm._v(" "), _vm.list.data && _vm.list.data.length ? [_vm._l(_vm.list.data, function (row, i) {
     return _c("b-row", {
       key: row.gd_id,
       staticClass: "lbody"
@@ -302,6 +313,14 @@ var render = function render() {
           params: {
             gd_id: row.gd_id
           }
+        }
+      },
+      nativeOn: {
+        click: function click($event) {
+          return _vm.searchClick(row.gd_id, i);
+        },
+        auxclick: function auxclick($event) {
+          return _vm.searchClick(row.gd_id, i);
         }
       }
     }, [_c("img", {

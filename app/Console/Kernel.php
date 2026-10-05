@@ -32,5 +32,7 @@ class Kernel extends ConsoleKernel {
         $schedule->command('cleanup:estimate-pdf')->dailyAt('05:00');
         // 가격 엑셀 임시 폴더 정리 (사용 빈도 낮음 - 주 1회, 사람 없는 일요일)
         $schedule->command('cleanup:tmp-price-excel')->weeklyOn(0, '05:10'); // 매주 일요일 05:10
+        // 해외 IP 판별용 국가 IP 파일 갱신 (매월 1일)
+        $schedule->command('geoip:update')->monthlyOn(1, '04:30')->withoutOverlapping();
     }
 }

@@ -118,6 +118,15 @@ return [
             'driver' => 'custom',
             'via'    => \App\Logging\ScheduleSummaryLoggerFactory::class,
             'level'  => 'debug',
+            'geoip' => [
+                'driver'   => 'stack',
+                'channels' => ['geoip-detail', 'scheduler-summary'],
+            ],
+            'geoip-detail' => [
+                'driver' => 'daily',
+                'path'   => storage_path('logs/scheduler/geoip/geoip.log'),
+                'days'   => 90,
+            ],
         ],
 
         'top-selling-cache' => [
