@@ -14,8 +14,8 @@ class SearchLogService {
 
     public static function store(Request $req, string $keyword, array $catePath, int $total, int $page, $items, int $tookMs, string $index): ?int {
         try {
-            // if (!if_not_my_ip($req->ip()) || !GeoIp::isKorea($req->ip()))
-            //     return null;
+            if (!if_not_my_ip($req->ip()) || !GeoIp::isKorea($req->ip()))
+                return null;
 
             $uuid = $req->cookie('tracking_uuid');
             $cond = [
@@ -68,7 +68,6 @@ class SearchLogService {
             $dedupKey = "search_ev:click:{$slId}:{$gdId}";
             if (Redis::get($dedupKey))
                 return;
-            Redis::setex($dedupKey, 86400, 1);
 
             DB::table('search_log_events')->insert([
                 'sle_sl_id'    => $slId,
@@ -77,6 +76,7 @@ class SearchLogService {
                 'sle_position' => $position,
                 'sle_uuid'     => $uuid,
             ]);
+            Redis::setex($dedupKey, 86400, 1);
 
             if ($uuid)
                 Redis::setex("search_attr:{$uuid}:{$gdId}", self::ATTR_TTL['purchase'], json_encode([
