@@ -11,6 +11,7 @@ use Laravel\Scout\Searchable;
 use App\Models\Shop\{EstimateReply};
 use App\Models\{User, FileGoods, UserCoupon};
 use App\Lib\SphinxClient;
+use App\Services\{GoodsElasticSearch, SearchSpec};
 use Carbon\Carbon;
 use DateTimeInterface;
 use Storage;
@@ -137,6 +138,11 @@ class Goods extends Model {
         return $rst;
     }
 
+    //  검색 인덱스 = config/search.php (.env SEARCH_INDEX) - 상품 수정 반영·가격 동기화·인기도 조회가 모두 따라감
+    public function searchableAs() {
+        return GoodsElasticSearch::index();
+    }
+
     //  Elastic Search
     public function toSearchableArray() {
         $this->loadMissing(['maker', 'goodsModel', 'goodsCategoryFirst', 'goodsCategory']);
@@ -165,7 +171,7 @@ class Goods extends Model {
             }
         }
 
-        return [
+        $doc = [
             'gd_id'      => $this->gd_id,
             'gd_name'    => $this->gd_name,
             'gd_keyword' => str_replace(',', ' ', $this->gd_keyword ?? ''),
@@ -216,6 +222,12 @@ class Goods extends Model {
             // 인기도 - 문서 교체 시 사라지지 않게 기존 값 유지 (갱신은 search:update-score)
             'purchase_score' => $this->currentPurchaseScore(),
         ];
+        
+        //  규격 칸 - 규격 칸이 있는 인덱스(shop_goods_v2)만, search:build-v2와 같은 방식 (상품명·모델명·모델 규격)
+        if (GoodsElasticSearch::hasSpec())
+            $doc['spec_all'] = SearchSpec::tokens($this->gd_name . ' ' . $this->goodsModel->map(fn($m) => "{$m->gm_name} {$m->gm_spec}")->implode(' '));
+
+        return $doc;
     }
 
     //  ES에 저장된 현재 purchase_score 조회 (문서 없음·ES 오류 시 0)

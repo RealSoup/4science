@@ -5,13 +5,9 @@
         <!-- 상태 -->
         <div class="card">
             <div class="status-row">
-                <span class="status-badge">
-                    <span class="dot"></span>
-                    ES 동의어 적용 중 · {{ totalCount }}개 등록됨
-                </span>
-                <button class="btn btn-reload" @click="reloadES">
-                    🔄 ES 동의어 즉시 반영
-                </button>
+                <span class="status-badge"><span class="dot"></span>ES 동의어 적용 중 · {{ totalCount }}개 등록됨</span>
+                <button class="btn btn-reload" @click="reloadES">🔄 ES 동의어 즉시 반영</button>
+                <button class="btn btn-reload" @click="downloadTxt">⬇ txt 내려받기</button>
             </div>
         </div>
 
@@ -160,6 +156,13 @@ export default {
         async reloadES() {
             await ax.post('/api/admin/site/synonym/reload');
             alert('ES 동의어가 반영됐습니다!');
+        },
+        async downloadTxt() {
+            const res = await ax.get('/api/admin/site/synonym/download', { responseType: 'blob' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(new Blob([res.data]));
+            link.download = `synonyms_${new Date().toISOString().slice(0, 10)}.txt`;
+            link.click();
         },
         startEdit(item) {
             this.editId = item.id;

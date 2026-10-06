@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Services\GoodsElasticSearch;
 
 class SyncElasticsearchSettings extends Command
 {
@@ -11,6 +12,13 @@ class SyncElasticsearchSettings extends Command
 
     public function handle()
     {
+        //  손님 검색이 shop_goods가 아닌 인덱스(v2)를 쓰는 중이면 실행 안 함
+        //  (이 명령은 shop_goods를 지우고 새로 만드는데, 상품 넣기(scout:import)는 손님이 쓰는 인덱스로 들어가서 꼬임)
+        if (GoodsElasticSearch::index() !== 'shop_goods') {
+            $this->error('지금 손님 검색 인덱스가 ' . GoodsElasticSearch::index() . '라서 실행하지 않습니다 (이 명령은 shop_goods 전용)');
+            return 1;
+        }
+
         $client = app(\Elastic\Elasticsearch\Client::class);
 
         $this->info('Elasticsearch 인덱스 설정 적용 중...');

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use App\Services\GoodsElasticSearch;
 use Elastic\Elasticsearch\ClientBuilder;
 
 class UpdateSearchScore extends Command {
@@ -17,6 +18,7 @@ class UpdateSearchScore extends Command {
             ->setSSLVerification(false)
             ->build();
 
+        $index = GoodsElasticSearch::index();     //  지금 손님이 쓰는 인덱스 (config/search.php)
         $this->info('집계 시작...');
 
         $rows = DB::select("
@@ -59,7 +61,7 @@ class UpdateSearchScore extends Command {
                 $purchaseScore = round((log($row->purchase_cnt + 1) / log($maxPurchase + 1)) * 10, 4);
                 $estimateScore = round((log($row->estimate_cnt + 1) / log($maxEstimate + 1)) * 10, 4);
 
-                $body .= json_encode(['update' => ['_index' => 'shop_goods', '_id' => $row->gd_id]]) . "\n";
+                $body .= json_encode(['update' => ['_index' => $index, '_id' => $row->gd_id]]) . "\n";
                 $body .= json_encode(['doc' => [
                     'purchase_score' => round($clickScore + $purchaseScore + $estimateScore, 4),
                 ]]) . "\n";
@@ -68,7 +70,7 @@ class UpdateSearchScore extends Command {
             $this->info('청크 ' . ($ci + 1) . '/' . count($chunks) . ' 완료');
         }
 
-        \Log::channel('search-score')->info('search:update-score - ES 문서 ' . count($rows) . '건, ' . count($chunks) . '개 청크로 score 갱신 완료 (max click=' . $maxClick . ', max purchase=' . $maxPurchase . ', max estimate=' . $maxEstimate . ')');
+        \Log::channel('search-score')->info('search:update-score - ' . $index . ' ES 문서 ' . count($rows) . '건, ' . count($chunks) . '개 청크로 score 갱신 완료 (max click=' . $maxClick . ', max purchase=' . $maxPurchase . ', max estimate=' . $maxEstimate . ')');
         $this->info('✅ ES 업데이트 완료!');
     }
 }

@@ -62,7 +62,7 @@ class GoodsController extends Controller {
             $req->filled('mk_id') ? ['term' => ['gd_mk_id' => (int) $req->mk_id]] : null,
         ]));
 
-        $query = $es->buildQuery($keyword, $req->mode, GoodsElasticSearch::customerFilters(), $es->personalizeFunctions());
+        $query = $es->buildQuery($keyword, $req->mode, GoodsElasticSearch::customerFilters(), array_merge($es->personalizeFunctions(), GoodsElasticSearch::specFunctions($keyword)));     //  개인화 + 규격 가산점(v2)
 
         [$result, $total, $page] = $es->searchPage([
             'query'       => $query,
@@ -77,7 +77,7 @@ class GoodsController extends Controller {
         if ($keyword !== '' && !$req->filled('limit'))
             $data['search_id'] = \App\Services\SearchLogService::store(
                 $req, $keyword, $catePath, $total, $page, $items,
-                $result->asArray()['took'] ?? 0, GoodsElasticSearch::INDEX
+                $result->asArray()['took'] ?? 0, GoodsElasticSearch::index()
             );
 
         if ($req->filled('limit')) {    //  메인 베스트 - 페이징 없이 목록만

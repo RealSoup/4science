@@ -118,6 +118,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::GET( 'bannerGoods',          'Admin\SiteController@bannerGoods');
                 Route::POST('bannerGoodsUpdate',    'Admin\SiteController@bannerGoodsUpdate');
 
+                Route::GET('synonym/download',      'Admin\SynonymController@download');
                 Route::POST('synonym/reload',       'Admin\SynonymController@reload');
                 Route::RESOURCE('synonym',          'Admin\SynonymController')->only(['index', 'store', 'update', 'destroy']);
 

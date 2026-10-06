@@ -9,13 +9,29 @@ use Illuminate\Support\Facades\Redis;
 //  상품 Elasticsearch 검색 공통 도구 - 웹(Shop\GoodsController)·관리자(Admin\Shop\GoodsController) 공용
 //  검색어 매칭 규칙(buildQuery)을 공유하므로 고객에게 검색되는 상품은 관리자 검색에서도 동일하게 검색됨
 class GoodsElasticSearch {
-    const INDEX      = 'shop_goods';
     const MAX_WINDOW = 10000;      //  ES 조회 한도 (from + size)
 
     protected $client;
 
     public function __construct() {
         $this->client = app(\Elastic\Elasticsearch\Client::class);
+    }
+
+    
+    //  지금 손님이 쓰는 검색 인덱스 (config/search.php - .env SEARCH_INDEX, 기본 shop_goods)
+    //  설정을 못 읽어도(배포 직후 설정 캐시 등) 지금처럼 shop_goods로 동작
+    public static function index(): string {
+        return config('search.index') ?: 'shop_goods';
+    }
+
+    //  지금 인덱스에 규격 칸(spec_all)이 있는지 (shop_goods_v2)
+    public static function hasSpec(): bool {
+        return in_array(self::index(), config('search.spec_indexes', []));
+    }
+
+    //  규격 가산점 ("비커 500ml") - 규격 칸이 있는 인덱스에서만, 고객 검색 전용
+    public static function specFunctions(string $keyword): array {
+        return self::hasSpec() ? SearchSpec::functions($keyword, (int) config('search.spec_weight', 0)) : [];
     }
 
     //  ES 검색 실행, ES 장애 시 대체 함수(기존 Sphinx) 실행
@@ -355,7 +371,7 @@ class GoodsElasticSearch {
     //  ES 검색 (결과는 gd_id만 받음 - 상품 정보는 DB에서 조회)
     public function search(array $body) {
         $body['_source'] = $body['_source'] ?? ['gd_id'];
-        return $this->client->search(['index' => self::INDEX, 'body' => $body]);
+        return $this->client->search(['index' => self::index(), 'body' => $body]);
     }
 
     //  페이지 검색 - 조회 한도·결과 범위를 넘는 페이지는 마지막 페이지로 보정
@@ -408,7 +424,7 @@ class GoodsElasticSearch {
             ];
             if ($after) $body['search_after'] = $after;
 
-            $hits = $this->client->search(['index' => self::INDEX, 'body' => $body])->asArray()['hits']['hits'];
+            $hits = $this->client->search(['index' => self::index(), 'body' => $body])->asArray()['hits']['hits'];
             foreach ($hits as $h)
                 $ids[] = (int) $h['sort'][0];
 
