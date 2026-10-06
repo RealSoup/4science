@@ -68,16 +68,28 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       this.pick_hover = i;
     },
     //  검색 결과 클릭 기록 (AI 검색 1단계) - 실패해도 화면 이동에 영향 없음
-    searchClick: function searchClick(gd_id, i) {
-      if (!this.search_id) return;
+    searchClick: function searchClick(gd_id) {
+      if (!this.search_id || !this.list.data) return;
+      var i = this.list.data.findIndex(function (row) {
+        return row.gd_id == gd_id;
+      });
+      if (i < 0) return; //  목록에 없는 상품(PICK 전용 등)은 제외
       _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/search/click', {
         search_id: this.search_id,
         gd_id: gd_id,
         position: (this.list.current_page - 1) * this.list.per_page + i + 1
       })["catch"](function () {});
+    },
+    //  새 탭으로 여는 클릭(Ctrl·Shift·Cmd+클릭, 휠 클릭)은 화면 이동이 없으므로 여기서 기록
+    newTabClick: function newTabClick(e, gd_id) {
+      if (e.button === 1 || e.button === 0 && (e.ctrlKey || e.metaKey || e.shiftKey)) this.searchClick(gd_id);
     }
-  }
-  // mounted() { this.$store.dispatch('goods/index'); },
+  },
+  //  검색 결과 → 상품 페이지로 이동할 때 클릭 기록 (클릭 이벤트를 가로채는 확장 프로그램 등이 있어도 기록됨)
+  beforeRouteLeave: function beforeRouteLeave(to, from, next) {
+    if (to.name === 'goods_show') this.searchClick(to.params.gd_id);
+    next();
+  } // mounted() { this.$store.dispatch('goods/index'); },
 });
 
 /***/ }),
@@ -301,7 +313,7 @@ var render = function render() {
     staticClass: "m_hide"
   }, [_vm._v("가격")]), _vm._v(" "), _c("b-col", {
     staticClass: "m_hide"
-  }, [_vm._v("제조사")])], 1), _vm._v(" "), _vm.list.data && _vm.list.data.length ? [_vm._l(_vm.list.data, function (row, i) {
+  }, [_vm._v("제조사")])], 1), _vm._v(" "), _vm.list.data && _vm.list.data.length ? [_vm._l(_vm.list.data, function (row) {
     return _c("b-row", {
       key: row.gd_id,
       staticClass: "lbody"
@@ -317,10 +329,10 @@ var render = function render() {
       },
       nativeOn: {
         click: function click($event) {
-          return _vm.searchClick(row.gd_id, i);
+          return _vm.newTabClick($event, row.gd_id);
         },
         auxclick: function auxclick($event) {
-          return _vm.searchClick(row.gd_id, i);
+          return _vm.newTabClick($event, row.gd_id);
         }
       }
     }, [_c("img", {

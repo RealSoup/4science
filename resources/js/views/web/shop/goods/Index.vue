@@ -112,9 +112,10 @@
                             <b-col class="m_hide">제조사</b-col>
                         </b-row>
                         <template v-if="list.data && list.data.length">
-                            <b-row v-for="(row, i) in list.data" :key="row.gd_id" class="lbody">
+                            <b-row v-for="row in list.data" :key="row.gd_id" class="lbody">
                                 <b-link :to="{name: 'goods_show', params:{gd_id:row.gd_id} }" class="col link"
-                                    @click.native="searchClick(row.gd_id, i)" @auxclick.native="searchClick(row.gd_id, i)">
+                                    @click.native="newTabClick($event, row.gd_id)" @auxclick.native="newTabClick($event, row.gd_id)">
+
                                     <img :src="row.image_src_thumb[0]" />
                                     <p>
                                         <b>{{row.gd_name}}</b>
@@ -201,14 +202,28 @@ export default {
         actHover:function(i){ this.pick_hover = i; },
 
         //  검색 결과 클릭 기록 (AI 검색 1단계) - 실패해도 화면 이동에 영향 없음
-        searchClick(gd_id, i) {
-            if (!this.search_id) return;
+        searchClick(gd_id) {
+            if (!this.search_id || !this.list.data) return;
+            const i = this.list.data.findIndex(row => row.gd_id == gd_id);
+            if (i < 0) return;      //  목록에 없는 상품(PICK 전용 등)은 제외
             ax.post('/api/search/click', {
                 search_id: this.search_id,
                 gd_id,
                 position: (this.list.current_page - 1) * this.list.per_page + i + 1,
             }).catch(() => {});
         },
+
+        //  새 탭으로 여는 클릭(Ctrl·Shift·Cmd+클릭, 휠 클릭)은 화면 이동이 없으므로 여기서 기록
+        newTabClick(e, gd_id) {
+            if (e.button === 1 || (e.button === 0 && (e.ctrlKey || e.metaKey || e.shiftKey)))
+                this.searchClick(gd_id);
+        },
+    },
+    //  검색 결과 → 상품 페이지로 이동할 때 클릭 기록 (클릭 이벤트를 가로채는 확장 프로그램 등이 있어도 기록됨)
+    beforeRouteLeave(to, from, next) {
+        if (to.name === 'goods_show')
+            this.searchClick(to.params.gd_id);
+        next();
     },
     // mounted() { this.$store.dispatch('goods/index'); },
 }
