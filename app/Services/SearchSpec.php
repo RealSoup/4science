@@ -71,9 +71,17 @@ class SearchSpec {
             return [];
 
         $attr = $attr ?? GoodsElasticSearch::hasAttr();
-        $must = array_map(fn($s) => $attr ? self::specMatch($s) : ['term' => ['spec_all' => $s]], $specs);
-        $rest = self::without($keyword, $specs);
-        foreach ($rest === '' ? [] : explode(' ', $rest) as $word) {
+        $must = array_merge(
+            array_map(fn($s) => $attr ? self::specMatch($s) : ['term' => ['spec_all' => $s]], $specs),
+            self::wordsMatch(self::without($keyword, $specs)));
+
+        return [['filter' => ['bool' => ['must' => $must]], 'weight' => $weight]];
+    }
+
+    //  단어가 하나씩 상품명·모델명·키워드·제조사 중 어디든 있어야 하는 조건 목록 - 규격 가산점·제조사 가산점 공용
+    public static function wordsMatch(string $text): array {
+        $must = [];
+        foreach ($text === '' ? [] : explode(' ', $text) as $word) {
             $q = ['query' => $word, 'operator' => 'and', 'zero_terms_query' => 'all'];     //  "~" 처럼 검색어가 안 되는 말은 통과
             $must[] = ['bool' => ['should' => [
                 ['match' => ['gd_name'     => $q + ['analyzer' => 'korean_search']]],
@@ -82,8 +90,7 @@ class SearchSpec {
                 ['match' => ['mk_name'     => $q]],
             ], 'minimum_should_match' => 1]];
         }
-
-        return [['filter' => ['bool' => ['must' => $must]], 'weight' => $weight]];
+        return $must;
     }
 
     //  규격 하나가 맞는 조건 (속성 방식) - 규격 칸에 같은 양의 글자("1l"이면 "1l" 또는 "1000ml"), 또는 속성 칸에 맞는 값

@@ -39,6 +39,13 @@ class GoodsElasticSearch {
         return self::hasSpec() ? SearchSpec::functions($keyword, (int) config('search.spec_weight', 0)) : [];
     }
 
+    //  제조사 가산점 조건 - 제조사가 맞고, 검색어의 다른 단어도 그 상품 어딘가에 있을 때만
+    //  "3m 장갑" → 3M 마스크·테이프는 가산점 없음 (장갑이 위로), "3m" 하나만 치면 3M 상품 전체
+    protected static function makerMatch(string $keyword): array {
+        $words = SearchSpec::without($keyword, SearchSpec::tokens($keyword, SearchSpec::makers()));
+        return ['bool' => ['must' => array_merge([['match' => ['mk_name' => $keyword]]], SearchSpec::wordsMatch($words))]];
+    }
+
     //  ES 검색 실행, ES 장애 시 대체 함수(기존 Sphinx) 실행
     public static function withFallback(callable $es, callable $fallback, string $label = '') {
         try {
@@ -49,8 +56,9 @@ class GoodsElasticSearch {
         }
     }
 
+    //  검색어 정리 - 전각 문자(％ ＰＰ ５００ｍｌ, 전각 띄어쓰기)를 반각으로, 소문자
     public static function keyword($kw): string {
-        return strtolower(trim($kw ?? ''));
+        return strtolower(trim(mb_convert_kana($kw ?? '', 'as')));
     }
 
     //  캣넘버 검색인데 캣넘버 형식이 아닌지 (기존 Sphinx와 같은 기준)
@@ -361,6 +369,7 @@ class GoodsElasticSearch {
                     // 3순위 제조사명 완전일치
                     [ 'filter' => ['term'       => ['mk_name.keyword' => $keyword]],        'weight' => 10000, ],
                     [ 'filter' => ['match'      => ['mk_name' => $keyword]],                'weight' => 3000, ],
+                    [ 'filter' => self::makerMatch($keyword),                               'weight' => 3000, ],     //  다른 단어도 맞을 때만 ("3m 장갑")
 
                     // 4순위 - 키워드 태그 매칭 (gd_name/gm_name_all로 이미 안 잡힐 때만 보완용으로 적용)
                     [
