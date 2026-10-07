@@ -39,11 +39,15 @@ class GoodsElasticSearch {
         return self::hasSpec() ? SearchSpec::functions($keyword, (int) config('search.spec_weight', 0)) : [];
     }
 
+    //  검색어의 단어가 모두 상품 어딘가(상품명·모델명·키워드·제조사)에 있는 조건 - 규격 토큰은 뺌, 제조사·키워드 가산점용
+    protected static function allWords(string $keyword): array {
+        return SearchSpec::wordsMatch(SearchSpec::without($keyword, SearchSpec::tokens($keyword, SearchSpec::makers())));
+    }
+
     //  제조사 가산점 조건 - 제조사가 맞고, 검색어의 다른 단어도 그 상품 어딘가에 있을 때만
     //  "3m 장갑" → 3M 마스크·테이프는 가산점 없음 (장갑이 위로), "3m" 하나만 치면 3M 상품 전체
     protected static function makerMatch(string $keyword): array {
-        $words = SearchSpec::without($keyword, SearchSpec::tokens($keyword, SearchSpec::makers()));
-        return ['bool' => ['must' => array_merge([['match' => ['mk_name' => $keyword]]], SearchSpec::wordsMatch($words))]];
+        return ['bool' => ['must' => array_merge([['match' => ['mk_name' => $keyword]]], self::allWords($keyword))]];
     }
 
     //  ES 검색 실행, ES 장애 시 대체 함수(기존 Sphinx) 실행
@@ -368,16 +372,15 @@ class GoodsElasticSearch {
 
                     // 3순위 제조사명 완전일치
                     [ 'filter' => ['term'       => ['mk_name.keyword' => $keyword]],        'weight' => 10000, ],
-                    [ 'filter' => ['match'      => ['mk_name' => $keyword]],                'weight' => 3000, ],
                     [ 'filter' => self::makerMatch($keyword),                               'weight' => 3000, ],     //  다른 단어도 맞을 때만 ("3m 장갑")
 
                     // 4순위 - 키워드 태그 매칭 (gd_name/gm_name_all로 이미 안 잡힐 때만 보완용으로 적용)
                     [
                         'filter' => [
                             'bool' => [
-                                'must' => [
+                                'must' => array_merge([
                                     ['match' => ['gd_keyword' => $keyword]],
-                                ],
+                                ], self::allWords($keyword)),       //  키워드에 단어 하나만 걸려도 +5000 되던 것 → 다른 단어도 맞을 때만 ("3m 장갑"의 3M 마스크)
                                 'must_not' => [
                                     ['match' => ['gd_name'     => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and']]],
                                     ['match' => ['gm_name_all' => ['query' => $keyword, 'analyzer' => 'korean_exact', 'operator' => 'and']]],

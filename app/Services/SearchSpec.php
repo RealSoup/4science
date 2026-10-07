@@ -86,7 +86,7 @@ class SearchSpec {
             $must[] = ['bool' => ['should' => [
                 ['match' => ['gd_name'     => $q + ['analyzer' => 'korean_search']]],
                 ['match' => ['gm_name_all' => $q + ['analyzer' => 'korean_search']]],
-                ['match' => ['gd_keyword'  => $q + ['analyzer' => 'korean_search']]],
+                ['match' => ['gd_keyword'  => $q]],     //  키워드 칸은 저장할 때와 같은 분석기(korean_exact) - korean_search는 "트위저"를 "트+위저"로 쪼개 못 찾음
                 ['match' => ['mk_name'     => $q]],
             ], 'minimum_should_match' => 1]];
         }
