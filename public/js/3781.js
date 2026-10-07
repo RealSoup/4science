@@ -91,7 +91,7 @@ var render = function render() {
       staticClass: "m_hide"
     }, [_vm._v(_vm._s(_vm.list.total - _vm.list.per_page * (_vm.list.current_page - 1) - i))]), _vm._v(" "), _c("td", {
       staticClass: "satisfaction"
-    }, [bo.bo_good == 100 ? [_c("b-icon-star-fill"), _c("b-icon-star-fill"), _c("b-icon-star-fill")] : bo.bo_good == 50 ? [_c("b-icon-star-fill"), _c("b-icon-star-fill"), _c("b-icon-star")] : [_c("b-icon-star-fill"), _c("b-icon-star"), _c("b-icon-star")]], 2), _vm._v(" "), _c("td", [_vm._v(_vm._s(bo.bo_content))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(bo.bo_writer))]), _vm._v(" "), _c("td", {
+    }, [bo.bo_good == 100 ? [_c("b-icon-star-fill"), _c("b-icon-star-fill"), _c("b-icon-star-fill")] : bo.bo_good == 50 ? [_c("b-icon-star-fill"), _c("b-icon-star-fill"), _c("b-icon-star")] : [_c("b-icon-star-fill"), _c("b-icon-star"), _c("b-icon-star")]], 2), _vm._v(" "), _c("td", [_vm._v(_vm._s(bo.bo_content))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("maskName")(bo.bo_writer)))]), _vm._v(" "), _c("td", {
       staticClass: "m_hide"
     }, [_vm._v(_vm._s(_vm._f("formatDate")(bo.created_at)))])]);
   }), 0)]), _vm._v(" "), _c("pagination", {

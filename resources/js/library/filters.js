@@ -100,3 +100,11 @@ Vue.filter('pay_method_new_line', function (v) {   //  결제 방법 표시시 �
 Vue.filter('dcDisplay', function (v) {
     return Number(v)<100? `${v}%` : String(Math.floor(v)).replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'원';
 });
+
+Vue.filter('maskName', function (v) {   //  작성자 이름 가리기 (2자: 성만 표시, 3자 이상: 앞뒤만 표시)
+    if (!v) return '';
+    const s = Array.from(String(v).trim());
+    if (s.length <= 1) return s.join('');
+    if (s.length === 2) return s[0] + '*';
+    return s[0] + '*'.repeat(s.length - 2) + s[s.length - 1];
+});

@@ -7,7 +7,7 @@
             <b-badge v-if="bo.answer" class="answer_mark">답변완료</b-badge>
             <b-badge v-else>답변대기</b-badge>
         </b-col>
-        <b-col>{{bo.bo_writer}}</b-col>
+        <b-col>{{bo.bo_writer | maskName}}</b-col>
         <b-col class="m_hide">{{bo.created_at | formatDate}}</b-col>
 
         <b-col class="answer">

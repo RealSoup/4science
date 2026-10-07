@@ -1180,7 +1180,7 @@ var render = function render() {
       staticClass: "m_hide"
     }, [bo.answer ? _c("b-badge", {
       staticClass: "answer_mark"
-    }, [_vm._v("답변완료")]) : _c("b-badge", [_vm._v("답변대기")])], 1), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(bo.bo_writer))]), _vm._v(" "), _c("b-col", {
+    }, [_vm._v("답변완료")]) : _c("b-badge", [_vm._v("답변대기")])], 1), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("maskName")(bo.bo_writer)))]), _vm._v(" "), _c("b-col", {
       staticClass: "m_hide"
     }, [_vm._v(_vm._s(_vm._f("formatDate")(bo.created_at)))]), _vm._v(" "), _c("b-col", {
       staticClass: "answer"

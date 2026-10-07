@@ -18,7 +18,7 @@
                 </td>
                 
                 <td>{{bo.bo_content}}</td>
-                <td>{{bo.bo_writer}}</td>
+                <td>{{bo.bo_writer | maskName}}</td>
                 <td class="m_hide">{{bo.created_at | formatDate}}</td>
             </tr>
         </tbody>
