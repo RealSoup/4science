@@ -34,5 +34,7 @@ class Kernel extends ConsoleKernel {
         $schedule->command('cleanup:tmp-price-excel')->weeklyOn(0, '05:10'); // 매주 일요일 05:10
         // 해외 IP 판별용 국가 IP 파일 갱신 (매월 1일)
         $schedule->command('geoip:update')->monthlyOn(1, '04:30')->withoutOverlapping();
+        // 검색 동의어 점검 - ES 재시작 후 동의어 세트가 꺼져 있으면 다시 읽기 (정상일 땐 기록 없음)
+        $schedule->command('search:check-synonyms')->everyFiveMinutes()->withoutOverlapping();
     }
 }

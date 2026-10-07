@@ -10,7 +10,6 @@
                 <router-link v-if="this.$route.name === 'goods_show'" target="_blank"
                     :to="{name: 'adm_goods_edit', params: { gd_id:this.$route.params.gd_id }}"
                 >상품관리</router-link>
-                <b-link :to="{name: 'search_test'}">뉴검색</b-link>     
             </div>
             
             <b-link class="logo" :to="{name: 'main'}">
