@@ -11,7 +11,7 @@ use Laravel\Scout\Searchable;
 use App\Models\Shop\{EstimateReply};
 use App\Models\{User, FileGoods, UserCoupon};
 use App\Lib\SphinxClient;
-use App\Services\{GoodsElasticSearch, SearchSpec};
+use App\Services\{GoodsAttr, GoodsElasticSearch, SearchSpec};
 use Carbon\Carbon;
 use DateTimeInterface;
 use Storage;
@@ -226,6 +226,9 @@ class Goods extends Model {
         //  규격 칸 - 규격 칸이 있는 인덱스(shop_goods_v2)만, search:build-v2와 같은 방식 (상품명·모델명·모델 규격)
         if (GoodsElasticSearch::hasSpec())
             $doc['spec_all'] = SearchSpec::tokens($this->gd_name . ' ' . $this->goodsModel->map(fn($m) => "{$m->gm_name} {$m->gm_spec}")->implode(' '));
+        //  속성 칸 - 스위치가 켜진 규격 칸 인덱스만, la_shop_goods_attr 값 (search:extract-attrs --es와 같은 방식)
+        if (GoodsElasticSearch::hasAttr())
+            $doc += GoodsAttr::esDocs([$this->gd_id])[$this->gd_id];
 
         return $doc;
     }

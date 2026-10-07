@@ -13,6 +13,8 @@ class SearchCompare extends Command {
                                 {a=shop_goods : 기준 인덱스}
                                 {b? : 비교 인덱스 (없으면 기준만 채점)}
                                 {--spec=0 : 비교 쪽(b)에 규격 가산점 (shop_goods_v2 전용, 권장 5000)}
+                                {--spec-a=0 : 기준 쪽(a)에 규격 가산점 (같은 인덱스끼리 새 방식만 비교할 때)}
+                                {--attr : 비교 쪽(b) 규격 가산점을 속성 방식으로 (1l=1000ml, 범위·순도 - .env SEARCH_ATTR와 같음)}
                                 {--testset= : 채점표 위치 (기본: storage/app/search/testset.json)}
                                 {--show=15 : 검색어 목록 표시 개수}
                                 {--watch= : 눈으로 볼 검색어 (쉼표로 구분, 없으면 기본 목록)}';
@@ -21,7 +23,7 @@ class SearchCompare extends Command {
     const PAGE = 15;    //  한 페이지 상품 수
 
     //  꼭 눈으로 볼 검색어 - 규격·동의어를 바꾸면 달라지기 쉬운 것 (3m = 제조사, 1m = 1몰 농도)
-    const WATCH = ['3m 장갑', '1m hcl', '비커 500ml', 'pp 병 500ml', 'duran 500ml', '에탄올 95%', '2inch wafer', 'hplc 헥산', 'hplc 바이알', 'gc 바이알'];
+    const WATCH = ['3m 장갑', '1m hcl', '비커 500ml', '비커 1l', 'pp 병 500ml', 'duran 500ml', '에탄올 95%', '에탄올 99%', 'tip 100ul', '2inch wafer', 'hplc 헥산', 'hplc 바이알', 'gc 바이알'];
 
     protected $es;
     protected $client;
@@ -41,10 +43,17 @@ class SearchCompare extends Command {
         $this->info('채점표: 정답 검색어 ' . count($set['queries']) . '개 + 규격 검색어 ' . count($set['spec_queries']) . "개 ({$set['created_at']} 생성)");
 
         //  채점 대상 - 이름표 => [인덱스, 규격 가산점]  (같은 인덱스끼리도 가산점 유무로 비교 가능)
-        $runs = [$this->argument('a') => ['index' => $this->argument('a'), 'spec' => 0]];
+        $specA = (int) $this->option('spec-a');
+        $runs  = [$this->argument('a') . ($specA ? "+규격{$specA}" : '') => ['index' => $this->argument('a'), 'spec' => $specA, 'attr' => false]];
         if ($this->argument('b')) {
-            $spec = (int) $this->option('spec');
-            $runs[$this->argument('b') . ($spec ? "+규격{$spec}" : '')] = ['index' => $this->argument('b'), 'spec' => $spec];
+            $spec  = (int) $this->option('spec');
+            $attr  = (bool) $this->option('attr');
+            $label = $this->argument('b') . ($spec ? "+규격{$spec}" : '') . ($attr ? '+속성' : '');
+            if (isset($runs[$label])) {
+                $this->error("기준과 비교가 같은 조건입니다: {$label}");
+                return 1;
+            }
+            $runs[$label] = ['index' => $this->argument('b'), 'spec' => $spec, 'attr' => $attr];
         }
 
         $score = [];
@@ -65,7 +74,7 @@ class SearchCompare extends Command {
     //  손님 검색과 같은 조건으로 상위 2페이지 gd_id + 총개수
     private function search(array $run, string $kw): array {
         $res = $this->client->search(['index' => $run['index'], 'body' => [
-            'query'   => $this->es->buildQuery($kw, null, GoodsElasticSearch::customerFilters(), SearchSpec::functions($kw, $run['spec'])),
+            'query'   => $this->es->buildQuery($kw, null, GoodsElasticSearch::customerFilters(), SearchSpec::functions($kw, $run['spec'], $run['attr'])),
             'sort'    => GoodsElasticSearch::sort('hot', true),
             'size'    => self::PAGE * 2,
             '_source' => ['gd_id'],
@@ -111,7 +120,7 @@ class SearchCompare extends Command {
             [$ids, $total] = $this->search($run, $q['kw']);
             $ids   = array_slice($ids, 0, self::PAGE);
             $texts = $this->goodsTexts($ids);
-            $ok    = count(array_filter($ids, fn($id) => collect($q['specs'])->every(fn($s) => SearchSpec::contains($texts[$id] ?? '', $s))));
+            $ok    = count(array_filter($ids, fn($id) => collect($q['specs'])->every(fn($s) => collect(SearchSpec::equivalents($s))->contains(fn($e) => SearchSpec::contains($texts[$id] ?? '', $e)))));
 
             $per[$q['kw']] = ['rate' => $ids ? $ok / count($ids) : 0, 'ok' => $ok, 'n' => count($ids), 'zero' => $total == 0];
         }

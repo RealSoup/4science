@@ -36,5 +36,7 @@ class Kernel extends ConsoleKernel {
         $schedule->command('geoip:update')->monthlyOn(1, '04:30')->withoutOverlapping();
         // 검색 동의어 점검 - ES 재시작 후 동의어 세트가 꺼져 있으면 다시 읽기 (정상일 땐 기록 없음)
         $schedule->command('search:check-synonyms')->everyFiveMinutes()->withoutOverlapping();
+        // 상품 속성 다시 뽑기 + 검색 색인 반영 (AI 검색) - 엑셀 일괄 수정 등 관리자 저장을 안 거친 변경까지 반영, 속성 칸이 켜진 경우만
+        $schedule->command('search:extract-attrs --es')->dailyAt('02:30')->withoutOverlapping()->when(fn() => \App\Services\GoodsElasticSearch::hasAttr());
     }
 }

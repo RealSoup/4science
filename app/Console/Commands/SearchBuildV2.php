@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Services\{GoodsElasticSearch, SearchSpec};
+use App\Services\{GoodsAttr, GoodsElasticSearch, SearchSpec};
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\{DB, Http};
 
@@ -76,6 +76,7 @@ class SearchBuildV2 extends Command {
         $analysis = $settings['analysis'];
         $analysis['filter']['synonym_filter'] = ['type' => 'synonym', 'synonyms_set' => $set, 'updateable' => true];
         $mappings['properties']['spec_all'] = ['type' => 'keyword'];
+        $mappings['properties'] += GoodsAttr::esMapping();     //  속성 칸 - 값은 만든 뒤 search:extract-attrs --es-only로 채움
 
         $indices->create(['index' => $index, 'body' => [
             'settings' => array_filter([

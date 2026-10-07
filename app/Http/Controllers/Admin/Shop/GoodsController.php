@@ -15,7 +15,7 @@ use Illuminate\Support\Arr;
 use Storage;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Lib\SphinxClient;
-use App\Services\GoodsElasticSearch;
+use App\Services\{GoodsAttr, GoodsElasticSearch};
 
 class GoodsController extends Controller {
     use FileControl;
@@ -305,6 +305,8 @@ class GoodsController extends Controller {
         if ($req->gd_type != 'REN')
             self::exeIndex();
 
+        GoodsAttr::refresh($goods->gd_id);     //  상품 속성 다시 뽑기 (AI 검색) - 색인 갱신 직전
+        
         //  ES 검색 인덱스 갱신 - 모델·카테고리 등록이 끝난 뒤 1회
         $goods->unsetRelations()->searchable();
 
@@ -467,6 +469,8 @@ class GoodsController extends Controller {
             foreach ($req->delete_goods_relate as $id)
                 DB::table('shop_goods_relate')->where('gr_id', $id)->delete();
         }
+
+        GoodsAttr::refresh($goods->gd_id);     //  상품 속성 다시 뽑기 (AI 검색) - 색인 갱신 직전
 
         //  ES 검색 인덱스 갱신 - 모델·카테고리 저장이 끝난 뒤 최신 데이터로 1회
         $goods->unsetRelations()->searchable();

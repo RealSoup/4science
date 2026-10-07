@@ -29,6 +29,11 @@ class GoodsElasticSearch {
         return in_array(self::index(), config('search.spec_indexes', []));
     }
 
+    //  지금 인덱스에 속성 칸(attr_volume 등)을 쓰는지 - 스위치(SEARCH_ATTR)가 켜져 있고 규격 칸이 있는 인덱스
+    public static function hasAttr(): bool {
+        return config('search.attr') && self::hasSpec();
+    }
+
     //  규격 가산점 ("비커 500ml") - 규격 칸이 있는 인덱스에서만, 고객 검색 전용
     public static function specFunctions(string $keyword): array {
         return self::hasSpec() ? SearchSpec::functions($keyword, (int) config('search.spec_weight', 0)) : [];
@@ -244,6 +249,10 @@ class GoodsElasticSearch {
                             ['term'   => ['gm_code_all.keyword'  => $keyword]],
                             ['prefix' => ['gm_code'              => $keyword]],
                             ['prefix' => ['gm_code_all.keyword'  => $keyword]],
+                            // ★ 모델코드·상품명·키워드 안에 번호가 들어간 경우 (예: DGP-INT-XS (63-754-XS))
+                            ['match_phrase' => ['gm_code_all'   => $keyword]],
+                            ['match_phrase' => ['gd_name.exact' => $keyword]],
+                            ['match_phrase' => ['gd_keyword'    => $keyword]],
                         ],
                         'minimum_should_match' => 1,
                         'filter' => $filters,
@@ -255,6 +264,10 @@ class GoodsElasticSearch {
                         ['filter' => ['term'   => ['gm_code'              => $keyword]], 'weight' => 10000],
                         ['filter' => ['prefix' => ['gm_catno_all.keyword' => $keyword]], 'weight' => 10000],
                         ['filter' => ['prefix' => ['gm_code_all.keyword'  => $keyword]], 'weight' => 5000],
+                        // ★ 번호가 안에 들어간 상품 (정확일치보다 아래)
+                        ['filter' => ['match_phrase' => ['gm_code_all'   => $keyword]], 'weight' => 3000],
+                        ['filter' => ['match_phrase' => ['gd_name.exact' => $keyword]], 'weight' => 2000],
+                        ['filter' => ['match_phrase' => ['gd_keyword'    => $keyword]], 'weight' => 2000],
                     ], $personalize),
                     'score_mode' => 'sum',
                     'boost_mode' => 'sum',
@@ -262,11 +275,21 @@ class GoodsElasticSearch {
             ];
         }
 
+        // ★ 모델코드 일부 검색 (예: 54FGB → SH-DO-54FGB) - 코드처럼 생긴 검색어만
+        //   gm_code_all(standard 분석: sh / do / 54fgb 조각)으로 매칭
+        $isCodeLike = mb_strlen($keyword) >= 4
+            && preg_match('/[a-z]/', $keyword) && preg_match('/\d/', $keyword)
+            && !preg_match('/[가-힣\s]/u', $keyword)
+            && SearchSpec::tokens($keyword) !== [$keyword];   //  "100ml" 같은 규격 단독 검색 제외
+        $codeMatch   = ['match' => ['gm_code_all' => ['query' => $keyword, 'operator' => 'and']]];
+        $codeShould  = $isCodeLike ? [$codeMatch] : [];
+        $codeBoost   = $isCodeLike ? [['filter' => $codeMatch, 'weight' => 8000]] : [];
+
         // 전체 검색
         return [
             'function_score' => [
                 'query' => ['bool' => [
-                    'should' => [
+                    'should' => array_merge([
                         [
                             'dis_max' => [
                                 'tie_breaker' => 0.3,   // gd_name/gm_name_all 둘 다 매칭돼도 최고점+나머지30%만 인정 (중복가중 방지)
@@ -317,7 +340,7 @@ class GoodsElasticSearch {
                                 'type'           => 'best_fields',
                             ],
                         ],
-                    ],
+                    ], $codeShould),    // ★ 모델코드 조각 매칭 추가
                     'minimum_should_match' => 1,
                     'filter' => $filters,
                 ]],
@@ -361,7 +384,7 @@ class GoodsElasticSearch {
                     // 6순위 - 인기도 (factor 100, 최대 +3000)
                     [ 'field_value_factor' => [ 'field' => 'purchase_score', 'factor' => 100, 'modifier' => 'none', 'missing' => 0, ], ],
 
-                ], $personalize),
+                ], $codeBoost, $personalize),   // ★ 모델코드 조각 매칭 가산점 추가
                 'score_mode' => 'sum',
                 'boost_mode' => 'sum',
             ],

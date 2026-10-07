@@ -14,6 +14,11 @@ return [
     //  규격 가산점 (0 = 끄기) - search:compare로 정한 값
     'spec_weight' => (int) env('SEARCH_SPEC_WEIGHT', 5000),
 
+    //  속성 칸(attr_volume 등) 사용 스위치 (.env SEARCH_ATTR=true) - 규격 칸이 있는 인덱스에서만
+    //  켜기 전에: la_shop_goods_attr 테이블 + php artisan search:extract-attrs --es (칸 만들고 값 채우기)
+    //  꺼져 있으면 상품 저장 시 속성 칸을 만들지 않음 (테이블 없는 서버에서도 안전)
+    'attr' => (bool) env('SEARCH_ATTR', false),
+
     //  동의어 - 인덱스마다 둘 중 하나 (관리자 동의어 화면이 지금 인덱스 쪽을 편집)
     //  synonym_sets : ES 안에 저장 (동의어 API) - 저장하면 바로 반영, 폴더 연결 필요 없음
     //  synonym_files: ES 서버 config 폴더의 txt (SYNONYM_FILE_PATH와 같은 폴더)
