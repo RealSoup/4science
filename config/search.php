@@ -24,13 +24,16 @@ return [
     //  synonym_files: ES 서버 config 폴더의 txt (SYNONYM_FILE_PATH와 같은 폴더)
     'synonym_sets'  => ['shop_goods_v2' => 'shop_goods_v2'],
     'synonym_files' => ['shop_goods' => 'synonyms_final.txt'],
-    //  AI 검색어 통역 (2-2) - 모든 AI 호출은 App\Services\SearchAi 한 곳에서
-    //  fill : 손님 검색어를 대기 목록에 모으고 1분마다 AI에 물어 수첩(la_search_ai) 채우기 - 손님 화면 영향 없음
-    //  boost: 수첩의 통역 결과로 검색 가산점 (2-4단계에서 연결)
+    
+    //  AI 검색어 통역 - 모든 AI 호출은 App\Services\SearchAi 한 곳에서
+    //  "약한 검색" = 결과가 low건 이하이거나, 검색어가 그대로 들어간 상품이 없음 (비슷한 글자로만 잡힘)
+    //  fill : 약한 검색어를 대기 목록에 모으고 1분마다 AI에 물어 수첩(la_search_ai) 채우기 - 손님 화면 영향 없음
+    //  boost: 약한 검색에 영문 자판 규칙(qlzj→비커)·수첩의 바꾼 말(메탄올→methanol)로 함께 찾아 보여주기 + 안내 문구
     //  끄면 바로 멈춤 (운영은 설정 캐시를 안 써서 .env 저장 즉시 반영)
     'ai' => [
         'fill'        => (bool) env('SEARCH_AI_FILL', false),
         'boost'       => (bool) env('SEARCH_AI_BOOST', false),
+        'low'         => (int) env('SEARCH_AI_LOW', 3),
         'provider'    => env('SEARCH_AI_PROVIDER', 'openai'),        //  openai / anthropic
         'model'       => env('SEARCH_AI_MODEL', 'gpt-4o-mini'),      //  비교 시험(4단계) 후 결정
         'temperature' => env('SEARCH_AI_TEMPERATURE'),               //  비우면 안 보냄 (생각하는 모델은 temperature를 받지 않음)

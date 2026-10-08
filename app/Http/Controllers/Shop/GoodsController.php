@@ -62,16 +62,31 @@ class GoodsController extends Controller {
             $req->filled('mk_id') ? ['term' => ['gd_mk_id' => (int) $req->mk_id]] : null,
         ]));
 
-        //  AI 검색어 통역 (2-2) - 수첩만 봄, 없으면 대기 목록에 넣음 (스위치가 꺼져 있으면 아무것도 안 함) / 결과는 2-4에서 가산점에 씀
-        $aiQuery = $keyword !== '' && !$req->filled('limit') ? \App\Services\SearchAi::lookup($keyword, $req->mode, (int) ($req->page ?? 1)) : null;
         $query = $es->buildQuery($keyword, $req->mode, GoodsElasticSearch::customerFilters(), array_merge($es->personalizeFunctions(), GoodsElasticSearch::specFunctions($keyword)));     //  개인화 + 규격 가산점(v2)
-
-        [$result, $total, $page] = $es->searchPage([
+        $body  = [
             'query'       => $query,
             'post_filter' => ['bool' => ['filter' => $postFilters]],
             'sort'        => GoodsElasticSearch::sort($req->sort ?? 'hot', $keyword !== ''),
-            'aggs'        => $this->sideAggs($catePath),
-        ], (int) ($req->page ?? 1), $perPage);
+            'aggs'        => $this->sideAggs($catePath) + ($keyword !== '' && !$req->filled('limit') ? \App\Services\SearchAi::aggs($keyword) : []),     //  + 약한 검색 판별용 개수
+        ];
+        [$result, $total, $page] = $es->searchPage($body, (int) ($req->page ?? 1), $perPage);
+
+        //  약한 검색 보정 (AI 검색 2-4) - 영문 자판 실수(qlzj→비커)·AI가 바꾼 말(메탄올→methanol)로 함께 찾아 보여줌
+        //  잘 되는 검색은 그대로 / 바꿔 찾아도 더 많이 안 나오면 원래 결과 그대로 / 스위치(SEARCH_AI_BOOST) 끄면 바로 원래대로
+        $alt = $keyword !== '' && !$req->filled('limit')
+            ? \App\Services\SearchAi::rescue($keyword, $req->mode, (int) ($req->page ?? 1), $result->asArray()['aggregations'] ?? [])
+            : null;
+        if ($alt) {
+            $altQuery = $es->buildQuery($alt['q'], $req->mode, GoodsElasticSearch::customerFilters(), array_merge($es->personalizeFunctions(), GoodsElasticSearch::specFunctions($alt['q'])));
+            $combined = $alt['first'] ? \App\Services\SearchAi::combine($altQuery, $query) : \App\Services\SearchAi::combine($query, $altQuery);
+            [$result2, $total2, $page2] = $es->searchPage(['query' => $combined] + $body, (int) ($req->page ?? 1), $perPage);
+            if ($total2 > $total) {
+                [$result, $total, $page, $query] = [$result2, $total2, $page2, $combined];     //  포사의 PICK·사이드바 개수도 합친 검색 기준
+                $data['search_alt'] = ['from' => trim($req->keyword), 'to' => $alt['q']];      //  화면 안내 문구
+            } else
+                $alt = null;
+        }
+
 
         $items = $es->goods($result);
 
@@ -79,7 +94,7 @@ class GoodsController extends Controller {
         if ($keyword !== '' && !$req->filled('limit'))
             $data['search_id'] = \App\Services\SearchLogService::store(
                 $req, $keyword, $catePath, $total, $page, $items,
-                $result->asArray()['took'] ?? 0, GoodsElasticSearch::index()
+                $result->asArray()['took'] ?? 0, GoodsElasticSearch::index(), $alt['q'] ?? null
             );
 
         if ($req->filled('limit')) {    //  메인 베스트 - 페이징 없이 목록만

@@ -7,9 +7,10 @@ use Illuminate\Support\Facades\{DB, Http, Log, Redis};
 //  AI 검색어·규격 통역 (AI 검색 2-2) - 모든 AI 호출은 이 파일 한 곳 (나중에 Python AI 서버로 바꿀 때 call()만 고침)
 //  손님 검색은 수첩(la_search_ai)만 봄 - 없으면 대기 목록(la_search_ai_queue)에 넣고 지금 검색 그대로 (기다리지 않기)
 //  1분마다 search:ai-fill이 대기 목록을 AI에 물어 수첩을 채움, 밤에 search:ai-prewarm이 인기 검색어를 미리 넣음
+//  손님 검색에 쓰는 곳 (2-4): 결과가 적은 검색만 - 영문 자판 실수(qlzj→비커)·AI가 바꾼 말(메탄올→methanol)로 함께 찾아 보여줌
 //  AI에는 검색어·규격 글자만 보냄 - 손님 정보(회원·IP·uuid)는 보내지 않음
 class SearchAi {
-    const PROMPT    = ['query' => 'query.v1', 'spec' => 'spec.v1'];     //  프롬프트를 고치면 올림 → 밤 작업이 검수 안 한 줄만 다시 물음
+    const PROMPT    = ['query' => 'query.v2', 'spec' => 'spec.v1'];     //  프롬프트를 고치면 올림 → 밤 작업이 검수 안 한 줄만 다시 물음
     const MAX_TRIES = 3;                                                 //  실패 3번이면 더 묻지 않음 (7일 뒤 밤 작업이 정리)
     const RETRY_MIN = [1 => 2, 2 => 30];                                 //  실패 n번째 → n분 뒤 다시
     const OUR_SIDE  = 2;                                                 //  예외 code - 키·잔액·요청 모양 문제 (어느 글자를 물어도 실패) → 바로 차단
@@ -22,6 +23,120 @@ class SearchAi {
     const OPS   = ['=' => null, '>=' => '>=', '>' => '>', '<=' => '<=', '<' => '<', '~' => '~'];
 
     //  ───── 손님 검색 쪽 (빠르고, 어떤 오류도 검색을 막지 않음) ─────
+
+    //  보정이 필요한지 판별하는 집계 - 손님 검색 본문에 함께 넣음 (검색 한 번 더 안 함, 스위치 꺼져 있으면 빈 배열)
+    //  ai_base: 카테고리·제조사 거르기 전 결과 수 / ai_exact: 검색어 단어가 그대로(비슷한 글자 말고) 들어간 상품 수
+    public static function aggs(string $keyword): array {
+        if (!config('search.ai.fill', false) && !config('search.ai.boost', false))
+            return [];
+        return [
+            'ai_base'  => ['filter' => ['match_all' => (object) []]],
+            'ai_exact' => ['filter' => self::exactFilter($keyword)],
+        ];
+    }
+
+    //  검색어 단어가 하나씩 상품명·모델명·키워드·제조사에 그대로 있는 조건 (비슷한 글자 말고) - 규격 토큰은 뺌
+    protected static function exactFilter(string $keyword): array {
+        $words = SearchSpec::wordsMatch(SearchSpec::without($keyword, SearchSpec::tokens($keyword, SearchSpec::makers())));
+        return $words ? ['bool' => ['must' => $words]] : ['match_all' => (object) []];
+    }
+
+    //  약한 검색인지 - 결과가 적거나(search.ai.low 이하), 검색어가 그대로 들어간 상품이 없음 ("애펜 도르푸" → 비슷한 글자인 "다이아몬드 펜"만 잡힘)
+    public static function weak(array $aggs): bool {
+        return isset($aggs['ai_base'], $aggs['ai_exact'])
+            && ($aggs['ai_base']['doc_count'] <= (int) config('search.ai.low', 3) || $aggs['ai_exact']['doc_count'] == 0);
+    }
+
+    //  약한 검색이면 함께 찾을 말 - ['q' => 바꾼 말, 'by' => keyboard|ai, 'first' => 바꾼 말 결과를 먼저 보여줄지]
+    //  1. 영문 자판 실수 (qlzj → 비커, AI 없이 규칙)  2. AI 수첩의 바꾼 말 (없으면 대기 목록에 넣고 이번엔 그대로)
+    public static function rescue(string $keyword, ?string $mode, int $page, array $aggs): ?array {
+        if (!self::weak($aggs) || !self::askable($keyword, $mode))
+            return null;
+        if (config('search.ai.boost', false) && ($ko = self::keyboard($keyword)))
+            return ['q' => $ko, 'by' => 'keyboard', 'first' => true];
+        $alt = self::lookup($keyword, $mode, $page)['alts'][0] ?? null;
+        if (!$alt)
+            return null;
+        //  바꾼 말 결과를 위로: 원래 결과가 비슷한 글자로만 잡힌 것 ("애펜 도르푸"), 또는 바꾼 말 상품이 10배 이상 많음 ("메탄올" 3건 → methanol 4,540건)
+        $first = $aggs['ai_exact']['doc_count'] == 0 || ($alt['hits'] ?? 0) >= 10 * max(1, $aggs['ai_base']['doc_count']);
+        return ['q' => $alt['q'], 'by' => 'ai', 'first' => $first];
+    }
+
+    //  검색어 하나가 약한 검색인지 ES에 물어봄 - 밤 미리 채우기용 (손님 검색은 본문 집계로 판별)
+    public static function isWeak(string $keyword): bool {
+        $es = new GoodsElasticSearch;
+        $r  = $es->search([
+            'size'  => 0,
+            'query' => $es->buildQuery($keyword, null, GoodsElasticSearch::customerFilters(), GoodsElasticSearch::specFunctions($keyword)),
+            'aggs'  => self::aggs($keyword) ?: ['ai_none' => ['filter' => ['match_all' => (object) []]]],
+        ])->asArray();
+        return self::weak($r['aggregations'] ?? []);
+    }
+
+    //  두 검색을 합침 - 앞 검색에 맞는 상품이 항상 위, 그 아래 뒤 검색 상품 (각 검색 안의 순서는 그대로)
+    public static function combine(array $first, array $second): array {
+        return ['bool' => ['should' => [
+            $first,
+            $second,
+            ['constant_score' => ['filter' => $first, 'boost' => 1000000]],
+        ], 'minimum_should_match' => 1]];
+    }
+
+    //  영문 자판으로 친 한글 되돌리기 ("qlzj" → "비커", "wjdnf" → "저울") - 영문 소문자·띄어쓰기만, 글자가 다 맞게 조립될 때만
+    public static function keyboard(string $text): ?string {
+        if (!preg_match('/^[a-z]+( [a-z]+)*$/', $text))
+            return null;
+        $key  = ['q'=>'ㅂ','w'=>'ㅈ','e'=>'ㄷ','r'=>'ㄱ','t'=>'ㅅ','y'=>'ㅛ','u'=>'ㅕ','i'=>'ㅑ','o'=>'ㅐ','p'=>'ㅔ','a'=>'ㅁ','s'=>'ㄴ','d'=>'ㅇ','f'=>'ㄹ','g'=>'ㅎ',
+                 'h'=>'ㅗ','j'=>'ㅓ','k'=>'ㅏ','l'=>'ㅣ','z'=>'ㅋ','x'=>'ㅌ','c'=>'ㅊ','v'=>'ㅍ','b'=>'ㅠ','n'=>'ㅜ','m'=>'ㅡ'];
+        $cho  = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+        $jung = ['ㅏ','ㅐ','ㅑ','ㅒ','ㅓ','ㅔ','ㅕ','ㅖ','ㅗ','ㅘ','ㅙ','ㅚ','ㅛ','ㅜ','ㅝ','ㅞ','ㅟ','ㅠ','ㅡ','ㅢ','ㅣ'];
+        $jong = ['','ㄱ','ㄲ','ㄳ','ㄴ','ㄵ','ㄶ','ㄷ','ㄹ','ㄺ','ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅁ','ㅂ','ㅄ','ㅅ','ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+        $vv   = ['ㅗㅏ'=>'ㅘ','ㅗㅐ'=>'ㅙ','ㅗㅣ'=>'ㅚ','ㅜㅓ'=>'ㅝ','ㅜㅔ'=>'ㅞ','ㅜㅣ'=>'ㅟ','ㅡㅣ'=>'ㅢ'];
+        $cc   = ['ㄱㅅ'=>'ㄳ','ㄴㅈ'=>'ㄵ','ㄴㅎ'=>'ㄶ','ㄹㄱ'=>'ㄺ','ㄹㅁ'=>'ㄻ','ㄹㅂ'=>'ㄼ','ㄹㅅ'=>'ㄽ','ㄹㅌ'=>'ㄾ','ㄹㅍ'=>'ㄿ','ㄹㅎ'=>'ㅀ','ㅂㅅ'=>'ㅄ'];
+
+        $words = [];
+        foreach (explode(' ', $text) as $word) {
+            $out = '';
+            $c = $v = $t = '';      //  지금 조립 중인 글자의 초성·중성·종성
+            $flush = function () use (&$c, &$v, &$t, &$out, $cho, $jung, $jong) {
+                if ($c === '' || $v === '')
+                    return false;       //  자음만·모음만 남음 = 한글 단어가 아님
+                $out .= mb_chr(0xAC00 + (array_search($c, $cho) * 21 + array_search($v, $jung)) * 28 + array_search($t, $jong));
+                $c = $v = $t = '';
+                return true;
+            };
+            foreach (str_split($word) as $ch) {
+                $j = $key[$ch];
+                if (!in_array($j, $jung)) {                                         //  자음
+                    if ($v === '') {
+                        if ($c !== '') return null;
+                        $c = $j;
+                    } elseif ($t === '' && in_array($j, $jong))
+                        $t = $j;
+                    elseif ($t !== '' && isset($cc[$t . $j]))
+                        $t = $cc[$t . $j];
+                    else {
+                        if (!$flush()) return null;
+                        $c = $j;
+                    }
+                } elseif ($t !== '') {                                              //  모음 - 앞 글자 받침을 이번 글자 초성으로
+                    $pair = array_search($t, $cc);
+                    [$t, $next] = $pair !== false ? [mb_substr($pair, 0, 1), mb_substr($pair, 1, 1)] : ['', $t];
+                    if (!$flush()) return null;
+                    [$c, $v] = [$next, $j];
+                } elseif ($v !== '' && isset($vv[$v . $j]))
+                    $v = $vv[$v . $j];
+                elseif ($v === '' && $c !== '')
+                    $v = $j;
+                else
+                    return null;
+            }
+            if (!$flush())
+                return null;
+            $words[] = $out;
+        }
+        return implode(' ', $words);
+    }
 
     //  수첩에 통역이 있으면 돌려줌 (BOOST 켜짐 + 쓸 만한 답 + 검수 틀림 아님), 없으면 대기 목록에 넣음 (FILL 켜짐 + 1페이지)
     public static function lookup(string $keyword, ?string $mode, int $page): ?array {
@@ -68,7 +183,7 @@ class SearchAi {
     //  $model·$provider: 비교 시험용 (비우면 .env 설정)
     public static function ask(string $kind, string $text, ?string $model = null, ?string $provider = null): array {
         $provider = $provider ?? config('search.ai.provider', 'openai');
-        $model    = $model ?? config('search.ai.model');
+        $model    = $model ?? (string) config('search.ai.model', '');      //  설정이 없으면 '' → call()이 "모델 이름 없음"으로 알림
         $start    = microtime(true);
 
         [$raw, $tokIn, $tokOut] = self::call($provider, $model, self::system($kind), $text, self::schema($kind));
@@ -78,7 +193,9 @@ class SearchAi {
             throw new \RuntimeException('답이 정해진 JSON 모양이 아님: ' . mb_substr($raw, 0, 100));
 
         [$result, $dropped] = self::validate($kind, $text, $ans);
-        $kept = array_filter($result, fn($v) => $v !== [] && $v !== null);
+        if ($kind === 'query')
+            $result = ['alts' => self::checkAlts($text, (array) ($ans['alts'] ?? []), $dropped)] + $result;
+        $kept =array_filter($result, fn($v) => $v !== [] && $v !== null);
         return [
             'result'  => $result,
             'raw'     => $raw,
@@ -123,14 +240,7 @@ class SearchAi {
         $result  = ['attrs' => []];
 
         if ($kind === 'query') {
-            $words = [];
-            foreach (array_slice((array) ($ans['product'] ?? []), 0, 8) as $w) {
-                $w = mb_strtolower(trim((string) $w));
-                if ($w !== '' && mb_strlen($w) <= 40 && preg_match('/\p{L}/u', $w))
-                    $words[$w] = true;
-            }
-            $result = ['product' => array_keys($words), 'maker' => null] + $result;
-
+            $result = ['maker' => null] + $result;
             $maker = mb_strtolower(trim((string) ($ans['maker'] ?? '')));
             if ($maker !== '') {
                 if (in_array($maker, SearchSpec::makers(), true))
@@ -155,7 +265,36 @@ class SearchAi {
         return [$result, $dropped];
     }
 
-    //  속성 하나 검증 → [['key','op','num','max','value'], null] 또는 [null, 버린 이유]
+    //  바꾼 말 검증 - 우리 가게(ES)에서 그 말이 그대로 들어간 상품이 원래 검색어보다 많아야 씀
+    //  비슷한 글자로 잡힌 개수는 안 셈 ("빙커" → "bunker"는 엉뚱한 상품만 비슷하게 잡히고 그대로 든 상품은 0개라 버려짐)
+    //  [['q' => 'methanol', 'hits' => 그대로 든 상품 수], ...] AI가 준 순서 그대로
+    protected static function checkAlts(string $text, array $alts, array &$dropped): array {
+        $es    = new GoodsElasticSearch;
+        $count = function (string $q) use ($es): int {
+            try {
+                $body = ['size' => 0, 'query' => $es->buildQuery($q, null, GoodsElasticSearch::customerFilters(), GoodsElasticSearch::specFunctions($q)),
+                         'aggs' => ['exact' => ['filter' => self::exactFilter($q)]]];
+                return (int) ($es->search($body)->asArray()['aggregations']['exact']['doc_count'] ?? 0);
+            } catch (\Throwable $e) {
+                throw new \RuntimeException('ES 확인 실패: ' . mb_substr($e->getMessage(), 0, 100));
+            }
+        };
+        $base = $count($text);
+        $out  = [];
+        foreach (array_slice($alts, 0, 3) as $a) {
+            $q = GoodsElasticSearch::keyword((string) $a);
+            if ($q === '' || $q === $text || mb_strlen($q) > 60 || isset($out[$q]))
+                continue;
+            $n = $count($q);
+            if ($n > $base)
+                $out[$q] = ['q' => $q, 'hits' => $n];
+            else
+                $dropped[] = "alt {$q}: {$n}건 (원래 {$base}건보다 많지 않음)";
+        }
+        return array_values($out);
+    }
+
+    //  속성 하나 검증 →[['key','op','num','max','value'], null] 또는 [null, 버린 이유]
     protected static function attr(array $a, array $nums): array {
         $defs = GoodsAttr::defs();
         $key  = (string) ($a['key'] ?? '');
@@ -268,10 +407,18 @@ Return JSON only.
 TXT;
 
         return <<<TXT
-You interpret a search query typed into a Korean online store for laboratory and scientific equipment, consumables and reagents.
+You help the search box of a Korean online store for laboratory and scientific equipment, consumables and chemicals.
+Product names in the catalog are mostly English or mixed Korean/English, e.g. "Methanol, HPLC grade", "Isopropyl alcohol", "비이커 (Glass)", "Eppendorf Research plus", "클린룸용 방진복".
+The shopper's query found few or only loosely related products. Figure out what the shopper wants.
 Return JSON only.
-product: the kinds of product the shopper wants, as short nouns without sizes or brands. Give the word as typed plus its common Korean/English counterpart (e.g. "비커" → ["비커", "beaker"]). Empty if the query is only a code or a number.
-maker: the brand/manufacturer named in the query, as typed (e.g. "3m 장갑" → "3m"), else null.
+alts: up to 3 alternative search queries that would find it in such a catalog, best first. Use your knowledge of lab products, brands and chemicals:
+- fix typos and phonetic or Korean spellings of names (e.g. "애펜 도르푸" → "eppendorf", "빙커" → "비커", "seive" → "sieve", "킴와입스" → "킴테크")
+- Korean chemical/technical names → the English name used in product names (e.g. "메탄올" → "methanol", "이소프로필알코올" → "isopropyl alcohol", "클로로포름" → "chloroform")
+- other common names of the same product (e.g. "쿼츠" → "석영", "막자사발" → "mortar", "스톱워치" → "타이머", "공병" → "시약병")
+- a situation or purpose → the product to buy (e.g. "클린룸 출입 복장" → "방진복")
+- keep size/spec numbers from the query (e.g. "메탄올 4l" → "methanol 4l"); 1–4 words each; never repeat the query itself
+- if you cannot tell what the shopper wants, return an empty list
+maker: the brand/manufacturer named in the query, in its usual written form (e.g. "3m 장갑" → "3m", "애펜도르프 팁" → "eppendorf"), else null.
 {$attrRules}
 TXT;
     }
@@ -294,7 +441,7 @@ TXT;
         ];
         $props = ['attrs' => ['type' => 'array', 'items' => $attr]];
         if ($kind === 'query')
-            $props = ['product' => ['type' => 'array', 'items' => ['type' => 'string']], 'maker' => $nullable('string')] + $props;
+            $props = ['alts' => ['type' => 'array', 'items' => ['type' => 'string']], 'maker' => $nullable('string')] + $props;
         return ['type' => 'object', 'additionalProperties' => false, 'required' => array_keys($props), 'properties' => $props];
     }
 

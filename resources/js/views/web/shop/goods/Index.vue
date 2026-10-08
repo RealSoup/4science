@@ -12,6 +12,10 @@
             :p_ca04="$route.query.ca04"
         />
 
+        <b-container v-if="search_alt" class="layout search_alt">
+            <b-icon-search /> '<b>{{search_alt.from}}</b>' 검색 결과가 적어 '<b class="to">{{search_alt.to}}</b>' 검색 결과를 함께 보여 드립니다.
+        </b-container>
+
         <b-container v-if="sch_cate_info" class="layout sch_detail">
             <b-row>
                 <b-col>
@@ -169,7 +173,7 @@ export default {
         return { pick_hover:0, }
     },
     computed: {
-        ...mapState('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys', 'category_picks', 'search_id']),
+        ...mapState('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys', 'category_picks', 'search_id', 'search_alt']),
         categoryMap() {
             return Object.fromEntries(
                 Object.values(this.categorys || {})
@@ -232,6 +236,8 @@ export default {
 <style lang="css" >
 #header #core .nav_menu { display:none !important; }
 
+.search_alt { margin-top:1em; padding:.8rem 1.1rem; background:#f4f8ff; border:1px solid #b9d0ff; border-radius:6px; font-size:1rem; color:#333; }
+.search_alt .to { color:#1a5fd8; }
 .sch_detail { margin-top:1em; margin-bottom:1em; }
 .sch_detail .row .col { border:1px solid #D7D7D7; padding:0 0 .3rem; max-height:250px; overflow-y:auto; }
 .sch_detail .row .col:not(:last-child) { border-right-width:0; }

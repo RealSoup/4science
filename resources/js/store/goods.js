@@ -26,6 +26,7 @@ export default {
         default: {},
         Elastic: {},
         search_id: null,
+        search_alt: null,
     },
     getters:{
     },
@@ -51,6 +52,7 @@ export default {
             state.isLoadingModalViewed= false;
             state.Elastic = param.Elastic;
             state.search_id = param.search_id || null;
+            state.search_alt = param.search_alt || null;     //  약한 검색 보정 안내 (AI 검색 2-4)
         },
     },
     actions: {
