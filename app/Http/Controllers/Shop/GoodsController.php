@@ -62,6 +62,8 @@ class GoodsController extends Controller {
             $req->filled('mk_id') ? ['term' => ['gd_mk_id' => (int) $req->mk_id]] : null,
         ]));
 
+        //  AI 검색어 통역 (2-2) - 수첩만 봄, 없으면 대기 목록에 넣음 (스위치가 꺼져 있으면 아무것도 안 함) / 결과는 2-4에서 가산점에 씀
+        $aiQuery = $keyword !== '' && !$req->filled('limit') ? \App\Services\SearchAi::lookup($keyword, $req->mode, (int) ($req->page ?? 1)) : null;
         $query = $es->buildQuery($keyword, $req->mode, GoodsElasticSearch::customerFilters(), array_merge($es->personalizeFunctions(), GoodsElasticSearch::specFunctions($keyword)));     //  개인화 + 규격 가산점(v2)
 
         [$result, $total, $page] = $es->searchPage([

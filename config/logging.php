@@ -148,6 +148,15 @@ return [
             'path'   => storage_path('logs/scheduler/search-attrs/search-attrs.log'),
             'days'   => 90,
         ],
+        'search-ai' => [
+            'driver'   => 'stack',
+            'channels' => ['search-ai-detail', 'scheduler-summary'],
+        ],
+        'search-ai-detail' => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/scheduler/search-ai/search-ai.log'),
+            'days'   => 30,
+        ],
         'top-selling-cache' => [
             'driver'   => 'stack',
             'channels' => ['top-selling-cache-detail', 'scheduler-summary'],
