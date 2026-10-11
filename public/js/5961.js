@@ -28,7 +28,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return __webpack_require__.e(/*! import() */ 1753).then(__webpack_require__.bind(__webpack_require__, /*! ./tag/InputPrice */ 81753));
     },
     'InputText': function InputText() {
-      return __webpack_require__.e(/*! import() */ 8114).then(__webpack_require__.bind(__webpack_require__, /*! ./tag/InputText */ 19673));
+      return __webpack_require__.e(/*! import() */ 9673).then(__webpack_require__.bind(__webpack_require__, /*! ./tag/InputText */ 19673));
     },
     'InputSelect': function InputSelect() {
       return __webpack_require__.e(/*! import() */ 6025).then(__webpack_require__.bind(__webpack_require__, /*! ./tag/InputSelect */ 66025));
