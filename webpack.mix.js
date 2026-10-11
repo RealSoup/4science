@@ -29,7 +29,6 @@ mix.js('resources/js/app.js', 'public/js')
 mix.browserSync ('https://4science.net/');
 // mix.disableNotifications();
 // mix.browserSync({
-//     // proxy: 'localhost:3000',
 //     proxy: '127.0.0.1:8000',
 //     files: [
 //         'app/**/*',

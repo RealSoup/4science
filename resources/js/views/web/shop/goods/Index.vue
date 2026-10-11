@@ -47,15 +47,6 @@
                     </p>
                 </b-col>
             </b-row>
-            <!-- <div class="extra_sch">
-                <b>결과 내 검색</b>
-                <b-input-group>
-                    <b-form-input v-model="frm.keyword_extra" placeholder="검색어를 입력하세요" @keyup.enter="routerPush()" />
-                    <b-input-group-append>
-                        <b-button variant="info" @click="routerPush()"><font-awesome-icon icon="search" /></b-button>
-                    </b-input-group-append>
-                </b-input-group>
-            </div> -->
         </b-container>
 
         <div v-if="pick" class="pick m_hide">
@@ -229,7 +220,6 @@ export default {
             this.searchClick(to.params.gd_id);
         next();
     },
-    // mounted() { this.$store.dispatch('goods/index'); },
 }
 </script>
 
@@ -252,7 +242,6 @@ export default {
 
 .category_picks { margin-top:20px; overflow:hidden; border-top:1px solid #1A90D6; border-left:1px solid #1A90D6; border-radius:30px 0 0 30px; }
 .category_picks .tit { background-color:#1A90D6; max-width:146px; }
-.category_picks .tit img { }
 .category_picks .tit h6 { position:absolute; top:40px; right:12px; color:#FFF; font-size:21px; font-weight:bold; }
 .category_picks .con { padding:24px; border-bottom:1px solid #1A90D6; border-right:1px solid #1A90D6; }
 .category_picks .con img { width:100%; height:166px; object-fit:contain; margin-bottom:12px; } 
