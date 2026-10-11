@@ -121,6 +121,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::GET('synonym/download',      'Admin\SynonymController@download');
                 Route::POST('synonym/reload',       'Admin\SynonymController@reload');
                 Route::RESOURCE('synonym',          'Admin\SynonymController')->only(['index', 'store', 'update', 'destroy']);
+                //  AI 검색 검수 (AI 수첩·상품 속성)
+                Route::GET(  'searchReview/ai',            'Admin\SearchReviewController@aiIndex');
+                Route::POST( 'searchReview/ai/count',      'Admin\SearchReviewController@aiCount');
+                Route::PATCH('searchReview/ai/{id}',       'Admin\SearchReviewController@aiCheck');
+                Route::PUT(  'searchReview/ai/{id}',       'Admin\SearchReviewController@aiFix');
+                Route::POST( 'searchReview/ai/{id}/ask',   'Admin\SearchReviewController@aiAsk');
+                Route::GET(  'searchReview/attr',          'Admin\SearchReviewController@attrIndex');
+                Route::POST( 'searchReview/attr/{gd_id}',  'Admin\SearchReviewController@attrSave');
 
                 //  캐시 새로고침
                 Route::GET('refreshCache',          'Admin\SiteController@refreshCache');

@@ -6,6 +6,7 @@ import AdmSiteMainCateGoods from '@/views/admin/site/MainCateGoods';
 import AdmSiteMainBest from '@/views/admin/site/MainBest';
 import AdmSiteBannerGoods from '@/views/admin/site/BannerGoods';
 import AdmSiteSynonym from '@/views/admin/site/SynonymManager';
+import AdmSiteSearchReview from '@/views/admin/site/SearchReview';
 
 import AdmUserIndex from '@/views/admin/user/Index';
 import AdmUserEdit from '@/views/admin/user/Edit';
@@ -83,6 +84,10 @@ export default [
                 path: 'site/synonym',
                 name: 'adm_site_synonym',
                 component: AdmSiteSynonym,
+            }, {
+                path: 'site/searchReview',
+                name: 'adm_site_search_review',
+                component: AdmSiteSearchReview,
             },
 
             //  유저

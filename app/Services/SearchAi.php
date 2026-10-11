@@ -265,16 +265,21 @@ class SearchAi {
         return [$result, $dropped];
     }
 
+    //  그 말이 그대로(비슷한 글자 말고) 들어간 손님 노출 상품 수 - 바꾼 말 검증, 관리자 검수 화면 (ES 오류는 그대로 던짐)
+    public static function exactCount(string $q): int {
+        $es   = new GoodsElasticSearch;
+        $body = ['size' => 0, 'query' => $es->buildQuery($q, null, GoodsElasticSearch::customerFilters(), GoodsElasticSearch::specFunctions($q)),
+                 'aggs' => ['exact' => ['filter' => self::exactFilter($q)]]];
+        return (int) ($es->search($body)->asArray()['aggregations']['exact']['doc_count'] ?? 0);
+    }
+
     //  바꾼 말 검증 - 우리 가게(ES)에서 그 말이 그대로 들어간 상품이 원래 검색어보다 많아야 씀
     //  비슷한 글자로 잡힌 개수는 안 셈 ("빙커" → "bunker"는 엉뚱한 상품만 비슷하게 잡히고 그대로 든 상품은 0개라 버려짐)
     //  [['q' => 'methanol', 'hits' => 그대로 든 상품 수], ...] AI가 준 순서 그대로
     protected static function checkAlts(string $text, array $alts, array &$dropped): array {
-        $es    = new GoodsElasticSearch;
-        $count = function (string $q) use ($es): int {
+        $count = function (string $q): int {
             try {
-                $body = ['size' => 0, 'query' => $es->buildQuery($q, null, GoodsElasticSearch::customerFilters(), GoodsElasticSearch::specFunctions($q)),
-                         'aggs' => ['exact' => ['filter' => self::exactFilter($q)]]];
-                return (int) ($es->search($body)->asArray()['aggregations']['exact']['doc_count'] ?? 0);
+                return self::exactCount($q);
             } catch (\Throwable $e) {
                 throw new \RuntimeException('ES 확인 실패: ' . mb_substr($e->getMessage(), 0, 100));
             }

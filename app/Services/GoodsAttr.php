@@ -126,6 +126,60 @@ class GoodsAttr {
         return $docs;
     }
 
+    //  상품 하나의 속성을 검색 색인 속성 칸에만 바로 반영 (관리자 검수 화면 저장 후) - 다른 칸은 그대로
+    //  done 반영 / off 속성 칸을 안 씀 / missing 색인에 없는 상품 / failed 실패 (밤 배치 search:extract-attrs --es가 다시 넣음)
+    public static function pushEs(int $gdId): string {
+        if (!GoodsElasticSearch::hasAttr())
+            return 'off';
+        try {
+            app(\Elastic\Elasticsearch\Client::class)->update([
+                'index' => GoodsElasticSearch::index(),
+                'id'    => $gdId,
+                'body'  => ['doc' => self::esDocs([$gdId])[$gdId]],
+            ]);
+            return 'done';
+        } catch (\Throwable $e) {
+            if ($e->getCode() == 404)
+                return 'missing';
+            \Log::error("상품 속성 색인 반영 실패 ({$gdId}번 상품): " . $e->getMessage());
+            return 'failed';
+        }
+    }
+
+    //  관리자가 고쳐 넣은 값 하나 → 저장할 칸 (검수 화면) - 읽을 수 없으면 null
+    //  숫자 속성 "500ml" "1-10ul" "≥99.5%" (단위를 안 쓰면 기준 단위) / 치수 "440x264x117mm" / 측정법 등 글자 속성은 그대로
+    public static function parse(string $key, string $text): ?array {
+        $def = self::defs()[$key] ?? null;
+        if (!$def)
+            return null;
+        $t   = trim(str_replace(['×', '＊', '*'], 'x', SearchSpec::normalize($text)));
+        $out = ['ga_num' => null, 'ga_num_max' => null, 'ga_op' => null, 'ga_unit' => $def['unit']];
+
+        if ($def['type'] === 'num') {
+            if (!preg_match('/^(≥|>=|>|≤|<=|<|~|약)?\s*(' . self::NUM . ')(?:\s*[~-]\s*(' . self::NUM . '))?\s*([a-z%]*)$/u', $t, $m))
+                return null;
+            $unit = $m[4] !== '' ? $m[4] : (string) $def['unit'];
+            if (!$def['unit_map'] && $unit !== (string) $def['unit'])         //  순도에 "ml" 같은 다른 단위
+                return null;
+            $num = self::toBase($key, (float) $m[2], $unit);
+            $max = $m[3] !== '' ? self::toBase($key, (float) $m[3], $unit) : null;
+            if ($num === null || ($m[3] !== '' && $max === null))
+                return null;
+            $op = self::op($m[1]);
+            return ['ga_value' => self::value($num, $max, $op, $def['unit']), 'ga_num' => $num, 'ga_num_max' => $max, 'ga_op' => $op] + $out;
+        }
+        if ($def['unit_map']) {
+            if (!preg_match('/^(' . self::NUM . '(?:\s*x\s*' . self::NUM . '){0,2})\s*([a-z]*)$/u', $t, $m))
+                return null;
+            $nums = array_map(fn($x) => self::toBase($key, (float) $x, $m[2] ?: $def['unit']), preg_split('/\s*x\s*/', $m[1]));
+            if (in_array(null, $nums, true))
+                return null;
+            return ['ga_value' => implode('x', array_map([self::class, 'fmt'], $nums)) . $def['unit']] + $out;
+        }
+        $v = self::METHODS[$t] ?? trim($text);
+        return $v === '' ? null : ['ga_value' => mb_substr($v, 0, 100)] + $out;
+    }
+
     //  모델 하나의 속성 줄 목록 (규격 칸 먼저, 없으면 모델명)
     public static function extract(string $name, string $spec): array {
         $defs = self::defs();
