@@ -16,7 +16,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['mng_config', 'column_list', 'model_width', 'total_ea_price', 'total_sum_price', 'all_chk_cplt', 'indeterminate'],
   components: {
     'Modal': function Modal() {
-      return __webpack_require__.e(/*! import() */ 5773).then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ 45773));
+      return Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ 45773));
     }
   },
   data: function data() {

@@ -129,6 +129,9 @@
 <script>
 import ax from '@/api/http';
 import { mapActions, mapState, mapGetters } from 'vuex';
+import Modal from '@/views/_common/Modal';
+import ReqVoucher from './_comp/ReqVoucher';
+import ReqAsk from './_comp/ReqAsk';
 const SECTION_PERMISSIONS = {
     21: ['order', 'stats_behavio'],
     22: ['goods', 'stats_behavio'],
@@ -139,9 +142,9 @@ const ALL_SECTIONS = ['site', 'user', 'goods', 'estimate', 'order', 'stats', 'st
 export default {
     name: 'Header',
     components: {
-        'modal'     : () => import('@/views/_common/Modal'),
-        'req-voucher': () => import('./_comp/ReqVoucher'),
-        'req-ask'    : () => import('./_comp/ReqAsk'),
+        'modal'      : Modal,
+        'req-voucher': ReqVoucher,
+        'req-ask'    : ReqAsk,
     },
     computed: { 
         ...mapGetters({ user: 'auth/user', siteInfo: 'common/siteInfo', }),

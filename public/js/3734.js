@@ -17,7 +17,7 @@ __webpack_require__.r(__webpack_exports__);
       return Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation */ 99812));
     },
     'Modal': function Modal() {
-      return __webpack_require__.e(/*! import() */ 5773).then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal */ 45773));
+      return Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal */ 45773));
     },
     'FormUser': function FormUser() {
       return __webpack_require__.e(/*! import() */ 2949).then(__webpack_require__.bind(__webpack_require__, /*! ./FormUser */ 12949));
