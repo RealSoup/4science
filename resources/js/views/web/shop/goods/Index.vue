@@ -153,12 +153,15 @@
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex'
 import ax from '@/api/http';
+import LoadingModal from '@/views/_common/LoadingModal';
+import NoItem from '@/views/web/_module/NoItem';
+import Location from '@/views/web/shop/goods/_comp/Location';
 
 export default {
     components: {
-        'loading-modal': () =>   import('@/views/_common/LoadingModal'),
-        'no-item': () => import('@/views/web/_module/NoItem'),
-        'location': () => import('@/views/web/shop/goods/_comp/Location'),
+        'loading-modal': LoadingModal,
+        'no-item': NoItem,
+        'location': Location,
     },
     data() {
         return { pick_hover:0, }
