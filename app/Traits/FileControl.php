@@ -18,12 +18,14 @@ trait FileControl {
         $mimeArr=['png', 'jpe', 'jpeg', 'jpg', 'gif', 'bmp', 'ico', 'tiff', 'tif', 'svg', 'svgz'];
         $mime = strtolower($file->getClientOriginalExtension());
 
-        //  보안: 허용한 확장자만 업로드 (원래 이름 확장자 + 실제 내용으로 추정한 확장자 둘 다 검사)
-        //  2026-10-09 상품 이미지 업로드로 웹셸(.php)이 올라온 사고 대응
+        //  보안: 업로드 파일 형식 검사 (2026-10 업로드 기능으로 웹셸(.php)이 올라온 사고 대응)
+        //  - 원래 파일 이름의 확장자는 허용 목록에 있어야 함
+        //  - 실제 내용으로 추정한 확장자(저장 파일명에 붙음)가 실행 가능한 형식이면 거부
         $allowExt = array_merge($mimeArr, ['pdf', 'hwp', 'hwpx', 'doc', 'docx', 'xls', 'xlsx', 'csv', 'ppt', 'pptx', 'txt', 'zip', 'webp']);
+        $denyExt  = ['php', 'php3', 'php4', 'php5', 'php7', 'php8', 'phtml', 'phar', 'pht', 'phps', 'inc', 'html', 'htm', 'xhtml', 'js', 'cgi', 'pl', 'py', 'sh', 'exe'];
         $guessExt = strtolower((string)$file->guessExtension());
-        if (!in_array($mime, $allowExt) || !in_array($guessExt, $allowExt)) {
-            abort(422, '업로드할 수 없는 파일 형식입니다.');
+        if (!in_array($mime, $allowExt) || in_array($guessExt, $denyExt)) {
+            abort(500, '업로드할 수 없는 파일 형식입니다.');
         }
 
         
