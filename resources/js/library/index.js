@@ -326,7 +326,28 @@ export default {
             Notify.toast('success', '복사됨');
         };
 
-        Vue.prototype.trans = string => window.i18n;
+        // Vue.prototype.trans = string => window.i18n;
+        //  화면 문구 사전 (예전 /localization 응답을 대신함, resources/lang/ko/*.php와 같은 내용)
+        const I18N_KO = {
+            admin: {
+                btn_title: '관리자',
+            },
+            estimate: {
+                title    : '견적요청',
+                sub_tit01: '견적요청 상품',
+                sub_tit02: '회원 정보',
+                sub_tit03: '문의사항',
+            },
+            module_palist: {
+                jumoonsangpum: '주문 상품',
+                jejosa       : '제조사',
+                panmaega     : '판매가',
+                suryang      : '수량',
+                geumaek      : '금액',
+                baesongbi    : '배송비',
+            },
+        };
+        Vue.prototype.trans = string => window.i18n || I18N_KO;
 
         Date.prototype.format = function(f) {
             if (!this.valueOf()) return " ";
