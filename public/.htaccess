@@ -10,8 +10,6 @@
 
     RewriteEngine On
 
-   
-    
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -35,5 +33,4 @@
     RewriteRule ^(.*)$ https://%1%{REQUEST_URI} [R=301,QSA,NC,L]
 
     php_value max_execution_time -1
-</IfModule>5666회  147.45.47.119  GET /etc/imageview.php?src=item%2Fgalaxy%20use.jpg
-1321회  121.171.170.220 GET /etc/imageview.php?src=item/...png&idtt_full_cd=...
+</IfModule>
