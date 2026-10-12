@@ -10,13 +10,6 @@
 
     RewriteEngine On
 
-    # ── 점검 모드: maintenance.html 파일이 있으면 모든 요청에 503 응답 ──
-    RewriteCond %{DOCUMENT_ROOT}/maintenance.html -f
-    RewriteCond %{REMOTE_ADDR} !^125\.132\.234\.16$
-    RewriteCond %{REQUEST_URI} !^/maintenance\.html$
-    RewriteRule ^ - [R=503,L]
-    # ── 점검 모드 끝 ──
-
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -41,10 +34,3 @@
 
     php_value max_execution_time -1
 </IfModule>
-
-ErrorDocument 503 /maintenance.html
-
-<Files "maintenance.html">
-    Header set Cache-Control "no-store"
-    Header set Retry-After "3600"
-</Files>
