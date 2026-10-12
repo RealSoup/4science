@@ -3,7 +3,7 @@
     <h3>배송지 관리 <small>자주 쓰는 배송지를 등록하고 관리합니다.</small></h3>
 
     <div class="addr_box">
-        <addr-index v-if="mode == 'index'" :address="addr" @choose="choose" @create="mode = 'create'" @edit="edit"></addr-index>
+        <addr-index v-if="mode == 'index'" title="배송지 목록" :address="addr" @choose="choose" @create="mode = 'create'" @edit="edit"></addr-index>
         <addr-create v-else-if="mode == 'create'" :address="addr" @index="back"></addr-create>
         <addr-edit v-else-if="mode == 'edit'" :address="addr" :addr="addr[edit_index]" @index="back"></addr-edit>
     </div>

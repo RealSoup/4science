@@ -232,10 +232,6 @@ export default [
                 name: 'my_user_edit',
                 component: WebMyUserEdit,
             }, {
-                path: 'user/edit',
-                name: 'my_user_edit',
-                component: WebMyUserEdit,
-            }, {
                 path: 'user/addr',
                 name: 'my_user_addr',
                 component: WebMyUserAddr,
