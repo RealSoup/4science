@@ -93,15 +93,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         
 
 
-
-
-
-
-
-
-
         /*  <<<<<<<<<<<<<<<<<<<<<<      관리자        >>>>>>>>>>>>>>>>>>>>>>>*/
-        Route::prefix('admin')->group(function () {
+        //  보안: 관리자 API는 서버에서도 관리자인지 검사 (2026-10 일반 회원이 관리자 API로 웹셸을 올린 사고 대응)
+        Route::prefix('admin')->middleware('is_admin')->group(function () {
+
             Route::Get('/', 'Admin\MainController@index');
             Route::Get('scheduleLog', 'Admin\MainController@scheduleLog');
             Route::prefix('common')->group(function () {

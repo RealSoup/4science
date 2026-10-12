@@ -1,7 +1,7 @@
 <template>
-<b-container class="p_wrap">
-    <h3>배송지 선택</h3>
-    <b-button class="d_blue" @click="create"><b-icon-plus-lg /> 배송지 추가히기</b-button>
+<b-container class="p_wrap addr_index">
+    <h3>{{ title || '배송지 선택' }}</h3>
+    <b-button class="d_blue" @click="create"><b-icon-plus-lg /> 배송지 추가하기</b-button>
     <b-row v-for="(addr, i) in address" :key="addr.ua_id">
         <b-col @click="select_addr(i)">
             {{addr.ua_title}} <b-badge v-if="addr.ua_def=='Y'" variant="primary">기본배송지</b-badge>
@@ -21,7 +21,7 @@
 import ax from '@/api/http';
 export default {
     name:"Toast",
-    props: ['address'],
+    props: ['address', 'title'],
     methods: {
         select_addr (i) { this.$emit('choose', this.address[i]); },
         create () { this.$emit('create'); },
@@ -55,17 +55,16 @@ export default {
 </script>
 
 <style scoped>
-.p_wrap h3 { margin:15px; font-size:1em; }
-.row { border:1px solid #CCC; cursor:pointer; position:relative; padding:10px 0; }
-.row:not(:last-child) { border-bottom-width:0; }
-.row:hover { background:#0E4D9C66; }
-.row .col { flex-basis:100%; padding:.1rem 1.5rem; }
-.row:first-of-type .col:first-of-type { padding-top:.6rem; }
-.row:last-of-type .col:last-of-type { padding-bottom:.6rem; }
-.row .col:nth-of-type(1) { font-weight:bold; }
-.row .col div { float:right; }
-.row button { position:absolute; top:20px; padding:0 .2rem; }
-.row button.destroy  { right:55px; }
-.row button.edit { right:13px; }
-.p_wrap>button { width:100%; border-width:0; border-radius:0; }
+.addr_index h3 { margin:15px; font-size:1em; }
+.addr_index .row { border:1px solid #CCC; cursor:pointer; position:relative; padding:10px 0; }
+.addr_index .row:not(:last-child) { border-bottom-width:0; }
+.addr_index .row:hover { background:#0E4D9C66; }
+.addr_index .row .col { flex-basis:100%; padding:.1rem 1.5rem; }
+.addr_index .row:first-of-type .col:first-of-type { padding-top:.6rem; }
+.addr_index .row:last-of-type .col:last-of-type { padding-bottom:.6rem; }
+.addr_index .row .col:nth-of-type(1) { font-weight:bold; }
+.addr_index .row button { position:absolute; top:20px; padding:0 .2rem; }
+.addr_index .row button.destroy  { right:55px; }
+.addr_index .row button.edit { right:13px; }
+.addr_index>button { width:100%; border-width:0; border-radius:0; }
 </style>

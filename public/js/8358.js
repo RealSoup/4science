@@ -146,7 +146,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _IntroList_vue_vue_type_template_id_7f6c3c37_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IntroList.vue?vue&type=template&id=7f6c3c37&scoped=true& */ 36957);
-/* harmony import */ var _IntroList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IntroList.vue?vue&type=script&lang=js& */ 86036);
+/* harmony import */ var _IntroList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IntroList.vue?vue&type=script&lang=js& */ 93664);
 /* harmony import */ var _IntroList_vue_vue_type_style_index_0_id_7f6c3c37_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./IntroList.vue?vue&type=style&index=0&id=7f6c3c37&lang=scss&scoped=true& */ 38215);
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ 51900);
 
@@ -175,7 +175,7 @@ component.options.__file = "resources/js/views/web/board/IntroList.vue"
 
 /***/ }),
 
-/***/ 86036:
+/***/ 93664:
 /*!*****************************************************************************!*\
   !*** ./resources/js/views/web/board/IntroList.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************/

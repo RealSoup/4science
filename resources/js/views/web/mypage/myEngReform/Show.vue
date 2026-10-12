@@ -83,7 +83,7 @@ export default {
     methods: {
         async edit() {
             try {
-                const res = await ax.get(`/api/admin/engReform/${this.$route.params.er_id}/edit`);
+                const res = await ax.get(`/api/engReform/${this.$route.params.er_id}`);
                 if (res && res.status === 200) {
                     this.frm = res.data.con;
                     this.option = res.data.option;
@@ -91,14 +91,6 @@ export default {
             } catch (e) {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.response.data.message);
-            }
-        },
-        async update(){
-            const res = await ax.post(`/api/admin/engReform/${this.$route.params.er_id}`, {er_step: this.frm.er_step, _method : 'PATCH'});
-            if (res && res.status === 200) {                        
-                await this.$refs.fileupload.fileProcessor(this.$route.params.er_id);
-                this.isLoadingModalViewed=false;
-                this.$router.push({ name: 'adm_eng_reform_index' })
             }
         },
     },

@@ -34,7 +34,8 @@ export default {
                         this.address.forEach(a => { a.ua_def = 'N' });
                     const res = await ax.post('/api/user/addr', this.addr);
                     if (res && res.status === 200) {
-                        this.address.push(this.addr);
+                        // 서버가 돌려준 새 배송지 번호(ua_id)를 넣어서 목록에 추가
+                        this.address.push(Object.assign({}, this.addr, { ua_id: res.data }));
                         this.$emit('index');
                     }
                 } else

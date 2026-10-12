@@ -55,7 +55,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 5:
               res = _context.sent;
               if (res && res.status === 200) {
-                _this.address.push(_this.addr);
+                // 서버가 돌려준 새 배송지 번호(ua_id)를 넣어서 목록에 추가
+                _this.address.push(Object.assign({}, _this.addr, {
+                  ua_id: res.data
+                }));
                 _this.$emit('index');
               }
               _context.next = 10;
@@ -184,7 +187,7 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
-/***/ 32864:
+/***/ 86036:
 /*!********************************************************!*\
   !*** ./resources/js/views/web/_module/addr/Create.vue ***!
   \********************************************************/

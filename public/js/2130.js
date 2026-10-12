@@ -19,7 +19,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Toast",
-  props: ['address'],
+  props: ['address', 'title'],
   methods: {
     select_addr: function select_addr(i) {
       this.$emit('choose', this.address[i]);
@@ -105,13 +105,13 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("b-container", {
-    staticClass: "p_wrap"
-  }, [_c("h3", [_vm._v("배송지 선택")]), _vm._v(" "), _c("b-button", {
+    staticClass: "p_wrap addr_index"
+  }, [_c("h3", [_vm._v(_vm._s(_vm.title || "배송지 선택"))]), _vm._v(" "), _c("b-button", {
     staticClass: "d_blue",
     on: {
       click: _vm.create
     }
-  }, [_c("b-icon-plus-lg"), _vm._v(" 배송지 추가히기")], 1), _vm._v(" "), _vm._l(_vm.address, function (addr, i) {
+  }, [_c("b-icon-plus-lg"), _vm._v(" 배송지 추가하기")], 1), _vm._v(" "), _vm._l(_vm.address, function (addr, i) {
     return _c("b-row", {
       key: addr.ua_id
     }, [_c("b-col", {
@@ -181,7 +181,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap h3[data-v-60f8121c] { margin:15px; font-size:1em;\n}\n.row[data-v-60f8121c] { border:1px solid #CCC; cursor:pointer; position:relative; padding:10px 0;\n}\n.row[data-v-60f8121c]:not(:last-child) { border-bottom-width:0;\n}\n.row[data-v-60f8121c]:hover { background:#0E4D9C66;\n}\n.row .col[data-v-60f8121c] { flex-basis:100%; padding:.1rem 1.5rem;\n}\n.row:first-of-type .col[data-v-60f8121c]:first-of-type { padding-top:.6rem;\n}\n.row:last-of-type .col[data-v-60f8121c]:last-of-type { padding-bottom:.6rem;\n}\n.row .col[data-v-60f8121c]:nth-of-type(1) { font-weight:bold;\n}\n.row .col div[data-v-60f8121c] { float:right;\n}\n.row button[data-v-60f8121c] { position:absolute; top:20px; padding:0 .2rem;\n}\n.row button.destroy[data-v-60f8121c]  { right:55px;\n}\n.row button.edit[data-v-60f8121c] { right:13px;\n}\n.p_wrap>button[data-v-60f8121c] { width:100%; border-width:0; border-radius:0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.addr_index h3[data-v-60f8121c] { margin:15px; font-size:1em;\n}\n.addr_index .row[data-v-60f8121c] { border:1px solid #CCC; cursor:pointer; position:relative; padding:10px 0;\n}\n.addr_index .row[data-v-60f8121c]:not(:last-child) { border-bottom-width:0;\n}\n.addr_index .row[data-v-60f8121c]:hover { background:#0E4D9C66;\n}\n.addr_index .row .col[data-v-60f8121c] { flex-basis:100%; padding:.1rem 1.5rem;\n}\n.addr_index .row:first-of-type .col[data-v-60f8121c]:first-of-type { padding-top:.6rem;\n}\n.addr_index .row:last-of-type .col[data-v-60f8121c]:last-of-type { padding-bottom:.6rem;\n}\n.addr_index .row .col[data-v-60f8121c]:nth-of-type(1) { font-weight:bold;\n}\n.addr_index .row button[data-v-60f8121c] { position:absolute; top:20px; padding:0 .2rem;\n}\n.addr_index .row button.destroy[data-v-60f8121c]  { right:55px;\n}\n.addr_index .row button.edit[data-v-60f8121c] { right:13px;\n}\n.addr_index>button[data-v-60f8121c] { width:100%; border-width:0; border-radius:0;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

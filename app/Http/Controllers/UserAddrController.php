@@ -33,7 +33,9 @@ class UserAddrController extends Controller {
         $uid = auth()->check() ? auth()->user()->id : 0;
         if ($req->filled('ua_def') && $req->ua_def == 'Y')
             DB::table('user_addr')->where('ua_key', $uid)->update(['ua_def' => 'N']);
-        DB::table('user_addr')->where('ua_id', $id)->update([
+
+        
+        DB::table('user_addr')->where('ua_id', $id)->where('ua_key', $uid)->update([
             "ua_def"    => $req->filled('ua_def')   ? $req->ua_def      : 'N',
             "ua_title"  => $req->filled('ua_title') ? $req->ua_title    : '',
             "ua_name"   => $req->filled('ua_name')  ? $req->ua_name     : '',
@@ -47,7 +49,8 @@ class UserAddrController extends Controller {
     }
 
     public function destroy($id) {
-		if(DB::table('user_addr')->where('ua_id', $id)->delete()) return response()->json('success', 200);
+		$uid = auth()->user()->id;
+        if (DB::table('user_addr')->where('ua_id', $id)->where('ua_key', $uid)->delete()) return response()->json('success', 200);
 		else return response()->json("Fail", 500);
     }
 

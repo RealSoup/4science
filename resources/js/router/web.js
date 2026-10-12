@@ -29,6 +29,7 @@ import WebMyMileageIndex from '@/views/web/mypage/mileage/Index';
 import WebMyPrintIndex from '@/views/web/mypage/print/Index';
 import WebMyUserCoupon from '@/views/web/mypage/myUser/Coupon';
 import WebMyUserEdit from '@/views/web/mypage/myUser/Edit';
+import WebMyUserAddr from '@/views/web/mypage/myUser/Addr';
 import WebMyUserDestroy from '@/views/web/mypage/myUser/Destroy';
 
 //  커뮤니티
@@ -230,6 +231,14 @@ export default [
                 path: 'user/edit',
                 name: 'my_user_edit',
                 component: WebMyUserEdit,
+            }, {
+                path: 'user/edit',
+                name: 'my_user_edit',
+                component: WebMyUserEdit,
+            }, {
+                path: 'user/addr',
+                name: 'my_user_addr',
+                component: WebMyUserAddr,
             }, {
                 path: 'user/destroy',
                 name: 'my_user_destroy',
