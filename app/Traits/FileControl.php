@@ -16,8 +16,17 @@ trait FileControl {
         $thumb_wid = config('const.file.thumb_wid');
         $thumb_hei = config('const.file.thumb_hei');
         $mimeArr=['png', 'jpe', 'jpeg', 'jpg', 'gif', 'bmp', 'ico', 'tiff', 'tif', 'svg', 'svgz'];
-        $mime = strtolower($file->getClientOriginalExtension());  // ✅ 여기에 적용
+        $mime = strtolower($file->getClientOriginalExtension());
 
+        //  보안: 허용한 확장자만 업로드 (원래 이름 확장자 + 실제 내용으로 추정한 확장자 둘 다 검사)
+        //  2026-10-09 상품 이미지 업로드로 웹셸(.php)이 올라온 사고 대응
+        $allowExt = array_merge($mimeArr, ['pdf', 'hwp', 'hwpx', 'doc', 'docx', 'xls', 'xlsx', 'csv', 'ppt', 'pptx', 'txt', 'zip', 'webp']);
+        $guessExt = strtolower((string)$file->guessExtension());
+        if (!in_array($mime, $allowExt) || !in_array($guessExt, $allowExt)) {
+            abort(422, '업로드할 수 없는 파일 형식입니다.');
+        }
+
+        
         $image_info;
         if (in_array($mime, $mimeArr)) 
             $image_info = getimagesize($file);

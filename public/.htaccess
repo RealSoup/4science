@@ -10,6 +10,10 @@
 
     RewriteEngine On
 
+    # 보안: index.php 외의 PHP 파일 실행 차단 (업로드 폴더 /storage, /js 등에 올라온 웹셸 대응, 2026-10)
+    RewriteCond %{REQUEST_URI} !^/index\.php$ [NC]
+    RewriteRule \.(php[0-9]?|phtml|phar|pht|phps|inc)$ - [F,L,NC]
+    
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -33,4 +37,5 @@
     RewriteRule ^(.*)$ https://%1%{REQUEST_URI} [R=301,QSA,NC,L]
 
     php_value max_execution_time -1
-</IfModule>
+</IfModule>5666회  147.45.47.119  GET /etc/imageview.php?src=item%2Fgalaxy%20use.jpg
+1321회  121.171.170.220 GET /etc/imageview.php?src=item/...png&idtt_full_cd=...
