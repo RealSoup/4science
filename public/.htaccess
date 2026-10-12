@@ -12,7 +12,7 @@
 
     # ── 점검 모드: maintenance.html 파일이 있으면 모든 요청에 503 응답 ──
     RewriteCond %{DOCUMENT_ROOT}/maintenance.html -f
-    RewriteCond %{REMOTE_ADDR} !^111\.222\.333\.444$
+    RewriteCond %{REMOTE_ADDR} !^125\.132\.234\.16$
     RewriteCond %{REQUEST_URI} !^/maintenance\.html$
     RewriteRule ^ - [R=503,L]
     # ── 점검 모드 끝 ──
