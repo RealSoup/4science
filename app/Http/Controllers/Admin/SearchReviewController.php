@@ -146,12 +146,13 @@ class SearchReviewController extends Controller {
     public function attrIndex(Request $req) {
         $defs = GoodsAttr::defs();
         $done = $req->state === 'done';
+        $maxConf = $defs ? max(array_column($defs, 'min_conf')) : 0;
 
         $rows = DB::table('shop_goods_attr as a')->join('shop_goods_attr_def as d', 'd.ad_key', '=', 'a.ga_key')->where('d.ad_enable', 'Y');
         if ($done)
             $rows->where(fn($q) => $q->where('a.ga_checked', '<>', 'N')->orWhere('a.ga_source', 'manual'));
         else
-            $rows->where('a.ga_checked', 'N')->whereColumn('a.ga_conf', '<', 'd.ad_min_conf');
+            $rows->where('a.ga_checked', 'N')->where('a.ga_conf', '<', $maxConf)->whereColumn('a.ga_conf', '<', 'd.ad_min_conf');
         if (isset($defs[$req->key]))
             $rows->where('a.ga_key', $req->key);
         if ($req->filled('search')) {
@@ -167,9 +168,13 @@ class SearchReviewController extends Controller {
         $page  = $grp->orderByDesc('a.ga_gd_id')->paginate(self::PER_GOODS);
         $gdIds = collect($page->items())->pluck('ga_gd_id')->all();
 
-        $attrs = (clone $rows)->whereIn('a.ga_gd_id', $gdIds)
+        //  보여 줄 모델 = 대상 줄이 있는 모델, 그 모델의 속성은 전부 (이미 검색에 쓰는 값도) - 모델 하나를 통째로 보고 판단
+        //  저장하면 보이는 값이 모두 검수됨 → 사람이 손댄 모델·속성은 밤 규칙 작업이 지우거나 다시 넣지 않음
+        $gmIds = (clone $rows)->whereIn('a.ga_gd_id', $gdIds)->distinct()->pluck('a.ga_gm_id')->all();
+        $attrs = DB::table('shop_goods_attr as a')->join('shop_goods_attr_def as d', 'd.ad_key', '=', 'a.ga_key')->where('d.ad_enable', 'Y')
+            ->whereIn('a.ga_gd_id', $gdIds)->whereIn('a.ga_gm_id', $gmIds)
             ->orderBy('a.ga_gm_id')->orderBy('d.ad_seq')->orderBy('a.ga_seq')
-            ->get(['a.ga_id', 'a.ga_gd_id', 'a.ga_gm_id', 'a.ga_key', 'a.ga_seq', 'a.ga_from', 'a.ga_raw', 'a.ga_value', 'a.ga_conf', 'a.ga_source', 'a.ga_checked']);
+            ->get(['a.ga_id', 'a.ga_gd_id', 'a.ga_gm_id', 'a.ga_key', 'a.ga_seq', 'a.ga_from', 'a.ga_raw', 'a.ga_value', 'a.ga_num', 'a.ga_num_max', 'a.ga_op', 'a.ga_unit', 'a.ga_conf', 'a.ga_source', 'a.ga_checked']);
         $goods = DB::table('shop_goods as g')->leftJoin('shop_makers as mk', 'mk.mk_id', '=', 'g.gd_mk_id')
             ->whereIn('g.gd_id', $gdIds)->get(['g.gd_id', 'g.gd_name', 'g.gd_enable', 'mk.mk_name'])->keyBy('gd_id');
         $models = DB::table('shop_goods_model')->whereIn('gm_id', $attrs->pluck('ga_gm_id')->unique())
@@ -198,7 +203,7 @@ class SearchReviewController extends Controller {
         });
 
         $todo = DB::table('shop_goods_attr as a')->join('shop_goods_attr_def as d', 'd.ad_key', '=', 'a.ga_key')
-            ->where('d.ad_enable', 'Y')->where('a.ga_checked', 'N')->whereColumn('a.ga_conf', '<', 'd.ad_min_conf');
+            ->where('d.ad_enable', 'Y')->where('a.ga_checked', 'N')->where('a.ga_conf', '<', $maxConf)->whereColumn('a.ga_conf', '<', 'd.ad_min_conf');
         return response()->json([
             'list'      => $list,
             'total'     => $page->total(),
@@ -208,8 +213,10 @@ class SearchReviewController extends Controller {
         ]);
     }
 
-    //  상품 하나 저장 - items: [{ga_id, checked: Y|X, value: 고친 값(선택)}] → 그 상품 검색 색인 속성 칸 바로 갱신
-    //  고친 값은 사람이 넣은 값(manual, 신뢰도 1)으로 바뀜 - 하나라도 못 읽으면 아무것도 저장하지 않음
+    //  상품 하나 저장 - items: [{ga_id, checked: Y|X, value: 고친 값(선택)}], adds: [{gm_id, key, value}] 빠진 값 추가
+    //  → 그 상품 검색 색인 속성 칸 바로 갱신
+    //  고친 값·추가한 값은 사람이 넣은 값(manual, 신뢰도 1) - 하나라도 못 읽으면 아무것도 저장하지 않음
+    //  빼기는 지우지 않고 틀림(X)으로 남김 - 지우면 밤 규칙 작업이 같은 값을 다시 넣음
     public function attrSave(Request $req, int $gdId) {
         $items = (array) $req->input('items', []);
         $rows  = DB::table('shop_goods_attr')->where('ga_gd_id', $gdId)->whereIn('ga_id', array_column($items, 'ga_id'))->get()->keyBy('ga_id');
@@ -230,16 +237,38 @@ class SearchReviewController extends Controller {
             }
             $sets[$r->ga_id] = $set;
         }
+
+        //  빠진 값 추가 - 이 상품의 모델, 사전에 있는 속성만
+        $defs  = GoodsAttr::defs();
+        $gmIds = DB::table('shop_goods_model')->where('gm_gd_id', $gdId)->pluck('gm_id')->all();
+        $news  = [];
+        foreach ((array) $req->input('adds', []) as $n) {
+            $value = trim((string) ($n['value'] ?? ''));
+            if ($value === '' || !in_array((int) ($n['gm_id'] ?? 0), $gmIds) || !isset($defs[$n['key'] ?? '']))
+                continue;
+            if (!$p = GoodsAttr::parse($n['key'], $value)) {
+                $errors[] = "\"{$value}\" - 읽을 수 없는 값 (예: 500ml, 1-10ul, ≥99.5%, 440x264x117mm)";
+                continue;
+            }
+            $news[] = ['ga_gd_id' => $gdId, 'ga_gm_id' => (int) $n['gm_id'], 'ga_key' => $n['key'], 'ga_from' => 'gm_spec', 'ga_raw' => mb_substr($value, 0, 200),
+                       'ga_source' => 'manual', 'ga_rule' => null, 'ga_conf' => 1] + $p + $this->checkedBy('ga', 'Y');
+        }
+
         if ($errors)
             return response()->json(['ok' => false, 'message' => implode("\n", $errors)]);
-        if (!$sets)
-            return response()->json(['ok' => false, 'message' => '저장할 판정이 없습니다']);
+        if (!$sets && !$news)
+            return response()->json(['ok' => false, 'message' => '저장할 것이 없습니다']);
 
-        DB::transaction(function () use ($sets) {
+        DB::transaction(function () use ($sets, $news) {
             foreach ($sets as $gaId => $set)
                 DB::table('shop_goods_attr')->where('ga_id', $gaId)->update($set);
+            foreach ($news as $row) {          //  순번은 그 모델·속성의 마지막 다음
+                $seq = (int) DB::table('shop_goods_attr')->where('ga_gd_id', $row['ga_gd_id'])->where('ga_gm_id', $row['ga_gm_id'])
+                    ->where('ga_key', $row['ga_key'])->lockForUpdate()->max('ga_seq');
+                DB::table('shop_goods_attr')->insert($row + ['ga_seq' => $seq + 1]);
+            }
         });
-        return response()->json(['ok' => true, 'saved' => count($sets), 'es' => GoodsAttr::pushEs($gdId)]);
+        return response()->json(['ok' => true, 'saved' => count($sets) + count($news), 'es' => GoodsAttr::pushEs($gdId)]);
     }
 
     //  검수 표시 칸 (sa_ / ga_ 공통)

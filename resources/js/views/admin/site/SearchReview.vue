@@ -26,7 +26,7 @@
             </div>
 
             <p v-if="!ai.list.length" class="empty">해당하는 줄이 없습니다.</p>
-            <div v-for="it in ai.list" :key="it.id" class="row">
+            <div v-for="it in ai.list" :key="it.id" class="review-item">
                 <div class="row-head">
                     <div>
                         <b class="kw">{{ it.text }}</b>
@@ -36,10 +36,10 @@
                         <span class="muted">검색 {{ num(it.cnt) }}번 · 보정 {{ num(it.alt_cnt) }}번</span>
                     </div>
                     <div v-if="edit.id !== it.id" class="btns">
-                        <button class="btn-sm ok" @click="aiCheck(it, 'Y')">맞음</button>
-                        <button class="btn-sm ng" @click="aiCheck(it, 'X')">틀림</button>
-                        <button class="btn-sm" @click="aiEdit(it)">고치기</button>
-                        <button class="btn-sm" @click="aiAsk(it)">다시 묻기</button>
+                        <button class="btn-sm ok" @click="aiCheck(it, 'Y')" title="첫 번째 바꾼 말이 맞음 - 계속 씀, AI가 다시 덮어쓰지 않음">맞음</button>
+                        <button class="btn-sm ng" @click="aiCheck(it, 'X')" title="엉뚱한 말 - 다음 손님 검색부터 보정 안 함">틀림</button>
+                        <button class="btn-sm" @click="aiEdit(it)" title="바꾼 말을 직접 고쳐 씀">고치기</button>
+                        <button class="btn-sm" @click="aiAsk(it)" title="AI에 새로 물어봄 (1분 안에 새 답)">다시 묻기</button>
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@
                 <template v-if="edit.id !== it.id">
                     <div class="line">
                         <span class="label">바꾼 말</span>
-                        <span v-for="a in it.alts" :key="a.q" class="chip">{{ a.q }} · {{ num(a.hits) }}건</span>
+                        <span v-for="(a, i) in it.alts" :key="a.q" class="chip" :class="{ main: i === 0 }" :title="i === 0 ? '손님 검색에 실제로 쓰는 말' : '예비 (지금은 안 씀)'">{{ a.q }} · {{ num(a.hits) }}건</span>
                         <span v-if="!it.alts.length" class="muted">없음</span>
                     </div>
                     <div v-if="it.maker || it.attrs.length" class="line">
@@ -84,8 +84,9 @@
 
         <!-- 탭 B 상품 속성 -->
         <div v-if="tab === 'attr'" class="card">
-            <p class="hint">값을 눌러 <span class="chip ck-y">맞음</span> → <span class="chip ck-x">틀림</span> → 미정 순으로 바꿉니다.
-                모델의 한 속성에서 하나라도 고르면 그 속성의 나머지 미정 값은 틀림으로 저장됩니다. 저장하면 그 상품 검색 색인에 바로 반영.</p>
+            <p class="hint">규칙이 규격 글자에서 값을 여러 개 뽑아 확실하지 않은 모델들입니다. 모델마다 속성 값이 모두 보입니다.<br>
+                <span class="chip ck-y">초록</span> 이 모델의 진짜 값 → 검색에 씀 · <span class="chip ck-x">빨강</span> 아닌 값 → 안 씀.
+                처음엔 모두 초록이니 <b>아닌 값만 눌러 빨강</b>, 숫자가 틀렸으면 [값 고치기], 빠진 값은 [+ 값 추가] → [이 상품 저장].</p>
             <div class="search-row">
                 <select v-model="attr.q.state" class="form-input" @change="attrFetch(1)">
                     <option value="todo">검수 대상</option><option value="done">검수 끝</option>
@@ -99,16 +100,16 @@
             </div>
 
             <p v-if="!attr.list.length" class="empty">해당하는 상품이 없습니다.</p>
-            <div v-for="g in attr.list" :key="g.gd_id" class="row">
+            <div v-for="g in attr.list" :key="g.gd_id" class="review-item">
                 <div class="row-head">
                     <div>
                         <router-link :to="{ name: 'adm_goods_edit', params: { gd_id: g.gd_id } }" target="_blank" class="kw">{{ g.gd_id }} · {{ g.gd_name }}</router-link>
                         <span v-if="g.enable !== 'Y'" class="badge st-bad">숨김</span>
-                        <span class="muted">{{ g.maker }} · 모델 {{ g.models.length }}개 · {{ g.cnt }}줄</span>
+                        <span class="muted">{{ g.maker }} · 모델 {{ g.models.length }}개 · 확인 필요 {{ g.cnt }}줄</span>
                     </div>
                     <div class="btns">
-                        <button class="btn-sm" @click="pickFirst(g)" title="모델마다 속성별 첫 값만 맞음, 나머지 틀림">첫 값만 맞음</button>
-                        <button class="btn-sm" @click="pickAll(g, 'X')">모두 틀림</button>
+                        <button class="btn-sm" @click="pickAll(g, 'Y')">모두 초록</button>
+                        <button class="btn-sm" @click="pickAll(g, 'X')">모두 빨강</button>
                         <button class="btn-sm ok" @click="attrSave(g)">이 상품 저장</button>
                     </div>
                 </div>
@@ -124,15 +125,24 @@
                             <td>
                                 <div v-for="a in m.attrs" :key="a.ga_id" class="pick-row">
                                     <span class="chip pick" :class="pickClass(a)" :title="'신뢰도 ' + a.ga_conf + ' · ' + a.ga_from + ' · ' + a.ga_raw" @click="cycle(a)">
-                                        {{ defName(a.ga_key) }} {{ a.ga_value }}<template v-if="a.ga_source === 'manual'"> ✎</template>
+                                        {{ defName(a.ga_key) }} {{ label(a) }}<template v-if="a.ga_source === 'manual'"> ✎</template>
                                     </span>
                                     <template v-if="fix[a.ga_id] !== undefined">
                                         <input v-model="fix[a.ga_id]" class="form-input fix" :placeholder="'예) ' + example(a.ga_key)" @input="$set(pick, a.ga_id, 'Y')" />
                                         <a class="link" @click="unfix(a)">취소</a>
                                     </template>
-                                    <a v-else class="link" @click="$set(fix, a.ga_id, a.ga_value)">값 고치기</a>
+                                    <a v-else class="link" @click="$set(fix, a.ga_id, label(a))">값 고치기</a>
                                     <span v-if="a.ga_from === 'gm_name'" class="muted small">모델명에서</span>
                                 </div>
+                                <!-- 빠진 값 추가 -->
+                                <div v-for="(n, i) in adds[m.gm_id] || []" :key="'add' + i" class="pick-row">
+                                    <select v-model="n.key" class="form-input add-key">
+                                        <option v-for="(d, k) in attr.defs" :key="k" :value="k">{{ d.name }}</option>
+                                    </select>
+                                    <input v-model="n.value" class="form-input fix" :placeholder="'예) ' + example(n.key)" />
+                                    <a class="link" @click="adds[m.gm_id].splice(i, 1)">빼기</a>
+                                </div>
+                                <a class="link" @click="addRow(m)">+ 값 추가</a>
                             </td>
                         </tr>
                     </tbody>
@@ -160,6 +170,7 @@ export default {
             attr: { q: { state: 'todo', key: '', search: '' }, list: [], page: 1, last: 1, defs: {}, todo: {} },
             pick: {},       //  ga_id → 'Y' | 'X' (화면에서 고른 판정)
             fix: {},        //  ga_id → 고친 값
+            adds: {},       //  gm_id → [{key, value}] 새로 넣을 값
         }
     },
     methods: {
@@ -225,46 +236,53 @@ export default {
             Object.assign(this.attr, { list: res.data.list, page, last: res.data.last_page, defs: res.data.defs, todo: res.data.todo });
             this.pick = {};
             this.fix = {};
+            this.adds = {};
         },
         defName(key) { return (this.attr.defs[key] || {}).name || key; },
         example(key) { return { volume: '500ml, 1-10ul', purity: '≥99.5%', pack_mass: '100mg', outer_size: '440x264x117mm', inner_size: '300x200mm', purity_method: 'HPLC' }[key] || ''; },
-        state(a) { return this.pick[a.ga_id] || (a.ga_checked !== 'N' ? a.ga_checked : ''); },
+        //  보기 좋은 단위로 (저장 값은 기준 단위 그대로) - 0.0005-0.01ml → 0.5-10ul, 5000mg → 5g
+        label(a) {
+            if (a.ga_num === null) return a.ga_value;
+            const n = Number(a.ga_num), x = a.ga_num_max === null ? null : Number(a.ga_num_max), top = x === null ? n : x;
+            let [rate, unit] = [1, a.ga_unit || ''];
+            if (unit === 'ml' && top < 1)        [rate, unit] = [0.001, 'ul'];
+            else if (unit === 'ml' && n >= 1000) [rate, unit] = [1000, 'L'];
+            else if (unit === 'mg' && top < 1)   [rate, unit] = [0.001, 'ug'];
+            else if (unit === 'mg' && n >= 1000) [rate, unit] = [1000, 'g'];
+            const f = v => String(Math.round(v / rate * 1e6) / 1e6);
+            const op = { '>=': '≥', '>': '>', '<=': '≤', '<': '<', '~': '~' }[a.ga_op] || '';
+            return op + f(n) + (x !== null && x !== n ? '-' + f(x) : '') + unit;
+        },
+        //  처음엔 모두 초록(맞음) - 검수 끝 목록에서는 저장된 판정
+        state(a) { return this.pick[a.ga_id] || (a.ga_checked !== 'N' ? a.ga_checked : 'Y'); },
         pickClass(a) {
             const s = this.state(a);
-            return { 'ck-y': s === 'Y', 'ck-x': s === 'X', changed: this.pick[a.ga_id] && this.pick[a.ga_id] !== a.ga_checked };
+            return { 'ck-y': s === 'Y', 'ck-x': s === 'X', changed: !!this.pick[a.ga_id] };
         },
-        cycle(a) {
-            const next = { '': 'Y', Y: 'X', X: '' }[this.state(a)];
-            if (next) this.$set(this.pick, a.ga_id, next);
-            else this.$delete(this.pick, a.ga_id);
-        },
+        cycle(a) { this.$set(this.pick, a.ga_id, this.state(a) === 'Y' ? 'X' : 'Y'); },
         unfix(a) { this.$delete(this.fix, a.ga_id); },
-        //  모델·속성마다 첫 값 맞음, 나머지 틀림 ("1-10ul(조절단위 0.02ul)" → 1-10ul 맞음, 0.02ul 틀림)
-        pickFirst(g) {
-            g.models.forEach(m => {
-                const seen = {};
-                m.attrs.forEach(a => {
-                    this.$set(this.pick, a.ga_id, seen[a.ga_key] ? 'X' : 'Y');
-                    seen[a.ga_key] = true;
-                });
-            });
+        //  빠진 값 넣을 칸 하나 더 - 속성은 그 모델에 이미 있는 속성으로 먼저 골라 둠
+        addRow(m) {
+            const key = m.attrs.length ? m.attrs[0].ga_key : Object.keys(this.attr.defs)[0];
+            this.$set(this.adds, m.gm_id, [...(this.adds[m.gm_id] || []), { key, value: '' }]);
         },
         pickAll(g, v) { g.models.forEach(m => m.attrs.forEach(a => this.$set(this.pick, a.ga_id, v))); },
         async attrSave(g) {
+            //  화면에 보이는 그대로 저장 (고친 값은 고친 칸에 처음 넣어 준 글자와 다를 때만)
             const items = [];
-            g.models.forEach(m => {
-                //  모델의 한 속성에서 하나라도 골랐으면 그 속성의 미정 값은 틀림
-                const touched = {};
-                m.attrs.forEach(a => { if (this.state(a)) touched[a.ga_key] = true; });
-                m.attrs.forEach(a => {
-                    const s = this.state(a) || (touched[a.ga_key] ? 'X' : '');
-                    const value = this.fix[a.ga_id] !== undefined ? this.fix[a.ga_id] : '';
-                    if (s && (s !== a.ga_checked || (value && value !== a.ga_value)))
-                        items.push({ ga_id: a.ga_id, checked: s, value });
-                });
-            });
-            if (!items.length) return alert('바뀐 판정이 없습니다. 값을 눌러 맞음/틀림을 골라 주세요.');
-            const res = await ax.post(`/api/admin/site/searchReview/attr/${g.gd_id}`, { items });
+            g.models.forEach(m => m.attrs.forEach(a => {
+                const typed = this.fix[a.ga_id] !== undefined ? this.fix[a.ga_id].trim() : '';
+                const value = typed && typed !== this.label(a) ? typed : '';
+                const s = value ? 'Y' : this.state(a);
+                if (s !== a.ga_checked || value)
+                    items.push({ ga_id: a.ga_id, checked: s, value });
+            }));
+            const adds = [];
+            g.models.forEach(m => (this.adds[m.gm_id] || []).forEach(n => {
+                if (n.value.trim()) adds.push({ gm_id: m.gm_id, key: n.key, value: n.value.trim() });
+            }));
+            if (!items.length && !adds.length) return alert('바뀐 것이 없습니다.');
+            const res = await ax.post(`/api/admin/site/searchReview/attr/${g.gd_id}`, { items, adds });
             if (this.fail(res)) return;
             const es = { done: '검색 색인 반영', off: '속성 검색 꺼짐 - 색인 반영 안 함', missing: '색인에 없는 상품', failed: '색인 반영 실패 - 밤 작업이 다시 넣음' }[res.data.es];
             this.$bvToast ? this.$bvToast.toast(`${res.data.saved}줄 저장 · ${es}`, { title: `${g.gd_id}번 상품`, variant: res.data.es === 'failed' ? 'warning' : 'success', solid: true })
@@ -280,7 +298,7 @@ export default {
 </script>
 
 <style scoped>
-.review-wrap { padding: 24px; }
+.review-wrap { padding:24px; max-width:1000px; margin:auto; }
 .page-title { font-size: 20px; font-weight: 500; margin-bottom: 16px; }
 .tabs { display: flex; gap: 4px; border-bottom: 1px solid #e5e7eb; margin-bottom: 16px; }
 .tabs button { background: none; border: none; padding: 10px 16px; font-size: 14px; color: #6b7280; cursor: pointer; border-bottom: 2px solid transparent; }
@@ -295,7 +313,7 @@ export default {
 .form-input:focus, .search-input:focus { border-color: #1D9E75; }
 .btn { padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; white-space: nowrap; }
 .btn-primary { background: #1D9E75; color: #fff; }
-.row { border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
+.review-item { border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
 .row-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; flex-wrap: wrap; }
 .kw { font-size: 14px; font-weight: 500; margin-right: 6px; color: #111827; }
 .btns { display: flex; gap: 4px; flex-wrap: wrap; }
@@ -308,6 +326,7 @@ export default {
 .muted { color: #6b7280; font-size: 12px; margin-left: 4px; }
 .small { font-size: 11px; }
 .chip { display: inline-block; padding: 2px 8px; margin: 2px 4px 2px 0; background: #E1F5EE; color: #085041; border-radius: 4px; font-size: 12px; }
+.chip.main { background: #1D9E75; color: #fff; }
 .chip.gray { background: #f3f4f6; color: #374151; }
 .badge { display: inline-block; padding: 1px 6px; margin-right: 4px; border-radius: 4px; font-size: 11px; background: #f3f4f6; color: #374151; }
 .st-ok { background: #E1F5EE; color: #085041; }
@@ -328,6 +347,7 @@ export default {
 .chip.pick { cursor: pointer; background: #f3f4f6; color: #374151; border: 1px solid transparent; }
 .chip.pick.changed { border-color: #1D9E75; }
 .fix { width: 140px; padding: 3px 8px; font-size: 12px; }
+.add-key { padding: 3px 6px; font-size: 12px; }
 .link { font-size: 11px; color: #378ADD; cursor: pointer; }
 .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 16px; }
 .page-btn { padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; background: #fff; font-size: 13px; cursor: pointer; }

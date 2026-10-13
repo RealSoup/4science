@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 //  상품 속성 뽑기 (AI 검색 2단계) - 모델 규격 글자에서 "용량 500ml" "순도 ≥99.5% (HPLC)" 같은 값을 규칙으로 뽑아 la_shop_goods_attr에 저장
 //  규칙으로 채운 줄(rule + 검수 안 함)만 지우고 다시 넣음 - 사람이 고치거나 검수한 속성(manual, 검수 Y/X)은 건드리지 않음
 class GoodsAttr {
-    const RULE = 'v1';          //  규칙 버전 - 규칙을 고치면 올림 (ga_rule = volume.v1)
+    const RULE = 'v2';          //  규칙 버전 - 규칙을 고치면 올림 (ga_rule = volume.v2) / v2: 긴 줄표·전각 물결 범위
 
     const OPS = ['≥' => '>=', '>=' => '>=', '>' => '>', '≤' => '<=', '<=' => '<=', '<' => '<', '~' => '~', '약' => '~', 'min' => '>=', 'max' => '<='];
     const OP_SIGN = ['>=' => '≥', '>' => '>', '<=' => '≤', '<' => '<', '~' => '~'];
@@ -152,7 +152,7 @@ class GoodsAttr {
         $def = self::defs()[$key] ?? null;
         if (!$def)
             return null;
-        $t   = trim(str_replace(['×', '＊', '*'], 'x', SearchSpec::normalize($text)));
+        $t   = trim(str_replace(['×', '＊', '*'], 'x', SearchSpec::normalize(self::dashes($text))));
         $out = ['ga_num' => null, 'ga_num_max' => null, 'ga_op' => null, 'ga_unit' => $def['unit']];
 
         if ($def['type'] === 'num') {
@@ -207,8 +207,8 @@ class GoodsAttr {
                 ];
         };
 
-        $s = SearchSpec::normalize($spec);
-        $n = SearchSpec::normalize($name);
+        $s = SearchSpec::normalize(self::dashes($spec));
+        $n = SearchSpec::normalize(self::dashes($name));
 
         //  1. 이름표 붙은 규격 "용량(ml) : 500 / 외치수(mm) : 440x264x117"
         foreach (self::labeled($s) as $key => $vals)
@@ -362,6 +362,13 @@ class GoodsAttr {
 
     public static function fmt(?float $n): string {
         return $n === null ? '' : rtrim(rtrim(sprintf('%.6f', $n), '0'), '.');
+    }
+
+    //  여러 가지 줄표·물결표를 보통 글자로 - "0.5–5 ml"(긴 줄표)가 범위로 안 읽혀 "5ml"만 뽑히던 문제
+    //  유럽식 소수점 "0,1–10 μl"의 0,1 → 0.1 (0으로 시작하는 쉼표 숫자는 천 단위 구분이 아님)
+    protected static function dashes(string $t): string {
+        $t = str_replace(['–', '—', '−', '～', '〜'], ['-', '-', '-', '~', '~'], $t);
+        return preg_replace('/(?<![\d.,])0,(\d)/', '0.$1', $t);
     }
 
     protected static function labelKey(string $l): string {
