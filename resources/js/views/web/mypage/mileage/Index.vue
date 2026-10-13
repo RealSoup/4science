@@ -68,6 +68,15 @@
     </b-container>
 
     <b-container class="request">
+        
+        <ul>
+            <li>마일리지(상품권)는 <b>결제가 완료되지 않은 적립 건(미결제 2개월 이상)</b>이 포함된 경우 <b>지급이 제한</b>될 수 있습니다.</li>
+            <li>2019년 4월 1일 부로 <b>딜러회원(재판매를 목적으로 하는 회원)은 마일리지 사은품의 신청 및 지급이 불가</b>합니다.</li>
+            <li>유효기간 : <b>적립일 기준 1년 (유효기간이 경과한 포인트는 자동 소멸하며, 복원되지 않습니다.)</b></li>
+            <li>마일리지 적립 : 진행현황이 배송완료로 변경되고 14일 이후 자동적립 또는 상품별 수취확인을 누르시면 즉시 적립됩니다.</li>
+            <li>마일리지 소멸 안내 메일은 월 1회 계정 메일 주소로 자동 발송됩니다.</li>
+        </ul>
+
         <span class="tit">상품권 신청</span>
         <b-row>
             <b-col>
@@ -103,17 +112,6 @@
                 </b-row>
             </b-col>
         </b-row>
-        <ul>
-            <li>마일리지(상품권) 신청은 2개월 이상 미수금이 있을 경우 지급이 제한되오니 참조 바랍니다.</li>
-            <li>2019년 4월 1일 부로 딜러회원(재판매를 목적으로 하는 회원)은 마일리지 사은품의 신청 및 지급이 불가합니다.</li>
-            <li>4science 에 구매 이력이 없는 경우 마일리지(상품권) 신청이 불가합니다.</li>
-            <li>유효기간 : 적립일 기준 1년 (유효기간이 경과한 포인트는 자동 소멸하며, 복원되지 않습니다.)</li>
-            <li>마일리지 적립 : 진행현황이 배송완료로 변경되고 14일 이후 자동적립 또는 상품별 수취확인을 누르시면 즉시 적립됩니다. </li>
-            <li>마일리지 소멸 안내 메일은 월 1회 자동으로 계정 메일 주소로 발송됩니다.</li>
-            <li>후불결제, 미결제 등 결제가 이루어지지 않은 마일리지 적립 건 은 유효하지 않으며, 마일리지 사용이 제한될 수 있습니다.</li>
-
-        </ul>
-        
     </b-container>
 </div>
 </template>
@@ -201,6 +199,9 @@ h3 small { font-size:50%; }
 }
 
 .request { margin-top:3rem; }
+.request ul { margin-bottom:1em; margin-left: 1.3em; }
+.request ul li { font-size:.9em; list-style-type: disclosure-closed; }
+.request ul li b { color:#DD0000; }
 .request .tit { border-radius:20px; background-color:#1A90D6; padding:7px 20px; color:#fff; }
 .request>.row { margin-top:1rem; border:1px solid #AAA; align-items:center; justify-content:center; }
 .request>.row>.col { padding:1.6rem 1.1rem; }
@@ -210,8 +211,6 @@ h3 small { font-size:50%; }
 .request>.row>.col:nth-child(1) div p { margin:0; font-size:.82rem; color:#666; }
 .request>.row>.col .row { margin-left:0; margin-right:0; }
 .request>.row>.col .row:nth-child(2) .col { margin-top:1.5rem; font-size:.9rem; }
-.request ul { margin-top:1em; margin-left: 1.3em; }
-.request ul li { font-size:.9em; color:#DD0000; list-style-type: disclosure-closed; }
 
 .expire_box { display:flex; flex-wrap:wrap; gap:.5rem 2rem; align-items:center; margin-bottom:1rem; padding:.8rem 1.2rem; border:1px solid #F5C2C2; background:#FFF6F6; border-radius:6px; }
 .expire_box b { color:#DD0000; }
