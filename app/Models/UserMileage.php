@@ -12,7 +12,7 @@ class UserMileage extends Model {
     protected $table = 'user_mileage';
     // public $timestamps = false;
     protected $guarded = [];
-    protected $appends = ['refine_content', 'expiration'];
+    protected $appends = ['refine_content', 'expiration', 'expire_date', 'expire_dday'];
 
     public static $config = [
         'voucher'=>[
@@ -44,6 +44,16 @@ class UserMileage extends Model {
         if ($prev_1_year >= $reg_date)  return true;
         else                            return false;
     }
+    // 소멸 예정일 (적립일 + 1년) — scopeEnable 기준과 동일
+    public function getExpireDateAttribute() {
+        if (!$this->created_at) return null;
+        return $this->created_at->copy()->addYearNoOverflow()->format('Y-m-d');
+    }
+    // 소멸까지 남은 일수 (음수면 이미 소멸)
+    public function getExpireDdayAttribute() {
+        if (!$this->created_at) return null;
+        return now()->startOfDay()->diffInDays($this->created_at->copy()->addYearNoOverflow()->startOfDay(), false);
+    }
 
     public function scopeEnable($query) { return $query->whereRaw("created_at > SUBDATE(NOW(), INTERVAL 1 YEAR)")->where('ml_type', '<>', 'NO'); }
     public function scopeUid($query, $id) { return $query->where('ml_uid', $id); }
@@ -51,6 +61,12 @@ class UserMileage extends Model {
     public function scopeTbl($query, $v) { return $query->where('ml_tbl', $v); }
     public function scopeType($query, $v) { return $query->where('ml_type', $v); }
     public function scopeKey($query, $v) { return $query->where('ml_key', $v); }
+        // N일 이내 소멸 예정인 잔여 마일리지 (유효 + 잔액이 남은 적립건)
+    public function scopeExpiringWithin($query, $days) {
+        return $query->Enable()
+            ->where('ml_enable_m', '>', 0)
+            ->whereRaw("created_at <= DATE_ADD(SUBDATE(NOW(), INTERVAL 1 YEAR), INTERVAL ? DAY)", [$days]);
+    }
 
     
     public function enableMileage($id) { return $this->Uid($id)->Enable()->sum('ml_enable_m'); }

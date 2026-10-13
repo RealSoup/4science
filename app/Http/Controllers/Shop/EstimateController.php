@@ -69,6 +69,17 @@ class EstimateController extends Controller {
             else $eq_title .= $req->eq_content;
         }
 
+        //  중복 요청 방지 - 같은 회원이 30초 안에 같은 제목/내용으로 다시 요청하면 거절
+        if (auth()->check()) {
+            $dup = EstimateReq::where('created_id', auth()->user()->id)
+                ->where('eq_title', $eq_title)
+                ->where('eq_content', $req->filled('eq_content') ? $req->eq_content : '')
+                ->where('created_at', '>=', now()->subSeconds(30))
+                ->exists();
+            if ($dup)
+                return response()->json(['message' => '이미 접수된 견적 요청입니다.'], 409);
+        }
+
         $eq_id = EstimateReq::insertGetId([
             "eq_type"       => 'REQ',
             "eq_title"      => $eq_title,

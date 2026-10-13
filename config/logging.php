@@ -222,7 +222,15 @@ return [
             'path'   => storage_path('logs/scheduler/cleanup-tmp-price-excel/cleanup-tmp-price-excel.log'),
             'days'   => 14,
         ],
-
+        'mileage-expire-notice' => [
+            'driver'   => 'stack',
+            'channels' => ['mileage-expire-notice-detail', 'scheduler-summary'],
+        ],
+        'mileage-expire-notice-detail' => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/scheduler/mileage-expire-notice/mileage-expire-notice.log'),
+            'days'   => 90,
+        ],
         'sync-es-settings' => [
             'driver' => 'daily',
             'path'   => storage_path('logs/scheduler/sync-es-settings/sync-es-settings.log'),

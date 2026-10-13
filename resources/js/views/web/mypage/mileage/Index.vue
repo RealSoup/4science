@@ -1,13 +1,21 @@
 <template>
 <div class="w_fence">
     <h3>마일리지 <small>고객님의 마일리지 히스토리입니다.</small></h3>
+    
+    <div class="expire_box" v-if="expire.next_date">
+        <span>30일 이내 소멸 예정 <b>{{expire.soon_m | comma}} P</b></span>
+        <span>가장 빠른 소멸일 <b>{{expire.next_date}}</b></span>
+        <small>※ 마일리지는 적립일로부터 1년이 지나면 자동 소멸됩니다.</small>
+    </div>
+
     <b-container class="list">
         <b-row class="header">
-            <b-col>날짜</b-col>
+            <b-col>적립일</b-col>
             <b-col>적립/차감내역</b-col>
             <b-col>마일리지</b-col>
             <b-col>상품권 교환</b-col>
             <b-col>가용 마일리지</b-col>
+            <b-col>소멸 예정일</b-col>
         </b-row>
         <b-row v-for="ml in mileage.data" :key="ml.ml_id" class="data" :class="{expiration:(ml.expiration || ml.ml_type=='SP')}">
             <b-col>{{ml.created_at | formatDate_YYYY_MM_DD}}</b-col>
@@ -43,6 +51,16 @@
             </b-col>
             <b-col>
                 <span v-if="ml.ml_tbl !== 'voucher'">{{ml.ml_enable_m | comma}} <b>P</b></span>
+            </b-col>
+            <b-col>
+                <template v-if="ml.ml_mileage > 0 && ml.ml_enable_m > 0">
+                    <span v-if="ml.expiration" class="gone">소멸</span>
+                    <span v-else :class="{soon: ml.expire_dday <= 30}">
+                        {{ml.expire_date}}
+                        <small v-if="ml.expire_dday <= 30">(D-{{ml.expire_dday}})</small>
+                    </span>
+                </template>
+                <span v-else>-</span>
             </b-col>
         </b-row>
         <br />
@@ -89,6 +107,11 @@
             <li>마일리지(상품권) 신청은 2개월 이상 미수금이 있을 경우 지급이 제한되오니 참조 바랍니다.</li>
             <li>2019년 4월 1일 부로 딜러회원(재판매를 목적으로 하는 회원)은 마일리지 사은품의 신청 및 지급이 불가합니다.</li>
             <li>4science 에 구매 이력이 없는 경우 마일리지(상품권) 신청이 불가합니다.</li>
+            <li>유효기간 : 적립일 기준 1년 (유효기간이 경과한 포인트는 자동 소멸하며, 복원되지 않습니다.)</li>
+            <li>마일리지 적립 : 진행현황이 배송완료로 변경되고 14일 이후 자동적립 또는 상품별 수취확인을 누르시면 즉시 적립됩니다. </li>
+            <li>마일리지 소멸 안내 메일은 월 1회 자동으로 계정 메일 주소로 발송됩니다.</li>
+            <li>후불결제, 미결제 등 결제가 이루어지지 않은 마일리지 적립 건 은 유효하지 않으며, 마일리지 사용이 제한될 수 있습니다.</li>
+
         </ul>
         
     </b-container>
@@ -109,6 +132,7 @@ export default {
             frm:{},
             mileage:{},
             config:{},
+            expire:{},
         };
     },
 
@@ -121,6 +145,7 @@ export default {
                 if (res && res.status === 200) {
                     this.mileage = res.data.list;
                     this.config = res.data.config;
+                    this.expire = res.data.expire || {};
                 }
             } catch (e) {
                 Notify.consolePrint(e);
@@ -172,6 +197,7 @@ h3 small { font-size:50%; }
     .list .row .col:nth-child(3) { flex-basis:50%; flex-grow:0; }
     .list .row .col:nth-child(4) { flex-basis:50%; flex-grow:0; }
     .list .row .col:nth-child(5) { flex-basis:50%; flex-grow:0; }
+    .list .row .col:nth-child(6) { flex-basis:50%; flex-grow:0; }
 }
 
 .request { margin-top:3rem; }
@@ -186,4 +212,11 @@ h3 small { font-size:50%; }
 .request>.row>.col .row:nth-child(2) .col { margin-top:1.5rem; font-size:.9rem; }
 .request ul { margin-top:1em; margin-left: 1.3em; }
 .request ul li { font-size:.9em; color:#DD0000; list-style-type: disclosure-closed; }
+
+.expire_box { display:flex; flex-wrap:wrap; gap:.5rem 2rem; align-items:center; margin-bottom:1rem; padding:.8rem 1.2rem; border:1px solid #F5C2C2; background:#FFF6F6; border-radius:6px; }
+.expire_box b { color:#DD0000; }
+.expire_box small { flex-basis:100%; color:#888; }
+.list .row .col:nth-child(6) { flex:0 0 13%; max-width:13%; text-align:center; }
+.list .soon { color:#DD0000; font-weight:bold; }
+.list .gone { color:#999; }
 </style>

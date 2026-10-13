@@ -80,7 +80,7 @@
                 </b-container>
             </b-col>
         </b-row>
-        <b-row><b-col class="btn_box"><b-button class="blue wd_33p" @click="store">견적 요청하기</b-button></b-col></b-row>
+        <b-row><b-col class="btn_box"><b-button class="blue wd_33p" @click="store" :disabled="submitting">{{ submitting ? '요청 처리 중...' : '견적 요청하기' }}</b-button></b-col></b-row>
         
     </b-container>
 </template>
@@ -117,6 +117,7 @@ export default {
             email_domain: [],
             email_domain_slt_idx:0,
             receive_yn:'Y',
+            submitting: false,
         }
     },
     methods: {
@@ -131,10 +132,12 @@ export default {
             }
         },
         async store(){
+            if (this.submitting) return;    // 처리 중이면 중복 클릭 무시
             this.frm.eq_email = `${this.frm.eq_email01}@${this.frm.eq_email02}`;
             if( Object.keys(this.frm.lists).length < 1 ) {
                 if (isEmpty(this.frm.eq_content)) { Notify.toast('danger', "문의 사항을 입력하세요."); document.getElementById('eq_content').focus(); return false; }
             }
+            this.submitting = true;
             try {
                 let res = await ax.post(`/api/shop/estimate`, this.frm);
                 if (res && res.status === 200) {
@@ -176,6 +179,8 @@ export default {
             } catch (e) {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.responsee);
+            } finally {
+                this.submitting = false;
             }
         },
         pushFi_id(fi_id) {

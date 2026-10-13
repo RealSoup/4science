@@ -106,6 +106,7 @@
                             <b-link :to="{name: 'my_user_coupon'}">쿠폰리스트</b-link>
                             <b-link to="/mypage/user/edit">회원정보 수정</b-link>
                             <b-link :to="{name: 'my_user_addr'}">배송지 관리</b-link>
+                            <b-link to="/mypage/mileage">마일리지</b-link>
                             <b-link to="/mypage/user/destroy">회원 탈퇴</b-link>
                         </b-collapse>
                     </li>

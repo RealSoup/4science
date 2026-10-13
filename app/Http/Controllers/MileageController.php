@@ -15,10 +15,20 @@ class MileageController extends Controller {
 
     public function index(Request $req) {
         $rst = array();
-        $ml = $this->mileage->with('orderModel')->Uid(auth()->user()->id)->latest()->orderByDesc('ml_id');
+        $uid = auth()->user()->id;
+        $ml = $this->mileage->with('orderModel')->Uid($uid)->latest()->orderByDesc('ml_id');
         $rst['list'] = $ml->paginate(10);
         $rst['list']->appends($req->all())->links();
         $rst['config'] = UserMileage::$config['voucher'];
+
+        // 소멸 예정 요약
+        $enable = (int)$this->mileage->enableMileage($uid);
+        $soon   = (int)$this->mileage->Uid($uid)->ExpiringWithin(30)->sum('ml_enable_m');
+        $first  = $this->mileage->Uid($uid)->Enable()->where('ml_enable_m', '>', 0)->min('created_at');
+        $rst['expire'] = [
+            'soon_m'    => max(0, min($soon, $enable)),   // 가용 마일리지보다 크게 보이지 않도록 제한
+            'next_date' => $first ? \Carbon\Carbon::parse($first)->addYearNoOverflow()->format('Y-m-d') : null,
+        ];
         return response()->json($rst, 200);
     }
 
