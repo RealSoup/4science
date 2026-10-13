@@ -26,7 +26,7 @@ class SearchReviewController extends Controller {
             ->where('created_at', '>=', now()->subDays(self::LOG_DAYS))->where('sl_page', 1)
             ->groupBy('sl_keyword_norm');
 
-        $q = DB::table('search_ai as a')->leftJoinSub($logs, 'l', 'l.kw', '=', 'a.sa_text')->where('a.sa_kind', 'query');
+        $q = DB::table('search_ai as a')->where('a.sa_kind', 'query');
         $checked = $req->input('checked', 'N');
         if (in_array($checked, ['N', 'Y', 'X']))
             $q->where('a.sa_checked', $checked);
@@ -35,17 +35,20 @@ class SearchReviewController extends Controller {
         if ($req->filled('search'))
             $q->where('a.sa_text', 'like', '%' . trim($req->search) . '%');
 
-        $sort = ['alt' => 'l.alt_cnt', 'search' => 'l.cnt', 'new' => 'a.sa_id'][$req->sort] ?? 'l.alt_cnt';
-        $page = $q->orderByDesc($sort)->orderByDesc('a.sa_id')
+        //  전체 개수는 수첩만으로 셈 (검색 기록 집계는 이번 쪽 줄을 뽑을 때 한 번만)
+        $total  = (clone $q)->count();
+        $pageNo = max(1, (int) $req->input('page', 1));
+        $sort   = ['alt' => 'l.alt_cnt', 'search' => 'l.cnt', 'new' => 'a.sa_id'][$req->sort] ?? 'l.alt_cnt';
+        $items  = $q->leftJoinSub($logs, 'l', 'l.kw', '=', 'a.sa_text')->orderByDesc($sort)->orderByDesc('a.sa_id')
             ->select('a.sa_id', 'a.sa_text', 'a.sa_hash', 'a.sa_result', 'a.sa_dropped', 'a.sa_status', 'a.sa_model', 'a.sa_checked', 'a.sa_checked_at', 'a.updated_at', 'l.cnt', 'l.alt_cnt')
-            ->paginate(self::PER_AI);
+            ->forPage($pageNo, self::PER_AI)->get();
 
         //  다시 묻는 중인 검색어 (대기 목록에 있음)
-        $queued = DB::table('search_ai_queue')->where('sq_kind', 'query')->whereIn('sq_hash', collect($page->items())->pluck('sa_hash'))
+        $queued = DB::table('search_ai_queue')->where('sq_kind', 'query')->whereIn('sq_hash', $items->pluck('sa_hash'))
             ->pluck('sq_tries', 'sq_hash');
 
         $defs = GoodsAttr::defs();
-        $list = collect($page->items())->map(function ($r) use ($queued, $defs) {
+        $list = $items->map(function ($r) use ($queued, $defs) {
             $res = json_decode((string) $r->sa_result, true) ?: [];
             return [
                 'id'         => $r->sa_id,
@@ -67,8 +70,8 @@ class SearchReviewController extends Controller {
 
         return response()->json([
             'list'      => $list,
-            'total'     => $page->total(),
-            'last_page' => $page->lastPage(),
+            'total'     => $total,
+            'last_page' => max(1, (int) ceil($total / self::PER_AI)),
             'counts'    => DB::table('search_ai')->where('sa_kind', 'query')->selectRaw('sa_checked, COUNT(*) AS n')->groupBy('sa_checked')->pluck('n', 'sa_checked'),
             'log_days'  => self::LOG_DAYS,
         ]);
@@ -141,18 +144,22 @@ class SearchReviewController extends Controller {
 
     //  ───── 탭 B 상품 속성 ─────
 
-    //  상품 단위 목록 - state: todo 검수 대상(검수 안 함 + 신뢰도 < 속성 기준, 기본) / done 검수 끝(Y·X·사람이 고침)
+    //  상품 단위 목록 - state: todo 검수 대상(검수 안 함 + 신뢰도 < 속성 기준, 기본) / done 검수 끝(맞음·틀림 - 사람이 고치거나 넣은 값도 맞음)
     //  key: 속성 하나만, search: 상품 번호 또는 상품명
+    //  속성 표가 100만 줄이 넘음 → 조건이 꼭 색인(idx_review = ga_checked, ga_conf)을 타게 씀 (안 타면 쿼리마다 2초+)
     public function attrIndex(Request $req) {
         $defs = GoodsAttr::defs();
         $done = $req->state === 'done';
-        $maxConf = $defs ? max(array_column($defs, 'min_conf')) : 0;
+
+        //  검수 대상 - "신뢰도 < 가장 높은 속성 기준"을 먼저 걸어 색인으로 대상 줄만 읽은 뒤 속성별 기준으로 거름
+        $maxConf = max(array_column($defs, 'min_conf') ?: [1]);
+        $target  = fn($q) => $q->where('a.ga_checked', 'N')->where('a.ga_conf', '<', $maxConf)->whereColumn('a.ga_conf', '<', 'd.ad_min_conf');
 
         $rows = DB::table('shop_goods_attr as a')->join('shop_goods_attr_def as d', 'd.ad_key', '=', 'a.ga_key')->where('d.ad_enable', 'Y');
         if ($done)
-            $rows->where(fn($q) => $q->where('a.ga_checked', '<>', 'N')->orWhere('a.ga_source', 'manual'));
+            $rows->whereIn('a.ga_checked', ['Y', 'X']);
         else
-            $rows->where('a.ga_checked', 'N')->where('a.ga_conf', '<', $maxConf)->whereColumn('a.ga_conf', '<', 'd.ad_min_conf');
+            $target($rows);
         if (isset($defs[$req->key]))
             $rows->where('a.ga_key', $req->key);
         if ($req->filled('search')) {
@@ -202,14 +209,14 @@ class SearchReviewController extends Controller {
             ];
         });
 
-        $todo = DB::table('shop_goods_attr as a')->join('shop_goods_attr_def as d', 'd.ad_key', '=', 'a.ga_key')
-            ->where('d.ad_enable', 'Y')->where('a.ga_checked', 'N')->where('a.ga_conf', '<', $maxConf)->whereColumn('a.ga_conf', '<', 'd.ad_min_conf');
+        $todo = $target(DB::table('shop_goods_attr as a')->join('shop_goods_attr_def as d', 'd.ad_key', '=', 'a.ga_key')->where('d.ad_enable', 'Y'))
+            ->selectRaw('COUNT(*) AS n_rows, COUNT(DISTINCT ga_gd_id) AS n_goods')->first();
         return response()->json([
             'list'      => $list,
             'total'     => $page->total(),
             'last_page' => $page->lastPage(),
             'defs'      => collect($defs)->map(fn($d) => ['name' => $d['name'], 'unit' => $d['unit']]),
-            'todo'      => ['rows' => (clone $todo)->count(), 'goods' => $todo->distinct()->count('a.ga_gd_id')],
+            'todo'      => ['rows' => (int) $todo->n_rows, 'goods' => (int) $todo->n_goods],
         ]);
     }
 
