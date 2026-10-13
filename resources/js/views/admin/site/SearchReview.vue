@@ -9,11 +9,11 @@
 
         <!-- 탭 A AI 수첩 -->
         <div v-if="tab === 'ai'" class="card">
-            <p class="hint">손님이 결과가 적은 검색을 했을 때 AI가 "바꾼 말"로 함께 찾아 보여 줍니다. 틀림으로 표시하면 바로 손님 검색에서 빠집니다.
+            <p class="hint">손님이 결과가 적은 검색을 했을 때 AI가 "바꾼 말"로 함께 찾아 보여 줍니다. [보정 안 함]을 누르면 그 검색어는 바로 보정을 멈추고 AI에게 다시 묻지도 않습니다 (엉뚱한 검색어·우리 가게에 없는 상품 등).
                 검색·보정 횟수는 최근 {{ ai.logDays }}일.</p>
             <div class="search-row">
                 <select v-model="ai.q.checked" class="form-input" @change="aiFetch(1)">
-                    <option value="N">검수 안 함</option><option value="Y">맞음</option><option value="X">틀림</option><option value="all">전체</option>
+                    <option value="N">검수 안 함</option><option value="Y">사용 중</option><option value="X">보정 안 함</option><option value="all">전체</option>
                 </select>
                 <select v-model="ai.q.status" class="form-input" @change="aiFetch(1)">
                     <option value="">상태 전체</option><option value="ok">ok 쓸 답 있음</option><option value="empty">empty 답 없음</option><option value="bad">bad 검증 탈락</option>
@@ -31,15 +31,15 @@
                     <div>
                         <b class="kw">{{ it.text }}</b>
                         <span class="badge" :class="'st-' + it.status">{{ it.status }}</span>
-                        <span v-if="it.checked !== 'N'" class="badge" :class="it.checked === 'Y' ? 'ck-y' : 'ck-x'">{{ it.checked === 'Y' ? '맞음' : '틀림' }}</span>
+                        <span v-if="it.checked !== 'N'" class="badge" :class="it.checked === 'Y' ? 'ck-y' : 'st-empty'">{{ it.checked === 'Y' ? '사용 중' : '보정 안 함' }}</span>
                         <span v-if="it.queued" class="badge st-wait">{{ it.queued === 'wait' ? '다시 묻는 중' : '다시 묻기 실패' }}</span>
                         <span class="muted">검색 {{ num(it.cnt) }}번 · 보정 {{ num(it.alt_cnt) }}번</span>
                     </div>
                     <div v-if="edit.id !== it.id" class="btns">
-                        <button class="btn-sm ok" @click="aiCheck(it, 'Y')" title="첫 번째 바꾼 말이 맞음 - 계속 씀, AI가 다시 덮어쓰지 않음">맞음</button>
-                        <button class="btn-sm ng" @click="aiCheck(it, 'X')" title="엉뚱한 말 - 다음 손님 검색부터 보정 안 함">틀림</button>
-                        <button class="btn-sm" @click="aiEdit(it)" title="바꾼 말을 직접 고쳐 씀">고치기</button>
-                        <button class="btn-sm" @click="aiAsk(it)" title="AI에 새로 물어봄 (1분 안에 새 답)">다시 묻기</button>
+                        <button class="btn-sm ok" @click="aiCheck(it, 'Y')" title="첫 번째 바꾼 말이 맞음 - 계속 씀, AI가 다시 덮어쓰지 않음">이대로 사용</button>
+                        <button class="btn-sm ng" @click="aiCheck(it, 'X')" title="이 검색어는 보정하지 않음 - AI에게 다시 묻지도 않음 (나중에 직접 고치기·AI에 다시 묻기로 살릴 수 있음)">보정 안 함</button>
+                        <button class="btn-sm" @click="aiEdit(it)" title="바꾼 말을 직접 고쳐 씀">직접 고치기</button>
+                        <button class="btn-sm" @click="aiAsk(it)" title="AI에 새로 물어봄 (1분 안에 새 답)">AI에 다시 묻기</button>
                     </div>
                 </div>
 
@@ -59,7 +59,7 @@
                     <div class="line muted small">{{ it.model }} · {{ it.updated_at }}<template v-if="it.checked_at"> · 검수 {{ it.checked_at }}</template></div>
                 </template>
 
-                <!-- 고치기 -->
+                <!-- 직접 고치기 -->
                 <div v-else class="edit-box">
                     <p class="hint">바꾼 말 (최대 3개, 첫 번째를 손님 검색에 씀). 상품 수는 그 말이 그대로 들어간 손님 노출 상품 수.</p>
                     <div v-for="(v, i) in edit.alts" :key="i" class="alt-row">
@@ -70,7 +70,7 @@
                     </div>
                     <div class="btns">
                         <button class="btn-sm" @click="aiCount(it)">상품 수 확인</button>
-                        <button class="btn-sm ok" @click="aiFix(it)">저장 (맞음)</button>
+                        <button class="btn-sm ok" @click="aiFix(it)">저장 (사용)</button>
                         <button class="btn-sm" @click="edit.id = null">취소</button>
                     </div>
                 </div>
