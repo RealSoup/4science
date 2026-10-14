@@ -36,10 +36,12 @@
                 </div>
             </div>
 
-            <behavior-goods    v-if="currentTab === 'goods'"    :selected-date="selectedDate" ref="goods"></behavior-goods>
-            <behavior-keywords v-if="currentTab === 'keywords'" :selected-date="selectedDate" ref="keywords"></behavior-keywords>
-            <behavior-hourly   v-if="currentTab === 'hourly'"   :selected-date="selectedDate" ref="hourly"></behavior-hourly>
-            <behavior-category v-if="currentTab === 'category'" :selected-date="selectedDate" ref="category"></behavior-category>
+            <div class="tab_body">     <!-- 로딩 표시가 이 영역 가운데에 뜨도록 기준 상자 -->
+                <behavior-goods    v-if="currentTab === 'goods'"    :selected-date="selectedDate" ref="goods"></behavior-goods>
+                <behavior-keywords v-if="currentTab === 'keywords'" :selected-date="selectedDate" ref="keywords"></behavior-keywords>
+                <behavior-hourly   v-if="currentTab === 'hourly'"   :selected-date="selectedDate" ref="hourly"></behavior-hourly>
+                <behavior-category v-if="currentTab === 'category'" :selected-date="selectedDate" ref="category"></behavior-category>
+            </div>
         </div>
     </div>
 </div>
@@ -87,4 +89,5 @@ export default {
 ::v-deep .badge { color: #FFF; }
 .card .card-header div input { min-width:110px; flex:1; max-width:200px; padding: 0.375rem 0.4rem; font-size: 14px; }
 .card .card-body { padding:20px 5px; }
+.card .card-body .tab_body { position:relative; min-height:400px; }     /* 로딩 중에도 영역 높이 유지 - 로딩 표시가 가운데에 뜸 */
 </style>

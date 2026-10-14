@@ -6,8 +6,10 @@ use Illuminate\Support\Facades\Redis;
 use App\Models\Shop\Goods;
 use DB;
 
+//  손님 행동 로그 (주 장부) - Redis에 모았다가 behavior:flush가 15분마다 la_user_behavior_logs에 저장
+//  검색 줄은 서버가 검색할 때 SearchLogService::store가 넣음 ($slId = 검색 상세 la_user_behavior_search 번호)
 class UserBehaviorService {
-    public function log(string $uuid, ?int $userId, string $action, ?string $target = null, ?string $ip = null): void {
+    public function log(string $uuid, ?int $userId, string $action, ?string $target = null, ?string $ip = null, ?int $slId = null): void {
         $goods = null;
         $gd_id = null;
         $gm_id = null;
@@ -58,7 +60,7 @@ class UserBehaviorService {
                 $gd_id = $goods->gm_gd_id ?? null;
                 $gm_id = $goods->gm_id ?? null;
 
-            } elseif ($action === 'search') {
+            } elseif ($action === 'search' && $slId === null) {     //  검색 번호가 있으면 SearchLogService가 이미 30분 중복을 거름
                 $dedupKey = "behavior_dedup:search:{$uuid}:" . md5($target);
                 if (Redis::get($dedupKey)) return;
                 Redis::setex($dedupKey, 1800, 1);
@@ -72,6 +74,7 @@ class UserBehaviorService {
             'ubl_keyword'     => $goods->gm_name ?? $target,
             'ubl_gd_id'       => $gd_id,
             'ubl_gm_id'       => $gm_id,
+            'ubl_sl_id'       => $slId,
             'ubl_ca01'        => $goods->gc_ca01 ?? null,
             'ubl_ca01_name'   => $goods->gc_ca01_name ?? null,
             'ubl_ca02'        => $goods->gc_ca02 ?? null,

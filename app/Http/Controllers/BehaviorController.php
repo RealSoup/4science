@@ -13,6 +13,7 @@ class BehaviorController extends Controller {
             'target' => 'nullable|string|max:100',
         ]);
 
+        if ($request->action === 'search')      return response()->json(['ok' => true]);    //  검색은 서버가 검색할 때 기록 (SearchLogService::store) - 옛 화면 요청은 무시
         if (!if_not_my_ip($request->ip()))      return response()->json(['ok' => true]);    //  사무실 IP 차단
         if (!$this->isKoreanIp($request->ip())) return response()->json(['ok' => true]);    //  해외 IP 차단
 

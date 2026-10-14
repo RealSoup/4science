@@ -26,6 +26,7 @@ class FlushBehaviorLogs extends Command {
                 'ubl_keyword'     => $data['ubl_keyword'] ?? null,
                 'ubl_gd_id'       => $data['ubl_gd_id'] ?? null,
                 'ubl_gm_id'       => $data['ubl_gm_id'] ?? null,
+                'ubl_sl_id'       => $data['ubl_sl_id'] ?? null,
                 'ubl_ca01'        => $data['ubl_ca01'] ?? null,
                 'ubl_ca01_name'   => $data['ubl_ca01_name'] ?? null,
                 'ubl_ca02'        => $data['ubl_ca02'] ?? null,

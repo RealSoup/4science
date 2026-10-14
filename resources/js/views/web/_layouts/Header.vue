@@ -113,7 +113,6 @@
 </template>
 
 <script>
-import ax from '@/api/http';
 import LoginPopUp from '../auth/Login.vue';
 import { mapState, mapGetters } from 'vuex'
 import Header from '../../admin/_layouts/Header.vue';
@@ -173,11 +172,7 @@ export default {
                 return false;
             }
 
-            ax.post('/api/behavior/log', {
-                action: 'search',
-                target: this.frm.keyword,
-            });
-
+            //  검색 행동은 서버가 검색할 때 기록 (SearchLogService::store → 행동 로그 검색 줄)
             this.$store.dispatch('goods/routerPush', 'new');
         },
         onScroll(e) { this.headerFix = window.top.scrollY > 10; },

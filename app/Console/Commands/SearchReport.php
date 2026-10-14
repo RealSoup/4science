@@ -14,11 +14,10 @@ class SearchReport extends Command {
                                 {--from= : 시작일 (기본: 7일 전)}
                                 {--to= : 종료일, 그날 포함 (기본: 어제)}
                                 {--top=20 : 검색어 목록 개수}
-                                {--min=5 : 클릭 적은 검색어 - 결과 있는 검색이 이 건수 이상인 것만}
-                                {--index= : 이 검색 인덱스만 (예: shop_goods_v2)}';
+                                {--min=5 : 클릭 적은 검색어 - 결과 있는 검색이 이 건수 이상인 것만}';
     protected $description = '검색 기준 지표 (0건 비율·클릭률·장바구니/견적/주문 전환·검색어 순위)';
 
-    private $where;     //  기간·인덱스 조건 (la_search_logs 별칭 l)
+    private $where;     //  기간 조건 (la_user_behavior_search 별칭 l)
     private $binds;
     private $total;     //  전체 검색 건수
 
@@ -32,16 +31,12 @@ class SearchReport extends Command {
 
         $this->where = 'l.created_at BETWEEN ? AND ?';
         $this->binds = [$from->toDateTimeString(), $to->toDateTimeString()];
-        if ($this->option('index')) {
-            $this->where  .= ' AND l.sl_index = ?';
-            $this->binds[] = $this->option('index');
-        }
 
-        $this->info("검색 기준 지표: {$from->toDateString()} ~ {$to->toDateString()}" . ($this->option('index') ? " / 인덱스 {$this->option('index')}" : ''));
+        $this->info("검색 기준 지표: {$from->toDateString()} ~ {$to->toDateString()}");
         if ($to->gt(now()->subDays(7)))
             $this->warn('※ 종료일이 7일 안이라 주문 전환은 앞으로 더 늘 수 있음 (클릭 후 7일까지 연결)');
 
-        if (!DB::selectOne("SELECT COUNT(*) AS n FROM la_search_logs l WHERE {$this->where}", $this->binds)->n) {
+        if (!DB::selectOne("SELECT COUNT(*) AS n FROM la_user_behavior_search l WHERE {$this->where}", $this->binds)->n) {
             $this->warn('기간 안에 검색 기록이 없습니다.');
             return 0;
         }
@@ -66,8 +61,8 @@ class SearchReport extends Command {
                    MAX(IF(e.sle_action = 'cart', 1, 0))     AS carted,
                    MAX(IF(e.sle_action = 'estimate', 1, 0)) AS estimated,
                    MAX(IF(o.od_id IS NOT NULL, 1, 0))       AS bought
-            FROM la_search_logs l
-            LEFT JOIN la_search_log_events e ON e.sle_sl_id = l.sl_id
+            FROM la_user_behavior_search l
+            LEFT JOIN la_user_behavior_search_events e ON e.sle_sl_id = l.sl_id
             LEFT JOIN la_shop_order o ON e.sle_action = 'purchase' AND o.od_id = e.sle_ref_id
                                      AND o.od_step NOT IN ('0', '60', '61')
             WHERE {$this->where}
@@ -119,8 +114,8 @@ class SearchReport extends Command {
                    SUM(e.sle_position BETWEEN 11 AND 15) AS p3,
                    SUM(e.sle_position BETWEEN 16 AND 30) AS p4,
                    SUM(e.sle_position > 30)              AS p5
-            FROM la_search_log_events e
-            JOIN la_search_logs l ON l.sl_id = e.sle_sl_id
+            FROM la_user_behavior_search_events e
+            JOIN la_user_behavior_search l ON l.sl_id = e.sle_sl_id
             WHERE e.sle_action = 'click' AND {$this->where}", $this->binds);
 
         $this->section('2. 클릭한 상품 순위');
@@ -137,8 +132,8 @@ class SearchReport extends Command {
     //  3. 검색 속도 - ES 처리 시간 (화면에 뜨기까지의 전체 시간 아님), 검색 페이지 단위
     private function speed() {
         $r   = DB::selectOne("SELECT COUNT(*) AS n, AVG(l.sl_took_ms) AS avg_ms, MAX(l.sl_took_ms) AS max_ms, SUM(l.sl_took_ms >= 1000) AS slow
-                              FROM la_search_logs l WHERE {$this->where}", $this->binds);
-        $p95 = DB::selectOne("SELECT l.sl_took_ms FROM la_search_logs l WHERE {$this->where}
+                              FROM la_user_behavior_search l WHERE {$this->where}", $this->binds);
+        $p95 = DB::selectOne("SELECT l.sl_took_ms FROM la_user_behavior_search l WHERE {$this->where}
                               ORDER BY l.sl_took_ms LIMIT 1 OFFSET " . (int) floor(($r->n - 1) * 0.95), $this->binds);
 
         $this->section('3. 검색 속도 (ES 처리 시간)');

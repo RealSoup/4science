@@ -21,7 +21,7 @@ class SearchReviewController extends Controller {
     //  목록 - checked: N 검수 안 함(기본) / Y / X / all, status: ok / empty / bad, sort: alt 보정 많이 쓴 순(기본) / search 검색 많은 순 / new 최근
     public function aiIndex(Request $req) {
         //  최근 검색·보정 횟수 (1페이지 검색만 셈 - 다음 페이지 보기는 같은 검색) - 두 표의 글자 정렬 규칙이 달라 맞춰서 붙임
-        $logs = DB::table('search_logs')
+        $logs = DB::table('user_behavior_search')
             ->selectRaw('sl_keyword_norm COLLATE utf8mb4_unicode_ci AS kw, COUNT(*) AS cnt, SUM(sl_alt IS NOT NULL) AS alt_cnt')
             ->where('created_at', '>=', now()->subDays(self::LOG_DAYS))->where('sl_page', 1)
             ->groupBy('sl_keyword_norm');

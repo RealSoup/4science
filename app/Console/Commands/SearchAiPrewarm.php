@@ -21,7 +21,7 @@ class SearchAiPrewarm extends Command {
         $dry = $this->option('dry-run');
 
         //  1. 인기 검색어 (사람 수 = uuid, 없으면 IP)
-        $popular = DB::table('search_logs')
+        $popular = DB::table('user_behavior_search')
             ->where('created_at', '>=', now()->subDays((int) $this->option('days'))->startOfDay())
             ->where(fn($q) => $q->whereNull('sl_mode')->orWhereNotIn('sl_mode', ['cat_no', 'gm_code']))
             ->groupBy('sl_keyword_norm')
