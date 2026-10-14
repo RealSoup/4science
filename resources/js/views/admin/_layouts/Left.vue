@@ -10,7 +10,7 @@
             <b-link :class="{focus:$route.name.startsWith('adm_site_main_best')}"       :to="{name: 'adm_site_main_best'}"><i>메인 Best 상품</i></b-link>
             <b-link :class="{focus:$route.name.startsWith('adm_site_banner_goods')}"    :to="{name: 'adm_site_banner_goods'}"><i>메인 슬라이드 상품</i></b-link>
             <b-link :class="{focus:$route.name.startsWith('adm_site_synonym')}"         :to="{name: 'adm_site_synonym'}"><i>검색 동의어 관리</i></b-link>
-            <b-link :class="{focus:$route.name.startsWith('adm_site_search_review')}"   :to="{name: 'adm_site_search_review'}"><i>AI 검색 검수</i></b-link>
+            <b-link :class="{focus:$route.name.startsWith('adm_site_search_review')}"   :to="{name: 'adm_site_search_review'}"><i>검색 품질 관리</i></b-link>
         </section>
 
         <section v-if="can('user')">

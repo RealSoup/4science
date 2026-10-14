@@ -1,13 +1,13 @@
 <template>
     <div class="review-wrap">
-        <h2 class="page-title">AI 검색 검수</h2>
+        <h2 class="page-title">검색 품질 관리</h2>
 
         <div class="tabs">
-            <button :class="{ on: tab === 'ai' }" @click="go('ai')">AI 수첩 <small v-if="ai.counts.N">검수 안 함 {{ num(ai.counts.N) }}</small></button>
-            <button :class="{ on: tab === 'attr' }" @click="go('attr')">상품 속성 <small v-if="attr.todo.goods">검수 대상 {{ num(attr.todo.goods) }}개 상품 · {{ num(attr.todo.rows) }}줄</small></button>
+            <button :class="{ on: tab === 'ai' }" @click="go('ai')">검색어 보정 <small v-if="ai.counts.N">검수 안 함 {{ num(ai.counts.N) }}</small></button>
+            <button :class="{ on: tab === 'attr' }" @click="go('attr')">상품 규격 값 <small v-if="attr.todo.goods">검수 대상 {{ num(attr.todo.goods) }}개 상품 · {{ num(attr.todo.rows) }}줄</small></button>
         </div>
 
-        <!-- 탭 A AI 수첩 -->
+        <!-- 탭 A 검색어 보정 (AI 수첩 la_search_ai) -->
         <div v-if="tab === 'ai'" class="card">
             <p class="hint">손님이 결과가 적은 검색을 했을 때 AI가 "바꾼 말"로 함께 찾아 보여 줍니다. [보정 안 함]을 누르면 그 검색어는 바로 보정을 멈추고 AI에게 다시 묻지도 않습니다 (엉뚱한 검색어·우리 가게에 없는 상품 등).
                 검색·보정 횟수는 최근 {{ ai.logDays }}일.</p>
@@ -69,7 +69,7 @@
                         </span>
                     </div>
                     <div class="btns">
-                        <button class="btn-sm" @click="aiCount(it)">상품 수 확인</button>
+                        <button class="btn-sm" @click="aiCount(it)">검색 결과 보기</button>
                         <button class="btn-sm ok" @click="aiFix(it)">저장 (사용)</button>
                         <button class="btn-sm" @click="edit.id = null">취소</button>
                     </div>
@@ -82,11 +82,11 @@
             </div>
         </div>
 
-        <!-- 탭 B 상품 속성 -->
+        <!-- 탭 B 상품 규격 값 (la_shop_goods_attr) -->
         <div v-if="tab === 'attr'" class="card">
             <p class="hint">규칙이 규격 글자에서 값을 여러 개 뽑아 확실하지 않은 모델들입니다. 모델마다 속성 값이 모두 보입니다.<br>
-                <span class="chip ck-y">초록</span> 이 모델의 진짜 값 → 검색에 씀 · <span class="chip ck-x">빨강</span> 아닌 값 → 안 씀.
-                처음엔 모두 초록이니 <b>아닌 값만 눌러 빨강</b>, 숫자가 틀렸으면 [값 고치기], 빠진 값은 [+ 값 추가] → [이 상품 저장].</p>
+                <span class="chip ck-y">✓ 맞음</span> 검색에 씀 · <span class="chip ck-x">✕ 틀림</span> 검색에 안 씀.
+                <b>틀린 값을 눌러 ✕로 바꾼 뒤 [저장]</b>. 숫자가 틀렸으면 [값 고치기], 빠진 값은 [+ 값 추가].</p>
             <div class="search-row">
                 <select v-model="attr.q.state" class="form-input" @change="attrFetch(1)">
                     <option value="todo">검수 대상</option><option value="done">검수 끝</option>
@@ -108,9 +108,9 @@
                         <span class="muted">{{ g.maker }} · 모델 {{ g.models.length }}개 · 확인 필요 {{ g.cnt }}줄</span>
                     </div>
                     <div class="btns">
-                        <button class="btn-sm" @click="pickAll(g, 'Y')">모두 초록</button>
-                        <button class="btn-sm" @click="pickAll(g, 'X')">모두 빨강</button>
-                        <button class="btn-sm ok" @click="attrSave(g)">이 상품 저장</button>
+                        <button class="btn-sm" @click="pickAll(g, 'Y')">모두 맞음</button>
+                        <button class="btn-sm" @click="pickAll(g, 'X')">모두 틀림</button>
+                        <button class="btn-sm ok" @click="attrSave(g)">저장</button>
                     </div>
                 </div>
                 <table class="table">
@@ -125,7 +125,7 @@
                             <td>
                                 <div v-for="a in m.attrs" :key="a.ga_id" class="pick-row">
                                     <span class="chip pick" :class="pickClass(a)" :title="'신뢰도 ' + a.ga_conf + ' · ' + a.ga_from + ' · ' + a.ga_raw" @click="cycle(a)">
-                                        {{ defName(a.ga_key) }} {{ label(a) }}<template v-if="a.ga_source === 'manual'"> ✎</template>
+                                        {{ state(a) === 'X' ? '✕' : '✓' }} {{ defName(a.ga_key) }} {{ label(a) }}<template v-if="state(a) === 'X'"> (틀림)</template><template v-if="a.ga_source === 'manual'"> ✎</template>
                                     </span>
                                     <template v-if="fix[a.ga_id] !== undefined">
                                         <input v-model="fix[a.ga_id]" class="form-input fix" :placeholder="'예) ' + example(a.ga_key)" @input="$set(pick, a.ga_id, 'Y')" />
@@ -253,7 +253,7 @@ export default {
             const op = { '>=': '≥', '>': '>', '<=': '≤', '<': '<', '~': '~' }[a.ga_op] || '';
             return op + f(n) + (x !== null && x !== n ? '-' + f(x) : '') + unit;
         },
-        //  처음엔 모두 초록(맞음) - 검수 끝 목록에서는 저장된 판정
+        //  처음엔 모두 맞음(✓) - 검수 끝 목록에서는 저장된 판정
         state(a) { return this.pick[a.ga_id] || (a.ga_checked !== 'N' ? a.ga_checked : 'Y'); },
         pickClass(a) {
             const s = this.state(a);
@@ -301,34 +301,34 @@ export default {
 .review-wrap { padding:24px; max-width:1000px; margin:auto; }
 .page-title { font-size: 20px; font-weight: 500; margin-bottom: 16px; }
 .tabs { display: flex; gap: 4px; border-bottom: 1px solid #e5e7eb; margin-bottom: 16px; }
-.tabs button { background: none; border: none; padding: 10px 16px; font-size: 14px; color: #6b7280; cursor: pointer; border-bottom: 2px solid transparent; }
+.tabs button { background: none; border: none; padding: 10px 16px; font-size: 16px; color: #6b7280; cursor: pointer; border-bottom: 2px solid transparent; }
 .tabs button.on { color: #111827; font-weight: 500; border-bottom-color: #1D9E75; }
-.tabs small { margin-left: 6px; color: #9ca3af; font-size: 12px; }
+.tabs small { margin-left: 6px; color: #9ca3af; font-size: 14px; }
 .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
-.hint { font-size: 12px; color: #6b7280; margin-bottom: 12px; }
-.empty { padding: 30px; text-align: center; color: #9ca3af; font-size: 13px; }
+.hint { font-size: 14px; color: #6b7280; margin-bottom: 12px; }
+.empty { padding: 30px; text-align: center; color: #9ca3af; font-size: 15px; }
 .search-row { display: flex; gap: 8px; margin-bottom: 14px; }
-.search-input { flex: 1; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 13px; outline: none; }
-.form-input { padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 13px; outline: none; }
+.search-input { flex: 1; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; outline: none; }
+.form-input { padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 15px; outline: none; }
 .form-input:focus, .search-input:focus { border-color: #1D9E75; }
-.btn { padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; white-space: nowrap; }
+.btn { padding: 8px 16px; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; border: none; white-space: nowrap; }
 .btn-primary { background: #1D9E75; color: #fff; }
 .review-item { border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
 .row-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; flex-wrap: wrap; }
-.kw { font-size: 14px; font-weight: 500; margin-right: 6px; color: #111827; }
+.kw { font-size: 16px; font-weight: 500; margin-right: 6px; color: #111827; }
 .btns { display: flex; gap: 4px; flex-wrap: wrap; }
-.btn-sm { padding: 4px 10px; font-size: 12px; border-radius: 6px; border: 1px solid #d1d5db; background: #fff; cursor: pointer; }
+.btn-sm { padding: 4px 10px; font-size: 14px; border-radius: 6px; border: 1px solid #d1d5db; background: #fff; cursor: pointer; }
 .btn-sm:hover { background: #f3f4f6; }
 .btn-sm.ok { border-color: #1D9E75; color: #0F6E56; }
 .btn-sm.ng { border-color: #E24B4A; color: #A32D2D; }
-.line { margin-top: 6px; font-size: 13px; }
-.label { display: inline-block; min-width: 64px; color: #6b7280; font-size: 12px; }
-.muted { color: #6b7280; font-size: 12px; margin-left: 4px; }
-.small { font-size: 11px; }
-.chip { display: inline-block; padding: 2px 8px; margin: 2px 4px 2px 0; background: #E1F5EE; color: #085041; border-radius: 4px; font-size: 12px; }
+.line { margin-top: 6px; font-size: 15px; }
+.label { display: inline-block; min-width: 64px; color: #6b7280; font-size: 14px; }
+.muted { color: #6b7280; font-size: 14px; margin-left: 4px; }
+.small { font-size: 13px; }
+.chip { display: inline-block; padding: 2px 8px; margin: 2px 4px 2px 0; background: #E1F5EE; color: #085041; border-radius: 4px; font-size: 14px; }
 .chip.main { background: #1D9E75; color: #fff; }
 .chip.gray { background: #f3f4f6; color: #374151; }
-.badge { display: inline-block; padding: 1px 6px; margin-right: 4px; border-radius: 4px; font-size: 11px; background: #f3f4f6; color: #374151; }
+.badge { display: inline-block; padding: 1px 6px; margin-right: 4px; border-radius: 4px; font-size: 13px; background: #f3f4f6; color: #374151; }
 .st-ok { background: #E1F5EE; color: #085041; }
 .st-empty { background: #f3f4f6; color: #6b7280; }
 .st-bad { background: #FCEBEB; color: #791F1F; }
@@ -338,19 +338,19 @@ export default {
 .edit-box { margin-top: 10px; padding: 10px; background: #f9fafb; border-radius: 6px; }
 .alt-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .alt-row .form-input { width: 280px; }
-.good { color: #0F6E56; font-size: 12px; }
-.warn { color: #A32D2D; font-size: 12px; }
-.table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; table-layout: fixed; }
+.good { color: #0F6E56; font-size: 14px; }
+.warn { color: #A32D2D; font-size: 14px; }
+.table { width: 100%; border-collapse: collapse; font-size: 15px; margin-top: 8px; table-layout: fixed; }
 .table td { padding: 8px; border-top: 1px solid #f0f0f0; vertical-align: top; word-break: break-all; }
-.spec { color: #374151; font-size: 12px; }
+.spec { color: #374151; font-size: 14px; }
 .pick-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 2px; }
 .chip.pick { cursor: pointer; background: #f3f4f6; color: #374151; border: 1px solid transparent; }
 .chip.pick.changed { border-color: #1D9E75; }
-.fix { width: 140px; padding: 3px 8px; font-size: 12px; }
-.add-key { padding: 3px 6px; font-size: 12px; }
-.link { font-size: 11px; color: #378ADD; cursor: pointer; }
+.fix { width: 140px; padding: 3px 8px; font-size: 14px; }
+.add-key { padding: 3px 6px; font-size: 14px; }
+.link { font-size: 13px; color: #378ADD; cursor: pointer; }
 .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 16px; }
-.page-btn { padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; background: #fff; font-size: 13px; cursor: pointer; }
+.page-btn { padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; background: #fff; font-size: 15px; cursor: pointer; }
 .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.page-now { font-size: 13px; color: #6b7280; }
+.page-now { font-size: 15px; color: #6b7280; }
 </style>
