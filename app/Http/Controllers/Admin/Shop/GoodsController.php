@@ -14,7 +14,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Storage;
 use Illuminate\Pagination\LengthAwarePaginator;
-use App\Lib\SphinxClient;
 use App\Services\{GoodsAttr, GoodsElasticSearch};
 
 class GoodsController extends Controller {
@@ -38,13 +37,9 @@ class GoodsController extends Controller {
         $this->bd = $bd;
     }
 
-    //  관리자 상품 검색 입구 - ES 검색, ES 장애 시 기존 Sphinx(index_260928)로 자동 전환
+    //  관리자 상품 검색 입구 - ES가 응답하지 않으면 안내 문구 (GoodsElasticSearch::guard)
     public function index (Request $req) {
-        return GoodsElasticSearch::withFallback(
-            fn() => $this->index_es($req),
-            fn() => $this->index_260928($req),
-            '관리자'
-        );
+        return GoodsElasticSearch::guard(fn() => $this->index_es($req), '관리자');
     }
 
     //  관리자 상품 검색 (ES)
@@ -74,35 +69,7 @@ class GoodsController extends Controller {
             $data['makers'] = $this->maker->orderBy('mk_name')->get();
             $data['user'] = auth()->user()->load('userMng');
         }
-        $data['engine'] = 'elastic';
         return response()->json($data);
-    }
-
-    public function index_260928 (Request $req) {
-        $req->merge(array('v_type' => "ADM"));
-        /*  스핑크스(Sphinx) 검색 엔진은 기본적으로 limit 20이 설정되어있고 뺄수 없다
-            페이지를 위해 검색된 count 재설정 */
-        $total = $this->goods->search_cnt($req);
-        $page = intval($req->filled('page') ? $req->page : 1);
-        $limit = 15;
-        $offset = ($page*$limit)-$limit;
-        if($offset>intval($total)) {
-            $page = ceil($total / $limit);
-            $offset = ($page*$limit)-$limit;
-        }
-        $qry = $this->goods->goodsSearch($req, $offset, $limit);
-     
-        if( gettype($qry) == 'string' && $qry == 'no-catno' )
-            return response()->json($qry);
-        
-        $data_rst = $qry->get();
-        $data['list'] = new LengthAwarePaginator($data_rst, $total, $limit, $page, ['path' => $req->url(), 'query' => $req->query()]);
-        if($req->filled('is_first') && $req->is_first) {
-            $data['mng_off'] = json_decode(Redis::get('UserMngOff'));
-            $data['makers'] = $this->maker->orderBy('mk_name')->get();
-            $data['user'] = auth()->user()->load('userMng');
-        }
-		return response()->json($data);
     }
 
     public function show($id) {
@@ -165,12 +132,6 @@ class GoodsController extends Controller {
     }
 
     public function store(SaveGoodsRequest $req) {
-        //  검색엔진 가중중인지 체크
-        if(Redis::get('is_working_index') == 'yes') {
-            return response()->json(["message"=>"working_index"], 500);
-            exit;
-        }
-
 	   	$goods = $this->goods_paramImplant($this->goods, $req);
 		$goods->created_id = $goods->updated_id = auth()->user()->id;
 	   	$rst = $goods->save();
@@ -301,10 +262,6 @@ class GoodsController extends Controller {
 
 
 
-        //  검색엔진 갱신
-        if ($req->gd_type != 'REN')
-            self::exeIndex();
-
         GoodsAttr::refresh($goods->gd_id);     //  상품 속성 다시 뽑기 (AI 검색) - 색인 갱신 직전
         
         //  ES 검색 인덱스 갱신 - 모델·카테고리 등록이 끝난 뒤 1회
@@ -315,27 +272,6 @@ class GoodsController extends Controller {
         else
             return response()->json(["message"=>"Fail"], 500);
     }
-
-    public function exeIndex(){
-        if(env('SPHINX_INDEXER_SWITCH')) {
-            if(Redis::get('is_working_index') == 'no'){
-                //  상품 추가후 검색엔진에 등록하기 위해 검색엔진 인덱스 생성을 새롭게 한다.
-                Redis::set('is_working_index', 'yes');
-                $output=null;
-                exec(env('SPHINX_INDEXER'), $output);
-                // sleep(25);
-                Redis::set('is_working_index', 'no');
-                return response()->json(["message"=>"complete_working_index"], 200);
-            } elseif(Redis::get('is_working_index') == 'yes') {
-                // Redis::set('is_working_index', 'no');
-                return response()->json(["message"=>"working_index"], 200);
-            } else {
-                return response()->json(["message"=>"Unknown error"], 200);
-            }
-        }
-    }
-
-    
 
     public function update(SaveGoodsRequest $req, $gd_id) {
         $goods = $this->goods->find($gd_id);

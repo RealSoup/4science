@@ -24,7 +24,6 @@ export default {
         category_picks: [],
         isLoadingModalViewed:false,
         default: {},
-        Elastic: {},
         search_id: null,
         search_alt: null,
     },
@@ -50,7 +49,6 @@ export default {
             state.pick = param.pick;
             state.category_picks = param.category_picks;
             state.isLoadingModalViewed= false;
-            state.Elastic = param.Elastic;
             state.search_id = param.search_id || null;
             state.search_alt = param.search_alt || null;     //  약한 검색 보정 안내 (AI 검색 2-4)
         },
@@ -64,15 +62,12 @@ export default {
                     nfrm[i] = context.state.frm[i];
             }
             
-            // const res = await ax.get(`/api/shop/goods`, { params: nfrm});
-            let res;
-            if (['search_test'].includes(router.currentRoute.name)) {
-                res = await ax.get(`/api/test/search_test`, { params: nfrm});
-            } else {
-                res = await ax.get(`/api/shop/goods`, { params: nfrm});
+            const res = await ax.get(`/api/shop/goods`, { params: nfrm});
+            if (!res) {     //  검색 실패 (ES 응답 없음 등) - 안내창은 공통 처리, 로딩 표시만 끔
+                context.state.isLoadingModalViewed = false;
+                return;
             }
-            
-            if (res && res.status === 200) {
+            if (res.status === 200) {
                 if(res.data == 'no-catno'){
                     Notify.modal("Cat.No 형식이 아닙니다.", 'warning');
                     context.commit('setData', {list:[], categorys:[], sch_cate_info:[],pick:[],category_picks:[]});
@@ -107,13 +102,7 @@ export default {
 
 
 
-            // router.push({ name: 'goods_index', query: nfrm }).catch(()=>{});
-            // 조건별 라우팅 처리
-            if (['search_test'].includes(router.currentRoute.name)) {                
-                router.push({ name: 'search_test', query: nfrm }).catch(() => {});
-            } else {
-                router.push({ name: 'goods_index', query: nfrm }).catch(() => {});
-            }
+            router.push({ name: 'goods_index', query: nfrm }).catch(() => {});
 
         },
     },

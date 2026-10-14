@@ -3,13 +3,16 @@
 namespace App\Services;
 
 use App\Models\Shop\Goods;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redis;
+use Elastic\Elasticsearch\Exception\ElasticsearchException;
+use Elastic\Transport\Exception\TransportException;
+use Illuminate\Support\Facades\{DB, Http, Redis};
 
 //  상품 Elasticsearch 검색 공통 도구 - 웹(Shop\GoodsController)·관리자(Admin\Shop\GoodsController) 공용
 //  검색어 매칭 규칙(buildQuery)을 공유하므로 고객에게 검색되는 상품은 관리자 검색에서도 동일하게 검색됨
 class GoodsElasticSearch {
-    const MAX_WINDOW = 10000;      //  ES 조회 한도 (from + size)
+    const INDEX       = 'shop_goods_v2';   //  검색 인덱스 - 손님·관리자 검색, 상품 수정 반영, 가격 동기화, 인기도, 속성 칸 모두 여기
+    const SYNONYM_SET = 'shop_goods_v2';   //  ES 동의어 세트 (관리자 동의어 화면에서 편집, 저장하면 바로 반영)
+    const MAX_WINDOW  = 10000;             //  ES 조회 한도 (from + size)
 
     protected $client;
 
@@ -17,26 +20,15 @@ class GoodsElasticSearch {
         $this->client = app(\Elastic\Elasticsearch\Client::class);
     }
 
-    
-    //  지금 손님이 쓰는 검색 인덱스 (config/search.php - .env SEARCH_INDEX, 기본 shop_goods)
-    //  설정을 못 읽어도(배포 직후 설정 캐시 등) 지금처럼 shop_goods로 동작
-    public static function index(): string {
-        return config('search.index') ?: 'shop_goods';
+    //  ES REST 요청 - 동의어 세트·분석기 다시 읽기처럼 PHP 클라이언트로 하기 번거로운 요청용 (접속 정보는 config/search.php es)
+    public static function http(): \Illuminate\Http\Client\PendingRequest {
+        return Http::withBasicAuth((string) config('search.es.user'), (string) config('search.es.password'))
+            ->withoutVerifying()->baseUrl((string) config('search.es.host'));
     }
 
-    //  지금 인덱스에 규격 칸(spec_all)이 있는지 (shop_goods_v2)
-    public static function hasSpec(): bool {
-        return in_array(self::index(), config('search.spec_indexes', []));
-    }
-
-    //  지금 인덱스에 속성 칸(attr_volume 등)을 쓰는지 - 스위치(SEARCH_ATTR)가 켜져 있고 규격 칸이 있는 인덱스
-    public static function hasAttr(): bool {
-        return config('search.attr') && self::hasSpec();
-    }
-
-    //  규격 가산점 ("비커 500ml") - 규격 칸이 있는 인덱스에서만, 고객 검색 전용
+    //  규격 가산점 ("비커 500ml") - 고객 검색 전용
     public static function specFunctions(string $keyword): array {
-        return self::hasSpec() ? SearchSpec::functions($keyword, (int) config('search.spec_weight', 0)) : [];
+        return SearchSpec::functions($keyword, (int) config('search.spec_weight', 0));
     }
 
     //  검색어의 단어가 모두 상품 어딘가(상품명·모델명·키워드·제조사)에 있는 조건 - 규격 토큰은 뺌, 제조사·키워드 가산점용
@@ -50,13 +42,13 @@ class GoodsElasticSearch {
         return ['bool' => ['must' => array_merge([['match' => ['mk_name' => $keyword]]], self::allWords($keyword))]];
     }
 
-    //  ES 검색 실행, ES 장애 시 대체 함수(기존 Sphinx) 실행
-    public static function withFallback(callable $es, callable $fallback, string $label = '') {
+    //  ES 검색 실행 - ES가 응답하지 않으면 오류 기록 후 안내 문구 (화면은 공통 오류 안내창으로 표시)
+    public static function guard(callable $es, string $label) {
         try {
             return $es();
-        } catch (\Elastic\Elasticsearch\Exception\ElasticsearchException | \Elastic\Transport\Exception\TransportException $e) {
-            \Log::error("{$label} ES 검색 실패 → Sphinx 전환: " . $e->getMessage());
-            return $fallback();
+        } catch (ElasticsearchException | TransportException $e) {
+            \Log::error("{$label} ES 검색 실패: " . $e->getMessage());
+            return response()->json(['message' => '검색이 잠시 원활하지 않습니다. 잠시 후 다시 시도해 주세요.'], 500);
         }
     }
 
@@ -406,7 +398,7 @@ class GoodsElasticSearch {
     //  ES 검색 (결과는 gd_id만 받음 - 상품 정보는 DB에서 조회)
     public function search(array $body) {
         $body['_source'] = $body['_source'] ?? ['gd_id'];
-        return $this->client->search(['index' => self::index(), 'body' => $body]);
+        return $this->client->search(['index' => self::INDEX, 'body' => $body]);
     }
 
     //  페이지 검색 - 조회 한도·결과 범위를 넘는 페이지는 마지막 페이지로 보정
@@ -459,7 +451,7 @@ class GoodsElasticSearch {
             ];
             if ($after) $body['search_after'] = $after;
 
-            $hits = $this->client->search(['index' => self::index(), 'body' => $body])->asArray()['hits']['hits'];
+            $hits = $this->client->search(['index' => self::INDEX, 'body' => $body])->asArray()['hits']['hits'];
             foreach ($hits as $h)
                 $ids[] = (int) $h['sort'][0];
 

@@ -64,15 +64,14 @@ class SearchSpec {
     //  규격 가산점 (shop_goods_v2) - "비커 500ml": 규격에 500ml이 있고 나머지 단어("비커")도 맞는 상품에 +$weight
     //  나머지 단어는 하나씩 상품명·모델명·키워드·제조사 중 어디든 있으면 됨 ("duran 500ml")
     //  점수만 더함 (function_score) → 규격만 맞는 엉뚱한 상품을 새로 끌어오지 않음
-    //  $attr(속성 방식, 기본 = .env SEARCH_ATTR): 같은 양의 다른 단위("1l" = "1000ml")와 속성 칸(범위·순도)도 맞는 것으로 봄
-    public static function functions(string $keyword, int $weight, ?bool $attr = null): array {
+    //  같은 양의 다른 단위("1l" = "1000ml")와 속성 칸(범위·순도)도 맞는 것으로 봄
+    public static function functions(string $keyword, int $weight): array {
         $specs = self::tokens($keyword, self::makers());
         if (!$specs || $weight <= 0)
             return [];
 
-        $attr = $attr ?? GoodsElasticSearch::hasAttr();
         $must = array_merge(
-            array_map(fn($s) => $attr ? self::specMatch($s) : ['term' => ['spec_all' => $s]], $specs),
+            array_map(fn($s) => self::specMatch($s), $specs),
             self::wordsMatch(self::without($keyword, $specs)));
 
         return [['filter' => ['bool' => ['must' => $must]], 'weight' => $weight]];

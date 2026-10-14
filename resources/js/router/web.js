@@ -91,7 +91,6 @@ import WebEventAttend from '@/views/web/event/_comp/Attend';
 import WebEventCoupon from '@/views/web/event/_comp/Coupon';
 
 //  테스트
-import WebTestSearchTest from '@/views/web/test/SearchTest';
 
 const isLoggedin = () => (to, from, next) => {
     if (store.state.auth.isLoggedin) 
@@ -447,11 +446,5 @@ export default [
                 component: WebEventCoupon,
             },
         ],
-    },
-
-//      테스트
-    {   path: '/test/search_test',
-        name: 'search_test',
-        component: WebTestSearchTest,
     },
 ];

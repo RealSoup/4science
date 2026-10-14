@@ -231,11 +231,6 @@ return [
             'path'   => storage_path('logs/scheduler/mileage-expire-notice/mileage-expire-notice.log'),
             'days'   => 90,
         ],
-        'sync-es-settings' => [
-            'driver' => 'daily',
-            'path'   => storage_path('logs/scheduler/sync-es-settings/sync-es-settings.log'),
-            'days'   => 14,
-        ],
     ],
 
 ];

@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Services\GoodsElasticSearch;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
 
 //  ES 동의어 점검 (AI 검색) - ES가 재시작될 때 동의어 세트(shop_goods_v2)를 못 읽고 시작하는 경우가 있어 5분마다 확인
 //  꺼져 있으면 다시 읽기(reload) - 정상일 때는 로그 안 남김
@@ -15,14 +14,9 @@ class SearchCheckSynonyms extends Command {
     const SAMPLE = 5;   //  확인할 동의어 줄 수 - 이 중 하나라도 확장되면 정상
 
     public function handle() {
-        $index = GoodsElasticSearch::index();
-        if (!$set = config("search.synonym_sets.{$index}")) {
-            $this->line("{$index}는 txt 파일 동의어라 점검 대상이 아닙니다");
-            return 0;
-        }
-
-        $es = Http::withBasicAuth((string) env('ELASTICSEARCH_USER'), (string) env('ELASTICSEARCH_PASSWORD'))
-            ->withoutVerifying()->baseUrl(env('ELASTICSEARCH_HOST'));
+        $index = GoodsElasticSearch::INDEX;
+        $set   = GoodsElasticSearch::SYNONYM_SET;
+        $es    = GoodsElasticSearch::http();
 
         if (!$this->option('reload')) {
             //  동의어 줄의 첫 단어("에탄올, ethanol, …" → 에탄올)가 동의어 분석기에서 더 많은 단어로 늘어나면 적용 중

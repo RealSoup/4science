@@ -349,7 +349,7 @@ export default {
         this.syncSearchDisplay();
     },
     beforeRouteUpdate (to, from, next) {
-        this.sch_frm = Object.assign( {}, this.sch_frm, to.query );
+        this.sch_frm = Object.assign( {}, this.$options.data.call(this).sch_frm, to.query );
         this.index();
         this.syncSearchDisplay();
         next();

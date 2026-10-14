@@ -284,7 +284,7 @@ export default {
             if (!items.length && !adds.length) return alert('바뀐 것이 없습니다.');
             const res = await ax.post(`/api/admin/site/searchReview/attr/${g.gd_id}`, { items, adds });
             if (this.fail(res)) return;
-            const es = { done: '검색 색인 반영', off: '속성 검색 꺼짐 - 색인 반영 안 함', missing: '색인에 없는 상품', failed: '색인 반영 실패 - 밤 작업이 다시 넣음' }[res.data.es];
+            const es = { done: '검색 색인 반영', missing: '색인에 없는 상품', failed: '색인 반영 실패 - 밤 작업이 다시 넣음' }[res.data.es];
             this.$bvToast ? this.$bvToast.toast(`${res.data.saved}줄 저장 · ${es}`, { title: `${g.gd_id}번 상품`, variant: res.data.es === 'failed' ? 'warning' : 'success', solid: true })
                           : alert(`${res.data.saved}줄 저장 · ${es}`);
             this.attrFetch(this.attr.page);

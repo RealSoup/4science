@@ -10,7 +10,6 @@ use Illuminate\Support\Arr;
 use Laravel\Scout\Searchable;
 use App\Models\Shop\{EstimateReply};
 use App\Models\{User, FileGoods, UserCoupon};
-use App\Lib\SphinxClient;
 use App\Services\{GoodsAttr, GoodsElasticSearch, SearchSpec};
 use Carbon\Carbon;
 use DateTimeInterface;
@@ -138,15 +137,14 @@ class Goods extends Model {
         return $rst;
     }
 
-    //  검색 인덱스 = config/search.php (.env SEARCH_INDEX) - 상품 수정 반영·가격 동기화·인기도 조회가 모두 따라감
+    //  검색 인덱스 (GoodsElasticSearch::INDEX) - 상품 수정 반영·가격 동기화·인기도 조회가 모두 이 인덱스
     public function searchableAs() {
-        return GoodsElasticSearch::index();
+        return GoodsElasticSearch::INDEX;
     }
 
     //  Elastic Search
     public function toSearchableArray() {
         $this->loadMissing(['maker', 'goodsModel', 'goodsCategoryFirst', 'goodsCategory']);
-        // php artisan scout:sync-settings
 
         // ✅ 카테고리 이름 미리 로드
         $ca01 = $this->goodsCategoryFirst->gc_ca01 ?? 0;
@@ -223,12 +221,10 @@ class Goods extends Model {
             'purchase_score' => $this->currentPurchaseScore(),
         ];
         
-        //  규격 칸 - 규격 칸이 있는 인덱스(shop_goods_v2)만, search:build-v2와 같은 방식 (상품명·모델명·모델 규격)
-        if (GoodsElasticSearch::hasSpec())
-            $doc['spec_all'] = SearchSpec::tokens($this->gd_name . ' ' . $this->goodsModel->map(fn($m) => "{$m->gm_name} {$m->gm_spec}")->implode(' '));
-        //  속성 칸 - 스위치가 켜진 규격 칸 인덱스만, la_shop_goods_attr 값 (search:extract-attrs --es와 같은 방식)
-        if (GoodsElasticSearch::hasAttr())
-            $doc += GoodsAttr::esDocs([$this->gd_id])[$this->gd_id];
+        //  규격 칸 - 상품명·모델명·모델 규격의 "500ml" "6inch" 모음
+        $doc['spec_all'] = SearchSpec::tokens($this->gd_name . ' ' . $this->goodsModel->map(fn($m) => "{$m->gm_name} {$m->gm_spec}")->implode(' '));
+        //  속성 칸 (attr_volume 등) - la_shop_goods_attr 값 (search:extract-attrs --es와 같은 방식)
+        $doc += GoodsAttr::esDocs([$this->gd_id])[$this->gd_id];
 
         return $doc;
     }
@@ -674,154 +670,6 @@ class Goods extends Model {
             $gm->gm_price_dc = cal_dc($gm->gm_price, $dc);
             $gm->gm_price_dc_add_vat = rrp($gm->gm_price_dc);
         }
-    }
-
-    public function goodsSearch ($req, $offset, $limit, $type=null) {
-        $q_str = $kw ='';
-        
-        if ($req->filled('keyword')) {
-            $kw = '*'.trim($req->keyword).'*';
-            // $qry = DB::table('sphinx.sph_goods')->where('query', "{$kw};mode=ext2;sort=extended:@weight desc, gd_seq asc, gd_rank asc;limit=130")->get();
-            if ( $req->filled('mode') ) {
-                if($req->mode == 'cat_no' && !preg_match("/\d{2}-([\d-]{5,10})/", $kw)) // 캣넘버 검색인테 캣넘버 형식이 아니라면
-                    return 'no-catno';
-                else {
-                    if($req->mode == 'gd_name') $q_str .= "@gd_name {$kw}";
-                    if($req->mode == 'gm_name') $q_str .= "@gm_name {$kw}";
-                    if($req->mode == 'gm_code') $q_str .= "@gm_code {$kw}";
-                    if($req->mode == 'cat_no')  $q_str .= "@gm_catno {$kw}";
-                    if($req->mode == 'maker')   $q_str .= "@mk_name {$kw}";
-                }
-            } else
-                $q_str .= "{$kw}";
-            
-            if ( $req->filled('keyword_extra') ) {
-                $ex_kw = '*'.trim($req->keyword_extra).'*';
-                if ( $req->filled('mode') ) {
-                    if($req->mode == 'gd_name') $q_str .= " @gd_name {$ex_kw}";
-                    if($req->mode == 'gm_name') $q_str .= " @gm_name {$ex_kw}";
-                    if($req->mode == 'gm_code') $q_str .= " @gm_code {$ex_kw}";
-                    if($req->mode == 'cat_no')  $q_str .= " @gm_catno {$ex_kw}";
-                    if($req->mode == 'maker')   $q_str .= " @mk_name {$ex_kw}";
-                } else
-                    $q_str .= " {$ex_kw}";
-            }
-            $q_str .= ";";
-        }
-            
-        $q_str .= "groupby=attr:gd_id;";
-        $sort = "groupsort=";
-        $req->sort = $req->sort ? $req->sort : 'hot';
-
-        switch ($req->sort) {
-            case 'hot':
-                if (!$req->filled('keyword'))
-                            $sort .= "gd_seq asc, ";    break;
-            case 'new':     $sort .= "gd_id desc, ";    break;
-            case 'lowPri':  $sort .= "gm_price asc, ";  break;
-            case 'highPri': $sort .= "gm_price desc, "; break;
-            case 'edit':    $sort .= "updated_at desc, "; break;
-        }
-        if($type=='4s_pick' || $req->filled('gd_seq')) {
-            $sort = "groupsort=gd_seq asc, ";
-            $q_str .= "!filter=gd_seq, 999999;";
-        }
-        $sort .= "gd_rank asc, gd_view_cnt asc;";
-        
-            
-        $q_str .= $sort."offset={$offset};limit={$limit};";
-
-        if ($req->filled('ca01')) $q_str .= "filter=gc_ca01, {$req->ca01};";
-        if ($req->filled('ca02')) $q_str .= "filter=gc_ca02, {$req->ca02};";
-        if ($req->filled('ca03')) $q_str .= "filter=gc_ca03, {$req->ca03};";
-        if ($req->filled('ca04')) $q_str .= "filter=gc_ca04, {$req->ca04};";
-        if ($req->filled('gd_mk_id')) $q_str .= "filter=gd_mk_id, {$req->gd_mk_id};"; 
-
-        // Admin
-        $date_target = 'created_at';
-        if ($req->filled('sort') && $req->sort == 'edit' ) $date_target = 'updated_at';
-        if ($req->filled('startDate') && !$req->filled('endDate')) $q_str .= "range={$date_target},".strtotime($req->startDate).",".strtotime("Now").";";
-        if (!$req->filled('startDate') && $req->filled('endDate')) $q_str .= "range={$date_target},".strtotime("1970-01-01").",".strtotime($req->endDate.' 23:59:59').";";
-        if ($req->filled('startDate') && $req->filled('endDate')) $q_str .= "range={$date_target},".strtotime($req->startDate).",".strtotime($req->endDate.' 23:59:59').";";
-        if ($req->filled('v_type') && $req->v_type == 'WEB') $q_str .= "filter=gd_enable,".crc32('Y').";";
-        if ($req->filled('gd_enable'))  $q_str .= "filter=gd_enable,".crc32($req->gd_enable).";";
-        if (!$req->filled('gd_type'))   $q_str .= "filter=gd_type,".crc32('NON').";";
-        if ($req->filled('gd_type'))    $q_str .= "filter=gd_type,".crc32($req->gd_type).";";
-
-        if (!$req->filled('deleted_at'))   $q_str .= "filter=deleted_at, 0;";
-        if ($req->filled('deleted_at')) {
-            if ($req->deleted_at == 'Y')        $q_str .= "!filter=deleted_at, 0;";
-            elseif ($req->deleted_at == 'N')    $q_str .= "filter=deleted_at, 0;";
-        }
-        if ($req->filled('updated_id')) $q_str .= "filter=updated_id, {$req->updated_id};";
-        
-        $rst = Goods::select("sph_gs.gd_id", "sph_gs.gd_name", "sph_gs.mk_name", 
-                            'shop_goods.gd_rank', 'shop_goods.gd_view_cnt', 'shop_goods.gd_dc', 
-                            'shop_goods.updated_id', 'shop_goods.updated_at', 'shop_goods.gd_enable', 'shop_goods.deleted_at')
-                ->join( 'z_sph_goods AS sph_gs', 'shop_goods.gd_id', '=', 'sph_gs.gd_id' )
-                ->with('goodsModelPrime')
-                ->withTrashed()
-                ->whereRaw("`query` = ?", [$q_str]);
-        return $rst;
-    }
-
-    public function search_cnt ($req) {
-        $kw ='';        
-        
-        if ($req->filled('keyword')) {
-            $kw = '*'.trim($req->keyword).'*';
-            if ( $req->filled('mode') ) {
-                if($req->mode == 'gd_name') $kw .= "@gd_name {$kw}";
-                if($req->mode == 'gm_name') $kw .= "@gm_name {$kw}";
-                if($req->mode == 'gm_code') $kw .= "@gm_code {$kw}";
-                if($req->mode == 'cat_no')  $kw .= "@gm_catno {$kw}";
-                if($req->mode == 'maker')   $kw .= "@mk_name {$kw}";
-            }
-
-            if ( $req->filled('keyword_extra') ) {
-                $ex_kw = '*'.trim($req->keyword_extra).'*';
-                if ( $req->filled('mode') ) {
-                    if($req->mode == 'gd_name') $kw .= " @gd_name {$ex_kw}";
-                    if($req->mode == 'gm_name') $kw .= " @gm_name {$ex_kw}";
-                    if($req->mode == 'gm_code') $kw .= " @gm_code {$ex_kw}";
-                    if($req->mode == 'cat_no')  $kw .= " @gm_catno {$ex_kw}";
-                    if($req->mode == 'maker')   $kw .= " @mk_name {$ex_kw}";
-                } else
-                    $kw .= " {$ex_kw}";
-            }
-        }
-
-        $cl = new SphinxClient ();
-        $cl->SetServer( env('DB_HOST'), 9312 );
-        if ($req->filled('ca01')) $cl->SetFilter('gc_ca01', array($req->ca01));
-        if ($req->filled('ca02')) $cl->SetFilter('gc_ca02', array($req->ca02));
-        if ($req->filled('ca03')) $cl->SetFilter('gc_ca03', array($req->ca03));
-        if ($req->filled('ca04')) $cl->SetFilter('gc_ca04', array($req->ca04));
-        if ($req->filled('gd_mk_id')) $cl->SetFilter('gd_mk_id', array($req->gd_mk_id));
-
-        $date_target = 'created_at';
-        if ($req->filled('sort') && $req->sort == 'edit' ) $date_target = 'updated_at';
-        if ($req->filled('startDate') && !$req->filled('endDate')) $cl->SetFilterFloatRange($date_target, floatval(strtotime($req->startDate)), floatval(strtotime("Now")));
-        if (!$req->filled('startDate') && $req->filled('endDate')) $cl->SetFilterFloatRange($date_target, floatval(strtotime("1970-01-01")),    floatval(strtotime($req->endDate.' 23:59:59')));
-        if ($req->filled('startDate') && $req->filled('endDate'))  $cl->SetFilterFloatRange($date_target, floatval(strtotime($req->startDate)), floatval(strtotime($req->endDate.' 23:59:59')));
-        if ($req->filled('v_type') && $req->v_type == 'WEB')       $cl->SetFilter('gd_enable', array(crc32('Y')));
-        if ($req->filled('gd_enable'))  $cl->SetFilter('gd_enable', array(crc32($req->gd_enable)));
-        if (!$req->filled('gd_type'))   $cl->SetFilter('gd_type', array(crc32('NON')));
-        if ($req->filled('gd_type'))    $cl->SetFilter('gd_type', array(crc32($req->gd_type)));
-        if ($req->filled('gd_seq'))    $cl->SetFilter('gd_seq', array(999999), true);
-        if (!$req->filled('deleted_at'))   $cl->SetFilter('deleted_at', array(0));
-        if ($req->filled('deleted_at')) {
-            if ($req->deleted_at == 'Y')        $cl->SetFilter('deleted_at', array(0), true);
-            elseif ($req->deleted_at == 'N')    $cl->SetFilter('deleted_at', array(0));
-        }
-
-
-        
-        if ($req->filled('updated_id')) $cl->SetFilter('updated_id', array($req->updated_id));
-        $cl->SetGroupBy('gd_id', SPH_GROUPBY_ATTR );
-        $cl_rst = $cl->Query( $kw, 'sph_goods' );
-
-        return $cl_rst['total_found'];
     }
 
     public static function recommend_goods ($limit = 4) {

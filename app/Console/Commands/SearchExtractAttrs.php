@@ -15,8 +15,7 @@ class SearchExtractAttrs extends Command {
                                 {--gd= : 상품 번호 하나만 (뽑힌 줄을 모두 보여 줌)}
                                 {--sample=5 : 미리보기에서 속성별 예시 수}
                                 {--es : 저장 후 검색 색인의 속성 칸에도 넣기}
-                                {--es-only : 다시 뽑지 않고 저장된 속성을 검색 색인에만 넣기}
-                                {--index= : 속성을 넣을 색인 (기본: 지금 손님이 쓰는 색인)}';
+                                {--es-only : 다시 뽑지 않고 저장된 속성을 검색 색인에만 넣기}';
     protected $description = '상품 속성 채우기 (규칙) - 용량·순도·포장량·이름표 규격, 검색 색인 반영';
 
     const CHUNK = 2000;             //  상품 번호 묶음
@@ -35,8 +34,8 @@ class SearchExtractAttrs extends Command {
             $this->error('속성 사전(la_shop_goods_attr_def)에 사용 중인 속성이 없습니다');
             return 1;
         }
-        if ($toEs && !$this->prepareIndex())
-            return 1;
+        if ($toEs)
+            $this->prepareIndex();
 
         //  상품 하나 - 뽑힌 줄을 모두 보여 줌 (규칙 확인용)
         if ($gdId = (int) $this->option('gd')) {
@@ -119,17 +118,11 @@ class SearchExtractAttrs extends Command {
         return $this->es['failed'] ? 1 : 0;
     }
 
-    //  규격 칸이 있는 색인(shop_goods_v2)인지 확인하고 속성 칸 추가 (이미 있으면 그대로 - 색인을 다시 만들 필요 없음)
-    //  .env SEARCH_ATTR 스위치와 상관없이 넣을 수 있음 → 값을 다 채운 뒤에 스위치를 켬
-    protected function prepareIndex(): bool {
-        $this->index = $this->option('index') ?: GoodsElasticSearch::index();
-        if (!in_array($this->index, config('search.spec_indexes', []))) {
-            $this->error("{$this->index}는 속성 칸을 넣을 색인이 아닙니다 (config/search.php spec_indexes)");
-            return false;
-        }
+    //  검색 색인에 속성 칸 추가 (이미 있으면 그대로, 사전에 새 속성이 생겼으면 그 칸만 더함 - 색인을 다시 만들 필요 없음)
+    protected function prepareIndex(): void {
+        $this->index  = GoodsElasticSearch::INDEX;
         $this->client = app(\Elastic\Elasticsearch\Client::class);
         $this->client->indices()->putMapping(['index' => $this->index, 'body' => ['properties' => GoodsAttr::esMapping()]]);
-        return true;
     }
 
     //  상품 문서의 속성 칸만 부분 수정 (다른 칸은 그대로)

@@ -4,7 +4,7 @@
         Loading ......
     </loading-modal>
     <template v-else>
-        <location v-if="($route.name == 'goods_index' || $route.name == 'search_test') && !$route.query.keyword" 
+        <location v-if="$route.name == 'goods_index' && !$route.query.keyword" 
             :categorys="categorys"
             :p_ca01="$route.query.ca01" 
             :p_ca02="$route.query.ca02" 
@@ -80,7 +80,7 @@
 
         <div class="layout">
             <b-container>
-                <b-row class="list">
+                <b-row class="list goods_list">
                     
                     <b-col class="sort m_hide">
                         <ul>
@@ -227,6 +227,7 @@ export default {
 </script>
 
 <style lang="css" >
+/* 이 화면 스타일은 scoped가 아님 - 목록 규칙은 .goods_list(이 화면 목록)에만 (.list로 쓰면 관리자 목록 등 다른 화면의 .list까지 바뀜) */
 #header #core .nav_menu { display:none !important; }
 
 .search_alt { margin-top:1em; padding:.8rem 1.1rem; background:#f4f8ff; border:1px solid #b9d0ff; border-radius:6px; font-size:1rem; color:#333; }
@@ -261,36 +262,36 @@ export default {
 .pick .row .col ul li div img { width:90%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 .pick .row .col ul li .tit { margin:auto; font-weight:bold; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; max-width:150px; }
 .pick .row .col ul li .pri { font-size:.7rem; margin: 0.3rem 0 0; }
-#ad_belt { margin-top:25px; }
+#ad_belt { margin:25px auto; }
 #ad_belt a { display:block; }
 #ad_belt a img { width:100%; }
 
 
 
 
-.list { align-items:flex-start; margin-top:25px; }
-.list .sort { flex:0 0 9%; max-width:9%; margin-right:15px; } 
-.list .sort ul li { text-align:center; padding:6px 0; font-size:.85rem; font-weight:600; cursor:pointer; border:1px solid #D7D7D7; border-radius:25px; margin-bottom:10px; }
-.list .sort ul li.active { background:#DFEAF0; } 
-.list .sort #ad_sidebar { margin-top:20px; }
-.list .sort #ad_sidebar a { display:block; }
-.list .sort #ad_sidebar a img { width:100%; }
+.goods_list { align-items:flex-start; margin-top:25px; }
+.goods_list .sort { flex:0 0 9%; max-width:9%; margin-right:15px; } 
+.goods_list .sort ul li { text-align:center; padding:6px 0; font-size:.85rem; font-weight:600; cursor:pointer; border:1px solid #D7D7D7; border-radius:25px; margin-bottom:10px; }
+.goods_list .sort ul li.active { background:#DFEAF0; } 
+.goods_list .sort #ad_sidebar { margin-top:20px; }
+.goods_list .sort #ad_sidebar a { display:block; }
+.goods_list .sort #ad_sidebar a img { width:100%; }
 
 
-.list .col .row div:nth-child(2),
-.list .col .row div:nth-child(3) { flex:0 0 17%; max-width:17%; display:flex; align-items:center; justify-content:center; }
-.list .col .row div.price { align-items:flex-end; flex-direction:column; padding:0 15px; }
+.goods_list .col .row div:nth-child(2),
+.goods_list .col .row div:nth-child(3) { flex:0 0 17%; max-width:17%; display:flex; align-items:center; justify-content:center; }
+.goods_list .col .row div.price { align-items:flex-end; flex-direction:column; padding:0 15px; }
 
-.list .col .lhead div { background:#DFEAF0; border:1px solid #D6D6D6; text-align:center; padding:.7rem 0; font-weight:bold; letter-spacing:10px; }
-.list .col .lhead div:not(:first-child) { border-left-width:0px; }
+.goods_list .col .lhead div { background:#DFEAF0; border:1px solid #D6D6D6; text-align:center; padding:.7rem 0; font-weight:bold; letter-spacing:10px; }
+.goods_list .col .lhead div:not(:first-child) { border-left-width:0px; }
 
-.list .col .lbody>* { border:1px solid #D6D6D6; border-top-width:0px; }
-.list .col .lbody>*:not(:first-child) { border-left-width:0px; }
-.list .col .lbody .link { cursor:pointer; display:flex; align-items:center; padding:0 15px;}
-.list .col .lbody .link img { border:1px solid #ddd; width:150px; height:150px; margin:15px 30px 15px 0; }
-.list .col .lbody .link p { display:inline-block; margin-bottom:0; }
-.list .col .lbody .link p .info { display:block; color:#949494; margin-top:1.1vw; }
-.list .col .lbody .link p i { display:none; }
+.goods_list .col .lbody>* { border:1px solid #D6D6D6; border-top-width:0px; }
+.goods_list .col .lbody>*:not(:first-child) { border-left-width:0px; }
+.goods_list .col .lbody .link { cursor:pointer; display:flex; align-items:center; padding:0 15px;}
+.goods_list .col .lbody .link img { border:1px solid #ddd; width:150px; height:150px; margin:15px 30px 15px 0; }
+.goods_list .col .lbody .link p { display:inline-block; margin-bottom:0; }
+.goods_list .col .lbody .link p .info { display:block; color:#949494; margin-top:1.1vw; }
+.goods_list .col .lbody .link p i { display:none; }
 
 
 
@@ -307,13 +308,13 @@ export default {
     .category_picks .con img { height: auto; aspect-ratio: 1 / 1; }
     .category_picks .con p  { text-align:center; font-size:12px; }
 
-    .list .col .lbody>* { padding: 0 3px; }
-    .list .col .lbody .link img { border-width:0; width: 80px; height: 80px; margin: 10px 10px 10px 0; }
-    .list .col .lbody .link p { font-size: calc(1.2vw + .5rem); }
-    .list .col .lbody .link p span { margin-top:.4rem; }
-    .list .col .lbody .link p i { display:inline; font-size: calc(1.3vw + .5rem); font-weight: 600; }
-    .list .col .lbody .link p i .see_dealer .dealer { display:inline; padding-left:12px; margin-left:12px; }
-    .list .col .lbody .link p i .see_dealer .dealer:before { left:-6px; width:14px; height:14px; line-height:14px; font-style:normal; font-size:.68rem; }
+    .goods_list .col .lbody>* { padding: 0 3px; }
+    .goods_list .col .lbody .link img { border-width:0; width: 80px; height: 80px; margin: 10px 10px 10px 0; }
+    .goods_list .col .lbody .link p { font-size: calc(1.2vw + .5rem); }
+    .goods_list .col .lbody .link p span { margin-top:.4rem; }
+    .goods_list .col .lbody .link p i { display:inline; font-size: calc(1.3vw + .5rem); font-weight: 600; }
+    .goods_list .col .lbody .link p i .see_dealer .dealer { display:inline; padding-left:12px; margin-left:12px; }
+    .goods_list .col .lbody .link p i .see_dealer .dealer:before { left:-6px; width:14px; height:14px; line-height:14px; font-style:normal; font-size:.68rem; }
     .p_wrap >>> .page-link { min-width: 30px; padding:0; }
 
         

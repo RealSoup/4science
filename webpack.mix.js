@@ -24,15 +24,14 @@ mix.js('resources/js/app.js', 'public/js')
         },
     })
     .version();
-
-
-mix.browserSync ('https://4science.net/');
-// mix.disableNotifications();
-// mix.browserSync({
-//     proxy: '127.0.0.1:8000',
-//     files: [
-//         'app/**/*',
-//         'resources/**/*',
-//         'routes/**/*'
-//     ],
-// });
+//  BrowserSync - npm run watch 때만 켜짐 (npm run prod 빌드에는 영향 없음)
+mix.disableNotifications();
+mix.browserSync({
+    proxy: '127.0.0.1:8000',
+    ghostMode: false,      //  여러 탭이 서로의 클릭·스크롤·입력을 따라 하지 않게
+    files: [
+        'app/**/*',
+        'resources/**/*',
+        'routes/**/*'
+    ],
+});

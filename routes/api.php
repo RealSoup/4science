@@ -366,7 +366,3 @@ Route::prefix('event')->group(function () {
 
 Route::post('behavior/log', 'BehaviorController@log');
 Route::post('search/click', 'SearchLogController@click');
-
-Route::prefix('test')->group(function () {
-    Route::GET('search_test',       'TestController@search_test');
-});            

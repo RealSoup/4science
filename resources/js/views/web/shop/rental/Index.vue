@@ -351,7 +351,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.w_fence { padding-top:0; }
+.w_fence { padding-top:0; margin-left:auto; margin-right:auto; }
 .w_fence #banner { display:block; margin:auto; width:100%; max-width:1920px; }
 .w_fence .rt_step { padding-top:45px; }
 .w_fence .rt_step p { font-weight:900; font-size:1.5em; text-align:center; }
@@ -360,7 +360,7 @@ export default {
 .w_fence .rt_step ul li:not(:last-child) { margin-right:30px; min-width:140px; }
 .w_fence .rt_step ul li:not(:last-child):after { content:""; position:absolute; right:-30px; bottom:60px; width:0; height:0; 
     border-top:10px solid transparent; border-bottom:10px solid transparent; border-left:18px solid #969696;}
-.w_fence .rt_step ul li img { display:block; margin:auto; }
+.w_fence .rt_step ul li img { display:block; margin:auto; } 
 
 .w_fence .contact { background-color:#00A1CB; color:#fff; font-size: 1.4em; font-weight: bold; padding: 1em; text-align: center; margin-top:2em; }
 .w_fence .contact li { display: inline-block; margin:0 1em; } 

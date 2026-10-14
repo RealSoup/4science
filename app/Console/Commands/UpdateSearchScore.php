@@ -5,20 +5,14 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use App\Services\GoodsElasticSearch;
-use Elastic\Elasticsearch\ClientBuilder;
 
 class UpdateSearchScore extends Command {
     protected $signature   = 'search:update-score';
     protected $description = 'ES 검색 score 업데이트 (클릭수 + 구매수)';
 
     public function handle() {
-        $client = ClientBuilder::create()
-            ->setHosts([env('ELASTICSEARCH_HOST')])
-            ->setBasicAuthentication(env('ELASTICSEARCH_USER'), env('ELASTICSEARCH_PASSWORD'))
-            ->setSSLVerification(false)
-            ->build();
-
-        $index = GoodsElasticSearch::index();     //  지금 손님이 쓰는 인덱스 (config/search.php)
+        $client = app(\Elastic\Elasticsearch\Client::class);
+        $index  = GoodsElasticSearch::INDEX;
         $this->info('집계 시작...');
 
         $rows = DB::select("

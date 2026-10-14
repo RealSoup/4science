@@ -77,11 +77,9 @@ class GoodsAttr {
         return $rows;
     }
     
-    //  상품 하나 다시 뽑기 - 관리자 상품 등록·수정 후 색인 갱신 직전에 부름 (속성 칸이 켜진 경우만)
+    //  상품 하나 다시 뽑기 - 관리자 상품 등록·수정 후 색인 갱신 직전에 부름
     //  실패해도 상품 저장은 막지 않음 (밤 배치 search:extract-attrs --es가 다시 채움)
     public static function refresh(int $gdId): void {
-        if (!GoodsElasticSearch::hasAttr())
-            return;
         try {
             self::sync($gdId, $gdId);
         } catch (\Throwable $e) {
@@ -127,13 +125,11 @@ class GoodsAttr {
     }
 
     //  상품 하나의 속성을 검색 색인 속성 칸에만 바로 반영 (관리자 검수 화면 저장 후) - 다른 칸은 그대로
-    //  done 반영 / off 속성 칸을 안 씀 / missing 색인에 없는 상품 / failed 실패 (밤 배치 search:extract-attrs --es가 다시 넣음)
+    //  done 반영 / missing 색인에 없는 상품 / failed 실패 (밤 배치 search:extract-attrs --es가 다시 넣음)
     public static function pushEs(int $gdId): string {
-        if (!GoodsElasticSearch::hasAttr())
-            return 'off';
         try {
             app(\Elastic\Elasticsearch\Client::class)->update([
-                'index' => GoodsElasticSearch::index(),
+                'index' => GoodsElasticSearch::INDEX,
                 'id'    => $gdId,
                 'body'  => ['doc' => self::esDocs([$gdId])[$gdId]],
             ]);

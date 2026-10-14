@@ -160,10 +160,6 @@ class CacheMaker {
 
 
 
-        //  검색엔진 인덱스 작업을 관리한 메모리캐쉬 키생성
-        if( !Redis::get('is_working_index') )
-            Redis::set('is_working_index', 'no');
-        
         return $next($request);
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\{DB, Redis, Storage};
+use Illuminate\Support\Facades\{DB, Storage};
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use App\Models\Shop\Goods;
 
@@ -35,11 +35,6 @@ class ImportWaferGoods extends Command {
     public function handle() {
         $dry = (bool) $this->option('dry-run');
         $this->userId = $this->option('user') ? (int) $this->option('user') : null;
-
-        if (!$dry && Redis::get('is_working_index') == 'yes') {
-            $this->error('검색엔진 색인 작업 중입니다. 끝난 뒤 다시 실행하세요.');
-            return 1;
-        }
 
         //  엑셀 읽기 → Base #로 묶기
         $path = $this->argument('file');

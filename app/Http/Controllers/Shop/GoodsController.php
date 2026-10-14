@@ -7,7 +7,6 @@ use App\Models\Shop\{Goods, Category, GoodsCategory, Order};
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Pagination\LengthAwarePaginator;
-use App\Lib\SphinxClient;
 use App\Traits\Crawling;
 use App\Services\GoodsElasticSearch;
 
@@ -18,14 +17,9 @@ class GoodsController extends Controller {
 
 	public function __construct( Goods $gd ) { $this->goods = $gd; }
     
-    //  상품 검색 입구 - ES 검색, ES 장애 시 기존 Sphinx(index_260928)로 자동 전환
-    //  되돌리기: return $this->index_260928($req); 한 줄로
+    //  상품 검색 입구 - ES가 응답하지 않으면 안내 문구 (GoodsElasticSearch::guard)
     public function index (Request $req) {
-        return GoodsElasticSearch::withFallback(
-            fn() => $this->index_es($req),
-            fn() => $this->index_260928($req),
-            '웹'
-        );
+        return GoodsElasticSearch::guard(fn() => $this->index_es($req), '웹');
     }
 
     //  상품 검색 (Elasticsearch)
@@ -94,7 +88,7 @@ class GoodsController extends Controller {
         if ($keyword !== '' && !$req->filled('limit'))
             $data['search_id'] = \App\Services\SearchLogService::store(
                 $req, $keyword, $catePath, $total, $page, $items,
-                $result->asArray()['took'] ?? 0, GoodsElasticSearch::index(), $alt['q'] ?? null
+                $result->asArray()['took'] ?? 0, GoodsElasticSearch::INDEX, $alt['q'] ?? null
             );
 
         if ($req->filled('limit')) {    //  메인 베스트 - 페이징 없이 목록만
@@ -126,7 +120,6 @@ class GoodsController extends Controller {
         if ($keyword !== '')
             $data['sch_cate_info'] = $this->sideCateInfo($result);
 
-        $data['engine'] = 'elastic';
 		return response()->json($data);
     }
 
@@ -185,157 +178,6 @@ class GoodsController extends Controller {
             ])->values()->toArray();
         }
         return $info;
-    }
-
-    public function index_260928 (Request $req) {
-        abort_if((!$req->filled('ca01') && !$req->filled('keyword')), 501, '검색값이 없습니다.');
-        abort_if((
-            ($req->filled('ca01') && Category::where('ca_id', $req->ca01)->doesntExist()) ||
-            ($req->filled('ca02') && Category::where('ca_id', $req->ca02)->doesntExist()) ||
-            ($req->filled('ca03') && Category::where('ca_id', $req->ca03)->doesntExist()) ||
-            ($req->filled('ca04') && Category::where('ca_id', $req->ca04)->doesntExist()) 
-        ), 501, '존재 하지 않는 카테고리 입니다.');
-
-        $data['categorys'] = Category::getSelectedCate( $req->filled('ca01') ? $req->ca01 : 0, 
-                                                        $req->filled('ca02') ? $req->ca02 : 0, 
-                                                        $req->filled('ca03') ? $req->ca03 : 0 );
-
-        /*
-            스핑크스(Sphinx) 검색 엔진은 기본적으로 limit 20이 설정되어있고 뺄수 없다
-            페이지를 위해 검색된 count 재설정
-        */
-        
-        $req->merge(array('v_type' => "WEB"));
-
-        $total = $this->goods->search_cnt($req);
-        $page = $req->filled('page') ? $req->page : 1;
-        $limit = $req->filled('limit') ? $req->limit : 15;
-        $offset = ($page*$limit)-$limit;
-        if($offset>intval($total)) {
-            $page = ceil($total / $limit);
-            $offset = ($page*$limit)-$limit;
-        }       
-
-        if ($req->filled('keyword')) {
-            if (if_not_my_ip($req->ip()))
-                event(new \App\Events\GoodsSearch($req->keyword, auth()->check() ? auth()->user()->id : 0, $req->ip(), $req->filled('referer')?$req->referer:''));  //  검색어 데이터화
-            
-            $kw = '*'.trim($req->keyword).'*';
-            if ( $req->filled('mode') ) {
-                if($req->mode == 'gd_name') $kw .= "@gd_name {$kw}";
-                if($req->mode == 'gm_name') $kw .= "@gm_name {$kw}";
-                if($req->mode == 'gm_code') $kw .= "@gm_code {$kw}";
-                if($req->mode == 'cat_no')  $kw .= "@gm_catno {$kw}";
-                if($req->mode == 'maker')   $kw .= "@mk_name {$kw}";
-            }
-            $cl = new SphinxClient ();
-            $cl->SetServer( env('DB_HOST'), 9312 );
-            $cl->SetFilter('deleted_at', array(0));             //  삭제 상품 제외
-            $cl->SetFilter('gd_enable', array(crc32('Y')));     //  활성화 상품만 검색되게
-            $cl->SetFilter('gd_type', array(crc32('NON')));     //  렌탈은 검색 안되게
-            $cl->SetGroupBy('gc_ca01', SPH_GROUPBY_ATTR );
-            $cl->SetGroupDistinct ( "gd_id" );
-            $cl_rst = $cl->Query( $kw, 'sph_goods' );
-            
-            if ($cl_rst['total_found'] > 0) {
-                $data['sch_cate_info']['all'] = array_reduce( $cl_rst['matches'], fn($sum, $el) => $sum + $el['attrs']['@distinct'], 0);
-    
-                foreach ($cl_rst['matches'] as $v) {
-                    $tmp['key'] = $v['attrs']['@groupby'];
-                    $tmp['name'] = $v['attrs']['gc_ca01_name'];
-                    $tmp['cnt'] = $v['attrs']['@distinct'];
-                    $data['sch_cate_info']['ca01'][] = $tmp;
-                }
-                
-                if ($req->filled('ca01')) {
-                    $cl->SetFilter('gc_ca01', array($req->ca01));
-                    $cl->SetGroupBy('gc_ca02', SPH_GROUPBY_ATTR );
-                    $cl->SetGroupDistinct ( "gd_id" );
-                    $cl_rst = $cl->Query( $kw, 'sph_goods' );
-                    abort_if(!array_key_exists('matches', $cl_rst), 501, '존재 하지 않는 카테고리 입니다.');
-
-                    foreach ($cl_rst['matches'] as $v) {
-                        $tmp['key'] = $v['attrs']['@groupby'];
-                        $tmp['name'] = $v['attrs']['gc_ca02_name'];
-                        $tmp['cnt'] = $v['attrs']['@distinct'];
-                        $data['sch_cate_info']['ca02'][] = $tmp;
-                    }
-                }
-    
-                if ($req->filled('ca02')) {
-                    $cl->SetFilter('gc_ca01', array($req->ca01));
-                    $cl->SetFilter('gc_ca02', array($req->ca02));
-                    $cl->SetGroupBy('gc_ca03', SPH_GROUPBY_ATTR );
-                    $cl->SetGroupDistinct ( "gd_id" );
-                    $cl_rst = $cl->Query( $kw, 'sph_goods' );
-                    abort_if(!array_key_exists('matches', $cl_rst), 501, '존재 하지 않는 카테고리 입니다.');
-    
-                    foreach ($cl_rst['matches'] as $v) {
-                        $tmp['key'] = $v['attrs']['@groupby'];
-                        $tmp['name'] = $v['attrs']['gc_ca03_name'];
-                        $tmp['cnt'] = $v['attrs']['@distinct'];
-                        $data['sch_cate_info']['ca03'][] = $tmp;
-                    }
-                }
-    
-                if ($req->filled('ca03')) {
-                    $cl->SetFilter('gc_ca01', array($req->ca01));
-                    $cl->SetFilter('gc_ca02', array($req->ca02));
-                    $cl->SetFilter('gc_ca03', array($req->ca03));
-                    $cl->SetGroupBy('gd_mk_id', SPH_GROUPBY_ATTR );
-                    $cl->SetGroupDistinct ( "gd_id" );
-                    $cl_rst = $cl->Query( $kw, 'sph_goods' );
-                    abort_if(!array_key_exists('matches', $cl_rst), 501, '존재 하지 않는 카테고리 입니다.');
-                    
-                    foreach ($cl_rst['matches'] as $v) {
-                        $tmp['key'] = $v['attrs']['@groupby'];
-                        $tmp['name'] = $v['attrs']['mk_name'];
-                        $tmp['cnt'] = $v['attrs']['@distinct'];
-                        $data['sch_cate_info']['maker'][] = $tmp;
-                    }
-                }
-            }
-        }
-
-        $qry = $this->goods->goodsSearch($req, $offset, $limit);
-     
-        if( gettype($qry) == 'string' && $qry == 'no-catno' )
-            return response()->json($qry);
-        
-        
-        if ($req->filled('limit'))  //  메인 베스트
-            $data['list'] = $qry->limit($req->limit)->get(); 
-        else {
-            // $data['list'] = $qry->paginate();
-            // $data['list']->appends($req->all())->links();
-
-            //  포사의 PICK
-            $pick_data = $this->goods->goodsSearch($req, 0, 12, '4s_pick')->get();
-            // dd($pick_data);
-            // $pick_data = $pick_data->where('gd_seq', '<', 999999)->orderBy('gd_seq')->limit(12)->get();
-            if(count($pick_data)) {
-                $data['pick'][0] = $pick_data->take(6);
-                if (count($pick_data) > 6)
-                    $data['pick'][1] = $pick_data->skip(6)->take(6);
-            }
-            
-            $data_rst = $qry->get();
-            $data['list'] = new LengthAwarePaginator($data_rst, $total, $limit, $page, ['path' => $req->url(), 'query' => $req->query()]);
-
-            foreach ($data['list'] as $v) {
-                $this->goods->goods_discount_checker($v->goodsModelPrime, $v->gd_dc);
-                // if( auth()->check() && auth()->user()->level == 12 ) {
-                //     $v->goodsModelPrime->dc_type = "dealer";
-                //     $v->goodsModelPrime->gm_price_dc = $v->goodsModelPrime->gm_price*auth()->user()->dc_mul;
-                //     $v->goodsModelPrime->gm_price_dc_add_vat = rrp($v->goodsModelPrime->gm_price_dc);
-                // } else if ($v->gd_dc) {
-                //     $v->goodsModelPrime->dc_type = "goods_dc";
-                //     $v->goodsModelPrime->gm_price_dc = $this->goods->cal_dc($v->goodsModelPrime->gm_price, $v->gd_dc);
-                //     $v->goodsModelPrime->gm_price_dc_add_vat = rrp($v->goodsModelPrime->gm_price_dc);
-                // }
-            }
-        }
-		return response()->json($data);
     }
 
     public function show(Category $cate, Request $req, $gd_id) {

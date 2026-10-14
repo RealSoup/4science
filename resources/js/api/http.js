@@ -98,7 +98,6 @@ instance.interceptors.response.use(function (response) {
     } else if (error.response.status === 500) {
         if (error.response.data.message) {
             if (        error.response.data.message.search('Address in mailbox given') !== -1 ) { Notify.modal('이메일 주소를 확인하세요.', 'danger');
-            } else if ( error.response.data.message.search('working_index') !== -1 )            { Notify.modal('다른 유저가 검색어를 등록중입니다.', 'danger');
             } else {
                 Notify.modal(error.response.data.message, 'danger');
                 if (error.response.data.message.search('견적가 상품이 있습니다.') !== -1 || 

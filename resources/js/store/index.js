@@ -13,7 +13,7 @@ import recent_goods from './recent_goods';
 
 
 export default new Vuex.Store({
-    strict: process.env.MIX_APP_ENV !== 'local',
+    strict: false,     //  Vuex 검사 모드 끔 - 이 코드는 화면에서 store 값을 바로 바꾸는 곳이 많음
     state:{
         mode:'web',
     },

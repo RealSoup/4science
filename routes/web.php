@@ -106,11 +106,6 @@ Route::prefix('shop')->group(function () {
     });
 });
 
-Route::get('/test',              'TestController@index');
-Route::get('/test/mail_display', 'TestController@mail_display');
-Route::get('/test/merck_upload', 'TestController@merck_upload');
-Route::post('/test/download',    'TestController@download');
-
 Route::POST('auth/user/find_email',     'Auth\UserController@find_email');
 Route::GET('auth/user/createInfo',      'Auth\UserController@createInfo');
 Route::get('/admin/realsoup', 'Admin\RealsoupController@index');
@@ -130,8 +125,6 @@ Route::prefix('user')->group(function () {
 });
 
 
-//  검색엔진 실행
-Route::GET('/admin/shop/goods/exeIndex', 'Admin\Shop\GoodsController@exeIndex');
 
 // Route::post('email/resend', function (Request $request) {
 //     dd(auth()->user()->sendEmailVerificationNotification());

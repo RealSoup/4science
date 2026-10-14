@@ -16,3 +16,5 @@ yarn-error.log
 /.idea
 /.vscode
 start_all.bat
+dump.rdb
+build_prod.bat
