@@ -78,16 +78,17 @@ class SearchSpec {
     }
 
     //  단어가 하나씩 상품명·모델명·키워드·제조사 중 어디든 있어야 하는 조건 목록 - 규격 가산점·제조사 가산점 공용
-    public static function wordsMatch(string $text): array {
+    //  $models = false: 모델명은 안 봄 (포사의 PICK - 머플 전기로의 부속 모델 "방열장갑"처럼 상품 자체가 아닌 말로 걸리지 않게)
+    public static function wordsMatch(string $text, bool $models = true): array {
         $must = [];
         foreach ($text === '' ? [] : explode(' ', $text) as $word) {
             $q = ['query' => $word, 'operator' => 'and', 'zero_terms_query' => 'all'];     //  "~" 처럼 검색어가 안 되는 말은 통과
-            $must[] = ['bool' => ['should' => [
+            $must[] = ['bool' => ['should' => array_values(array_filter([
                 ['match' => ['gd_name'     => $q + ['analyzer' => 'korean_search']]],
-                ['match' => ['gm_name_all' => $q + ['analyzer' => 'korean_search']]],
+                $models ? ['match' => ['gm_name_all' => $q + ['analyzer' => 'korean_search']]] : null,
                 ['match' => ['gd_keyword'  => $q]],     //  키워드 칸은 저장할 때와 같은 분석기(korean_exact) - korean_search는 "트위저"를 "트+위저"로 쪼개 못 찾음
                 ['match' => ['mk_name'     => $q]],
-            ], 'minimum_should_match' => 1]];
+            ])), 'minimum_should_match' => 1]];
         }
         return $must;
     }

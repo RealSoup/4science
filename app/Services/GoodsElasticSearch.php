@@ -33,8 +33,9 @@ class GoodsElasticSearch {
     }
 
     //  검색어의 단어가 모두 상품 어딘가(상품명·모델명·키워드·제조사)에 있는 조건 - 규격 토큰은 뺌, 제조사·키워드 가산점용
-    protected static function allWords(string $keyword): array {
-        return SearchSpec::wordsMatch(SearchSpec::without($keyword, SearchSpec::tokens($keyword, SearchSpec::makers())));
+    //  $models = false: 모델명은 안 봄 (포사의 PICK)
+    protected static function allWords(string $keyword, bool $models = true): array {
+        return SearchSpec::wordsMatch(SearchSpec::without($keyword, SearchSpec::tokens($keyword, SearchSpec::makers())), $models);
     }
 
     //  제조사 가산점 조건 - 제조사가 맞고, 검색어의 다른 단어도 그 상품 어딘가에 있을 때만
@@ -425,7 +426,8 @@ class GoodsElasticSearch {
     }
 
     //  포사의 PICK - 관리자가 순서를 지정한 상품(gd_seq != 999999) 12개
-    //  검색어 있음: 검색어의 단어가 모두 들어간 상품만 후보 (규격 "500ml"은 빼고 봄, 후보가 없으면 빈 목록 = PICK 칸 숨김)
+    //  검색어 있음: 검색어의 단어가 모두 상품명·키워드·제조사에 들어간 상품만 후보 (규격 "500ml"은 빼고 봄, 후보가 없으면 빈 목록 = PICK 칸 숨김)
+    //              모델명은 안 봄 - "장갑"에 머플 전기로(부속 모델 "방열장갑")가 뜨던 것
     //              순서 = 검색 점수 등수 + 관리자 순서 등수(gd_seq → gd_rank → 조회수) 합이 작은 순 (반반), 같으면 검색 점수 높은 쪽
     //              약한 검색 보정(AI 검색 2-4)으로 함께 찾았으면 바꾼 말의 단어가 모두 들어간 상품도 후보
     //  검색어 없음(카테고리만 볼 때): 관리자 순서 그대로
@@ -439,7 +441,7 @@ class GoodsElasticSearch {
             return $this->goods($this->search(['size' => $size, 'query' => ['bool' => $bool], 'sort' => self::sort('hot', false)]));
 
         $bool['filter'][] = ['bool' => [
-            'should'               => array_map(fn($kw) => ['bool' => ['must' => self::allWords($kw)]], array_values(array_filter([$keyword, $alt]))),
+            'should'               => array_map(fn($kw) => ['bool' => ['must' => self::allWords($kw, false)]], array_values(array_filter([$keyword, $alt]))),
             'minimum_should_match' => 1,
         ]];
         $hits = $this->search([
