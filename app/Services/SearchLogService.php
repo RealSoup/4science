@@ -13,7 +13,7 @@ class SearchLogService {
     const DEDUP_TTL = 1800;     //  같은 손님이 30분 안에 같은 조건으로 다시 부르면(새로고침·뒤로가기) 같은 search_id 재사용
     const ATTR_TTL  = ['cart' => 86400, 'estimate' => 86400, 'purchase' => 604800];   //  클릭 후 연결 기간 (장바구니·견적 24시간 / 주문 7일)
 
-    public static function store(Request $req, string $keyword, array $catePath, int $total, int $page, $items, int $tookMs, ?string $alt = null, array $pickIds = []): ?int {
+    public static function store(Request $req, string $keyword, array $catePath, int $total, int $page, $items, int $tookMs, ?string $alt = null, array $pickIds = [], ?string $ltr = null): ?int {
         try {
             if (!if_not_my_ip($req->ip()) || !GeoIp::isKorea($req->ip()))
                 return null;
@@ -40,6 +40,7 @@ class SearchLogService {
                 'sl_gd_ids'       => json_encode($items->pluck('gd_id')->values()),
                 'sl_pick_ids'     => $pickIds && saleEnv() === 'P' ? json_encode(array_map('intval', array_values($pickIds))) : null,     //  포사의 PICK에 보여 준 상품 (PC만 - 모바일은 PICK 칸이 안 보임)
                 'sl_alt'          => $alt ? mb_substr($alt, 0, 100) : null,      //  약한 검색 보정으로 함께 찾은 말 (AI 검색 2-4)
+                'sl_ltr'          => $ltr,                                       //  검색 순서 학습 모델 버전 - 이 모델로 다시 줄 세워 보여 줌 (AI 검색 2-5 ②, null = ES 순서)
                 'sl_took_ms'      => min($tookMs, 65535),
                 'sl_is_mobile'    => saleEnv() !== 'P' ? 1 : 0,
                 'ip'              => $req->ip(),

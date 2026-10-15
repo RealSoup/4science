@@ -85,6 +85,13 @@ class GoodsController extends Controller {
 
         $items = $es->goods($result);
 
+        //  검색 순서 학습 (AI 검색 2-5 ②) - 인기상품순 검색어 검색의 1~50등을 모의고사 통과한 모델로 다시 줄 세움 (SEARCH_LTR, 오류면 원래 순서)
+        $ltr = !$alt && !$req->filled('limit')
+            ? \App\Services\SearchLtr::rerank($es, $query, $postFilters, $keyword, $req->mode, $req->sort, $page, $perPage, $total, $items->pluck('gd_id')->all())
+            : null;
+        if ($ltr)
+            $items = $es->goodsByIds(collect($ltr['ids']));
+
         //  포사의 PICK - 관리자 지정 상품 12개 (검색어가 있으면 단어가 모두 들어간 것만, 검색 등수 + 관리자 순서 등수 - GoodsElasticSearch::pick)
         $pick_data = $req->filled('limit') ? collect() : $es->pick($query, $postFilters, $keyword, $alt['q'] ?? null);
 
@@ -92,7 +99,7 @@ class GoodsController extends Controller {
         if ($keyword !== '' && !$req->filled('limit'))
             $data['search_id'] = \App\Services\SearchLogService::store(
                 $req, $keyword, $catePath, $total, $page, $items,
-                $result->asArray()['took'] ?? 0, $alt['q'] ?? null, $pick_data->pluck('gd_id')->all()
+                $result->asArray()['took'] ?? 0, $alt['q'] ?? null, $pick_data->pluck('gd_id')->all(), $ltr['version'] ?? null
             );
 
         if ($req->filled('limit')) {    //  메인 베스트 - 페이징 없이 목록만

@@ -176,6 +176,15 @@ return [
             'path'   => storage_path('logs/scheduler/search-score/search-score.log'),
             'days'   => 14,
         ],
+        'search-ltr' => [
+            'driver'   => 'stack',
+            'channels' => ['search-ltr-detail', 'scheduler-summary'],
+        ],
+        'search-ltr-detail' => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/scheduler/search-ltr/search-ltr.log'),
+            'days'   => 180,
+        ],
 
         'behavior' => [
             'driver' => 'daily',

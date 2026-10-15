@@ -1,0 +1,13 @@
+# 검색 순서 학습 숙제 (python/ltr/train.py) - web01은 CentOS 7(glibc 2.17)이라 이 판에 고정
+#   xgboost-cpu 3.0.5 = glibc 2.17에서 되는 마지막 판 (3.1부터 glibc 2.28 필요), GPU 부품 없는 판
+#   numpy 2.2.6 / scipy 1.16.0 = glibc 2.17용 완제품(manylinux2014)이 있는 판
+#
+# web01 설치 (시스템 파이썬 3.6은 안 건드림, /opt 두 폴더만 - 되돌리기: rm -rf /opt/uv /opt/4science-ltr)
+#   mkdir -p /opt/uv
+#   curl -LsSf https://github.com/astral-sh/uv/releases/latest/download/uv-x86_64-unknown-linux-gnu.tar.gz | tar xz -C /opt/uv --strip-components=1
+#   export UV_PYTHON_INSTALL_DIR=/opt/uv/python UV_PYTHON_BIN_DIR=/opt/uv/bin UV_CACHE_DIR=/opt/uv/cache
+#   /opt/uv/uv venv --python 3.12 /opt/4science-ltr/venv
+#   /opt/uv/uv pip install --python /opt/4science-ltr/venv/bin/python --only-binary :all: -r python/ltr/requirements.txt
+xgboost-cpu==3.0.5
+numpy==2.2.6
+scipy==1.16.0

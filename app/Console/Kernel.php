@@ -46,5 +46,7 @@ class Kernel extends ConsoleKernel {
         // AI 검색어 통역 (AI 검색 2-2) - 대기 목록을 AI에 물어 수첩 채우기 / 밤에 인기 검색어 미리 넣기, SEARCH_AI_FILL이 켜진 경우만
         $schedule->command('search:ai-fill')->everyMinute()->withoutOverlapping(5)->runInBackground()->when(fn() => config('search.ai.fill'));
         $schedule->command('search:ai-prewarm')->dailyAt('04:00')->withoutOverlapping()->when(fn() => config('search.ai.fill'));
+        // 검색 순서 학습 (AI 검색 2-5 ②) - 매주 일요일, 지난 기록으로 학습 → 지난주 모의고사 통과하면 모델 교체 (손님 검색에 쓰는지는 SEARCH_LTR)
+        $schedule->command('search:ltr-train')->weeklyOn(0, '04:30')->withoutOverlapping();
     }
 }

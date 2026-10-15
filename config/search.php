@@ -18,6 +18,15 @@ return [
     //  점수표(la_search_rank)는 매일 밤 search:update-score가 채움 / 숫자는 켜기 전 시험(앞 기간으로 점수 → 뒤 기간 클릭으로 채점)으로 정함
     'rank_weight' => (int) env('SEARCH_RANK_WEIGHT', 0),
 
+    //  검색 순서 학습 (AI 검색 2-5 ②, XGBoost) - 매주 일요일 search:ltr-train이 학습하고, 지난주 기록 모의고사를 통과한 모델만 storage/app/ltr에 둠
+    //  on    : 인기상품순 검색어 검색의 ES 1~50등을 그 모델로 다시 줄 세움 (통과한 모델이 없으면 ES 순서 그대로), 끄면 바로 원래 순서
+    //          SEARCH_RANK_WEIGHT(자리 보정 가산점)를 켜면 쉼 - ES 점수가 학습 때와 달라지므로 둘 중 하나만
+    //  python: 학습 숙제를 돌릴 파이썬 (web01은 /opt 아래 따로 둔 3.12 - 시스템 파이썬 3.6은 안 씀, python/ltr/requirements.txt)
+    'ltr' => [
+        'on'     => (bool) env('SEARCH_LTR', false),
+        'python' => env('SEARCH_LTR_PYTHON', '/opt/4science-ltr/venv/bin/python'),
+    ],
+
     //  AI 검색어 통역 - 모든 AI 호출은 App\Services\SearchAi 한 곳에서
     //  "약한 검색" = 결과가 low건 이하이거나, 검색어가 그대로 들어간 상품이 없음 (비슷한 글자로만 잡힘)
     //  fill : 약한 검색어를 대기 목록에 모으고 1분마다 AI에 물어 수첩(la_search_ai) 채우기 - 손님 화면 영향 없음
