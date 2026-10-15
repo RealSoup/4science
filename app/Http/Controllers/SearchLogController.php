@@ -12,7 +12,7 @@ class SearchLogController extends Controller {
         $gdId     = (int) $req->gd_id;
         $position = (int) $req->position;
 
-        if ($slId > 0 && $gdId > 0 && $position > 0 && $position <= 10000)
+        if ($slId > 0 && $gdId > 0 && $req->filled('position') && $position >= 0 && $position <= 10000)     //  자리 0 = 포사의 PICK
             SearchLogService::click($req, $slId, $gdId, $position);
 
         return response()->json(['ok' => true]);

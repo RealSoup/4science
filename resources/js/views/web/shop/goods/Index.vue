@@ -58,7 +58,7 @@
                 <b-col>
                     <b-row v-for="(row, i) in pick" :key="i" :class="{active:i == pick_hover}" @mouseover="actHover(i)" tag="ul">
                         <b-link v-for="gd in row" :key="`4p${gd.gd_id}`"
-                            :to="{name: 'goods_show', params:{gd_id:gd.gd_id} }"
+                            :to="{name: 'goods_show', params:{gd_id:gd.gd_id, pick:1} }"
                             router-tag="li"
                         >   
                             <div>
@@ -200,15 +200,19 @@ export default {
         actHover:function(i){ this.pick_hover = i; },
 
         //  검색 결과 클릭 기록 (AI 검색 1단계) - 실패해도 화면 이동에 영향 없음
-        searchClick(gd_id) {
-            if (!this.search_id || !this.list.data) return;
-            const i = this.list.data.findIndex(row => row.gd_id == gd_id);
-            if (i < 0) return;      //  목록에 없는 상품(PICK 전용 등)은 제외
-            ax.post('/api/search/click', {
-                search_id: this.search_id,
-                gd_id,
-                position: (this.list.current_page - 1) * this.list.per_page + i + 1,
-            }).catch(() => {});
+        //  pick: 포사의 PICK에서 누름 → 자리 0 (목록 순위 통계에는 안 들어감, AI 검색 2-5)
+        searchClick(gd_id, pick = false) {
+            if (!this.search_id) return;
+            let position = 0;
+            if (pick) {
+                if (!(this.pick || []).some(row => Object.values(row).some(gd => gd.gd_id == gd_id))) return;
+            } else {
+                if (!this.list.data) return;
+                const i = this.list.data.findIndex(row => row.gd_id == gd_id);
+                if (i < 0) return;      //  목록에 없는 상품은 제외
+                position = (this.list.current_page - 1) * this.list.per_page + i + 1;
+            }
+            ax.post('/api/search/click', { search_id: this.search_id, gd_id, position }).catch(() => {});
         },
 
         //  새 탭으로 여는 클릭(Ctrl·Shift·Cmd+클릭, 휠 클릭)은 화면 이동이 없으므로 여기서 기록
@@ -218,9 +222,10 @@ export default {
         },
     },
     //  검색 결과 → 상품 페이지로 이동할 때 클릭 기록 (클릭 이벤트를 가로채는 확장 프로그램 등이 있어도 기록됨)
+    //  PICK 링크는 이동 정보에 pick 표시를 실어 보냄 (주소창에는 안 나옴) - 같은 상품이 목록에도 있어도 PICK 클릭으로 구분
     beforeRouteLeave(to, from, next) {
         if (to.name === 'goods_show')
-            this.searchClick(to.params.gd_id);
+            this.searchClick(to.params.gd_id, !!to.params.pick);
         next();
     },
 }

@@ -14,6 +14,10 @@ return [
     //  규격 가산점 ("비커 500ml"에서 규격·속성이 맞는 상품에 더하는 점수, 0 = 끄기)
     'spec_weight' => (int) env('SEARCH_SPEC_WEIGHT', 5000),
 
+    //  자리 보정 가산점 (AI 검색 2-5) - 검색어별로 손님이 자리에 비해 많이 고른 상품에 더하는 최대 점수, 0 = 끄기
+    //  점수표(la_search_rank)는 매일 밤 search:update-score가 채움 / 숫자는 켜기 전 시험(앞 기간으로 점수 → 뒤 기간 클릭으로 채점)으로 정함
+    'rank_weight' => (int) env('SEARCH_RANK_WEIGHT', 0),
+
     //  AI 검색어 통역 - 모든 AI 호출은 App\Services\SearchAi 한 곳에서
     //  "약한 검색" = 결과가 low건 이하이거나, 검색어가 그대로 들어간 상품이 없음 (비슷한 글자로만 잡힘)
     //  fill : 약한 검색어를 대기 목록에 모으고 1분마다 AI에 물어 수첩(la_search_ai) 채우기 - 손님 화면 영향 없음

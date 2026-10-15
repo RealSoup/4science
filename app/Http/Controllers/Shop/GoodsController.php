@@ -56,7 +56,8 @@ class GoodsController extends Controller {
             $req->filled('mk_id') ? ['term' => ['gd_mk_id' => (int) $req->mk_id]] : null,
         ]));
 
-        $query = $es->buildQuery($keyword, $req->mode, GoodsElasticSearch::customerFilters(), array_merge($es->personalizeFunctions(), GoodsElasticSearch::specFunctions($keyword)));     //  개인화 + 규격 가산점(v2)
+        $rank  = \App\Services\SearchRank::functions($keyword, $req->mode, $req->sort);     //  자리 보정 가산점 (AI 검색 2-5) - 인기상품순만, SEARCH_RANK_WEIGHT 0이면 없음
+        $query = $es->buildQuery($keyword, $req->mode, GoodsElasticSearch::customerFilters(), array_merge($es->personalizeFunctions(), GoodsElasticSearch::specFunctions($keyword), $rank));     //  개인화 + 규격 가산점(v2) + 자리 보정
         $body  = [
             'query'       => $query,
             'post_filter' => ['bool' => ['filter' => $postFilters]],
@@ -84,11 +85,14 @@ class GoodsController extends Controller {
 
         $items = $es->goods($result);
 
-        //  검색 로그 - 검색어 검색만 (메인 베스트 limit 호출 제외)
+        //  포사의 PICK - 관리자 지정 상품 12개 (검색어가 있으면 단어가 모두 들어간 것만, 검색 등수 + 관리자 순서 등수 - GoodsElasticSearch::pick)
+        $pick_data = $req->filled('limit') ? collect() : $es->pick($query, $postFilters, $keyword, $alt['q'] ?? null);
+
+        //  검색 로그 - 검색어 검색만 (메인 베스트 limit 호출 제외), PICK에 보여 준 상품도 함께 (PICK 클릭 확인용)
         if ($keyword !== '' && !$req->filled('limit'))
             $data['search_id'] = \App\Services\SearchLogService::store(
                 $req, $keyword, $catePath, $total, $page, $items,
-                $result->asArray()['took'] ?? 0, $alt['q'] ?? null
+                $result->asArray()['took'] ?? 0, $alt['q'] ?? null, $pick_data->pluck('gd_id')->all()
             );
 
         if ($req->filled('limit')) {    //  메인 베스트 - 페이징 없이 목록만
@@ -100,16 +104,7 @@ class GoodsController extends Controller {
             foreach ($data['list'] as $v)
                 $v->goods_discount_checker($v->goodsModelPrime, $v->gd_dc);
 
-            //  포사의 PICK - 같은 검색조건 중 관리자 지정 순서(gd_seq)가 있는 상품 12개
-            $pick_data = $es->goods($es->search([
-                'size'  => 12,
-                'query' => ['bool' => [
-                    'must'     => [$query],
-                    'filter'   => $postFilters,
-                    'must_not' => [['term' => ['gd_seq' => 999999]]],
-                ]],
-                'sort'  => GoodsElasticSearch::sort('hot', false),
-            ]));
+            //  포사의 PICK - 두 줄 (6개씩)
             if (count($pick_data)) {
                 $data['pick'][0] = $pick_data->take(6);
                 if (count($pick_data) > 6)

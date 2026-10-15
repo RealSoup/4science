@@ -13,6 +13,7 @@ class GoodsElasticSearch {
     const INDEX       = 'shop_goods_v2';   //  검색 인덱스 - 손님·관리자 검색, 상품 수정 반영, 가격 동기화, 인기도, 속성 칸 모두 여기
     const SYNONYM_SET = 'shop_goods_v2';   //  ES 동의어 세트 (관리자 동의어 화면에서 편집, 저장하면 바로 반영)
     const MAX_WINDOW  = 10000;             //  ES 조회 한도 (from + size)
+    const PICK_POOL   = 200;               //  포사의 PICK 후보로 볼 최대 상품 수 (관리자 지정 상품은 전체 ~550개)
 
     protected $client;
 
@@ -423,9 +424,59 @@ class GoodsElasticSearch {
         return [$result, $total, $page];
     }
 
+    //  포사의 PICK - 관리자가 순서를 지정한 상품(gd_seq != 999999) 12개
+    //  검색어 있음: 검색어의 단어가 모두 들어간 상품만 후보 (규격 "500ml"은 빼고 봄, 후보가 없으면 빈 목록 = PICK 칸 숨김)
+    //              순서 = 검색 점수 등수 + 관리자 순서 등수(gd_seq → gd_rank → 조회수) 합이 작은 순 (반반), 같으면 검색 점수 높은 쪽
+    //              약한 검색 보정(AI 검색 2-4)으로 함께 찾았으면 바꾼 말의 단어가 모두 들어간 상품도 후보
+    //  검색어 없음(카테고리만 볼 때): 관리자 순서 그대로
+    public function pick(array $query, array $postFilters, string $keyword, ?string $alt = null, int $size = 12) {
+        $bool = [
+            'must'     => [$query],
+            'filter'   => $postFilters,
+            'must_not' => [['term' => ['gd_seq' => 999999]]],
+        ];
+        if ($keyword === '')
+            return $this->goods($this->search(['size' => $size, 'query' => ['bool' => $bool], 'sort' => self::sort('hot', false)]));
+
+        $bool['filter'][] = ['bool' => [
+            'should'               => array_map(fn($kw) => ['bool' => ['must' => self::allWords($kw)]], array_values(array_filter([$keyword, $alt]))),
+            'minimum_should_match' => 1,
+        ]];
+        $hits = $this->search([
+            'size'    => self::PICK_POOL,
+            'query'   => ['bool' => $bool],
+            '_source' => ['gd_id', 'gd_seq', 'gd_rank', 'gd_view_cnt'],
+            'track_total_hits' => false,
+        ])->asArray()['hits']['hits'];
+
+        //  조회수는 음수로 저장됨 (작을수록 많이 본 상품) - 정렬 sort('hot', false)와 같은 순서, 값 없으면 맨 뒤
+        $scoreRank = self::ranks(array_map(fn($h) => -$h['_score'], $hits));
+        $adminRank = self::ranks(array_map(fn($h) => [
+            $h['_source']['gd_seq'] ?? PHP_INT_MAX, $h['_source']['gd_rank'] ?? PHP_INT_MAX, $h['_source']['gd_view_cnt'] ?? PHP_INT_MAX,
+        ], $hits));
+        $order = array_keys($hits);
+        usort($order, fn($a, $b) => [$scoreRank[$a] + $adminRank[$a], -$hits[$a]['_score']] <=> [$scoreRank[$b] + $adminRank[$b], -$hits[$b]['_score']]);
+
+        return $this->goodsByIds(collect(array_slice($order, 0, $size))->map(fn($i) => (int) $hits[$i]['_source']['gd_id']));
+    }
+
+    //  등수 매기기 - 값이 작은 쪽이 1등, 같은 값은 같은 등수 (1, 1, 3)
+    private static function ranks(array $keys): array {
+        $order = array_keys($keys);
+        usort($order, fn($a, $b) => $keys[$a] <=> $keys[$b]);
+        $ranks = [];
+        foreach ($order as $i => $k)
+            $ranks[$k] = $i > 0 && $keys[$k] == $keys[$order[$i - 1]] ? $ranks[$order[$i - 1]] : $i + 1;
+        return $ranks;
+    }
+
     //  ES 결과 순서대로 상품 조회
     public function goods($result, bool $withTrashed = false) {
-        $ids = collect($result->asArray()['hits']['hits'])->pluck('_source.gd_id')->map(fn($v) => (int) $v);
+        return $this->goodsByIds(collect($result->asArray()['hits']['hits'])->pluck('_source.gd_id')->map(fn($v) => (int) $v), $withTrashed);
+    }
+
+    //  상품 번호 순서대로 상품 조회
+    public function goodsByIds($ids, bool $withTrashed = false) {
         if ($ids->isEmpty())
             return collect();
 

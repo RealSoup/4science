@@ -3,3 +3,7 @@
 *.scss linguist-vendored
 *.js linguist-vendored
 CHANGELOG.md export-ignore
+# 빌드 결과물 (npm run production) - 줄 끝 변환 안 함, webpack이 만든 그대로 저장
+/public/js/** -text
+/public/css/** -text
+/public/mix-manifest.json -text

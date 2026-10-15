@@ -106,14 +106,16 @@ class SearchReport extends Command {
     }
 
     //  2. 클릭 순위 분포 (한 페이지 15개 기준) - 위쪽 상품을 많이 누를수록 순서가 좋다는 뜻
+    //  목록 클릭(자리 1~)만 - 포사의 PICK 클릭(자리 0)은 따로 개수만
     private function positions() {
         $r = DB::selectOne("
-            SELECT COUNT(*) AS clicks, AVG(e.sle_position) AS avg_pos,
-                   SUM(e.sle_position <= 3)             AS p1,
+            SELECT SUM(e.sle_position >= 1) AS clicks, AVG(IF(e.sle_position >= 1, e.sle_position, NULL)) AS avg_pos,
+                   SUM(e.sle_position BETWEEN 1 AND 3)   AS p1,
                    SUM(e.sle_position BETWEEN 4 AND 10)  AS p2,
                    SUM(e.sle_position BETWEEN 11 AND 15) AS p3,
                    SUM(e.sle_position BETWEEN 16 AND 30) AS p4,
-                   SUM(e.sle_position > 30)              AS p5
+                   SUM(e.sle_position > 30)              AS p5,
+                   SUM(e.sle_position = 0)               AS pick
             FROM la_user_behavior_search_events e
             JOIN la_user_behavior_search l ON l.sl_id = e.sle_sl_id
             WHERE e.sle_action = 'click' AND {$this->where}", $this->binds);
@@ -126,6 +128,7 @@ class SearchReport extends Command {
             ['16~30위 (2페이지)',    $this->pct($r->p4, $r->clicks)],
             ['31위~ (3페이지부터)',  $this->pct($r->p5, $r->clicks)],
             ['평균 순위',            $r->clicks ? round($r->avg_pos, 1) . '위' : '-'],
+            ['포사의 PICK (위 비율과 별도)', number_format((int) $r->pick) . '건'],
         ]);
     }
 

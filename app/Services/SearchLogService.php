@@ -13,7 +13,7 @@ class SearchLogService {
     const DEDUP_TTL = 1800;     //  같은 손님이 30분 안에 같은 조건으로 다시 부르면(새로고침·뒤로가기) 같은 search_id 재사용
     const ATTR_TTL  = ['cart' => 86400, 'estimate' => 86400, 'purchase' => 604800];   //  클릭 후 연결 기간 (장바구니·견적 24시간 / 주문 7일)
 
-    public static function store(Request $req, string $keyword, array $catePath, int $total, int $page, $items, int $tookMs, ?string $alt = null): ?int {
+    public static function store(Request $req, string $keyword, array $catePath, int $total, int $page, $items, int $tookMs, ?string $alt = null, array $pickIds = []): ?int {
         try {
             if (!if_not_my_ip($req->ip()) || !GeoIp::isKorea($req->ip()))
                 return null;
@@ -38,6 +38,7 @@ class SearchLogService {
                 'sl_page'         => $page,
                 'sl_total'        => $total,
                 'sl_gd_ids'       => json_encode($items->pluck('gd_id')->values()),
+                'sl_pick_ids'     => $pickIds && saleEnv() === 'P' ? json_encode(array_map('intval', array_values($pickIds))) : null,     //  포사의 PICK에 보여 준 상품 (PC만 - 모바일은 PICK 칸이 안 보임)
                 'sl_alt'          => $alt ? mb_substr($alt, 0, 100) : null,      //  약한 검색 보정으로 함께 찾은 말 (AI 검색 2-4)
                 'sl_took_ms'      => min($tookMs, 65535),
                 'sl_is_mobile'    => saleEnv() !== 'P' ? 1 : 0,
@@ -57,15 +58,17 @@ class SearchLogService {
     }
 
     //  검색 결과 클릭 - 이벤트 저장 + 이후 장바구니·견적·주문 연결용 표시 (Redis, 7일)
+    //  $position 0 = 포사의 PICK에서 클릭 (목록 순위 통계에는 안 넣음, 이후 장바구니·견적·주문도 자리 0으로 이어짐)
     public static function click(Request $req, int $slId, int $gdId, int $position): void {
         try {
             $uuid = $req->cookie('tracking_uuid');
-            $log  = DB::table('user_behavior_search')->where('sl_id', $slId)->first(['sl_uuid', 'sl_gd_ids', 'ip']);
+            $log  = DB::table('user_behavior_search')->where('sl_id', $slId)->first(['sl_uuid', 'sl_gd_ids', 'sl_pick_ids', 'ip']);
             if (!$log)
                 return;
             if ($log->sl_uuid ? $log->sl_uuid !== $uuid : $log->ip !== $req->ip())     //  본인 검색만
                 return;
-            if (!in_array($gdId, json_decode($log->sl_gd_ids, true) ?: []))           //  실제 노출된 상품만
+            $shown = $position === 0 ? $log->sl_pick_ids : $log->sl_gd_ids;
+            if (!in_array($gdId, json_decode((string) $shown, true) ?: []))           //  실제 노출된 상품만 (PICK 클릭은 PICK에 보인 상품 중에서)
                 return;
 
             //  같은 검색에서 같은 상품 반복 클릭은 1번만
