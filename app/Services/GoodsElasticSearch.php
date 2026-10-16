@@ -55,8 +55,15 @@ class GoodsElasticSearch {
     }
 
     //  검색어 정리 - 전각 문자(％ ＰＰ ５００ｍｌ, 전각 띄어쓰기)를 반각으로, 소문자
+    //  규격 숫자가 있으면 "이상·이하·미만·초과·순도·함량"과 ≥·> 기호는 뺌 ("에탄올 99.9% 이상" → "에탄올 99.9%")
+    //  - 상품 이름에 이 말이 없어 규격 가산점이 꺼지고, "0.1mmT이상" 같은 엉뚱한 상품이 끼던 것 (순도는 이미 99.9~99.95% 범위로 찾음)
     public static function keyword($kw): string {
-        return strtolower(trim(mb_convert_kana($kw ?? '', 'as')));
+        $kw = strtolower(trim(mb_convert_kana($kw ?? '', 'as')));
+        if (!SearchSpec::tokens($kw))
+            return $kw;
+        $kw = preg_replace('/(?:>=|<=|[≥≤><])\s*(?=\d)/u', '', $kw);
+        $kw = preg_replace('/(?<=^|\s|[\d%])(?:이상|이하|미만|초과|순도|함량)(?=\s|$)/u', ' ', $kw);
+        return trim(preg_replace('/\s+/u', ' ', $kw));
     }
 
     //  캣넘버 검색인데 캣넘버 형식이 아닌지 (기존 Sphinx와 같은 기준)

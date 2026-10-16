@@ -10,9 +10,11 @@ use Illuminate\Console\Command;
 //  ① 동의어 세트 (없을 때만 - 관리자 동의어 화면 [txt 내려받기] 파일로)  ② 인덱스 (설정·구조는 아래 settings·mappings)
 //  ③ DB의 상품 전체 넣기 (scout:import - 규격 칸·속성 칸 포함)  ④ 인기도 점수 (search:update-score)
 //  --check: 아무것도 바꾸지 않고 이 명령의 설정·구조가 지금 운영 인덱스와 같은지만 비교
+//  --analysis: 상품은 그대로 두고 분석기 설정만 이 명령과 같게 (분석기를 새로 추가했을 때 - 인덱스를 몇 초 닫았다 엶)
 class SearchRebuild extends Command {
     protected $signature   = 'search:rebuild
                                 {--check : 지금 인덱스와 설정·구조 비교만 (바꾸지 않음)}
+                                {--analysis : 분석기 설정만 맞춤 (인덱스를 몇 초 닫았다 엶 - 그동안 손님 검색 안 됨)}
                                 {--synonyms= : 동의어 세트가 없을 때 넣을 txt (관리자 동의어 화면 [txt 내려받기])}
                                 {--force : 인덱스가 이미 있어도 지우고 다시 만들기 (다 만들 때까지 손님 검색 안 됨)}';
     protected $description = '검색 인덱스 새로 만들기 (복구용) - 동의어 세트·설정·상품 전체·인기도';
@@ -23,6 +25,8 @@ class SearchRebuild extends Command {
 
         if ($this->option('check'))
             return $this->check($indices, $index);
+        if ($this->option('analysis'))
+            return $this->analysis($indices, $index);
 
         //  1. 동의어 세트 - 인덱스 분석기가 이 세트를 읽으므로 먼저 있어야 함
         if (!$this->synonyms())
@@ -82,6 +86,31 @@ class SearchRebuild extends Command {
         return true;
     }
 
+    //  분석기 설정만 맞춤 - 분석기 추가·변경은 닫힌 인덱스에만 가능 → 닫기 → 설정 → 열기 → 동의어 다시 읽기 (몇 초)
+    protected function analysis($indices, string $index): int {
+        if (!$indices->exists(['index' => $index])->asBool()) {
+            $this->error("{$index}가 없습니다");
+            return 1;
+        }
+        if (!$this->confirm("{$index}를 몇 초 닫았다 엽니다. 그동안 손님 검색은 '검색이 잠시 원활하지 않습니다'로 나옵니다. 계속할까요?", true))
+            return 1;
+
+        $t = microtime(true);
+        $indices->close(['index' => $index]);
+        try {
+            $indices->putSettings(['index' => $index, 'body' => ['analysis' => self::settings()['analysis']]]);
+        } finally {
+            $indices->open(['index' => $index]);
+            app(\Elastic\Elasticsearch\Client::class)->cluster()->health(['index' => $index, 'wait_for_status' => 'yellow', 'timeout' => '60s']);
+        }
+        $this->call('search:check-synonyms', ['--reload' => true]);     //  다시 열 때 동의어 세트를 못 읽는 경우가 있어 바로 다시 읽기
+
+        $msg = "search:rebuild --analysis - {$index} 분석기 설정 맞춤 (" . round(microtime(true) - $t, 1) . '초 닫힘)';
+        \Log::info($msg);
+        $this->info($msg);
+        return 0;
+    }
+
     //  지금 인덱스와 비교 - ES가 돌려주는 값은 글자라서 모두 글자로 펼쳐서 비교 ("1.2" = 1.2)
     protected function check($indices, string $index): int {
         if (!$indices->exists(['index' => $index])->asBool()) {
@@ -127,6 +156,9 @@ class SearchRebuild extends Command {
     }
 
     //  인덱스 설정 - 분석기: korean(상품명 등 한글 형태소), korean_search(검색어 + 동의어 세트), korean_exact(띄어쓰기만)
+    //                korean_graph(검색어 + 동의어 그래프) - "단어가 다 들어 있나" 검사용 (SearchSpec::wordsMatch)
+    //                korean_search의 synonym은 "methyl alcohol" 같은 두 단어 동의어를 "…그리고 alcohol"로 펼쳐 Methanol 상품을 못 찾음
+    //                → synonym_graph는 제대로 펼치지만, 형태소 분석기가 복합어를 쪼개 겹친 조각을 내면 못 받으므로 검색어는 안 쪼갬(nori_search)
     //  a~z 한 글자·0~999 숫자는 일부러 빼고 셈 (잡음 줄이기 - 규격은 spec_all 칸으로 따로 찾음)
     public static function settings(): array {
         return [
@@ -142,6 +174,7 @@ class SearchRebuild extends Command {
                 ],
                 'filter' => [
                     'synonym_filter'   => ['type' => 'synonym', 'synonyms_set' => GoodsElasticSearch::SYNONYM_SET, 'updateable' => true],
+                    'synonym_graph'    => ['type' => 'synonym_graph', 'synonyms_set' => GoodsElasticSearch::SYNONYM_SET, 'updateable' => true],
                     'single_char_stop' => ['type' => 'stop', 'stopwords' => range('a', 'z')],
                     'number_filter'    => ['type' => 'stop', 'stopwords' => array_map('strval', range(0, 999))],
                 ],
@@ -151,10 +184,16 @@ class SearchRebuild extends Command {
                         'decompound_mode'       => 'mixed',
                         'user_dictionary_rules' => ['줄자루 줄 자루'],     //  줄자루 = 줄 + 자루 로 강제 분리
                     ],
+                    'nori_search' => [                                  //  korean_graph용 - 복합어를 쪼개지 않음 (상품 쪽은 mixed라 통째 단어도 들어 있음)
+                        'type'                  => 'nori_tokenizer',
+                        'decompound_mode'       => 'none',
+                        'user_dictionary_rules' => ['줄자루 줄 자루'],
+                    ],
                 ],
                 'analyzer' => [
                     'korean'        => ['type' => 'custom', 'tokenizer' => 'nori_tokenizer', 'filter' => ['lowercase', 'single_char_stop', 'number_filter']],
                     'korean_search' => ['type' => 'custom', 'tokenizer' => 'nori_tokenizer', 'filter' => ['lowercase', 'single_char_stop', 'number_filter', 'synonym_filter']],
+                    'korean_graph'  => ['type' => 'custom', 'tokenizer' => 'nori_search', 'filter' => ['lowercase', 'single_char_stop', 'number_filter', 'synonym_graph']],
                     'korean_exact'  => ['type' => 'custom', 'tokenizer' => 'whitespace', 'filter' => ['lowercase'], 'char_filter' => ['special_chars']],
                 ],
             ],
