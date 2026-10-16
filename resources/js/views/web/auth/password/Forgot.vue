@@ -5,6 +5,8 @@
         <b-row>
             <b-col>
                 <b-form-input type="email" id="email" placeholder="이메일" v-model="email" />
+                <!-- 가입 안 된 이메일, 재요청 대기(60초) 등 서버 안내를 보여준다 -->
+                <validation :error="$store.state.error.validations.email" />
             </b-col>
         </b-row>
         <b-row>
@@ -34,6 +36,9 @@
 import ax from '@/api/http';
 export default { 
     name: "AuthPasswordForgot",
+    components: {
+        'validation': () => import('@/views/_common/Validation.vue'),
+    },
     data() {
         return {
             email: '',
