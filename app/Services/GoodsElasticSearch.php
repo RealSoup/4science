@@ -219,12 +219,15 @@ class GoodsElasticSearch {
                         ]
                     ]
                 ],
+                //  캣넘버 - 번호가 통째로·앞부분부터 맞는 상품만 ("24-004315-02"를 24 / 004315 / 02 조각 중 하나만 맞아도 걸던 것 → 46만 건이 수정순으로 깔려 찾는 상품이 묻힘)
                 'cat_no'  => [
                     'bool' => [
                         'should' => [
-                            ['prefix' => ['gm_catno'     => $keyword]],
-                            ['match'  => ['gm_catno_all' => $keyword]],
+                            ['prefix'       => ['gm_catno'             => $keyword]],
+                            ['prefix'       => ['gm_catno_all.keyword' => $keyword]],
+                            ['match_phrase' => ['gm_catno_all'         => $keyword]],
                         ],
+                        'minimum_should_match' => 1,
                     ],
                 ],
                 'maker' => [
@@ -393,6 +396,11 @@ class GoodsElasticSearch {
 
                     // 5순위 - 구문일치 전용 weight
                     [ 'filter' => ['match_phrase' => ['gm_name_all' => ['query' => $keyword, 'analyzer' => 'korean_exact']]],  'weight' => 3000, ],
+
+                    // 5-1순위 - 검색어 단어가 모두 상품명·키워드·제조사에 있음 (동의어 포함, 규격 토큰·모델명은 안 봄)
+                    //   글자는 거의 안 맞고 인기도만 높은 상품이 위로 오던 것 ("메탄올" → 알콜 온도계·에틸알코올)
+                    //   보통 검색은 위쪽 상품이 모두 맞아 순서 그대로 (2026-10-16 검색어 303개: 1등 바뀜 0)
+                    [ 'filter' => ['bool' => ['must' => self::allWords($keyword, false)]],      'weight' => 3000, ],
 
                     // 6순위 - 인기도 (factor 100, 최대 +3000)
                     [ 'field_value_factor' => [ 'field' => 'purchase_score', 'factor' => 100, 'modifier' => 'none', 'missing' => 0, ], ],
