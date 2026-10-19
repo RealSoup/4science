@@ -264,7 +264,7 @@ export default {
 .pick .row .col ul.active li { flex:0 0 16.666667%; max-width:16.666667%; height:300px; }
 .pick .row .col ul li div { height:99%; position: relative; transition: all .2s;}
 .pick .row .col ul.active li div { height:75%; }
-.pick .row .col ul li div img { width:90%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.pick .row .col ul li div img { width:90%; height:100%; object-fit:contain; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 .pick .row .col ul li .tit { margin:auto; font-weight:bold; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; max-width:150px; }
 .pick .row .col ul li .pri { font-size:.7rem; margin: 0.3rem 0 0; }
 #ad_belt { margin:25px auto; }
