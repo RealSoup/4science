@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 //  상품 속성 뽑기 (AI 검색 2단계) - 모델 규격 글자에서 "용량 500ml" "순도 ≥99.5% (HPLC)" 같은 값을 규칙으로 뽑아 la_shop_goods_attr에 저장
 //  규칙으로 채운 줄(rule + 검수 안 함)만 지우고 다시 넣음 - 사람이 고치거나 검수한 속성(manual, 검수 Y/X)은 건드리지 않음
 class GoodsAttr {
-    const RULE = 'v2';          //  규칙 버전 - 규칙을 고치면 올림 (ga_rule = volume.v2) / v2: 긴 줄표·전각 물결 범위
+    const RULE = 'v3';          //  규칙 버전 - 규칙을 고치면 올림 (ga_rule = volume.v2) / v2: 긴 줄표·전각 물결 범위 / v3: Merck 모델명 끝 포장량
 
     const OPS = ['≥' => '>=', '>=' => '>=', '>' => '>', '≤' => '<=', '<=' => '<=', '<' => '<', '~' => '~', '약' => '~', 'min' => '>=', 'max' => '<='];
     const OP_SIGN = ['>=' => '≥', '>' => '>', '<=' => '≤', '<' => '<', '~' => '~'];
@@ -18,8 +18,9 @@ class GoodsAttr {
 
     const NUM = '\d+(?:\.\d+)?';
 
-    //  규칙으로 뽑지 않는 카탈로그 번호 앞자리 - 40 = Merck(Sigma-Aldrich): 엑셀 정리본으로 새로 등록 예정
-    const SKIP_CATNO01 = ['40'];
+    //  모델명이 "제품번호-포장량" 인 카탈로그 번호 앞자리 - 40 = Merck(Sigma-Aldrich): 01916-500G, W213802-5KG-K, C-016-1ML
+    //  규격 칸에는 포장량이 없음 (규격 = 엑셀 Product Name Suffix, goods:import-merck)
+    const SKU_CATNO01 = ['40'];
 
     protected static $defs, $labels;
 
@@ -48,8 +49,7 @@ class GoodsAttr {
             ->join('shop_goods as g', 'g.gd_id', '=', 'm.gm_gd_id')
             ->whereBetween('m.gm_gd_id', [$fromId, $toId])
             ->whereNull('m.deleted_at')->whereNull('g.deleted_at')
-            ->whereNotIn('m.gm_catno01', self::SKIP_CATNO01)
-            ->get(['m.gm_id', 'm.gm_gd_id', 'm.gm_name', 'm.gm_spec']);
+            ->get(['m.gm_id', 'm.gm_gd_id', 'm.gm_name', 'm.gm_spec', 'm.gm_code', 'm.gm_catno01']);
 
         //  사람이 손댄 속성 - 이 모델·속성은 규칙으로 다시 넣지 않음
         $keep = DB::table('shop_goods_attr')->whereBetween('ga_gd_id', [$fromId, $toId])
@@ -59,7 +59,8 @@ class GoodsAttr {
 
         $rows = [];
         foreach ($models as $m) {
-            foreach (self::extract((string) $m->gm_name, (string) $m->gm_spec) as $r) {
+            $sku = in_array($m->gm_catno01, self::SKU_CATNO01) ? (string) $m->gm_code : '';
+            foreach (self::extract((string) $m->gm_name, (string) $m->gm_spec, $sku) as $r) {
                 if (isset($keep["{$m->gm_id}|{$r['ga_key']}"]))
                     continue;
                 $rows[] = ['ga_gd_id' => $m->gm_gd_id, 'ga_gm_id' => $m->gm_id] + $r;
@@ -177,7 +178,8 @@ class GoodsAttr {
     }
 
     //  모델 하나의 속성 줄 목록 (규격 칸 먼저, 없으면 모델명)
-    public static function extract(string $name, string $spec): array {
+    //  $sku: "제품번호-포장량" 모델명 (SKU_CATNO01 상품만) - 끝의 포장량을 가장 먼저 봄
+    public static function extract(string $name, string $spec, string $sku = ''): array {
         $defs = self::defs();
         $out  = [];
         $add  = function (string $key, string $from, string $raw, array $vals) use (&$out, $defs) {
@@ -205,11 +207,19 @@ class GoodsAttr {
 
         $s = SearchSpec::normalize(self::dashes($spec));
         $n = SearchSpec::normalize(self::dashes($name));
+        $has = fn($key) => in_array($key, array_column($out, 'ga_key'));
+
+        //  0. 모델명 끝 포장량 "01916-500G" "04163-500G-F"(끝 한 글자는 브랜드 구분) "C-016-1ML" - 10X1.2ML·1KT·SAMPLE 등은 안 봄
+        if ($sku !== '' && preg_match('/-(' . self::NUM . ')(ul|ml|l|ug|mg|g|kg)(?:-[a-z])?$/', strtolower($sku), $m)) {
+            $key = in_array($m[2], ['ul', 'ml', 'l']) ? 'volume' : 'pack_mass';
+            $num = self::toBase($key, (float) $m[1], $m[2]);
+            if ($num)
+                $add($key, 'gm_code', $sku, [['value' => self::fmt($num) . $defs[$key]['unit'], 'num' => $num, 'conf' => 0.95]]);
+        }
 
         //  1. 이름표 붙은 규격 "용량(ml) : 500 / 외치수(mm) : 440x264x117"
         foreach (self::labeled($s) as $key => $vals)
-            $add($key, 'gm_spec', $spec, $vals);
-        $has = fn($key) => in_array($key, array_column($out, 'ga_key'));
+            if (!$has($key)) $add($key, 'gm_spec', $spec, $vals);
 
         //  2. 용량 "500ml" "1-200ul" "3lit."
         if (!$has('volume')) {
@@ -232,7 +242,7 @@ class GoodsAttr {
         }
 
         //  4. 시약 포장량 - 규격이 "100mg" 이거나 "5g, Oleic Acid Coated" 처럼 무게로 시작
-        if (preg_match('/^\s*(' . self::NUM . ')\s*(ug|mg|g|kg)\s*($|[,\/;])/u', $s, $m)) {
+        if (!$has('pack_mass') && preg_match('/^\s*(' . self::NUM . ')\s*(ug|mg|g|kg)\s*($|[,\/;])/u', $s, $m)) {
             $num = self::toBase('pack_mass', (float) $m[1], $m[2]);
             if ($num !== null)
                 $add('pack_mass', 'gm_spec', $spec, [['value' => self::fmt($num) . 'mg', 'num' => $num, 'conf' => $m[3] === '' ? 0.95 : 0.85]]);
