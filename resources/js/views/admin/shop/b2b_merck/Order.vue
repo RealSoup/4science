@@ -6,6 +6,7 @@
         <b-col col sm="12" md="6">
             <b-button v-if="clickable" variant="primary" size="sm" @click="order">선택 발주</b-button>
             <b-button v-else size="sm">처리중 •••</b-button>
+            <b-form-select size="sm" v-model="sch_frm.limit" :options="limitOpts" @change="limitSet" class="limit_sel" />
         </b-col>
         <b-col col sm="12" md="6" class="addModel"><model-sch-input @addModel="addModel" /></b-col>
     </b-row>
@@ -152,7 +153,13 @@ export default {
                 street: '',
                 detail: '',
             },
-            sch_frm: {},
+            sch_frm: { limit: '15' },
+            limitOpts: [
+                { value: '15',  text: '15줄' },
+                { value: '30',  text: '30줄' },
+                { value: '50',  text: '50줄' },
+                { value: '100', text: '100줄' },
+            ],
             isModalViewed: false,
             extraModel: {
                 b2b_chk     :true,
@@ -262,6 +269,10 @@ export default {
             this.sch_frm.page = p;
             this.routerPush();
         },
+        limitSet(){     //  줄수 변경 시 1페이지부터
+            this.sch_frm.page = 1;
+            this.routerPush();
+        },
         frm_formatHp(v)   { return this.formatHp(v); },
 
         
@@ -326,4 +337,5 @@ export default {
 .row .col span.req_order_box { position:relative; width:70%; display:inline-block; min-width:140px; height:1.9rem; }
 .row .col span.req_order_box .req_order { height: 1.9rem; padding: 0.1rem 0.8rem; }
 .row .col span.req_order_box .req_order:focus { z-index:1; background:#FFF; width:20rem; height:5rem; position:absolute; top:0; left:0; }
+.top .limit_sel { width:auto; margin-left:.5rem; }
 </style>
