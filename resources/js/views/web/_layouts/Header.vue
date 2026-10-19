@@ -136,24 +136,27 @@ export default {
         }
     },
     watch: {
-        '$route.query' (to, from) {
-            // if ( this.$route.name == 'goods_index' ) {
-            if (['goods_index', 'new_goods_index'].includes(this.$route.name)) {                
-                this.$store.commit('goods/setFrm', {
-                    ca01:this.$route.query.ca01 ?? 0,
-                    ca02:this.$route.query.ca02 ?? 0,
-                    ca03:this.$route.query.ca03 ?? 0,
-                    ca04:this.$route.query.ca04 ?? 0,
-                    mk_id:this.$route.query.mk_id ?? 0,
-                    mode:this.$route.query.mode ?? "",
-                    keyword:this.$route.query.keyword ?? "",
-                    keyword_extra:this.$route.query.keyword_extra ?? "",
-                    sort:this.$route.query.sort ?? "hot",
-                    page:this.$route.query.page ?? 0,
-                });
-                this.$store.dispatch('goods/index');
-            }
-        }
+        '$route.query': {
+            handler(to, from) {
+                // if ( this.$route.name == 'goods_index' ) {
+                if (['goods_index', 'new_goods_index'].includes(this.$route.name)) {                
+                    this.$store.commit('goods/setFrm', {
+                        ca01:this.$route.query.ca01 ?? 0,
+                        ca02:this.$route.query.ca02 ?? 0,
+                        ca03:this.$route.query.ca03 ?? 0,
+                        ca04:this.$route.query.ca04 ?? 0,
+                        mk_id:this.$route.query.mk_id ?? 0,
+                        mode:this.$route.query.mode ?? "",
+                        keyword:this.$route.query.keyword ?? "",
+                        keyword_extra:this.$route.query.keyword_extra ?? "",
+                        sort:this.$route.query.sort ?? "hot",
+                        page:this.$route.query.page ?? 0,
+                    });
+                    this.$store.dispatch('goods/index');
+                }
+            },
+            immediate: true,    //  링크로 바로 들어오거나 새로고침해도 목록을 불러옴
+        },
     },
     computed: {
         ...mapGetters({

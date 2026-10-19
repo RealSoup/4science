@@ -49,7 +49,7 @@
             </b-row>
         </b-container>
 
-        <div v-if="pick" class="pick m_hide">
+        <div v-if="pick && pick.length" class="pick m_hide">
             <b-row class="layout">
                 <b-col class="fir">
                     <b-img :src="`${s3url}goods/4spick.png`" />
