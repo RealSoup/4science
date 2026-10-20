@@ -96,11 +96,11 @@
                     <div class="charts">
                         <div class="pn">
                             <p>최근 30일 일별 방문자</p>
-                            <div class="chart"><ChartJS v-if="vs" :chart-data="dayChart" :options="chartOpt" /></div>
+                            <div class="chart"><ChartJS v-if="vs" :chart-data="dayChart" :options="chartOpt" style="height:100%; position:relative;" /></div>
                         </div>
                         <div class="pn">
                             <p>실시간 · 분당 접속자 (30분 전 → 지금)</p>
-                            <div class="chart"><ChartJS v-if="rt" :chart-data="minChart" :options="chartOpt" /></div>
+                            <div class="chart"><ChartJS v-if="rt" :chart-data="minChart" :options="chartOpt" style="height:100%; position:relative;" /></div>
                         </div>
                     </div>
 
