@@ -9,6 +9,7 @@ class OrderModel extends Model {
     protected $table = 'shop_order_model';
     protected $primaryKey = 'odm_id';
     public $timestamps = false;
+    private $fallbackGoods = null;  //  대체 이미지용 상품 (img_src, img_thumb_src 에서 한 번만 조회)
     protected $appends = ['dlvy_chk', 'dlvy_all_in', 'img_src', 'img_thumb_src', 'odm_price_add_vat', 'b2b_chk', 'req_order'];
 
     public function getB2bChkAttribute() { return false; }
@@ -37,7 +38,12 @@ class OrderModel extends Model {
             
             $rst[] = $src;
         }
-        if (!$rst){ $rst[] = noimg(); }
+        //  주문상품에 이미지가 없으면 상품 화면과 같은 대체 이미지(시약 제조사 로고 등)를 쓴다
+        if (!$rst) {
+            if ($this->fallbackGoods === null)
+                $this->fallbackGoods = Goods::with(['fileGoodsGoods', 'goodsCategoryFirst', 'maker'])->find($this->odm_gd_id) ?? false;
+            $rst = $this->fallbackGoods ? Goods::imgMaker($this->fallbackGoods, $thumb) : [noimg()];
+        }
         return $rst;
     }
 }
