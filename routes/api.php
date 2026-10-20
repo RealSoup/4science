@@ -99,6 +99,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
             Route::Get('/', 'Admin\MainController@index');
             Route::Get('scheduleLog', 'Admin\MainController@scheduleLog');
+            Route::Get('visitor', 'Admin\MainController@visitor');
+            Route::Get('visitor/realtime', 'Admin\MainController@visitorRealtime');
             Route::prefix('common')->group(function () {
                 Route::GET('/', 'Admin\CommonController@index');
             });

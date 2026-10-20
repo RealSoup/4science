@@ -78,6 +78,56 @@
         </b-col>
     </b-row>
 
+    <b-row v-if="canSeeVisitor" class="mt-4">
+        <b-col col cols="12" class="visitor">
+            <h4>방문자현황 <small>GA4 기준 · 1시간마다 갱신 (실시간은 1분) <template v-if="vs">· {{ vs.updated_at }} 기준</template></small></h4>
+            <div class="box">
+                <div v-if="vsError" class="empty">{{ vsError }}</div>
+                <template v-else>
+                    <div class="stats">
+                        <div class="stat live"><b>{{ rt ? num(rt.active) : '-' }}</b><span>지금 접속자 (30분)</span></div>
+                        <div class="stat"><b>{{ vs ? num(vs.today) : '-' }}</b><span>오늘 (집계 중)</span></div>
+                        <div class="stat"><b>{{ vs ? num(vs.yesterday) : '-' }}</b><span>어제</span></div>
+                        <div class="stat"><b>{{ vs ? num(vs.avgDay) : '-' }}</b><span>일 평균 (30일)</span></div>
+                        <div class="stat"><b>{{ vs ? num(vs.avgWeek) : '-' }}</b><span>주 평균 (8주)</span></div>
+                        <div class="stat"><b>{{ vs ? num(vs.avgMonth) : '-' }}</b><span>월 평균 (6개월)</span></div>
+                    </div>
+
+                    <div class="charts">
+                        <div class="pn">
+                            <p>최근 30일 일별 방문자</p>
+                            <div class="chart"><ChartJS v-if="vs" :chart-data="dayChart" :options="chartOpt" /></div>
+                        </div>
+                        <div class="pn">
+                            <p>실시간 · 분당 접속자 (30분 전 → 지금)</p>
+                            <div class="chart"><ChartJS v-if="rt" :chart-data="minChart" :options="chartOpt" /></div>
+                        </div>
+                    </div>
+
+                    <div class="lists">
+                        <div class="pn">
+                            <p>지금 보는 페이지</p>
+                            <div v-for="(r, i) in (rt ? rt.pages : [])" :key="i" class="li"><span>{{ r.name }}</span><b>{{ num(r.cnt) }}</b></div>
+                        </div>
+                        <div class="pn">
+                            <p>인기 페이지 (7일 조회수)</p>
+                            <div v-for="(r, i) in (vs ? vs.pages : [])" :key="i" class="li"><span>{{ r.name }}</span><b>{{ num(r.cnt) }}</b></div>
+                        </div>
+                        <div class="pn">
+                            <p>유입 경로 (7일)</p>
+                            <div v-for="(r, i) in (vs ? vs.channels : [])" :key="i" class="li"><span>{{ r.name }}</span><b>{{ r.pct }}%</b></div>
+                        </div>
+                        <div class="pn">
+                            <p>기기 (7일)</p>
+                            <div v-for="(r, i) in (vs ? vs.devices : [])" :key="i" class="li"><span>{{ r.name }}</span><b>{{ r.pct }}%</b></div>
+                            <div v-if="vs" class="li"><span>재방문 비율</span><b>{{ vs.returning }}%</b></div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </b-col>
+    </b-row>
+
     <!-- <b-row class="mt-4">
         <b-col cols="12" class="schedule">
             <h4>스케줄 작업 로그 (최근 7일)</h4>
@@ -107,8 +157,11 @@
 
 <script>
 import ax from '@/api/http';
+import ChartJS from '@/views/admin/stats/_comp/ChartJS';
+import { mapGetters } from 'vuex';
 export default {
     name: 'admMain',
+    components: { ChartJS },
 
     data() { 
         return { 
@@ -117,11 +170,38 @@ export default {
                 estimateReq:[], 
                 estimateReqCount:0 
             }, 
-            scheduleLog:[] 
-        }; 
+            scheduleLog:[],
+            vs:null,            //  방문자 하루 단위 숫자
+            rt:null,            //  실시간 30분
+            vsError:'',
+            rtTimer:null,
+            chartOpt:{
+                responsive:true, maintainAspectRatio:false, legend:{ display:false },
+                scales:{ yAxes:[{ ticks:{ beginAtZero:true, precision:0 } }], xAxes:[{ gridLines:{ display:false } }] }
+            },
+        };
     },
     computed: {
+        ...mapGetters({ user: 'auth/user' }),
+        //  방문자현황은 활성 관리자 중 사원(1)~이사(6)만 (MainController::canSeeVisitor와 같은 조건)
+        canSeeVisitor() {
+            const um = (this.user && this.user.user_mng) || {};
+            const pos = parseInt(um.um_position);
+            return um.um_status === 'Y' && pos >= 1 && pos <= 6;
+        },
         order_7() { return Object.values(this.con.order).reduce((acc, el) => acc + el , 0); },
+        dayChart() {
+            return {
+                labels: this.vs.days.map(d => d.date),
+                datasets: [{ label:'방문자', data: this.vs.days.map(d => d.users), backgroundColor:'#8368D6' }]
+            };
+        },
+        minChart() {
+            return {
+                labels: this.rt.perMin.map((v, i) => `${30 - i}분 전`),
+                datasets: [{ label:'접속자', data: this.rt.perMin, backgroundColor:'#D4537E' }]
+            };
+        },
         // estimate_7() { return Object.values(this.con.estimateReq).reduce((acc, el) => acc + el , 0); },
     },
     async mounted() {
@@ -139,6 +219,35 @@ export default {
             Notify.consolePrint(e);
             Notify.toast('warning', e.response.data.message);
         }
+
+        //  방문자현황은 GA4가 느리거나 실패해도 위 주문/견적 화면에 영향 없도록 따로 불러온다
+        if (!this.canSeeVisitor)
+            return;
+        this.loadVisitor();
+        this.loadRealtime();
+        this.rtTimer = setInterval(this.loadRealtime, 60 * 1000);
+    },
+    beforeDestroy() {
+        clearInterval(this.rtTimer);
+    },
+    methods: {
+        num(v) { return Number(v || 0).toLocaleString(); },
+        async loadVisitor() {
+            try {
+                const res = await ax.get(`/api/admin/visitor`);
+                this.vs = res.data;
+            } catch (e) {
+                this.vsError = (e.response && e.response.data.message) || '방문자 통계를 불러오지 못했습니다.';
+            }
+        },
+        async loadRealtime() {
+            try {
+                const res = await ax.get(`/api/admin/visitor/realtime`);
+                this.rt = res.data;
+            } catch (e) {
+                //  실시간은 1분 뒤 다시 시도 (오류 문구는 loadVisitor 쪽에서 보여줌)
+            }
+        },
     },
 };
 </script>
@@ -189,6 +298,27 @@ export default {
     .p_wrap { margin-left:auto; margin-right:auto; }
     .p_wrap .row .left { margin-bottom:9%; }
 
+}
+
+.p_wrap .visitor h4 small { font-size:.85rem; font-weight:normal; color:#888; margin-left:.5rem; }
+.p_wrap .visitor .box { border-color:#8368D6; }
+.p_wrap .visitor .empty { padding:1.5rem; color:#999; text-align:center; }
+.p_wrap .visitor .stats { display:grid; grid-template-columns:repeat(6, minmax(0, 1fr)); gap:.75rem; }
+.p_wrap .visitor .stat { background:#fff; border-radius:1rem; padding:1rem .5rem; text-align:center; }
+.p_wrap .visitor .stat b { display:block; font-size:1.9rem; font-weight:600; color:#8368D6; }
+.p_wrap .visitor .stat span { font-size:.9rem; font-weight:800; }
+.p_wrap .visitor .stat.live { box-shadow:inset 0 0 0 3px #D4537E; }
+.p_wrap .visitor .stat.live b { color:#D4537E; }
+.p_wrap .visitor .charts { display:grid; grid-template-columns:2fr 1fr; gap:.75rem; margin-top:.75rem; }
+.p_wrap .visitor .lists { display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:.75rem; margin:.75rem 0 .5rem 0; }
+.p_wrap .visitor .pn { background:#fff; border-radius:1rem; padding:.75rem 1rem; min-width:0; }
+.p_wrap .visitor .pn p { font-weight:800; margin-bottom:.5rem; }
+.p_wrap .visitor .chart { height:200px; }
+.p_wrap .visitor .li { display:flex; justify-content:space-between; gap:.5rem; padding:.35rem 0; border-bottom:1px solid #eee; font-size:.9rem; }
+.p_wrap .visitor .li span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+@media (max-width: 992px){
+    .p_wrap .visitor .stats { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .p_wrap .visitor .charts, .p_wrap .visitor .lists { grid-template-columns:1fr; }
 }
 
 .p_wrap .schedule .box { border-color:#8368D6; }

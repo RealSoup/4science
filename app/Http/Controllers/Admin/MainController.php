@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Shop\{Order, EstimateReq};
+use App\Services\Ga4Service;
 use DB;
 
 class MainController extends Controller {
@@ -46,6 +47,37 @@ class MainController extends Controller {
             ->latest()->get();
 
         return response()->json($rst, 200);
+    }
+
+    //  방문자현황 (GA4) - 하루 단위 숫자
+    public function visitor(Ga4Service $ga) {
+        return $this->ga4($ga, fn() => $ga->summary());
+    }
+
+    //  방문자현황 (GA4) - 최근 30분 실시간
+    public function visitorRealtime(Ga4Service $ga) {
+        return $this->ga4($ga, fn() => $ga->realtime());
+    }
+
+    //  방문자현황은 활성 관리자 중 사원(1)~이사(6)만 본다 (CEO, 직급 없는 공용 계정 제외)
+    //  Main.vue의 canSeeVisitor와 같은 조건
+    private function canSeeVisitor(): bool {
+        $um = auth()->user()->userMng;
+        return $um->um_status === 'Y' && $um->um_position >= 1 && $um->um_position <= 6;
+    }
+
+    //  GA4가 실패해도 메인 화면은 그대로 뜨도록 오류는 로그만 남기고 503으로 돌려준다
+    private function ga4(Ga4Service $ga, \Closure $fn) {
+        if (!$this->canSeeVisitor())
+            abort(403);
+        if (!$ga->enabled())
+            return response()->json([ 'message' => 'GA4 설정(GA4_PROPERTY_ID, 키 파일)이 없습니다.' ], 503);
+        try {
+            return response()->json($fn(), 200);
+        } catch (\Throwable $e) {
+            \Log::warning('GA4 조회 실패: ' . $e->getMessage());
+            return response()->json([ 'message' => '방문자 통계를 불러오지 못했습니다.' ], 503);
+        }
     }
 
     private const JOB_LABELS = [

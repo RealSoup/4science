@@ -41,4 +41,10 @@ return [
         'client_secret' => env('KAKAO_SECRET'),
         'redirect' => env('KAKAO_REDIRECT_URI'),
     ],
+
+    //  관리자 메인 방문자현황 (GA4 Data API, 서비스 계정 키는 storage에 둔다 - git 제외)
+    'ga4' => [
+        'property_id' => env('GA4_PROPERTY_ID'),
+        'key_file'    => env('GA4_KEY_FILE', storage_path('app/ga4-key.json')),
+    ],
 ];
