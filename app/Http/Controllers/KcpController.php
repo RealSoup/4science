@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Storage;
 use DB;
+use Cache;
 use App\Services\KcpCrypto;
 
 
@@ -42,10 +43,11 @@ class KcpController extends Controller {
             ]);
         }
 
-        session([
-            'kcp_reg_cert_key' => $result['reg_cert_key'],
-            'kcp_ordr_idxx'    => $ordr_idxx,
-        ]);
+        // 리턴(adult_popup)은 세션 없이 받으므로 거래등록키로 회원을 찾을 수 있게 캐시에 저장 (30분)
+        Cache::put('kcp_cert:' . $result['reg_cert_key'], [
+            'user_id'   => auth()->id(),
+            'ordr_idxx' => $ordr_idxx,
+        ], now()->addMinutes(30));
 
         return response()->json([
             'res_cd'       => '0000',
@@ -62,17 +64,17 @@ class KcpController extends Controller {
 
         $fail_params = ['is_adult' => 'false', 'res_cd' => $res_cd, 'res_msg' => $res_msg];
 
-        // reg_cert_key 검증
-        $sess_reg_cert_key = session('kcp_reg_cert_key', '');
-        $ordr_idxx         = session('kcp_ordr_idxx', '');
+        // reg_cert_key 검증 - 세션 대신 거래등록 때 저장한 캐시로 확인 (한 번 쓰면 삭제)
+        $cert_req = $cb_reg_cert_key !== '' ? Cache::pull('kcp_cert:' . $cb_reg_cert_key) : null;
 
-        if ($cb_reg_cert_key !== $sess_reg_cert_key) {
-            session()->forget(['kcp_reg_cert_key', 'kcp_ordr_idxx']);
+        if (!$cert_req) {
             return redirect()->route('shop.order.adult_popup', array_merge($fail_params, ['res_msg' => '거래등록키 불일치']));
         }
 
+        $sess_reg_cert_key = $cb_reg_cert_key;
+        $ordr_idxx         = $cert_req['ordr_idxx'] ?? '';
+
         if ($res_cd !== '0000') {
-            session()->forget(['kcp_reg_cert_key', 'kcp_ordr_idxx']);
             return redirect()->route('shop.order.adult_popup', $fail_params);
         }
 
@@ -88,8 +90,6 @@ class KcpController extends Controller {
             "reg_cert_key" => $sess_reg_cert_key,
             "ordr_idxx"    => $ordr_idxx,
         ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
-
-        session()->forget(['kcp_reg_cert_key', 'kcp_ordr_idxx']);
 
         if (($query_result['res_cd'] ?? '') !== '0000') {
             return redirect()->route('shop.order.adult_popup', array_merge($fail_params, [
@@ -118,9 +118,9 @@ class KcpController extends Controller {
         
         // $is_adult  = empty($birth_day) ? true : $this->checkAdult($birth_day);
 
-        if ($is_adult && auth()->check()) {
+        if ($is_adult && !empty($cert_req['user_id'])) {
             DB::table('users')
-                ->where('id', auth()->id())
+                ->where('id', $cert_req['user_id'])
                 ->update(['adult_verified_at' => now()]);
         }
 

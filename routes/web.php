@@ -97,7 +97,16 @@ Route::prefix('shop')->group(function () {
         Route::POST('payReturnPsys',              'Shop\OrderController@payReturnPsys');
         Route::GET('tossBrandPayAccessToken',     'Shop\OrderController@tossBrandPayAccessToken');
         Route::GET('tossBillingKeyIssue/{od_id}', 'Shop\OrderController@tossBillingKeyIssue');
-        Route::POST('adult_popup',                'KcpController@ReqPopUp')->name('shop.order.adult_popup');   //  kcp 본인확인 리턴
+        //  kcp 본인확인 리턴 - KCP가 다른 사이트에서 POST로 보내므로 로그인 쿠키가 안 붙어 올 수 있다.
+        //  세션을 시작하면 빈 세션 쿠키로 고객의 로그인 쿠키를 덮어써서 로그아웃되므로 세션 관련 미들웨어를 뺀다.
+        Route::POST('adult_popup',                'KcpController@ReqPopUp')->name('shop.order.adult_popup')
+            ->withoutMiddleware([
+                \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+                \Illuminate\Session\Middleware\StartSession::class,
+                \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+                \App\Http\Middleware\VerifyCsrfToken::class,
+                \App\Http\Middleware\TrackingUuid::class,
+            ]);
     });
 
     Route::prefix('estimate')->group(function () {
