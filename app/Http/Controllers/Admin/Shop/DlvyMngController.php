@@ -45,8 +45,13 @@ class DlvyMngController extends Controller {
                 else return $q->where('od_mng', $v);
             })
             //  송장이 하나도 없는 상품(MODEL)이 남은 주문만
-            ->when($req->no_dlvy == '1',       fn ($q) => $q->whereHas('orderModel', fn ($q) => $q->where('odm_type', 'MODEL')
-                ->whereDoesntHave('orderDlvyInfo', fn ($q) => $q->whereNotNull('oddi_dlvy_num')->where('oddi_dlvy_num', '<>', ''))));
+            //  whereHas(EXISTS)는 MySQL이 주문상품 전체(44만)를 materialize 해서 느림 -> 스칼라 서브쿼리로 주문 행마다 인덱스 조회
+            ->when($req->no_dlvy == '1',       function ($q) {
+                $p = DB::getTablePrefix();
+                return $q->whereRaw("0 < (SELECT COUNT(*) FROM {$p}shop_order_model m
+                    LEFT JOIN {$p}shop_order_dlvy_info d ON d.oddi_odm_id = m.odm_id AND d.oddi_dlvy_num <> ''
+                    WHERE m.odm_od_id = {$p}shop_order.od_id AND m.odm_type = 'MODEL' AND d.oddi_id IS NULL)");
+            });
 
         if ($req->filled('keyword')) {
             $txt = $req->keyword;
