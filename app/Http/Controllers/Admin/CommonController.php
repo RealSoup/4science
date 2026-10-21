@@ -33,6 +33,7 @@ class CommonController extends Controller {
         });
 
         $rst['reqVoucher'] = UserMileage::with('user')->Type('REQ')->Tbl('voucher')->Key(0)->latest()->get();
+        $rst['dlvyMng']    = \App\Http\Controllers\Admin\Shop\DlvyMngController::allowed();
 
         return response()->json($rst, 200);
     }

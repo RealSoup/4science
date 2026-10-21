@@ -230,6 +230,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
                     ],
                 ]);
 
+                //  배송 관리 (한진택배 엑셀)
+                Route::GET( 'dlvy_mng',         'Admin\Shop\DlvyMngController@index');
+                Route::POST('dlvy_mng/export',  'Admin\Shop\DlvyMngController@export');
+                Route::POST('dlvy_mng/preview', 'Admin\Shop\DlvyMngController@preview');
+                Route::POST('dlvy_mng/store',   'Admin\Shop\DlvyMngController@store');
+
                 Route::get('bundleDc/findGmId/{gm_id}', 'Admin\Shop\BundleDcController@findGmId');
                 
 

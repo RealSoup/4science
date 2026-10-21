@@ -25,6 +25,7 @@ import AdmPurchaseAtIndex from '@/views/admin/shop/purchaseAt/Index';
 
 import AdmOrderIndex from '@/views/admin/shop/order/Index';
 import AdmOrderEdit from '@/views/admin/shop/order/Edit';
+import AdmDlvyMngIndex from '@/views/admin/shop/dlvyMng/Index';
 
 import AdmEstimateIndex from '@/views/admin/shop/estimate/Index';
 import AdmEstimateCreate from '@/views/admin/shop/estimate/Create';
@@ -155,6 +156,10 @@ export default [
                 path: 'shop/order/:od_id',
                 name: 'adm_order_edit',
                 component: AdmOrderEdit,
+            }, {
+                path: 'shop/dlvy_mng',
+                name: 'adm_dlvy_mng',
+                component: AdmDlvyMngIndex,
             },
            
             //   견적

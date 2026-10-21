@@ -46,6 +46,12 @@
             </p>
         </section>
 
+        <section v-if="dlvyMng">
+            <p @click="$router.push({name: 'adm_dlvy_mng'}).catch(()=>{})" class="solo" :class="{focus:$route.name == 'adm_dlvy_mng'}">
+                <i>배송관리</i>
+            </p>
+        </section>
+
         
         <section v-if="can('stats') || can('stats_behavio')">
             <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_stats')}"><i>통계</i></p>
@@ -169,6 +175,7 @@ export default {
                 inquiry:[],
             },
             reqVoucher   : [],
+            dlvyMng      : false,
         }
     },
 
@@ -214,6 +221,7 @@ export default {
             this.reqEstimate = res.data.reqEstimate;
             this.reqAsk      = res.data.reqAsk;
             this.reqVoucher  = res.data.reqVoucher;
+            this.dlvyMng     = res.data.dlvyMng;
         }
     }
 }
