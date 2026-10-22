@@ -16,7 +16,7 @@ use DB;
 class DlvyMngController extends Controller {
 
     const DLVY_COM     = '한진택배';     //  Order::$orderConfig['delivery_com'] 키와 같아야 배송조회 링크가 동작
-    const XLS_FARE     = 'B';           //  G열 운임 (한진 양식 기본값)
+    const XLS_FARE = 'A';           //  G열 운임 (한진 양식 기본값)
     const XLS_PAY      = '신용';         //  H열 구분 (한진 양식 기본값)
     const XLS_ITEM     = '과학기자재';   //  I열 상품명
     const HIDE_STEPS   = ['60', '61'];  //  주문취소, 결제실패는 항상 제외 (od_step은 ENUM이라 문자로 비교)

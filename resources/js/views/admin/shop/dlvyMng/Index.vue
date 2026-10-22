@@ -51,7 +51,7 @@
             <div><b>송장 {{ boxes.length }}개</b> <small>선택 상품 {{ selCount }}개</small></div>
             <div>
                 <b-button size="sm" class="white" @click="clearBoxes" :disabled="!boxes.length">비우기</b-button>
-                <b-button size="sm" class="d_blue" @click="exportExcel" :disabled="!boxes.length">한진 엑셀 다운로드</b-button>
+                <b-button size="sm" class="d_blue" @click="exportExcel" :disabled="!boxes.length">엑셀 다운</b-button>
             </div>
         </div>
     </b-container>
