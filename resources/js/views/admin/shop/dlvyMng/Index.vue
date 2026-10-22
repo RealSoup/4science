@@ -93,7 +93,7 @@
                 <div class="items" :style="{borderLeftColor:color(od.od_id), background:colorBg(od.od_id)}">
                     <div class="items_top">
                         <span class="addr">{{ od.od_receiver }} / {{ od.od_receiver_hp }} / {{ od.od_addr1 }} {{ od.od_addr2 }}</span>
-                        <b-button size="sm" class="white" @click="checkAll(od)">미지정 상품 전체 선택</b-button>
+                        <b-button v-if="hasFree(od)" size="sm" class="white" @click="checkAll(od)">미지정 상품 전체 선택</b-button>
                     </div>
                     <b-row v-for="row in brkMap[od.od_id].rows" :key="row.it.odm_id" class="item"
                         :class="{sel:!!sel[row.it.odm_id], none:!sel[row.it.odm_id] && brkMap[od.od_id].lanes && !boxesOf(row.it.odm_id).length}"
@@ -340,6 +340,8 @@ export default {
             this.sel = {};
             this.last_sel = null;
         },
+        //  송장에도 없고 선택도 안 된 상품이 있는지
+        hasFree(od) { return od.items.some(it => !this.sel[it.odm_id] && !this.boxesOf(it.odm_id).length); },
         //  아직 어느 송장에도 없는 상품만 선택
         checkAll(od) {
             od.items.forEach(it => { if (!this.boxesOf(it.odm_id).length && !this.sel[it.odm_id]) this.checkItem(od, it, true); });
