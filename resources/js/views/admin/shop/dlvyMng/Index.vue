@@ -45,6 +45,17 @@
         </b-row>
     </b-container>
 
+    <!-- 송장 묶기 (상단 고정) -->
+    <b-container class="box_bar_wrap">
+        <div class="box_bar">
+            <div><b>송장 {{ boxes.length }}개</b> <small>선택 상품 {{ selCount }}개</small></div>
+            <div>
+                <b-button size="sm" class="white" @click="clearBoxes" :disabled="!boxes.length">비우기</b-button>
+                <b-button size="sm" class="d_blue" @click="exportExcel" :disabled="!boxes.length">한진 엑셀 다운로드</b-button>
+            </div>
+        </div>
+    </b-container>
+
     <b-container class="cmain">
         <b-row class="list_top">
             <b-col>Total : <b>{{ list.total }}</b></b-col>
@@ -81,31 +92,40 @@
             <div v-if="opened[od.od_id]" :key="`items_${od.od_id}`" class="items" :style="{borderLeftColor:color(od.od_id), background:colorBg(od.od_id)}">
                 <div class="items_top">
                     <span class="addr">{{ od.od_receiver }} / {{ od.od_receiver_hp }} / {{ od.od_addr1 }} {{ od.od_addr2 }}</span>
-                    <b-button size="sm" class="white" @click="checkAll(od)">남은 상품 전체 선택</b-button>
+                    <b-button size="sm" class="white" @click="checkAll(od)">미지정 상품 전체 선택</b-button>
                 </div>
-                <b-row v-for="it in od.items" :key="it.odm_id" class="item"
-                    :class="{sel:!!sel[it.odm_id], warn:!sel[it.odm_id] && assigned[it.odm_id] && remain(it) > 0, full:remain(it) <= 0}"
-                    :style="sel[it.odm_id] ? {background:color(od.od_id)} : {}">
-                    <b-col class="text-left">
-                        <b>{{ it.odm_gd_name }}</b>
-                        <span class="sub">{{ it.odm_gm_name }} / {{ it.odm_gm_code }} / {{ it.odm_gm_catno }}</span>
-                        <b-badge v-if="it.odpa_pa_id" class="orange">업체직배송</b-badge>
+                <b-row v-for="row in brkMap[od.od_id].rows" :key="row.it.odm_id" class="item"
+                    :class="{sel:!!sel[row.it.odm_id], none:!sel[row.it.odm_id] && brkMap[od.od_id].lanes && !boxesOf(row.it.odm_id).length}"
+                    :style="sel[row.it.odm_id] ? {background:color(od.od_id)} : {}">
+                    <b-col class="name text-left">
+                        <b>{{ row.it.odm_gd_name }}</b>
+                        <span class="sub">{{ row.it.odm_gm_name }} / {{ row.it.odm_gm_code }} / {{ row.it.odm_gm_catno }}</span>
+                        <b-badge v-if="row.it.odpa_pa_id" class="orange">업체직배송</b-badge>
                     </b-col>
-                    <b-col class="ea">주문 {{ it.odm_ea }} / 남음 <b>{{ remain(it) }}</b></b-col>
+                    <b-col class="ea">수량 <b>{{ row.it.odm_ea }}</b>개</b-col>
                     <b-col class="chk">
-                        <b-form-checkbox :checked="!!sel[it.odm_id]" :disabled="remain(it) <= 0" @change="checkItem(od, it, $event)" />
+                        <b-form-checkbox :checked="!!sel[row.it.odm_id]" @change="checkItem(od, row.it, $event)" />
                     </b-col>
-                    <b-col class="ea_input">
-                        <template v-if="sel[it.odm_id]">
-                            <b-form-input v-for="(c, ci) in sel[it.odm_id].chunks" :key="ci" v-model.number="sel[it.odm_id].chunks[ci]"
-                                type="number" min="1" size="sm" class="chunk" :class="{next:ci == 0}" :title="ci == 0 ? '다음 박스에 들어갈 수량' : `분할 ${ci + 1}`"
-                                @blur="splitChunk(it, ci)" @keyup.enter="$event.target.blur()" />
+                    <b-col class="quick">
+                        <b-button v-if="!boxesOf(row.it.odm_id).length" size="sm" class="btn_one" @click="makeOne(od, row.it)">송장</b-button>
+                        <template v-if="last_sel == row.it.odm_id">
+                            <b-button size="sm" class="btn_multi" @click="makeBox">상품들 송장<template v-if="selCount > 1"> ({{ selCount }})</template></b-button>
+                            <b-form-select v-if="boxes.length" v-model="quick_box" size="sm" @change="quickAdd">
+                                <b-form-select-option value="">송장에 추가</b-form-select-option>
+                                <b-form-select-option v-for="(b, i) in boxes" :key="b.no" :value="i">송장{{ b.no }}</b-form-select-option>
+                            </b-form-select>
                         </template>
                     </b-col>
                     <b-col class="text-left">
-                        <b-badge v-for="(b, bi) in boxesOf(it.odm_id)" :key="`b${bi}`" class="box_badge" :style="{background:color(od.od_id)}">박스{{ b.no }}:{{ b.ea }}</b-badge>
-                        <span v-for="d in it.dlvy" :key="d.oddi_id" class="dlvy">{{ d.oddi_dlvy_com }} {{ d.oddi_dlvy_num }}</span>
+                        <b-badge v-for="b in boxesOf(row.it.odm_id)" :key="`b${b.no}`" class="box_badge" :style="{background:boxColor(b.no)}">송장{{ b.no }}<template v-if="b.mixed"> +타주문</template></b-badge>
+                        <span v-for="d in row.it.dlvy" :key="d.oddi_id" class="dlvy">{{ d.oddi_dlvy_com }} {{ d.oddi_dlvy_num }}</span>
                     </b-col>
+                    <div class="brk_col">
+                        <span v-for="(c, ci) in row.cells" :key="ci" class="lane" :class="c ? c.pos : ''" :style="c ? {color:boxColor(c.no)} : {}"
+                            :title="c ? `송장${c.no}${c.mixed ? ' (다른 주문 포함)' : ''}` : ''">
+                            <small v-if="c && (c.pos == 'top' || c.pos == 'one')" class="no">{{ c.no }}<template v-if="c.mixed">+</template></small>
+                        </span>
+                    </div>
                 </b-row>
             </div>
         </template>
@@ -116,38 +136,23 @@
         </pagination>
     </b-container>
 
-    <!-- 박스 묶기 -->
+    <!-- 송장 목록 -->
     <b-container class="box_wrap">
-        <div class="box_bar">
-            <div><b>박스 {{ boxes.length }}개</b> <small>선택 상품 {{ selCount }}개</small></div>
-            <div>
-                <b-button size="sm" class="mint" @click="makeBox" :disabled="!selCount">선택 상품 → 송장추가</b-button>
-                <b-input-group size="sm" class="add_box">
-                    <b-form-select v-model="target_box" size="sm">
-                        <b-form-select-option value="">박스 선택</b-form-select-option>
-                        <b-form-select-option v-for="(b, i) in boxes" :key="b.no" :value="i">박스{{ b.no }}</b-form-select-option>
-                    </b-form-select>
-                    <b-input-group-append><b-button size="sm" class="teal" @click="addToBox" :disabled="!selCount || target_box === ''">에 추가</b-button></b-input-group-append>
-                </b-input-group>
-                <b-button size="sm" class="white" @click="clearBoxes" :disabled="!boxes.length">비우기</b-button>
-                <b-button size="sm" class="d_blue" @click="exportExcel" :disabled="!boxes.length">한진 엑셀 다운로드</b-button>
-            </div>
-        </div>
         <b-row class="list_top">
-            <b-col><b>박스 목록</b></b-col>
+            <b-col><b>송장 목록</b> <small>송장 1개 = 엑셀 1행, 박스 수 = F열 수량</small></b-col>
         </b-row>
-        <div v-for="(b, i) in boxes" :key="b.no" class="box">
+        <div v-for="(b, i) in boxes" :key="b.no" class="box" :style="{borderLeftColor:boxColor(b.no)}">
             <div class="box_head">
                 <span v-for="od_id in boxOdIds(b)" :key="od_id" class="dot" :style="{background:color(od_id)}"></span>
-                <b>박스{{ b.no }}</b> 수량 {{ boxEa(b) }}
+                <b :style="{color:boxColor(b.no)}">송장{{ b.no }}</b>
+                <span class="cnt">박스 <b-form-spinbutton v-model="b.cnt" min="1" max="99" size="sm" inline /></span>
                 <span class="receiver">{{ b.items[0].receiver }} / {{ b.items[0].addr }}</span>
                 <b-badge v-if="boxWarn(b)" class="orange">받는분/주소가 다른 주문 포함 (첫 주문 기준으로 출력)</b-badge>
-                <b-button size="sm" variant="danger" class="float-right" @click="boxes.splice(i, 1)">박스 삭제</b-button>
+                <b-button size="sm" variant="danger" class="float-right" @click="boxes.splice(i, 1)">송장 삭제</b-button>
             </div>
-            <div v-for="(it, ii) in b.items" :key="`${it.odm_id}_${ii}`" class="box_item">
+            <div v-for="(it, ii) in b.items" :key="it.odm_id" class="box_item">
                 <span class="dot" :style="{background:color(it.od_id)}"></span>
-                {{ it.od_id }}. {{ it.name }}
-                <b-form-input v-model.number="it.ea" type="number" min="1" size="sm" class="d-inline-block ea" />
+                {{ it.od_id }}. {{ it.name }} <small>(수량 {{ it.ea }}개)</small>
                 <b-link class="item_del" @click="removeItem(i, ii)"><b-icon-x /></b-link>
             </div>
         </div>
@@ -199,6 +204,7 @@
 import ax from '@/api/http';
 
 const PALETTE = ['#E8590C', '#1C7ED6', '#2F9E44', '#AE3EC9', '#F08C00', '#0C8599', '#C2255C', '#5C940D', '#3B5BDB', '#862E9C'];
+const BOX_PALETTE = ['#E03131', '#1971C2', '#2B8A3E', '#F08C00', '#7048E8', '#0CA678', '#D6336C', '#495057'];
 
 export default {
     components: {
@@ -224,19 +230,52 @@ export default {
                 list_size: 20,
             },
             opened: {},
-            sel: {},        //  odm_id => { od, it, ea }
-            boxes: [],      //  [{ no, items:[{ od_id, odm_id, name, ea, receiver, addr }] }]
+            sel: {},        //  odm_id => { od, it }
+            boxes: [],      //  송장 [{ no, cnt(박스 수), items:[{ od_id, odm_id, name, ea, receiver, addr }] }]
             box_seq: 0,
-            target_box: '',
+            quick_box: '',
+            last_sel: null,  //  마지막에 체크한 상품 (바로가기 버튼 표시 위치)
             upload_file: null,
             preview: null,
         }
     },
     computed: {
-        //  odm_id => 박스에 담긴 수량 합
-        assigned() {
+        //  od_id => { lanes, rows:[{ it, cells:[레인별 괄호 조각] }] }
+        //  같은 송장 상품은 주문 안에서 붙여 정렬, 송장마다 오른쪽 괄호 레인 배정
+        brkMap() {
             let rst = {};
-            this.boxes.forEach(b => b.items.forEach(it => { rst[it.odm_id] = (rst[it.odm_id] || 0) + (parseInt(it.ea) || 0); }));
+            (this.list.data || []).forEach(od => {
+                const has = (b, odm_id) => b.items.some(x => x.odm_id == odm_id);
+                const bx = this.boxes.filter(b => b.items.some(x => x.od_id == od.od_id));
+                const rows = od.items.map((it, i) => {
+                    const k = bx.findIndex(b => has(b, it.odm_id));
+                    return { it, i, k: k < 0 ? Infinity : k };
+                }).sort((a, b) => a.k - b.k || a.i - b.i);
+
+                let lanes = [];     //  레인별 마지막 행
+                const spans = bx.map(b => {
+                    const idx = rows.map((r, ri) => has(b, r.it.odm_id) ? ri : -1).filter(v => v >= 0);
+                    const sp = { no: b.no, s: idx[0], e: idx[idx.length - 1], idx, mixed: b.items.some(x => x.od_id != od.od_id) };
+                    let l = lanes.findIndex(end => end < sp.s);
+                    if (l < 0) { l = lanes.length; lanes.push(-1); }
+                    lanes[l] = sp.e;
+                    sp.lane = l;
+                    return sp;
+                });
+
+                rst[od.od_id] = {
+                    lanes: lanes.length,
+                    rows: rows.map((r, ri) => {
+                        let cells = Array(lanes.length).fill(null);
+                        spans.forEach(sp => {
+                            if (ri < sp.s || ri > sp.e) return;
+                            const pos = sp.s == sp.e ? 'one' : ri == sp.s ? 'top' : ri == sp.e ? 'bot' : sp.idx.includes(ri) ? 'mid' : 'pass';
+                            cells[sp.lane] = { pos, no: sp.no, mixed: sp.mixed };
+                        });
+                        return { it: r.it, cells };
+                    }),
+                };
+            });
             return rst;
         },
         selCount() { return Object.keys(this.sel).length; },
@@ -279,93 +318,95 @@ export default {
         color(od_id) { return PALETTE[od_id % PALETTE.length]; },
         colorBg(od_id) { return PALETTE[od_id % PALETTE.length] + '14'; },
         toggle(od_id) { this.$set(this.opened, od_id, !this.opened[od_id]); },
-        remain(it) { return it.odm_ea - (this.assigned[it.odm_id] || 0); },
+        boxColor(no) { return BOX_PALETTE[(no - 1) % BOX_PALETTE.length]; },
         odDone(od) { return od.items.length && od.items.every(it => it.dlvy.length); },
         boxesOf(odm_id) {
-            let rst = [];
-            this.boxes.forEach(b => b.items.forEach(it => { if (it.odm_id == odm_id) rst.push({ no: b.no, ea: it.ea }); }));
-            return rst;
+            return this.boxes.filter(b => b.items.some(it => it.odm_id == odm_id))
+                .map(b => ({ no: b.no, mixed: new Set(b.items.map(it => it.od_id)).size > 1 }));
         },
 
         checkItem(od, it, checked) {
-            if (checked) this.$set(this.sel, it.odm_id, { od, it, chunks: [this.remain(it)] });
-            else this.$delete(this.sel, it.odm_id);
-        },
-        checkAll(od) {
-            od.items.forEach(it => { if (this.remain(it) > 0 && !this.sel[it.odm_id]) this.checkItem(od, it, true); });
-        },
-        //  수량 입력 후 포커스가 빠지면 남은 수량으로 오른쪽에 분할 칸 생성 (분할 합 = 남은 수량)
-        splitChunk(it, ci) {
-            const s = this.sel[it.odm_id];
-            if (!s) return;
-            const total = this.remain(it);
-            let chunks = s.chunks.slice(0, ci + 1).map(v => parseInt(v) || 0);
-            const before = chunks.slice(0, ci).reduce((acc, v) => acc + v, 0);
-            chunks[ci] = Math.min(Math.max(chunks[ci], 1), total - before);
-            const rest = total - before - chunks[ci];
-            if (rest > 0) chunks.push(rest);
-            s.chunks = chunks;
-        },
-        //  선택 상품의 첫 번째 분할 수량을 박스 아이템으로 변환 (수량 검사)
-        takeSel() {
-            let items = [];
-            for (const odm_id in this.sel) {
-                const s = this.sel[odm_id];
-                const ea = parseInt(s.chunks[0]);
-                if (!(ea > 0) || ea > this.remain(s.it)) {
-                    Notify.toast('warning', `${s.it.odm_gd_name}: 수량은 1 ~ ${this.remain(s.it)} 사이로 입력하세요.`);
-                    return null;
-                }
-                items.push({
-                    od_id: s.od.od_id,
-                    odm_id: s.it.odm_id,
-                    name: s.it.odm_gd_name,
-                    ea,
-                    receiver: s.od.od_receiver,
-                    addr: `${s.od.od_addr1} ${s.od.od_addr2 || ''}`.trim(),
-                });
+            if (checked) {
+                this.$set(this.sel, it.odm_id, { od, it });
+                this.last_sel = it.odm_id;
+            } else {
+                this.$delete(this.sel, it.odm_id);
+                if (this.last_sel == it.odm_id) this.last_sel = Object.keys(this.sel).pop() || null;
             }
+        },
+        clearSel() {
+            this.sel = {};
+            this.last_sel = null;
+        },
+        //  아직 어느 송장에도 없는 상품만 선택
+        checkAll(od) {
+            od.items.forEach(it => { if (!this.boxesOf(it.odm_id).length && !this.sel[it.odm_id]) this.checkItem(od, it, true); });
+        },
+        boxItem(od, it) {
+            return {
+                od_id: od.od_id,
+                odm_id: it.odm_id,
+                name: it.odm_gd_name,
+                ea: it.odm_ea,
+                receiver: od.od_receiver,
+                addr: `${od.od_addr1} ${od.od_addr2 || ''}`.trim(),
+            };
+        },
+        //  상품 1개 -> 바로 송장 1개 (송장 없는 상품에만 버튼 표시)
+        makeOne(od, it) {
+            this.boxes.push({ no: ++this.box_seq, cnt: 1, items: [this.boxItem(od, it)] });
+            if (this.sel[it.odm_id]) this.checkItem(od, it, false);
+        },
+        //  선택 상품 -> 송장 아이템. 수량 1개 상품이 이미 다른 송장에 있으면 한 번 확인
+        async takeSel(box) {
+            let items = Object.values(this.sel).map(s => this.boxItem(s.od, s.it));
+            if (box) items = items.filter(it => !box.items.some(x => x.odm_id == it.odm_id));
+            if (!items.length) {
+                Notify.toast('warning', '선택 상품이 이미 해당 송장에 있습니다.');
+                return null;
+            }
+            const one = items.filter(it => it.ea <= 1 && this.boxesOf(it.odm_id).length);
+            if (one.length && !await Notify.confirm(`${one.map(it => it.name).join(', ')} : 1개 상품인데 송장을 추가`))
+                return null;
             return items;
         },
-        //  박스에 넣은 첫 분할을 빼고, 남은 분할이 있으면 선택 유지 (다음 박스에 이어서 담기)
-        consumeSel() {
-            for (const odm_id in this.sel) {
-                const s = this.sel[odm_id];
-                if (s.chunks.length > 1) s.chunks = s.chunks.slice(1);
-                else this.$delete(this.sel, odm_id);
-            }
-        },
-        makeBox() {
-            const items = this.takeSel();
+        async makeBox() {
+            const items = await this.takeSel();
             if (!items) return;
-            this.boxes.push({ no: ++this.box_seq, items });
-            this.consumeSel();
+            this.boxes.push({ no: ++this.box_seq, cnt: 1, items });
+            this.clearSel();
         },
-        addToBox() {
-            const items = this.takeSel();
+        async addToBox(bi) {
+            const box = this.boxes[bi];
+            if (!box) return;
+            const items = await this.takeSel(box);
             if (!items) return;
-            this.boxes[this.target_box].items.push(...items);
-            this.consumeSel();
+            box.items.push(...items);
+            this.clearSel();
+        },
+        //  상품 옆 송장 선택 -> 바로 추가
+        async quickAdd(bi) {
+            this.quick_box = '';
+            if (bi !== '') await this.addToBox(bi);
         },
         removeItem(bi, ii) {
             this.boxes[bi].items.splice(ii, 1);
             if (!this.boxes[bi].items.length) this.boxes.splice(bi, 1);
         },
         async clearBoxes() {
-            if (await Notify.confirm('박스를 모두 비우기'))
+            if (await Notify.confirm('송장을 모두 비우기'))
                 this.boxes = [];
         },
-        boxEa(b) { return b.items.reduce((acc, it) => acc + (parseInt(it.ea) || 0), 0); },
         boxOdIds(b) { return [...new Set(b.items.map(it => it.od_id))]; },
         boxWarn(b) { return new Set(b.items.map(it => `${it.receiver}|${it.addr}`)).size > 1; },
 
         async exportExcel() {
-            if (this.boxes.some(b => b.items.some(it => !(parseInt(it.ea) > 0)))) {
-                Notify.toast('warning', '박스 상품 수량을 확인하세요.');
+            if (this.boxes.some(b => !(parseInt(b.cnt) > 0))) {
+                Notify.toast('warning', '송장 박스 수를 확인하세요.');
                 return;
             }
             try {
-                const params = { boxes: this.boxes.map(b => ({ items: b.items.map(it => ({ odm_id: it.odm_id, ea: parseInt(it.ea) })) })) };
+                const params = { boxes: this.boxes.map(b => ({ cnt: parseInt(b.cnt), items: b.items.map(it => ({ odm_id: it.odm_id })) })) };
                 const res = await ax.post(`/api/admin/shop/dlvy_mng/export`, params, { responseType: 'blob' });
                 if (!res || res.status !== 200) return;
                 const d = new Date();
@@ -426,10 +467,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.p_wrap { padding-bottom:4rem; }
 .cmain, .box_wrap, .upload_wrap { margin-bottom:2rem; }
-.box_bar { position:fixed; left:170px; right:0; bottom:0; z-index:1020; display:flex; justify-content:space-between; align-items:center; padding:.5rem 1.5rem; background:#FFF; box-shadow:0 -2px 8px rgba(0,0,0,.15); }
-@media (max-width: 991px) { .box_bar { left:0; } }
+.box_bar_wrap { position:sticky; top:0; z-index:1020; margin-bottom:1rem; padding:0; }
+.box_bar { display:flex; justify-content:space-between; align-items:center; padding:.5rem 1rem; background:#FFF; border-radius:4px; box-shadow:0 2px 8px rgba(0,0,0,.15); }
 .list_top select { display:inline-block; max-width:7rem; }
 .frm_sch .chk_opt { display:flex; align-items:center; }
 
@@ -454,26 +494,41 @@ export default {
 .items .item.sel .box_badge { border:1px solid #FFF; }
 .items .item .chk { flex:0 0 4%; max-width:4%; display:flex; justify-content:center; }
 .items .item .chk .custom-checkbox { transform:scale(2); padding-left:1.5rem; margin-left:-.5rem; }  /* 체크박스 2배 */
-.items .item .ea { flex:0 0 13%; max-width:13%; }
-.items .item .ea_input { flex:0 0 26%; max-width:26%; display:flex; flex-wrap:wrap; gap:4px; }
-.items .item .ea_input .chunk { width:4.5rem; flex:0 0 4.5rem; }
-.items .item .ea_input .chunk.next { border:2px solid #1C7ED6; font-weight:700; }
+.items .item .name { flex:0 0 38%; max-width:38%; }  /* 고정 폭: 버튼이 생겨도 수량/체크박스 위치 유지 */
+.items .item .ea { flex:0 0 10%; max-width:10%; }
+.items .item .quick { flex:0 0 auto; width:auto; max-width:none; display:flex; gap:4px; }
+.items .item .quick select { width:7.5rem; }
+.items .item .quick .btn_one { background:#FFF; color:#1971C2; border:1px solid #1971C2; font-weight:700; }
+.items .item .quick .btn_one:hover { background:#1971C2; color:#FFF; }
+.items .item .quick .btn_multi { background:#FAB005; color:#212529; border:1px solid #F08C00; font-weight:700; }
+.items .item .quick .btn_multi:hover { background:#F08C00; color:#FFF; }
 .items .item .sub { display:block; font-size:.8rem; color:#777; }
-.items .item.warn { background:#FFF3BF; }
-.items .item.full { opacity:.55; }
+.items .item.none { background:#FFF3BF; }
 .items .box_badge { color:#FFF; margin-right:3px; }
 .items .dlvy { display:inline-block; font-size:.8rem; background:#E9ECEF; border-radius:3px; padding:0 5px; margin-right:3px; }
 
-.box_bar .add_box { display:inline-flex; width:auto; vertical-align:middle; }
-.box_bar .add_box select { max-width:7rem; }
-.box { border:1px solid #CCCCCC; border-radius:4px; padding:.5rem; margin-bottom:.5rem; }
+.box { border:1px solid #CCCCCC; border-left:6px solid transparent; border-radius:4px; padding:.5rem; margin-bottom:.5rem; }
 .box .box_head { border-bottom:1px solid #EEEEEE; padding-bottom:.3rem; margin-bottom:.3rem; }
 .box .box_head .receiver { font-size:.85rem; color:#555; margin:0 .5rem; }
 .box .box_item { padding:.15rem 0; }
-.box .box_item .ea { width:5rem; margin:0 .3rem; }
+.box .box_head .cnt { margin-left:.5rem; }
+.box .box_head .cnt .b-form-spinbutton { width:6.5rem; vertical-align:middle; }
 .box .box_item .item_del { color:#E03131; font-size:1.2rem; vertical-align:middle; }
 .box .box_item .item_del:hover { color:#C92A2A; }
 .dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:3px; }
+
+/* 송장 묶음 괄호: 레인 1개 = 송장 1개 */
+.items .item .brk_col { display:flex; align-self:stretch; margin:-.3rem 0; padding-right:.5rem; }
+.items .item .brk_col .lane { position:relative; width:18px; }
+.items .item .brk_col .lane::before { content:''; position:absolute; left:0; right:6px; border:0 solid currentColor; }
+.items .item .brk_col .lane.top::before { top:50%; bottom:0; border-top-width:3px; border-right-width:3px; }
+.items .item .brk_col .lane.mid::before { top:0; bottom:0; border-right-width:3px; }
+.items .item .brk_col .lane.mid::after { content:''; position:absolute; left:0; right:6px; top:50%; border-top:3px solid currentColor; }
+.items .item .brk_col .lane.pass::before { top:0; bottom:0; border-right-width:3px; border-right-style:dotted; }
+.items .item .brk_col .lane.bot::before { top:0; bottom:50%; border-bottom-width:3px; border-right-width:3px; }
+.items .item .brk_col .lane.one::before { top:25%; bottom:25%; border-width:3px 3px 3px 0; }
+.items .item .brk_col .lane .no { position:absolute; left:0; bottom:calc(50% + 4px); font-size:10px; font-weight:700; line-height:1; }
+.items .item .brk_col .lane.one .no { bottom:calc(75% + 2px); }
 
 .upload_wrap .st_new { color:#2F9E44; }
 .upload_wrap .st_dup { color:#868E96; }

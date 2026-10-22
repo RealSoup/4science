@@ -97,15 +97,15 @@ class DlvyMngController extends Controller {
         return response()->json($data);
     }
 
-    //  박스 목록 -> 한진 업로드 엑셀 (헤더 없음, 박스 1개 = 1행)
-    //  boxes: [ { items: [ { odm_id, ea } ] } ]
+    //  송장 목록 -> 한진 업로드 엑셀 (헤더 없음, 송장 1개 = 1행, F열 = 박스 수)
+    //  boxes: [ { cnt, items: [ { odm_id } ] } ]
     public function export(Request $req) {
         $this->checkPermission();
         $req->validate([
             'boxes'                => 'required|array|min:1',
+            'boxes.*.cnt'          => 'required|integer|min:1',
             'boxes.*.items'        => 'required|array|min:1',
             'boxes.*.items.*.odm_id' => 'required|integer',
-            'boxes.*.items.*.ea'   => 'required|integer|min:1',
         ]);
 
         $odm_ids = collect($req->boxes)->pluck('items')->flatten(1)->pluck('odm_id')->unique();
@@ -122,20 +122,18 @@ class DlvyMngController extends Controller {
         $sheet = $book->getActiveSheet();
         $r = 1;
         foreach ($req->boxes as $box) {
-            $ea = 0;
-            $group = [];    //  od_id => [odm_id, ...] (박스에 담긴 순서 유지)
+            $group = [];    //  od_id => [odm_id, ...] (송장에 담긴 순서 유지)
             foreach ($box['items'] as $it) {
                 $od_id = $odms[$it['odm_id']]->odm_od_id;
                 if (!in_array($it['odm_id'], $group[$od_id] ?? [])) $group[$od_id][] = $it['odm_id'];
-                $ea += intval($it['ea']);
             }
             $memo = collect($group)->map(fn ($ids, $od_id) => $od_id.'['.implode(', ', $ids).']')->implode(' ');
-            $od = $orders[array_key_first($group)];   //  받는 분은 박스의 첫 번째 주문 기준
+            $od = $orders[array_key_first($group)];   //  받는 분은 송장의 첫 번째 주문 기준
 
             $sheet->setCellValueExplicit("A{$r}", $od->od_receiver, DataType::TYPE_STRING);
             $sheet->setCellValueExplicit("C{$r}", trim($od->od_addr1.' '.$od->od_addr2), DataType::TYPE_STRING);
             $sheet->setCellValueExplicit("D{$r}", $od->od_receiver_hp, DataType::TYPE_STRING);
-            $sheet->setCellValue("F{$r}", $ea);
+            $sheet->setCellValue("F{$r}", intval($box['cnt']));
             $sheet->setCellValue("G{$r}", self::XLS_FARE);
             $sheet->setCellValue("H{$r}", self::XLS_PAY);
             $sheet->setCellValue("I{$r}", self::XLS_ITEM);
