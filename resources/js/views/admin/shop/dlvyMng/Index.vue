@@ -89,44 +89,46 @@
                 <b-col><span v-if="steps[od.od_step]" :class="steps[od.od_step].class" class="nametag">{{ steps[od.od_step].name }}</span></b-col>
                 <b-col><template v-if="od.od_mng && mng_off[od.od_mng]">{{ mng_off[od.od_mng].name }}</template></b-col>
             </b-row>
-            <div v-if="opened[od.od_id]" :key="`items_${od.od_id}`" class="items" :style="{borderLeftColor:color(od.od_id), background:colorBg(od.od_id)}">
-                <div class="items_top">
-                    <span class="addr">{{ od.od_receiver }} / {{ od.od_receiver_hp }} / {{ od.od_addr1 }} {{ od.od_addr2 }}</span>
-                    <b-button size="sm" class="white" @click="checkAll(od)">미지정 상품 전체 선택</b-button>
-                </div>
-                <b-row v-for="row in brkMap[od.od_id].rows" :key="row.it.odm_id" class="item"
-                    :class="{sel:!!sel[row.it.odm_id], none:!sel[row.it.odm_id] && brkMap[od.od_id].lanes && !boxesOf(row.it.odm_id).length}"
-                    :style="sel[row.it.odm_id] ? {background:color(od.od_id)} : {}">
-                    <b-col class="name text-left">
-                        <b>{{ row.it.odm_gd_name }}</b>
-                        <span class="sub">{{ row.it.odm_gm_name }} / {{ row.it.odm_gm_code }} / {{ row.it.odm_gm_catno }}</span>
-                        <b-badge v-if="row.it.odpa_pa_id" class="orange">업체직배송</b-badge>
-                    </b-col>
-                    <b-col class="ea">수량 <b>{{ row.it.odm_ea }}</b>개</b-col>
-                    <b-col class="chk">
-                        <b-form-checkbox :checked="!!sel[row.it.odm_id]" @change="checkItem(od, row.it, $event)" />
-                    </b-col>
-                    <b-col class="quick">
-                        <b-button v-if="!boxesOf(row.it.odm_id).length" size="sm" class="btn_one" @click="makeOne(od, row.it)">송장</b-button>
-                        <template v-if="last_sel == row.it.odm_id">
-                            <b-button size="sm" class="btn_multi" @click="makeBox">상품들 송장<template v-if="selCount > 1"> ({{ selCount }})</template></b-button>
-                            <b-form-select v-if="boxes.length" v-model="quick_box" size="sm" @change="quickAdd">
-                                <b-form-select-option value="">송장에 추가</b-form-select-option>
-                                <b-form-select-option v-for="(b, i) in boxes" :key="b.no" :value="i">송장{{ b.no }}</b-form-select-option>
-                            </b-form-select>
-                        </template>
-                    </b-col>
-                    <b-col class="text-left">
-                        <b-badge v-for="b in boxesOf(row.it.odm_id)" :key="`b${b.no}`" class="box_badge" :style="{background:boxColor(b.no)}">송장{{ b.no }}<template v-if="b.mixed"> +타주문</template></b-badge>
-                        <span v-for="d in row.it.dlvy" :key="d.oddi_id" class="dlvy">{{ d.oddi_dlvy_com }} {{ d.oddi_dlvy_num }}</span>
-                    </b-col>
-                    <div class="brk_col">
-                        <span v-for="(c, ci) in row.cells" :key="ci" class="lane" :class="c ? c.pos : ''" :style="c ? {color:boxColor(c.no)} : {}"
-                            :title="c ? `송장${c.no}${c.mixed ? ' (다른 주문 포함)' : ''}` : ''">
-                            <small v-if="c && (c.pos == 'top' || c.pos == 'one')" class="no">{{ c.no }}<template v-if="c.mixed">+</template></small>
-                        </span>
+            <div v-if="opened[od.od_id]" :key="`items_${od.od_id}`" class="items_wrap">
+                <div class="items" :style="{borderLeftColor:color(od.od_id), background:colorBg(od.od_id)}">
+                    <div class="items_top">
+                        <span class="addr">{{ od.od_receiver }} / {{ od.od_receiver_hp }} / {{ od.od_addr1 }} {{ od.od_addr2 }}</span>
+                        <b-button size="sm" class="white" @click="checkAll(od)">미지정 상품 전체 선택</b-button>
                     </div>
-                </b-row>
+                    <b-row v-for="row in brkMap[od.od_id].rows" :key="row.it.odm_id" class="item"
+                        :class="{sel:!!sel[row.it.odm_id], none:!sel[row.it.odm_id] && brkMap[od.od_id].lanes && !boxesOf(row.it.odm_id).length}"
+                        :style="sel[row.it.odm_id] ? {background:color(od.od_id)} : {}">
+                        <b-col class="name text-left">
+                            <b>{{ row.it.odm_gd_name }}</b>
+                            <span class="sub">{{ row.it.odm_gm_name }} / {{ row.it.odm_gm_code }} / {{ row.it.odm_gm_catno }}</span>
+                            <b-badge v-if="row.it.odpa_pa_id" class="orange">업체직배송</b-badge>
+                        </b-col>
+                        <b-col class="ea">수량 <b>{{ row.it.odm_ea }}</b>개</b-col>
+                        <b-col class="chk">
+                            <b-form-checkbox :checked="!!sel[row.it.odm_id]" @change="checkItem(od, row.it, $event)" />
+                        </b-col>
+                        <b-col class="quick">
+                            <b-button v-if="!boxesOf(row.it.odm_id).length" size="sm" class="btn_one" @click="makeOne(od, row.it)">송장</b-button>
+                            <template v-if="last_sel == row.it.odm_id">
+                                <b-button size="sm" class="btn_multi" @click="makeBox">상품들 송장<template v-if="selCount > 1"> ({{ selCount }})</template></b-button>
+                                <b-form-select v-if="boxes.length" v-model="quick_box" size="sm" @change="quickAdd">
+                                    <b-form-select-option value="">송장에 추가</b-form-select-option>
+                                    <b-form-select-option v-for="(b, i) in boxes" :key="b.no" :value="i">송장{{ b.no }}</b-form-select-option>
+                                </b-form-select>
+                            </template>
+                        </b-col>
+                        <b-col class="text-left">
+                            <b-badge v-for="b in boxesOf(row.it.odm_id)" :key="`b${b.no}`" class="box_badge" :style="{background:boxColor(b.no)}">송장{{ b.no }}<template v-if="b.mixed"> +타주문</template></b-badge>
+                            <span v-for="d in row.it.dlvy" :key="d.oddi_id" class="dlvy">{{ d.oddi_dlvy_com }} {{ d.oddi_dlvy_num }}</span>
+                        </b-col>
+                        <div class="brk_col">
+                            <span v-for="(c, ci) in row.cells" :key="ci" class="lane" :class="c ? c.pos : ''" :style="c ? {color:boxColor(c.no)} : {}"
+                                :title="c ? `송장${c.no}${c.mixed ? ' (다른 주문 포함)' : ''}` : ''">
+                                <small v-if="c && (c.pos == 'top' || c.pos == 'one')" class="no">{{ c.no }}<template v-if="c.mixed">+</template></small>
+                            </span>
+                        </div>
+                    </b-row>
+                </div>
             </div>
         </template>
 
@@ -483,7 +485,9 @@ export default {
 .body.od:hover { background:#B2E0FA; }
 
 .cmain .list .col { text-align:left; }
-.items { border-left:6px solid transparent; padding:.5rem 1rem; border-bottom:1px solid #CCCCCC; margin-left:35%; }
+/* 펼침 영역: 전체 폭 틀로 감싸 목록 테두리선 유지, 상품은 35% 들여쓰기 */
+.items_wrap { padding-left:35%; border:1px solid #CCCCCC; border-top:0; }
+.items { border-left:6px solid transparent; padding:.5rem 1rem; }
 .items .items_top { display:flex; justify-content:space-between; align-items:center; margin-bottom:.3rem; }
 .items .items_top .addr { font-size:.85rem; color:#555; }
 .items .item { align-items:center; padding:.3rem 0; border-top:1px dashed #DDDDDD; }
