@@ -61,7 +61,11 @@ class DlvyMngController extends Controller {
                 break;
                 case 'od_orderer':  $orders->where('od_orderer', 'like', "%{$txt}%"); break;
                 case 'od_addr1':    $orders->where(fn ($q) => $q->where('od_addr1', 'like', "%{$txt}%")->orWhere('od_addr2', 'like', "%{$txt}%")); break;
-                default:            $orders->where('od_id', intval($txt)); break;
+                default:
+                    //  글번호 여러 개: 공백/쉼표/줄바꿈 등 숫자 아닌 문자로 구분
+                    $ids = array_values(array_unique(array_filter(array_map('intval', preg_split('/\D+/', $txt)))));
+                    $orders->whereIn('od_id', $ids ?: [0]);
+                break;
             }
         }
 
