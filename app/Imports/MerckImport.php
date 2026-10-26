@@ -6,5 +6,5 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
 class MerckImport implements ToCollection {    
-    public function collection(Collection $collection) { }
+    public function collection(Collection $collection): void { }
 }

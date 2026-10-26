@@ -43,7 +43,7 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         ];
     }
 
-    public function collection() {
+    public function collection(): \Illuminate\Support\Enumerable {
         $od = $this->od;
         $data = [];
         $data[] = ['견    적    서'];
@@ -117,7 +117,7 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         return collect($data);
     }
 
-    public function styles(Worksheet $sheet) {
+    public function styles(Worksheet $sheet): ?array {
 
         $sheet->mergeCells('A1:L1');
         $sheet->getRowDimension('1')->setRowHeight(38);
@@ -549,7 +549,7 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
 // dd($sheet_style);
         return $sheet_style;
     }
-    public function drawings() {
+    public function drawings(): \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing|array {
         $drawing = new Drawing();
         // $drawing->setName('Logo');
         // $drawing->setDescription('This is my logo');
@@ -576,28 +576,28 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         foreach ($this->odm_map as $row) {
             if($row['type'] == 'm') {
                 $r++;
-                $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+                $rst["H{$r}:L{$r}"] = '#,##0';
                 $r+=2;
             } else {
                 $r++;
-                $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+                $rst["H{$r}:L{$r}"] = '#,##0';
             }
         }
         $r+=2;
-        $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        $rst["H{$r}:L{$r}"] = '#,##0';
         $r++;
-        $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        $rst["H{$r}:L{$r}"] = '#,##0';
 
         if ($this->od['od_dlvy_price']) {
             $r++;
-            $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+            $rst["H{$r}:L{$r}"] = '#,##0';
         }
         if ($this->od['od_air_price']) {
             $r++;
-            $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+            $rst["H{$r}:L{$r}"] = '#,##0';
         }
         $r++;
-        $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;        
+        $rst["H{$r}:L{$r}"] = '#,##0';        
         return $rst;
     }
 

@@ -37,7 +37,7 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         'L' => 11,
     ]; }
 
-    public function collection() {
+    public function collection(): \Illuminate\Support\Enumerable {
         $data = [];
         $data[] = ['견    적    서'];
         $data[] = [''];
@@ -106,7 +106,7 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         return collect($data);
     }
 
-    public function styles(Worksheet $sheet) {
+    public function styles(Worksheet $sheet): ?array {
 
         $sheet->mergeCells('A1:L1');
         $sheet->getRowDimension('1')->setRowHeight(38);
@@ -579,7 +579,7 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
 // dd($sheet_style);
         return $sheet_style;
     }
-    public function drawings() {
+    public function drawings(): \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing|array {
         $drawing = new Drawing();
         // $drawing->setName('Logo');
         // $drawing->setDescription('This is my logo');
@@ -604,33 +604,33 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         $rst = [];        
         $r = 15;
         for ($i=0; $i < $this->gd_cnt; $i++) {
-            $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+            $rst["H{$r}:L{$r}"] = '#,##0';
             $r+=3;
             
             if(array_key_exists($i, $this->option)) {
                 for ($j=0; $j<$this->option[$i]; $j++) {
-                    $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+                    $rst["H{$r}:L{$r}"] = '#,##0';
                     $r++;
                 }
             }
         }
         $r++;
-        $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        $rst["H{$r}:L{$r}"] = '#,##0';
         $r++;
-        $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        $rst["H{$r}:L{$r}"] = '#,##0';
 
         if ($this->er['er_no_dlvy_fee'] !== 'Y') {
             if ($this->er['er_dlvy_price'] > 0) {
                 $r++;
-                $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+                $rst["H{$r}:L{$r}"] = '#,##0';
             }
             if ($this->er['er_air_price']) {
                 $r++;
-                $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+                $rst["H{$r}:L{$r}"] = '#,##0';
             }
         }
         $r++;
-        $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;        
+        $rst["H{$r}:L{$r}"] = '#,##0';        
         return $rst;
     }
 

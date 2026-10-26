@@ -29,7 +29,7 @@ class OrderListExport implements FromCollection, WithHeadings, WithStyles {
         ];
     }
 
-	public function styles(Worksheet $sheet) {
+	public function styles(Worksheet $sheet): ?array {
 
 		$sheet_style = [
             'A1:K1' => [
@@ -47,7 +47,7 @@ class OrderListExport implements FromCollection, WithHeadings, WithStyles {
         return $sheet_style;
     }
 
-    public function collection() {
+    public function collection(): \Illuminate\Support\Enumerable {
         $config_pay_method = Order::$orderConfig['pay_method'];
         $pay_method_query_str = "case ";
         foreach ($config_pay_method as $k => $v)

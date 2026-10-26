@@ -36,7 +36,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
         ];
     }
 
-    public function collection() {
+    public function collection(): \Illuminate\Support\Enumerable {
         $data = [];
         $od = $this->od;
         $data[] = ['거   래   명   세   서'];
@@ -83,7 +83,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
         return collect($data);
     }
 
-    public function styles(Worksheet $sheet) {
+    public function styles(Worksheet $sheet): ?array {
 
         $sheet->mergeCells('A1:H1');
         $sheet->getRowDimension('1')->setRowHeight(38);
@@ -380,7 +380,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
 
         return $sheet_style;
     }
-    public function drawings() {
+    public function drawings(): \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing|array {
         $drawing = new Drawing();
         $drawing->setPath(public_path('img/addr_estimate200921.gif'));
         $drawing->setHeight(80);
@@ -390,24 +390,24 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
 
     public function columnFormats(): array {
         $rst = [];
-        $rst["A4:D4"] = NumberFormat::FORMAT_DATE_01;
+        $rst["A4:D4"] = 'yyyy"년" mm"월" dd"일"';
         for ($i=9; $i < count($this->odm_map)+9; $i++)
-            $rst["F{$i}:H{$i}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+            $rst["F{$i}:H{$i}"] = '#,##0';
         
         $r = count($this->odm_map) + 9;
-        $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        $rst["F{$r}:H{$r}"] = '#,##0';
         $r++;
-        $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        $rst["F{$r}:H{$r}"] = '#,##0';
         if ($this->od['od_dlvy_price']) {
             $r++;
-            $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+            $rst["F{$r}:H{$r}"] = '#,##0';
         }
         if ($this->od['od_air_price']) {
             $r++;
-            $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+            $rst["F{$r}:H{$r}"] = '#,##0';
         }
         $r++;
-        $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;        
+        $rst["F{$r}:H{$r}"] = '#,##0';        
         return $rst;
     }
 

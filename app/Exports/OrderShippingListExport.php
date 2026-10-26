@@ -32,7 +32,7 @@ class OrderShippingListExport implements FromCollection, WithStyles, WithColumnW
         ];
     }
 
-    public function collection() {
+    public function collection(): \Illuminate\Support\Enumerable {
         $data = [];
         $od = $this->od;
         $data[] = ['물 품 출 고 내 역 서'];
@@ -61,7 +61,7 @@ class OrderShippingListExport implements FromCollection, WithStyles, WithColumnW
         return collect($data);
     }
 
-    public function styles(Worksheet $sheet) {
+    public function styles(Worksheet $sheet): ?array {
         $sheet->mergeCells('A1:F1');
         $sheet->getRowDimension('1')->setRowHeight(38);
         $sheet->mergeCells('A2:F2');

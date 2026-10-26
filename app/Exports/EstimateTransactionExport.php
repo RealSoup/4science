@@ -34,7 +34,7 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
         'H' => 14,
     ]; }
 
-    public function collection() {
+    public function collection(): \Illuminate\Support\Enumerable {
         $data = [];
         $data[] = ['거   래   명   세   서'];
         $data[] = ['(공급받는자 보관용)'];
@@ -78,7 +78,7 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
         return collect($data);
     }
 
-    public function styles(Worksheet $sheet) {
+    public function styles(Worksheet $sheet): ?array {
 
         $sheet->mergeCells('A1:H1');
         $sheet->getRowDimension('1')->setRowHeight(38);
@@ -425,7 +425,7 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
 
         return $sheet_style;
     }
-    public function drawings() {
+    public function drawings(): \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing|array {
         $drawing = new Drawing();
         $drawing->setPath(public_path('img/addr_estimate200921.gif'));
         $drawing->setHeight(80);
@@ -434,37 +434,37 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
     }
     public function columnFormats(): array {
         $rst = [];
-        $rst["A4:D4"] = NumberFormat::FORMAT_DATE_01;
+        $rst["A4:D4"] = 'yyyy"년" mm"월" dd"일"';
         $r = 8;
         for ($i=0; $i < $this->gd_cnt; $i++) {
             $r++;
-            $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+            $rst["F{$r}:H{$r}"] = '#,##0';
 
             if(array_key_exists($i, $this->option)) {
                 for ($j=0; $j<$this->option[$i]; $j++) {
                     $r++;
-                    $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+                    $rst["F{$r}:H{$r}"] = '#,##0';
                 }
             }
         }
         
         $r++;
-        $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        $rst["F{$r}:H{$r}"] = '#,##0';
         $r++;
-        $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        $rst["F{$r}:H{$r}"] = '#,##0';
 
         if ($this->er['er_no_dlvy_fee'] !== 'Y') {
             if ($this->er['er_dlvy_price'] > 0) {
                 $r++;
-                $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+                $rst["F{$r}:H{$r}"] = '#,##0';
             }
             if ($this->er['er_air_price']) {
                 $r++;
-                $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+                $rst["F{$r}:H{$r}"] = '#,##0';
             }
         }
         $r++;
-        $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;        
+        $rst["F{$r}:H{$r}"] = '#,##0';        
         return $rst;
     }
 

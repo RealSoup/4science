@@ -52,7 +52,7 @@ class UserMileage extends Model {
     // 소멸까지 남은 일수 (음수면 이미 소멸)
     public function getExpireDdayAttribute() {
         if (!$this->created_at) return null;
-        return now()->startOfDay()->diffInDays($this->created_at->copy()->addYearNoOverflow()->startOfDay(), false);
+        return (int) now()->startOfDay()->diffInDays($this->created_at->copy()->addYearNoOverflow()->startOfDay(), false);
     }
 
     public function scopeEnable($query) { return $query->whereRaw("created_at > SUBDATE(NOW(), INTERVAL 1 YEAR)")->where('ml_type', '<>', 'NO'); }
