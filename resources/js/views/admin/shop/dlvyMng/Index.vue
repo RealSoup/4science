@@ -108,11 +108,11 @@
                             <b-form-checkbox :checked="!!sel[row.it.odm_id]" @change="checkItem(od, row.it, $event)" />
                         </b-col>
                         <b-col class="quick">
-                            <!-- 체크 안 한 상품: [송장] (송장 없을 때만) / 체크한 상품: [상품들 송장]만 -->
+                            <!-- 체크 안 한 상품: [송장] (송장 없을 때만) / 마지막에 체크한 상품: [상품들 송장]만 -->
                             <b-button v-if="!sel[row.it.odm_id] && !boxesOf(row.it.odm_id).length" size="sm" class="btn_one" @click="makeOne(od, row.it)">송장</b-button>
-                            <template v-if="sel[row.it.odm_id]">
+                            <template v-if="last_sel == row.it.odm_id">
                                 <b-button size="sm" class="btn_multi" @click="makeBox">상품들 송장 ({{ selCount }})</b-button>
-                                <b-form-select v-if="boxes.length && last_sel == row.it.odm_id" v-model="quick_box" size="sm" @change="quickAdd">
+                                <b-form-select v-if="boxes.length" v-model="quick_box" size="sm" @change="quickAdd">
                                     <b-form-select-option value="">송장에 추가</b-form-select-option>
                                     <b-form-select-option v-for="(b, i) in boxes" :key="b.no" :value="i">송장{{ b.no }}</b-form-select-option>
                                 </b-form-select>
