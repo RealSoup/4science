@@ -82,7 +82,7 @@ class RegisterController extends Controller {
 
             
             try { Mail::to('sales@4science.net')->queue(new DealerJoin(config('mail.mailers.smtp.username'), '딜러 회원 가입'));
-            } catch(\Swift_TransportException $e){
+            } catch(\Symfony\Component\Mailer\Exception\TransportExceptionInterface $e){
                 // if($e->getMessage()) dd($e->getMessage());
             }
         }

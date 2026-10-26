@@ -726,7 +726,7 @@ class OrderController extends Controller {
         $params['addr'] = "[$data->od_zip] $data->od_addr1 $data->od_addr2 $data->od_memo";
         if ( auth()->user()->receive_mail == 'Y' ) {
             try { Mail::to($data->od_orderer_email)->queue(new OrderEmail(config('mail.mailers.smtp.username'), $params['subject'], $params));
-            } catch(\Swift_TransportException $e){
+            } catch(\Symfony\Component\Mailer\Exception\TransportExceptionInterface $e){
                 // if($e->getMessage()) dd($e->getMessage());
             }
         }

@@ -448,7 +448,7 @@ class EstimateController extends Controller {
             if ( trim($to_email) != '-' )
                 Mail::to(trim($to_email))->queue(new EstimateSend($from_email, $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
             Mail::to(auth()->user()->email)->queue(new EstimateSend($from_email, $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
-        } catch(\Swift_TransportException $e){
+        } catch(\Symfony\Component\Mailer\Exception\TransportExceptionInterface $e){
             // if($e->getMessage()) dd($e->getMessage());
         }
 

@@ -162,7 +162,7 @@ class EstimateController extends Controller {
         $params['eq_id'] = $eq_id;
         try {
             Mail::to(trim($eq_email))->queue(new MailEstimateReq(config('mail.mailers.smtp.username'), $subject, $params));
-        } catch(\Swift_TransportException $e){
+        } catch(\Symfony\Component\Mailer\Exception\TransportExceptionInterface $e){
             // if($e->getMessage()) dd($e->getMessage());
         }
         

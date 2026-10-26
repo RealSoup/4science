@@ -55,7 +55,7 @@ class EngReformController extends Controller {
             
             try {
                 Mail::to(trim($params['con']->er_email))->queue(new MailEngReform(config('mail.mailers.smtp.username'), $subject, $params, "admin.eng_reform.response"));
-            } catch(\Swift_TransportException $e){
+            } catch(\Symfony\Component\Mailer\Exception\TransportExceptionInterface $e){
                 // if($e->getMessage()) dd($e->getMessage());
             }
         }
