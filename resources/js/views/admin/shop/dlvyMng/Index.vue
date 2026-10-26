@@ -142,13 +142,12 @@
     <!-- 송장 목록 -->
     <b-container class="box_wrap">
         <b-row class="list_top">
-            <b-col><b>송장 목록</b> <small>송장 1개 = 엑셀 1행, 박스 수 = F열 수량</small></b-col>
+            <b-col><b>송장 목록</b> <small>송장 1개 = 엑셀 1행</small></b-col>
         </b-row>
         <div v-for="(b, i) in boxes" :key="b.no" class="box" :style="{borderLeftColor:boxColor(b.no)}">
             <div class="box_head">
                 <span v-for="od_id in boxOdIds(b)" :key="od_id" class="dot" :style="{background:color(od_id)}"></span>
                 <b :style="{color:boxColor(b.no)}">송장{{ b.no }}</b>
-                <span class="cnt">박스 <b-form-spinbutton v-model="b.cnt" min="1" max="99" size="sm" inline /></span>
                 <span class="receiver">{{ b.items[0].receiver }} / {{ b.items[0].addr }}</span>
                 <b-badge v-if="boxWarn(b)" class="orange">받는분/주소가 다른 주문 포함 (첫 주문 기준으로 출력)</b-badge>
                 <b-button size="sm" variant="danger" class="float-right" @click="delBox(i)">송장 삭제</b-button>
@@ -234,7 +233,7 @@ export default {
             },
             opened: {},
             sel: {},        //  odm_id => { od, it }
-            boxes: [],      //  송장 [{ no, cnt(박스 수), items:[{ od_id, odm_id, name, ea, receiver, addr }] }]
+            boxes: [],      //  송장 [{ no, cnt(박스 수, 항상 1 = F열), items:[{ od_id, odm_id, name, ea, receiver, addr }] }]
             quick_box: '',
             last_sel: null,  //  마지막에 체크한 상품 (바로가기 버튼 표시 위치)
             upload_file: null,
@@ -410,10 +409,6 @@ export default {
         boxWarn(b) { return new Set(b.items.map(it => `${it.receiver}|${it.addr}`)).size > 1; },
 
         async exportExcel() {
-            if (this.boxes.some(b => !(parseInt(b.cnt) > 0))) {
-                Notify.toast('warning', '송장 박스 수를 확인하세요.');
-                return;
-            }
             try {
                 const params = { boxes: this.boxes.map(b => ({ cnt: parseInt(b.cnt), items: b.items.map(it => ({ odm_id: it.odm_id })) })) };
                 const res = await ax.post(`/api/admin/shop/dlvy_mng/export`, params, { responseType: 'blob' });
@@ -522,8 +517,6 @@ export default {
 .box .box_head { border-bottom:1px solid #EEEEEE; padding-bottom:.3rem; margin-bottom:.3rem; }
 .box .box_head .receiver { font-size:.85rem; color:#555; margin:0 .5rem; }
 .box .box_item { padding:.15rem 0; }
-.box .box_head .cnt { margin-left:.5rem; }
-.box .box_head .cnt .b-form-spinbutton { width:6.5rem; vertical-align:middle; }
 .box .box_item .item_del { color:#E03131; font-size:1.2rem; vertical-align:middle; }
 .box .box_item .item_del:hover { color:#C92A2A; }
 .dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:3px; }
