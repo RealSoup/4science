@@ -14,7 +14,7 @@ class EstimateReply extends Model {
     use SoftDeletes;
     protected $table = 'shop_estimate_reply';
     protected $primaryKey = 'er_id';
-    protected $dates = [ 'created_at', 'updated_at', 'deleted_at' ];
+    protected $casts = [ 'created_at' => 'datetime', 'updated_at' => 'datetime', 'deleted_at' => 'datetime' ];
     protected $guarded = [];
     protected function serializeDate(DateTimeInterface $date) { return $date->format('Y-m-d H:i:s'); }
 

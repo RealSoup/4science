@@ -3,11 +3,12 @@
 namespace App\Logging;
 
 use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\LogRecord;
 use Illuminate\Support\Facades\DB;
 
 class ScheduleSummaryHandler extends AbstractProcessingHandler
 {
-    protected function write(array $record): void
+    protected function write(LogRecord $record): void
     {
         $job     = 'unknown';
         $message = (string) $record['message'];

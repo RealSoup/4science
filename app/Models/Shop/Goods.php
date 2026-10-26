@@ -19,12 +19,13 @@ use DB;
 class Goods extends Model {
     use SoftDeletes, Searchable;
     protected $primaryKey = 'gd_id';
-    protected $dates = [ 'created_at', 'updated_at', 'deleted_at' ];
     protected $table = 'shop_goods';
     protected $appends = ['image_src', 'image_src_thumb', 'dlvy_fee', 'dlvy_fee_add_vat', 'free_dlvy_max', 'hazard_matl'];
     protected $casts = [
         'gm_price_add_vat' => 'integer',
-        'created_at' => 'datetime:Y-m-d H:i'
+        'created_at' => 'datetime:Y-m-d H:i',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
     ];
     protected function serializeDate(DateTimeInterface $date) { return $date->format('Y-m-d H:i:s'); }
 //    protected $fillable = ['ca_order', 'ca_name']; // 수정가능 필드 입력
