@@ -163,7 +163,8 @@ class DlvyMngController extends Controller {
         $parsed = $this->parseReturnFile($req);
 
         $cnt = ['insert' => 0, 'update' => 0, 'skip' => 0, 'error' => 0];
-        DB::transaction(function () use ($parsed, &$cnt) {
+        $dlvy_nums = [];    //  실제 등록된 송장번호 (송장 건수 = 송장번호 수)
+        DB::transaction(function () use ($parsed, &$cnt, &$dlvy_nums) {
             $odm_ids = collect($parsed['rows'])->pluck('items')->flatten(1)->where('status', 'new')->pluck('odm_id')->unique();
             //  송장번호가 비어있는 배송정보 행 (주문 상태 변경 시 firstOrCreate로 생긴 행)
             $empty = DB::table('shop_order_dlvy_info')->select('oddi_id', 'oddi_odm_id')
@@ -176,6 +177,7 @@ class DlvyMngController extends Controller {
                 foreach ($row['items'] as $it) {
                     if ($it['status'] != 'new') { $cnt[$it['status'] == 'dup' ? 'skip' : 'error']++; continue; }
                     $val = ['oddi_dlvy_com' => self::DLVY_COM, 'oddi_dlvy_num' => $row['dlvy_num'], 'oddi_dlvy_created_at' => $now];
+                    $dlvy_nums[$row['dlvy_num']] = true;
                     if (!empty($empty[$it['odm_id']])) {
                         DB::table('shop_order_dlvy_info')->where('oddi_id', array_shift($empty[$it['odm_id']]))->update($val);
                         $cnt['update']++;
@@ -186,6 +188,7 @@ class DlvyMngController extends Controller {
                 }
             }
         });
+        $cnt['dlvy'] = count($dlvy_nums);
         return response()->json(['cnt' => $cnt]);
     }
 
@@ -247,7 +250,13 @@ class DlvyMngController extends Controller {
         $items = collect($rows)->pluck('items')->flatten(1);
         return [
             'rows' => $rows,
-            'cnt'  => ['new' => $items->where('status', 'new')->count(), 'dup' => $items->where('status', 'dup')->count(), 'error' => $items->where('status', 'error')->count()],
+            'cnt'  => [
+                //  dlvy: 등록할 송장 건수 (같은 송장번호에 상품이 여러 개여도 1건), new: 등록할 상품 수
+                'dlvy'  => collect($rows)->filter(fn ($r) => collect($r['items'])->contains('status', 'new'))->pluck('dlvy_num')->unique()->count(),
+                'new'   => $items->where('status', 'new')->count(),
+                'dup'   => $items->where('status', 'dup')->count(),
+                'error' => $items->where('status', 'error')->count(),
+            ],
         ];
     }
 }

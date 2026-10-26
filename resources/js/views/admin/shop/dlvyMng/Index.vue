@@ -108,10 +108,11 @@
                             <b-form-checkbox :checked="!!sel[row.it.odm_id]" @change="checkItem(od, row.it, $event)" />
                         </b-col>
                         <b-col class="quick">
-                            <b-button v-if="!boxesOf(row.it.odm_id).length" size="sm" class="btn_one" @click="makeOne(od, row.it)">송장</b-button>
-                            <template v-if="last_sel == row.it.odm_id">
-                                <b-button size="sm" class="btn_multi" @click="makeBox">상품들 송장<template v-if="selCount > 1"> ({{ selCount }})</template></b-button>
-                                <b-form-select v-if="boxes.length" v-model="quick_box" size="sm" @change="quickAdd">
+                            <!-- 체크 안 한 상품: [송장] (송장 없을 때만) / 체크한 상품: [상품들 송장]만 -->
+                            <b-button v-if="!sel[row.it.odm_id] && !boxesOf(row.it.odm_id).length" size="sm" class="btn_one" @click="makeOne(od, row.it)">송장</b-button>
+                            <template v-if="sel[row.it.odm_id]">
+                                <b-button size="sm" class="btn_multi" @click="makeBox">상품들 송장 ({{ selCount }})</b-button>
+                                <b-form-select v-if="boxes.length && last_sel == row.it.odm_id" v-model="quick_box" size="sm" @change="quickAdd">
                                     <b-form-select-option value="">송장에 추가</b-form-select-option>
                                     <b-form-select-option v-for="(b, i) in boxes" :key="b.no" :value="i">송장{{ b.no }}</b-form-select-option>
                                 </b-form-select>
@@ -150,7 +151,7 @@
                 <span class="cnt">박스 <b-form-spinbutton v-model="b.cnt" min="1" max="99" size="sm" inline /></span>
                 <span class="receiver">{{ b.items[0].receiver }} / {{ b.items[0].addr }}</span>
                 <b-badge v-if="boxWarn(b)" class="orange">받는분/주소가 다른 주문 포함 (첫 주문 기준으로 출력)</b-badge>
-                <b-button size="sm" variant="danger" class="float-right" @click="boxes.splice(i, 1)">송장 삭제</b-button>
+                <b-button size="sm" variant="danger" class="float-right" @click="delBox(i)">송장 삭제</b-button>
             </div>
             <div v-for="(it, ii) in b.items" :key="it.odm_id" class="box_item">
                 <span class="dot" :style="{background:color(it.od_id)}"></span>
@@ -169,14 +170,14 @@
             <b-col><b-form-file v-model="upload_file" accept=".xlsx,.xls" placeholder="한진 회신 엑셀 선택" @input="preview = null" /></b-col>
             <b-col class="text-right" cols="3">
                 <b-button class="teal" @click="previewUpload" :disabled="!upload_file">미리보기</b-button>
-                <b-button class="d_blue" @click="storeUpload" :disabled="!preview || !preview.cnt.new">등록 ({{ preview ? preview.cnt.new : 0 }})</b-button>
+                <b-button class="d_blue" @click="storeUpload" :disabled="!preview || !preview.cnt.new">등록 (송장 {{ preview ? preview.cnt.dlvy : 0 }}건)</b-button>
             </b-col>
         </b-row>
         <template v-if="preview">
             <p class="mt-3">
-                <b-badge class="mint">등록 예정 {{ preview.cnt.new }}</b-badge>
-                <b-badge class="gray">건너뜀 {{ preview.cnt.dup }}</b-badge>
-                <b-badge class="red">오류 {{ preview.cnt.error }}</b-badge>
+                <b-badge class="mint">등록 예정 송장 {{ preview.cnt.dlvy }}건 (상품 {{ preview.cnt.new }}개)</b-badge>
+                <b-badge class="gray">건너뜀 상품 {{ preview.cnt.dup }}개</b-badge>
+                <b-badge class="red">오류 상품 {{ preview.cnt.error }}개</b-badge>
             </p>
             <b-row class="head list">
                 <b-col>행</b-col>
@@ -234,7 +235,6 @@ export default {
             opened: {},
             sel: {},        //  odm_id => { od, it }
             boxes: [],      //  송장 [{ no, cnt(박스 수), items:[{ od_id, odm_id, name, ea, receiver, addr }] }]
-            box_seq: 0,
             quick_box: '',
             last_sel: null,  //  마지막에 체크한 상품 (바로가기 버튼 표시 위치)
             upload_file: null,
@@ -358,7 +358,7 @@ export default {
         },
         //  상품 1개 -> 바로 송장 1개 (송장 없는 상품에만 버튼 표시)
         makeOne(od, it) {
-            this.boxes.push({ no: ++this.box_seq, cnt: 1, items: [this.boxItem(od, it)] });
+            this.boxes.push({ no: this.boxes.length + 1, cnt: 1, items: [this.boxItem(od, it)] });
             if (this.sel[it.odm_id]) this.checkItem(od, it, false);
         },
         //  선택 상품 -> 송장 아이템. 수량 1개 상품이 이미 다른 송장에 있으면 한 번 확인
@@ -377,7 +377,7 @@ export default {
         async makeBox() {
             const items = await this.takeSel();
             if (!items) return;
-            this.boxes.push({ no: ++this.box_seq, cnt: 1, items });
+            this.boxes.push({ no: this.boxes.length + 1, cnt: 1, items });
             this.clearSel();
         },
         async addToBox(bi) {
@@ -395,7 +395,12 @@ export default {
         },
         removeItem(bi, ii) {
             this.boxes[bi].items.splice(ii, 1);
-            if (!this.boxes[bi].items.length) this.boxes.splice(bi, 1);
+            if (!this.boxes[bi].items.length) this.delBox(bi);
+        },
+        //  송장 삭제 후 번호를 1부터 다시 매김
+        delBox(bi) {
+            this.boxes.splice(bi, 1);
+            this.boxes.forEach((b, i) => { b.no = i + 1; });
         },
         async clearBoxes() {
             if (await Notify.confirm('송장을 모두 비우기'))
@@ -440,14 +445,14 @@ export default {
             }
         },
         async storeUpload() {
-            if (!await Notify.confirm(`송장 ${this.preview.cnt.new}건을 등록`)) return;
+            if (!await Notify.confirm(`송장 ${this.preview.cnt.dlvy}건(상품 ${this.preview.cnt.new}개)을 등록`)) return;
             try {
                 const frm = new FormData();
                 frm.append('file', this.upload_file);
                 const res = await ax.post(`/api/admin/shop/dlvy_mng/store`, frm);
                 if (res && res.status === 200) {
                     const c = res.data.cnt;
-                    Notify.modal(`등록 ${c.insert + c.update}건 (빈 배송정보 채움 ${c.update}, 추가 ${c.insert}) / 건너뜀 ${c.skip} / 오류 ${c.error}`, 'success', '완료');
+                    Notify.modal(`송장 ${c.dlvy}건 등록 (상품 ${c.insert + c.update}개) / 건너뜀 상품 ${c.skip}개 / 오류 상품 ${c.error}개`, 'success', '완료');
                     this.preview = null;
                     this.upload_file = null;
                     this.index();
