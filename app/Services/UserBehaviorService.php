@@ -20,7 +20,7 @@ class UserBehaviorService {
                 if ($action === 'dwell') {
                     $redisKey = "behavior_check:{$uuid}:{$target}:dwell:" . date('Y-m-d');
                     if (Redis::get($redisKey)) return;
-                    Redis::setex($redisKey, now()->secondsUntilEndOfDay(), 1);
+                    Redis::setex($redisKey, (int) now()->secondsUntilEndOfDay(), 1);
                 }
 
                 $goods = \DB::table('shop_goods_category')
@@ -45,7 +45,7 @@ class UserBehaviorService {
                     } else {
                         $redisKey = "behavior_check:{$uuid}:{$target}:view:" . date('Y-m-d');
                         if (Redis::get($redisKey)) return;
-                        Redis::setex($redisKey, now()->secondsUntilEndOfDay(), 1);
+                        Redis::setex($redisKey, (int) now()->secondsUntilEndOfDay(), 1);
                     }
                 }
 
