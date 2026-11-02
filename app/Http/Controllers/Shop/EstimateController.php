@@ -310,7 +310,7 @@ class EstimateController extends Controller {
         if ($req->type == 'down') {
             $option = ['defaultPaperSize'=>'a4', 'isRemoteEnabled' => true, 'isHtml5ParserEnabled' => true,];
             if (config('app.env') == "production") { $option['isRemoteEnabled'] = true; }
-            $pdf = PDF::setOptions($option);
+            $pdf = PDF::setOptions($option, true);
             return $pdf->loadView('admin.estimate.pdf.estimate', ['er' => $er->toArray()])->download('estimate.pdf'); 
         } else {
             return view('admin.estimate.pdf.estimate', ['er' => $er->toArray(), 'type'=>'print']);

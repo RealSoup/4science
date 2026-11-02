@@ -46,7 +46,7 @@ class OrderController extends Controller {
 
 		$option = ['defaultPaperSize'=>'a4', 'isRemoteEnabled' => true, 'isHtml5ParserEnabled' => true,];
         if (config('app.env') == "production") { $option['isRemoteEnabled'] = true; }
-        $this->pdf = PDF::setOptions($option);
+		$this->pdf = PDF::setOptions($option, true);
     }
 
 	public function index(Request $req) {

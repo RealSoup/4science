@@ -39,7 +39,7 @@ class EstimateController extends Controller {
         $this->estimateOption = $eo;
         $option = ['defaultPaperSize'=>'a4', 'isRemoteEnabled' => true, 'isHtml5ParserEnabled' => true,];
         if (config('app.env') == "production") { $option['isRemoteEnabled'] = true; }
-        $this->pdf = PDF::setOptions($option);
+        $this->pdf = PDF::setOptions($option, true);
     }
     public function index(Request $req) {
         $eq = $this->estimateReq;
