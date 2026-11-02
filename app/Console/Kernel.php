@@ -20,6 +20,10 @@ class Kernel extends ConsoleKernel {
         $schedule->command('geoip:update')->monthlyOn(1, '04:30')->withoutOverlapping();        
         // 소멸 예정 마일리지 안내 메일 (매월 1일, 이번 달 소멸분)
         $schedule->command('mileage:expire-notice')->monthlyOn(1, '10:00')->withoutOverlapping();
+        // 회원 등급 조정 (매월 1일, 최근 3개월 구매 금액) - 예전 서버 크론 curl에서 옮김
+        $schedule->command('user:adjust-level')->monthlyOn(1, '05:00')->withoutOverlapping();
+        // 배송 2주 지난 주문 자동 수취확인 + 마일리지 적립 - 예전 서버 크론 curl에서 옮김
+        $schedule->command('order:receive-confirm')->dailyAt('06:00')->withoutOverlapping();
 
         
         // 많이 팔린 상품 탑20 캐시 새로고침

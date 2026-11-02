@@ -240,6 +240,24 @@ return [
             'path'   => storage_path('logs/scheduler/mileage-expire-notice/mileage-expire-notice.log'),
             'days'   => 90,
         ],
+        'receive-confirm' => [
+            'driver'   => 'stack',
+            'channels' => ['receive-confirm-detail', 'scheduler-summary'],
+        ],
+        'receive-confirm-detail' => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/scheduler/receive-confirm/receive-confirm.log'),
+            'days'   => 90,
+        ],
+        'member-level' => [
+            'driver'   => 'stack',
+            'channels' => ['member-level-detail', 'scheduler-summary'],
+        ],
+        'member-level-detail' => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/scheduler/member-level/member-level.log'),
+            'days'   => 365,
+        ],
     ],
 
 ];

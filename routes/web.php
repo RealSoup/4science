@@ -121,8 +121,7 @@ Route::get('/admin/realsoup', 'Admin\RealsoupController@index');
 Route::get('/admin/realsoup/test', 'Admin\RealsoupController@test');
 Route::get('/admin/realsoup/play', 'Admin\RealsoupController@play');
 
-Route::get('/admin/crontab/receiveConfirm',     'Admin\CronTabController@receiveConfirm');
-Route::get('/admin/crontab/adjustMemberLevel',  'Admin\CronTabController@adjustMemberLevel');
+//  자동 수취확인·회원 등급 조정은 스케줄러로 옮김 (order:receive-confirm, user:adjust-level) - 누구나 부를 수 있던 주소라 삭제
 Route::get('/admin/crontab/billingByCycle',     'Admin\CronTabController@billingByCycle');
 
 
