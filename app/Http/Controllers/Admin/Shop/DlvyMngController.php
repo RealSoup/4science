@@ -119,7 +119,7 @@ class DlvyMngController extends Controller {
 
         //  주소, 연락처, 담당자는 화면 값이 아니라 DB 값 사용
         $orders = Order::with('mng:id,name')
-            ->select('od_id', 'od_mng', 'od_receiver', 'od_receiver_hp', 'od_addr1', 'od_addr2')
+            ->select('od_id', 'od_mng', 'od_orderer', 'od_receiver', 'od_receiver_hp', 'od_addr1', 'od_addr2')
             ->whereIn('od_id', $odms->pluck('odm_od_id')->unique())->get()->keyBy('od_id');
 
         $book = new Spreadsheet();
@@ -134,7 +134,10 @@ class DlvyMngController extends Controller {
             $memo = collect($group)->map(fn ($ids, $od_id) => $od_id.'['.implode(', ', $ids).']')->implode(' ');
             $od = $orders[array_key_first($group)];   //  받는 분은 송장의 첫 번째 주문 기준
 
-            $sheet->setCellValueExplicit("A{$r}", $od->od_receiver, DataType::TYPE_STRING);
+            //  주문자와 받는 분이 다르면 '수취인(주문자)'
+            $name = trim($od->od_receiver);
+            if (trim($od->od_orderer) !== '' && trim($od->od_orderer) !== $name) $name .= '('.trim($od->od_orderer).')';
+            $sheet->setCellValueExplicit("A{$r}", $name, DataType::TYPE_STRING);
             $sheet->setCellValueExplicit("C{$r}", trim($od->od_addr1.' '.$od->od_addr2), DataType::TYPE_STRING);
             $sheet->setCellValueExplicit("D{$r}", $od->od_receiver_hp, DataType::TYPE_STRING);
             $sheet->setCellValue("F{$r}", intval($box['cnt']));
