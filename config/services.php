@@ -47,4 +47,10 @@ return [
         'property_id' => env('GA4_PROPERTY_ID'),
         'key_file'    => env('GA4_KEY_FILE', storage_path('app/ga4-key.json')),
     ],
+
+    //  대량 메일 발송 (네이버 클라우드 Cloud Outbound Mailer)
+    'ncloud_mailer' => [
+        'access_key' => env('NCLOUD_ACCESS_KEY'),
+        'secret_key' => env('NCLOUD_SECRET_KEY'),
+    ],
 ];

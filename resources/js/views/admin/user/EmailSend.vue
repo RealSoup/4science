@@ -67,8 +67,12 @@ export default {
     methods: {
         async send() {
             const res = await ax.post(`/api/admin/user/email/${this.frm.id}/send`, this.frm);
-            if (res && res.status === 200)
-                Notify.modal(`발송수: ${res.data.count}`, 'success');
+            if (res && res.status === 200) {
+                if (res.data.error)     //  네이버 클라우드 발송 실패 (예: 77102 계정 발송 제한)
+                    Notify.modal(`발송 실패 (${res.data.error.code}): ${res.data.error.message}`, 'danger');
+                else
+                    Notify.modal(`발송수: ${res.data.count}`, 'success');
+            }
         },
     },
 

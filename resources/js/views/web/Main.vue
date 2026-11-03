@@ -44,7 +44,9 @@
                     <span class="tooltiptext">바로가기</span>
                 </router-link>
             </b-carousel-slide> -->
-
+            <b-link to="/board/notice/show/74">
+                <b-carousel-slide img-src="/storage/event/2026/1103/slide.jpg" alt="포사이언스 간편결제 포사페이! 매번 번거로운 카드정보 입력은 그만. 카드 한 번 등록으로 4초만에 결제 끝"></b-carousel-slide>
+            </b-link>
             <b-link to="/shop/makerShop/39">
                 <b-carousel-slide img-src="/storage/main/slide/260601.jpg" alt="초당 22,000번의 완벽한 빛 제어, 산업과 양지(Quantum) 혁신하다. vialux"></b-carousel-slide>
             </b-link>

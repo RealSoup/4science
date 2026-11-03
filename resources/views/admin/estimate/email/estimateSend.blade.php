@@ -37,8 +37,8 @@
                 </tr>
             </table> -->
             
-            <a href="https://pf.kakao.com/_AxmKUj" target='_blank'>
-                <img src="{{ asset('storage/event/2023/1205/estimate_960.jpg') }}" />
+            <a href="https://4science.net/board/event/show/74" target="_blank">
+                <img src="{{ asset('storage/event/2026/1103/estimate.jpg') }}" alt="포사페이 결제 이벤트" width="960" style="display:block; border:0;" />
             </a>
 
           
@@ -233,9 +233,9 @@ $no++;
     <tr>
         <td style='border-top:2px solid #0095eb;'>
 
-            <!-- <a href="https://pf.kakao.com/_AxmKUj" target='_blank'>
+            <a href="https://pf.kakao.com/_AxmKUj" target='_blank'>
                 <img src="{{ asset('storage/event/2023/1205/estimate_960.jpg') }}" />
-            </a> -->
+            </a>
             <!-- <a href="https://4science.net/shop/goods?ca01=36" target='_blank'>
                 <img src="{{ asset('storage/event/2025/0320/estimate.jpg') }}" />
             </a> -->

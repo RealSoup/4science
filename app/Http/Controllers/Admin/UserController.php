@@ -244,8 +244,11 @@ class UserController extends Controller {
 
         list($microtime, $timestamp) = explode(' ',microtime());
         $timestamp = $timestamp.substr($microtime, 2, 3);
-        $access_key = 'USRkR0y4hTSbyTHnexAM';
-        $secret_key = '2IIkmTwjumWVzym6xUtGVpWrh3udNeY6umxP6R6g';
+        //  네이버 클라우드 API 키는 .env에 둔다 (NCLOUD_ACCESS_KEY / NCLOUD_SECRET_KEY)
+        $access_key = config('services.ncloud_mailer.access_key');
+        $secret_key = config('services.ncloud_mailer.secret_key');
+        if (!$access_key || !$secret_key)
+            return response()->json(['error' => ['code' => 'NO_KEY', 'message' => '.env에 NCLOUD_ACCESS_KEY / NCLOUD_SECRET_KEY가 없습니다.']]);
 
         $message = "POST";
         $message .= " ";
@@ -272,7 +275,6 @@ class UserController extends Controller {
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://mail.apigw.ntruss.com/api/v1/mails");
-        curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -280,16 +282,14 @@ class UserController extends Controller {
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($mailContentsDataSet));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
+        $curl_error = curl_error($ch);
         curl_close($ch);
         if ($response === FALSE)
-            echo 'An error has occurred: ' . curl_error($ch) . PHP_EOL;        
-        else {
-            preg_match_all("/\{.*?\}/", $response, $matches);
-            // $rst = json_decode($matches[0][0]);
-            // dd($rst->count);
-            return response($matches[0][0]);
-        }
-        
+            return response()->json(['error' => ['code' => 'CURL', 'message' => $curl_error]]);
+
+        //  성공 {"requestId":..., "count":발송수} / 실패 {"error":{"code":..., "message":...}} - 화면에서 구분해서 보여준다
+        return response()->json(json_decode($response, true) ?? ['error' => ['code' => 'PARSE', 'message' => $response]]);
+
     }
 
     public function origin($id) {
