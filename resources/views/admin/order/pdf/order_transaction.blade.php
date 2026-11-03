@@ -87,7 +87,7 @@ table tr th, table tr td { padding:5px; }
             @if ( env('APP_ENV') == 'local' )
             <td align="center" valign="middle"><img src="{{ public_path('storage/common/addr_estimate200921.gif') }}" width="270px" /></td>
             @elseif ( env('APP_ENV') == 'production' )
-            <td align="center" valign="middle"><img src="{{ asset('storage/common/addr_estimate200921.gif') }}" width="270px" /></td>
+            <td align="center" valign="middle"><img src="{{ public_path('storage/common/addr_estimate200921.gif') }}" width="270px" /></td>
             @endif
         </tr>
     </table>
@@ -168,7 +168,7 @@ $goods_p = 0;
             @if ( env('APP_ENV') == 'local' )
             <td align="center" valign="middle"><img src="{{ public_path('storage/common/logo/estimate_logo.png') }}" width="100px" /></td>
             @elseif ( env('APP_ENV') == 'production' )
-            <td align="center" valign="middle"><img src="{{ asset('storage/common/logo/estimate_logo.png') }}" width="100px" /></td>
+            <td align="center" valign="middle"><img src="{{ public_path('storage/common/logo/estimate_logo.png') }}" width="100px" /></td>
             @endif
         </tr>
     </table>

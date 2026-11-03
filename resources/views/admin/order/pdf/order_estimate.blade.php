@@ -117,13 +117,8 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
         </tr>
         <tr><td colspan="8" height="0" style="border-bottom:solid 1px #d5d5d5;"></td></tr>
         <tr>
-            @if ( env('APP_ENV') == 'local' )
             <td align="center" valign="middle" width="60%"><img src="{{ public_path('storage/common/logo/estimate_logo.png') }}" width="120px" /></td>
             <td align="center" valign="middle"><img src="{{ public_path('storage/common/addr_estimate200921.gif') }}" width="270px" /></td>
-            @elseif ( env('APP_ENV') == 'production' )
-            <td align="center" valign="middle" width="60%"><img src="{{ asset('storage/common/logo/estimate_logo.png') }}" width="120px" /></td>
-            <td align="center" valign="middle"><img src="{{ asset('storage/common/addr_estimate200921.gif') }}" width="270px" /></td>
-            @endif
             
         </tr>
     </table>
