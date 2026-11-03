@@ -88,6 +88,24 @@ class Order extends Model {
             '제주', 
         ],
     ];
+
+    //  포사페이 이벤트 기간 (주문일 기준 - 기간 안에 주문하면 수취확인이 기간 뒤라도 적용)
+    //  마일리지 2배 / 첫 결제 3000점
+    public static $fosapayEvent = [ 'start' => '2026-11-04 00:00:00',
+                                    'end'   => '2026-12-31 23:59:59' ];
+
+    //  포사페이 이벤트 대상 주문인지 (포사페이 결제 + 기간 안 주문)
+    public function isFosapayEvent() {
+        if ($this->od_pay_method != 'CP' || empty($this->created_at)) return false;
+        return Carbon::parse($this->created_at)->between( Carbon::parse(self::$fosapayEvent['start']),
+                                                          Carbon::parse(self::$fosapayEvent['end']) );
+    }
+
+    //  첫 구매 0% 규칙은 이벤트 시작일 주문부터 계속 적용 (그 전 주문은 기존처럼 첫 구매도 0.5%)
+    public static function isFirstOrderRule($date) {
+        return Carbon::parse($date)->gte(Carbon::parse(self::$fosapayEvent['start']));
+    }
+
     //  이거 안하면 디비랑 다른(UTC) 시간을 내보낸다.
     protected function serializeDate(DateTimeInterface $date) { return $date->format('Y-m-d H:i:s'); }
 

@@ -457,18 +457,20 @@ class OrderController extends Controller {
             if ( auth()->user()->level < 6 || auth()->user()->level > 20 ) {
                 $empty_value = array_filter( $req->order_dlvy_info, fn($v) => empty($v['oddi_receive_date']) ); //  수취 확인 안한거 체크
                 if (count($empty_value) == 0) { //  수취 확인 안한게 없다면 마일리지 지급
+                    $od = $this->order->find($id);
                     $m = new \App\Models\UserMileage;
-                    $p = $m->mileage_calculation($req->odm_price, $req->odm_ea, auth()->user()->level);
+                    $p = $m->order_mileage($od, $req->odm_price, $req->odm_ea, auth()->user()->level);
                     $content = '수취 확인';
                     if ( $req->did_use_coupon ) {
                         $p=0;
                         $content.=' - 쿠폰 사용으로 마일리지 지급 비대상';
                     } else {
-                        $od = $this->order->find($id);
                         if ($od->od_proc_mileage == 'ZERO') {
                             $p=0;
                             $content.=' - 본 주문 건은 마일리지가 적립되지 않습니다.';
-                        } 
+                        } else if ($od->isFosapayEvent()) {
+                            $content.=' - 포사페이 이벤트 2배 적립';
+                        }
                     }
 
                     event(new Mileage(  "insert", 
@@ -476,8 +478,9 @@ class OrderController extends Controller {
                                         'shop_order_model', 
                                         $req->odm_id, 'SV', 
                                         $content,
-                                        $p 
+                                        $p
                                         ));
+                    $m->fosapay_first_pay($od);   //  포사페이 첫 결제 이벤트 3000점
                 }
             }
             return response()->json(["message"=>"success"], 200);

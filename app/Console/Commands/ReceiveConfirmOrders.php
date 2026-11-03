@@ -14,7 +14,7 @@ class ReceiveConfirmOrders extends Command {
 
     public function handle() {
         $od = Order::with('user')->with('orderCoupon')
-            ->select('shop_order.od_id', 'shop_order.od_proc_mileage', 'shop_order.created_id', 'shop_order_model.odm_id', 'shop_order_model.odm_ea', 'shop_order_model.odm_price', 'shop_order_dlvy_info.oddi_id')
+            ->select('shop_order.od_id', 'shop_order.od_proc_mileage', 'shop_order.od_pay_method', 'shop_order.created_at', 'shop_order.created_id', 'shop_order_model.odm_id', 'shop_order_model.odm_ea', 'shop_order_model.odm_price', 'shop_order_dlvy_info.oddi_id')
             ->join('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
             ->join('shop_order_dlvy_info', 'shop_order_model.odm_id', '=', 'shop_order_dlvy_info.oddi_odm_id')
             ->OdStep('50')
@@ -30,7 +30,8 @@ class ReceiveConfirmOrders extends Command {
         $mileage   = 0;
         foreach ($od as $v) {
             if ($v->user && (intval($v->user->level) < 6 || intval($v->user->level) > 20)) {    //  딜러회원은 제외
-                $p = $v->odm_price*$v->odm_ea*$v->user->mileage_mul;
+                $m = new \App\Models\UserMileage;
+                $p = $m->order_mileage($v, $v->odm_price, $v->odm_ea, $v->user->level);  //  직접 수취확인과 같은 계산 (포사페이 이벤트 2배 포함)
                 $content = '수취확인(자동)';
                 if ($v->orderCoupon && count($v->orderCoupon)) {
                     $content .= ' - 쿠폰 사용으로 마일리지 지급 비대상';
@@ -39,6 +40,8 @@ class ReceiveConfirmOrders extends Command {
                     if ($v->od_proc_mileage == 'ZERO') {
                         $p = 0;
                         $content .= ' - 본 주문 건은 마일리지가 적립되지 않습니다.';
+                    } else if ($v->isFosapayEvent()) {
+                        $content .= ' - 포사페이 이벤트 2배 적립';
                     }
                 }
 
@@ -51,6 +54,7 @@ class ReceiveConfirmOrders extends Command {
                     'ml_mileage'  => $p,
                     'ml_enable_m' => $p,
                 ]);
+                $m->fosapay_first_pay($v);  //  포사페이 첫 결제 이벤트 3000점
                 $mileage++;
             }
 

@@ -116,15 +116,20 @@ class User extends Authenticatable implements MustVerifyEmail {
     public function getIsSuperAttribute() { return $this->level == 29 ? true : false; }
     public function getIsDealerAttribute() { return ($this->level == 12) ? true : false; }
     public function getIsDealerTypeAttribute() { return ($this->level>10&&$this->level<20) ? true : false; }
+    //  적립예정 표시용 - 레벨1은 첫 구매 0% 규칙 시작 전까지 기존처럼 0.5%로 보여준다
     public function getMileageMulAttribute() {
         $lv = $this->level;
+        if (intval($lv) < 2 && !\App\Models\Shop\Order::isFirstOrderRule(now())) $lv = 2;
+        return self::mileageRate($lv)/100;
+    }
+    //  회원 레벨별 구매 적립률(%) - 화면 표시, 수취확인(직접/자동) 모두 이 규칙 하나로 계산
+    public static function mileageRate($lv) {
+        $lv = intval($lv);
         if ($lv>20) $lv = 3;    //  관리자 테스트용
         else if ($lv>10) $lv = 1;
         else if ($lv>4) $lv = 5;
         else if ($lv>3) $lv = 4;
-        else if ($lv<2) $lv = 2;
-        $rate = self::$mileage_rate[$lv];
-        return $rate/100; 
+        return self::$mileage_rate[$lv] ?? 0;   //  신규 회원(레벨1)은 0% - 첫 구매 후 브론즈
     }
     public function getDcMulAttribute() { return $this->level == 12 ? 0.95 : 1; }
     // public function getEnablemileageAttribute() {

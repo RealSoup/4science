@@ -423,7 +423,7 @@ class OrderController extends Controller {
 							$odModel->save();
 							if (DB::table('user_mileage')->where([['ml_tbl', 'shop_order_model'], ['ml_key', $odm['odm_id']]])->exists()) {
 								$m = new \App\Models\UserMileage;
-								$gapMileage = $m->mileage_calculation($odm['odm_price'], $gapEa, auth()->user()->level);
+								$gapMileage = $m->order_mileage($od, $odm['odm_price'], $gapEa, optional(User::find($od->created_id))->level);	//	관리자 등급 말고 주문 고객 등급으로
 								event(new Mileage("insert", $req->created_id, 'shop_order_model', $odm['odm_id'], 'SV', '수량 변경', -$gapMileage));
 							}
 						}
