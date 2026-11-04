@@ -174,9 +174,10 @@ class EstimateController extends Controller {
                 $tmp['price']['dlvy_add_vat'] = 0;
                 $tmp['price']['air_add_vat'] = 0;
                 foreach ($tmp['lists'] as $k => $pa) {
-                    foreach ($pa as $k2 => $gm)
+                    foreach ($pa as $k2 => $gm) {
+                        $tmp['lists'][$k][$k2]['pa_dlvy_p'] = 0;
                         $tmp['lists'][$k][$k2]['pa_dlvy_p_add_vat'] = 0;
-                    
+                    }
                 }
                 // dd($tmp['price']);
                 $data->collect = $tmp;

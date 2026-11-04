@@ -619,13 +619,12 @@ class Goods extends Model {
 
 
             //  견적서에서 배송료 제외 체크시 배송료 빼기 -------- Start
-            if ($type == 'buy_estimate' && isset($some->od_er_id) && $some->od_er_id){
+            if (in_array($type, ['buy_estimate', 'order']) && isset($some->od_er_id) && $some->od_er_id){                
                 $er = EstimateReply::find($some->od_er_id);
                 if ($er && $er->er_no_dlvy_fee == 'Y') {
                     $rst['lists'][$pa_id][0]['pa_dlvy_p'] = 0;
                     $rst['lists'][$pa_id][0]['pa_dlvy_p_add_vat'] = 0;
                 }
-                    
             }
 
             if ( $pa_group[0]['pa_type'] == 'AIR' )
