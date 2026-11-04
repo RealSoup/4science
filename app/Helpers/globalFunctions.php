@@ -270,3 +270,17 @@ if(! function_exists('translator')) {
 if(! function_exists('if_not_my_ip')) {
     function if_not_my_ip ($ip) { return !in_array($ip, ['125.132.234.16', '121.133.240.149']); }
 }
+
+//  견적서·거래명세서 이미지 (PDF·브라우저 미리보기 공용)
+//  서버 파일을 base64로 넣어서 외부 주소 접속 없이 표시한다.
+if(! function_exists('pdf_img')) {
+    function pdf_img ($path) {
+        static $cache = [];
+        if (isset($cache[$path])) return $cache[$path];
+
+        $file = public_path($path);
+        if (!is_file($file)) return '';
+
+        return $cache[$path] = 'data:'.mime_content_type($file).';base64,'.base64_encode(file_get_contents($file));
+    }
+}

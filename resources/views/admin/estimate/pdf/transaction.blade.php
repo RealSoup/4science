@@ -84,7 +84,7 @@ table tr th, table tr td { padding:5px; }
                 <p>{{ $er['estimate_req']['eq_company'] }} 귀하</p>
                 아래와 같이 계산 합니다.
             </td>
-            <td align="center" valign="middle"><img src="{{ public_path('storage/common/addr_estimate200921.gif') }}" width="270px" height="67px" /></td>
+            <td align="center" valign="middle"><img src="{{ pdf_img('storage/common/addr_estimate200921.gif') }}" width="270px" height="67px" /></td>
         </tr>
     </table>
 
@@ -166,7 +166,7 @@ $no=1;
             </td>
         </tr>
         <tr>
-            <td align="center" valign="middle"><img src="{{ public_path('storage/common/logo/estimate_logo.png') }}" width="100px" /></td>
+            <td align="center" valign="middle"><img src="{{ pdf_img('storage/common/logo/estimate_logo.png') }}" width="100px" /></td>
         </tr>
     </table>
 </body>
