@@ -394,7 +394,7 @@
                 <b-col class="lb">요청서류</b-col>
                 <b-col class="dt wd1_1">{{reqDocumentDisplay}}</b-col>
                 <b-col class="lb">첨부서류 메모</b-col>
-                <b-col class="dt wd1_1"><p v-html="od.order_extra_info.oex_memo" /></b-col>
+                <b-col class="dt wd1_1"><p style="white-space:pre-line">{{od.order_extra_info.oex_memo}}</p></b-col>                
 
                 <template v-if="(od.od_pay_method == 'B' || od.od_pay_method == 'L')">
                     <template v-if="od.order_extra_info.oex_type == 'IV'">

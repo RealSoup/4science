@@ -119,7 +119,7 @@ class DlvyMngController extends Controller {
 
         //  주소, 연락처, 담당자는 화면 값이 아니라 DB 값 사용
         $orders = Order::with('mng:id,name')
-            ->select('od_id', 'od_mng', 'od_orderer', 'od_receiver', 'od_receiver_hp', 'od_addr1', 'od_addr2')
+            ->select('od_id', 'od_mng', 'od_orderer', 'od_receiver', 'od_receiver_hp', 'od_addr1', 'od_addr2', 'od_memo')
             ->whereIn('od_id', $odms->pluck('odm_od_id')->unique())->get()->keyBy('od_id');
 
         $book = new Spreadsheet();
@@ -144,6 +144,7 @@ class DlvyMngController extends Controller {
             $sheet->setCellValue("G{$r}", self::XLS_FARE);
             $sheet->setCellValue("H{$r}", self::XLS_PAY);
             $sheet->setCellValue("I{$r}", self::XLS_ITEM);
+            $sheet->setCellValueExplicit("K{$r}", strval($od->od_memo ?? ''), DataType::TYPE_STRING);   //  주문 메모 (송장의 첫 번째 주문 기준)
             $sheet->setCellValueExplicit("M{$r}", $od->mng->name ?? '', DataType::TYPE_STRING);
             $sheet->setCellValueExplicit("O{$r}", $memo, DataType::TYPE_STRING);
             $r++;

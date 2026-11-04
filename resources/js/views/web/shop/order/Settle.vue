@@ -495,7 +495,7 @@ export default {
                         this.rec_goods_list_top04 = res.data.rec_goods_list_top04;                        
                     }
                     
-                    if(this.addr.length)
+                    if(this.addr.length && isEmpty(this.order.od_addr1))
                         this.addr_choose(this.addr[0]);
                     
                     if(this.user.is_dealer)
